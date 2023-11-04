@@ -1,6 +1,4 @@
-package com.dev.pilafix.service;
-
-import com.dev.pilafix.board.BoardVO;
+package com.dev.pilafix.member.board;
 
 public interface BoardService {
 	

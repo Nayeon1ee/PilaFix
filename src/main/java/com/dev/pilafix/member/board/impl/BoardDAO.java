@@ -1,4 +1,4 @@
-package com.dev.pilafix.board.impl;
+package com.dev.pilafix.member.board.impl;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dev.pilafix.board.BoardVO;
+import com.dev.pilafix.member.board.BoardVO;
 
 @Repository
 public class BoardDAO {

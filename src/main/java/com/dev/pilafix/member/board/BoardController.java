@@ -1,13 +1,10 @@
-package com.dev.pilafix.controller;
+package com.dev.pilafix.member.board;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.dev.pilafix.board.BoardVO;
-import com.dev.pilafix.service.BoardService;
 
 @Controller
 public class BoardController {

@@ -1,11 +1,10 @@
-package com.dev.pilafix.service.impl;
+package com.dev.pilafix.member.board.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.board.BoardVO;
-import com.dev.pilafix.board.impl.BoardDAO;
-import com.dev.pilafix.service.BoardService;
+import com.dev.pilafix.member.board.BoardService;
+import com.dev.pilafix.member.board.BoardVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {

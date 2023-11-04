@@ -1,4 +1,4 @@
-package com.dev.pilafix.board;
+package com.dev.pilafix.member.board;
 
 import java.time.LocalDate;
 import java.util.Date;
