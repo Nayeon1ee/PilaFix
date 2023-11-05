@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="UserguideDAO">
+	<resultMap type="userguide" id="userguideResult">
+		<id property="ugCode" column="UG_CODE"/>
+		<result property="ugType" column="UG_TYPE" />
+		<result property="ugName" column="UG_NAME" />
+		<result property="ugContent" column="UG_CONTENT" />
+		<result property="ugRegistrationDate" column="UG_REGISTRATION_DATE" />
+		<result property="ugModifiedDate" column="UG_MODIFIED_DATE" />
+		<result property="ugOpenYN" column="UG_OPEN_YN" />
+	</resultMap>
+	<select id="getUserguide" resultMap="userguideResult" >
+		SELECT * FROM TBL_USER_GUIDE WHERE UG_CODE=#{ugCode}
+	</select>
+	<select id="getUserguideList" resultMap="userguideResult">
+		SELECT UG_CODE,UG_TYPE,UG_NAME,UG_CONTENT,UG_REGISTRATION_DATE FROM TBL_USER_GUIDE
+	</select>
+	<insert id="insertUserguide" parameterType="userguide">
+		INSERT INTO	TBL_USER_GUIDE
+		VALUES(nextval('seq_userguide'), #{ugType}, #{ugName},
+		#{ugContent}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{ugOpenYN})
+	</insert>
+		<update id="updateUserguide" parameterType="userguide">
+		UPDATE TBL_USER_GUIDE SET UG_NAME=#{ugName}, UG_CONTENT=#{ugContent}, UG_MODIFIED_DATE=CURRENT_TIMESTAMP WHERE UG_CODE=#{ugCode}
+	</update>
+	<delete id="deleteUserguide"  parameterType="Integer">
+		DELETE FROM TBL_USER_GUIDE WHERE UG_CODE=#{ugCode}
+	</delete>
+</mapper>
