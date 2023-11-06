@@ -8,7 +8,6 @@ public class CommunityVO {
 	private String cmContent;
 	private int cmWriterMemberCode;
 	private Date cmRegdate;
-	private int cmBlameCount;
 	
 	//Å×½ºÆ®
 	private String csName;
@@ -52,22 +51,14 @@ public class CommunityVO {
 	public void setCmRegdate(Date cmRegdate) {
 		this.cmRegdate = cmRegdate;
 	}
-
-	public int getCmBlameCount() {
-		return cmBlameCount;
-	}
-	public void setCmBlameCount(int cmBlameCount) {
-		this.cmBlameCount = cmBlameCount;
-	}
+	
+	
 	@Override
 	public String toString() {
 		return "CommunityVO [cmNumber=" + cmNumber + ", cmTitle=" + cmTitle + ", cmContent=" + cmContent
-				+ ", cmWriterMemberCode=" + cmWriterMemberCode + ", cmRegdate=" + cmRegdate 
-				+ ", cmBlameCount=" + cmBlameCount + "]";
+				+ ", cmWriterMemberCode=" + cmWriterMemberCode + ", cmRegdate=" + cmRegdate + ", csName=" + csName
+				+ "]";
 	}
-	
-	
-	
-	
+
 	
 }

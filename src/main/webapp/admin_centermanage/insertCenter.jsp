@@ -51,8 +51,8 @@
 	
 	<hr>
 	
-	<p> 센터 계정 아이디 <input type="text" name="ctId"></p>
-	<button onclick="#">중복확인</button>
+	<p> 센터 계정 아이디 <input type="text" name="ctId"> <button id="idck" onclick="#">중복확인</button></p>
+	
 	
 	<p> 센터 계정 비밀번호 <input type="text" name="ctPassword"></p>	
 	<button onclick="#">PIN 발급</button>

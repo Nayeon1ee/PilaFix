@@ -17,7 +17,7 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td>${community.cmWriterMemberCode}</td>
+				<td>${community.csName}</td>
 			</tr>
 			<tr>
 				<td>작성일자</td>
