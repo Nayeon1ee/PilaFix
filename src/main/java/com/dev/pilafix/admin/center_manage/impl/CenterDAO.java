@@ -34,9 +34,11 @@ public class CenterDAO {
 		return sqlSessionTemplate.delete("CenterDAO.deleteCenter", ctCode);
 	}
 
-//	public int ctIdCheck(String ctId) {
-//		return sqlSessionTemplate.s("CenterDAO.deleteCenter", ctCode);
-//	}
+	public int ctIdCheck(String ctId) {
+		return sqlSessionTemplate.selectOne("CenterDAO.ctIdCheck",ctId);
+	}
+
+	
 	
 
 }

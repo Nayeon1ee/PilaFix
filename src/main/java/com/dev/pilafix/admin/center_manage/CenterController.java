@@ -1,6 +1,7 @@
 package com.dev.pilafix.admin.center_manage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,24 @@ public class CenterController {
 		return "admin_centermanage/getCenter.jsp";
 	}
 
+
+	/**
+	 * Json 테스트 샘플 
+	 * @return
+	 */
+	@RequestMapping("/jsTest.do")
+	@ResponseBody
+	public List<CenterVO> jsTest() {
+		List<CenterVO> boardList = service.getCenterList();
+		return boardList;
+	}
+	
+	/**
+	 * 아이디 체크 
+	 * 
+	 * @param ctId
+	 * @return
+	 */
 	@RequestMapping("/ctIdCheck.do")
 	@ResponseBody
 	public Map<Object, Object> idcheck(@RequestBody String ctId) {
@@ -52,5 +71,4 @@ public class CenterController {
 
 		return map;
 	}
-
 }
