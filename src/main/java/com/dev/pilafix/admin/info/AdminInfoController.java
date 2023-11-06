@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class InfoController {
+public class AdminInfoController {
 	@Autowired
-	private InfoService service;
+	private AdminInfoService service;
 	
 	@GetMapping("/insertInfo.do")
 	public String insertInfo() {
@@ -18,7 +18,7 @@ public class InfoController {
 	}
 	
 	@PostMapping("/insertInfo.do")
-	public String insert(InfoVO vo) {
+	public String insert(AdminInfoVO vo) {
 		service.insertInfo(vo);
 		return "redirect:getInfoList.do";
 	}
@@ -30,7 +30,7 @@ public class InfoController {
 	}
 	
 	@PostMapping("/updateInfo.do")
-	public String update(InfoVO vo, Model model) {
+	public String update(AdminInfoVO vo, Model model) {
 		service.updateInfo(vo);
 		return "redirect:getInfoList.do";
 	}

@@ -5,32 +5,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.admin.info.InfoService;
-import com.dev.pilafix.admin.info.InfoVO;
+import com.dev.pilafix.admin.info.AdminInfoService;
+import com.dev.pilafix.admin.info.AdminInfoVO;
 
 @Service
-public class InfoServiceImpl implements InfoService {
+public class AdminInfoServiceImpl implements AdminInfoService {
 	
 	@Autowired
-	private InfoDAO dao;
+	private AdminInfoDAO dao;
 
 	@Override
-	public List<InfoVO> getInfoList() {
+	public List<AdminInfoVO> getInfoList() {
 		return dao.getInfoList();
 	}
 
 	@Override
-	public InfoVO getInfo(int seq) {
+	public AdminInfoVO getInfo(int seq) {
 		return dao.getInfo(seq);
 	}
 
 	@Override
-	public int insertInfo(InfoVO vo) {
+	public int insertInfo(AdminInfoVO vo) {
 		return dao.insertInfo(vo);
 	}
 
 	@Override
-	public int updateInfo(InfoVO vo) {
+	public int updateInfo(AdminInfoVO vo) {
 		return dao.updateInfo(vo);
 	}
 

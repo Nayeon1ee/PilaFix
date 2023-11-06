@@ -6,26 +6,26 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dev.pilafix.admin.info.InfoVO;
+import com.dev.pilafix.admin.info.AdminInfoVO;
 
 @Repository
-public class InfoDAO {
+public class AdminInfoDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<InfoVO> getInfoList(){
+	public List<AdminInfoVO> getInfoList(){
 		return sqlSessionTemplate.selectList("InfoDAO.getInfoList");
 	}
 	
-	public InfoVO getInfo(int seq) {
+	public AdminInfoVO getInfo(int seq) {
 	    return sqlSessionTemplate.selectOne("InfoDAO.getInfo",seq);
 	}
 	
-	public int insertInfo(InfoVO vo) {
+	public int insertInfo(AdminInfoVO vo) {
 		return sqlSessionTemplate.insert("InfoDAO.insertInfo", vo);
 	}
 	
-	public int updateInfo(InfoVO vo) {
+	public int updateInfo(AdminInfoVO vo) {
 		return sqlSessionTemplate.update("InfoDAO.updateInfo", vo);
 	}
 	
