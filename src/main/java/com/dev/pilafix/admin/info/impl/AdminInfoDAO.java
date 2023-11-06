@@ -13,23 +13,23 @@ public class AdminInfoDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<AdminInfoVO> getInfoList(){
-		return sqlSessionTemplate.selectList("InfoDAO.getInfoList");
+	public List<AdminInfoVO> getAdminInfoList(){
+		return sqlSessionTemplate.selectList("InfoDAO.getAdminInfoList");
 	}
 	
-	public AdminInfoVO getInfo(int seq) {
-	    return sqlSessionTemplate.selectOne("InfoDAO.getInfo",seq);
+	public AdminInfoVO getAdminInfo(int seq) {
+	    return sqlSessionTemplate.selectOne("InfoDAO.getAdminInfo",seq);
 	}
 	
-	public int insertInfo(AdminInfoVO vo) {
-		return sqlSessionTemplate.insert("InfoDAO.insertInfo", vo);
+	public int insertAdminInfo(AdminInfoVO vo) {
+		return sqlSessionTemplate.insert("InfoDAO.insertAdminInfo", vo);
 	}
 	
-	public int updateInfo(AdminInfoVO vo) {
-		return sqlSessionTemplate.update("InfoDAO.updateInfo", vo);
+	public int updateAdminInfo(AdminInfoVO vo) {
+		return sqlSessionTemplate.update("InfoDAO.updateAdminInfo", vo);
 	}
 	
-	public int deleteInfo(int seq) {
-		return sqlSessionTemplate.delete("InfoDAO.deleteInfo", seq);
+	public int deleteAdminInfo(int seq) {
+		return sqlSessionTemplate.delete("InfoDAO.deleteAdminInfo", seq);
 	}
 }

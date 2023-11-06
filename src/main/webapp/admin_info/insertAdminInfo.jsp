@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="insertInfo.do" method="post">
+<form action="insertAdminInfo.do" method="post">
 	공지사항 제목 <input type="text" name="title">
 	공지사항 내용 <input type="text" name="content">
 	공개여부 
@@ -17,7 +17,7 @@
 	<input type="submit" value="가입">
 </form>
 
-<a href="getInfoList.do">글 목록</a>
+<a href="getInfoAdminList.do">글 목록</a>
 
 </body>
 </html>

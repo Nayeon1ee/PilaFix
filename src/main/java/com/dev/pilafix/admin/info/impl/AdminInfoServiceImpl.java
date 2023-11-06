@@ -15,28 +15,28 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 	private AdminInfoDAO dao;
 
 	@Override
-	public List<AdminInfoVO> getInfoList() {
-		return dao.getInfoList();
+	public List<AdminInfoVO> getAdminInfoList() {
+		return dao.getAdminInfoList();
 	}
 
 	@Override
 	public AdminInfoVO getInfo(int seq) {
-		return dao.getInfo(seq);
+		return dao.getAdminInfo(seq);
 	}
 
 	@Override
-	public int insertInfo(AdminInfoVO vo) {
-		return dao.insertInfo(vo);
+	public int insertAdminInfo(AdminInfoVO vo) {
+		return dao.insertAdminInfo(vo);
 	}
 
 	@Override
-	public int updateInfo(AdminInfoVO vo) {
-		return dao.updateInfo(vo);
+	public int updateAdminInfo(AdminInfoVO vo) {
+		return dao.updateAdminInfo(vo);
 	}
 
 	@Override
-	public int deleteInfo(int seq) {
-		return dao.deleteInfo(seq);
+	public int deleteAdminInfo(int seq) {
+		return dao.deleteAdminInfo(seq);
 	}
 
 }
