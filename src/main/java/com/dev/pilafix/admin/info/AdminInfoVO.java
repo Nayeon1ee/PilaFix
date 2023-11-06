@@ -2,7 +2,7 @@ package com.dev.pilafix.admin.info;
 
 import java.util.Date;
 
-public class InfoVO {
+public class AdminInfoVO {
 	private int seq;
 	private String title;
 	private String content;

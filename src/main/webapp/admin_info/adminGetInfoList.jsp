@@ -21,7 +21,7 @@
 				<th>조회수</th>
 				<th>구매 가능 여부</th>
 			</tr>
-			<c:if test="${InfoList == null }">
+			<c:if test="${list == null }">
 				<tr>
 					<td colspan="5">등록된 글이 없습니다.</td>
 				</tr>
