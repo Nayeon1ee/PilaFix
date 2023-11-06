@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="InfoDAO">
+	<resultMap type="info" id="infoResult">
+		<id property="seq" column="IW_NUMBER"/>
+		<result property="title" column="IW_TITLE" />
+		<result property="content" column="IW_CONTENT" />
+		<result property="writerMemberCode" column="IW_WRITER_MEMBER_CODE" />
+		<result property="regDate" column="IW_REGDATE" />
+		<result property="cnt" column="IW_VIEWS" />
+		<result property="openYN" column="IW_OPEN_YN" />
+	</resultMap>
+	<select id="getInfo" resultMap="infoResult" parameterType="info">
+		SELECT * FROM TBL_INFO_W WHERE IW_NUMBER = #{seq}
+	</select>
+	<select id="getInfoList" resultMap="infoResult" parameterType="info">
+		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, IW_REGDATE, IW_VIEWS, IW_OPEN_YN FROM TBL_INFO_W
+	</select>
+	<insert id="insertInfo" parameterType="info">
+		INSERT INTO TBL_INFO_W(IW_NUMBER, IW_TITLE, IW_CONTENT, IW_WRITER_MEMBER_CODE, IW_REGDATE, IW_VIEWS, IW_OPEN_YN) VALUES(nextval('seq_userguide'), #{title}, #{content}, 'qwerty', CURRENT_TIMESTAMP, 0, ${openYN})
+	</insert>
+	<update id="updateInfo" parameterType="info">
+		UPDATE TBL_USER_GUIDE SET IW_NUMBER=#{seq}, CONTENT=#{content}, IW_OPEN_YN=#{openYN}
+	</update>
+	<delete id="deleteInfo" parameterType="Integer">
+		DELETE FROM TBL_INFO_W WHERE IW_NUMBER = #{seq}
+	</delete>
+</mapper>
