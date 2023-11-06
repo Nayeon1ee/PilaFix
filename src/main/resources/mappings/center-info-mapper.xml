@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CenterInfoDAO">
+	<resultMap type="centerInfo" id="centerInfoResult">
+		<id property="seq" column="IC_NUMBER"/>
+		<result property="title" column="IC_TITLE" />
+		<result property="content" column="IC_CONTENT" />
+		<result property="writerMemberCode" column="IC_WRITER_MEMBER_CODE" />
+		<result property="regDate" column="IC_REGDATE" />
+		<result property="cnt" column="IC_VIEWS" />
+		<result property="openYN" column="IC_OPEN_YN" />
+	</resultMap>
+	<select id="getCenterInfo" resultMap="centerInfoResult" parameterType="centerInfo">
+		SELECT * FROM TBL_INFO_C WHERE IC_NUMBER = #{seq}
+	</select>
+	<select id="getCenterInfoList" resultMap="centerInfoResult" parameterType="centerInfo">
+		SELECT IC_NUMBER, IC_TITLE, IC_CONTENT, IC_REGDATE, IC_VIEWS, IC_OPEN_YN FROM TBL_INFO_C
+	</select>
+	<insert id="insertCenterInfo" parameterType="centerInfo">
+		INSERT INTO TBL_INFO_C(IC_NUMBER, IC_TITLE, IC_CONTENT, IC_WRITER_MEMBER_CODE, IC_REGDATE, IC_VIEWS, IC_OPEN_YN) VALUES(nextval('seq_center_info'), #{title}, #{content}, 'ytrewq', CURRENT_TIMESTAMP, 0, ${openYN})
+	</insert>
+	<update id="updateCenterInfo" parameterType="centerInfo">
+		UPDATE TBL_INFO_C SET IC_TITLE=#{title}, IC_CONTENT=#{content}, IC_OPEN_YN=#{openYN} WHERE IC_NUMBER=#{seq}
+	</update>
+	<delete id="deleteCenterInfo" parameterType="Integer">
+		DELETE FROM TBL_INFO_C WHERE IC_NUMBER = #{seq}
+	</delete>
+</mapper>

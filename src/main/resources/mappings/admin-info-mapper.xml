@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="InfoDAO">
-	<resultMap type="info" id="infoResult">
+<mapper namespace="AdminInfoDAO">
+	<resultMap type="adminInfo" id="adminInfoResult">
 		<id property="seq" column="IW_NUMBER"/>
 		<result property="title" column="IW_TITLE" />
 		<result property="content" column="IW_CONTENT" />
@@ -12,16 +12,16 @@
 		<result property="cnt" column="IW_VIEWS" />
 		<result property="openYN" column="IW_OPEN_YN" />
 	</resultMap>
-	<select id="getAdminInfo" resultMap="infoResult" parameterType="info">
+	<select id="getAdminInfo" resultMap="adminInfoResult" parameterType="adminInfo">
 		SELECT * FROM TBL_INFO_W WHERE IW_NUMBER = #{seq}
 	</select>
-	<select id="getAdminInfoList" resultMap="infoResult" parameterType="info">
+	<select id="getAdminInfoList" resultMap="adminInfoResult" parameterType="adminInfo">
 		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, IW_REGDATE, IW_VIEWS, IW_OPEN_YN FROM TBL_INFO_W
 	</select>
-	<insert id="insertAdminInfo" parameterType="info">
+	<insert id="insertAdminInfo" parameterType="adminInfo">
 		INSERT INTO TBL_INFO_W(IW_NUMBER, IW_TITLE, IW_CONTENT, IW_WRITER_MEMBER_CODE, IW_REGDATE, IW_VIEWS, IW_OPEN_YN) VALUES(nextval('seq_admin_info'), #{title}, #{content}, 'qwerty', CURRENT_TIMESTAMP, 0, ${openYN})
 	</insert>
-	<update id="updateAdminInfo" parameterType="info">
+	<update id="updateAdminInfo" parameterType="adminInfo">
 		UPDATE TBL_INFO_W SET IW_TITLE=#{title}, IW_CONTENT=#{content}, IW_OPEN_YN=#{openYN} WHERE IW_NUMBER=#{seq}
 	</update>
 	<delete id="deleteAdminInfo" parameterType="Integer">
