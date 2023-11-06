@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.dev.pilafix.admin.terms.BoardDAO">
+	<resultMap type="com.dev.pilafix.admin.terms.BoardVO" id="boardResult">
+		<id property="tm_code" column="TM_CODE" />
+		<result property="tm_name" column="TM_NAME" />
+		<result property="tm_detail" column="TM_DETAIL" />
+		<result property="tm_regdate" column="TM_REGDATE" />
+		<result property="tm_modified_date" column="TM_MODIFIED_DATE" />
+		<result property="tm_required_yn" column="TM_REQUIRED_YN" />
+		<result property="tm_open_yn" column="TM_OPEN_YN" />
+	</resultMap>
+	<select id="getBoardList" resultType="com.dev.pilafix.admin.terms.BoardVO">
+        SELECT * FROM TBL_TERMS;
+    </select>
+	
+	<select id="insertBoard" parameterType="com.dev.pilafix.admin.terms.BoardVO">
+		INSERT INTO TBL_TERMS(TM_CODE, TM_NAME, TM_DETAIL, TM_REGDATE, TM_MODIFIED_DATE, TM_REQUIRED_YN, TM_OPEN_YN)
+    	VALUES (#{tmCode}, #{tmName}, #{tmDetail}, #{tmRegdate}, #{tmModifiedDate}, #{tmRequiredYn}, #{tmOpenYn})
+	</select>
+	
+	
+	
+	
+</mapper>
