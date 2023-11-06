@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@
 
 <h1>인덱스 화면</h1>
 
-<a href="insertInfo.do">공지사항 등록</a>
-<a href="getInfoList.do">공지사항 확인</a>
+<a href="insertAdminInfo.do">공지사항 등록</a>
+<a href="getAdminInfoList.do">공지사항 확인</a>
 </body>
 </html>

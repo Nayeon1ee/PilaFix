@@ -37,10 +37,10 @@
 				<td>${info.openYN }</td>
 			</tr>
 			<tr>
-				<td><a href="updateInfo.do?seq=${info.seq }">수정</a> | <a href="deleteInfo.do?seq=${info.seq}">삭제</a></td>
+				<td><a href="updateAdminInfo.do?seq=${info.seq }">수정</a> | <a href="deleteAdminInfo.do?seq=${info.seq}">삭제</a></td>
 			</tr>
 		</table>
-		<a href="getInfoList.do">글 목록</a>
+		<a href="getAdminInfoList.do">글 목록</a>
 	</div>
 </body>
 </html>

@@ -12,19 +12,19 @@
 		<result property="cnt" column="IW_VIEWS" />
 		<result property="openYN" column="IW_OPEN_YN" />
 	</resultMap>
-	<select id="getInfo" resultMap="infoResult" parameterType="info">
+	<select id="getAdminInfo" resultMap="infoResult" parameterType="info">
 		SELECT * FROM TBL_INFO_W WHERE IW_NUMBER = #{seq}
 	</select>
-	<select id="getInfoList" resultMap="infoResult" parameterType="info">
+	<select id="getAdminInfoList" resultMap="infoResult" parameterType="info">
 		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, IW_REGDATE, IW_VIEWS, IW_OPEN_YN FROM TBL_INFO_W
 	</select>
-	<insert id="insertInfo" parameterType="info">
+	<insert id="insertAdminInfo" parameterType="info">
 		INSERT INTO TBL_INFO_W(IW_NUMBER, IW_TITLE, IW_CONTENT, IW_WRITER_MEMBER_CODE, IW_REGDATE, IW_VIEWS, IW_OPEN_YN) VALUES(nextval('seq_admin_info'), #{title}, #{content}, 'qwerty', CURRENT_TIMESTAMP, 0, ${openYN})
 	</insert>
-	<update id="updateInfo" parameterType="info">
+	<update id="updateAdminInfo" parameterType="info">
 		UPDATE TBL_INFO_W SET IW_TITLE=#{title}, IW_CONTENT=#{content}, IW_OPEN_YN=#{openYN} WHERE IW_NUMBER=#{seq}
 	</update>
-	<delete id="deleteInfo" parameterType="Integer">
+	<delete id="deleteAdminInfo" parameterType="Integer">
 		DELETE FROM TBL_INFO_W WHERE IW_NUMBER = #{seq}
 	</delete>
 </mapper>

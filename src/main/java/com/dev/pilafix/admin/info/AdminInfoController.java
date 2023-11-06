@@ -12,44 +12,44 @@ public class AdminInfoController {
 	@Autowired
 	private AdminInfoService service;
 	
-	@GetMapping("/insertInfo.do")
-	public String insertInfo() {
-		return "info/insertInfo.jsp";
+	@GetMapping("/insertAdminInfo.do")
+	public String insertAdminInfo() {
+		return "admin_info/insertAdminInfo.jsp";
 	}
 	
-	@PostMapping("/insertInfo.do")
+	@PostMapping("/insertAdminInfo.do")
 	public String insert(AdminInfoVO vo) {
-		service.insertInfo(vo);
-		return "redirect:getInfoList.do";
+		service.insertAdminInfo(vo);
+		return "redirect:getAdminInfoList.do";
 	}
 	
-	@GetMapping("/updateInfo.do")
-	public String updateInfo(@RequestParam("seq") Integer seq, Model model) {
+	@GetMapping("/updateAdminInfo.do")
+	public String updateAdminInfo(@RequestParam("seq") Integer seq, Model model) {
 		model.addAttribute("list", service.getInfo(seq));
-		return "info/updateInfo.jsp";
+		return "admin_info/updateAdminInfo.jsp";
 	}
 	
-	@PostMapping("/updateInfo.do")
+	@PostMapping("/updateAdminInfo.do")
 	public String update(AdminInfoVO vo, Model model) {
-		service.updateInfo(vo);
-		return "redirect:getInfoList.do";
+		service.updateAdminInfo(vo);
+		return "redirect:getAdminInfoList.do";
 	}
 	
-	@GetMapping("/deleteInfo.do")
+	@GetMapping("/deleteAdminInfo.do")
 	public String delete(int seq) {
-		service.deleteInfo(seq);
-		return "redirect:getInfoList.do";
+		service.deleteAdminInfo(seq);
+		return "redirect:getAdminInfoList.do";
 	}
 	
-	@GetMapping("/getInfoList.do")
-	public String getInfoList(Model model) {
-		model.addAttribute("InfoList", service.getInfoList());
-		return "info/getInfoList.jsp";
+	@GetMapping("/getAdminInfoList.do")
+	public String getAdminInfoList(Model model) {
+		model.addAttribute("InfoList", service.getAdminInfoList());
+		return "admin_info/getAdminInfoList.jsp";
 	}
 	
-	@GetMapping("/getInfo.do")
-	public String getInfo(@RequestParam("seq") Integer seq, Model model) {
+	@GetMapping("/getAdminInfo.do")
+	public String getAdminInfo(@RequestParam("seq") Integer seq, Model model) {
 		model.addAttribute("info", service.getInfo(seq));
-		return "info/getInfo.jsp";
+		return "admin_info/getAdminInfo.jsp";
 	}
 }

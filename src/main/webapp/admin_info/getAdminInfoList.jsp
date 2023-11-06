@@ -30,15 +30,15 @@
 				<tr>
 					<td>${list.seq }</td>
 					<td>${list.title }</td>
-					<td><a href="getInfo.do?seq=${list.seq }">${list.content }</a></td>
+					<td><a href="getAdminInfo.do?seq=${list.seq }">${list.content }</a></td>
 					<td>${list.regDate }</td>
 					<td>${list.cnt }</td>
 					<td>${list.openYN }</td>
-					<td><a href="updateInfo.do?seq=${list.seq }">수정</a> | <a href="deleteInfo.do?seq=${list.seq }">삭제</a></td>
+					<td><a href="updateAdminInfo.do?seq=${list.seq }">수정</a> | <a href="deleteAdminInfo.do?seq=${list.seq }">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="insertInfo.do">글 등록</a>
+		<a href="insertAdminInfo.do">글 등록</a>
 
 	</div>
 
