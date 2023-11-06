@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>가입 폼</title>
 </head>
+<script type="text/javascript" src="/js/script.js"></script>
 <body>
 
 <form action="insertCenter.do" method="post">
@@ -51,7 +52,7 @@
 	
 	<hr>
 	
-	<p> 센터 계정 아이디 <input type="text" name="ctId"> <button id="idck" onclick="#">중복확인</button></p>
+	<p> 센터 계정 아이디 <input type="text" name="ctId"> <button id="ctIdCheck" onclick="#">중복확인</button></p>
 	
 	
 	<p> 센터 계정 비밀번호 <input type="text" name="ctPassword"></p>	

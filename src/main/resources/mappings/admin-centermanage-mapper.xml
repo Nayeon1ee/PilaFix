@@ -54,4 +54,10 @@
 	<delete id="deleteCenter"  parameterType="Integer">
 		DELETE FROM TBL_CENTER WHERE CT_CODE=#{ctCode}
 	</delete>
+	
+	<!-- 아이디 체크 -->
+	<select id="ctIdCheck" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM TBL_CENTER WHERE CT_ID = #{ctId}
+	</select>
+	
 </mapper>

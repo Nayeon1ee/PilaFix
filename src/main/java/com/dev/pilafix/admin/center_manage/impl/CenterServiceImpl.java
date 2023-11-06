@@ -43,8 +43,7 @@ public class CenterServiceImpl implements CenterService {
 
 	@Override
 	public int ctIdCheck(String ctId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.ctIdCheck(ctId);
 	}
 
 }
