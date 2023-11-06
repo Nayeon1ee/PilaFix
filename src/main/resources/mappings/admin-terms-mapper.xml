@@ -14,10 +14,10 @@
 		<result property="tmOpenYn" column="TM_OPEN_YN" />
 	</resultMap>
 	
-	<select id="getTerms" resultType="termsResult">
+	<select id="getTerms" resultMap="termsResult">
         SELECT * FROM TBL_TERMS WHERE TM_CODE=#{tmCode}
     </select>
-	<select id="getTermsList" resultType="termsResult">
+	<select id="getTermsList" resultMap="termsResult">
         SELECT TM_CODE,TM_NAME,TM_REGDATE,TM_MODIFIED_DATE,TM_REQUIRED_YN FROM TBL_TERMS;
     </select>
 	

@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.admin.info.InfoVO" alias="info" />
 		<typeAlias type="com.dev.pilafix.admin.community.CommunityVO" alias="community" />
 		<typeAlias type="com.dev.pilafix.admin.center_manage.CenterVO" alias="center" />
-		<typeAlias type="com.dev.pilafix.admin.terms.termsVO" alias="terms" />
+		<typeAlias type="com.dev.pilafix.admin.terms.TermsVO" alias="terms" />
 		
 	</typeAliases>
 	<mappers>
