@@ -41,4 +41,10 @@ public class CenterServiceImpl implements CenterService {
 		return 0;
 	}
 
+	@Override
+	public int ctIdCheck(String ctId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
