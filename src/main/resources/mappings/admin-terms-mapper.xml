@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="termsDAO">
+	<resultMap type="terms" id="termsResult">
+		<id property="tmCode" column="TM_CODE" />
+		<result property="tmName" column="TM_NAME" />
+		<result property="tmDetail" column="TM_DETAIL" />
+		<result property="tmRegdate" column="TM_REGDATE" />
+		<result property="tmModifiedDate" column="TM_MODIFIED_DATE" />
+		<result property="tmRequiredYn" column="TM_REQUIRED_YN" />
+		<result property="tmOpenYn" column="TM_OPEN_YN" />
+	</resultMap>
+	
+	<select id="getTerms" resultType="termsResult">
+        SELECT * FROM TBL_TERMS WHERE TM_CODE=#{tmCode}
+    </select>
+	<select id="getTermsList" resultType="termsResult">
+        SELECT TM_CODE,TM_NAME,TM_REGDATE,TM_MODIFIED_DATE,TM_REQUIRED_YN FROM TBL_TERMS;
+    </select>
+	
+	<select id="insertTerms" parameterType="terms">
+		INSERT INTO TBL_TERMS
+    	VALUES (#{tmCode}, #{tmName}, #{tmDetail},CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, #{tmRequiredYn}, #{tmOpenYn})
+	</select>
+	
+	<update id="updateTerms" parameterType="terms">
+		UPDATE TBL_TERMS SET TM_NAME=#{tmName}, TM_DETAIL=#{tmDetail},TM_REQUIRED_YN=#{tmRequiredYn},TM_OPEN_YN=#{tmOpenYn},TM_MODIFIED_DATE=CURRENT_TIMESTAMP WHERE TM_CODE=#{tmCode}
+	</update>
+	<delete id="deleteTerms"  parameterType="Integer">
+		DELETE FROM TBL_TERMS WHERE TM_CODE=#{tmCode}
+	</delete>
+	
+	
+	
+	
+</mapper>

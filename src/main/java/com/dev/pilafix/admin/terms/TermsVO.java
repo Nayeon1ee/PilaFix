@@ -3,12 +3,12 @@ package com.dev.pilafix.admin.terms;
 import java.sql.Timestamp;
 
 public class TermsVO {
-	private String tmCode;
+	private String tmCode;//6자리
 	private String tmName;
 	private String tmDetail;
-	private Timestamp tmRegdate;
-	private Timestamp tmModifiedDate;
-	private boolean tmRequiredYn;
+	private Timestamp tmRegdate; //DEFAULT NOW()
+	private Timestamp tmModifiedDate;//DEFAULT NOW()
+	private boolean tmRequiredYn;//필수면 Y 선택이면 N
 	private boolean tmOpenYn;
 	public String getTmCode() {
 		return tmCode;
