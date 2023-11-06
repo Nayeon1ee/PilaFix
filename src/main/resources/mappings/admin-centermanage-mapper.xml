@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="CenterDAO">
+	<resultMap type="center" id="centerResult">
+		<id property="ctCode" column="CT_CODE"/>
+		<result property="ctName" column="CT_NAME" />
+		<result property="ctPhoneNumber1" column="CT_PHONE_NUMBER1" />
+		<result property="ctPhoneNumber2" column="CT_PHONE_NUMBER2" />
+		<result property="ctPhoneNumber3" column="CT_PHONE_NUMBER3" />
+		<result property="ctAddress1" column="CT_ADDRESS1" />
+		<result property="ctAddress2" column="CT_ADDRESS2" />
+		<result property="ctAddress3" column="CT_ADDRESS3" />
+		<result property="ownerName" column="OWNER_NAME" />
+		<result property="businessRegistrationNumber" column="BUSINESS_REGISTRATION_NUMBER" />
+		<result property="ownerPhoneNumber1" column="OWNER_PHONE_NUMBER1" />
+		<result property="ownerPhoneNumber2" column="OWNER_PHONE_NUMBER2" />
+		<result property="ownerPhoneNumber3" column="OWNER_PHONE_NUMBER3" />
+		<result property="ownerEmail" column="OWNER_EMAIL" />
+		<result property="contractStartDate" column="CONTRACT_START_DATE" />
+		<result property="contractEndDate" column="CONTRACT_END_DATE" />
+		<result property="contractExpiryYN" column="CONTRACT_EXPIRY_YN" />
+		<result property="contractRevokeYN" column="CONTRACT_REVOKE_YN" />
+		<result property="ctRegistrationDate" column="CT_REGISTRATION_DATE" />
+		<result property="ctId" column="CT_ID" />
+		<result property="ctPassword" column="CT_PASSWORD" />
+		<result property="roleCode" column="ROLE_CODE" />
+	</resultMap>
+	
+	<select id="getCenter" resultMap="centerResult" >
+		SELECT * FROM TBL_CENTER WHERE CT_CODE=#{ctCode}
+	</select>
+	<select id="getCenterList" resultMap="centerResult">
+		SELECT CT_CODE,CT_NAME,CT_ADDRESS1,CT_ADDRESS2,CT_ADDRESS3,CT_PHONE_NUMBER1,CT_PHONE_NUMBER2,CT_PHONE_NUMBER3,
+		CT_ID,OWNER_NAME,CONTRACT_START_DATE,CONTRACT_END_DATE,CONTRACT_REVOKE_YN,CONTRACT_EXPIRY_YN FROM TBL_CENTER
+		<!-- 상태 재지정 필요함 만료여부 Y이면 만료/해지여부 Y이면 해지/둘 다 N값이면 계약  -->
+	</select>
+	<insert id="insertCenter" parameterType="center">
+		INSERT INTO	TBL_CENTER
+		VALUES(nextval('seq_center'),#{ctName},#{ctPhoneNumber1}, #{ctPhoneNumber2},#{ctPhoneNumber3}, 
+		'서울특별시', '중랑구 숙선옹주로 6-9', '(묵동, 묵동자이아파트1단지)',
+		#{ownerName},#{businessRegistrationNumber},#{ownerPhoneNumber1},#{ownerPhoneNumber2},#{ownerPhoneNumber3},
+		#{ownerEmail},TO_TIMESTAMP(#{contractStartDate}, 'YYYY-MM-DD'),TO_TIMESTAMP(#{contractStartDate}, 'YYYY-MM-DD'),
+		'F', 'F',CURRENT_TIMESTAMP,#{ctId},#{ctPassword},'CE');
+	</insert>
+	<!-- 
+	<update id="updateCenter" parameterType="center">
+		UPDATE TBL_CENTER SET 
+		UG_NAME=#{ugName}, UG_CONTENT=#{ugContent}, UG_MODIFIED_DATE=CURRENT_TIMESTAMP WHERE CT_CODE=#{ctCode}
+	</update>
+	 -->
+	<delete id="deleteCenter"  parameterType="Integer">
+		DELETE FROM TBL_CENTER WHERE CT_CODE=#{ctCode}
+	</delete>
+</mapper>
