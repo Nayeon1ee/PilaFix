@@ -9,12 +9,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.dev.pilafix.member.board.BoardVO" alias="board" />
 		<typeAlias type="com.dev.pilafix.center.userguide.UserguideVO" alias="userguide" />
+		<typeAlias type="com.dev.pilafix.admin.info.InfoVO" alias="info" />
 		<typeAlias type="com.dev.pilafix.admin.community.CommunityVO" alias="community" />
 		<typeAlias type="com.dev.pilafix.admin.center_manage.CenterVO" alias="center" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappings/board-mapper.xml" />
 		<mapper resource="mappings/center-userguide-mapper.xml" />
+		<mapper resource="mappings/info-mapper.xml" />
 		<mapper resource="mappings/admin-community-mapper.xml" />
 		<mapper resource="mappings/admin-centermanage-mapper.xml" />
 	</mappers>
