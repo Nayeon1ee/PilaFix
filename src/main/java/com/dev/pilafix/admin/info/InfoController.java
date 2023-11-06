@@ -13,7 +13,7 @@ public class InfoController {
 	private InfoService service;
 	
 	@GetMapping("/insertInfo.do")
-	public String insertForm() {
+	public String insertInfo() {
 		return "info/insertInfo.jsp";
 	}
 	
@@ -21,6 +21,12 @@ public class InfoController {
 	public String insert(InfoVO vo) {
 		service.insertInfo(vo);
 		return "redirect:getInfoList.do";
+	}
+	
+	@GetMapping("/updateInfo.do")
+	public String updateInfo(@RequestParam("seq") Integer seq, Model model) {
+		model.addAttribute("list", service.getInfo(seq));
+		return "info/updateInfo.jsp";
 	}
 	
 	@PostMapping("/updateInfo.do")
@@ -44,6 +50,6 @@ public class InfoController {
 	@GetMapping("/getInfo.do")
 	public String getInfo(@RequestParam("seq") Integer seq, Model model) {
 		model.addAttribute("info", service.getInfo(seq));
-		return "info/getInfo.do";
+		return "info/getInfo.jsp";
 	}
 }

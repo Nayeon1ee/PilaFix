@@ -10,9 +10,6 @@
 
 <h1>인덱스 화면</h1>
 
-
-<a href="insert.do">등록</a>
-<a href="getBoard.do">글 확인</a>
 <a href="insertInfo.do">공지사항 등록</a>
 <a href="getInfoList.do">공지사항 확인</a>
 </body>

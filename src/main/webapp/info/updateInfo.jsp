@@ -10,9 +10,10 @@
 <body>
 <h1>수정 페이지</h1>
 <form action="updateInfo.do" method="post">
-	<input type="hidden" name="seq" value="${info.seq }">
-	공지사항 제목 <input type="text" name="title" value="${info.title }">
-	공지사항 내용 <input type="text" name="content" value="${info.content }">
+	<input type="hidden" name="seq" value="${list.seq}">
+	
+	공지사항 제목 <input type="text" name="title" value="${list.title}">
+	공지사항 내용 <input type="text" name="content" value="${list.content}">
 	공개여부 
 		<input type="radio" name="openYN" value=true>공개 
 		<input type="radio" name="openYN" value=false>비공개
