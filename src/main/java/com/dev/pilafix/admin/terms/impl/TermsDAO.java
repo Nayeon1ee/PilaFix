@@ -6,19 +6,19 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dev.pilafix.admin.terms.BoardVO;
+import com.dev.pilafix.admin.terms.TermsVO;
 
 @Repository
-public class BoardDAO {
+public class TermsDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public List<BoardVO> getBoardList() {
+	public List<TermsVO> getBoardList() {
 		return sqlSessionTemplate.selectList("BoardDAO.getBoardList");
 	}
 
-	public void insertBoard(BoardVO board) {
+	public void insertBoard(TermsVO board) {
 		sqlSessionTemplate.insert("BoardDAO.insertBoard", board);
 	}
 

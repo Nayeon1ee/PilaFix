@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class BoardController {
+public class TermsController {
 	@Autowired
-	private BoardService service;
+	private TermsService service;
 
 	@GetMapping("/getBoardList.do")
 	public String getBoardList() {

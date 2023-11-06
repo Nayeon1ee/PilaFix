@@ -5,37 +5,37 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.admin.terms.BoardService;
-import com.dev.pilafix.admin.terms.BoardVO;
+import com.dev.pilafix.admin.terms.TermsService;
+import com.dev.pilafix.admin.terms.TermsVO;
 
 @Service
-public class BoardServiceImpl implements BoardService {
+public class TermsServiceImpl implements TermsService {
 	@Autowired
-    private BoardDAO boardDAO;
+    private TermsDAO boardDAO;
 
 
 	@Override
-	public List<BoardVO> getBoardList() {
+	public List<TermsVO> getBoardList() {
 		return boardDAO.getBoardList();
 	}
 
 
 	@Override
-	public BoardVO getBoardByTmCode(String tmCode) {
+	public TermsVO getBoardByTmCode(String tmCode) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	public int insertBoard(BoardVO boardVO) {
+	public int insertBoard(TermsVO boardVO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 
 	@Override
-	public int updateBoard(BoardVO boardVO) {
+	public int updateBoard(TermsVO boardVO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -2,7 +2,7 @@ package com.dev.pilafix.admin.terms;
 
 import java.sql.Timestamp;
 
-public class BoardVO {
+public class TermsVO {
 	private String tmCode;
 	private String tmName;
 	private String tmDetail;
