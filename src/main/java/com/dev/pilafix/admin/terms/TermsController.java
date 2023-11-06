@@ -11,7 +11,7 @@ public class TermsController {
 
 	@GetMapping("/getBoardList.do")
 	public String getBoardList() {
-		return "terms/getBoardList";
+		return "terms/getBoardList.jsp";
 	}
 
 	@GetMapping("/boardRegister.do")
