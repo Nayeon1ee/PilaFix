@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ 
+<mapper namespace="CommunityDAO">
+	<resultMap type="community" id="communityResult">
+		<id property="cmNumber" column="CM_NUMBER"></id>
+		<result property="cmTitle" column="CM_TITLE"/>
+		<result property="cmContent" column="CM_CONTENT"/>
+		<result property="cmWriterMemberCode" column="CM_WRITER_MEMBER_CODE"/>
+		<result property="cmRegdate" column="CM_REGDATE"/>
+		<result property="cmViews" column="CM_VIEWS"/>
+		<result property="cmBlameCount" column="CM_BLAME_COUNT"/>
+	</resultMap>	
+		
+	<select id="getCommunityList" resultMap="communityResult" >
+		<!--
+		SELECT c.CM_NUMBER,c.CM_TITLE,c.CM_CONTENT,t.cs_name,c.CM_REGDATE
+		FROM tbl_community c
+		JOIN tbl_cst t
+		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code;
+		-->
+		SELECT CM_NUMBER,CM_TITLE,CM_CONTENT,CM_WRITER_MEMBER_CODE,CM_REGDATE
+		FROM TBL_COMMUNITY
+	</select>
+	<select id="getCommunity" resultMap="communityResult">
+		SELECT * FROM TBL_COMMUNITY WHERE CM_NUMBER=#{cmNumber}
+	</select>
+	<delete id="deleteCommunity" parameterType="Integer">
+		DELETE FROM TBL_COMMUNITY WHERE CM_NUMBER=#{cmNumber}
+	</delete>
+</mapper>
+ 
