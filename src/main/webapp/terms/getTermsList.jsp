@@ -7,30 +7,35 @@
     <title>이용약관 게시판</title>
 </head>
 <body>
-    <h1>이용약관 게시판</h1>
     
-    <table border="1">
+    <div align="center">
+    <h1>이용약관 게시판</h1>
+    <table>
         <tr>
             <th>약관코드</th>
             <th>약관명</th>
             <th>약관등록일자</th>
             <th>최근수정일자</th>
             <th>필수여부</th>
-            <th>공개여부</th>
         </tr>
-        <c:forEach items="${termList}" var="term">
+        <c:if test="${getTermsList == null }">
+			<tr>
+			<td colspan="5">등록된 글이 없습니다.</td>
+			</tr>
+		</c:if>
+        <c:forEach var="term" items="${getTermsList }">
     	<tr>
-	        <td>${term.tmCode}</td>
+	        <td><a href="updateTerms.do?tmCode=${term.tmCode}">${term.tmCode}</a></td>
 	        <td>${term.tmName}</td>
 	        <td>${term.tmRegdate}</td>
 	        <td>${term.tmModifiedDate}</td>
 	        <td>${term.tmRequiredYn}</td>
-	        <td>${term.tmOpenYn}</td>
    		</tr>
 		</c:forEach>
-
     </table>
     <br><br>
-    <a href="boardRegister.jsp">이용약관 작성</a>
+    
+    <a href="insertTerms.do">이용약관 작성</a>
+    </div>
 </body>
 </html>

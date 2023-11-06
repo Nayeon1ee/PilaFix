@@ -3,13 +3,13 @@ package com.dev.pilafix.admin.terms;
 import java.util.List;
 
 public interface TermsService {
-	List<TermsVO> getBoardList();
+	List<TermsVO> getTermsList();
 
-	TermsVO getBoardByTmCode(String tmCode);
+	TermsVO getTerms(int tmCode);
 
-	int insertBoard(TermsVO boardVO); 
+	int insertTerms(TermsVO vo); 
 
-	int updateBoard(TermsVO boardVO);
+	int updateTerms(TermsVO vo);
 
-	int deleteBoard(String tmCode); 
+	int deleteTerms(int tmCode); 
 }

@@ -14,12 +14,26 @@ public class TermsDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public List<TermsVO> getBoardList() {
-		return sqlSessionTemplate.selectList("BoardDAO.getBoardList");
+	public List<TermsVO> getTermsList() {
+		return sqlSessionTemplate.selectList("TermsDAO.getTermsList");
 	}
 
-	public void insertBoard(TermsVO board) {
-		sqlSessionTemplate.insert("BoardDAO.insertBoard", board);
+	
+	public TermsVO getTerms(int tmCode) {
+		return sqlSessionTemplate.selectOne("TermsDAO.getTerms",tmCode);
 	}
+	
+	public int insertTerms(TermsVO vo) {
+		return sqlSessionTemplate.insert("TermsDAO.insertTerms", vo);
+	}
+	
+	public int updateTerms(TermsVO vo) {
+		return sqlSessionTemplate.update("TermsDAO.updateTerms", vo);
+	}
+	
+	public int deleteTerms(int tmCode) {
+		return sqlSessionTemplate.delete("TermsDAO.deleteTerms", tmCode);
+	}
+
 
 }

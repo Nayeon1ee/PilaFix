@@ -11,41 +11,33 @@ import com.dev.pilafix.admin.terms.TermsVO;
 @Service
 public class TermsServiceImpl implements TermsService {
 	@Autowired
-    private TermsDAO boardDAO;
-
-
-	@Override
-	public List<TermsVO> getBoardList() {
-		return boardDAO.getBoardList();
-	}
-
+    private TermsDAO dao;
 
 	@Override
-	public TermsVO getBoardByTmCode(String tmCode) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TermsVO> getTermsList() {
+		return dao.getTermsList();
 	}
-
 
 	@Override
-	public int insertBoard(TermsVO boardVO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public TermsVO getTerms(int tmCode) {
+		return dao.getTerms(tmCode);
 	}
-
 
 	@Override
-	public int updateBoard(TermsVO boardVO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertTerms(TermsVO vo) {
+		return dao.insertTerms(vo);
 	}
-
 
 	@Override
-	public int deleteBoard(String tmCode) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateTerms(TermsVO vo) {
+		return dao.updateTerms(vo);
 	}
+
+	@Override
+	public int deleteTerms(int tmCode) {
+		return dao.deleteTerms(tmCode);
+	}
+
 
 
    
