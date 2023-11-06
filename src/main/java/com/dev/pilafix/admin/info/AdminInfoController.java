@@ -49,7 +49,7 @@ public class AdminInfoController {
 	
 	@GetMapping("/getAdminInfo.do")
 	public String getAdminInfo(@RequestParam("seq") Integer seq, Model model) {
-		model.addAttribute("info", service.getInfo(seq));
+		model.addAttribute("adminInfo", service.getInfo(seq));
 		return "admin_info/getAdminInfo.jsp";
 	}
 }

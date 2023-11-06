@@ -21,24 +21,24 @@
 				<th>조회수</th>
 				<th>구매 가능 여부</th>
 			</tr>
-			<c:if test="${adminInfo == null }">
+			<c:if test="${centerInfo == null }">
 				<tr>
 					<td colspan="5">등록된 글이 없습니다.</td>
 				</tr>
 			</c:if>
-			<c:forEach var="adminInfo" items="${InfoList }">
+			<c:forEach var="centerInfo" items="${InfoList }">
 				<tr>
-					<td>${adminInfo.seq }</td>
-					<td>${adminInfo.title }</td>
-					<td><a href="getAdminInfo.do?seq=${adminInfo.seq }">${adminInfo.content }</a></td>
-					<td>${adminInfo.regDate }</td>
-					<td>${adminInfo.cnt }</td>
-					<td>${adminInfo.openYN }</td>
-					<td><a href="updateAdminInfo.do?seq=${adminInfo.seq }">수정</a> | <a href="deleteAdminInfo.do?seq=${adminInfo.seq }">삭제</a></td>
+					<td>${centerInfo.seq }</td>
+					<td>${centerInfo.title }</td>
+					<td><a href="getCenterInfo.do?seq=${centerInfo.seq }">${centerInfo.content }</a></td>
+					<td>${centerInfo.regDate }</td>
+					<td>${centerInfo.cnt }</td>
+					<td>${centerInfo.openYN }</td>
+					<td><a href="updateCenterInfo.do?seq=${centerInfo.seq }">수정</a> | <a href="deleteCenterInfo.do?seq=${centerInfo.seq }">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="insertAdminInfo.do">글 등록</a>
+		<a href="insertCenterInfo.do">글 등록</a>
 
 	</div>
 

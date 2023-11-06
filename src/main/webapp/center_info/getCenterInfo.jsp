@@ -14,33 +14,33 @@
 		<table>
 			<tr>
 				<th>No</th>
-				<td>${adminInfo.seq }</td>
+				<td>${centerInfo.seq }</td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td>${adminInfo.title }</td>
+				<td>${centerInfo.title }</td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td>${adminInfo.content }</td>
+				<td>${centerInfo.content }</td>
 			</tr>
 			<tr>
 				<th>작성일자</th>
-				<td>${adminInfo.regDate }</td>
+				<td>${centerInfo.regDate }</td>
 			</tr>
 			<tr>
 				<th>조회수</th>
-				<td>${adminInfo.cnt }</td>
+				<td>${centerInfo.cnt }</td>
 			</tr>
 			<tr>
 				<th>구매 가능 여부</th>
-				<td>${adminInfo.openYN }</td>
+				<td>${centerInfo.openYN }</td>
 			</tr>
 			<tr>
-				<td><a href="updateAdminInfo.do?seq=${adminInfo.seq }">수정</a> | <a href="deleteAdminInfo.do?seq=${adminInfo.seq}">삭제</a></td>
+				<td><a href="updateCenterInfo.do?seq=${centerInfo.seq }">수정</a> | <a href="deleteCenterInfo.do?seq=${centerInfo.seq}">삭제</a></td>
 			</tr>
 		</table>
-		<a href="getAdminInfoList.do">글 목록</a>
+		<a href="getCenterInfoList.do">글 목록</a>
 	</div>
 </body>
 </html>
