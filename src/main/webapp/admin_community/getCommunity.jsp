@@ -10,14 +10,14 @@
 	<div align="center">
 		<h1>글 목록 상세</h1>
 		<hr>
-		<table>
+		<table border="1">
 			<tr>
 				<td>NO.</td>
 				<td>${community.cmNumber }</td>
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td>${community.csName}</td>
+				<td><%=request.getParameter("csName") %></td>
 			</tr>
 			<tr>
 				<td>작성일자</td>

@@ -23,7 +23,7 @@
 				<tr>
 					<td>${list.cmNumber}</td>
 					<td>${list.cmTitle}</td>
-					<td><a href="getCommunity.do?cmNumber=${list.cmNumber}">${list.cmContent}</a></td>
+					<td><a href="getCommunity.do?cmNumber=${list.cmNumber}&csName=${list.csName}">${list.cmContent}</a></td>
 					<td>${list.csName}</td>
 					<td>${list.cmRegdate}</td>
 				</tr>

@@ -27,7 +27,7 @@ public class CommunityController {
 	@GetMapping("/deleteCommunity.do")
 	public String delete(int cmNumber) {
 		service.deleteCommunity(cmNumber);
-		return "admin_community/getCommunityList.jsp";
+		return "redirect:/getCommunityList.do"; // .do로 요청해야 위에 getCommunityList.do수행하고 디비가서 바뀐정보로 다시 가져옴
 		
 	}
 }
