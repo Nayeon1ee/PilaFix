@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.admin.info.AdminInfoVO" alias="adminInfo" />
 		<typeAlias type="com.dev.pilafix.center.info.CenterInfoVO" alias="centerInfo" />
 		<typeAlias type="com.dev.pilafix.admin.community.CommunityVO" alias="community" />
+		<typeAlias type="com.dev.pilafix.member.community.MemberCommunityVO" alias="memberCommunity" />
 		<typeAlias type="com.dev.pilafix.admin.center_manage.CenterVO" alias="center" />
 		<typeAlias type="com.dev.pilafix.admin.terms.TermsVO" alias="terms" />
 		
@@ -20,6 +21,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/admin-info-mapper.xml" />
 		<mapper resource="mappings/center-info-mapper.xml" />
 		<mapper resource="mappings/admin-community-mapper.xml" />
+		<mapper resource="mappings/member-community-mapper.xml" />
 		<mapper resource="mappings/admin-centermanage-mapper.xml" />
 		<mapper resource="mappings/admin-terms-mapper.xml" />
 	</mappers>
