@@ -5,7 +5,7 @@
 <mapper namespace="MemberDAO">
 <resultMap type="member" id="memberResult">
 		<id property="csMemberCode" column="CS_MEMBER_CODE"/>
-		<id property="csEmailId" column="CS_EMAIL_ID"/>
+		<result property="csEmailId" column="CS_EMAIL_ID"/>
 		<result property="csPassword" column="CS_PASSWORD" />
 		<result property="csName" column="CS_NAME" />
 		<result property="csPhoneNumber1" column="CS_PHONE_NUMBER1" />
@@ -14,12 +14,27 @@
 		<result property="csBirth" column="CS_BIRTH" />
 		<result property="csGenderMw" column="CS_GENDER_MW" />
 		<result property="csAgreementYn" column="CS_AGREEMENT_YN" />
+		<result property="csRegistraionType" column="CS_REGISTRATION_TYPE" />
+		<result property="csRegistrationDate" column="CS_REGISTRATION_DATE" />
+		<result property="csRoleCode" column="CS_ROLE_CODE" />
 </resultMap>
 <!--  
-<insert id=insertMember parameterType="member">
+<insert id="insertMemCode" parameterType="member">
+	INSERT INTO TBL_CST 
+</insert>
+-->
+<!--  
+<insert id="insertMember" parameterType="member">
 	INSERT INTO TBL_CST 
 	VALUES ()
 	
 </insert>
+-->
+<!-- 회원가입시 회원,강사 선택할 때 회원 코드 가져오는 쿼리 -->
+  <!--  
+<select id="getUserRole" resultMap="memberResult">
+	SELECT role_code FROM tbl_USER_ROLE
+	<if test=""
+</select>
 -->
 </mapper>
