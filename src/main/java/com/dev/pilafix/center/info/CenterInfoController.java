@@ -26,7 +26,7 @@ public class CenterInfoController {
 	
 	@GetMapping("/updateCenterInfo.do")
 	public String updateCenterInfo(@RequestParam("seq") Integer seq, Model model) {
-		model.addAttribute("list", service.getInfo(seq));
+		model.addAttribute("list", service.getCenterInfo(seq));
 		return "center_info/updateCenterInfo.jsp";
 	}
 	
@@ -44,13 +44,13 @@ public class CenterInfoController {
 	
 	@GetMapping("/getCenterInfoList.do")
 	public String getCenterInfoList(Model model) {
-		model.addAttribute("InfoList", service.getCenterInfoList());
+		model.addAttribute("infoList", service.getCenterInfoList());
 		return "center_info/getCenterInfoList.jsp";
 	}
 	
 	@GetMapping("/getCenterInfo.do")
 	public String getCenterInfo(@RequestParam("seq") Integer seq, Model model) {
-		model.addAttribute("info", service.getInfo(seq));
+		model.addAttribute("centerInfo", service.getCenterInfo(seq));
 		return "center_info/getCenterInfo.jsp";
 	}
 }

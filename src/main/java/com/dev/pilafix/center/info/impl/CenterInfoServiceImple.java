@@ -20,7 +20,7 @@ public class CenterInfoServiceImple implements CenterInfoService {
 	}
 
 	@Override
-	public CenterInfoVO getInfo(int seq) {
+	public CenterInfoVO getCenterInfo(int seq) {
 		return dao.getCenterInfo(seq);
 	}
 
