@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="CenterDAO">
 	<resultMap type="center" id="centerResult">
 		<id property="ctCode" column="CT_CODE"/>
@@ -28,6 +27,13 @@
 		<result property="ctPassword" column="CT_PASSWORD" />
 		<result property="roleCode" column="ROLE_CODE" />
 	</resultMap>
+	<resultMap type="emailHistory" id="emailResult">
+		<id property="ctCode" column="CT_CODE"/>
+		<result property="ctName" column="CT_NAME" />
+		<result property="ctPhoneNumber1" column="CT_PHONE_NUMBER1" />
+		<result property="ctPhoneNumber2" column="CT_PHONE_NUMBER2" />
+		<result property="ctPhoneNumber3" column="CT_PHONE_NUMBER3" />
+	</resultMap>
 	
 	<select id="getCenter" resultMap="centerResult" >
 		SELECT * FROM TBL_CENTER WHERE CT_CODE=#{ctCode}
@@ -43,7 +49,7 @@
 		'서울특별시', '중랑구 숙선옹주로 6-9', '(묵동, 묵동자이아파트1단지)',
 		#{ownerName},#{businessRegistrationNumber},#{ownerPhoneNumber1},#{ownerPhoneNumber2},#{ownerPhoneNumber3},
 		#{ownerEmail},TO_TIMESTAMP(#{contractStartDate}, 'YYYY-MM-DD'),TO_TIMESTAMP(#{contractStartDate}, 'YYYY-MM-DD'),
-		'F', 'F',CURRENT_TIMESTAMP,#{ctId},#{ctPassword},'CE');
+		'F', 'F',CURRENT_TIMESTAMP,#{ctId},#{ctPassword},'CE')
 	</insert>
 	<!-- 
 	<update id="updateCenter" parameterType="center">
@@ -59,5 +65,11 @@
 	<select id="ctIdCheck" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM TBL_CENTER WHERE CT_ID = #{ctId}
 	</select>
+	
+	<!-- 이메일 발송 이력 등록 -->
+	<insert id="insertSendEmailHistory" parameterType="emailHistory">
+		INSERT INTO TBL_SEND_EMAIL_HISTORY(MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE, MH_EMAIL_SEND_DATETIME, MH_RECIPIENT_NAME,MH_RECIPIENT_TITLE,MH_RECIPIENT_CONTENT, MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME)
+		VALUES(CONCAT('EH',NEXTVAL('SEQ_SEND_EMAIL_HISTORY')), #{emailSendType}, CURRENT_TIMESTAMP, #{recipientName},#{recipientTitle}, #{recipientContent}, #{recipientEmail}, 'Y',CURRENT_TIMESTAMP)
+	</insert>
 	
 </mapper>

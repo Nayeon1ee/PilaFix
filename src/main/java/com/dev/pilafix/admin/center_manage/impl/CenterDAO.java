@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.admin.center_manage.CenterVO;
+import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
 
 
 @Repository
@@ -38,7 +39,9 @@ public class CenterDAO {
 		return sqlSessionTemplate.selectOne("CenterDAO.ctIdCheck",ctId);
 	}
 
-	
+	public int sendEmail(SendEmailHistoryVO email) {
+		return sqlSessionTemplate.insert("CenterDAO.insertSendEmailHistory",email);
+	}
 	
 
 }
