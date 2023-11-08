@@ -23,6 +23,7 @@ public class CenterDAO {
 	    return sqlSessionTemplate.selectOne("CenterDAO.getCenter",ctCode);
 	}
 	
+	
 	public int insertCenter(CenterVO vo) {
 		return sqlSessionTemplate.insert("CenterDAO.insertCenter", vo);
 	}
@@ -41,6 +42,14 @@ public class CenterDAO {
 
 	public int sendEmail(SendEmailHistoryVO email) {
 		return sqlSessionTemplate.insert("CenterDAO.insertSendEmailHistory",email);
+	}
+	
+	public void revokeCenter(int ctCode) {
+		sqlSessionTemplate.update("CenterDAO.updateContractRevokeYN", ctCode);
+	}
+	
+	public void resetPassword(int ctCode) {
+		sqlSessionTemplate.update("CenterDAO.resetPassword", ctCode);
 	}
 	
 

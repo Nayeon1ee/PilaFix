@@ -54,9 +54,11 @@ public class CenterServiceImpl implements CenterService {
 	}
 	
 
+	/**
+	 * 이메일 발송 및 이력 등록
+	 */
     @Override
     public void sendEmailAndInsertSendEmailHistory(CenterVO center) {
-        // 이메일 발송 및 이메일 발송 이력 등록하는 로직
 
         String ownerEmail = center.getOwnerEmail();
         String ctId = center.getCtId();
@@ -105,22 +107,43 @@ public class CenterServiceImpl implements CenterService {
 		
 		//====이메일 발송 이력 등록======
 		SendEmailHistoryVO email = new SendEmailHistoryVO();
-		email.setEmailSendType("센터계정생성");
-		email.setRecipientName(center.getOwnerName());
-		email.setRecipientTitle(title);
-		email.setRecipientContent(content.toString());
-		email.setRecipientEmail(toSend);
+		email.setMhEmailSendType("센터계정생성");
+		email.setMhRecipientName(center.getOwnerName());
+		email.setMhRecipientTitle(title);
+		email.setMhRecipientContent(content.toString());
+		email.setMhRecipientEmail(toSend);
 		//이메일 발송 후 성공 여부 판단할 수 있는지? 할 수 있다면 판단해서 
 		// email.setSuccessYN 셋해야 함
     }
 
+    
+    /**
+     * 센터 등록 및 세션 저장 
+     */
     @Override
     public void insertCenterAndSetSession(CenterVO center, HttpSession session) {
-        // 센터 등록 및 세션에 데이터 저장하는 로직
     	session.setAttribute("center", center);
     	dao.insertCenter(center);
-    	
-    }	
+    }
+
+    
+    /**
+     * 계약 해지 메서드 
+     * 파라미터로 받은 ctCode에 해당하는 센터의 계약 해지 true 변경
+     */
+	@Override
+	public void revokeCenter(int ctCode) {
+		dao.revokeCenter(ctCode);
+
+	}
+	
+	/**
+	 * 비밀번호 초기화 메서드 
+	 */
+	@Override
+	public void resetPassword(int ctCode) {
+		dao.resetPassword(ctCode);
+	}	
 	
 
 }

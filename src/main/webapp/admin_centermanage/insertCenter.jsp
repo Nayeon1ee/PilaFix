@@ -33,7 +33,7 @@
 	</select>
 	<input type="text" name="ctPhoneNumber2" size="4"><input type="text" name="ctPhoneNumber3" size="4"> </p> 
 	
-	
+	<!-- ########### 주소 가입에서 api 완료되면 updateCenter.jsp 수정해야 함 ###########-->
 	<p> 주소 넣어야 함</p>
 	
 	
@@ -55,13 +55,19 @@
 	<p> 센터 계정 아이디 <input type="text" name="ctId"> <button id="ctIdCheck" onclick="#">중복확인</button></p>
 	
 	
-	<p> 센터 계정 비밀번호 <input type="text" name="ctPassword"></p>	
-	<button onclick="#">PIN 발급</button>
-	
+	<p> 센터 계정 비밀번호 <input type="text" id="ctPassword" name="ctPassword" readonly></p>    
+    <button type="button" onclick="generatePIN()">PIN 발급</button>
+    
+    
 	<p> <input type="submit" value="등록"> </p>
 </form>
 
 <a href="getCenterList.do">센터 목록</a>
 
-</body>
+<script>
+function generatePIN() {
+	  var pin = Math.floor(10000 + Math.random() * 90000);
+	  document.getElementById("ctPassword").value = pin;
+}
+</script>
 </html>

@@ -32,19 +32,9 @@ public class CenterController {
 	@GetMapping("/getCenter.do")
 	public String getCenter(int ctCode, Model model) {
 		model.addAttribute("center", service.getCenter(ctCode));
+		//이메일 상세 대신 문자 상세 들어와야 함
+//		model.addAttribute("smsHistory", service.getSmsHistory(ctCode)); 
 		return "admin_centermanage/getCenter.jsp";
-	}
-
-
-	/**
-	 * Json 테스트 샘플 
-	 * @return
-	 */
-	@RequestMapping("/jsTest.do")
-	@ResponseBody
-	public List<CenterVO> jsTest() {
-		List<CenterVO> boardList = service.getCenterList();
-		return boardList;
 	}
 	
 	@GetMapping("/insertCenter.do")
@@ -82,4 +72,44 @@ public class CenterController {
         return "redirect:getCenterList.do";
     }
 	
+	@GetMapping("/updateCenter.do")
+	public String updateForm(int ctCode, Model model) {
+		model.addAttribute("center", service.getCenter(ctCode));
+		return "admin_centermanage/updateCenter.jsp";
+	}
+	
+	@PostMapping("/updateCenter.do")
+	public String update(CenterVO vo) {
+		service.updateCenter(vo);
+		return "redirect:getCenterList.do";
+	}
+	
+	/**
+	 * Json 테스트 샘플 
+	 * @return
+	 */
+	@RequestMapping("/jsTest.do")
+	@ResponseBody
+	public List<CenterVO> jsTest() {
+		List<CenterVO> boardList = service.getCenterList();
+		return boardList;
+	}
+	
+	@GetMapping("/deleteCenter.do")
+	public String delete(int ctCode) {
+		service.deleteCenter(ctCode);
+		return "redirect:getCenterList.do";
+	}
+	
+	@GetMapping("/revokeCenter.do")
+	public String revoke(int ctCode) {
+		service.revokeCenter(ctCode);
+		return "redirect:getCenter.do?ctCode="+ctCode;
+	}
+	
+	@GetMapping("/resetPassword.do")
+	public String resetPassword(int ctCode) {
+		service.resetPassword(ctCode);
+		return "redirect:getCenter.do?ctCode="+ctCode;		
+	}
 }
