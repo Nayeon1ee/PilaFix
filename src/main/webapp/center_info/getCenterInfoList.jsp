@@ -21,12 +21,12 @@
 				<th>조회수</th>
 				<th>구매 가능 여부</th>
 			</tr>
-			<c:if test="${centerInfo == null }">
+			<c:if test="${infoList == null }">
 				<tr>
 					<td colspan="5">등록된 글이 없습니다.</td>
 				</tr>
 			</c:if>
-			<c:forEach var="centerInfo" items="${InfoList }">
+			<c:forEach var="centerInfo" items="${infoList }">
 				<tr>
 					<td>${centerInfo.seq }</td>
 					<td>${centerInfo.title }</td>

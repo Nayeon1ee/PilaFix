@@ -19,7 +19,7 @@
 		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, IW_REGDATE, IW_VIEWS, IW_OPEN_YN FROM TBL_INFO_W
 	</select>
 	<insert id="insertAdminInfo" parameterType="adminInfo">
-		INSERT INTO TBL_INFO_W(IW_NUMBER, IW_TITLE, IW_CONTENT, IW_WRITER_MEMBER_CODE, IW_REGDATE, IW_VIEWS, IW_OPEN_YN) VALUES(nextval('seq_admin_info'), #{title}, #{content}, 'qwerty', CURRENT_TIMESTAMP, 0, ${openYN})
+		INSERT INTO TBL_INFO_W(IW_NUMBER, IW_TITLE, IW_CONTENT, IW_WRITER_MEMBER_CODE, IW_REGDATE, IW_VIEWS, IW_OPEN_YN) VALUES(nextval('seq_admin_info'), #{title}, #{content}, 'qwerty', CURRENT_TIMESTAMP, 0, #{openYN})
 	</insert>
 	<update id="updateAdminInfo" parameterType="adminInfo">
 		UPDATE TBL_INFO_W SET IW_TITLE=#{title}, IW_CONTENT=#{content}, IW_OPEN_YN=#{openYN} WHERE IW_NUMBER=#{seq}
