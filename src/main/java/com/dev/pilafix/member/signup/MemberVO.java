@@ -1,7 +1,10 @@
 package com.dev.pilafix.member.signup;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
+
+
 
 public class MemberVO {
 	
@@ -15,8 +18,10 @@ public class MemberVO {
 	private String csPhoneNumber3;
 	private Date csBirth; //생년월일
 	private Timestamp csRegistrationDate; //가입일
-	private boolean csGenderMw;	 //성별
-	private boolean csAgreementYn; //약관동의
+	private String  csGenderMw;	 //성별
+	private boolean csAgreementYn1; //약관동의
+	private boolean csAgreementYn2; //약관동의
+	private boolean csAgreementYn3; //약관동의
 	private String csRegistraionType; //가입유형
 	//비밀번호 확인 컬럼도 있어야하나?
 	public String getCsEmailId() {
@@ -67,6 +72,7 @@ public class MemberVO {
 	public void setCsPhoneNumber3(String csPhoneNumber3) {
 		this.csPhoneNumber3 = csPhoneNumber3;
 	}
+	
 	public Date getCsBirth() {
 		return csBirth;
 	}
@@ -79,17 +85,31 @@ public class MemberVO {
 	public void setCsRegistrationDate(Timestamp csRegistrationDate) {
 		this.csRegistrationDate = csRegistrationDate;
 	}
-	public boolean isCsGenderMw() {
+
+	public String getCsGenderMw() {
 		return csGenderMw;
 	}
-	public void setCsGenderMw(boolean csGenderMw) {
+	public void setCsGenderMw(String csGenderMw) {
 		this.csGenderMw = csGenderMw;
 	}
-	public boolean isCsAgreementYn() {
-		return csAgreementYn;
+	public boolean isCsAgreementYn1() {
+		return csAgreementYn1;
 	}
-	public void setCsAgreementYn(boolean csAgreementYn) {
-		this.csAgreementYn = csAgreementYn;
+	public void setCsAgreementYn1(boolean csAgreementYn1) {
+		this.csAgreementYn1 = csAgreementYn1;
+	}
+	
+	public boolean isCsAgreementYn2() {
+		return csAgreementYn2;
+	}
+	public void setCsAgreementYn2(boolean csAgreementYn2) {
+		this.csAgreementYn2 = csAgreementYn2;
+	}
+	public boolean isCsAgreementYn3() {
+		return csAgreementYn3;
+	}
+	public void setCsAgreementYn3(boolean csAgreementYn3) {
+		this.csAgreementYn3 = csAgreementYn3;
 	}
 	public String getCsRegistraionType() {
 		return csRegistraionType;
@@ -102,9 +122,11 @@ public class MemberVO {
 		return "MemberVO [csEmailId=" + csEmailId + ", csPassword=" + csPassword + ", csName=" + csName
 				+ ", csMemberCode=" + csMemberCode + ", csRoleCode=" + csRoleCode + ", csPhoneNumber1=" + csPhoneNumber1
 				+ ", csPhoneNumber2=" + csPhoneNumber2 + ", csPhoneNumber3=" + csPhoneNumber3 + ", csBirth=" + csBirth
-				+ ", csRegistrationDate=" + csRegistrationDate + ", csGenderMw=" + csGenderMw + ", csAgreementYn="
-				+ csAgreementYn + ", csRegistraionType=" + csRegistraionType + "]";
+				+ ", csRegistrationDate=" + csRegistrationDate + ", csGenderMw=" + csGenderMw + ", csAgreementYn1="
+				+ csAgreementYn1 + ", csAgreementYn2=" + csAgreementYn2 + ", csAgreementYn3=" + csAgreementYn3
+				+ ", csRegistraionType=" + csRegistraionType + "]";
 	}
+
 	
 	
 	
