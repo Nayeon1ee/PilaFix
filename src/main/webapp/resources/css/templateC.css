@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/*가생이(왼,오)영역설정*/
+.container000 {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.container000>.content000 {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.container000>.content000>area1 {
+	background-color: #e8f2fe;
+	flex-basis: 300px;
+	flex-shrink: 0;
+}
+
+.container000>.content000>main {
+	background-color: white;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.container000>.content000>area2 {
+	background-color: #e8f2fe;
+	flex-basis: 300px;
+	flex-shrink: 0;
+}
+

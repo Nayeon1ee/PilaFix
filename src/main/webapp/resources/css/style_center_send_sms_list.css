@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.search_000 {
+   
+}
+
+
+/*페이징 처리 가운데 정렬*/
+.admin-screen-paging {
+  display: flex;
+  justify-content: center;
+}
+

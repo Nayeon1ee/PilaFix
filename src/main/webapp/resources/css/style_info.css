@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+.info-box {
+ 
+  margin-top: 100px;
+  border: 1px solid #ccc;
+  border-radius:20px;
+  padding: 10px;
+}
+
+.info-box04 {
+    padding: 10px;
+    margin: 10px 10px;
+  
+}
+
+.info-box04 p {
+    border-bottom: 1px solid #ccc;
+}
+
+a.change_password {
+    text-decoration: none;
+    color: black;
+}
+
+a.withdraw_button{
+    text-decoration: none;
+    color: red;
+    font-weight: bold;
+}
+
+
+
+.container000 {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.container000>.content000 {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.container000>.content000>area1 {
+	background-color: #e8f2fe;
+	flex-basis: 300px;
+	flex-shrink: 0;
+}
+
+.container000>.content000>main {
+	background-color: white;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.container000>.content000>area2 {
+	background-color: #e8f2fe;
+	flex-basis: 300px;
+	flex-shrink: 0;
+}
+#myPage {
+	margin: 0 auto;
+	padding: 20px;
+}
+
+#userInfo {
+	display: flex;
+	justify-content: space-between; 
+	align-items: center; 
+}
+
+#myInfoLink {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#userInfoText {
+	flex: 1; 
+	text-align: right; 
+}
+
+#logout {
+	text-decoration: underline;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+
+.my-passes {
+    border: 1px solid #ddd; 
+    padding: 20px; 
+    border-radius:15px;
+  padding: 20px;
+}
+
+
+.my-passes {
+    text-align: center;
+    margin-top: 20px;
+    max-width: 600px;
+    margin: 50px auto;
+
+}
+

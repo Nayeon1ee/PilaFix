@@ -1,0 +1,60 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* 헤더 스타일 */
+.header {
+    margin-left: 30%;
+    margin-top: 10%;
+}
+
+.title {
+    margin-left: 1%;
+    border-left: 2px solid;
+    border-color: #9B67FF;
+}
+
+/* 부제목 스타일 */
+.description {
+    margin-left: 30%;
+}
+
+.subtitle {
+    margin-left: 1%;
+    width: 270%;
+}
+
+
+.input-form {
+    margin-left: 30%;
+    margin-top: 1%;
+    margin-right: 36%;
+    border-bottom: 1px solid;
+}
+
+.input-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 230%;
+}
+
+/* 메시지 스타일 */
+.message {
+    margin-left: 30%;
+    margin-top: 1%;
+}
+
+/* 버튼 스타일 */
+.button {
+    margin-left: 47%;
+    margin-top: 2%;
+    width: 21%;
+}
+
+.primary-button {
+    width: 90px;
+}

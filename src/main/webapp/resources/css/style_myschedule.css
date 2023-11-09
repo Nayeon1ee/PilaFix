@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+.card-header {
+	text-align: left;
+}
+.card-filter {
+	text-align: center;
+	width: 100%;
+	height: 40px;
+}
+
+.card-header-con{
+	height: 50px;
+}
+
+.btn-outline-primary1 {
+  --bs-btn-border: 2px;
+  --bs-btn-color: gray;
+  --bs-btn-border-color: gray;
+  --bs-btn-hover-color: #8e06f4;
+  --bs-btn-hover-bg: none;
+  --bs-btn-hover-border-color: #8e06f4;
+  --bs-btn-focus-shadow-rgb: gray;
+  --bs-btn-active-color: #8e06f4;
+  --bs-btn-active-bg: none;
+  --bs-btn-active-border-color: #8e06f4;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #8e06f4;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #f6f4f8;
+  --bs-gradient: none;
+}
+
+.btn-outline-primary2 {
+  --bs-btn-border: 2px;
+  --bs-btn-color: gray;
+  --bs-btn-border-color: gray;
+  --bs-btn-hover-color: #0070c0;
+  --bs-btn-hover-bg: none;
+  --bs-btn-hover-border-color: #0070c0;
+  --bs-btn-focus-shadow-rgb: gray;
+  --bs-btn-active-color: #0070c0;
+  --bs-btn-active-bg: none;
+  --bs-btn-active-border-color: #0070c0;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #0070c0;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #0070c0;
+  --bs-gradient: none;
+}
+
+.btn-outline-primary3 {
+  --bs-btn-border: 2px;
+  --bs-btn-color: gray;
+  --bs-btn-border-color: gray;
+  --bs-btn-hover-color: #14761d;
+  --bs-btn-hover-bg: none;
+  --bs-btn-hover-border-color: #14761d;
+  --bs-btn-focus-shadow-rgb: gray;
+  --bs-btn-active-color: #14761d;
+  --bs-btn-active-bg: none;
+  --bs-btn-active-border-color: #14761d;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #14761d;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #f6f4f8;
+  --bs-gradient: none;
+}
+
+.btn-outline-primary4 {
+  --bs-btn-border: 2px;
+  --bs-btn-color: gray;
+  --bs-btn-border-color: gray;
+  --bs-btn-hover-color: #ff6600;
+  --bs-btn-hover-bg: none;
+  --bs-btn-hover-border-color: #ff6600;
+  --bs-btn-focus-shadow-rgb: gray;
+  --bs-btn-active-color: #ff6600;
+  --bs-btn-active-bg: none;
+  --bs-btn-active-border-color: #ff6600;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-border-color: #ff6600;
+  --bs-gradient: none;
+}
+
+
+.card-body-in {
+	padding:10px;
+}
+
+.card-img{
+	width:10%;
+}

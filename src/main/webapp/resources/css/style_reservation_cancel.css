@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+.time {
+	height: 100px;
+	background-color: white;
+	color: black;
+	text-align: center;
+	float: center;
+	/*order-radius: 10px;*/
+	width: 100%;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	float: center;
+}
+
+.reserv_cancel_list {
+	width: 100%;
+	background-color: red;
+}
+
+.con1 {
+	display: flex;
+	justify-content: center;
+	height: 250px;
+	background-color: white;
+	color: #f6f4f8;
+	float: center;
+	/*order-radius: 10px;*/
+	width: 70%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.con2, .con3 {
+	display: flex;
+	justify-content: center;
+	height: 200px;
+	background-color: white;
+	color: #f6f4f8;
+	float: center;
+	/*order-radius: 10px;*/
+	width: 70%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/*영역설정*/
+.container000 {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.container000>.content000 {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.container000>.content000>area1 {
+	background-color: #e8f2fe;
+	flex-basis: 300px;
+	flex-shrink: 0;
+}
+
+.container000>.content000>main {
+	background-color: white;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.container000>.content000>area2 {
+	background-color: #e8f2fe;
+	flex-basis: 300px;
+	flex-shrink: 0;
+}
+
+.highlight_r {
+	font-weight: bold;
+	color: red;
+}
+
+.highlight_p {
+	font-weight: bold;
+	color: #8a0ff8;
+}

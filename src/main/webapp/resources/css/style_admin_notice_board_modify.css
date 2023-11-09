@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.radiobtn000{
+	margin-top:5px;
+	
+}
+
+
+.radiobtn001{
+	margin-bottom:20px;
+}
+
+
+input[disabled] {
+  background-color: white !important;
+}
+textarea[disabled] {
+  background-color: white !important;
+}
