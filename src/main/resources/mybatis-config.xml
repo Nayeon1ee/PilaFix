@@ -18,7 +18,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.member.signup.MemberVO" alias="member" />
 
 		
+		
+		
+		<typeAlias type="com.dev.pilafix.member.question.QuestionVO" alias="question" />
+		<typeAlias type="com.dev.pilafix.center.question_reply.QuestionReplyVO" alias="questionReply" />
+		
 	</typeAliases>
+	
+	
 	<mappers>
 		<mapper resource="mappings/center-userguide-mapper.xml" />
 		<mapper resource="mappings/admin-info-mapper.xml" />
@@ -27,6 +34,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/member-community-mapper.xml" />
 		<mapper resource="mappings/admin-centermanage-mapper.xml" />
 		<mapper resource="mappings/admin-terms-mapper.xml" />
+		<mapper resource="mappings/member-question-mapper.xml" />
+		<mapper resource="mappings/center-questionreply-mapper.xml" />
 		<mapper resource="mappings/member-signup-mapper.xml" />
 	</mappers>
 

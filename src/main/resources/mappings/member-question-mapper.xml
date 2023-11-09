@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="QuestionDAO">
+	<resultMap type="question" id="questionResult">
+		<id property="qsNumber" column="QS_NUMBER"/>
+		<result property="qsTitle" column="QS_TITLE" />
+		<result property="qsContent" column="QS_CONTENT" />
+		<result property="qsWriterMemberCode" column="QS_WRITER_MEMBER_CODE" />
+		<result property="qsRegdate" column="QS_REGDATE" />
+		<result property="qsModifiedDate" column="QS_MODIFIED_DATE" />
+		<result property="qsAnswerYn" column="QS_ANSWER_YN" />
+	</resultMap>
+	
+	<select id="getQuestion" resultMap="questionResult" >
+		SELECT * FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
+	</select>
+	<select id="getQuestionList" resultMap="questionResult">
+		SELECT QS_NUMBER,QS_TITLE,QS_REGDATE, QS_MODIFIED_DATE,QS_ANSWER_YN,QS_CONTENT FROM TBL_QUESTION
+	</select>
+	
+	<insert id="insertQuestion" parameterType="question">
+		INSERT INTO	TBL_QUESTION
+		VALUES(nextval('seq_question'), #{qsTitle}, #{qsContent},#{qsWriterMemberCode}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,false)
+	</insert>
+		<update id="updateQuestion" parameterType="question">
+		UPDATE TBL_QUESTION SET QS_TITLE=#{qsTitle}, QS_CONTENT=#{qsContent}, QS_MODIFIED_DATE=CURRENT_TIMESTAMP WHERE QS_NUMBER=#{qsNumber}
+	</update>
+	<delete id="deleteQuestion"  parameterType="Integer">
+		DELETE FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
+	</delete>
+	
+</mapper>
