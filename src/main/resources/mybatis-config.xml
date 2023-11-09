@@ -8,10 +8,15 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.dev.pilafix.center.userguide.UserguideVO" alias="userguide" />
-		<typeAlias type="com.dev.pilafix.admin.info.InfoVO" alias="info" />
+		<typeAlias type="com.dev.pilafix.admin.info.AdminInfoVO" alias="adminInfo" />
+		<typeAlias type="com.dev.pilafix.center.info.CenterInfoVO" alias="centerInfo" />
 		<typeAlias type="com.dev.pilafix.admin.community.CommunityVO" alias="community" />
+		<typeAlias type="com.dev.pilafix.member.community.MemberCommunityVO" alias="memberCommunity" />
 		<typeAlias type="com.dev.pilafix.admin.center_manage.CenterVO" alias="center" />
 		<typeAlias type="com.dev.pilafix.admin.terms.TermsVO" alias="terms" />
+		<typeAlias type="com.dev.pilafix.admin.center_manage.SendEmailHistoryVO" alias="emailHistory" />
+		<typeAlias type="com.dev.pilafix.member.signup.MemberVO" alias="member" />
+
 		
 		
 		
@@ -23,15 +28,15 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<mappers>
 		<mapper resource="mappings/center-userguide-mapper.xml" />
-		<mapper resource="mappings/info-mapper.xml" />
+		<mapper resource="mappings/admin-info-mapper.xml" />
+		<mapper resource="mappings/center-info-mapper.xml" />
 		<mapper resource="mappings/admin-community-mapper.xml" />
+		<mapper resource="mappings/member-community-mapper.xml" />
 		<mapper resource="mappings/admin-centermanage-mapper.xml" />
 		<mapper resource="mappings/admin-terms-mapper.xml" />
-		
-		
-		
 		<mapper resource="mappings/member-question-mapper.xml" />
 		<mapper resource="mappings/center-questionreply-mapper.xml" />
+		<mapper resource="mappings/member-signup-mapper.xml" />
 	</mappers>
 
 </configuration>

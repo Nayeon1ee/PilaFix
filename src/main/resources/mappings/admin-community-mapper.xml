@@ -18,18 +18,25 @@
 		FROM tbl_community c
 		JOIN tbl_cst t
 		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code;
-		<!--
-		SELECT CM_NUMBER,CM_TITLE,CM_CONTENT,CM_WRITER_MEMBER_CODE,CM_REGDATE
-		FROM TBL_COMMUNITY
-		-->
 	</select>
 	<select id="getCommunity" resultMap="communityResult">
-	SELECT cm_number,cm_title, cm_content, (select cs_name from tbl_cst where cs_member_code=#{cmWriterMemberCode}) as cs_name,cm_regdate
-	FROM tbl_community
-	WHERE cm_writer_member_code=#{cmWriterMemberCode};
 		<!--
+		select cm_number,cm_title, cm_content, (select cs_name from tbl_cst where cs_member_code=#{cmWriterMemberCode}) as cs_name,cm_regdate
+		from tbl_community
+		where cm_writer_member_code=#{cmWriterMemberCode};
+
+		
 		SELECT * FROM TBL_COMMUNITY WHERE CM_NUMBER=#{cmNumber}
-		 -->
+		 
+		 SELECT c.CM_NUMBER,c.CM_TITLE,c.CM_CONTENT,c.CM_REGDATE,t.cs_name
+		 FROM tbl_community c
+		JOIN tbl_cst t
+		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code
+		WHERE c.CM_WRITER_MEMBER_CODE = #{cmWriterMemberCode};
+		-->
+		 SELECT CM_NUMBER,CM_TITLE,CM_CONTENT,CM_REGDATE
+		 FROM tbl_community
+		 WHERE CM_NUMBER = #{cmNumber};
 	</select>
 	<delete id="deleteCommunity" parameterType="Integer">
 		DELETE FROM TBL_COMMUNITY WHERE CM_NUMBER=#{cmNumber}

@@ -1,8 +1,8 @@
-package com.dev.pilafix.admin.info;
+package com.dev.pilafix.center.info;
 
 import java.util.Date;
 
-public class InfoVO {
+public class CenterInfoVO {
 	private int seq;
 	private String title;
 	private String content;
@@ -35,11 +35,11 @@ public class InfoVO {
 		this.content = content;
 	}
 
-	public String getwriterMemberCode() {
+	public String getWriterMemberCode() {
 		return writerMemberCode;
 	}
 
-	public void setwriterMemberCode(String writerMemberCode) {
+	public void setWriterMemberCode(String writerMemberCode) {
 		this.writerMemberCode = writerMemberCode;
 	}
 
@@ -69,7 +69,7 @@ public class InfoVO {
 
 	@Override
 	public String toString() {
-		return "InfoVO [seq=" + seq + ", title=" + title + ", content=" + content + ", writerMemberCode="
+		return "CenterInfoVO [seq=" + seq + ", title=" + title + ", content=" + content + ", writerMemberCode="
 				+ writerMemberCode + ", regDate=" + regDate + ", cnt=" + cnt + ", openYN=" + openYN + "]";
 	}
 

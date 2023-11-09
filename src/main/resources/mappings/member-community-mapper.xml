@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberCommunityDAO">
+	<resultMap type="memberCommunity" id="memberCommunityResult">
+		<id property="memberCmNumber" column="CM_NUMBER"/>
+		<result property="memberCmTitle" column="CM_TITLE"/>
+		<result property="memberCmContent" column="CM_CONTENT"/>
+		<result property="memberCmWriterMemberCode" column="CM_WERITER_MEMBER_CODE"/>
+		<result property="memberCmRegdate" column="CM_REGDATE"/>
+		<result property="memberCmViews" column="CM_VIEWS"/>
+		<result property="memberCmBlameCount" column="CM_BLAME_COUNT"/>
+	</resultMap>
+	
+	<select id="getMemberCommunityList" resultMap="memberCommunityResult">
+		SELECT CM_NUMBER, CM_TITLE, CM_WRITER_MEMBER_CODE, CM_REGDATE, CM_VIEWS FROM TBL_COMMUNITY
+	</select>
+	<select id="getMemberCommunity" resultMap="memberCommunityResult">
+		SELECT * FROM TBL_COMMUNITY WHERE CM_NUMBER=#{memberCmNumber}
+	</select>
+	<insert id="insertMemberCommunity" parameterType="memberCommunity">
+		INSERT INTO TBL_COMMUNITY(CM_NUMBER, CM_TITLE, CM_CONTENT, CM_WRITER_MEMBER_CODE, CM_REGDATE, CM_VIEWS, CM_BLAME_COUNT)
+			VALUES(nextval('seq_member_community'), #{memberCmTitle}, #{memberCmContent}, 123456, CURRENT_TIMESTAMP, 0, 0)
+	</insert>
+	<update id="updateMemberCommunity" parameterType="memberCommunity">
+		UPDATE TBL_COMMUNITY SET CM_TITLE=#{memberCmTitle}, CM_CONTENT=#{memberCmContent} WHERE CM_NUMBER=#{memberCmNumber}
+	</update>
+	<delete id="deleteMemberCommunity" parameterType="Integer">
+		DELETE FROM TBL_COMMUNITY WHERE CM_NUMBER = #{memberCmNumber}
+	</delete>
+</mapper>

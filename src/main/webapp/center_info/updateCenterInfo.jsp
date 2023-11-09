@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>수정 페이지</h1>
-<form action="updateInfo.do" method="post">
+<form action="updateCenterInfo.do" method="post">
 	<input type="hidden" name="seq" value="${list.seq}">
 	
 	공지사항 제목 <input type="text" name="title" value="${list.title}">
@@ -19,6 +19,6 @@
 		<input type="radio" name="openYN" value=false>비공개
 	<input type="submit" value="수정">
 </form>
-<a href="getInfoList.do">공지사항 목록</a>
+<a href="getCenterInfoList.do">공지사항 목록</a>
 </body>
 </html>

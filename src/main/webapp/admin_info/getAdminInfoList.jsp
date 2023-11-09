@@ -26,19 +26,19 @@
 					<td colspan="5">등록된 글이 없습니다.</td>
 				</tr>
 			</c:if>
-			<c:forEach var="list" items="${InfoList }">
+			<c:forEach var="adminInfo" items="${InfoList }">
 				<tr>
-					<td>${list.seq }</td>
-					<td>${list.title }</td>
-					<td><a href="getInfo.do?seq=${list.seq }">${list.content }</a></td>
-					<td>${list.regDate }</td>
-					<td>${list.cnt }</td>
-					<td>${list.openYN }</td>
-					<td><a href="updateInfo.do?seq=${list.seq }">수정</a> | <a href="deleteInfo.do?seq=${list.seq }">삭제</a></td>
+					<td>${adminInfo.seq }</td>
+					<td>${adminInfo.title }</td>
+					<td><a href="getAdminInfo.do?seq=${adminInfo.seq }">${adminInfo.content }</a></td>
+					<td>${adminInfo.regDate }</td>
+					<td>${adminInfo.cnt }</td>
+					<td>${adminInfo.openYN }</td>
+					<td><a href="updateAdminInfo.do?seq=${adminInfo.seq }">수정</a> | <a href="deleteAdminInfo.do?seq=${adminInfo.seq }">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="insertInfo.do">글 등록</a>
+		<a href="insertAdminInfo.do">글 등록</a>
 
 	</div>
 

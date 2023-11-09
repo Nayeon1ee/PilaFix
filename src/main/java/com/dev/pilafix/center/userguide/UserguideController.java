@@ -26,7 +26,7 @@ public class UserguideController {
 	}
 	
 	@GetMapping("/updateUserguide.do")
-	public String updateForm(@RequestParam("ugCode") Integer ugCode, Model model) {
+	public String updateForm(int ugCode, Model model) {
 		model.addAttribute("userguide", service.getUserguide(ugCode));
 		return "userguide/updateUserguide.jsp";
 	}
