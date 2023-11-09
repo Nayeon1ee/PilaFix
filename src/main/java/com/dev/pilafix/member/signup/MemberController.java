@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,37 +31,36 @@ public class MemberController {
 	}
 	
 	/**
-	 * íšŒì› ê°€ì… ì „ íšŒì› or ê°•ì‚¬ì„ íƒ
+	 * È¸¿ø °¡ÀÔ Àü È¸¿ø or °­»ç¼±ÅÃ
 	 * @param csRoleCode
 	 * @return
 	 */
-	// selectMeOrTr.jspì—ì„œ ë„˜ì–´ì˜¨ ê°’(csRoleCode)ë°›ì•„ì„œ íšŒì› ê°€ì… í¼ì— íŒŒë¼ë¯¸í„°ë¡œ ë„˜ê²¨ì¤Œ
+	// selectMeOrTr.jsp¿¡¼­ ³Ñ¾î¿Â °ª(csRoleCode)¹Ş¾Æ¼­ È¸¿ø °¡ÀÔ Æû¿¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÜ
 	@GetMapping("/getUserRole.do")
-	public String getUserRole(@RequestParam("csRoleCode") String csRoleCode) {
-		// í…ŒìŠ¤íŠ¸ìš© System.out.println(csRoleCode);
+	public String getUserRole(@RequestParam("csRoleCode") String csRoleCode ) {
+		//Å×½ºÆ®¿ë System.out.println(csRoleCode);
 		String code = "";
 		if (csRoleCode.equals("ME")) {
 			code = "ME";
 		} else if (csRoleCode.equals("TR")) {
 			code = "TR";
 		}
-
+		
 		return "member_signup/insertMember.jsp?csRoleCode=" + code;
 
 	}
-
 	
 	/** 
-	 * ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
+	 * ¾ÆÀÌµğ Áßº¹ Ã¼Å©
 	 * @param csEmailId
 	 * @return
 	 */
-//	@ResponseBody //jsoní˜•íƒœë¡œ ë³€í™˜í•´ì¤Œ
+//	@ResponseBody //jsonÇüÅÂ·Î º¯È¯ÇØÁÜ
 //	@RequestMapping(value="/idCheck.do")
 //	public String idCheck(String csEmailId) {
 //		String str = null;
 //		int value = service.idCheck(csEmailId);
-//		System.out.println(value); //í…ŒìŠ¤íŠ¸ìš© : ë””ë¹„ì—ì„œ ì…€ë ‰í•´ì˜¨ê±° ì˜ ì¶œë ¥ë˜ë‚˜ í™•ì¸
+//		System.out.println(value); //Å×½ºÆ®¿ë : µğºñ¿¡¼­ ¼¿·ºÇØ¿Â°Å Àß Ãâ·ÂµÇ³ª È®ÀÎ
 //		str = "{\"value\":\""+value+"\"}";
 //	return str;
 //
@@ -75,40 +73,42 @@ public class MemberController {
 		int flag = service.idCheck(csEmailId);
 		
 		if(flag == 1) result="Y";
-		//ì•„ì´ë””ê°€ ìˆì„ì‹œ Y ì—†ì„ì‹œ N ìœ¼ë¡œjsp view ë¡œ ë³´ëƒ„
+		//¾ÆÀÌµğ°¡ ÀÖÀ»½Ã Y ¾øÀ»½Ã N À¸·Îjsp view ·Î º¸³¿
 		return result;
 		
 	}
 	
 /**
- * íšŒì› ê°€ì…
- * íšŒì› ê°€ì…ë²„íŠ¼ ëˆ„ë¥´ë©´ ì‹¤í–‰ /íšŒì›ê°€ì… ì™„ë£Œí•˜ë©´ ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì¼ë‹¨ ë³´ëƒ„
+ * È¸¿ø °¡ÀÔ
+ * È¸¿ø °¡ÀÔ¹öÆ° ´©¸£¸é ½ÇÇà /È¸¿ø°¡ÀÔ ¿Ï·áÇÏ¸é ·Î±×ÀÎ È­¸éÀ¸·Î ÀÏ´Ü º¸³¿
  * @param vo
  * @return
 */
 @PostMapping("/insertMember.do")
 public String insertMember(MemberVO vo) {
-	// ê°€ì…ì‹œ ì…ë ¥í•œ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì½ì–´ì™€ì„œ
+	// °¡ÀÔ½Ã ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£¸¦ ÀĞ¾î¿Í¼­
 	String csPassword = vo.getCsPassword();
 	
-	// ì•”í˜¸í™” í•œ í›„ì—
+	// ¾ÏÈ£È­ ÇÑ ÈÄ¿¡
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	String encodedPwd = encoder.encode(csPassword);
-	// voì— ë‹¤ì‹œ ë„£ì–´ì¤€ë‹¤.
+	// vo¿¡ ´Ù½Ã ³Ö¾îÁØ´Ù.
 	vo.setCsPassword(encodedPwd);
-	// ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸ê°€ ë“¤ì–´ ìˆëŠ” voë¥¼ daoì— ì „ë‹¬í•´ì„œ ìƒˆë¡œìš´ íšŒì› ì •ë³´ë¥¼ ì¶”ê°€í•œë‹¤.
+	// ¾ÏÈ£È­µÈ ºñ¹Ğ¹øÈ£°¡ µé¾î ÀÖ´Â vo¸¦ dao¿¡ Àü´ŞÇØ¼­ »õ·Î¿î È¸¿ø Á¤º¸¸¦ Ãß°¡ÇÑ´Ù.
 	service.insertMember(vo);
 	return "member_signup/loginEx.jsp";
 }
 
-//ì´ë©”ì¼ ì „ì†¡
+//ÀÌ¸ŞÀÏ Àü¼Û
 @GetMapping("/mailCheck.do")
 @ResponseBody
 public void mailCheck(String csEmailId) {
   //  service.sendEmailAndInsertSendEmailHistory(csEmailId);
-	System.out.println("ì´ë©”ì¼ ì¸ì¦ìš”ì²­ ë“¤ì–´ì˜´");
-	System.out.println("ìš”ì²­ ë³´ë‚¼ ì´ë©”ì¼ :" + csEmailId);
+	System.out.println("ÀÌ¸ŞÀÏ ÀÎÁõ¿äÃ» µé¾î¿È");
+	System.out.println("¿äÃ» º¸³¾ ÀÌ¸ŞÀÏ :" + csEmailId);
 }
+
+
 
 
 }
