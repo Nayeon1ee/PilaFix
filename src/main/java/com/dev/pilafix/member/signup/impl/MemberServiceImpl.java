@@ -1,70 +1,59 @@
-package com.dev.pilafix.admin.center_manage.impl;
+package com.dev.pilafix.member.signup.impl;
 
-import java.util.List;
+import java.io.IOException;
 
-import javax.mail.AuthenticationFailedException;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.admin.center_manage.CenterService;
 import com.dev.pilafix.admin.center_manage.CenterVO;
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
+import com.dev.pilafix.member.signup.MemberService;
+import com.dev.pilafix.member.signup.MemberVO;
 
 @Service
-public class CenterServiceImpl implements CenterService {
-	
+public class MemberServiceImpl implements MemberService {
 	@Autowired
-	private CenterDAO dao;
-
-	@Autowired
-	private JavaMailSender mailSender;
+	private MemberDAO dao; 
 	
 	@Override
-	public List<CenterVO> getCenterList() {
-		return dao.getCenterList();
+	public MemberVO getUserRole() {
+		return dao.getUserRole();
 	}
 
 	@Override
-	public CenterVO getCenter(int ctCode) {
-		return dao.getCenter(ctCode);
+	public int insertMember(MemberVO vo) {
+		return dao.insertMember(vo);
 	}
 
 	@Override
-	public int insertCenter(CenterVO vo) {
-		return dao.insertCenter(vo);
+	public int idCheck(String csEmailId){
+		int result= dao.idCheck(csEmailId);
+		return result;
+		  
 	}
-
-	@Override
-	public int updateCenter(CenterVO vo) {
-		return dao.updateCenter(vo);
-	}
-
-	@Override
-	public int deleteCenter(int ctCode) {
-		return dao.deleteCenter(ctCode);
-	}
-
-	@Override
-	public int ctIdCheck(String ctId) {
-		return dao.ctIdCheck(ctId);
-	}
+//	public void idCheck(String csEmailId, HttpServletResponse response) throws IOException {
+//		int count = dao.idCheck(csEmailId);
+//		if(count == 0) {
+//			//dao에서 select이 되지 않아야 true
+//			//id가 없어야 true(사용 가능)
+//			response.getWriter().print("1");
+//		}else {
+//			//id가 있으면 false(중복으로 사용 불가능)
+//			response.getWriter().print("0");
+//		}
+//		
+//	}
 	
-
 	/**
 	 * 이메일 발송 및 이력 등록
-	 */
+	 
     @Override
-    public void sendEmailAndInsertSendEmailHistory(CenterVO center) {
-    	
-    	int flag = 0;// 발송 성공 여부
-    	String errorMessage=""; //에러 시 실패 사유 
-    	
+    public void mailCheckAndInsertSendEmailHistory(MemberVO vo) {
+
         String ownerEmail = center.getOwnerEmail();
         String ctId = center.getCtId();
         String ctPassword = center.getCtPassword();
@@ -95,11 +84,10 @@ public class CenterServiceImpl implements CenterService {
 	    content.append("</div></body></html>");
 		
 		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper;
+		    MimeMessage message = mailSender.createMimeMessage();
+		    MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
-			messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setFrom(from); // 보내는사람 (필수)
+		    messageHelper.setFrom(from); // 보내는사람 (필수)
 		    messageHelper.setTo(toSend); // 받는사람 이메일
 		    messageHelper.setSubject(title); // 메일제목
 
@@ -107,17 +95,8 @@ public class CenterServiceImpl implements CenterService {
 		    messageHelper.setText(content.toString(), true); // 메일 내용을 HTML 형식으로 설정
 
 		    mailSender.send(message);
-		    
-		    flag=1;
-		}catch (AuthenticationFailedException afe) {
-		    System.out.println(afe.getMessage());
-		    afe.printStackTrace();
-		} catch (MessagingException me) {
-		    errorMessage = me.getMessage();
-		    me.printStackTrace();
 		} catch (Exception e) {
-		    errorMessage = e.getMessage();
-		    e.printStackTrace();
+		    System.out.println(e);
 		}
 		
 		//====이메일 발송 이력 등록======
@@ -127,45 +106,8 @@ public class CenterServiceImpl implements CenterService {
 		email.setMhRecipientTitle(title);
 		email.setMhRecipientContent(content.toString());
 		email.setMhRecipientEmail(toSend);
-
-		if(flag == 1) {
-			email.setMhSuccessYN(true);
-			email.setMhSuccessDate(java.time.LocalDateTime.now());
-		}else {
-			email.setMhSuccessYN(false);
-			email.setMhFailReason(errorMessage);
-		}
-		dao.sendEmail(email);
+		//이메일 발송 후 성공 여부 판단할 수 있는지? 할 수 있다면 판단해서 
+		// email.setSuccessYN 셋해야 함
     }
-
-    
-    /**
-     * 센터 등록 및 세션 저장 
-     */
-    @Override
-    public void insertCenterAndSetSession(CenterVO center, HttpSession session) {
-    	session.setAttribute("center", center);
-    	dao.insertCenter(center);
-    }
-
-    
-    /**
-     * 계약 해지 메서드 
-     * 파라미터로 받은 ctCode에 해당하는 센터의 계약 해지 true 변경
-     */
-	@Override
-	public void revokeCenter(int ctCode) {
-		dao.revokeCenter(ctCode);
-
-	}
-	
-	/**
-	 * 비밀번호 초기화 메서드 
-	 */
-	@Override
-	public void resetPassword(int ctCode) {
-		dao.resetPassword(ctCode);
-	}	
-	
-
+*/
 }

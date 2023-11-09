@@ -66,6 +66,7 @@
 
 
 		<!-- jackson-databind -->
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -172,6 +173,29 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+
+
+		<!-- STMP 메일 전송 관련 라이브러리 -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+	<!-- 비밀번호 암호화 (자바버전 17 이하는 5.5버전까지만 사용가능해서 낮은 버전 사용) -->
+	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-web</artifactId>
+		<version>5.5.2</version>
+	</dependency>
+
 
 		<!-- Test -->
 		<dependency>

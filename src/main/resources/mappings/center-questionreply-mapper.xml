@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="QuestionReplyDAO">
+
+	<resultMap type="questionReply" id="questionReplyResult">
+		<id property="reNumber" column="RE_NUMBER"/>
+		<result property="reTitle" column="RE_TITLE" />
+		<result property="reContent" column="RE_CONTENT" />
+		<result property="writerRoleCode" column="WRITER_ROLE_CODE" />
+		<result property="writerMemberCode" column="WRITER_MEMBER_CODE" />
+		<result property="reRegdate" column="RE_REGDATE" />
+		<result property="reTargetPostType" column="RE_TARGET_POST_TYPE" />
+		<result property="reTargetPostNumber" column="RE_TARGET_POST_NUMBER" />
+
+	</resultMap>
+	
+	<resultMap type="question" id="questionResult">
+		<id property="qsNumber" column="QS_NUMBER"/>
+		<result property="qsTitle" column="QS_TITLE" />
+		<result property="qsContent" column="QS_CONTENT" />
+		<result property="qsWriterMemberCode" column="QS_WRITER_MEMBER_CODE" />
+		<result property="qsRegdate" column="QS_REGDATE" />
+		<result property="qsModifiedDate" column="QS_MODIFIED_DATE" />
+		<result property="qsAnswerYn" column="QS_ANSWER_YN" />
+	</resultMap>
+
+	
+	<select id="getQuestionReplyList" resultMap="questionResult">
+		SELECT QS_NUMBER,QS_TITLE,QS_REGDATE, QS_MODIFIED_DATE,QS_ANSWER_YN,QS_CONTENT FROM TBL_QUESTION
+	</select>
+	
+	<select id="getTargetQuestion" resultMap="questionResult">
+		SELECT * FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
+	</select>
+	
+	<select id="getQuestionReply" resultMap="questionReplyResult" >
+		SELECT * FROM TBL_REPLY WHERE RE_TARGET_POST_NUMBER=#{reTargetPostNumber}
+	</select>
+	
+	<insert id="insertQuestionReply" parameterType="questionReply">
+		INSERT INTO	TBL_REPLY
+		VALUES(nextval('seq_reply'), #{reTitle}, #{reContent}, 'CE', #{writerMemberCode}, CURRENT_TIMESTAMP, 'QST', #{reTargetPostNumber})
+	</insert>
+	
+	<update id="updateQuestionReply" parameterType="questionReply">
+		UPDATE TBL_REPLY SET RE_TITLE=#{reTitle}, RE_CONTENT=#{reContent}, RE_REGDATE=CURRENT_TIMESTAMP WHERE RE_NUMBER=#{reNumber}
+	</update>
+	
+	<update id="updateAnswerYn" >
+		UPDATE TBL_QUESTION SET QS_ANSWER_YN = true WHERE QS_NUMBER = #{qsNumber}
+	</update>
+	
+	<delete id="deleteQuestionReply" >
+		DELETE FROM TBL_REPLY WHERE RE_NUMBER=#{reNumber}
+	</delete>
+
+	
+</mapper>

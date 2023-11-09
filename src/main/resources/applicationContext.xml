@@ -13,49 +13,82 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<context:component-scan	base-package="com.dev.pilafix"/>
+	<context:component-scan base-package="com.dev.pilafix" />
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 	<!-- DataSource 등록 -->
-	<context:property-placeholder location="classpath:config/database.properties"/>
-
-	<!-- 스프링 JDBC 설정 -->
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>	
-		
-	 <!-- JDBC-PostgreSQL -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${jdbc.driverClassName}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-    </bean>
+	<context:property-placeholder location="classpath:config/application.properties" />
 	
-	<!-- mybatis 연동 -->
-	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis-config.xml" />
+	<!-- 스프링 JDBC 설정 -->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+
+	<!-- JDBC-PostgreSQL -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- mybatis 연동 -->
+	<bean id="sessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sessionFactory" />
 	</bean>
-	
-	<!-- Transaction 설정  -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+
+	<!-- Transaction 설정 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+	<tx:advice id="transactionAdvice"
+		transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="get*" read-only="true"/>
-			<tx:method name="*"/>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="*" />
 		</tx:attributes>
 	</tx:advice>
 
 	<!-- Transaction에 대한 AOP설정 -->
 	<aop:config>
-		<aop:pointcut expression="execution(* com.dev.pilafix..*(..))" id="transactionPointcut"/>
-		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointcut"/>
+		<aop:pointcut
+			expression="execution(* com.dev.pilafix..*(..))"
+			id="transactionPointcut" />
+		<aop:advisor advice-ref="transactionAdvice"
+			pointcut-ref="transactionPointcut" />
 	</aop:config>
-		
+
+	<!-- smtp 설정 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${spring.mail.host}" />
+		<property name="port" value="${spring.mail.port}" />
+	    <property name="username" value="${spring.mail.username}" />
+	    <property name="password" value="${spring.mail.password}" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtps.ssl.trust">*</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+			</props>
+		</property>
+	</bean>
+
+
+
 </beans>

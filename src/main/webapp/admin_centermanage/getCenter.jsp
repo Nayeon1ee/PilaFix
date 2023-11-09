@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>글 상세</title>
 </head>
-<script type="text/javascript" src="/js/script.js"></script>
 <body>
 <div align="center">
 		<h1>글 목록</h1>
@@ -83,38 +82,83 @@
 			</tr>
 		</table>
 		
-		<button onclick="alert('해지하면 계약상태를 되돌릴 수 없습니다. 정말로 해지하시겠습니까?')">계약해지</button>
-		<button onclick="">비밀번호 초기화</button>
+		<button onclick="revokeCenter(${center.ctCode })">계약해지</button>
+		<button onclick="resetPassword(${center.ctCode })">비밀번호 초기화</button>
 		
+		<br><br>
+		
+		<a href="getCenterList.do">글 목록</a>
+		<a href="updateCenter.do?ctCode=${center.ctCode }">수정</a>
 		
 		<!-- 문자발송이력 테이블 추가해야 함 -->
 		<hr>		
 		<h3>문자발송이력</h3>
 		<table>
-		<!--
 			<tr>
 				<th>번호</th>
-				<th>내용</th>
+				<th>제목</th>
 				<th>수신인</th>
 				<th>발송일자</th>
 			</tr>
-			<c:if test="${# == null }">
+			<c:if test="">
 				<tr>
 					<td colspan="5">등록된 센터가 없습니다.</td>
 				</tr>
 			</c:if>
-			<tr>
-			
-				<td>#</td>
-				<td>#</td>
-				<td>#</td>
-				<td>#</td>
-			
-			</tr>
-		-->
+			<%--
+			<c:forEach var="emailHistory" items="${emailHistory }">
+				<tr>
+					<td>${emailHistory.mhEmailSendCode }</td>
+					<td>${emailHistory.mhRecipientTitle }</td>
+					<td>${emailHistory.mhRecipientName }</td>
+					<td>${emailHistory.mhEmailSendDate }</td>
+				</tr>
+			</c:forEach>
+			 --%>
 		</table>
 
-		<a href="getBoardList.do">글 목록</a>
+	
 	</div>
+
+<script>
+function revokeCenter(ctCode) {
+	if (window.confirm('해지하면 계약상태를 되돌릴 수 없습니다. \n정말로 해지하시겠습니까?')) {
+		fetch('/pilafix/revokeCenter.do?ctCode=' + ctCode, {
+			method: 'GET'
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('error');
+				}
+				window.location.href = 'getCenterList.do'; // 센터 목록 페이지로 리다이렉트
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	}else {
+		return;
+	}
+};
+ 
+function resetPassword(ctCode) {
+	if (window.confirm('비밀번호를 초기화하시겠습니까? \n초기비밀번호 : 1111')) {
+		fetch('/pilafix/resetPassword.do?ctCode=' + ctCode, {
+			method: 'GET'
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('error');
+				}
+				window.location.href = 'getCenterList.do'; // 센터 목록 페이지로 리다이렉트
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	}else {
+		return;
+	}
+};
+</script>
+
 </body>
 </html>

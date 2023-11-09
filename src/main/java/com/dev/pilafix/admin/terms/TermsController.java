@@ -22,7 +22,7 @@ public class TermsController {
 	
 	@GetMapping("/getTermsList.do")
 	public String getTermsList(Model model) {
-		model.addAttribute("getTermsList", service.getTermsList());
+		model.addAttribute("termsList", service.getTermsList());
 		return "terms/getTermsList.jsp";
 	}
 
