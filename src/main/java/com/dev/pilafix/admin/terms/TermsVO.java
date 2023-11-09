@@ -1,13 +1,13 @@
 package com.dev.pilafix.admin.terms;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class TermsVO {
 	private int tmCode;//6자리
 	private String tmName;
 	private String tmDetail;
-	private Timestamp tmRegdate; //DEFAULT NOW()
-	private Timestamp tmModifiedDate;//DEFAULT NOW()
+	private Date tmRegdate; //DEFAULT NOW()
+	private Date tmModifiedDate;//DEFAULT NOW()
 	private boolean tmRequiredYn;//필수면 Y 선택이면 N
 	private boolean tmOpenYn;
 	public int getTmCode() {
@@ -28,16 +28,16 @@ public class TermsVO {
 	public void setTmDetail(String tmDetail) {
 		this.tmDetail = tmDetail;
 	}
-	public Timestamp getTmRegdate() {
+	public Date getTmRegdate() {
 		return tmRegdate;
 	}
-	public void setTmRegdate(Timestamp tmRegdate) {
+	public void setTmRegdate(Date tmRegdate) {
 		this.tmRegdate = tmRegdate;
 	}
-	public Timestamp getTmModifiedDate() {
+	public Date getTmModifiedDate() {
 		return tmModifiedDate;
 	}
-	public void setTmModifiedDate(Timestamp tmModifiedDate) {
+	public void setTmModifiedDate(Date tmModifiedDate) {
 		this.tmModifiedDate = tmModifiedDate;
 	}
 	public boolean isTmRequiredYn() {
