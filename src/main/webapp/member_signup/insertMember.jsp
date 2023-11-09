@@ -6,17 +6,20 @@
 <meta charset="UTF-8">
 <title>회원 가입 화면</title>
 
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="member_signup/js/idCheck.js"></script>
 <!--  <script type="text/javascript" src="member_signup/js/test.js"></script> -->
 
+
 </head>
 <body>
-	
-	<form action="insertMember.do" method="post" onsubmit="return validateForm()">
-	
-	<!-- 히든으로 앞에서 넘어온 csRoleCode값 저장함 -->
-	  <input type="hidden" name="csRoleCode" value=<%=request.getParameter("csRoleCode") %>> 
+   
+   <form action="insertMember.do" method="post" onsubmit="return validateForm()">
+   
+   <!-- 히든으로 앞에서 넘어온 csRoleCode값 저장함 -->
+     <input type="hidden" name="csRoleCode" value=<%=request.getParameter("csRoleCode") %>> 
+
 
 
 	<p> 이메일 아이디 <input type="email" id="csEmailId" name="csEmailId"> <button id="idCheck">중복확인</button></p>
@@ -50,6 +53,7 @@
 	
 	</form>
 	<!--  
+
 <script type="text/javascript">
 function validateForm() {
     var csAgreementYn1 = document.getElementById("csAgreementYn1");
@@ -63,6 +67,7 @@ function validateForm() {
 }
 </script>
 -->
+
 <!-- 아이디 중복 확인 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -88,6 +93,7 @@ $(document).ready(function(){
 	});
 	});
 	});
+
 </script>
 -->
 

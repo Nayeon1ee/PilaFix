@@ -18,18 +18,18 @@
             <th>최근수정일자</th>
             <th>필수여부</th>
         </tr>
-        <c:if test="${getTermsList == null }">
+        <c:if test="${termsList == null }">
 			<tr>
 			<td colspan="5">등록된 글이 없습니다.</td>
 			</tr>
 		</c:if>
-        <c:forEach var="term" items="${getTermsList }">
+        <c:forEach var="list" items="${termsList }">
     	<tr>
-	        <td><a href="updateTerms.do?tmCode=${term.tmCode}">${term.tmCode}</a></td>
-	        <td>${term.tmName}</td>
-	        <td>${term.tmRegdate}</td>
-	        <td>${term.tmModifiedDate}</td>
-	        <td>${term.tmRequiredYn}</td>
+	        <td><a href="updateTerms.do?tmCode=${list.tmCode}">${list.tmCode}</a></td>
+	        <td>${list.tmName}</td>
+	        <td>${list.tmRegdate}</td>
+	        <td>${list.tmModifiedDate}</td>
+	        <td>${list.tmRequiredYn}</td>
    		</tr>
 		</c:forEach>
     </table>
