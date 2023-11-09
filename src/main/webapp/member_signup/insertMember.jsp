@@ -130,7 +130,7 @@ $(function(){
 
 </script>
 
-<!-- 이메일 인증요청 버튼 클릭시 /sendEmailToMem.do에 맵핑된 컨트롤러 실행 -->
+<!-- 이메일 인증요청 버튼 클릭시 /mailCheck.do에 맵핑된 컨트롤러 실행 -->
 <script>
 $(document).ready(function() {
     $("#sendEmailButton").on("click", function() {
@@ -145,13 +145,35 @@ $(document).ready(function() {
             success: function(data) {
             	console.log("data : " +  data);
 				checkInput.attr('disabled',false);
-				code =data;
 				alert('인증번호가 전송되었습니다.')
+				
+				$('.mail-check-input').blur(function () {
+					const inputCode = $(this).val();
+					const $resultMsg = $('#mail-check-warn');
+					
+					const authNumber = '<%=(String)session.getAttribute("authNumber")%>';
+					console.log(authNumber);
+					
+					if(inputCode === data){
+						$resultMsg.html('인증번호가 일치합니다.');
+						$resultMsg.css('color','green');
+						$('#mail-Check-Btn').attr('disabled',true);
+						$('#csEmailId').attr('readonly',true);
+						
+					}else{
+						$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+						$resultMsg.css('color','red');
+					}
+				});
+				
+				
             }
             
         });
     });
 });
 </script>
+
+
 </body>
 </html>
