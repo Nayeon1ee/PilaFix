@@ -102,10 +102,11 @@ public String insertMember(MemberVO vo) {
 //이메일 전송
 @GetMapping("/mailCheck.do")
 @ResponseBody
-public void mailCheck(String csEmailId) {
+public void mailCheck(String csEmailId,HttpSession session) {
   //  service.sendEmailAndInsertSendEmailHistory(csEmailId);
 	System.out.println("이메일 인증요청 들어옴");
 	System.out.println("요청 보낼 이메일 :" + csEmailId);
+	service.mailCheckAndInsertSendEmailHistory(csEmailId, session);
 }
 
 
