@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/admin-centermanage-mapper.xml" />
 		<mapper resource="mappings/admin-terms-mapper.xml" />
 		<mapper resource="mappings/member-signup-mapper.xml" />
+		<mapper resource="mappings/admin-membermanage-mapper.xml"/>
 	</mappers>
 
 </configuration>
