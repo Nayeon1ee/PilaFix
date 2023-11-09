@@ -14,11 +14,13 @@ public interface MemberService {
 //	void idCheck(String csEmailId, HttpServletResponse response) throws IOException;
 //	int idCheck(MemberVO vo) throws Exception;
 	
+	int mailCheckAndInsertSendEmailHistory(String csEmailId);
+	
 	/**
 	 * 이메일 발송 및 이력 등록
 	 * @return 
 	 */
-	void mailCheckAndInsertSendEmailHistory(String csEmailId, HttpSession session);
+//	void mailCheckAndInsertSendEmailHistory(String csEmailId, HttpSession session);
 	
 
 }
