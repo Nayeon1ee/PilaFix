@@ -1,15 +1,17 @@
 package com.dev.pilafix.member.signup.impl;
 
-import java.io.IOException;
+import java.util.Random;
 
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.admin.center_manage.CenterVO;
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
 import com.dev.pilafix.member.signup.MemberService;
 import com.dev.pilafix.member.signup.MemberVO;
@@ -18,6 +20,9 @@ import com.dev.pilafix.member.signup.MemberVO;
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO dao; 
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@Override
 	public MemberVO getUserRole() {
@@ -50,44 +55,41 @@ public class MemberServiceImpl implements MemberService {
 	
 	/**
 	 * 이메일 발송 및 이력 등록
-	 
+	 */
     @Override
-    public void mailCheckAndInsertSendEmailHistory(MemberVO vo) {
-
-        String ownerEmail = center.getOwnerEmail();
-        String ctId = center.getCtId();
-        String ctPassword = center.getCtPassword();
-        String ownerName = center.getOwnerName();
+    public void mailCheckAndInsertSendEmailHistory(String csEmailId,HttpSession session) {
+    	
+    	int flag = 0;// 발송 성공 여부
+    	String errorMessage=""; //에러 시 실패 사유 
+    	
+    	//인증번호 난수 발생 시켜서 세션에 1시간만 저장 
+    	int authNumber = createAuthNumber();
+    	session.setAttribute("authNumber", authNumber);
+    	session.setMaxInactiveInterval(60*60);
 		
 		//====이메일 발송======
 	    String from = "inayeon1212@gmail.com"; //보내는 사람
-	    String title = "[필라픽스] 센터 등록 완료 안내"; // 제목
-	    String toSend = ownerEmail; //받는 사람
+	    String title = "[필라픽스] 회원가입 이메일 인증 메일"; // 제목
+	    String toSend = csEmailId; //받는 사람
 
 	    //메일 내용
 	    StringBuilder content = new StringBuilder();
 	    content.append("<html><body style='font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;'>");
 	    content.append("<div style='background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);'>");
-	    content.append("<h1 style='color: #333333; text-align: center;'>센터 등록 완료 안내</h1>");
+	    content.append("<h1 style='color: #333333; text-align: center;'>회원 가입 이메일 인증번호 전송</h1>");
 	    content.append("<p style='color: #555555; text-align: center;'>");
-	    content.append(ownerName);
-	    content.append(" 대표님, ");
-	    content.append(center.getCtName());
-	    content.append(" 센터 등록이 완료되었습니다.</p>");
-	    content.append("<p style='color: #555555; text-align: center;'>아래 계정으로 로그인 후, 비밀번호를 꼭 변경하여 주시기 바랍니다.</p>");
-	    content.append("<p style='margin-top: 20px; text-align: center;'><strong>아이디: </strong>");
-	    content.append(ctId);
-	    content.append("</p><p style='text-align: center;'><strong>비밀번호: </strong>");
-	    content.append(ctPassword);
+	    content.append("</p><p style='text-align: center;'><strong>인증번호: </strong>");
+	    content.append(authNumber);
 	    content.append("</p>");
-	    content.append("<p style='color: #555555; text-align: center;'>필라픽스를 이용해주셔서 감사합니다.</p>");
+	    content.append("<p style='color: #555555; text-align: center;'>회원가입 페이지로 돌아가 인증번호를 입력해 주시기 바랍니다.</p>");
 	    content.append("</div></body></html>");
 		
 		try {
-		    MimeMessage message = mailSender.createMimeMessage();
-		    MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper;
 
-		    messageHelper.setFrom(from); // 보내는사람 (필수)
+			messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom(from); // 보내는사람 (필수)
 		    messageHelper.setTo(toSend); // 받는사람 이메일
 		    messageHelper.setSubject(title); // 메일제목
 
@@ -95,19 +97,42 @@ public class MemberServiceImpl implements MemberService {
 		    messageHelper.setText(content.toString(), true); // 메일 내용을 HTML 형식으로 설정
 
 		    mailSender.send(message);
+		    
+		    flag=1;
+		}catch (AuthenticationFailedException afe) {
+		    System.out.println(afe.getMessage());
+		    afe.printStackTrace();
+		} catch (MessagingException me) {
+		    errorMessage = me.getMessage();
+		    me.printStackTrace();
 		} catch (Exception e) {
-		    System.out.println(e);
+		    errorMessage = e.getMessage();
+		    e.printStackTrace();
 		}
 		
 		//====이메일 발송 이력 등록======
 		SendEmailHistoryVO email = new SendEmailHistoryVO();
-		email.setMhEmailSendType("센터계정생성");
-		email.setMhRecipientName(center.getOwnerName());
+		email.setMhEmailSendType("회원가입 인증");
+		email.setMhRecipientName("회원"); //회원가입시 회원은 이름이 없음
 		email.setMhRecipientTitle(title);
 		email.setMhRecipientContent(content.toString());
 		email.setMhRecipientEmail(toSend);
-		//이메일 발송 후 성공 여부 판단할 수 있는지? 할 수 있다면 판단해서 
-		// email.setSuccessYN 셋해야 함
+
+		if(flag == 1) {
+			email.setMhSuccessYN(true);
+			email.setMhSuccessDate(java.time.LocalDateTime.now());
+		}else {
+			email.setMhSuccessYN(false);
+			email.setMhFailReason(errorMessage);
+		}
+		dao.sendEmailToMem(email); //이메일 발송이력 저장
     }
-*/
+    
+    public int createAuthNumber() {
+    	// 난수의 범위 111111 ~ 999999 (6자리 난수)
+    	Random r = new Random();
+    	int authNumber = r.nextInt(888888) + 111111;
+    	System.out.println("인증번호 : " + authNumber);
+    	return authNumber;
+    }
 }
