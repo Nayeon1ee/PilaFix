@@ -1,5 +1,7 @@
 package com.dev.pilafix.member.signup.impl;
 
+import javax.transaction.Transactional;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,7 +20,8 @@ public class MemberDAO {
 	}
 	
 	public int idCheck(String csEmailId) {
-		return sqlSessionTemplate.selectOne("MemberDAO.idCheck",csEmailId);
+		return  sqlSessionTemplate.selectOne("MemberDAO.idCheck",csEmailId);
+		  
 	}
 	
 	public int insertMember(MemberVO vo) {

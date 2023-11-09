@@ -11,6 +11,7 @@ public interface MemberService {
 	int insertMember(MemberVO vo);
 	int idCheck(String csEmailId);
 //	void idCheck(String csEmailId, HttpServletResponse response) throws IOException;
+//	int idCheck(MemberVO vo) throws Exception;
 	
 
 }

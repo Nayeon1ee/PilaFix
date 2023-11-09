@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입 화면</title>
- 
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="member_signup/js/idCheck.js"></script>
 <!--  <script type="text/javascript" src="member_signup/js/test.js"></script> -->
@@ -19,10 +19,16 @@
 	  <input type="hidden" name="csRoleCode" value=<%=request.getParameter("csRoleCode") %>> 
 
 
-	<p> 이메일 아이디 <input type="email" id="csEmailId" name="csEmailId"> <button id="idCheck" >중복확인</button></p>
+	<p> 이메일 아이디 <input type="email" id="csEmailId" name="csEmailId"> <button id="idCheck">중복확인</button></p>
 	<div><span id="result_checkId" style="font-size:12px;"></span></div>
-	<p> 인증번호 <input type="text" name="csEmailIdCheck"> <button id="" onclick="#">확인</button></p>
-	
+
+	<div class="input-group-addon">
+	<button type="button" class="btn btn-primary" id="sendEmailButton">인증요청</button>
+</div>
+	<div class="mail-check-box">
+<input type="text" class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"><button id="" >확인</button>
+</div>
+	<span id="mail-check-warn"></span>
 	
 	<p> 비밀번호 <input type="password" name="csPassword" id="csPassword"></p>	
 	<p> 비밀번호 확인<input type="password" name="passwordConfirm" id="passwordConfirm" onkeyup="passConfirm()"> <span id ="confirmMsg"></span></p>	
@@ -32,8 +38,8 @@
 	<p> 핸드폰 번호 <input type="text" name="csPhoneNumber1" size="3"><input type="text" name="csPhoneNumber2" size="4"><input type="text" name="csPhoneNumber3" size="4"> </p>
 	
 	<p> 생년월일 <input type="date" name="csBirth"></p>
-	<p>성별 <input type="radio" name="csGenderMw" value="남">남자 
-		<input type="radio" name="csGenderMw" value="여">여자</p>
+	<p>성별 <input type="radio" name="csGenderMw" value="남자">남자 
+		<input type="radio" name="csGenderMw" value="여자">여자</p>
 	
 	<p>이용약관</p>
 	<p><input type="checkbox"  name="csAgreementYn1" id="csAgreementYn1" value="true">[필수] 만 14세 이상입니다. </p>
@@ -57,6 +63,7 @@ function validateForm() {
 }
 </script>
 -->
+<!-- 아이디 중복 확인 
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#idCheck").on("click",function(){
@@ -81,6 +88,64 @@ $(document).ready(function(){
 	});
 	});
 	});
+</script>
+-->
+
+ 
+<script type="text/javascript">
+$(function(){
+    $("#idCheck").click(function(){
+    
+        let csEmailId = $("#csEmailId").val();
+         
+        $.ajax({
+            type:'post', //post 형식으로 controller 에 보내기위함!!
+            url:"idCheck.do", // 컨트롤러로 가는 mapping 입력
+            data: {"csEmailId":csEmailId}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
+            success: function(data){ 
+                if(data == "N"){ // 만약 성공할시
+                    result = "사용 가능한 아이디입니다.";
+                    $("#result_checkId").html(result).css("color", "green");
+                    $("#csPassword").trigger("focus");
+                 
+             }else{ // 만약 실패할시
+                 result="이미 사용중인 아이디입니다.";
+                     $("#result_checkId").html(result).css("color","red");
+                     $("#member_id").val("").trigger("focus");
+             }
+                 
+         },
+            error : function(error){alert(error);}
+        });
+        
+    });
+    
+});
+
+</script>
+
+<!-- 이메일 인증요청 버튼 클릭시 /sendEmailToMem.do에 맵핑된 컨트롤러 실행 -->
+<script>
+$(document).ready(function() {
+    $("#sendEmailButton").on("click", function() {
+    	//alert(" 버튼 클릭했습니다")
+    	const csEmailId = $('#csEmailId').val(); // 이메일 주소값 얻어오기!
+		console.log('완성된 이메일 : ' + csEmailId); // 이메일 오는지 확인
+		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+		
+        $.ajax({
+            type: "GET",
+            url: "mailCheck.do?csEmailId="+csEmailId,
+            success: function(data) {
+            	console.log("data : " +  data);
+				checkInput.attr('disabled',false);
+				code =data;
+				alert('인증번호가 전송되었습니다.')
+            }
+            
+        });
+    });
+});
 </script>
 </body>
 </html>
