@@ -1,17 +1,17 @@
 package com.dev.pilafix.admin.center_manage;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class SendEmailHistoryVO {
 	private String mhEmailSendCode;
 	private String mhEmailSendType;
-	private Date mhEmailSendDate;
+	private LocalDateTime mhEmailSendDate;
 	private String mhRecipientName;
 	private String mhRecipientTitle;
 	private String mhRecipientContent;
 	private String mhRecipientEmail;
 	private boolean mhSuccessYN;
-	private Date mhSuccessDate;
+	private LocalDateTime mhSuccessDate;
 	private String mhFailReason;
 	public String getMhEmailSendCode() {
 		return mhEmailSendCode;
@@ -25,10 +25,10 @@ public class SendEmailHistoryVO {
 	public void setMhEmailSendType(String mhEmailSendType) {
 		this.mhEmailSendType = mhEmailSendType;
 	}
-	public Date getMhEmailSendDate() {
+	public LocalDateTime getMhEmailSendDate() {
 		return mhEmailSendDate;
 	}
-	public void setMhEmailSendDate(Date mhEmailSendDate) {
+	public void setMhEmailSendDate(LocalDateTime mhEmailSendDate) {
 		this.mhEmailSendDate = mhEmailSendDate;
 	}
 	public String getMhRecipientName() {
@@ -61,10 +61,10 @@ public class SendEmailHistoryVO {
 	public void setMhSuccessYN(boolean mhSuccessYN) {
 		this.mhSuccessYN = mhSuccessYN;
 	}
-	public Date getMhSuccessDate() {
+	public LocalDateTime getMhSuccessDate() {
 		return mhSuccessDate;
 	}
-	public void setMhSuccessDate(Date mhSuccessDate) {
+	public void setMhSuccessDate(LocalDateTime mhSuccessDate) {
 		this.mhSuccessDate = mhSuccessDate;
 	}
 	public String getMhFailReason() {
