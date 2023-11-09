@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/member-question-mapper.xml" />
 		<mapper resource="mappings/center-questionreply-mapper.xml" />
 		<mapper resource="mappings/member-signup-mapper.xml" />
+		<mapper resource="mappings/admin-membermanage-mapper.xml"/>
 		<mapper resource="mappings/center-lesson-mapper.xml" />
 	</mappers>
 
