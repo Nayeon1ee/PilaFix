@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dev.pilafix.admin.center_manage.CenterVO;
+
 @Controller
 public class MemberController {
 	@Autowired
@@ -26,11 +30,16 @@ public class MemberController {
 	public String selectForm() {
 		return "member_signup/selectMeOrTr.jsp";
 	}
-
-	// selectMeOrTr.jsp¿¡¼­ ³Ñ¾î¿Â °ª(csRoleCode)¹Ş¾Æ¼­ È¸¿ø °¡ÀÔ Æû¿¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÜ
+	
+	/**
+	 * íšŒì› ê°€ì… ì „ íšŒì› or ê°•ì‚¬ì„ íƒ
+	 * @param csRoleCode
+	 * @return
+	 */
+	// selectMeOrTr.jspì—ì„œ ë„˜ì–´ì˜¨ ê°’(csRoleCode)ë°›ì•„ì„œ íšŒì› ê°€ì… í¼ì— íŒŒë¼ë¯¸í„°ë¡œ ë„˜ê²¨ì¤Œ
 	@GetMapping("/getUserRole.do")
 	public String getUserRole(@RequestParam("csRoleCode") String csRoleCode) {
-		// Å×½ºÆ®¿ë System.out.println(csRoleCode);
+		// í…ŒìŠ¤íŠ¸ìš© System.out.println(csRoleCode);
 		String code = "";
 		if (csRoleCode.equals("ME")) {
 			code = "ME";
@@ -42,54 +51,64 @@ public class MemberController {
 
 	}
 
-	// ¾ÆÀÌµğ Ã¼Å©
-//	@RequestMapping("/idCheck.do")
-//	@ResponseBody
-//	public Map<Object, Object> idcheck(@RequestBody String csEmailId) {
-//
-//		int count = 0;
-//		Map<Object, Object> map = new HashMap<Object, Object>();
-//
-//		count = service.idCheck(csEmailId);
-//		map.put("count", count);
-//
-//		return map;
-//	}
-
-//	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
-//	public void idCheck(HttpServletResponse response, @RequestParam("csEmailId") String csEmailId) throws IOException {
-//		//@RequestParam´Â ¿äÃ»ÀÇ Æ¯Á¤ ÆÄ¶ó¹ÌÅÍ °ªÀ» Ã£¾Æ³¾ ¶§ »ç¿ëÇÏ´Â ¾î³ëÅ×ÀÌ¼Ç
-//		service.idCheck(csEmailId,response);	//¼­ºñ½º¿¡ ÀÖ´Â idOverlap È£Ãâ.
-//	}
-
-//	@ResponseBody
-//	@PostMapping(value = "/idCheck.do")
-//	public int idCheck(@RequestBody Map<String, String> params) {
-//	    String csEmailId = params.get("csEmailId");
-//	    int value = service.idCheck(csEmailId);
-//	    System.out.println(value); // Å×½ºÆ®¿ë: µğºñ¿¡¼­ ¼¿·ºÇØ¿Â °ÍÀ» È®ÀÎ
-//	    return value;
-//	}
 	
-	@RequestMapping("/idCheck.do")
-    //@ResponseBody ajax °ªÀ» ¹Ù·Îjsp ·Î º¸³»±âÀ§ÇØ »ç¿ë
-    public String idCheck(String csEmailId) {
-        String result="N";
-        
-        int flag = service.idCheck(csEmailId);
-        
-        if(flag == 1) result ="Y"; 
-        //¾ÆÀÌµğ°¡ ÀÖÀ»½Ã Y ¾øÀ»½Ã N À¸·Îjsp view ·Î º¸³¿
-        return result;
-    }
- 
-
-	
-	// È¸¿ø °¡ÀÔ¹öÆ° ´©¸£¸é ½ÇÇà /È¸¿ø°¡ÀÔ ¿Ï·áÇÏ¸é ·Î±×ÀÎ È­¸éÀ¸·Î ÀÏ´Ü º¸³¿
-	@PostMapping("/insertMember.do")
-	public String insertMember(MemberVO vo) {
-		service.insertMember(vo);
-		return "member_signup/loginEx.jsp";
+	/** 
+	 * ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
+	 * @param csEmailId
+	 * @return
+	 */
+//	@ResponseBody //jsoní˜•íƒœë¡œ ë³€í™˜í•´ì¤Œ
+//	@RequestMapping(value="/idCheck.do")
+//	public String idCheck(String csEmailId) {
+//		String str = null;
+//		int value = service.idCheck(csEmailId);
+//		System.out.println(value); //í…ŒìŠ¤íŠ¸ìš© : ë””ë¹„ì—ì„œ ì…€ë ‰í•´ì˜¨ê±° ì˜ ì¶œë ¥ë˜ë‚˜ í™•ì¸
+//		str = "{\"value\":\""+value+"\"}";
+//	return str;
+//
+//}
+	@RequestMapping(value="/idCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String idCheck(@RequestParam("csEmailId") String csEmailId){
+		String result ="N";
+		
+		int flag = service.idCheck(csEmailId);
+		
+		if(flag == 1) result="Y";
+		//ì•„ì´ë””ê°€ ìˆì„ì‹œ Y ì—†ì„ì‹œ N ìœ¼ë¡œjsp view ë¡œ ë³´ëƒ„
+		return result;
+		
 	}
+	
+/**
+ * íšŒì› ê°€ì…
+ * íšŒì› ê°€ì…ë²„íŠ¼ ëˆ„ë¥´ë©´ ì‹¤í–‰ /íšŒì›ê°€ì… ì™„ë£Œí•˜ë©´ ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì¼ë‹¨ ë³´ëƒ„
+ * @param vo
+ * @return
+*/
+@PostMapping("/insertMember.do")
+public String insertMember(MemberVO vo) {
+	// ê°€ì…ì‹œ ì…ë ¥í•œ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì½ì–´ì™€ì„œ
+	String csPassword = vo.getCsPassword();
+	
+	// ì•”í˜¸í™” í•œ í›„ì—
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	String encodedPwd = encoder.encode(csPassword);
+	// voì— ë‹¤ì‹œ ë„£ì–´ì¤€ë‹¤.
+	vo.setCsPassword(encodedPwd);
+	// ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸ê°€ ë“¤ì–´ ìˆëŠ” voë¥¼ daoì— ì „ë‹¬í•´ì„œ ìƒˆë¡œìš´ íšŒì› ì •ë³´ë¥¼ ì¶”ê°€í•œë‹¤.
+	service.insertMember(vo);
+	return "member_signup/loginEx.jsp";
+}
+
+//ì´ë©”ì¼ ì „ì†¡
+@GetMapping("/mailCheck.do")
+@ResponseBody
+public void mailCheck(String csEmailId) {
+  //  service.sendEmailAndInsertSendEmailHistory(csEmailId);
+	System.out.println("ì´ë©”ì¼ ì¸ì¦ìš”ì²­ ë“¤ì–´ì˜´");
+	System.out.println("ìš”ì²­ ë³´ë‚¼ ì´ë©”ì¼ :" + csEmailId);
+}
+
 
 }
