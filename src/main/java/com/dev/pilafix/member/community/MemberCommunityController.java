@@ -1,13 +1,13 @@
 package com.dev.pilafix.member.community;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.dev.pilafix.admin.info.AdminInfoVO;
 
 @Controller
 public class MemberCommunityController {
@@ -51,7 +51,26 @@ public class MemberCommunityController {
 	
 	@GetMapping("/getMemberCommunity.do")
 	public String getMemberCommunity(@RequestParam("seq") Integer seq, Model model) {
-		model.addAttribute("memberCommunity", service.getMemberCommunity(seq));
+	    // 게시글 조회
+	    MemberCommunityVO memberCommunity = service.getMemberCommunity(seq);
+
+	    // 조회수 증가
+	    service.updateMemberCommunityViewCnt(seq);
+
+	    // 리스트 업데이트 (예시로 메서드명을 updateList 로 가정)
+	    int updatedList = service.updateMemberCommunityViewCnt(memberCommunity.getMemberCmViews());
+
+	    model.addAttribute("memberCommunity", memberCommunity);
+	    model.addAttribute("updatedList", updatedList); // 변수명 수정
+
+	    return "member_community/getMemberCommunity.jsp";
+	}
+	
+	@PostMapping("/getMemberCommunity.do")
+	public String insertBlamerIp(int memberCmNumber, HttpServletRequest request) {
+		String ipAddress = request.getRemoteAddr();
+		service.insertBlamerIp(memberCmNumber);
 		return "member_community/getMemberCommunity.jsp";
 	}
+
 }
