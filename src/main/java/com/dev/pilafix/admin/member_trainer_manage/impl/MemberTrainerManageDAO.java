@@ -1,4 +1,4 @@
-package com.dev.pilafix.admin.member_manage.impl;
+package com.dev.pilafix.admin.member_trainer_manage.impl;
 
 import java.util.List;
 
@@ -6,12 +6,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dev.pilafix.admin.member_manage.CenterConnectHistoryVO;
-import com.dev.pilafix.admin.member_manage.MemberVO;
-import com.dev.pilafix.admin.member_manage.PaymentHistoryVO;
+import com.dev.pilafix.admin.member_trainer_manage.CenterConnectHistoryVO;
+import com.dev.pilafix.admin.member_trainer_manage.MemberVO;
+import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
 
 @Repository
-public class MemberManageDAO {
+public class MemberTrainerManageDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	

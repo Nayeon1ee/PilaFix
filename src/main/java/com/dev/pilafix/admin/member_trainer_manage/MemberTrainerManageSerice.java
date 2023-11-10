@@ -1,9 +1,9 @@
-package com.dev.pilafix.admin.member_manage;
+package com.dev.pilafix.admin.member_trainer_manage;
 
 import java.util.List;
 
 
-public interface MemberManageSerice {
+public interface MemberTrainerManageSerice {
 	
 	List<MemberVO> getMemberList();
 	MemberVO getMember(int csMemberCode);
