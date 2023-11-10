@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>가입 폼</title>
 </head>
-<script type="text/javascript" src="/js/script.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <body>
 
 <form action="insertCenter.do" method="post">
@@ -43,8 +43,7 @@
 	
 	<p> 대표자 핸드폰 번호 <input type="text" name="ownerPhoneNumber1" size="3"><input type="text" name="ownerPhoneNumber2" size="4"><input type="text" name="ownerPhoneNumber3" size="4"> </p>
 	
-	<p> 대표자 이메일 <input type="email" name="ownerEmail"> </p>
-	<button onclick="#">중복확인</button>
+	<p> 대표자 이메일 <input type="email" id="ownerEmail" name="ownerEmail"></p><button type="button" id="ctEmailCheck">중복확인</button>
 	
 	<p> 계약일자 <input type="date" name="contractStartDate"> </p>
 
@@ -52,7 +51,7 @@
 	
 	<hr>
 	
-	<p> 센터 계정 아이디 <input type="text" name="ctId"> <button id="ctIdCheck" onclick="#">중복확인</button></p>
+	<p> 센터 계정 아이디 <input type="text" id="ctId" name="ctId"><button type="button" id="ctIdCheck">중복확인</button></p>
 	
 	
 	<p> 센터 계정 비밀번호 <input type="text" id="ctPassword" name="ctPassword" readonly></p>    
@@ -64,10 +63,53 @@
 
 <a href="getCenterList.do">센터 목록</a>
 
-<script>
+<script type="text/javascript">
+<!-- 비밀번호 PIN 발급 -->
 function generatePIN() {
 	  var pin = Math.floor(10000 + Math.random() * 90000);
 	  document.getElementById("ctPassword").value = pin;
 }
+
+<!-- 아이디 중복확인 -->
+$(function(){
+    $("#ctIdCheck").click(function(){
+    	let ctId = $("#ctId").val();  //아이디
+        $.ajax({
+            type:'post', //post 형식으로 controller 에 보내기위함!!
+            url:"ctIdCheck.do", // 컨트롤러로 가는 mapping 입력
+            data: {"ctId":ctId}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
+            success: function(data){ 
+                if(data < 1){ 
+                    alert("사용 가능한 아이디 입니다.");
+            	}else{ 
+            	 	alert("중복된 아이디 입니다. 아이디를 다시 입력해주세요")
+           		}
+         },
+            error : function(error){alert(error);}
+        });
+        
+    });
+});
+
+<!-- 이메일 중복확인 -->
+$(function(){
+    $("#ctEmailCheck").click(function(){
+    	let ownerEmail = $("#ownerEmail").val();  //아이디
+        $.ajax({
+            type:'post', //post 형식으로 controller 에 보내기위함!!
+            url:"ctEmailCheck.do", // 컨트롤러로 가는 mapping 입력
+            data: {"ownerEmail":ownerEmail}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
+            success: function(data){ 
+                if(data < 1){ 
+                    alert("사용 가능한 아이디 입니다.");
+            	}else{ 
+            	 	alert("중복된 아이디 입니다. 아이디를 다시 입력해주세요")
+           		}
+         },
+            error : function(error){alert(error);}
+        });
+        
+    });
+});
 </script>
 </html>

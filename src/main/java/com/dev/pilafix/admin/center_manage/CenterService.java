@@ -12,7 +12,8 @@ public interface CenterService {
 	int insertCenter(CenterVO vo);
 	int updateCenter(CenterVO vo);
 	int deleteCenter(int ctCode);
-	int ctIdCheck(String ctId);
+	int idCheck(String ctId);
+	int emailCheck(String ownerEmail);
     void sendEmailAndInsertSendEmailHistory(CenterVO center);
     void insertCenterAndSetSession(CenterVO center, HttpSession session);
     void revokeCenter(int ctCode);
