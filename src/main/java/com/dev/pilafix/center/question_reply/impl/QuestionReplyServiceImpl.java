@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.pilafix.center.question_reply.QuestionReplyService;
 import com.dev.pilafix.center.question_reply.QuestionReplyVO;
@@ -38,6 +39,7 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 	}
 
 	@Override
+	@Transactional
 	public int insertQuestionReply(QuestionReplyVO vo) {
 		return dao.insertQuestionReply(vo);
 	}
@@ -57,9 +59,18 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 	 * 답변이 등록되면 원글의 답변여부 컬럼 true로 업데이트
 	 */
 	@Override
+	@Transactional
 	public void updateAnswerYn(int qsNumber) {
 		dao.updateAnswerYn(qsNumber);
 		
+	}
+
+	/**
+	 * 답변이 등록될때 회원문의사항 답변여부 컬럼 true로 업데이트 (insert + update)
+	 */
+	@Override
+	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo) {
+		return dao.insertQuestionReplyAndUpdateAnswerYn(vo);
 	}
 	
 	
