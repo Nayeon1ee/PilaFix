@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,12 @@
 			</tr>
 			<tr>
 				<th>상태</th>
-				<td>${sendSmsHistoryInfo.shSuccessYn }</td>
+				<c:if test="${sendSmsHistoryInfo.shSuccessYn == true}">
+					<td>성공</td>
+				</c:if>
+				<c:if test="${sendSmsHistoryInfo.shSuccessYn == false}">
+					<td>실패</td>
+				</c:if>
 			</tr>
 			<tr>
 				<th>비고</th>
