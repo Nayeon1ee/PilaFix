@@ -19,8 +19,8 @@ public class SendSmsHistoryController {
 	}
 
 	@GetMapping("/getSendSmsHistoryInfo.do")
-	public String getSendSmsHistoryInfo(@RequestParam("mhSmsSendCode") Integer mhSmsSendCode, Model model) {
-		model.addAttribute("sendSmsHistoryInfo", service.getSendSmsHistoryInfo(mhSmsSendCode));
+	public String getSendSmsHistoryInfo(@RequestParam("shSendCode") Integer shSendCode, Model model) {
+		model.addAttribute("sendSmsHistoryInfo", service.getSendSmsHistoryInfo(shSendCode));
 		return "admin_sendsmshistory/getSendSmsHistoryInfo.jsp";
 	}
 }

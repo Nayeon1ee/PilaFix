@@ -21,4 +21,6 @@ public interface QuestionReplyService {
 	
 	void updateAnswerYn(int qsNumber);
 
+	int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo);
+
 }

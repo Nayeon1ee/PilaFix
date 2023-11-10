@@ -33,4 +33,16 @@ public class MemberCommunityDAO {
 	public int deleteMemberCommunity(int memberCmNumber) {
 		return sqlSessionTemplate.delete("MemberCommunityDAO.deleteMemberCommunity", memberCmNumber);
 	}
+
+	public int updateMemberCommunityViewCnt(int memberCmViews) {
+		return sqlSessionTemplate.update("MemberCommunityDAO.updateMemberCommunityViewCnt", memberCmViews);
+	}
+		
+	public List<MemberCommunityVO> getBlameList() {
+		return sqlSessionTemplate.selectList("MemberCommunityDAO.getBlameList");
+	}
+	
+	public int insertBlame(int memberCmNumber, String ipAddress) {
+		return sqlSessionTemplate.insert("MemberCommunityDAO.insertBlame", memberCmNumber);
+	}
 }

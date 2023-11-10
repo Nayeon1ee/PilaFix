@@ -35,16 +35,20 @@ public class QuestionReplyController {
 //		return "questionreply/insertQuestionReply.jsp";
 //	}
 	
-	@Transactional
+//	@Transactional
+//	@PostMapping("/insertQuestionReply.do")
+//	public String insert(QuestionReplyVO vo) {
+//		service.insertQuestionReply(vo);
+//		service.updateAnswerYn(vo.getReTargetPostNumber());
+//		return "redirect:getQuestionReply.do?reTargetPostNumber="+vo.getReTargetPostNumber();
+//	}
+
+//	@Transactional
 	@PostMapping("/insertQuestionReply.do")
 	public String insert(QuestionReplyVO vo) {
-		service.insertQuestionReply(vo);
-		service.updateAnswerYn(vo.getReTargetPostNumber());
+		service.insertQuestionReplyAndUpdateAnswerYn(vo);
 		return "redirect:getQuestionReply.do?reTargetPostNumber="+vo.getReTargetPostNumber();
-
-	
 	}
-	
 	
 
 	

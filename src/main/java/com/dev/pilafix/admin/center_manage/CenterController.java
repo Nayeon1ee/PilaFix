@@ -112,4 +112,17 @@ public class CenterController {
 		service.resetPassword(ctCode);
 		return "redirect:getCenter.do?ctCode="+ctCode;		
 	}
+	
+	@PostMapping(value = "/ctIdCheck.do")
+	@ResponseBody
+	public int idCheck(@RequestParam("ctId") String ctId) {
+		return service.idCheck(ctId);
+	}
+	
+	@PostMapping(value = "/ctEmailCheck.do")
+	@ResponseBody
+	public int emailCheck(@RequestParam("ownerEmail") String ownerEmail) {
+		return service.emailCheck(ownerEmail);
+	}
+	
 }

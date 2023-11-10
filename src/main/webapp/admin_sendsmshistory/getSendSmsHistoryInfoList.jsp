@@ -30,7 +30,12 @@
 					<td>${sendSmsHistoryInfo.shSendCode }</td>
 					<td><a href="getSendSmsHistoryInfo.do?shSendCode=${sendSmsHistoryInfo.shSendCode }">${sendSmsHistoryInfo.shSendCenterCode }</a></td>
 					<td>${sendSmsHistoryInfo.shSendDatetime }</td>
-					<td>${sendSmsHistoryInfo.shSuccessYn}</td>
+						<c:if test="${sendSmsHistoryInfo.shSuccessYn == true}">
+					<td>성공</td>
+						</c:if>
+						<c:if test="${sendSmsHistoryInfo.shSuccessYn == false}">
+					<td>실패</td>
+						</c:if>
 					<td>${sendSmsHistoryInfo.shFailReason}</td>
 					<%-- <td><a href="updateCpInfo.do?cp_code=${cpInfo.cp_code }">수정</a> | <a href="deleteCpInfo.do?cp_code=${cpInfo.cp_code }">삭제</a></td> --%>
 				</tr>

@@ -3,64 +3,70 @@ package com.dev.pilafix.admin.faq;
 import java.util.Date;
 
 public class FaqVO {
-	private int fq_number;
-	private String fq_title;
-	private String fq_content;
-	private String fq_writer_member_code;
-	private String role_name;
-	
-	private Date fq_regDate;
-	private boolean fq_open_yn;
-	
-	public int getFq_number() {
-		return fq_number;
+	private int fqNumber;
+	private String fqTitle;
+	private String fqContent;
+	private String fqWriterMemberCode;
+	private String roleName;
+	private String fqType; 
+	private Date fqRegDate;
+	private boolean fqOpenYn;
+	public int getFqNumber() {
+		return fqNumber;
 	}
-	public void setFq_number(int fq_number) {
-		this.fq_number = fq_number;
+	public void setFqNumber(int fqNumber) {
+		this.fqNumber = fqNumber;
 	}
-	public String getFq_title() {
-		return fq_title;
+	public String getFqTitle() {
+		return fqTitle;
 	}
-	public void setFq_title(String fq_title) {
-		this.fq_title = fq_title;
+	public void setFqTitle(String fqTitle) {
+		this.fqTitle = fqTitle;
 	}
-	public String getFq_content() {
-		return fq_content;
+	public String getFqContent() {
+		return fqContent;
 	}
-	public void setFq_content(String fq_content) {
-		this.fq_content = fq_content;
+	public void setFqContent(String fqContent) {
+		this.fqContent = fqContent;
 	}
-	public String getFq_writer_member_code() {
-		return fq_writer_member_code;
+	public String getFqWriterMemberCode() {
+		return fqWriterMemberCode;
 	}
-	public void setFq_writer_member_code(String fq_writer_member_code) {
-		this.fq_writer_member_code = fq_writer_member_code;
+	public void setFqWriterMemberCode(String fqWriterMemberCode) {
+		this.fqWriterMemberCode = fqWriterMemberCode;
 	}
-	
-	public Date getFq_regDate() {
-		return fq_regDate;
+	public String getRoleName() {
+		return roleName;
 	}
-	public void setFq_regDate(Date fq_regDate) {
-		this.fq_regDate = fq_regDate;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
-	public boolean isFq_open_yn() {
-		return fq_open_yn;
+	public String getFqType() {
+		return fqType;
 	}
-	public void setFq_open_yn(boolean fq_open_yn) {
-		this.fq_open_yn = fq_open_yn;
+	public void setFqType(String fqType) {
+		this.fqType = fqType;
 	}
-	public String getRole_name() {
-		return role_name;
+	public Date getFqRegDate() {
+		return fqRegDate;
 	}
-	public void setRole_name(String role_name) {
-		this.role_name = role_name;
+	public void setFqRegDate(Date fqRegDate) {
+		this.fqRegDate = fqRegDate;
+	}
+	public boolean isFqOpenYn() {
+		return fqOpenYn;
+	}
+	public void setFqOpenYn(boolean fqOpenYn) {
+		this.fqOpenYn = fqOpenYn;
 	}
 	@Override
 	public String toString() {
-		return "FaqVO [fq_number=" + fq_number + ", fq_title=" + fq_title + ", fq_content=" + fq_content
-				+ ", fq_writer_member_code=" + fq_writer_member_code + ", role_name=" + role_name + ", fq_regDate="
-				+ fq_regDate + ", fq_open_yn=" + fq_open_yn + "]";
+		return "FaqVO [fqNumber=" + fqNumber + ", fqTitle=" + fqTitle + ", fqContent=" + fqContent
+				+ ", fqWriterMemberCode=" + fqWriterMemberCode + ", roleName=" + roleName + ", fqType=" + fqType
+				+ ", fqRegDate=" + fqRegDate + ", fqOpenYn=" + fqOpenYn + "]";
 	}
+	
+	
 	
 
 }

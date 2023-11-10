@@ -26,6 +26,10 @@ public class QuestionReplyDAO {
     public QuestionReplyVO getQuestionReply(int reTargetPostNumber) {
     	return sqlSessionTemplate.selectOne("QuestionReplyDAO.getQuestionReply",reTargetPostNumber);
     }
+	
+//	public QuestionReplyVO getQuestionReply(int reTargetPostNumber) {
+//		return null;
+//	};
     
     public int insertQuestionReply(QuestionReplyVO vo) {
     	return sqlSessionTemplate.insert("QuestionReplyDAO.insertQuestionReply",vo);
@@ -38,9 +42,14 @@ public class QuestionReplyDAO {
     }
 
 	public int updateAnswerYn(int qsNumber) {
-		return sqlSessionTemplate.update("QuestionReplyDAO.updateAnswerYn");
+		return sqlSessionTemplate.update("QuestionReplyDAO.updateAnswerYn", qsNumber);
 	} 
 
 
+	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo) {
+		// insert 알림이력
+		sqlSessionTemplate.update("QuestionReplyDAO.updateAnswerYn", vo.getReTargetPostNumber());
+    	return sqlSessionTemplate.insert("QuestionReplyDAO.insertQuestionReply",vo);
+	}
     
 }

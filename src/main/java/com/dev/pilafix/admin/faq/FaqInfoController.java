@@ -25,8 +25,8 @@ public class FaqInfoController {
 	}
 	
 	@GetMapping("/updateFaqInfo.do")
-	public String updateFaqInfo(@RequestParam("fq_number") Integer fq_number, Model model) {
-		model.addAttribute("list", service.getFaqInfo(fq_number));
+	public String updateFaqInfo(@RequestParam("fqNumber") Integer fqNumber, Model model) {
+		model.addAttribute("list", service.getFaqInfo(fqNumber));
 		return "admin_faq/updateFaqInfo.jsp";
 	}
 	
@@ -37,8 +37,8 @@ public class FaqInfoController {
 	}
 	
 	@GetMapping("/deleteFaqInfo.do")
-	public String delete(int fq_number) {
-		service.deleteFaqInfo(fq_number);
+	public String delete(int fqNumber) {
+		service.deleteFaqInfo(fqNumber);
 		return "redirect:getFaqInfoList.do";
 	}
 	
@@ -49,8 +49,8 @@ public class FaqInfoController {
 	}
 	
 	@GetMapping("/getFaqInfo.do")
-	public String getFaqInfo(@RequestParam("fq_number") Integer fq_number, Model model) {
-		model.addAttribute("faqInfo", service.getFaqInfo(fq_number));
+	public String getFaqInfo(@RequestParam("fqNumber") Integer fqNumber, Model model) {
+		model.addAttribute("faqInfo", service.getFaqInfo(fqNumber));
 		return "admin_faq/getFaqInfo.jsp";
 	}
 	

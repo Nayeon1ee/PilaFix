@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 목록</title>
+<title>센터 목록</title>
 </head>
 <body>
 
 	<div align="center">
-		<h1>글 목록</h1>
+		<h1>센터 관리</h1>
 		<hr>
 		<table>
 			<tr>
@@ -58,7 +58,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="insertCenter.do">글 등록</a>
+		<a href="insertCenter.do">센터 등록</a>
 	</div>
 
 </body>
