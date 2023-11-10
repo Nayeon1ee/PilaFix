@@ -8,4 +8,7 @@ public interface MemberCommunityService {
 	int insertMemberCommunity(MemberCommunityVO vo);
 	int updateMemberCommunity(MemberCommunityVO vo);
 	int deleteMemberCommunity(int seq);
+	int updateMemberCommunityViewCnt(int memberCmNumber);
+	int insertBlamerIp(int memberCmNumber);
+	List<MemberCommunityVO> getBlamerIpList();
 }

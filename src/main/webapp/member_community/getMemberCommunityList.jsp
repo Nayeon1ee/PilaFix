@@ -16,7 +16,6 @@
 			<tr>
 				<th>No</th>
 				<th>제목</th>
-				<th>내용</th>
 				<th>작성일자</th>
 				<th>조회수</th>
 				<th>구매 가능 여부</th>
