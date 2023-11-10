@@ -65,7 +65,7 @@ public class MemberController {
 //	return str;
 //
 //}
-	@RequestMapping(value="/idCheck.do", method = RequestMethod.POST)
+	@PostMapping(value="/idCheck.do")
 	@ResponseBody
 	public String idCheck(@RequestParam("csEmailId") String csEmailId){
 		String result ="N";

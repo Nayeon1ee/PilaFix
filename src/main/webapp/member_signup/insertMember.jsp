@@ -22,7 +22,7 @@
 
 
 
-	<p> 이메일 아이디 <input type="email" id="csEmailId" name="csEmailId"> <button id="idCheck">중복확인</button></p>
+	<p> 이메일 아이디 <input type="email" id="csEmailId" name="csEmailId"> <button type="button" id="idCheck">중복확인</button></p>
 	<div><span id="result_checkId" style="font-size:12px;"></span></div>
 
 	<div class="input-group-addon">
@@ -68,36 +68,36 @@ function validateForm() {
 </script>
 -->
 
-<!-- 아이디 중복 확인 
+<!-- 아이디 중복확인 alert -->
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#idCheck").on("click",function(){
-		//alert(" 버튼 클릭했습니다")
-	let csEmailId = $("#csEmailId").val();
-	$.ajax({
-	type: "post", //전송방식
-	url : "<%=request.getContextPath()%>/idCheck.do", //컨트롤러 사용시 내가 보낼 데이터 주소
-	data : {"csEmailId" : csEmailId}, 
-	dataType: "json",
-	success : function(data){
-		//alert("성공");
-	if (data.value == 0){
-	alert("사용할 수 있는 아이디");
-	}else{
-	alert("사용 할 수 없음");
-	}
-	},
-	error : function(){
-	alert("실패");
-	}
-	});
-	});
-	});
+$(function(){
+    $("#idCheck").click(function(){
+    
+        let csEmailId = $("#csEmailId").val();
+         
+        $.ajax({
+            type:'post', //post 형식으로 controller 에 보내기위함!!
+            url:"idCheck.do", // 컨트롤러로 가는 mapping 입력
+            data: {"csEmailId":csEmailId}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
+            success: function(data){ 
+                if(data == "N"){ // 만약 성공할시
+                    alert("사용 가능한 아이디 입니다.");
+                 
+             }else{ // 만약 실패할시
+            	 alert("중복된 아이디 입니다. 아이디를 다시 입력해주세요")
+             }
+                 
+         },
+            error : function(error){alert(error);}
+        });
+        
+    });
+    
+});
 
 </script>
--->
 
- 
+ <!-- 아이디 중복확인 글자로 알려줌
 <script type="text/javascript">
 $(function(){
     $("#idCheck").click(function(){
@@ -129,6 +129,7 @@ $(function(){
 });
 
 </script>
+-->
 
 <!-- 이메일 인증요청 버튼 클릭시 /mailCheck.do에 맵핑된 컨트롤러 실행 -->
 <script>
@@ -163,6 +164,7 @@ $(function(){
 		});
 	});
 	
+	//인증번호 비교
 	$('.mail-check-input').blur(function() {
 		const inputCode = $(this).val();
 		const $resultMsg = $('#mail-check-warn');
