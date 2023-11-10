@@ -16,7 +16,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.admin.terms.TermsVO" alias="terms" />
 		<typeAlias type="com.dev.pilafix.admin.center_manage.SendEmailHistoryVO" alias="emailHistory" />
 		<typeAlias type="com.dev.pilafix.member.signup.MemberVO" alias="member" />
-
+		<typeAlias type="com.dev.pilafix.admin.faq.FaqVO" alias="faqInfo" />
+		<typeAlias type="com.dev.pilafix.admin.complaints.ComplaintsVO" alias="complaintsInfo" />
+		<typeAlias type="com.dev.pilafix.admin.sendemailhistory.SendEmailHistoryVO" alias="sendEmailHistoryInfo" />
+		<typeAlias type="com.dev.pilafix.admin.sendsmshistory.SendSmsHistoryVO" alias="sendSmsHistoryInfo" />
 		
 	</typeAliases>
 	<mappers>
@@ -28,6 +31,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/admin-centermanage-mapper.xml" />
 		<mapper resource="mappings/admin-terms-mapper.xml" />
 		<mapper resource="mappings/member-signup-mapper.xml" />
+		<mapper resource="mappings/admin-faq-mapper.xml" />
+		<mapper resource="mappings/admin-complaints-mapper.xml" />
+		<mapper resource="mappings/admin-sendemailhistory-mapper.xml" />
+		<mapper resource="mappings/admin-sendsmshistory-mapper.xml" />
 	</mappers>
 
 </configuration>

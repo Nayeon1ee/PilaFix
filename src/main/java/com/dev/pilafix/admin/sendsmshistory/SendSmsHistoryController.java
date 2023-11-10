@@ -1,0 +1,26 @@
+package com.dev.pilafix.admin.sendsmshistory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class SendSmsHistoryController {
+
+	@Autowired
+	private SendSmsHistoryService service;
+	
+	@GetMapping("/getSendSmsHistoryInfoList.do")
+	public String getSendSmsHistoryInfoList(Model model) {
+		model.addAttribute("sendSmsHistoryInfoList", service.getSendSmsHistoryInfoList());
+		return "admin_sendsmshistory/getSendSmsHistoryInfoList.jsp";
+	}
+
+	@GetMapping("/getSendSmsHistoryInfo.do")
+	public String getSendSmsHistoryInfo(@RequestParam("mhSmsSendCode") Integer mhSmsSendCode, Model model) {
+		model.addAttribute("sendSmsHistoryInfo", service.getSendSmsHistoryInfo(mhSmsSendCode));
+		return "admin_sendsmshistory/getSendSmsHistoryInfo.jsp";
+	}
+}

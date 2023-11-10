@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ComplaintsDAO">
+	<resultMap type="complaintsInfo" id="ComplaintsInfoResult">
+		<id property="cpCode" column="CP_CODE"/>
+		<result property="cpTargetPostNumber" column="CP_TARGET_POST_NUMBER" />
+		<result property="cpTargetPostType" column="CP_TARGET_POST_TYPE" />
+		<result property="targetWriterMemberCode" column="TARGET_WRITER_MEMBER_CODE" />
+		<result property="blamerMemberCode" column="BLAMER_MEMBER_CODE" />
+		<result property="cpDate" column="CP_DATE" />
+		<result property="blamerIp" column="BLAMER_IP" />
+	</resultMap>
+	<select id="getComplaintsInfo" resultMap="ComplaintsInfoResult" parameterType="complaintsInfo">
+		SELECT * FROM TBL_COMPLAINTS WHERE CP_TARGET_POST_NUMBER::Integer = #{cpTargetPostNumber}
+	</select>
+	<select id="getComplaintsInfoList" resultMap="ComplaintsInfoResult" parameterType="complaintsInfo">
+		SELECT CP_CODE, CP_TARGET_POST_NUMBER, CP_TARGET_POST_TYPE, TARGET_WRITER_MEMBER_CODE, TARGET_WRITER_MEMBER_CODE,BLAMER_MEMBER_CODE,CP_DATE,BLAMER_IP  FROM TBL_COMPLAINTS
+	</select>
+	<insert id="insertComplaintsInfo" parameterType="complaintsInfo">
+		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN) VALUES(nextval('seq_faq'), #{fq_title}, #{fq_content}, '999', CURRENT_TIMESTAMP, #{fq_open_yn})
+	</insert>
+	<update id="updateComplaintsInfo" parameterType="complaintsInfo">
+		UPDATE TBL_FAQ SET FQ_TITLE=#{fq_title}, FQ_CONTENT=#{fq_content}, FQ_OPEN_YN=#{fq_open_yn} WHERE FQ_NUMBER=#{fq_number}
+	</update>
+	<delete id="deleteComplaintsInfo" parameterType="Integer">
+		DELETE FROM TBL_FAQ WHERE FQ_NUMBER = #{fq_number}
+	</delete>
+</mapper>

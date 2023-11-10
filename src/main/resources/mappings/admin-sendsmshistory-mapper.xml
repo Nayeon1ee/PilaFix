@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SendSmsHistoryDAO">
+	<resultMap type="sendSmsHistoryInfo" id="SendSmsHistoryInfoResult">
+		<id property="shSendCode" column="SH_SEND_CODE"/>
+		<result property="shSendDatetime" column="SH_SEND_DATETIME" />
+		<result property="shSendCenterCode" column="SH_SEND_CENTER_CODE" />
+		<result property="shRecipientName" column="SH_RECIPIENT_NAME" />
+		<result property="shRecipientPhone" column="SH_RECIPIENT_PHONE" />
+		<result property="shRecipientContent" column="SH_RECIPIENT_CONTENT" />
+		<result property="shSuccessYn" column="SH_SUCCESS_YN" />
+		<result property="shSuccessDatetime" column="SH_SUCCESS_DATETIME" />
+		<result property="shFailReason" column="SH_FAIL_REASON" />
+	</resultMap>
+	<select id="getSendSmsHistoryInfo" resultMap="SendSmsHistoryInfoResult" parameterType="sendSmsHistoryInfo">
+		SELECT * FROM TBL_SEND_SMS_HISTORY WHERE SH_SEND_CODE = #{shSendCode}
+	</select>
+	<select id="getSendSmsHistoryInfoList" resultMap="SendSmsHistoryInfoResult" parameterType="sendSmsHistoryInfo">
+		SELECT SH_SEND_CODE, SH_SEND_DATETIME, SH_SEND_CENTER_CODE, SH_RECIPIENT_NAME, SH_RECIPIENT_PHONE ,SH_RECIPIENT_CONTENT,SH_SUCCESS_YN, SH_SUCCESS_DATETIME, SH_FAIL_REASON FROM TBL_SEND_SMS_HISTORY
+	</select>
+</mapper>
