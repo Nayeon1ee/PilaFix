@@ -18,6 +18,11 @@ public class QuestionServiceImpl implements QuestionService {
 	public List<QuestionVO> getQuestionList() {
 		return dao.getQuestionList();
 	}
+	
+	@Override
+	public List<QuestionReplyVO> getQuestionReply(int writerMemberCode) {
+		return dao.getQuestionReply(writerMemberCode);
+	}
 
 	@Override
 	public QuestionVO getQuestion(int qsNumber) {
@@ -39,11 +44,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return dao.deleteQuestion(qsNumber);
 	}
 
-//	@Override
-//	public QuestionReplyVO getQuestionReply(int reTargetPostNumber) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
 
    
 }
