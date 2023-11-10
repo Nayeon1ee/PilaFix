@@ -100,25 +100,30 @@ public String insertMember(MemberVO vo) {
 }
 
 //이메일 전송
-//@GetMapping("/mailCheck.do")
-//@ResponseBody
-//public void mailCheck(String csEmailId,HttpSession session) {
-//	System.out.println("이메일 인증요청 들어옴");
-//	System.out.println("요청 보낼 이메일 :" + csEmailId);
-//	service.mailCheckAndInsertSendEmailHistory(csEmailId, session);
-//}
-
 @GetMapping("/mailCheck.do")
 @ResponseBody
-public String mailCheck(String csEmailId,HttpSession session) {
+public void mailCheck(String csEmailId,HttpSession session) {
 	System.out.println("이메일 인증요청 들어옴");
 	System.out.println("요청 보낼 이메일 :" + csEmailId);
+//	service.mailCheckAndInsertSendEmailHistory(csEmailId, session);
 	session.setAttribute("authNumber",service.mailCheckAndInsertSendEmailHistory(csEmailId) );
-	 // 세션에 저장된 authNumber를 응답 데이터로 반환
-    String authNumber = String.valueOf(session.getAttribute("authNumber"));
-    System.out.println("세션에 저장된 값 : " + authNumber);
-    return authNumber;
+	session.setMaxInactiveInterval(60);
+	String authNumber = String.valueOf(session.getAttribute("authNumber"));
+    System.out.println("컨트롤러에서 세션에 저장된 값 출력 : " + authNumber);
 }
+
+//@GetMapping("/mailCheck.do")
+//@ResponseBody
+//public String mailCheck(String csEmailId,HttpSession session) {
+//	System.out.println("이메일 인증요청 들어옴");
+//	System.out.println("요청 보낼 이메일 :" + csEmailId);
+//	session.setAttribute("authNumber",service.mailCheckAndInsertSendEmailHistory(csEmailId) );
+//	session.setMaxInactiveInterval(60);
+//	 // 세션에 저장된 authNumber를 응답 데이터로 반환
+//    String authNumber = String.valueOf(session.getAttribute("authNumber"));
+//    System.out.println("세션에 저장된 값 : " + authNumber);
+//    return authNumber; // 리턴해줄 필요 없음 이거 바꿔야함 11/09
+//}
 
 
 

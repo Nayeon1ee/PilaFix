@@ -1,12 +1,9 @@
 package com.dev.pilafix.member.signup.impl;
 
-import javax.transaction.Transactional;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dev.pilafix.admin.center_manage.CenterVO;
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
 import com.dev.pilafix.member.signup.MemberVO;
 
