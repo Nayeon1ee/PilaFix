@@ -4,29 +4,29 @@
 
 <mapper namespace="FaqInfoDAO">
 	<resultMap type="faqInfo" id="faqInfoResult">
-		<id property="fq_number" column="FQ_NUMBER"/>
-		<result property="fq_title" column="FQ_TITLE" />
-		<result property="fq_content" column="FQ_CONTENT" />
-		<result property="fq_writer_member_code" column="FQ_WRITER_MEMBER_CODE" />
-		<result property="fq_regDate" column="FQ_REGDATE" />
-		<result property="fq_open_yn" column="FQ_OPEN_YN" />
+		<id property="fqNumber" column="FQ_NUMBER"/>
+		<result property="fqTitle" column="FQ_TITLE" />
+		<result property="fqContent" column="FQ_CONTENT" />
+		<result property="fqWriterMemberCode" column="FQ_WRITER_MEMBER_CODE" />
+		<result property="fqRegDate" column="FQ_REGDATE" />
+		<result property="fqOpenYn" column="FQ_OPEN_YN" />
+		<result property="fqType" column="FQ_TYPE" />
 	</resultMap>
 	<select id="getFaqInfo" resultMap="faqInfoResult" parameterType="faqInfo">
-		SELECT * FROM TBL_FAQ WHERE FQ_NUMBER = #{fq_number}
+		SELECT * FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber}
 	</select>
 	<select id="getFaqInfoList" resultMap="faqInfoResult" parameterType="faqInfo">
-		SELECT C.ROLE_NAME, B.CS_ROLE_CODE, A.FQ_NUMBER, A.FQ_TITLE, A.FQ_CONTENT, A.FQ_REGDATE
+		SELECT C.ROLE_NAME, A.FQ_TYPE, A.FQ_NUMBER, A.FQ_TITLE, A.FQ_CONTENT, A.FQ_REGDATE
 		FROM TBL_FAQ AS A
-		JOIN TBL_CST B ON A.FQ_WRITER_MEMBER_CODE = B.CS_MEMBER_CODE
-		JOIN TBL_USER_ROLE C ON C.ROLE_CODE = B.CS_ROLE_CODE;
+		LEFT OUTER JOIN TBL_USER_ROLE C ON C.ROLE_CODE = A.FQ_TYPE;
 	</select>
 	<insert id="insertFaqInfo" parameterType="faqInfo">
-		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN) VALUES(nextval('seq_faq'), #{fq_title}, #{fq_content}, '999', CURRENT_TIMESTAMP, #{fq_open_yn})
+		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN, FQ_TYPE) VALUES(nextval('seq_faq'), #{fqTitle}, #{fqContent}, '999', CURRENT_TIMESTAMP, #{fqOpenYn} , #{fqType})
 	</insert>
 	<update id="updateFaqInfo" parameterType="faqInfo">
-		UPDATE TBL_FAQ SET FQ_TITLE=#{fq_title}, FQ_CONTENT=#{fq_content}, FQ_OPEN_YN=#{fq_open_yn} WHERE FQ_NUMBER=#{fq_number}
+		UPDATE TBL_FAQ SET FQ_TITLE=#{fqTitle}, FQ_CONTENT=#{fqContent} WHERE FQ_NUMBER=#{fqNumber}
 	</update>
 	<delete id="deleteFaqInfo" parameterType="Integer">
-		DELETE FROM TBL_FAQ WHERE FQ_NUMBER = #{fq_number}
+		DELETE FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber}
 	</delete>
 </mapper>
