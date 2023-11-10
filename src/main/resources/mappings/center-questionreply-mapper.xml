@@ -49,7 +49,7 @@
 		UPDATE TBL_REPLY SET RE_TITLE=#{reTitle}, RE_CONTENT=#{reContent}, RE_REGDATE=CURRENT_TIMESTAMP WHERE RE_NUMBER=#{reNumber}
 	</update>
 	
-	<update id="updateAnswerYn" >
+	<update id="updateAnswerYn" parameterType="Integer">
 		UPDATE TBL_QUESTION SET QS_ANSWER_YN = true WHERE QS_NUMBER = #{qsNumber}
 	</update>
 	

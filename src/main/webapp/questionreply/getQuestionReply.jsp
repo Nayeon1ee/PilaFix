@@ -45,7 +45,7 @@
 		<table>
 			<!-- 답변 영역 -->
 			<c:choose>
-                <c:when test="${question.qsAnswerYn == 'Y' && not empty questionReply}"> <!-- 답변여부가 Y이면서, reply가 null이 아니면  -->
+                <c:when test="${question.qsAnswerYn == true && not empty questionReply}"> <!-- 답변여부가 Y이면서, reply가 null이 아니면  -->
 					<tr>
 						<th>No</th>
 						<td>${questionReply.reNumber }</td>
@@ -85,7 +85,8 @@
                 		
                 		<%--  
                 		############### 센터 로그인 완료되면 ###########
-                		<input type="hidden" name="writerMemberCode" value="여기에 세션에서 센터코드 뽑기" > 
+                		<input type="hidden" name="writerMemberCode" value="여기에 세션에서 센터코드 뽑기" >
+                		--> 회원의 문의사항에 답변이 보이게 
                 		#######################################
                 		--%>
                 		
@@ -102,8 +103,8 @@
                 </c:otherwise>
             </c:choose>
 			</table>
-				<a href="deleteQuestionReply.do?reNumber=${questionReply.reNumber }">삭제</a></td>
-			
+		
+		<a href="deleteQuestionReply.do?reNumber=${questionReply.reNumber }">삭제</a></td>		
 		<a href="getQuestionReplyList.do">글 목록</a>
 	</div>
 
