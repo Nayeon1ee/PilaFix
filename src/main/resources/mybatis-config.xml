@@ -16,13 +16,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.admin.terms.TermsVO" alias="terms" />
 		<typeAlias type="com.dev.pilafix.admin.center_manage.SendEmailHistoryVO" alias="emailHistory" />
 		<typeAlias type="com.dev.pilafix.member.signup.MemberVO" alias="member" />
-
-
 		<typeAlias type="com.dev.pilafix.member.question.QuestionVO" alias="question" />
 		<typeAlias type="com.dev.pilafix.center.question_reply.QuestionReplyVO" alias="questionReply" />
-
+		<typeAlias type="com.dev.pilafix.admin.faq.FaqVO" alias="faqInfo" />
+		<typeAlias type="com.dev.pilafix.admin.complaints.ComplaintsVO" alias="complaintsInfo" />
+		<typeAlias type="com.dev.pilafix.admin.sendemailhistory.SendEmailHistoryVO" alias="sendEmailHistoryInfo" />
+		<typeAlias type="com.dev.pilafix.admin.sendsmshistory.SendSmsHistoryVO" alias="sendSmsHistoryInfo" />
+    <typeAlias type="com.dev.pilafix.center.lesson.CenterLessonVO" alias="centerLesson" />
+		<typeAlias type="com.dev.pilafix.member.question.QuestionVO" alias="question" />
+		<typeAlias type="com.dev.pilafix.center.question_reply.QuestionReplyVO" alias="questionReply" />		
 	</typeAliases>
-	
 	
 	<mappers>
 		<mapper resource="mappings/center-userguide-mapper.xml" />
@@ -35,7 +38,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/member-question-mapper.xml" />
 		<mapper resource="mappings/center-questionreply-mapper.xml" />
 		<mapper resource="mappings/member-signup-mapper.xml" />
-
+		<mapper resource="mappings/admin-faq-mapper.xml" />
+		<mapper resource="mappings/admin-complaints-mapper.xml" />
+		<mapper resource="mappings/admin-sendemailhistory-mapper.xml" />
+		<mapper resource="mappings/admin-sendsmshistory-mapper.xml" />
+		<mapper resource="mappings/admin-membermanage-mapper.xml"/>
+		<mapper resource="mappings/center-lesson-mapper.xml" />
 	</mappers>
 
 </configuration>

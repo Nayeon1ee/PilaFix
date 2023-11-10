@@ -39,4 +39,18 @@ public class MemberCommunityServiceImpl implements MemberCommunityService {
 		return dao.deleteMemberCommunity(memberCmNumber);
 	}
 
+	@Override
+	public int updateMemberCommunityViewCnt(int memberCmViews) {
+		return dao.updateMemberCommunityViewCnt(memberCmViews);
+	}
+	
+	@Override
+	public int insertBlamerIp(int memberCmNumber) {
+		return dao.insertBlamerIp(memberCmNumber);
+	}
+
+	@Override
+	public List<MemberCommunityVO> getBlamerIpList() {
+		return dao.getBlamerIpList();
+	}
 }
