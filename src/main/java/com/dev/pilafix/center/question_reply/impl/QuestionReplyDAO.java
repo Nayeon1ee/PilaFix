@@ -16,7 +16,7 @@ public class QuestionReplyDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<QuestionVO> getQuestionReplyList(){
-    	return sqlSessionTemplate.selectList("QuestionReplyDAO.getQuestionReplyList");
+    	return sqlSessionTemplate.selectList("QuestionDAO.getQuestionList");
     }
 	
 	public QuestionVO getTargetQuestion(int qsNumber) {
