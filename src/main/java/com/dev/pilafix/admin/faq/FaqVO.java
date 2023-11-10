@@ -7,6 +7,7 @@ public class FaqVO {
 	private String fq_title;
 	private String fq_content;
 	private String fq_writer_member_code;
+	private String role_name;
 	
 	private Date fq_regDate;
 	private boolean fq_open_yn;
@@ -48,11 +49,17 @@ public class FaqVO {
 	public void setFq_open_yn(boolean fq_open_yn) {
 		this.fq_open_yn = fq_open_yn;
 	}
+	public String getRole_name() {
+		return role_name;
+	}
+	public void setRole_name(String role_name) {
+		this.role_name = role_name;
+	}
 	@Override
 	public String toString() {
 		return "FaqVO [fq_number=" + fq_number + ", fq_title=" + fq_title + ", fq_content=" + fq_content
-				+ ", fq_writer_member_code=" + fq_writer_member_code + ", fq_regDate=" + fq_regDate + ", fq_open_yn="
-				+ fq_open_yn + "]";
+				+ ", fq_writer_member_code=" + fq_writer_member_code + ", role_name=" + role_name + ", fq_regDate="
+				+ fq_regDate + ", fq_open_yn=" + fq_open_yn + "]";
 	}
 	
 

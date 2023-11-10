@@ -14,11 +14,12 @@
 		<hr>
 		<table>
 			<tr>
-				<th>No</th>
+				<th>번호</th>
+				<th>구분</th>
 				<th>제목</th>
-				<th>내용</th>
-				<th>작성일자</th>
-				<th>구매 가능 여부</th>
+				<!-- <th>내용</th> -->
+				<th>등록일</th>
+				<!-- <th>구매 가능 여부</th> -->
 			</tr>
 			<c:if test="${FaqInfoList == null }">
 				<tr>
@@ -28,10 +29,11 @@
 			<c:forEach var="faqInfo" items="${FaqInfoList }">
 				<tr>
 					<td>${faqInfo.fq_number }</td>
+					<td>${faqInfo.role_name }</td>
 					<td><a href="getFaqInfo.do?fq_number=${faqInfo.fq_number }">${faqInfo.fq_title }</a></td>
-					<td>${faqInfo.fq_content }</td>
+					<%-- <td>${faqInfo.fq_content }</td> --%>
 					<td>${faqInfo.fq_regDate}</td>
-					<td>${faqInfo.fq_open_yn }</td>
+					<%-- <td>${faqInfo.fq_open_yn }</td> --%>
 					<td><a href="updateFaqInfo.do?fq_number=${faqInfo.fq_number }">수정</a> | <a href="deleteFaqInfo.do?fq_number=${faqInfo.fq_number }">삭제</a></td>
 				</tr>
 			</c:forEach>
