@@ -146,32 +146,32 @@ $(document).ready(function() {
             	console.log("data : " +  data);
 				checkInput.attr('disabled',false);
 				alert('인증번호가 전송되었습니다.')
-				
-				$('.mail-check-input').blur(function () {
-					const inputCode = $(this).val();
-					const $resultMsg = $('#mail-check-warn');
 					
-					const authNumber = '<%=(String)session.getAttribute("authNumber")%>';
-					console.log(authNumber);
-					
-					if(inputCode === data){
-						$resultMsg.html('인증번호가 일치합니다.');
-						$resultMsg.css('color','green');
-						$('#mail-Check-Btn').attr('disabled',true);
-						$('#csEmailId').attr('readonly',true);
-						
-					}else{
-						$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
-						$resultMsg.css('color','red');
-					}
-				});
-				
-				
             }
             
         });
     });
 });
+
+$('.mail-check-input').blur(function () {
+	const inputCode = $(this).val();
+	const $resultMsg = $('#mail-check-warn');
+	
+	const authNumber = '<%=(String)session.getAttribute("authNumber")%>';
+	console.log(authNumber);  // null이라고 뜸ㅠㅠ
+	
+	if(inputCode === authNumber){
+		$resultMsg.html('인증번호가 일치합니다.');
+		$resultMsg.css('color','green');
+		$('#mail-Check-Btn').attr('disabled',true);
+		$('#csEmailId').attr('readonly',true);
+		
+	}else{
+		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+		$resultMsg.css('color','red');
+	}
+}); //인증번호 비교
+
 </script>
 
 

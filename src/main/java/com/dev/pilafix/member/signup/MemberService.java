@@ -20,7 +20,7 @@ public interface MemberService {
 	 * 이메일 발송 및 이력 등록
 	 * @return 
 	 */
-//	void mailCheckAndInsertSendEmailHistory(String csEmailId, HttpSession session);
+//	void mailCheckAndInsertSendEmailHistory(String csEmailId);
 	
 
 }
