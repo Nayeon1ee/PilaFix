@@ -1,20 +1,20 @@
-package com.dev.pilafix.admin.member_manage.impl;
+package com.dev.pilafix.admin.member_trainer_manage.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.admin.member_manage.CenterConnectHistoryVO;
-import com.dev.pilafix.admin.member_manage.MemberManageSerice;
-import com.dev.pilafix.admin.member_manage.MemberVO;
-import com.dev.pilafix.admin.member_manage.PaymentHistoryVO;
+import com.dev.pilafix.admin.member_trainer_manage.CenterConnectHistoryVO;
+import com.dev.pilafix.admin.member_trainer_manage.MemberTrainerManageSerice;
+import com.dev.pilafix.admin.member_trainer_manage.MemberVO;
+import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
 
 @Service
-public class MemberManageServiceImpl implements MemberManageSerice {
+public class MemberTrainerManageServiceImpl implements MemberTrainerManageSerice {
 	
 	@Autowired
-	private MemberManageDAO dao;
+	private MemberTrainerManageDAO dao;
 
 	@Override
 	public List<MemberVO> getMemberList() {

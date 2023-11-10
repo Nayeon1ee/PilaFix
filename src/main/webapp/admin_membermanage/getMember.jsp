@@ -61,38 +61,39 @@
 			
 		</table>
 		<a href="getMemberList.do">글 목록</a>
+	
 		
-		<!-- 수강권 결제내역 추가해야 함 -->
-		<hr>		
-		<h3>수강권 결제내역</h3>
-		<table>
-			<tr>
-				<th>번호</th>
-				<th>수강권명</th>
-				<th>센터명</th>
-				<th>결제일자</th>
-				<th>결제수단</th>
-				<th>결제금액</th>
-			</tr>
-			<c:if test="${paymentList == null}">
-				<tr>
-					<td colspan="5">결제 내역이 없습니다.</td>
-				</tr>
-			</c:if>
-			<c:forEach var="pay" items="${paymentList }">
-				<tr>
-					<td>${pay.paId }</td>
-					<td>${pay.ticketCode }</td> <!-- 티켓코드에서 센터명 가져와야 함 --> 
-					<td>${pay.ticketCode }</td> <!-- 티켓코드에서 센터명 가져와야 함 --> 
-					<td>${pay.paDatetime }</td>
-					<td>${pay.paMethod }</td>
-					<td>${pay.paAmount }</td>
-				</tr>
-			</c:forEach>
-		</table>
-		
-		<br><br>
-		
+		<c:if test="${type ne 'T' }">
+				<!-- 강사의 경우 해당 화면이 보이지 않음  -->
+				<hr>		
+				<h3>수강권 결제내역</h3>
+				<table>
+					<tr>
+						<th>번호</th>
+						<th>수강권명</th>
+						<th>센터명</th>
+						<th>결제일자</th>
+						<th>결제수단</th>
+						<th>결제금액</th>
+					</tr>
+					<c:if test="${paymentList == null}">
+						<tr>
+							<td colspan="5">결제 내역이 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:forEach var="pay" items="${paymentList }">
+						<tr>
+							<td>${pay.paId }</td>
+							<td>${pay.ticketCode }</td> <!-- 티켓코드에서 센터명 가져와야 함 --> 
+							<td>${pay.ticketCode }</td> <!-- 티켓코드에서 센터명 가져와야 함 --> 
+							<td>${pay.paDatetime }</td>
+							<td>${pay.paMethod }</td>
+							<td>${pay.paAmount }</td>
+						</tr>
+					</c:forEach>
+				</table>
+				<br><br>
+		</c:if>
 
 		
 		<!-- 연동 센터 이력 추가해야 함 -->
@@ -120,46 +121,5 @@
 
 	
 	</div>
-
-<script>
-function revokemember(ctCode) {
-	if (window.confirm('해지하면 계약상태를 되돌릴 수 없습니다. \n정말로 해지하시겠습니까?')) {
-		fetch('/pilafix/revokemember.do?ctCode=' + ctCode, {
-			method: 'GET'
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('error');
-				}
-				window.location.href = 'getmemberList.do'; // 센터 목록 페이지로 리다이렉트
-			})
-			.catch(error => {
-				console.error(error);
-			});
-	}else {
-		return;
-	}
-};
- 
-function resetPassword(ctCode) {
-	if (window.confirm('비밀번호를 초기화하시겠습니까? \n초기비밀번호 : 1111')) {
-		fetch('/pilafix/resetPassword.do?ctCode=' + ctCode, {
-			method: 'GET'
-		})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('error');
-				}
-				window.location.href = 'getmemberList.do'; // 센터 목록 페이지로 리다이렉트
-			})
-			.catch(error => {
-				console.error(error);
-			});
-	}else {
-		return;
-	}
-};
-</script>
-
 </body>
 </html>
