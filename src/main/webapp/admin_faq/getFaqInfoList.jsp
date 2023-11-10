@@ -14,7 +14,7 @@
 		<hr>
 		<table>
 			<tr>
-				<th>번호</th>
+				<th>NO</th>
 				<th>구분</th>
 				<th>제목</th>
 				<!-- <th>내용</th> -->
@@ -28,13 +28,21 @@
 			</c:if>
 			<c:forEach var="faqInfo" items="${FaqInfoList }">
 				<tr>
-					<td>${faqInfo.fq_number }</td>
-					<td>${faqInfo.role_name }</td>
-					<td><a href="getFaqInfo.do?fq_number=${faqInfo.fq_number }">${faqInfo.fq_title }</a></td>
+					<td>${faqInfo.fqNumber }</td>
+					<c:if test="${faqInfo.fqType == 'COMMON'}">
+						<td>공통</td>
+					</c:if>
+					<c:if test="${faqInfo.fqType == 'ME'}">
+						<td>회원</td>
+					</c:if>
+					<c:if test="${faqInfo.fqType == 'TR'}">
+						<td>강사</td>
+					</c:if>
+					<td><a href="getFaqInfo.do?fqNumber=${faqInfo.fqNumber }">${faqInfo.fqTitle }</a></td>
 					<%-- <td>${faqInfo.fq_content }</td> --%>
-					<td>${faqInfo.fq_regDate}</td>
+					<td>${faqInfo.fqRegDate}</td>
 					<%-- <td>${faqInfo.fq_open_yn }</td> --%>
-					<td><a href="updateFaqInfo.do?fq_number=${faqInfo.fq_number }">수정</a> | <a href="deleteFaqInfo.do?fq_number=${faqInfo.fq_number }">삭제</a></td>
+					<%-- <td><a href="updateFaqInfo.do?fq_number=${faqInfo.fq_number }">수정</a> | <a href="deleteFaqInfo.do?fq_number=${faqInfo.fq_number }">삭제</a></td> --%>
 				</tr>
 			</c:forEach>
 		</table>
