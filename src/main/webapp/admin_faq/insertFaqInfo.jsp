@@ -11,9 +11,9 @@
 <form action="insertFaqInfo.do" method="post">
 	FAQ 제목 <input type="text" name="fq_title">
 	FAQ 내용 <input type="text" name="fq_content">
-	공개여부 
+	<!--공개여부 
 	<input type="radio" name="fq_open_yn" value=true>공개 
-	<input type="radio" name="fq_open_yn" value=false>비공개
+	<input type="radio" name="fq_open_yn" value=false>비공개 -->
 	<input type="submit" value="가입">
 </form>
 
