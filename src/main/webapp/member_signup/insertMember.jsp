@@ -132,46 +132,52 @@ $(function(){
 
 <!-- 이메일 인증요청 버튼 클릭시 /mailCheck.do에 맵핑된 컨트롤러 실행 -->
 <script>
-$(document).ready(function() {
-    $("#sendEmailButton").on("click", function() {
-    	//alert(" 버튼 클릭했습니다")
-    	const csEmailId = $('#csEmailId').val(); // 이메일 주소값 얻어오기!
-		console.log('완성된 이메일 : ' + csEmailId); // 이메일 오는지 확인
-		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-		
-        $.ajax({
-            type: "GET",
-            url: "mailCheck.do?csEmailId="+csEmailId,
-            success: function(data) {
-            	console.log("data : " +  data);
-				checkInput.attr('disabled',false);
-				alert('인증번호가 전송되었습니다.')
+	var authNumber; //인증번호
+
+	$(document).ready(function() {
+		$("#sendEmailButton").on("click", function() {
+			//alert(" 버튼 클릭했습니다")
+			const csEmailId = $('#csEmailId').val(); // 이메일 주소값 얻어오기!
+			console.log('완성된 이메일 : ' + csEmailId); // 이메일 오는지 확인
+			const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+
+			$.ajax({
+				type : "GET",
+				url : "mailCheck.do?csEmailId=" + csEmailId,
+				success : function(data) {
+					console.log("data : " + data);
+					checkInput.attr('disabled', false);
+					alert('인증번호가 전송되었습니다.')
 					
-            }
-            
-        });
-    });
-});
-
-$('.mail-check-input').blur(function () {
-	const inputCode = $(this).val();
-	const $resultMsg = $('#mail-check-warn');
+					// 컨트롤러에서 생성한 난수 data에 담겨옴 그래서 변수에 넣어줌
+					authNumber = data;
+					console.log("받은 데이터 변수에 저장 : " + authNumber);
+					
+					// 60초 지나면 인증번호 초기화 시킴
+					setTimeout(function() {
+						authNumber = null;
+						console.log("authNumber가 초기화되었습니다.");
+					}, 60000); // 60초(1분) 설정
+				}
+			});
+		});
+	});
 	
-	const authNumber = '<%=(String)session.getAttribute("authNumber")%>';
-	console.log(authNumber);  // null이라고 뜸ㅠㅠ
-	
-	if(inputCode === authNumber){
-		$resultMsg.html('인증번호가 일치합니다.');
-		$resultMsg.css('color','green');
-		$('#mail-Check-Btn').attr('disabled',true);
-		$('#csEmailId').attr('readonly',true);
-		
-	}else{
-		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
-		$resultMsg.css('color','red');
-	}
-}); //인증번호 비교
+	$('.mail-check-input').blur(function() {
+		const inputCode = $(this).val();
+		const $resultMsg = $('#mail-check-warn');
 
+		if (inputCode === authNumber) {
+			$resultMsg.html('인증번호가 일치합니다.');
+			$resultMsg.css('color', 'green');
+			$('#mail-Check-Btn').attr('disabled', true);
+			$('#csEmailId').attr('readonly', true);
+
+		} else {
+			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+			$resultMsg.css('color', 'red');
+		}
+	}); //인증번호 비교
 </script>
 
 
