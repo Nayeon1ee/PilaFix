@@ -45,12 +45,12 @@ public class MemberCommunityServiceImpl implements MemberCommunityService {
 	}
 	
 	@Override
-	public int insertBlamerIp(int memberCmNumber) {
-		return dao.insertBlamerIp(memberCmNumber);
+	public int insertBlame(int memberCmNumber, String ipAddress) {
+		return dao.insertBlame(memberCmNumber, ipAddress);
 	}
 
 	@Override
-	public List<MemberCommunityVO> getBlamerIpList() {
-		return dao.getBlamerIpList();
+	public List<MemberCommunityVO> getBlameList() {
+		return dao.getBlameList();
 	}
 }

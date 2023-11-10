@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,19 +58,17 @@
 			
 			<p>게시글 신고</p>
 			<p>신고 사유를 선택하여 주시기 바랍니다.</p>
-            <form action="getMemberCommunity.do" method="post">
-            	<input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
-            	<input type="hidden" name="memberCmWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode }">
-            	<div>
-            	<input type="radio" name="blamer" value="CPR001"> ${memberCommunity.memberBlameReasonName}<br>
-            	<input type="radio" name="blamer" value="CPR002"> ${memberCommunity.memberBlameReasonName}<br>
-            	<input type="radio" name="blamer" value="CPR003"> ${memberCommunity.memberBlameReasonName}<br>
-            	<input type="radio" name="blamer" value="CPR004"> ${memberCommunity.memberBlameReasonName}<br>
-            	<input type="radio" name="blamer" value="CPR005"> ${memberCommunity.memberBlameReasonName}<br>
-            	<input type="radio" name="blamer" value="CPR006"> ${memberCommunity.memberBlameReasonName}<br>
-            	</div>
-            	<input type="submit" value="신고">
-            </form>
+            <form action="getComplaintsInfoList.do" method="post">
+			    <input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
+			    <input type="hidden" name="memberCmWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
+			    
+			    <c:forEach items="${blameList}" var="blameList">
+			        <input type="radio" name="blame" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br>
+			    </c:forEach>
+			    request.getRemoteAddr();
+			    
+			    <input type="submit" value="신고">
+			</form>
             <a class="modal_close_btn">닫기</a>
         </div>
 
@@ -80,7 +79,6 @@
                 var zIndex = 9999;
                 var modal = document.getElementById(id);
 
-                // 모달 div 뒤에 희끄무레한 레이어
                 var bg = document.createElement('div');
                 bg.setStyle({
                     position: 'fixed',
