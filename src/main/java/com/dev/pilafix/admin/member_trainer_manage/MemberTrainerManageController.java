@@ -27,6 +27,7 @@ public class MemberTrainerManageController {
 			model.addAttribute("type", "T"); // 구분지어서 view에서 분기하기 위함 
 			model.addAttribute("paymentList", service.getPaymentList(csMemberCode));
 		}
+		
 		model.addAttribute("member", member);
 		model.addAttribute("centerConnectList", service.getCenterConnectHistory(csMemberCode));
 		

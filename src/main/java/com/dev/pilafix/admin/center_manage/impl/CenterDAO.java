@@ -52,5 +52,14 @@ public class CenterDAO {
 		sqlSessionTemplate.update("CenterDAO.resetPassword", ctCode);
 	}
 	
+	public int emailCheck(String ownerEmail) {
+		return  sqlSessionTemplate.selectOne("CenterDAO.emailCheck",ownerEmail);
+	}
+	
+	public int idCheck(String ctId) {
+		return  sqlSessionTemplate.selectOne("CenterDAO.idCheck",ctId);
+		  
+	}
+
 
 }
