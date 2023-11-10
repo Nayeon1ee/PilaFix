@@ -13,28 +13,39 @@
 		<result property="csPhoneNumber3" column="CS_PHONE_NUMBER3" />
 		<result property="csBirth" column="CS_BIRTH" />
 		<result property="csGenderMw" column="CS_GENDER_MW" />
-		<result property="csAgreementYn" column="CS_AGREEMENT_YN" />
+		<result property="csAgreementYn1" column="CS_AGREEMENT_YN1" />
+		<result property="csAgreementYn2" column="CS_AGREEMENT_YN2" />
+		<result property="csAgreementYn3" column="CS_AGREEMENT_YN3" />
 		<result property="csRegistraionType" column="CS_REGISTRATION_TYPE" />
 		<result property="csRegistrationDate" column="CS_REGISTRATION_DATE" />
 		<result property="csRoleCode" column="CS_ROLE_CODE" />
 </resultMap>
-<!--  
-<insert id="insertMemCode" parameterType="member">
-	INSERT INTO TBL_CST 
-</insert>
--->
-<!--  
+
+<select id="idCheck" resultType="int">
+		SELECT COUNT(*) as cnt FROM TBL_CST WHERE cs_email_id = #{csEmailId}
+	</select>
+
+<!-- 강사일 땐 시퀀스 8000부터, 회원 일땐 시퀀스 2000부터 들어가야해서 dynamic sql사용 -->
 <insert id="insertMember" parameterType="member">
-	INSERT INTO TBL_CST 
-	VALUES ()
-	
+	INSERT INTO TBL_CST
+	<if test="csRoleCode=='ME'">
+		VALUES(nextval('seq_member_signup'),#{csRoleCode},#{csEmailId},
+		#{csPassword},#{csName},
+		#{csPhoneNumber1},#{csPhoneNumber2},#{csPhoneNumber3},CURRENT_TIMESTAMP,#{csBirth},
+		#{csGenderMw},'N',#{csAgreementYn1},#{csAgreementYn2},#{csAgreementYn3},'일반');
+	</if>
+	<if test="csRoleCode=='TR'">
+		VALUES(nextval('seq_trainer_signup'),#{csRoleCode},#{csEmailId},
+		#{csPassword},#{csName},
+		#{csPhoneNumber1},#{csPhoneNumber2},#{csPhoneNumber3},CURRENT_TIMESTAMP,#{csBirth},
+		#{csGenderMw},'N',#{csAgreementYn1},#{csAgreementYn2},#{csAgreementYn3},'일반');
+	</if>
 </insert>
--->
-<!-- 회원가입시 회원,강사 선택할 때 회원 코드 가져오는 쿼리 -->
-  <!--  
-<select id="getUserRole" resultMap="memberResult">
-	SELECT role_code FROM tbl_USER_ROLE
-	<if test=""
-</select>
--->
+
+<!-- 이메일 발송 이력 등록 -->
+	<insert id="insertSendEmailHistory" parameterType="emailHistory">
+		INSERT INTO TBL_SEND_EMAIL_HISTORY(MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE, MH_EMAIL_SEND_DATETIME, MH_RECIPIENT_NAME,MH_RECIPIENT_TITLE,MH_RECIPIENT_CONTENT, MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME,MH_FAIL_REASON )
+		VALUES(CONCAT('EH',NEXTVAL('SEQ_SEND_EMAIL_HISTORY')), #{mhEmailSendType}, CURRENT_TIMESTAMP, #{mhRecipientName},#{mhRecipientTitle}, #{mhRecipientContent}, #{mhRecipientEmail}, #{mhSuccessYN},#{mhSuccessDate}, #{mhFailReason})
+	</insert>
+
 </mapper>

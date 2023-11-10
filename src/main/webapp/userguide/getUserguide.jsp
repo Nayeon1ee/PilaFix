@@ -37,10 +37,32 @@
 				<td>${userguide.ugRegistrationDate }</td>
 			</tr>
 			<tr>
-				<td><a href="updateUserguide.do?ugCode=${userguide.ugCode }">수정</a> | <a href="deleteUserguide.do?ugCode=${userguide.ugCode }">삭제</a></td>
+				<td><a href="updateUserguide.do?ugCode=${userguide.ugCode }">수정</a> | <button id="deleteGet" onclick="deleteGet(${userguide.ugCode})">삭제</button></td>
 			</tr>
 		</table>
 		<a href="getUserguideList.do">글 목록</a>
 	</div>
+
+
+<script>
+const deleteGet = (ugCode) => {
+	if (window.confirm('이용 약관을 삭제하시겠습니까?')) {
+	     fetch('/pilafix/deleteUserguide.do?ugCode=${userguide.ugCode}', {
+	      method: 'GET'
+	})
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('error');
+			}
+			window.location.href = 'getUserguideList.do'; // 센터 목록 페이지로 리다이렉트
+		})
+		.catch(error => {
+			console.error(error);
+		});
+	}else {
+		return;
+	}
+};
+</script>
 </body>
 </html>

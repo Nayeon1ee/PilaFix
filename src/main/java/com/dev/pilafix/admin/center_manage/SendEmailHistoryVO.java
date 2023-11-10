@@ -1,85 +1,87 @@
 package com.dev.pilafix.admin.center_manage;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class SendEmailHistoryVO {
-	private String emailSendCode;
-	private String emailSendType;
-	private Date emailSendDate;
-	private String recipientName;
-	private String recipientTitle;
-	private String recipientContent;
-	private String recipientEmail;
-	private boolean successYN;
-	private Date successDate;
-	private String failReason;
-	public String getEmailSendCode() {
-		return emailSendCode;
+	private String mhEmailSendCode;
+	private String mhEmailSendType;
+	private LocalDateTime mhEmailSendDate;
+	private String mhRecipientName;
+	private String mhRecipientTitle;
+	private String mhRecipientContent;
+	private String mhRecipientEmail;
+	private boolean mhSuccessYN;
+	private LocalDateTime mhSuccessDate;
+	private String mhFailReason;
+	public String getMhEmailSendCode() {
+		return mhEmailSendCode;
 	}
-	public void setEmailSendCode(String emailSendCode) {
-		this.emailSendCode = emailSendCode;
+	public void setMhEmailSendCode(String mhEmailSendCode) {
+		this.mhEmailSendCode = mhEmailSendCode;
 	}
-	public String getEmailSendType() {
-		return emailSendType;
+	public String getMhEmailSendType() {
+		return mhEmailSendType;
 	}
-	public void setEmailSendType(String emailSendType) {
-		this.emailSendType = emailSendType;
+	public void setMhEmailSendType(String mhEmailSendType) {
+		this.mhEmailSendType = mhEmailSendType;
 	}
-	public Date getEmailSendDate() {
-		return emailSendDate;
+	public LocalDateTime getMhEmailSendDate() {
+		return mhEmailSendDate;
 	}
-	public void setEmailSendDate(Date emailSendDate) {
-		this.emailSendDate = emailSendDate;
+	public void setMhEmailSendDate(LocalDateTime mhEmailSendDate) {
+		this.mhEmailSendDate = mhEmailSendDate;
 	}
-	public String getRecipientName() {
-		return recipientName;
+	public String getMhRecipientName() {
+		return mhRecipientName;
 	}
-	public void setRecipientName(String recipientName) {
-		this.recipientName = recipientName;
+	public void setMhRecipientName(String mhRecipientName) {
+		this.mhRecipientName = mhRecipientName;
 	}
-	public String getRecipientTitle() {
-		return recipientTitle;
+	public String getMhRecipientTitle() {
+		return mhRecipientTitle;
 	}
-	public void setRecipientTitle(String recipientTitle) {
-		this.recipientTitle = recipientTitle;
+	public void setMhRecipientTitle(String mhRecipientTitle) {
+		this.mhRecipientTitle = mhRecipientTitle;
 	}
-	public String getRecipientContent() {
-		return recipientContent;
+	public String getMhRecipientContent() {
+		return mhRecipientContent;
 	}
-	public void setRecipientContent(String recipientContent) {
-		this.recipientContent = recipientContent;
+	public void setMhRecipientContent(String mhRecipientContent) {
+		this.mhRecipientContent = mhRecipientContent;
 	}
-	public String getRecipientEmail() {
-		return recipientEmail;
+	public String getMhRecipientEmail() {
+		return mhRecipientEmail;
 	}
-	public void setRecipientEmail(String recipientEmail) {
-		this.recipientEmail = recipientEmail;
+	public void setMhRecipientEmail(String mhRecipientEmail) {
+		this.mhRecipientEmail = mhRecipientEmail;
 	}
-	public boolean isSuccessYN() {
-		return successYN;
+	public boolean isMhSuccessYN() {
+		return mhSuccessYN;
 	}
-	public void setSuccessYN(boolean successYN) {
-		this.successYN = successYN;
+	public void setMhSuccessYN(boolean mhSuccessYN) {
+		this.mhSuccessYN = mhSuccessYN;
 	}
-	public Date getSuccessDate() {
-		return successDate;
+	public LocalDateTime getMhSuccessDate() {
+		return mhSuccessDate;
 	}
-	public void setSuccessDate(Date successDate) {
-		this.successDate = successDate;
+	public void setMhSuccessDate(LocalDateTime mhSuccessDate) {
+		this.mhSuccessDate = mhSuccessDate;
 	}
-	public String getFailReason() {
-		return failReason;
+	public String getMhFailReason() {
+		return mhFailReason;
 	}
-	public void setFailReason(String failReason) {
-		this.failReason = failReason;
+	public void setMhFailReason(String mhFailReason) {
+		this.mhFailReason = mhFailReason;
 	}
 	@Override
 	public String toString() {
-		return "SendEmailHistoryVO [emailSendCode=" + emailSendCode + ", emailSendType=" + emailSendType
-				+ ", emailSendDate=" + emailSendDate + ", recipientName=" + recipientName + ", recipientTitle="
-				+ recipientTitle + ", recipientContent=" + recipientContent + ", recipientEmail=" + recipientEmail
-				+ ", successYN=" + successYN + ", successDate=" + successDate + ", failReason=" + failReason + "]";
+		return "SendEmailHistoryVO [mhEmailSendCode=" + mhEmailSendCode + ", mhEmailSendType=" + mhEmailSendType
+				+ ", mhEmailSendDate=" + mhEmailSendDate + ", mhRecipientName=" + mhRecipientName
+				+ ", mhRecipientTitle=" + mhRecipientTitle + ", mhRecipientContent=" + mhRecipientContent
+				+ ", mhRecipientEmail=" + mhRecipientEmail + ", mhSuccessYN=" + mhSuccessYN + ", mhSuccessDate="
+				+ mhSuccessDate + ", mhFailReason=" + mhFailReason + "]";
 	}
+	
 	
 	
 	

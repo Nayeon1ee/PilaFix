@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.pilafix.admin.info.AdminInfoVO;
 
-
-
 @Controller
 public class MemberCommunityController {
 	@Autowired
