@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -166,9 +170,9 @@ public class HomeController {
 
 	// 관리자 메인(임시)
 	
-	@RequestMapping("/admin_common")
+	@RequestMapping("/admin_common.do")
 	public String admin_common() {
-		return "admin_common";
+		return "admin_common.jsp";
 	}
 
 
@@ -233,11 +237,11 @@ public class HomeController {
 	}
 
 
-
-	@RequestMapping("/admin_info_boardlist")
-	public String admin_info_boardlist() {
-		return "admin_info_boardlist";
-	}
+// 예시
+	@RequestMapping("/admin_info_boardlist.do")
+	   public String admin_info_boardlist() {
+	      return "admin_info_boardlist.jsp";
+	   }
 
 	@RequestMapping("/admin_info")
 	public String admin_info() {
@@ -423,4 +427,5 @@ public class HomeController {
 	public String center_detail_ticket() {
 		return "center_detail_ticket";
 	}
+
 }

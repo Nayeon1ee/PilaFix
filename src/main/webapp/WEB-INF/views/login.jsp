@@ -9,7 +9,8 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 <link
-	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common.css"
+	rel="stylesheet">
 <body style="margin-top: 10%; margin-left: 30%; margin-right: 30%;">
 	<div class="form-floating mb-3">
 		<input type="email" class="form-control" id="floatingInput"
