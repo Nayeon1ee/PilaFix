@@ -50,11 +50,21 @@ public class CenterServiceImpl implements CenterService {
 		return dao.deleteCenter(ctCode);
 	}
 
+	/**
+	 * 아이디 중복 체크 
+	 */
 	@Override
-	public int ctIdCheck(String ctId) {
-		return dao.ctIdCheck(ctId);
+	public int idCheck(String ctId){
+		return dao.idCheck(ctId);
 	}
 	
+	/**
+	 * 이메일 중복 체크 
+	 */
+	@Override
+	public int emailCheck(String ownerEmail){
+		return dao.emailCheck(ownerEmail);
+	}
 
 	/**
 	 * 이메일 발송 및 이력 등록

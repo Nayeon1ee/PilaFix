@@ -59,9 +59,14 @@
 		DELETE FROM TBL_CENTER WHERE CT_CODE=#{ctCode}
 	</delete>
 	
+	<!-- 이메일 체크 -->
+	<select id="emailCheck" resultType="int">
+		SELECT COUNT(*) FROM TBL_CENTER WHERE OWNER_EMAIL=#{ownerEmail}
+	</select>
+	
 	<!-- 아이디 체크 -->
-	<select id="ctIdCheck" parameterType="String" resultType="Integer">
-		SELECT COUNT(*) FROM TBL_CENTER WHERE CT_ID = #{ctId}
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*) FROM TBL_CENTER WHERE CT_ID=#{ctId}
 	</select>
 	
 	<!-- 이메일 발송 이력 등록 -->

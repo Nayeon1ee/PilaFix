@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.table-summary p {
+  text-align: left;
+    margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.searchfilter-size {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.searchfilter-size select {
+  width: 97.6px;
+}
+
+.searchfilter-size form {
+  margin-left: 10px; /* Form을 오른쪽으로 이동 */
+  width: 400px;
+}
+
+.right-align {
+  margin-left: auto; /* Select 박스와 Form을 오른쪽으로 정렬 */
+}
+
+/*페이징 처리 가운데 정렬*/
+.admin-screen-paging {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.btn_excel_00{
+  float: right;
+}

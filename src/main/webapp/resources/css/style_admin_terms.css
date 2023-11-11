@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+/* 이용약관 센터등록 버튼이랑 엑셀다운 버튼 정렬*/
+.terms-btn {
+    display: flex;
+    justify-content: space-between;
+  	margin: 2em 0; 
+  }
+  

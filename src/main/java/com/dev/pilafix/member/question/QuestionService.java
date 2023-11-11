@@ -11,6 +11,6 @@ public interface QuestionService {
 	int updateQuestion(QuestionVO vo);
 	int deleteQuestion(int qsNumber); 
 	
-//	QuestionReplyVO getQuestionReply(int reTargetPostNumber);
+	List<QuestionReplyVO> getQuestionReply(int writerMemberCode);
 	
 }

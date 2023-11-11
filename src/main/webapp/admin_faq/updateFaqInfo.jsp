@@ -10,13 +10,13 @@
 <body>
 <h1>수정 페이지</h1>
 <form action="updateFaqInfo.do" method="post">
-	<input type="hidden" name="fq_number" value="${list.fq_number}">
+	<input type="hidden" name="fqNumber" value="${list.fqNumber}">
 	
-	FAQ 제목 <input type="text" name="fq_title" value="${list.fq_title}">
-	FAQ 내용 <input type="text" name="fq_content" value="${list.fq_content}">
-	공개여부 
+	FAQ 제목 <input type="text" name="fqTitle" value="${list.fqTitle}">
+	FAQ 내용 <input type="text" name="fqContent" value="${list.fqContent}">
+	<!-- 공개여부 
 		<input type="radio" name="fq_open_yn" value=true>공개 
-		<input type="radio" name="fq_open_yn" value=false>비공개
+		<input type="radio" name="fq_open_yn" value=false>비공개 -->
 	<input type="submit" value="수정">
 </form>
 <a href="getFaqInfoList.do">FAQ 목록</a>

@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+.rounded-logo {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    margin-bottom: 30px;
+    margin-top: 15px;
+    
+}
+
+.truncate-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px; /* 원하는 최대 너비로 조정하세요 */
+}
+
+
+.card_box_shadow {
+	box-shadow: none;
+}
+
+
+.CTS_information00{
+	border: none; background-color: transparent;
+}
+
+.CTS_information01{
+	padding-right: 10px;
+}
+
+.st_session_pass {
+    font-weight: bold;         
+    background-color: blue;   
+   /* border-radius: 20px;   */   
+    border-radius: 10px;    
+    padding: 3px 7px;          
+    color: white; 
+    margin-top:10px;
+    display: inline-flex;
+        
+}
+
+.st_session_pass_p{
+    font-weight: bold;         
+    background-color: blue;   
+   /* border-radius: 20px;   */   
+    border-radius: 10px;    
+    padding: 3px 7px;          
+    color: white; 
+    margin-top:40px;
+    display: inline-flex;
+        
+}
+
+
+
+.st_session_pass_hr{
+	margin-top : 50px;
+	margin-bottom : 50px;
+	border-style: dashed;
+}
+
+
+.classname000{
+	width: 300px;
+}
+
+
+/*페이징 처리 가운데 정렬*/
+.admin-screen-paging {
+  display: flex;
+  justify-content: center;
+}
+
+
+

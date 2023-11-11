@@ -18,6 +18,10 @@ public class QuestionDAO {
 	public List<QuestionVO> getQuestionList() {
 		return sqlSessionTemplate.selectList("QuestionDAO.getQuestionList");
 	}
+	
+	public List<QuestionReplyVO> getQuestionReply(int writerMemberCode) {
+		return sqlSessionTemplate.selectList("QuestionReplyDAO.getQuestionReplyList",writerMemberCode);
+	}
 
 	
 	public QuestionVO getQuestion(int qsNumber) {
@@ -36,9 +40,7 @@ public class QuestionDAO {
 		return sqlSessionTemplate.delete("QuestionDAO.deleteQuestion", qsNumber);
 	}
 	
-//	public QuestionReplyVO getQuestionReply(int reTargetPostNumber) {
-//		return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionReply", reTargetPostNumber);
-//	}
+
 
 
 }

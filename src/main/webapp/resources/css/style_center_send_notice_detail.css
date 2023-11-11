@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+input[disabled] {
+  background-color: white !important;
+}
+textarea[disabled] {
+  background-color: white !important;
+}

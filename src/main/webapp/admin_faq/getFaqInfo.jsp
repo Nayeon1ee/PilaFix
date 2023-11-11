@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,26 +15,34 @@
 		<table>
 			<tr>
 				<th>No</th>
-				<td>${faqInfo.fq_number }</td>
+				<td>${faqInfo.fqNumber }</td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td>${faqInfo.fq_title }</td>
+				<td>${faqInfo.fqTitle }</td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td>${faqInfo.fq_content }</td>
+				<td>${faqInfo.fqContent }</td>
 			</tr>
 			<tr>
 				<th>작성일자</th>
-				<td>${faqInfo.fq_regDate }</td>
+				<td>${faqInfo.fqRegDate }</td>
 			</tr>
 			<tr>
-				<th>구매 가능 여부</th>
-				<td>${faqInfo.fq_open_yn }</td>
+				<th>상태</th>
+				<c:if test="${faqInfo.fqType == COMMON}">
+					<td>공통</td>
+				</c:if>
+				<c:if test="${faqInfo.fqType == ME}">
+					<td>회원</td>
+				</c:if>
+				<c:if test="${faqInfo.fqType == TR}">
+					<td>강사</td>
+				</c:if>
 			</tr>
 			<tr>
-				<td><a href="updateFaqInfo.do?fq_number=${faqInfo.fq_number }">수정</a> | <a href="deleteFaqInfo.do?fq_number=${faqInfo.fq_number}">삭제</a></td>
+				<td><a href="updateFaqInfo.do?fqNumber=${faqInfo.fqNumber }">수정</a> | <a href="deleteFaqInfo.do?fqNumber=${faqInfo.fqNumber}">삭제</a></td>
 			</tr>
 		</table>
 		<a href="getFaqInfoList.do">글 목록</a>

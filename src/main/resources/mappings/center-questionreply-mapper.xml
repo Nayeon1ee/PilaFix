@@ -14,7 +14,6 @@
 		<result property="reRegdate" column="RE_REGDATE" />
 		<result property="reTargetPostType" column="RE_TARGET_POST_TYPE" />
 		<result property="reTargetPostNumber" column="RE_TARGET_POST_NUMBER" />
-
 	</resultMap>
 	
 	<resultMap type="question" id="questionResult">
@@ -26,14 +25,13 @@
 		<result property="qsModifiedDate" column="QS_MODIFIED_DATE" />
 		<result property="qsAnswerYn" column="QS_ANSWER_YN" />
 	</resultMap>
-
-	
-	<select id="getQuestionReplyList" resultMap="questionResult">
-		SELECT QS_NUMBER,QS_TITLE,QS_REGDATE, QS_MODIFIED_DATE,QS_ANSWER_YN,QS_CONTENT FROM TBL_QUESTION
-	</select>
 	
 	<select id="getTargetQuestion" resultMap="questionResult">
 		SELECT * FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
+	</select>
+	
+	<select id="getQuestionReplyList" parameterType="Integer" resultMap="questionReplyResult">
+		SELECT * FROM TBL_REPLY WHERE RE_TARGET_POST_TYPE='QST' AND WRITER_MEMBER_CODE=#{writerMemberCode};
 	</select>
 	
 	<select id="getQuestionReply" resultMap="questionReplyResult" >
