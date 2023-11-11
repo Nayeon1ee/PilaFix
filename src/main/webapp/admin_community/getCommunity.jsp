@@ -32,11 +32,29 @@
 				<td>${community.cmContent}</td>
 			</tr>
 			<tr>
-				<td><a
-					href="deleteCommunity.do?cmNumber=${community.cmNumber }">삭제</a></td>
+				<td><button type="button" onclick="deleteCommunity(${community.cmNumber})">삭제</button></td>
 			</tr>
 		</table>
 	</div>
-
+<script>
+function deleteCommunity(cmNumber) {
+	if (window.confirm('삭제하면 되돌릴 수 없습니다. \n정말로 삭제하시겠습니까?')) {
+		fetch('/pilafix/deleteCommunity.do?cmNumber=' + cmNumber, {
+			method: 'GET'
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('error');
+				}
+				window.location.href = 'getCommunityList.do'; // 커뮤니티 목록 페이지로 리다이렉트
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	}else {
+		return;
+	}
+};
+</script>
 </body>
 </html>
