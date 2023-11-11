@@ -45,12 +45,22 @@ public class MemberCommunityServiceImpl implements MemberCommunityService {
 	}
 	
 	@Override
+	public List<MemberCommunityVO> getBlameList() {
+		return dao.getBlameList();
+	}
+	
+	@Override
 	public int insertBlame(int memberCmNumber, String ipAddress) {
 		return dao.insertBlame(memberCmNumber, ipAddress);
 	}
 
 	@Override
-	public List<MemberCommunityVO> getBlameList() {
-		return dao.getBlameList();
+	public MemberCommunityVO getMemberCommunityReply(int memberCmNumber) {
+		return dao.getMemberCommunityReply(memberCmNumber);
+	}
+
+	@Override
+	public int insertMemberCommunityReply(int memberCmNumber) {
+		return dao.insertMemberCommunityReply(memberCmNumber);
 	}
 }

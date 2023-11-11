@@ -50,7 +50,7 @@
 	</update>
 	
 	<update id="updateAnswerYn" parameterType="Integer">
-		UPDATE TBL_QUESTION SET QS_ANSWER_YN = true WHERE QS_NUMBER = #{qsNumber}
+		UPDATE TBL_QUESTION SET QS_ANSWER_YN = true WHERE QS_NUMBER = #{qsNumber}	
 	</update>
 	
 	<delete id="deleteQuestionReply" >

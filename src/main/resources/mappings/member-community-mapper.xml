@@ -23,6 +23,15 @@
 		<result property="memberBlameReasonCode" column="BLAME_REASON_CODE"/>
 		
 		<result property="memberBlameReasonName" column="BLAME_REASON_NAME"/>
+		
+		<result property="memberReNumber" column="RE_NUMBER"/>
+		<result property="memberReTitle" column="RE_TITLE"/>
+		<result property="memberReContent" column="RE_CONTENT"/>
+		<result property="memberWriterRoleCode" column="WRITER_ROLE_CODE"/>
+		<result property="memberWriterMemberCode" column="WRITER_MEMBER_CODE"/>
+		<result property="memberReRegdate" column="RE_REGDATE"/>
+		<result property="memberReTargetPostType" column="RE_TARGET_POST_TYPE"/>
+		<result property="memberReTargetPostNumber" column="RE_TARGET_POST_NUMBER"/>
 	</resultMap>
 	
 	<select id="getMemberCommunityList" resultMap="memberCommunityResult">
@@ -43,14 +52,22 @@
 	</delete>
 	
 	<update id="updateMemberCommunityViewCnt" parameterType="memberCommunity">
-		UPDATE TBL_COMMUNITY SET CM_VIEWS = CM_VIEWS + 1 WHERE CM_NUMBER=#{memberCmNumber}
+		UPDATE TBL_COMMUNITY SET CM_VIEWS = CM_VIEWS + 1 WHERE CM_NUMBER=#{memberReTargetPostNumber}
 	</update>
 	
 	<select id="getBlameList" resultMap="memberCommunityResult">
 		SELECT * FROM TBL_COMPLAINTS_REASON
 	</select>
 	<insert id="insertBlame" parameterType="memberCommunity">
-		INSERT INTO TBL_COMPLAINTS (CP_CODE, (SELECT CM_NUMBER FROM TBL_COMMUNITY WHERE CM_NUMBER=#(memberCmNumber)) as CP_TARGET_POST_NUMBER, CP_TARGET_POST_TYPE, (SELECT CM_WRITER_MEMBER_CODE FROM TBL_COMMUNITY WHERE CM_NUMBER='memberCmNumber') as CM_WERITER_MEMBER_CODE, BLAMER_MEMBER_CODE, CP_DATE, BLAMER_IP, BLAME_REASON_CODE)<!-- CP_TARGET_POST_TYPE, BLAMER_MEMBER_CODE를 받아와야함 -->
-			VALUES (nextval('seq_complaints'), #(memberCmNumber), '커뮤니티', #{memberCmWriterMemberCode}, 123456, CURRENT_TIMESTAMP, #{memberBlamerIp}, #{memberBlameReasonCode})
+		INSERT INTO TBL_COMPLAINTS (CP_CODE, CP_TARGET_POST_NUMBER, CP_TARGET_POST_TYPE, CM_WRITER_MEMBER_CODE, BLAMER_MEMBER_CODE, CP_DATE, BLAMER_IP, BLAME_REASON_CODE)
+    		VALUES (nextval('seq_complaints'), #{memberCmNumber}, 'CM', #{memberWriterCode}, 123456, CURRENT_TIMESTAMP, #{memberBlamerIp}, #{memberBlameReasonCode})
+	</insert>
+	
+	<select id="getMemberCommunityReple" resultMap="memberCommunityResult">
+		SELECT * FROM TBL_REPLY WHERE RE_TARGET_POST_NUMBER=#{reTargetPostNumber}
+	</select>
+	<insert id="insertMemberCommunityReply" parameterType="memberCommunity">
+		INSERT INTO TBL_REPLY
+			VALUES(nextval('seq_reply'), #{memberReTitle}, #{memberReContent}, 'ME', #{memberWriterMemberCode}, CURRENT_TIMESTAMP, 'CM', #{memberReTargetPostNumber}) <!-- CM_WRITER_MEMBER_CODE를 받아와야함 -->
 	</insert>
 </mapper>

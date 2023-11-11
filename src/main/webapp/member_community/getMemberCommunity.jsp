@@ -58,15 +58,13 @@
 			
 			<p>게시글 신고</p>
 			<p>신고 사유를 선택하여 주시기 바랍니다.</p>
-            <form action="getComplaintsInfoList.do" method="post">
+            <form action="getMemberCommunity.do" method="post">
 			    <input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
 			    <input type="hidden" name="memberCmWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
 			    
 			    <c:forEach items="${blameList}" var="blameList">
-			        <input type="radio" name="blame" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br>
+			        <input type="radio" name="blame" value="${blameList.memberBlamerReasonCode}">${blameList.memberBlameReasonName}<br>
 			    </c:forEach>
-			    request.getRemoteAddr();
-			    
 			    <input type="submit" value="신고">
 			</form>
             <a class="modal_close_btn">닫기</a>
@@ -74,6 +72,40 @@
 
         <button id="popup_open_btn" >신고하기</button>
 	</div>
+	<hr/>
+	<table>
+			<!-- 답변 영역 -->
+                <c:if test="${not empty memberCommunityReply.memberReTitle}"> <!-- 답변여부가 Y이면서, reply가 null이 아니면  -->
+					<tr>
+						<th>답변내용</th>
+						<td>${memberCommunityReply.reContent }</td>
+					</tr>
+					<tr>
+						<th>작성자회원코드</th>
+						<td>${memberCommunityReply.writerMemberCode }</td>
+					</tr>
+					<tr>
+						<th>작성일시</th>
+						<td>${memberCommunityReply.reRegdate }</td>
+					</tr>
+					</table>
+                </c:if>
+                <c:otherwise>
+					<form action="insertMemberCommunityReply.do" method="post">
+						<input type="hidden" name="reTargetPostNumber" value="${question.qsNumber}">
+                		<input type="hidden" name="reTitle" value="[댓글]">
+                		
+                		<%--  
+                		############### 센터 로그인 완료되면 ###########
+                		<input type="hidden" name="writerMemberCode" value="여기에 세션에서 센터코드 뽑기" >
+                		--> 회원의 문의사항에 답변이 보이게 
+                		#######################################
+                		--%>
+							답변내용 <input type="text" name="reContent">
+							<input type="submit" value="답변등록">
+					</form>
+                </c:otherwise>
+	
 	 <script>
             function modal(id) {
                 var zIndex = 9999;

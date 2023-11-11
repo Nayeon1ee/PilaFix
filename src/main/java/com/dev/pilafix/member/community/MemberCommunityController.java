@@ -66,11 +66,22 @@ public class MemberCommunityController {
 	    return "member_community/getMemberCommunity.jsp";
 	}
 	
-	
 	@PostMapping("/getMemberCommunity.do")
 	public String insertBlamer(@RequestParam("memberCmNumber") int memberCmNumber, HttpServletRequest request) {
 		String ipAddress = request.getRemoteAddr();
 		service.insertBlame(memberCmNumber, ipAddress);
+		return "redirect:/member_community/getMemberCommunity.do?seq=" + memberCmNumber;
+	}
+	
+	@GetMapping("/getMemberCommunityReply.do")
+	public String getMemberCommunityReply(@RequestParam("seq") Integer seq, Model model) {
+		model.addAttribute("memberCommunityReply", service.getMemberCommunityReply(seq));
+		return "member_community/getMemberCommunity.jsp";
+	}
+	
+	@PostMapping("/insertMemberCommunityReply.do")
+	public String insertMemberCommunityReply(@RequestParam("memberCmNumber") int memberCmNumber) {
+		service.insertMemberCommunityReply(memberCmNumber);
 		return "redirect:/member_community/getMemberCommunity.do?seq=" + memberCmNumber;
 	}
 

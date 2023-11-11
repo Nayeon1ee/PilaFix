@@ -45,4 +45,12 @@ public class MemberCommunityDAO {
 	public int insertBlame(int memberCmNumber, String ipAddress) {
 		return sqlSessionTemplate.insert("MemberCommunityDAO.insertBlame", memberCmNumber);
 	}
+	
+	public MemberCommunityVO getMemberCommunityReply(int memberReNumber) {
+	    return sqlSessionTemplate.selectOne("MemberCommunityDAO.getMemberCommunityReply",memberReNumber);
+	}
+	
+	public int insertMemberCommunityReply(int memberCmNumber) {
+		return sqlSessionTemplate.insert("MemberCommunityDAO.insertMemberCommunityReple", memberCmNumber);
+	}
 }
