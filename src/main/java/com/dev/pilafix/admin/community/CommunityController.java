@@ -14,14 +14,14 @@ public class CommunityController {
 	@GetMapping("/getCommunityList.do")
 	public String getCommunityList(Model model) {
 		model.addAttribute("communityList",service.getCommunityList());
-		return "admin_community/getCommunityList.jsp";
+		return "admin/admin_community";
 		// jsp파일이 webapp밑에 admin_community폴더 안에 있어서
 	}
 	
 	@GetMapping("/getCommunity.do")
 	public String getCommunity(@RequestParam("cmNumber")Integer cmNumber,Model model) {
 		model.addAttribute("community",service.getCommunity(cmNumber));
-		return "admin_community/getCommunity.jsp";
+		return "admin/admin_community_detail";
 	}
 	
 	@GetMapping("/deleteCommunity.do")
