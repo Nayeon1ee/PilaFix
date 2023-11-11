@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,9 +31,12 @@
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
-<link href="${pageContext.request.contextPath }/resources/css/style_admin_common.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath }/resources/css/style_admin_CTS_management.css" rel="stylesheet">
+
+  <link href="${pageContext.request.contextPath }/resources/css/style_admin_teacher_management.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath }/resources/css/style_admin_common.css" rel="stylesheet">
+  
+      <link href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -290,7 +293,7 @@
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person"></i><span>고객관리</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        
           <li>
             <a href="#">
               <i class="bi bi-circle"></i><span>회원관리</span>
@@ -417,7 +420,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>고객관리</h1>
+      <h1>강사관리</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">필요 시 작성</li><!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
@@ -431,8 +434,8 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">회원관리</h5>
-              <p>웹관리자가 등록된 회원리스트를 볼 수 있는 페이지입니다.</p>
+              <h5 class="card-title">강사관리 리스트</h5>
+              <p>웹관리자가 작성하는 강사관리 리스트입니다. </p>
 
 
              	<!-- 
@@ -441,9 +444,10 @@
              	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
              	 
              	 -->
-
-<!-- 검색필터 시작 -->
-<div class="search-filter">
+             	 
+             	 
+			<!-- 검색필터 시작 -->
+             <div class="search-filter">
       <div class="search-filter-inner" >
     
      <div class="serch-filter-content">
@@ -491,24 +495,21 @@
              </div>
              </div>
 <!-- 검색필터 끝 -->
-				
-				
 
 
-              	<div class="table-summary">
+
+              <div class="table-summary">
               	  <!-- 엑셀다운 -->
-				  <button type="button" class="btn btn-success btn_excel_00">엑셀다운</button>
-				  <p>총 <span id="totalRequests">0</span>명 </p>
-
+ 				  <button type="button" class="btn btn-success btn_excel_00">엑셀다운</button>
 				 </div>
              	 
              	 <table class="table datatable">
 				  <thead>
 				    <tr>
-				      <th scope="col">NO.</th>
+				      <th scope="col">강사번호</th>
 				      <th scope="col">가입유형</th>
-				      <th scope="col">이메일아이디</th>
-				      <th scope="col">이름</th>
+				      <th scope="col">이메일 아이디</th>
+				      <th scope="col">회원명</th>
 				      <th scope="col">생년월일</th>
 				      <th scope="col">가입일자</th>
 				      <th scope="col">회원상태</th>
@@ -516,40 +517,38 @@
 				    </tr>
 				  </thead>
 				  <tbody>
+				  <c:if test="${memberList == null }">
+				<tr>
+					<td colspan="5">등록된 회원이 없습니다.</td>
+				</tr>
+			</c:if>
+			<c:forEach var="member" items="${memberList }">
 				    <tr>
-					  <td>003</td>
-				      <td>카카오</td>
-				      <td>hong@naver.com</td>
-				      <td>홍길동</td>
-				      <td>2000.04.08</td>
-				      <td>2023.01.08</td>
-				      <td>탈퇴회원</td>
-				      <td><a href="#">상세보기</a></td>
-				    </tr>
-				    <tr>
-					  <td>002</td>
-				      <td>구글</td>
-				      <td>hong@naver.com</td>
-				      <td>홍길동</td>
-				      <td>2000.04.08</td>
-				      <td>2023.01.08</td>
-				      <td>탈퇴회원</td>
-				      <td><a href="#">상세보기</a></td>
-				    </tr>
-				    <tr>
-					  <td>001</td>
-				      <td>회원가입</td>
-				      <td>hong@naver.com</td>
-				      <td>홍길동</td>
-				      <td>2000.04.08</td>
-				      <td>2023.01.08</td>
-				      <td>탈퇴회원</td>
-				      <td><a href="#">상세보기</a></td>
-				    </tr>				   
+					  <td>${member.csMemberCode }</td>
+				      <td>${member.csRegistrationType }</td>
+				      <td>${member.csEmailId }</td>
+				      <td>${member.csName }</td>
+				      <td>${member.csBirth }</td>
+				      <td>${member.csRegistrationDate }</td>
+				     <!-- 탈퇴 상태에 대한 처리 -->
+					<!-- 탈퇴여부 Y이면 탈퇴회원 N이면 일반회원-->
+					<c:choose>
+						<c:when test="${member.csDeleteYn}">
+							<td>탈퇴회원</td>
+						</c:when>
+						<c:otherwise>
+							<td>일반회원</td>
+						</c:otherwise>
+					</c:choose>
+
+					<td><a href="getMember.do?csMemberCode=${member.csMemberCode }">상세보기</a></td>
+					
+				</tr>
+			</c:forEach>
 				  </tbody>
 				</table>
               
-              <!-- 페이징 처리 시작 -->
+             	<!-- 페이징 처리 시작 -->
               <div class="admin-screen-paging">
                 <ul class="pagination">
                   <li class="page-item"><a class="page-link" href="#">이전</a></li>
@@ -561,8 +560,7 @@
                   <li class="page-item"><a class="page-link" href="#">다음</a></li>
                 </ul>
              </div>
-      <!-- 페이징 처리 끝 -->
-              
+      <!-- 페이징 처리 끝 --> 
              	 
              	 
              	 
@@ -576,6 +574,8 @@
     </section>
 
   </main><!-- End #main -->
+ 
+ 
  
     
 
@@ -607,7 +607,7 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
- <script src="${pageContext.request.contextPath}/resources/js/admin_common_1.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/admin_common_1.js"></script>
 </body>
 
 </html>

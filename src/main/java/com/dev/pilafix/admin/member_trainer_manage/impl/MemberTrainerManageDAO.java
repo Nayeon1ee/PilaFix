@@ -19,6 +19,10 @@ public class MemberTrainerManageDAO {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList");
 	}
 	
+	public List<MemberVO> getTrainerList() {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList");
+	}
+	
 	public MemberVO getMember(int csMemberCode) {
 		return sqlSessionTemplate.selectOne("MemberManageDAO.getMember", csMemberCode);
 	}
