@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,9 +32,11 @@
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
 
-  <link href="${pageContext.request.contextPath }/resources/css/style_admin_send_sms_detail.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath }/resources/css/style_admin_send_sms_list.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath }/resources/css/style_admin_common.css" rel="stylesheet">
   
+     <link href="${pageContext.request.contextPath }/resources/css/style_admin_common_2.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -432,8 +434,8 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">전체 센터의 문자 발송이력 상세</h5>
-              <p>전체 센터의 문자 발송이력 상세 페이지입니다.</p>
+              <h5 class="card-title">센터의 전체 문자 발송이력 리스트</h5>
+              <p>센터의 전체 문자 발송이력 리스트 페이지입니다.</p>
 
 
              	<!-- 
@@ -443,44 +445,91 @@
              	 
              	 -->
              	 
-            <!-- Multi Columns Form -->
-              <form class="row g-3">
-              	<div class="col-md-4">
-                  <label class="form-label">수신인</label>
-                  <input type="text" readonly class="form-control" value="홍길동" disabled>
+             	 
+<!-- 검색필터 시작 -->
+             <div class="search-filter">
+      <div class="search-filter-inner" >
+    
+     <div class="serch-filter-content">
+      <div class="search-top">
+              <div class="col-md-3">
+                  <label for="inputState" class="form-label">검색</label>
+                  <select id="inputState" class="form-select">
+                    <option selected disabled>전체</option>
+                    <option>글 제목</option>
+                    <option>글 작성자</option>
+                    <option></option>
+                  </select>
                 </div>
-                <div class="col-md-4">
-                  <label class="form-label">수신자 번호</label>
-                  <input type="text" readonly class="form-control" value="010-1111-1111" disabled>
+           <div class="serch-input">
+             <div class="col-md-6">
+                  <input type="text" class="form-control" id="inputCity" placeholder="검색어를 입력해주세요">
                 </div>
-                <div class="col-md-4">
-                  <label class="form-label">발송일자</label>
-                  <input type="text" readonly class="form-control" value="2023.04.08" disabled>
+                <div class="search-btn">
+                <button type="submit" class="btn btn-primary search">검색</button>
+                <button type="reset" class="btn btn-primary search" id="resetButton">초기화</button>
+           </div>
+            </div>
+            </div>
+             
+             <div class="search-date">
+                <div class="date-filter">
+                 <label for="inputState" class="form-label">기간검색</label>
+                <div class="col-sm-12">
+                    <input type="date" class="form-control-date" id="startDate">
+                  <span>~</span>
+                    <input type="date" class="form-control-date" id="endDate">
+                  </div>
+                  </div>
+                  </div>
+                  
                 </div>
-                <div class="col-md-4">
-                  <label class="form-label">발송코드</label>
-                  <input type="text" readonly class="form-control" value="010408" disabled>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">상태</label>
-                  <input type="text" readonly class="form-control" value="성공" disabled>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">비고</label>
-                  <input type="text" readonly class="form-control" value="2023.04.08" disabled>
-                </div>
+             </div>
+             </div>
+<!-- 검색필터 끝 -->
+
+
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+              
+              
+              
+                <thead>
+                  <tr>
+                    <th scope="col">NO.</th>
+                    <th scope="col">발신센터</th>
+                    <th scope="col">발송일자</th>
+                    <th scope="col">상태</th>
+                    <th scope="col">비고</th>
+                  </tr>
+                </thead>
                 
-		
-                <div class="col-md-12">
-                	<label class="form-label">발송 내용</label>
-                	 <textarea readonly class="form-control" style="height: 300px;" disabled>
-예약완료내용</textarea>
-                </div>
-                <div class="text-center">
-                  <button class="btn btn-secondary">목록</button>
-                </div>
-              </form><!-- End Multi Columns Form -->
-             	             	 
+                <tbody>
+                <c:if test="${sendSmsHistoryInfoList == null }">
+                  <tr>
+                  	<td colspan="5">등록된 글이 없습니다.</td>
+                  </tr>
+                 </c:if>
+                 <c:forEach var="sendSmsHistoryInfo" items="${sendSmsHistoryInfoList }">
+                 <tr>
+                    <td>${sendSmsHistoryInfo.shSendCode }</td>
+					<td><a href="getSendSmsHistoryInfo.do?shSendCode=${sendSmsHistoryInfo.shSendCode }">${sendSmsHistoryInfo.shSendCenterCode }</a></td>
+					<td>${sendSmsHistoryInfo.shSendDatetime }</td>
+						<c:if test="${sendSmsHistoryInfo.shSuccessYn == true}">
+					<td>성공</td>
+						</c:if>
+						<c:if test="${sendSmsHistoryInfo.shSuccessYn == false}">
+					<td>실패</td>
+						</c:if>
+					<td>${sendSmsHistoryInfo.shFailReason}</td>
+                  </tr>
+                 </c:forEach>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->             	 
+             	 
+             	 
              	 
              	 
              	 
@@ -493,7 +542,6 @@
     </section>
 
   </main><!-- End #main -->
- 
  
  
  
@@ -527,7 +575,7 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
-
+  <script src="${pageContext.request.contextPath}/resources/js/admin_common_2.js"></script>  
 </body>
 
 </html>
