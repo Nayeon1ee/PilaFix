@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -481,56 +481,25 @@
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">NO.</th>
-                    <th scope="col">글제목</th>
-                    <th scope="col">글내용</th>
+                    <th scope="col">글 번호</th>
+                    <th scope="col">글 제목</th>
+                    <th scope="col">글 내용</th>
                     <th scope="col">작성자</th>
                     <th scope="col">작성일</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">6</th>
-                    <td><a href="${pageContext.request.contextPath }/community_detail.jsp" class="admin-alink-color">xx점 후기</a></td>
-                    <td>토미강사 추천 어쩌구 저쩌구 어쩌구 저쩌구</td>
-                    <td>김xx</td>
-                    <td>2016-05-25</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td><a href="#" class="admin-alink-color">ss점 후기</a></td>
-                    <td>ss강사 비추 가지마셈</td>
-                    <td>이ss</td>
-                    <td>2014-12-05</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td><a href="#" class="admin-alink-color">한달만에 10kg뺀 썰 푼다</a></td>
-                    <td>인스타 공구 어쩌구 저쩌구 효소가 어쩌구</td>
-                    <td>신00</td>
-                    <td>2011-08-12</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td><a href="#" class="admin-alink-color">너모 힘들다</a></td>
-                    <td>집가고 싶다아아아아아아아아아아</td>
-                    <td>구99</td>
-                    <td>2012-06-11</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td><a href="#" class="admin-alink-color">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</a></td>
-                    <td>ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ</td>
-                    <td>강22</td>
-                    <td>2011-04-19</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td><a href="#" class="admin-alink-color">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</a></td>
-                    <td>ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ</td>
-                    <td>강33</td>
-                    <td>2011-04-19</td>
-                  </tr>
+                <!-- 커뮤니티 리스트 -->
+                <c:forEach var="list" items="${communityList}">
+				<tr>
+					<th scope="row">${list.cmNumber}</th>
+                    <td><a href="getCommunity.do?cmNumber=${list.cmNumber}&csName=${list.csName}" class="admin-alink-color">${list.cmTitle}</a></td>
+					<td>${list.cmContent}</td>
+					<td>${list.csName}</td>
+					<td>${list.cmRegdate}</td>
+				</tr>
+			</c:forEach>
+                  
                 </tbody>
               </table>          	
 
@@ -591,7 +560,7 @@
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
 
 <!--내가 만든 JS File --> 
-  <script src="${pageContext.request.contextPath }/resources/js/common_2.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/admin_common_2.js"></script>
   
 </body>
 

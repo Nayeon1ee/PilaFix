@@ -440,26 +440,26 @@
               <form class="row g-3">
               <div class="col-md-2">
                   <label class="form-label">글 번호</label>
-                  <input type="text" readonly disabled class="form-control" value="1">
+                  <input type="text" readonly disabled class="form-control" value="${community.cmNumber }">
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">작성자</label>
-                  <input type="text" readonly disabled class="form-control" value="김xx">
+                  <input type="text" readonly disabled class="form-control" value="<%=request.getParameter("csName") %>">
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">작성일</label>
-                  <input type="text" readonly disabled class="form-control" value="2023-01-01" >
+                  <input type="text" readonly disabled class="form-control" value="${community.cmRegdate}" >
                 </div>
                <div class="col-md-12">
                   <label class="form-label">글 제목</label>
-                  <input type="text" readonly disabled class="form-control" value="xx점 토미 강사 추천" >
+                  <input type="text" readonly disabled class="form-control" value="${community.cmTitle}" >
                 </div>
                 <div class="col-md-12">
                 	<label class="form-label">글 내용</label>
-                	 <textarea readonly disabled class="form-control" style="height: 300px;">xx점 토미강사 추천 굳굳</textarea>
+                	 <textarea readonly disabled class="form-control" style="height: 300px;">${community.cmContent}</textarea>
                 </div>
                 <div class="text-center">
-               	  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
+               	  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" >삭제</button>
                   <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
                 </div>
               </form><!-- End Multi Columns Form -->
@@ -483,7 +483,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary">확인</button>
+                      <button type="button" class="btn btn-primary" onclick="deleteCommunity(${community.cmNumber})">확인</button>
                     </div>
                   </div>
                 </div>
@@ -530,7 +530,24 @@ function goBack() {
   window.history.back();
 }
 </script>
-
+<!-- 모달의 확인 누르면 삭제 진행-->
+<script>
+function deleteCommunity(cmNumber) {
+		fetch('/pilafix/deleteCommunity.do?cmNumber=' + cmNumber, {
+			method: 'GET'
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('error');
+				}
+				window.location.href = 'getCommunityList.do'; // 커뮤니티 목록 페이지로 리다이렉트
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	
+};
+</script>
 </body>
 
 </html>
