@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+/* 노벌라이즈 시작 */
+body, ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+hr {
+	background: #712fab;
+	height: 2px;
+	border: 0;
+}
+
+
+/* 노벌라이즈 끝 */
+
+/* 라이브러리 시작 */
+
+/* 라이브러리 끝 */
+
+/* 메인 시작 */
+.col-top {
+	padding-top: 10px;
+}
+
+.datatable-top {
+	display: none;
+}
+
+.datatable-bottom {
+	display: none;
+}
+
+/* 테이블 시작 */
+.radio-box {
+	display: flex;
+	flex-direction: row;
+}
+
+.radio-box > * {
+	margin-right: 20px;	
+}
+
+.col-last-last {
+	display: flex;
+}
+
+.col-md-12 > .btn-primary{
+	border: 2px solid red;
+}
+
+.form-control-helf {
+	width: 60%;
+}
+
+.radio-box {
+	margin-right: 70px;
+}
+
+/* 테이블 끝 */
+.button_con {
+	display: flex;
+	justify-content: center;
+}
+
+.modal-footer {
+	display:flex;
+	justify-content: center;
+}
+
+.delete-button {
+	margin-right: 10px;
+}
+
+
+/* 메인 끝 */

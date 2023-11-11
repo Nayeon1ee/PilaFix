@@ -1,0 +1,38 @@
+@charset "UTF-8"; 
+
+.baned-info{
+	margin-top:20px;
+	background-color: #F2F2F2;
+	padding-top:20px;
+	padding-bottom:20px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+/* 신고 건수에 마우스 올리면 툴팁나오는 것*/
+.tooltip-baned-reason {
+  display: inline-block;
+  color: #0d6efd;
+  font-weight: bold;
+}
+
+.tooltip-baned-text {
+  width: 250px;
+  display: none;
+  position: absolute;
+  max-width: 200px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 0.8em;
+  color: black;
+  background: white;
+}
+
+.tooltip-baned-reason:hover .tooltip-baned-text {
+  display: block;
+}
+
+
+
+

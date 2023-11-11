@@ -1,0 +1,46 @@
+
+body {
+  background-color: #f5f5f5;
+}
+
+label {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #9B67FF;
+}
+
+.form-label {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.input-group-text {
+  background-color: #9B67FF;
+  color: #fff;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #666;
+}
+
+.btn-primary {
+  background-color: #9B67FF;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #7647CC;
+}

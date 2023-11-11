@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* FAQ등록 버튼이랑 검색창*/
+.searchfilter-size>select{
+	width: 97.6px;
+}
+.searchfilter-size>form{
+	width: 400px;
+}
+
+.searchfilter-size {
+  display: flex;
+}
+
+.left-align {
+  margin-right: auto; /* FAQ등록 버튼을 왼쪽으로 정렬 */
+}
+
+.right-align {
+  margin-left: auto; /* Select 박스와 Form을 오른쪽으로 정렬 */
+}
+
+.container-FAQ {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
