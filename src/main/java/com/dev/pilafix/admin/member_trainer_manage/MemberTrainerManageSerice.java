@@ -6,6 +6,8 @@ import java.util.List;
 public interface MemberTrainerManageSerice {
 	
 	List<MemberVO> getMemberList();
+	List<MemberVO> getTrainerList();
+	
 	MemberVO getMember(int csMemberCode);
 	
 //	수강권 결제 이력 조회

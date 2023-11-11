@@ -20,6 +20,11 @@ public class MemberTrainerManageServiceImpl implements MemberTrainerManageSerice
 	public List<MemberVO> getMemberList() {
 		return dao.getMemberList();
 	}
+	
+	@Override
+	public List<MemberVO> getTrainerList() {
+		return dao.getTrainerList();
+	}
 
 	@Override
 	public MemberVO getMember(int csMemberCode) {

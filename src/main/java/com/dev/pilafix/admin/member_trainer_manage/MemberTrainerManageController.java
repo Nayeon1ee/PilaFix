@@ -14,9 +14,15 @@ public class MemberTrainerManageController {
 	@GetMapping("/getMemberList.do")
 	public String getMemberList(Model model) {
 		model.addAttribute("memberList", service.getMemberList());
-		return "admin_membermanage/getMemberList.jsp";
+		return "admin/admin_membership";
 	}
-
+	
+	@GetMapping("/getTrainerList.do")
+	public String getTrainerList(Model model) {
+		model.addAttribute("memberList", service.getTrainerList());
+		return "admin/admin_trainer";
+	}
+	
 	@GetMapping("/getMember.do")
 	public String getMemberAndPaymentListAndConnectCenterList(int csMemberCode, Model model) {
 		
