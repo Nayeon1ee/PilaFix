@@ -455,30 +455,28 @@
               <form class="row g-3">
               	<div class="col-md-5">
                   <label class="form-label">수신인</label>
-                  <input type="text" readonly class="form-control" value="홍길동" disabled>
+                  <input type="text" readonly class="form-control" value="${sendEmailHistoryInfo.mhRecipientName }" disabled>
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">수신메일</label>
-                  <input type="text" readonly class="form-control" value="hong@naver.com" disabled>
+                  <input type="text" readonly class="form-control" value="${sendEmailHistoryInfo.mhRecipientEmail }" disabled>
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">구분</label>
-                  <input type="text" readonly class="form-control" value="비밀번호찾기" disabled>
+                  <input type="text" readonly class="form-control" value="${sendEmailHistoryInfo.mhEmailSendType }" disabled>
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">발송일</label>
-                  <input type="text" readonly class="form-control" value="2023.04.08" disabled>
+                  <input type="text" readonly class="form-control" value="${sendEmailHistoryInfo.mhEmailSendDatetime }" disabled>
                 </div>
 		
                 <div class="col-md-12">
                 	<label class="form-label">발송 내용</label>
-                	 <textarea readonly class="form-control" style="height: 300px;" disabled>
-요청하신 인증번호입니다.
-17728</textarea>
+                	 <textarea readonly class="form-control" style="height: 300px;" disabled>${sendEmailHistoryInfo.mhRecipientContent }</textarea>
                 </div>
-                <div class="text-center">
+               <!--  <div class="text-center">
                   <button class="btn btn-secondary">목록</button>
-                </div>
+                </div> -->
               </form><!-- End Multi Columns Form -->
              	             	 
              	 

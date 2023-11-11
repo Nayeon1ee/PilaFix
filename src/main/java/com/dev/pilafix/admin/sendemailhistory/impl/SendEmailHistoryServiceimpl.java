@@ -20,24 +20,8 @@ public class SendEmailHistoryServiceimpl implements SendEmailHistoryService {
 	}
 
 	@Override
-	public SendEmailHistoryVO getSendEmailHistoryInfo(int mheMailSendCode) {
+	public SendEmailHistoryVO getSendEmailHistoryInfo(String mheMailSendCode) {
 		return dao.getSendEmailHistoryInfo(mheMailSendCode);
-	}
-	
-
-	@Override
-	public int insertSendEmailHistoryInfo(SendEmailHistoryVO vo) {
-		return dao.insertSendEmailHistoryInfo(vo);
-	}
-
-	@Override
-	public int updateSendEmailHistoryInfo(SendEmailHistoryVO vo) {
-		return dao.updateSendEmailHistoryInfo(vo);
-	}
-
-	@Override
-	public int deleteSendEmailHistoryInfo(int mheMailSendCode) {
-		return dao.deleteSendEmailHistoryInfo(mheMailSendCode);
 	}
 
 }

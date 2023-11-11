@@ -3,7 +3,7 @@ package com.dev.pilafix.admin.sendemailhistory;
 import java.util.Date;
 
 public class SendEmailHistoryVO {
-	private int mhEmailSendCode;
+	private String mhEmailSendCode;
 	private String mhEmailSendType;
 	private Date mhEmailSendDatetime;
 	private	String mhRecipientName;
@@ -13,10 +13,10 @@ public class SendEmailHistoryVO {
 	private boolean	mhSuccessyn;
 	private Date mhSuccessDatetime;
 	private String mhFailReason;
-	public int getMhEmailSendCode() {
+	public String getMhEmailSendCode() {
 		return mhEmailSendCode;
 	}
-	public void setMhEmailSendCode(int mhEmailSendCode) {
+	public void setMhEmailSendCode(String mhEmailSendCode) {
 		this.mhEmailSendCode = mhEmailSendCode;
 	}
 	public String getMhEmailSendType() {

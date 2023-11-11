@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -502,48 +502,39 @@
               
                 <thead>
                   <tr>
-                    <th scope="col">NO.</th>
-                    <th scope="col">구분</th>
-                    <th scope="col">메일제목</th>
-                    <th scope="col">수신인</th>
-                    <th scope="col">수신메일</th>
-                    <th scope="col">발송일</th>
+                    <th scope="col">이메일발송코드</th>
+                    <th scope="col">이메일발송유형</th>
+                    <th scope="col">이메일발송일시</th>
+                    <th scope="col">수신자명</th>
+                    <th scope="col">수신제목</th>
+                    <th scope="col">수신내용</th>
+                    <th scope="col">수신자이메일</th>
+                    <th scope="col">발송성공여부</th>
+                    <th scope="col">발송성공시간</th>
+                    <th scope="col">발송실패사유</th>
                   </tr>
                 </thead>
                 
                 <tbody>
+                <c:if test="${sendEmailHistoryInfoList == null }">
+					<tr>
+						<td colspan="10">등록된 글이 없습니다.</td>
+					</tr>
+				</c:if>
+				<c:forEach var="sendEmailHistoryInfo" items="${sendEmailHistoryInfoList }">
                   <tr>
-                    <td>0418</td>
-                    <td>변경약관동의</td>
-                    <td>[필라픽스]변경약관 동의 메일입니다.</td>
-                    <td>홍길동</td>
-                    <td>hong@naver.com</td>
-                    <td>2023.04.18 오후 01:08</td>
+                    <td>${sendEmailHistoryInfo.mhEmailSendCode }</td>
+					<td>${sendEmailHistoryInfo.mhEmailSendType }</td>
+					<td>${sendEmailHistoryInfo.mhEmailSendDatetime }</td>
+					<td>${sendEmailHistoryInfo.mhRecipientName}</td>
+					<td><a href="getSendEmailHistoryInfo.do?mhEmailSendCode=${sendEmailHistoryInfo.mhEmailSendCode }">${sendEmailHistoryInfo.mhRecipientTitle }</a></td>
+					<td>${sendEmailHistoryInfo.mhRecipientContent }</td>
+					<td>${sendEmailHistoryInfo.mhRecipientEmail }</td>
+					<td>${sendEmailHistoryInfo.mhSuccessyn }</td>
+					<td>${sendEmailHistoryInfo.mhSuccessDatetime }</td>
+					<td>${sendEmailHistoryInfo.mhFailReason }</td>
                   </tr>
-                  <tr>
-                    <td>0417</td>
-                    <td>비밀번호찾기</td>
-                    <td>[필라픽스]비밀번호 찾기 인증 메일입니다.</td>
-                    <td>홍길동</td>
-                    <td>hong@naver.com</td>
-                    <td>2023.04.18 오후 01:08</td>
-                  </tr>                                                          
-                  <tr>
-                    <td>0416</td>
-                    <td>회원가입인증</td>
-                    <td>[필라픽스]회원가입 인증 메일입니다.</td>
-                    <td>홍길동</td>
-                    <td>hong@naver.com</td>
-                    <td>2023.04.18 오후 01:08</td>
-                  </tr>
-                  <tr>
-                    <td>0415</td>
-                    <td>센터계정생성</td>
-                    <td>[필라픽스]계정생성 메일입니다.</td>
-                    <td>홍길동</td>
-                    <td>hong@naver.com</td>
-                    <td>2023.04.18 오후 01:08</td>
-                  </tr>                                  
+                  </c:forEach>
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->             	 

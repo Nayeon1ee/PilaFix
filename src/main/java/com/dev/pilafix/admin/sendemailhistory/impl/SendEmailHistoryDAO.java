@@ -19,19 +19,9 @@ public class SendEmailHistoryDAO {
 	public List<SendEmailHistoryVO> getSendEmailHistoryInfoList(){
 		return sqlSessionTemplate.selectList("SendEmailHistoryDAO.getSendEmailHistoryInfoList");
 	}
-	public SendEmailHistoryVO getSendEmailHistoryInfo(int mhEmailSendCode) {
-	    return sqlSessionTemplate.selectOne("SendEmailHistoryDAO.getSendEmailHistoryInfo",mhEmailSendCode);
+	public SendEmailHistoryVO getSendEmailHistoryInfo(String mheMailSendCode) {
+	    return sqlSessionTemplate.selectOne("SendEmailHistoryDAO.getSendEmailHistoryInfo",mheMailSendCode);
 	}
 	
-	public int insertSendEmailHistoryInfo(SendEmailHistoryVO vo) {
-		return sqlSessionTemplate.insert("SendEmailHistoryDAO.insertSendEmailHistoryInfo", vo);
-	}
 	
-	public int updateSendEmailHistoryInfo(SendEmailHistoryVO vo) {
-		return sqlSessionTemplate.update("SendEmailHistoryDAO.updateSendEmailHistoryInfo", vo);
-	}
-	
-	public int deleteSendEmailHistoryInfo(int mhEmailSendCode) {
-		return sqlSessionTemplate.delete("SendEmailHistoryDAO.deleteSendEmailHistoryInfo", mhEmailSendCode);
-	}
 }
