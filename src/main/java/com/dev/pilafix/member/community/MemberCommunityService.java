@@ -9,6 +9,8 @@ public interface MemberCommunityService {
 	int updateMemberCommunity(MemberCommunityVO vo);
 	int deleteMemberCommunity(int seq);
 	int updateMemberCommunityViewCnt(int memberCmNumber);
-	int insertBlame(int memberCmNumber, String ipAddress);
 	List<MemberCommunityVO> getBlameList();
+	int insertBlame(int memberCmNumber, String ipAddress);
+	MemberCommunityVO getMemberCommunityReply(int memberCmNumber);
+	int insertMemberCommunityReply(int memberCmNumber);
 }
