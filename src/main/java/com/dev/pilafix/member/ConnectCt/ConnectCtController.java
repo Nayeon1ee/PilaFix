@@ -13,12 +13,20 @@ public class ConnectCtController {
 	@Autowired
 	private ConnectCtService service;
 	
+	/**
+	 * 센터연동화면 요청
+	 * @return
+	 */
 	@GetMapping("/ct.do")
 	public String ct(){
 		return "member_ctConnect/ctConnect.jsp";
 	}
 
-	
+	/**
+	 * 연동할 센터 검색시 디비가서 키워드에 맞는 센터 검색해서 화면에 뿌려줌 
+	 * @param searchKeyword
+	 * @return
+	 */
 	@GetMapping("/searchCt.do")
 	@ResponseBody
 	public List<ConnectCtVO> searchCt(String searchKeyword){

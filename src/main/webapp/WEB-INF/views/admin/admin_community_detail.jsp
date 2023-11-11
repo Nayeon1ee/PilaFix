@@ -479,11 +479,11 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      확인 버튼을 누르시면 다시 복구시킬 수 없습니다.
+                      삭제 버튼을 누르시면 다시 복구시킬 수 없습니다.
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary" onclick="deleteCommunity(${community.cmNumber})">확인</button>
+                      <button type="button" class="btn btn-primary" onclick="deleteCommunity(${community.cmNumber})">삭제</button>
                     </div>
                   </div>
                 </div>
