@@ -16,6 +16,11 @@
  <br><br>
  <!--  검색 누르기 전까지는 이 화면이었다가 검색 누르면 바껴야함
 	<c:if test="" >
+		
+	</c:if>
+	
+-->
+		<div id="insertCenterList">
 		<p>이렇게 검색해보세요!</p>
 		<p>센터명</p>
 		<p>바디코디 필라테스</p><br>
@@ -25,25 +30,10 @@
 
 		<p>센터명 + 센터주소</p>
 		<p>바디코디 필라테스 부천점</p>
-	</c:if>
-	
--->
-		<div id="insertCenterList"></div>
-	<!--  
-	//####################################################
-	<table border="1">
-	<tr>
-		<td>척뿌 필라테스</td>
-	</tr>
-	<tr>
-		<td>서울시 서초구 서초동 00빌딩 4층</td>
-	</tr>
-	<tr>
-		<td><input type="button" value="연동 신청"></td>
-	</tr>
-</table>
-//###################################################
--->
+		</div>
+
+
+<!-- 센터연동 검색 -->
 <script type="text/javascript">
 $(function(){
     $("#searchCt").click(function(){
@@ -59,6 +49,12 @@ $(function(){
             success: function(data){ 
                 //console.log("리스트 잘 가져왔나 확인용"+data);
                 var str = "";
+                //  insertCenterList라는 아이디 가진 영역의 기존 내용을 지움
+                $('#insertCenterList').html('');
+                if (data.length < 1){
+                	str = '<p>검색된 결과가 없습니다</p>'
+                		$('#insertCenterList').append(str);
+                }else{
                 data.forEach(function(item){
 					str='<table border="1">'
 					str+='<tr>'
@@ -72,8 +68,10 @@ $(function(){
 					str+="</tr>"
 					str+="</table>"
 					str+="<br>"
+					// insertCenterList라는 아이디를 가진 영역에 위의 내용 삽입해줌
 					$('#insertCenterList').append(str);
-        		})				 
+        		})	
+                }
          },
             error : function(error){alert(error);}
         });
