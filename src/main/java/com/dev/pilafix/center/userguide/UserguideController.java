@@ -16,7 +16,7 @@ public class UserguideController {
 
 	@GetMapping("/insertUserguide.do")
 	public String insertForm() {
-		return "userguide/insertUserguide.jsp";
+		return "center/center_userguide_register";
 	}
 
 	@PostMapping("/insertUserguide.do")
@@ -28,7 +28,7 @@ public class UserguideController {
 	@GetMapping("/updateUserguide.do")
 	public String updateForm(int ugCode, Model model) {
 		model.addAttribute("userguide", service.getUserguide(ugCode));
-		return "userguide/updateUserguide.jsp";
+		return "center/center_userguide_edit";
 	}
 
 	@PostMapping("/updateUserguide.do")
@@ -46,18 +46,14 @@ public class UserguideController {
 	@GetMapping("/getUserguideList.do")
 	public String getUserguideList(Model model) {
 		model.addAttribute("userguideList", service.getUserguideList());
-		return "userguide/getUserguideList.jsp";
+		return "center/center_userguide";
 	}
 	
 	@GetMapping("/getUserguide.do")
 	public String getUserguide(@RequestParam("ugCode") Integer ugCode, Model model) {
-//		UserguideVO vo = service.getUserguide(ugCode);
-//		System.out.println(vo.getUgCode());
-//		System.out.println(vo.getUgName());
-//		System.out.println("===========");
 
 		model.addAttribute("userguide", service.getUserguide(ugCode));
-		return "userguide/getUserguide.jsp";
+		return "center/center_userguide_detail";
 	}
 	
 	
