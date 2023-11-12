@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
 import com.dev.pilafix.admin.terms.TermsVO;
 
 @Repository
@@ -35,5 +36,9 @@ public class TermsDAO {
 		return sqlSessionTemplate.delete("TermsDAO.deleteTerms", tmCode);
 	}
 
+	
+	public int sendEmail(SendEmailHistoryVO email) {
+		return sqlSessionTemplate.insert("TermsDAO.insertSendEmailHistory",email);
+	}
 
 }

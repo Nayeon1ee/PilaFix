@@ -19,22 +19,28 @@
     </select>
     
 	<select id="getTermsList" resultMap="termsResult">
-        SELECT TM_CODE, TM_NAME, TM_REGDATE, TM_MODIFIED_DATE, TM_REQUIRED_YN FROM TBL_TERMS;
+        SELECT TM_CODE, TM_NAME, TM_REGDATE, TM_MODIFIED_DATE, TM_REQUIRED_YN, TM_OPEN_YN FROM TBL_TERMS ORDER BY TM_REGDATE DESC;
     </select>
 	
-	<select id="insertTerms" parameterType="terms">
+	<insert id="insertTerms" parameterType="terms">
 		INSERT INTO TBL_TERMS
     	VALUES (nextval('seq_terms'), #{tmName}, #{tmDetail},CURRENT_TIMESTAMP,CURRENT_TIMESTAMP, #{tmRequiredYn}, #{tmOpenYn})
-	</select>
+	</insert>
 	
 	<update id="updateTerms" parameterType="terms">
 		UPDATE TBL_TERMS SET TM_NAME=#{tmName}, TM_DETAIL=#{tmDetail},TM_REQUIRED_YN=#{tmRequiredYn},TM_OPEN_YN=#{tmOpenYn},TM_MODIFIED_DATE=CURRENT_TIMESTAMP WHERE TM_CODE=#{tmCode}
 	</update>
+	
 	<delete id="deleteTerms"  parameterType="Integer">
 		DELETE FROM TBL_TERMS WHERE TM_CODE=#{tmCode}
 	</delete>
 	
 	
+	<!-- 이메일 발송 이력 등록 -->
+	<insert id="insertSendEmailHistory" parameterType="emailHistory">
+		INSERT INTO TBL_SEND_EMAIL_HISTORY(MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE, MH_EMAIL_SEND_DATETIME, MH_RECIPIENT_NAME,MH_RECIPIENT_TITLE,MH_RECIPIENT_CONTENT, MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME,MH_FAIL_REASON )
+		VALUES(CONCAT('EH',NEXTVAL('SEQ_SEND_EMAIL_HISTORY')), #{mhEmailSendType}, CURRENT_TIMESTAMP, #{mhRecipientName},#{mhRecipientTitle}, #{mhRecipientContent}, #{mhRecipientEmail}, #{mhSuccessYN},#{mhSuccessDate}, #{mhFailReason})
+	</insert>
 	
 	
 </mapper>

@@ -436,41 +436,54 @@
               <p>간략한 설명</p>
 
 
-             	<!-- Multi Columns Form -->
-              <form class="row g-3">
-               <div class="col-md-12">
-                  <label class="form-label">약관명</label>
-                  <input type="text" class="form-control" placeholder="약관명을 입력하세요.">
-                </div>
-                <div class="col-md-12">
-                	<label class="form-label">약관 상세</label>
-                	 <textarea class="form-control" placeholder="약관 상세내용을 입력하세요." style="height: 300px;"></textarea>
-                </div>
-              
-                     <fieldset class="row mb-3">
-                  <div class="col-sm-10">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        필수
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                      <label class="form-check-label" for="gridRadios2">
-                        선택
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-                    
-             
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">등록</button>
-                  <button type="reset" class="btn btn-secondary">취소</button>
-                </div>
-              </form>
-              <!-- End Multi Columns Form -->
+<!-- Multi Columns Form -->
+<form class="row g-3" action="insertTerms.do" method="post">
+ 	<div class="col-md-12">
+       <label class="form-label">약관명</label>
+       <input type="text" id="tmName" name="tmName" class="form-control" placeholder="약관명을 입력하세요.">
+    </div>
+    <div class="col-md-12">
+       <label class="form-label">약관 상세</label>
+       <textarea class="form-control" id="tmDetail" name="tmDetail" placeholder="약관 상세내용을 입력하세요." style="height: 300px;"></textarea>
+    </div>
+    
+    
+	<label class="form-label">필수여부</label>    
+	<fieldset class="row mb-3">
+	    <div class="col-sm-10">
+	        <div class="form-check form-check-inline">
+	            <input class="form-check-input" type="radio" name="tmRequiredYn" id="tmRequiredYes" value="true" checked>
+	            <label class="form-check-label" for="tmRequiredYes">필수</label>
+	        </div>
+	        <div class="form-check form-check-inline">
+	            <input class="form-check-input" type="radio" name="tmRequiredYn" id="tmRequiredNo" value="false">
+	            <label class="form-check-label" for="tmRequiredNo">선택</label>
+	        </div>
+	    </div>  
+	</fieldset>
+	
+	<label class="form-label">공개여부</label>
+	<fieldset class="row mb-3">
+    <div class="col-sm-10">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tmOpenYn" id="tmOpenYes" value="true" checked>
+            <label class="form-check-label" for="tmOpenYes">공개</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tmOpenYn" id="tmOpenNo" value="false">
+            <label class="form-check-label" for="tmOpenNo">비공개</label>
+        </div>
+    </div>  
+	</fieldset>
+	
+           
+    <div class="text-center" >
+       <button type="submit" class="btn btn-primary">등록</button>
+       <button type="button" class="btn btn-secondary" onclick="location.href='getTermsList.do'">취소</button>
+    </div>
+
+</form>
+<!-- End Multi Columns Form -->
 
 
             </div>
@@ -514,6 +527,25 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
+
+<script>
+function validateAndFocus() {
+  var tmName = document.getElementById('tmName');
+  var tmDetail = document.getElementById('tmDetail');
+
+  if (!tmName.value.trim()) {
+    alert('약관명을 입력해주세요.');
+    tmName.focus();
+    return false;
+  } else if (!tmDetail.value.trim()) {
+    alert('약관 상세내용을 입력해주세요.');
+    tmDetail.focus();
+    return false;
+  }
+  return true; // 입력값 유효하면 폼 제출 계속
+}
+</script>
+
 
 </body>
 
