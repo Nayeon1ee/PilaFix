@@ -31,8 +31,8 @@
 			</c:if>
 			<c:forEach var="center" items="${centerList }">
 				<tr>
-					<td>${center.ctCode }</td>
-					<td><a href="getCenter.do?ctCode=${center.ctCode }">${center.ctName }</a></td>
+					<td></td>
+					<td></td>
 					<td>${center.ctAddress1}${center.ctAddress2 }${center.ctAddress3 }</td>
 					<td>${center.ctPhoneNumber1 }${center.ctPhoneNumber2 }${center.ctPhoneNumber3 }</td>
 					<td>${center.contractStartDate }</td>

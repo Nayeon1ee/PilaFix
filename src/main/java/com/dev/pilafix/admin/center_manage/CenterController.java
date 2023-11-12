@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,14 +19,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CenterController {
 	@Autowired
 	private CenterService service;
-	
-	@Autowired
-	private JavaMailSender mailSender;
 
+	@GetMapping("/test_content.do")
+	public String testContent(Model model) {
+		model.addAttribute("centerList", service.getCenterList());
+		return "admin/test_content";
+	}
+	
 	@GetMapping("/getCenterList.do")
 	public String getCenterList(Model model) {
 		model.addAttribute("centerList", service.getCenterList());
-		return "admin_centermanage/getCenterList.jsp";
+		return "admin/admin_center_management";
 	}
 
 	@GetMapping("/getCenter.do")
@@ -34,12 +37,12 @@ public class CenterController {
 		model.addAttribute("center", service.getCenter(ctCode));
 		//이메일 상세 대신 문자 상세 들어와야 함
 //		model.addAttribute("smsHistory", service.getSmsHistory(ctCode)); 
-		return "admin_centermanage/getCenter.jsp";
+		return "admin/admin_center_management_detail";
 	}
 	
 	@GetMapping("/insertCenter.do")
 	public String insertForm() {
-		return "admin_centermanage/insertCenter.jsp";
+		return "admin/admin_center_management_register";
 	}
 
 	/**
@@ -62,22 +65,29 @@ public class CenterController {
 	@GetMapping("/sendEmail.do")
 	public String sendmail(HttpSession session) {
         CenterVO center = (CenterVO) session.getAttribute("center");
-        if (center == null) {
-            return "redirect:getCenterList.do";
-        }
-
+        center.setCtPassword((String)session.getAttribute("pw")); //암호화 되지 않은 pw
         service.sendEmailAndInsertSendEmailHistory(center);
         session.removeAttribute("center");
-
         return "redirect:getCenterList.do";
     }
 	
+	/**
+	 * 수정 요청 
+	 * @param ctCode
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/updateCenter.do")
 	public String updateForm(int ctCode, Model model) {
 		model.addAttribute("center", service.getCenter(ctCode));
-		return "admin_centermanage/updateCenter.jsp";
+		return "admin/admin_center_management_edit";
 	}
 	
+	/**
+	 * 실제 DB 수정 시행 
+	 * @param vo
+	 * @return
+	 */
 	@PostMapping("/updateCenter.do")
 	public String update(CenterVO vo) {
 		service.updateCenter(vo);
@@ -113,13 +123,13 @@ public class CenterController {
 		return "redirect:getCenter.do?ctCode="+ctCode;		
 	}
 	
-	@PostMapping(value = "/ctIdCheck.do")
+	@PostMapping("/ctIdCheck.do")
 	@ResponseBody
 	public int idCheck(@RequestParam("ctId") String ctId) {
 		return service.idCheck(ctId);
 	}
 	
-	@PostMapping(value = "/ctEmailCheck.do")
+	@PostMapping("/ctEmailCheck.do")
 	@ResponseBody
 	public int emailCheck(@RequestParam("ownerEmail") String ownerEmail) {
 		return service.emailCheck(ownerEmail);
