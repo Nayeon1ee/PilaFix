@@ -2,6 +2,8 @@ package com.dev.pilafix.admin.terms;
 
 import java.util.List;
 
+import com.dev.pilafix.admin.center_manage.CenterVO;
+
 public interface TermsService {
 	List<TermsVO> getTermsList();
 
@@ -12,4 +14,9 @@ public interface TermsService {
 	int updateTerms(TermsVO vo);
 
 	int deleteTerms(int tmCode); 
+	
+	
+	List<CenterVO> getCenterList();
+	void sendEmailAndInsertSendEmailHistory(CenterVO center);
+	
 }

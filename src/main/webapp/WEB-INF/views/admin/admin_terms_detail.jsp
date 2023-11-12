@@ -436,42 +436,41 @@
               <p>간략한 설명</p>
 
 
-             	 <!-- Multi Columns Form -->
-              <form class="row g-3">
-              <div class="col-md-2">
-                  <label class="form-label">약관 번호</label>
-                  <input type="text" readonly disabled class="form-control" value="1">
-                </div>
-                <div class="col-md-2">
-                  <label class="form-label">필수 여부</label>
-                  <input type="text" readonly disabled class="form-control" value="필수">
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">등록일자</label>
-                  <input type="text" readonly disabled class="form-control" value="2023-01-01">
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">최근 수정일</label>
-                  <input type="text" readonly disabled class="form-control" value="2023-01-01" >
-                </div>
-               <div class="col-md-12">
-                  <label class="form-label">약관명</label>
-                  <input type="text" readonly disabled class="form-control" value="개인정보 수집 및 이용" >
-                </div>
-                <div class="col-md-12">
-                	<label class="form-label">약관 상세</label>
-                	 <textarea class="form-control" readonly disabled  style="height: 300px;">개인정보보호법에 따라 네이버에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적, 개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한 사항을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다.
-1. 수집하는 개인정보
-이용자는 회원가입을 하지 않아도 정보 검색, 뉴스 보기 등 대부분의 네이버 서비스를 회원과 동일하게 이용할 수 있습니다. 이용자가 메일, 캘린더, 카페, 블로그 등과 같이 개인화 혹은 회원제 서비스를 이용하기 위해 회원가입을 할 경우, 네이버는 서비스 이용을 위해 필요한 최소한의 개인정보를 수집합니다.
-회원가입 시점에 네이버가 이용자로부터 수집하는 개인정보는 아래와 같습니다.
-            </textarea>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/terms_edit.jsp'">수정</button>
-                  <button type="button" class="btn btn-danger" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-                  <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
-                </div>
-              </form><!-- End Multi Columns Form -->
+				<form class="row g-3">
+				    <div class="col-md-4">
+				        <label class="form-label">약관 번호</label>
+				        <input type="text" readonly disabled class="form-control" value="${terms.tmCode}">
+				    </div>
+				    <div class="col-md-4">
+				        <label class="form-label">필수 여부</label>
+				        <input type="text" readonly disabled class="form-control" value="${terms.tmRequiredYn ? '필수' : '선택'}">
+				    </div>
+				    <div class="col-md-4">
+				        <label class="form-label">공개 여부</label>
+				        <input type="text" readonly disabled class="form-control" value="${terms.tmOpenYn ? '공개' : '비공개'}">
+				    </div>
+				    <div class="col-md-6">
+				        <label class="form-label">등록일자</label>
+				        <input type="text" readonly disabled class="form-control" value="${terms.tmRegdate}">
+				    </div>
+				    <div class="col-md-6">
+				        <label class="form-label">최근 수정일</label>
+				        <input type="text" readonly disabled class="form-control" value="${terms.tmModifiedDate}">
+				    </div>
+				    <div class="col-md-12">
+				        <label class="form-label">약관명</label>
+				        <input type="text" readonly disabled class="form-control" value="${terms.tmName}">
+				    </div>
+				    <div class="col-md-12">
+				        <label class="form-label">약관 상세</label>
+				        <textarea class="form-control" readonly disabled style="height: 300px;">${terms.tmDetail}</textarea>
+				    </div>
+				    <div class="text-center">
+				        <button type="button" class="btn btn-primary" onclick="location.href='updateTerms.do?tmCode=${terms.tmCode}'">수정</button>
+				        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
+				        <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
+				    </div>
+				</form><!-- End Multi Columns Form -->
 
             </div>
           </div>
@@ -479,8 +478,8 @@
         </div>
       </div>
     </section>
-<!-- 삭제 모달 -->
-<div class="modal fade" id="basicModal" tabindex="-1">
+<!-- 삭제 버튼 모달 -->
+	<div class="modal fade" id="basicModal" tabindex="-1">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -492,7 +491,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary">확인</button>
+                      <button type="button" class="btn btn-primary" onclick="deleteTerms(${terms.tmCode})">확인</button>
                     </div>
                   </div>
                 </div>
@@ -534,7 +533,23 @@
   
   <!-- 내가 만든 JS File -->
   <script src="${pageContext.request.contextPath }/resources/js/admin_common.js"></script>
-
+<!-- 모달의 확인 버튼 클릭 시 삭제를 진행하는 스크립트 -->
+<script>
+function deleteTerms(tmCode) {
+    fetch('/pilafix/deleteTerms.do?tmCode=' + tmCode, {
+        method: 'GET'
+    })
+    .then(response => {
+				if (!response.ok) {
+					throw new Error('error');
+				}
+        window.location.href = 'getTermsList.do'; // 약관 목록 페이지로 리다이렉트
+    })
+    .catch(error => {
+		console.error(error);
+	});
+};
+</script>
 </body>
 
 </html>
