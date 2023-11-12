@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.center_manage.CenterService;
@@ -81,7 +82,7 @@ public class CenterServiceImpl implements CenterService {
         String ownerName = center.getOwnerName();
 		
 		//====이메일 발송======
-	    String from = "inayeon1212@gmail.com"; //보내는 사람
+	    String from = "pilafix1@gmail.com"; //보내는 사람
 	    String title = "[필라픽스] 센터 등록 완료 안내"; // 제목
 	    String toSend = ownerEmail; //받는 사람
 
@@ -154,7 +155,15 @@ public class CenterServiceImpl implements CenterService {
      */
     @Override
     public void insertCenterAndSetSession(CenterVO center, HttpSession session) {
+    	   
+    	session.setAttribute("pw", center.getCtPassword());//이메일 전송을 위해 암호화 전 pw 저장 
     	session.setAttribute("center", center);
+    	
+    	// 클라이언트에게 pw 전송(세션에 세팅 후 암호화)
+    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    	String encodedPwd = encoder.encode(center.getCtPassword());
+    	center.setCtPassword(encodedPwd);
+    	
     	dao.insertCenter(center);
     }
 

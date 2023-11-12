@@ -33,6 +33,9 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info.css">
+  
+  <!-- 내가 만든 css -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
 
   <!-- =======================================================
   * Template Name: PilaAdmin
@@ -423,11 +426,10 @@
   </aside><!-- End Sidebar-->
       <!-- ============================================================================================ -->
  
- 
   <main id="main" class="main">
 
     <div class="pagetitle">
-			<h1>센터 등록화면</h1>
+			<h1>센터 등록</h1>
 		</div>
 		<!-- End Page Title -->
 
@@ -438,133 +440,117 @@
 					<div class="card">
 						<div class="card-body">
 							<p style="magin-top: 1%;"></p>
-							<div class="row mb-300" style="width: 122%; margin-top: 1%;">
-								<div class="col-sm-10">
-									<input type="text" class="form-control" value="센터등록" disabled>
+							<form name="admin_info" action="insertCenter.do" method="post">
+								
+								<!-- 센터명, 센터 번호 -->
+								<div class="col-30" >
+									<label class="form-label">센터명</label>
+									<input type="text" class="form-control" name="ctName" placeholder="센터명을 입력하세요">
 								</div>
-							</div>
-							<form name="admin_info">
-								<div class="col-120">
-									<label for="inputAddress5" class="form-label">아이디</label> 
+								<div class="col-30">
+									<label class="form-label">센터 번호</label>
+										<select class="form-select" name="ctPhoneNumber1">
+											<option value="02" selected="selected" >02</option>
+											<option value="070">070</option>
+											<option value="031">031</option>
+											<option value="032">032</option>
+											<option value="033">033</option>
+											<option value="041">041</option>
+											<option value="042">042</option>
+											<option value="043">043</option>
+											<option value="044">044</option>
+											<option value="051">051</option>
+											<option value="052">052</option>
+											<option value="053">053</option>
+											<option value="054">054</option>
+											<option value="055">055</option>
+											<option value="061">061</option>
+											<option value="062">062</option>
+											<option value="063">063</option>
+											<option value="064">064</option>
+										</select>
+										<input type="text" class="form-control" name="ctPhoneNumber2" size="4"><input type="text" class="form-control" name="ctPhoneNumber3" size="4"> </p> 
+								</div>
+								
+								<!-- 주소  -->
+								<div class="col-6">
+									<label class="form-label">센터주소</label> 
 								</div>
 								<div class="col-120">
-								<input type="text" class="form-control" id="inputAddres5s" placeholder="아이디를 입력하세요" style="width: 93%;">
+									<input type="text" readonly class="form-control" placeholder="우편번호" id="ctAddress1" name="ctAddress1" style="width: 42%;">
 									<div class="col-sm-100">
-										<button type="submit" class="btn btn-primary" >중복확인</button>
+										<button type="button" class="btn btn-outline-primary" onclick="address()" >우편번호 찾기</button>
 									</div>
-									<div class="row mb-3">
-									
 								</div>
+								<div class="col-12">
+									<label class="form-label">도로명</label> 
+									<input type="text" readonly class="form-control" id="ctAddress2" placeholder="도로명주소" size="60" name="ctAddress2" >
 								</div>
-								<div class="col-120">
-									<label for="inputAddress5" class="form-label">비밀번호</label> 
+								<div class="col-12" >
+									<label class="form-label">상세주소</label>
+									<input type="text" class="form-control" placeholder="상세주소" name="ctAddress3" size="60" >
 								</div>
-								<div class="col-120">
-								<input type="text" class="form-control" id="inputAddres5s" placeholder="비밀번호를 입력하세요" style="width: 93%;">
-									<div class="col-sm-100">
-										<button type="submit" class="btn btn-primary">PW발급</button>
-									</div>
-									<div class="row mb-3">
-									
-								</div>
-								</div>
+								
+								<!-- 대표자 정보 -->
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">대표자 이름</label> <input
-										type="text" class="form-control" id="inputAddres5s"
-										placeholder="1234 Main St">
+									<label class="form-label" >대표자명</label> 
+									<input type="text" class="form-control" name="ownerName" >
 								</div>
 								<div class="col-40" style="margin-top: 1%;">
-									<label for="inputAddress2" class="form-label">사업자 등록번호</label>
-									<input type="text" class="form-control" id="inputAddress2"
-										placeholder="Apartment, studio, or floor">
+									<label class="form-label">사업자 등록번호</label>
+									<input type="text" class="form-control"  name="businessRegistrationNumber" placeholder="10자리를 입력하세요.">
 								</div>
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">대표자 이메일</label> <input
-										type="text" class="form-control" id="inputAddres5s"
-										placeholder="이메일을 입력하세요">
-									<!-- <div class="col-sm-10">
-										<button type="submit" class="btn btn-primary">중복확인</button>
-									</div> -->
+									<label class="form-label">대표자 이메일</label> 
+									<input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="이메일을 입력하세요">
+									<button type="button" class="btn btn-primary" id="ctEmailCheck">중복확인</button>
+									<div id="ctEmailCheckMessage"></div>
 								</div>
+								
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">대표자 번호</label>
+									<label class="form-label">대표자 연락처</label>
 									<div class="col-400" style="display: flex;">
-									<select>
-										<option selected>전체</option>
-										<option>010</option>
-										<option>011</option>
-									</select> 
-									<input type="text" class="form-control" id="inputAddres5s">
-									<input type="text" class="form-control" id="inputAddres5s">
-									<!-- <div class="col-sm-10">
-										<button type="submit" class="btn btn-primary">중복확인</button>
-									</div> -->
+										<input type="text" class="form-control" name="ownerPhoneNumber1" size="3"><input class="form-control" type="text" name="ownerPhoneNumber2" size="4"><input class="form-control" type="text" name="ownerPhoneNumber3" size="4"> 
 									</div>
 								</div>
-								<div class="col-30" style="margin-top: 1%;">
-									<label for="inputAddress2" class="form-label">센터명</label>
-									<input type="text" class="form-control" id="inputAddress2"
-										placeholder="센터명을 입력하세요">
-								</div>
-								<div class="col-40">
-									<label for="inputAddress5" class="form-label">센터 번호</label>
-									<div class="col-400" style="display: flex;">
-									<select>
-										<option selected>전체</option>
-										<option>010</option>
-										<option>011</option>
-									</select> 
-									<input type="text" class="form-control" id="inputAddres5s">
-									<input type="text" class="form-control" id="inputAddres5s">
-									<!-- <div class="col-sm-10">
-										<button type="submit" class="btn btn-primary">중복확인</button>
-									</div> -->
+								
+								<div class="row mb-3" style="margin-top: 3%;">
+									<label for="inputNumber" class="col-sm-2 col-form-label">사업자등록증</label>
+									<div class="col-sm-10">
+										<input class="form-control" type="file" id="formFile">
+										<!-- 기능 구현 후 주석 해제 
+										<input class="form-control" type="file" id="formFile" name="businessRegistrationFile"> -->
 									</div>
 								</div>
+								
 								<div class="row mb-3">
 									<label for="inputDate" class="col-sm-2 col-form-label0" style="margin-top: 3%;">계약기간</label>
 									<div class="col-sm-10" style="margin-top: 3%;">
-										<input type="date" class="form-control" style="float: left; width: 25%;">
+										<input type="date" class="form-control" name="contractStartDate" style="float: left; width: 25%;">
 										<p style="float: left; font-size: 30px;">~</p>
-										<input type="date" class="form-control"
-											style="float: left; width: 25%;">
+										<input type="date" class="form-control" name="contractEndDate" style="float: left; width: 25%;">
 									</div>
 								</div>
-								<div class="col-6">
-									<label for="inputAddress5" class="form-label">센터주소</label> 
+								
+								
+								<!-- 계정 발급 -->
+								<div class="col-120">
+									<label class="form-label" >아이디</label>
+									<input type="text" id="ctId" name="ctId" placeholder="아이디를 입력하세요">
+									<button type="button" class="btn btn-primary" id="ctIdCheck">중복확인</button>
+									<div id="ctIdCheckMessage"></div>
 								</div>
 								<div class="col-120">
-								<input type="text" class="form-control" id="inputAddres5s" placeholder="우편번호" style="width: 42%;">
-									<div class="col-sm-100">
-										<button type="submit" class="btn btn-primary">찾기</button>
-									</div>
-									<div class="row mb-3">
-									
+									<label class="form-label">비밀번호</label> 
+									<input type="text" id="ctPassword" name="ctPassword" readonly>
+									<button type="button" class="btn btn-primary" onclick="generatePIN()">PIN 발급</button>
 								</div>
-								</div>
-								<div class="col-12">
-									<label for="inputAddress5" class="form-label">상세주소 1</label> <input
-										type="text" class="form-control" id="inputAddres5s"
-										placeholder="1234 Main St">
-								</div>
-								<div class="col-12" style="margin-top: 1%;">
-									<label for="inputAddress2" class="form-label">상세주소 2</label>
-									<input type="text" class="form-control" id="inputAddress2"
-										placeholder="Apartment, studio, or floor">
-								</div>
-								<div class="row mb-3" style="margin-top: 3%;">
-									<label for="inputNumber" class="col-sm-2 col-form-label">사업자등록증
-										업로드</label>
-									<div class="col-sm-10">
-										<input class="form-control" type="file" id="formFile">
-									</div>
-								</div>
+								
 								<div class="row mb-6">
 									<div class="col-sm-1000">
-										<button type="submit" class="btn btn-primary" onclick="button_event();">등록</button>
-										<button type="button" class="btn btn-primary" onclick="location.href='admin_info_boardlist'">취소</button>
+										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="button" class="btn btn-primary" onclick="location.href='getCenterList.do'">취소</button>
 									</div>
-										
 								</div>
 							</form>
 							<!-- End General Form Elements -->
@@ -608,19 +594,81 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
+  <!-- jQuery  -->
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <!-- 다음 주소 api -->
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 </body>
+
 <script type="text/javascript">
-function button_remove(){
-  if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-      document.form.submit();
-  }else{   //취소
-      return;
-  }
+<!-- 비밀번호 PIN 발급 -->
+function generatePIN() {
+	  var pin = Math.floor(10000 + Math.random() * 90000);
+	  document.getElementById("ctPassword").value = pin;
 }
 
-function button_success(){
-	alert("수정 완료 되었습니다.");
-	location.href="admin_info_boardlist";
+<!-- 아이디 중복확인 -->
+$(function(){
+    $("#ctIdCheck").click(function(){
+        let ctId = $("#ctId").val();  //아이디
+        $.ajax({
+            type: 'post', 
+            url: "ctIdCheck.do", 
+            data: {"ctId": ctId}, 
+            success: function(data){ 
+                let messageDiv = $("#ctIdCheckMessage");
+                if(data < 1){ 
+                    // 사용 가능한 아이디인 경우 메시지 표시
+                    messageDiv.html("사용 가능한 아이디입니다.");
+                    messageDiv.css("color", "green"); 
+                } else { 
+                    // 중복된 아이디인 경우 메시지 표시
+                    messageDiv.html("중복된 아이디입니다. 다른 아이디를 입력해주세요.");
+                    messageDiv.css("color", "red");
+                }
+            },
+            error: function(error){ alert(error); }
+        });
+    });
+});
+
+<!-- 이메일 중복확인 -->
+$(function(){
+    $("#ctEmailCheck").click(function(){
+        let ownerEmail = $("#ownerEmail").val();  //아이디
+        $.ajax({
+            type: 'post', 
+            url: "ctEmailCheck.do", 
+            data: {"ownerEmail": ownerEmail}, 
+            success: function(data){ 
+                let messageDiv = $("#ctEmailCheckMessage");
+                if(data < 1){ 
+                    // 사용 가능한 아이디인 경우 메시지 표시
+                    messageDiv.html("사용 가능한 이메일입니다.");
+                    messageDiv.css("color", "green"); 
+                } else { 
+                    // 중복된 아이디인 경우 메시지 표시
+                    messageDiv.html("중복된 이메일입니다. 다른 이메일을 입력해주세요.");
+                    messageDiv.css("color", "red");
+                }
+            },
+            error: function(error){ alert(error); }
+        });
+    });
+});
+
+<!-- 주소 -->
+function address() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('ctAddress1').value = data.zonecode;
+            document.getElementById("ctAddress2").value = roadAddr;
+        }
+    }).open();
 }
+
 </script>
 </html>

@@ -41,7 +41,7 @@
 	<insert id="insertCenter" parameterType="center">
 		INSERT INTO	TBL_CENTER
 		VALUES(nextval('seq_center'),#{ctName},#{ctPhoneNumber1}, #{ctPhoneNumber2},#{ctPhoneNumber3}, 
-		'API 연동 예정1', 'API 연동 예정2', 'API 연동 예정3',
+		#{ctAddress1}, #{ctAddress2}, #{ctAddress3},
 		#{ownerName},#{businessRegistrationNumber},#{ownerPhoneNumber1},#{ownerPhoneNumber2},#{ownerPhoneNumber3},
 		#{ownerEmail},TO_TIMESTAMP(#{contractStartDate}, 'YYYY-MM-DD'),TO_TIMESTAMP(#{contractEndDate}, 'YYYY-MM-DD'),
 		'F', 'F',CURRENT_TIMESTAMP,#{ctId},#{ctPassword},'CE')

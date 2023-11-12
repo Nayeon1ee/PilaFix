@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,9 +31,11 @@
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
 
 <!-- 내가 만든 css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_terms.css">
   
   <!-- =======================================================
   * Template Name: PilaAdmin
@@ -45,7 +47,6 @@
 </head>
 
 <body>
-<iframe id="preview-frame" class="preview-desktop" src="https://PilaFixmade.com/demo/templates/PilaAdmin/" frameborder="0"></iframe>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -275,220 +276,140 @@
 
   </header><!-- End Header -->
 
-	<!-- ======= Sidebar ======= -->
-	<aside id="sidebar" class="sidebar">
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
 
-		<ul class="sidebar-nav" id="sidebar-nav">
+       <ul class="sidebar-nav" id="sidebar-nav">
 
-			<li class="nav-item"><a class="nav-link "
-				href="center_detail_info"> <i class="bi bi-grid"></i> <span>내
-						정보</span>
-			</a></li>
-			<!-- End Dashboard Nav -->
-			<!-- 통계 예정  -->
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_CTS_management"> <i class="bi bi-person"></i><span>[센터]회원
-						목록 조회</span>
-			</a></li>
-			<!-- End 회원관리 Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person"></i><span>고객관리</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>회원관리</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>강사관리</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin_info_boardlist">
+              <i class="bi bi-circle"></i><span>센터관리</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End 고객관리 Nav -->
+      
+     <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i>
+          <span>커뮤니티 관리</span>
+        </a>
+      </li><!-- End 커뮤니티 관리 Nav -->
+      
+     <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-dash-circle"></i>
+          <span>신고글 관리</span>
+        </a>
+      </li><!-- End 신고글 관리 Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_teacher_info"> <i class="bi bi-journal-text"></i><span>[센터]강사
-						목록 조회</span>
-			</a>
-				<ul id="forms-nav" class="nav-content collapse "
-					data-bs-parent="#sidebar-nav">
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-question-circle"></i><span>FAQ관리</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>전체 FAQ 목록 조회</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>FAQ 등록</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End FAQ관리 Nav -->
 
-				</ul></li>
-			<!-- End 강사관리 Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-shield-check"></i><span>이용약관및정책관리</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>전체 약관 목록 조회</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>약관 등록</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_class_management"> <i
-					class="bi bi-layout-text-window-reverse"></i><span>[센터]수업 전체
-						일정 조회</span>
-			</a></li>
-			<!-- End 수업관리 Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-exclamation-circle"></i><span>공지사항관리</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>전체 공지사항 목록</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>공지사항 등록</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Icons Nav -->
+      
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_ticket_management"> <i class="bi bi-gem"></i><span>[센터]수강권
-						관리</span>
-			</a></li>
-			<!-- End 수강권관리 Nav -->
+     <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-bell-fill"></i>
+          <span>알림 발송이력 관리</span>
+        </a>
+      </li><!-- End 알림 발송이력 관리 Nav -->
+      
+     <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-envelope"></i>
+          <span>문자 발송이력 관리</span>
+        </a>
+      </li><!-- End 문자 발송이력 관리 Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_notice_board"> <i class="bi bi-question-circle"></i><span>[센터]공지사항관리</span>
-			</a></li>
-			<!-- End 공지사항관리 Nav -->
+      <li class="nav-heading">Pages</li>
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_send_notice_list"> <i class="bi bi-card-list"></i>
-					<span>[센터]알림 발송 이력 관리</span>
-			</a></li>
-			<!-- End [센터]알림 발송 이력 관리 Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_send_sms_list"> <i class="bi bi-envelope"></i> <span>[센터]문자
-						발송 이력 관리</span>
-			</a></li>
-			<!-- End [센터]문자 발송 이력 관리 Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-login.html">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+      
+    </ul>
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_question_board"> <i class="bi bi-envelope"></i> <span>[센터]문의사항</span>
-			</a></li>
-
-			<!-- End [센터]문의사항 Nav -->
-			<li class="nav-heading">Pages</li>
-
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="users-profile.html"> <i class="bi bi-person"></i> <span>Profile</span>
-			</a></li>
-			<!-- End Profile Page Nav -->
-
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="pages-login.html"> <i class="bi bi-box-arrow-in-right"></i>
-					<span>Login</span>
-			</a></li>
-			<!-- End Login Page Nav -->
-
-		</ul>
-
-	</aside>
-	<!-- End Sidebar-->
-      <!-- ============================================================================================ -->
- 
- 
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>이용정책 상세</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">필요 시 작성</li><!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">중제목 작성</h5>
-              <!-- <p>간략한 설명</p> -->
-
-
-             	 <!-- Multi Columns Form -->
-              <form class="row g-3">
-              <div class="col-md-2">
-                  <label class="form-label">정책 번호</label>
-                  <input type="text" readonly disabled class="form-control" value=${userguide.ugCode }>
-                </div>
-                <div class="col-md-2">
-                  <label class="form-label">구분</label>
-                  <input type="text" readonly disabled class="form-control" value=${userguide.ugType }>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label">이용정책 제목</label>
-                  <input type="text" readonly disabled class="form-control" value=${userguide.ugName }>
-                </div>
-                <div class="col-md-12">
-                	<label class="form-label">이용정책 내용</label>
-                	 <textarea class="form-control" readonly disabled  style="height: 300px;">${userguide.ugContent }</textarea>
-                </div>
-               <div class="col-md-12">
-                  <label class="form-label">작성일자</label>
-                  <input type="text" readonly disabled class="form-control" value=${userguide.ugRegistrationDate } >
-                </div>
-
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary" onclick="location.href='updateUserguide.do?ugCode=${userguide.ugCode }'">수정</button>
-                  <button type="button" class="btn btn-danger" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-                  <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
-                </div>
-              </form><!-- End Multi Columns Form -->
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-</main><!-- End #main -->
- <!-- 삭제 버튼 모달 -->
-<div class="modal fade" id="basicModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">삭제 버튼을 누르시면 다시 복구시킬 수 없습니다.</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" onclick="deleteUserguide(${userguide.ugCode})">삭제</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 모달의 확인 누르면 삭제 진행-->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>PilaAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://PilaFixmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://PilaFixmade.com/nice-admin-bootstrap-admin-html-template/ -->
-       <a href="https://PilaFixmade.com/">PilaFixmade</a>
-    </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/echarts/echarts.min.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/quill/quill.min.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
-  
-  <!-- 내가 만든 JS File -->
-  <script src="${pageContext.request.contextPath }/resources/js/admin_common.js"></script>
-  <script>
-	function deleteUserguide(ugCode){
-			fetch('/pilafix/deleteUserguide.do?ugCode=' + ugCode, {
-				method: 'GET'
-			})
-				.then(response => {
-					if (!response.ok) {
-						throw new Error('error');
-					}
-					window.location.href = 'getUserguideList.do'; // 에러나면 목록 페이지로 리다이렉트
-				})
-				.catch(error => {
-					console.error(error);
-				});
-		
-	};
-	
-	/* 상세화면에서 취소 누르면 목록으로 나가게 하는 js
-	 */
-	function goBack() {
-	  window.history.back();
-	}
-
-	</script>
-</body>
-
-</html>
+  </aside>
