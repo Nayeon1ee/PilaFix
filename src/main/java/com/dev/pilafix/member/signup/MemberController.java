@@ -1,24 +1,17 @@
 package com.dev.pilafix.member.signup;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dev.pilafix.admin.center_manage.CenterVO;
 
 @Controller
 public class MemberController {
@@ -37,7 +30,7 @@ public class MemberController {
 	 */
 	// selectMeOrTr.jsp에서 넘어온 값(csRoleCode)받아서 회원 가입 폼에 파라미터로 넘겨줌
 	@GetMapping("/getUserRole.do")
-	public String getUserRole(@RequestParam("csRoleCode") String csRoleCode ) {
+	public String getUserRole(@RequestParam("csRoleCode") String csRoleCode,Model model ) {
 		//테스트용 System.out.println(csRoleCode);
 		String code = "";
 		if (csRoleCode.equals("ME")) {
@@ -45,6 +38,11 @@ public class MemberController {
 		} else if (csRoleCode.equals("TR")) {
 			code = "TR";
 		}
+		
+		List<TermsVO> terms = service.getTermsList();
+	
+		model.addAttribute("termsList",terms);
+		
 		
 		return "member_signup/insertMember.jsp?csRoleCode=" + code;
 

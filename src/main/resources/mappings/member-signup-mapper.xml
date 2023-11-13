@@ -21,6 +21,13 @@
 		<result property="csRoleCode" column="CS_ROLE_CODE" />
 </resultMap>
 
+	<resultMap type="com.dev.pilafix.member.signup.TermsVO" id="termsResult1">
+		<result property="tmName" column="TM_NAME" />
+		<result property="tmDetail" column="TM_DETAIL" />
+		<result property="tmRequiredYn" column="TM_REQUIRED_YN" />
+		<result property="tmOpenYn" column="TM_OPEN_YN" />
+	</resultMap>
+
 <select id="idCheck" resultType="int">
 		SELECT COUNT(*) as cnt FROM TBL_CST WHERE cs_email_id = #{csEmailId}
 	</select>
@@ -47,5 +54,10 @@
 		INSERT INTO TBL_SEND_EMAIL_HISTORY(MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE, MH_EMAIL_SEND_DATETIME, MH_RECIPIENT_NAME,MH_RECIPIENT_TITLE,MH_RECIPIENT_CONTENT, MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME,MH_FAIL_REASON )
 		VALUES(CONCAT('EH',NEXTVAL('SEQ_SEND_EMAIL_HISTORY')), #{mhEmailSendType}, CURRENT_TIMESTAMP, #{mhRecipientName},#{mhRecipientTitle}, #{mhRecipientContent}, #{mhRecipientEmail}, #{mhSuccessYN},#{mhSuccessDate}, #{mhFailReason})
 	</insert>
+	
+	<!-- 약관 가져오기 -->
+	<select id="getTermsList" resultMap="termsResult1">
+	select TM_NAME,TM_DETAIL,TM_REQUIRED_YN FROM TBL_TERMS WHERE TM_OPEN_YN=true
+	</select>
 
 </mapper>
