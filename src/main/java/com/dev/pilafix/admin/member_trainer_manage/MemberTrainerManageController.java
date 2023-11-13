@@ -28,17 +28,15 @@ public class MemberTrainerManageController {
 		
 		MemberVO member = service.getMember(csMemberCode);
 		
-		//°­»ç¸é paymentList Á¶È¸ X
-		if(!member.getCsRoleCode().equals("TR")) {
-			model.addAttribute("type", "T"); // ±¸ºĞÁö¾î¼­ view¿¡¼­ ºĞ±âÇÏ±â À§ÇÔ 
+		//ê°•ì‚¬ë©´ paymentList ì¡°íšŒ X
+		if(member.getCsRoleCode().equals("TR")) {
+			model.addAttribute("type", "T"); // êµ¬ë¶„ì§€ì–´ì„œ viewì—ì„œ ë¶„ê¸°í•˜ê¸° ìœ„í•¨ 
 			model.addAttribute("paymentList", service.getPaymentList(csMemberCode));
 		}
 		
 		model.addAttribute("member", member);
 		model.addAttribute("centerConnectList", service.getCenterConnectHistory(csMemberCode));
-		
 		return "admin/admin_membership_detail";
 	}
-
 
 }

@@ -9,7 +9,6 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="member_signup/js/idCheck.js"></script>
-<!--  <script type="text/javascript" src="member_signup/js/test.js"></script> -->
 
 
 </head>
@@ -49,7 +48,7 @@
 	<p><input type="checkbox"  name="csAgreementYn2" id="csAgreementYn2" value="true">[필수] 서비스 이용약관 동의 </p>
 	<p><input type="checkbox"  name="csAgreementYn3" id="csAgreementYn3" value="true">[필수] 개인정보 수집 및 이용동의 </P>
 	
-	<p> <input type="submit" value="회원 가입"> </p>
+	<p> <input type="submit" onclick="moveToLogin()" value="회원 가입"> </p>
 	
 	</form>
 	<!--  
@@ -181,7 +180,11 @@ $(function(){
 		}
 	}); //인증번호 비교
 </script>
-
+<script>
+function moveToLogin(){
+	alert ("회원가입이 완료되었습니다. 로그인페이지로 이동합니다.")
+}
+</script>
 
 </body>
 </html>

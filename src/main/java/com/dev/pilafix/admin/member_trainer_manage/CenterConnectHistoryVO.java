@@ -10,7 +10,15 @@ public class CenterConnectHistoryVO {
 	private boolean chCurrentConnectionYN;
 	private String disconnection_date;
 	private String centerName;
+	private String centerAddress;
 	
+	
+	public String getCenterAddress() {
+		return centerAddress;
+	}
+	public void setCenterAddress(String centerAddress) {
+		this.centerAddress = centerAddress;
+	}
 	public String getChCode() {
 		return chCode;
 	}
@@ -57,8 +65,10 @@ public class CenterConnectHistoryVO {
 	public String toString() {
 		return "CenterConnectHistoryVO [chCode=" + chCode + ", memberCode=" + memberCode + ", centerCode=" + centerCode
 				+ ", chDatetime=" + chDatetime + ", chCurrentConnectionYN=" + chCurrentConnectionYN
-				+ ", disconnection_date=" + disconnection_date + ", centerName=" + centerName + "]";
+				+ ", disconnection_date=" + disconnection_date + ", centerName=" + centerName + ", centerAddress="
+				+ centerAddress + "]";
 	}
+	
 	
 	
 	
