@@ -1,0 +1,38 @@
+@charset "UTF-8";
+.form-control-date2{
+  padding: 0.375rem 0.75rem;
+ 
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	flex:1;
+	width:400px;
+}
+
+.col-sm-12{
+	display: flex;
+}
+.area1{
+	background-color : #f5f8fe;
+	border-radius : 10px;
+	padding : 10px;
+	margin-bottom : 20px;
+	margin-top : 20px;
+}
+.area2{
+	background-color : #f5f8fe;
+	border-radius : 10px;
+	padding : 10px;
+	margin-top : 40px;
+}
+p{
+	font-weight : bold;
+	margin : 10px 0 10px 5px;
+}
