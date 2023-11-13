@@ -86,15 +86,6 @@ public class MemberController {
 */
 @PostMapping("/insertMember.do")
 public String insertMember(MemberVO vo) {
-	// 가입시 입력한 비밀번호를 읽어와서
-	String csPassword = vo.getCsPassword();
-	
-	// 암호화 한 후에
-	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	String encodedPwd = encoder.encode(csPassword);
-	// vo에 다시 넣어준다.
-	vo.setCsPassword(encodedPwd);
-	// 암호화된 비밀번호가 들어 있는 vo를 dao에 전달해서 새로운 회원 정보를 추가한다.
 	service.insertMember(vo);
 	return "member_signup/loginEx.jsp";
 }

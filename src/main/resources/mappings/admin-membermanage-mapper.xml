@@ -46,6 +46,7 @@
 		<result property="chCurrentConnectionYN" column="CH_CURRENT_CONNECTION_YN" />
 		<result property="disconnection_date" column="DISCONNECTION_DATE" />
 		<result property="centerName" column="CENTER_NAME" />
+		<result property="centerAddress" column="CENTER_ADDRESS" />
 		
 	</resultMap>
 	
@@ -74,8 +75,15 @@
 		;-->
 	</select>
 	
+	<!--  
 	<select id="getCenterConnectHistory" resultMap="connectHistoryResult">
 		SELECT CH_CODE, CENTER_CODE,(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)as CENTER_NAME FROM TBL_CENTER_CONN WHERE MEMBER_CODE=#{csMemberCode}
+	</select>
+	-->
+	<select id="getCenterConnectHistory" resultMap="connectHistoryResult">
+		SELECT CH_CODE, CENTER_CODE,(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)as CENTER_NAME, 
+		(SELECT CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' || CT_ADDRESS3 FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)as CENTER_ADDRESS
+		FROM TBL_CENTER_CONN WHERE MEMBER_CODE=#{csMemberCode}
 	</select>
 	
 </mapper>
