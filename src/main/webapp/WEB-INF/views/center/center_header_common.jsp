@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Charts / ApexCharts - PilaAdmin Bootstrap Template</title>
   <meta content="" name="description">
@@ -29,11 +31,11 @@
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
 
-	<!-- 내가 만든 css -->
+<!-- 내가 만든 css -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_terms.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
   
   <!-- =======================================================
   * Template Name: PilaAdmin
@@ -43,13 +45,14 @@
   * License: https://PilaFixmade.com/license/
   ======================================================== -->
 </head>
-<body>
 
-<!-- ======= Header ======= -->
+<body>
+<iframe id="preview-frame" class="preview-desktop" src="https://PilaFixmade.com/demo/templates/PilaAdmin/" frameborder="0"></iframe>
+  <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="center_common" class="logo d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">PilaFix</span>
       </a>
@@ -273,5 +276,86 @@
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
-</body>
-</html>
+
+	<!-- ======= Sidebar ======= -->
+	<aside id="sidebar" class="sidebar">
+
+		<ul class="sidebar-nav" id="sidebar-nav">
+
+			<li class="nav-item"><a class="nav-link "
+				href="center_detail_info"> <i class="bi bi-grid"></i> <span>내
+						정보</span>
+			</a></li>
+			<!-- End Dashboard Nav -->
+			<!-- 통계 예정  -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="center_CTS_management"> <i class="bi bi-person"></i><span>[센터]회원
+						목록 조회</span>
+			</a></li>
+			<!-- End 회원관리 Nav -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="center_teacher_info"> <i class="bi bi-journal-text"></i><span>[센터]강사
+						목록 조회</span>
+			</a>
+				<ul id="forms-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+
+				</ul></li>
+			<!-- End 강사관리 Nav -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="center_class_management"> <i
+					class="bi bi-layout-text-window-reverse"></i><span>[센터]수업 전체
+						일정 조회</span>
+			</a></li>
+			<!-- End 수업관리 Nav -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="center_ticket_management"> <i class="bi bi-gem"></i><span>[센터]수강권
+						관리</span>
+			</a></li>
+			<!-- End 수강권관리 Nav -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="center_notice_board"> <i class="bi bi-question-circle"></i><span>[센터]공지사항관리</span>
+			</a></li>
+			<!-- End 공지사항관리 Nav -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="center_send_notice_list"> <i class="bi bi-card-list"></i>
+					<span>[센터]알림 발송 이력 관리</span>
+			</a></li>
+			<!-- End [센터]알림 발송 이력 관리 Nav -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="center_send_sms_list"> <i class="bi bi-envelope"></i> <span>[센터]문자
+						발송 이력 관리</span>
+			</a></li>
+			<!-- End [센터]문자 발송 이력 관리 Nav -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="center_question_board"> <i class="bi bi-envelope"></i> <span>[센터]문의사항</span>
+			</a></li>
+
+			<!-- End [센터]문의사항 Nav -->
+			<li class="nav-heading">Pages</li>
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="users-profile.html"> <i class="bi bi-person"></i> <span>Profile</span>
+			</a></li>
+			<!-- End Profile Page Nav -->
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="pages-login.html"> <i class="bi bi-box-arrow-in-right"></i>
+					<span>Login</span>
+			</a></li>
+			<!-- End Login Page Nav -->
+
+		</ul>
+
+	</aside>
+	<!-- End Sidebar-->
+      <!-- ============================================================================================ -->
+ 

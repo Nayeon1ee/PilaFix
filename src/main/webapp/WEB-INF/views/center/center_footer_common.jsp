@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- ======= Footer ======= -->
+ <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
       &copy; Copyright <strong><span>PilaAdmin</span></strong>. All Rights Reserved
@@ -29,5 +29,9 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
+
+ <!--내가 만든 JS File --> 
+  <script src="${pageContext.request.contextPath }/resources/js/admin_common_1.js"></script>
 </body>
+
 </html>
