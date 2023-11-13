@@ -33,7 +33,7 @@
 				<td>${adminInfo.cnt }</td>
 			</tr>
 			<tr>
-				<th>구매 가능 여부</th>
+				<th>공개 여부</th>
 				<td>${adminInfo.openYN }</td>
 			</tr>
 			<tr>
