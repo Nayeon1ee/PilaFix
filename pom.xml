@@ -64,9 +64,14 @@
 			<version>1.5</version>
 		</dependency>
 
+		<!-- aws s3 -->
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-s3</artifactId>
+		    <version>1.12.552</version>
+		</dependency>
 
 		<!-- jackson-databind -->
-		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>

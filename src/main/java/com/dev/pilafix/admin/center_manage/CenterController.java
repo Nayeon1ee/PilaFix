@@ -18,12 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CenterController {
 	@Autowired
 	private CenterService service;
-
-	@GetMapping("/test_content.do")
-	public String testContent(Model model) {
-		model.addAttribute("centerList", service.getCenterList());
-		return "admin/test_content";
-	}
 	
 	@GetMapping("/getCenterList.do")
 	public String getCenterList(Model model) {
