@@ -19,7 +19,7 @@
 				<th>내용</th>
 				<th>작성일자</th>
 				<th>조회수</th>
-				<th>구매 가능 여부</th>
+				<th>공개 여부</th>
 			</tr>
 			<c:if test="${InfoList == null }">
 				<tr>
@@ -38,7 +38,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="insertAdminInfo.do">글 등록</a>
+		<a href="insertAdminInfo.do">+ 공지사항 등록</a>
 
 	</div>
 
