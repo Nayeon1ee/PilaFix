@@ -31,13 +31,12 @@
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
 
 <!-- 내가 만든 css -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_terms.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
-  
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">  
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_centerReg.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
   <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2

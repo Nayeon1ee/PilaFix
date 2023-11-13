@@ -20,13 +20,10 @@
 
           <div class="card">
             <div class="card-body">
-             <p style="magin-top: 1%;"></p>
-				<div class="row mb-300" style="width: 122%; margin-top: 1%;">
-					<div class="col-sm-10">
-						<input type="text" class="form-control" value="센터 프로필" disabled>
-					</div>
+				<div class="area1">
+					<p>센터 프로필</p>
 				</div>
-				<div class="col-400">
+				<div class="col-4000">
 						<label class="form-label">센터명</label>
                  		<input type="text" readonly disabled class="form-control" value=${center.ctName }>
                 </div>
@@ -79,12 +76,10 @@
 								</c:otherwise>
 							</c:choose>
 					</div>
-					<div class="row mb-300" style="width: 122%; margin-top: 1%;">
-					<div class="col-sm-10">
-						<input type="text" class="form-control" value="대표자 정보" disabled>
+					<div class="area2">
+						<p>대표자 정보</p>
 					</div>
-					</div>
-					<div class="col-400">
+					<div class="col-4000">
 						<label class="form-label">대표자 이름</label> 
 						<input type="text" readonly disabled class="form-control" value=${center.ownerName }>
 					</div>
@@ -92,7 +87,7 @@
 						<label class="form-label">대표자 이메일</label>
 						<input type="text" readonly disabled class="form-control" value=${center.ownerEmail }>
 					</div>
-					<div class="col-400">
+					<div class="col-4000">
 						<label class="form-label">대표자 번호</label> 
 						<input type="text" readonly disabled class="form-control" value="${center.ownerPhoneNumber1 }${center.ownerPhoneNumber2 }${center.ownerPhoneNumber3 }">
 					</div>
@@ -102,15 +97,14 @@
 					</div>
                </div>
                <div class="selectson">
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal2" >계약해지</button>
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal3" >비밀번호 초기화</button>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal2" >계약해지</button>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal3" >비밀번호 초기화</button>
 			   </div>
-               <div class="row mb-6">
+               <div class="text-center">
 					<div class="col-sm-1000">
-						<button type="submit" class="btn btn-primary" style="margin-left:2%;" onclick="location.href='getCenterList.do'">목록</button>
-						<button type="submit" class="btn btn-primary" style="margin-left:78%;" onclick="location.href='updateCenter.do?ctCode=${center.ctCode}'">수정</button>
-						<button type="button" class="btn btn-danger" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-						<button type="submit" class="btn btn-primary" onclick="history.go(-1)">취소</button>
+						<button type="submit" class="btn btn-primary" onclick="location.href='getCenterList.do'">목록</button>
+						<button type="submit" class="btn btn-primary" onclick="location.href='updateCenter.do?ctCode=${center.ctCode}'">수정</button>
+						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
 					</div>
 			   </div>
 			   <div class="row mb-300" style="width: 122%; margin-top: 1%;">
@@ -281,3 +275,5 @@ function resetPassword(ctCode){
 
 
 </script>
+
+<%@ include file="admin_footer_common.jsp"%>

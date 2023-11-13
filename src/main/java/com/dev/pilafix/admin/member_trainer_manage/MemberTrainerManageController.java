@@ -39,10 +39,6 @@ public class MemberTrainerManageController {
 		
 		return "admin/admin_membership_detail";
 	}
-	//센터 등록 폼위한 것 테스트 후 삭제
-	@GetMapping("/center.do")
-	public String center() {
-		return "admin/admin_center_reg";
-	}
+
 
 }

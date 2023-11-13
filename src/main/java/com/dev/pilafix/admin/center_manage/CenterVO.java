@@ -2,6 +2,8 @@ package com.dev.pilafix.admin.center_manage;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CenterVO {
 	private int ctCode;
 	private String ctName;
@@ -25,6 +27,8 @@ public class CenterVO {
 	private String ctId;
 	private String ctPassword;
 	private String roleCode;
+	private MultipartFile file;
+	
 	public int getCtCode() {
 		return ctCode;
 	}
@@ -156,6 +160,12 @@ public class CenterVO {
 	}
 	public void setRoleCode(String roleCode) {
 		this.roleCode = roleCode;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	@Override
 	public String toString() {
