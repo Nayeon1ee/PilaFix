@@ -25,6 +25,7 @@ public class TermsServiceImpl implements TermsService {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	// 메일발송이력 test때문에 우선 추가
 	@Autowired
     private CenterDAO centerDAO;
 	
