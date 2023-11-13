@@ -65,8 +65,8 @@
 				    
 				    
 				    <div class="text-center">
-				        <button class="btn btn-secondary btn_registration_000" id="registrationButton000" onclick="getAdminInfoList()">등록</button>
-				        <button class="btn btn-secondary"><a href="center_notice_board">취소</a></button>
+				        <button type="submit" class="btn btn-primary">등록</button>
+				        <button type="button" class="btn btn-primary" onclick="location.href='getAdminInfoList.do'" >취소</a></button>
 				    </div>
 				</form><!-- End Multi Columns Form -->
 				             	
