@@ -435,95 +435,107 @@
               <h5 class="card-title">회원관리</h5>
               <p>웹 관리자가 회원 상세페이지를 볼 수 있는 페이지입니다.</p>
 
-
-             	<!-- 
-             	 
-             	 이 영역에 가져온 컴포넌트 넣기 
-             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
-             	 
-             	 -->
    <!-- Multi Columns Form -->
               <form class="row g-3">
               	<div class="col-md-4">
                   <label class="form-label">이름</label>
-                  <input type="text" readonly class="form-control" value="홍길동" disabled>
+                  <input type="text" readonly class="form-control" value="${member.csName }" disabled>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">이메일아이디</label>
-                  <input type="text" readonly class="form-control" value="hong@naver.com" disabled>
+                  <input type="text" readonly class="form-control" value="${member.csEmailId }" disabled>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">전화번호</label>
-                  <input type="text" readonly class="form-control" value="010-1111-1111" disabled>
+                  <input type="text" readonly class="form-control" value="${member.csPhoneNumber1 }-${member.csPhoneNumber2 }-${member.csPhoneNumber3 }" disabled>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">생년월일</label>
-                  <input type="text" readonly class="form-control" value="2000.04.08" disabled>
+                  <input type="text" readonly class="form-control" value="${member.csBirth }" disabled>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">성별</label>
-                  <input type="text" readonly class="form-control" value="여자" disabled>
+                  <input type="text" readonly class="form-control" value="${member.csGenderMw }" disabled>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">회원가입일</label>
-                  <input type="text" readonly class="form-control" value="2023.01.08" disabled>
+                  <input type="text" readonly class="form-control" value="${member.csRegistrationDate }" disabled>
                 </div>
+                
+                
                 <div class="col-md-4">
                   <label class="form-label">회원상태</label>
-                  <input type="text" readonly class="form-control" value="일반회원" disabled>
+                  <c:choose>
+					<c:when test="${member.csDeleteYn}">
+						<input type="text" readonly class="form-control" value="탈퇴회원" disabled>
+					</c:when>
+					<c:otherwise>
+						<input type="text" readonly class="form-control" value="일반회원" disabled>
+					</c:otherwise>
+				</c:choose>
+                  
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">가입유형</label>
-                  <input type="text" readonly class="form-control" value="카카오" disabled>
+                  <input type="text" readonly class="form-control" value="${member.csRegistrationType }" disabled>
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">현재연동센터</label>
-                  <input type="text" readonly class="form-control" value="000필라테스 00점" disabled>
+                  <c:choose>
+                  <c:when test="${member.connectedCenterCode1 == null}">
+                   <input type="text" readonly class="form-control" placeholder="현재 연동된 센터가 없습니다" disabled>
+                  </c:when>
+                  <c:otherwise>
+                  <input type="text" readonly class="form-control" value="${member.connectedCenterCode1 }&nbsp;${member.connectedCenterCode2 }&nbsp;${member.connectedCenterCode3 }" disabled>
+                </c:otherwise>
+                </c:choose>
                 </div>
                 
                 
               </form><!-- End Multi Columns Form -->
 
-
+<c:if test="${type ne 'T' }">
+				<!-- 강사의 경우 해당 화면이 보이지 않음  -->
 		<div class="card card_box_shadow">
             <div class="card-body">
               <h5 class="card-title">수강권결제내역</h5>
               <p>회원이 최근에 결제한 수강권내역입니다.</p>
 	
+	
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">NO.</th>
+                    <th scope="col">번호</th>
                     <th scope="col">수강권명</th>
                     <th scope="col">센터명</th>
-                    <th scope="col">결제일</th>
+                    <th scope="col">결제일자</th>
                     <th scope="col">결제수단</th>
                     <th scope="col">결제금액</th>
                   </tr>
                 </thead>
-                
+					
                 <tbody>
+                <c:if test="${empty paymentList}">
+					<tr>
+						<td colspan="6">결제 내역이 없습니다.</td>
+					</tr>
+				</c:if>
+                <c:forEach var="pay" items="${paymentList }">
                   <tr>
-                    <td>002</td>
-                    <td>6:1그룹 필라테스 24회권(3개월)</td>
-                    <td>00필라테스00점</td>
-                    <td>2023.04.08</td>
-                    <td>카드결제</td>
-                    <td>500,000</td>
+                    <td>${pay.paId }</td>
+                    <td>${pay.ticketCode }</td><!-- 티켓코드에서 센터명 가져와야 함 --> 
+                    <td>${pay.ticketCode }</td><!-- 티켓코드에서 센터명 가져와야 함 --> 
+                    <td>${pay.paDatetime }</td>
+                    <td>${pay.paMethod }</td>
+                    <td>${pay.paAmount }</td>
                   </tr>
-
-                  <tr>
-                    <td>001</td>
-                    <td>6:1그룹 필라테스 24회권(3개월)</td>
-                    <td>00필라테스00점</td>
-                    <td>2023.04.08</td>
-                    <td>카카오페이</td>
-                    <td>500,000</td>
-                  </tr>   
+				</c:forEach>
+                  
                   
                 </tbody>
               </table>
+             
               <!-- End Table with stripped rows -->
               
               <!-- 페이징 처리 시작 -->
@@ -543,40 +555,40 @@
               
             </div>
           </div>
+             </c:if> 	 
              	 
-             	 
-
 
 
 
 		<div class="card card_box_shadow">
             <div class="card-body">
               <h5 class="card-title">연동센터이력</h5>
-              <p>회원이 연동한 센터들이 보여집니다.</p>
+              <p>연동한 센터들이 보여집니다.</p>
 	
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">NO.</th>
+                    <th scope="col">번호</th>
                     <th scope="col">센터명</th>
                     <th scope="col">주소</th>
                   </tr>
                 </thead>
-                
+			
                 <tbody>
+				 <c:if test="${empty centerConnectList  }">
+					<tr>
+						<td colspan="3">연동된 센터가 없습니다.</td>
+					</tr>
+				</c:if>
+                <c:forEach var="center" items="${centerConnectList }">
                   <tr>
-                    <td>002</td>
-                    <td>00필라테스00점</td>
-                    <td>경기도 고양시 덕양구 000로 00번지</td>
+                    <td>${center.chCode  }</td>
+                    <td>${center.centerName }</td><!--센터코드로 센터명 가져와야 함-->
+                    <td>${center.centerAddress }</td><!--센터코드로 센터주소 가져와야 함-->
                   </tr>
 
-                  <tr>
-                    <td>001</td>
-                    <td>00필라테스00점</td>
-                    <td>경기도 고양시 덕양구 000로 00번지</td>
-                  </tr>
-                  
+                  </c:forEach>
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->

@@ -29,20 +29,16 @@ public class MemberTrainerManageController {
 		MemberVO member = service.getMember(csMemberCode);
 		
 		//강사면 paymentList 조회 X
-		if(!member.getCsRoleCode().equals("TR")) {
+		if(member.getCsRoleCode().equals("TR")) {
 			model.addAttribute("type", "T"); // 구분지어서 view에서 분기하기 위함 
 			model.addAttribute("paymentList", service.getPaymentList(csMemberCode));
 		}
 		
 		model.addAttribute("member", member);
 		model.addAttribute("centerConnectList", service.getCenterConnectHistory(csMemberCode));
-		
 		return "admin/admin_membership_detail";
 	}
-	//센터 등록 폼위한 것 테스트 후 삭제
-	@GetMapping("/center.do")
-	public String center() {
-		return "admin/admin_center_reg";
-	}
+	
+	
 
 }
