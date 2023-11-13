@@ -42,7 +42,7 @@ public class QuestionController {
 		//로그인 후 세션에 저장된 사용자 정보에서 코드 꺼내서 getQuestionList의 파라미터로 전달해야 함
 		model.addAttribute("questionList", service.getQuestionList());
 //		service.getQuestionReply();
-		return "question/getQuestionList.jsp";
+		return "member/centerinquiry";
 	}
 	
 	/**

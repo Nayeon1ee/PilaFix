@@ -36,6 +36,7 @@
 
 <!-- 내가 만든 css -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_terms.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
   
   <!-- =======================================================
   * Template Name: PilaAdmin
