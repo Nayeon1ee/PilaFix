@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -438,32 +438,40 @@
 
              	 <!-- Multi Columns Form -->
               <form class="row g-3">
-              <div class="col-md-2">
+              <%-- <div class="col-md-2">
                   <label class="form-label">글번호</label>
-                  <input type="text" readonly disabled class="form-control" value="1">
-                </div>
+                  <input type="text" readonly disabled class="form-control" value="${faqInfo.fqNumber }">
+                </div> --%>
                 <div class="col-md-2">
                   <label class="form-label">구분</label>
-                  <input type="text" readonly disabled class="form-control" value="김xx">
+                  <c:if test="${faqInfo.fqType == COMMON}">
+                  	<input type="text" readonly disabled class="form-control" value="${faqInfo.fqType == COMMON}">
+					</c:if>
+					<c:if test="${faqInfo.fqType == ME}">
+						<td>회원</td>
+					</c:if>
+					<c:if test="${faqInfo.fqType == TR}">
+						<td>강사</td>
+					</c:if>
                 </div>
-                <div class="col-md-4">
+                <%-- <div class="col-md-4">
                   <label class="form-label">작성일</label>
-                  <input type="text" readonly disabled class="form-control" value="2022-12-25">
+                  <input type="text" readonly disabled class="form-control" value="${faqInfo.fqRegDate }">
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">최근 수정일</label>
                   <input type="text" readonly disabled class="form-control" value="2023-01-01" >
-                </div>
+                </div> --%>
                <div class="col-md-12">
                   <label class="form-label">글 제목</label>
-                  <input type="text" readonly disabled class="form-control" value="xx점 토미 강사 추천" >
+                  <input type="text" readonly disabled class="form-control" value="${faqInfo.fqTitle }" >
                 </div>
                 <div class="col-md-12">
                 	<label class="form-label">글 내용</label>
-                	 <textarea class="form-control" readonly disabled style="height: 300px;">xx점 토미강사 추천 굳굳</textarea>
+                	 <textarea class="form-control" readonly disabled style="height: 300px;">${faqInfo.fqContent }</textarea>
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/FAQ_edit.jsp'">수정</button>
+                  <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath }/FAQ_edit.do'">수정</button>
                   <button type="button" class="btn btn-danger" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
                   <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
                 </div>
