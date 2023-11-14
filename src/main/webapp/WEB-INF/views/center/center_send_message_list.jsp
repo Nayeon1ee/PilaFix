@@ -84,16 +84,16 @@
 								</thead>
 
 								<tbody>
-								<c:if test="${empty sendSmsHistoryInfoList }">
+								<c:if test="${empty sendSmsHistoryList }">
 									<tr>
 										<td colspan="6">문자발송 이력이 존재하지 않습니다. </td>
 									</tr>
 								</c:if>
-								<c:forEach var="list" items="${sendSmsHistoryInfoList }">
+								<c:forEach var="list" items="${sendSmsHistoryList }">
 									<tr>
 										<td>${list.shSendCode }</td>
 										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSendDatetime }"/>
-										<td><a href="getSendSmsHistoryInfo.do?shSendCode=${list.shSendCode }">${list.shRecipientName }</a></td>
+										<td><a href="getSendSmsHistory.do?shSendCode=${list.shSendCode }">${list.shRecipientName }</a></td>
 										<td>${list.shRecipientPhone }</td>
 										<c:choose>
 											<c:when test="${list.shSuccessYn }">

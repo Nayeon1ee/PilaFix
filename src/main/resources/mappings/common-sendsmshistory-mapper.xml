@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="SendSmsHistoryDAO">
-	<resultMap type="sendSmsHistoryInfo" id="SendSmsHistoryInfoResult">
+	<resultMap type="sendSmsHistory" id="SendSmsHistoryResult">
 		<id property="shSendCode" column="SH_SEND_CODE"/>
 		<result property="shSendDatetime" column="SH_SEND_DATETIME" />
 		<result property="shSendCenterCode" column="SH_SEND_CENTER_CODE" />
@@ -13,19 +13,32 @@
 		<result property="shSuccessYn" column="SH_SUCCESS_YN" />
 		<result property="shSuccessDatetime" column="SH_SUCCESS_DATETIME" />
 		<result property="shFailReason" column="SH_FAIL_REASON" />
+		<result property="shSendCenterName" column="SH_SEND_CENTER_NAME" />
 	</resultMap>
-	<select id="getSendSmsHistoryInfo" resultMap="SendSmsHistoryInfoResult" parameterType="sendSmsHistoryInfo">
-		SELECT * FROM TBL_SEND_SMS_HISTORY WHERE SH_SEND_CODE=#{shSendCode}
-	</select>
-	<!-- 센터가 요청하는 list -->
-	<select id="getSendSmsHistoryInfoListForCenter" resultMap="SendSmsHistoryInfoResult" parameterType="sendSmsHistoryInfo">
+	
+	<!-- 센터 요청 -->
+	<select id="getSendSmsHistoryListForCenter" resultMap="SendSmsHistoryResult">
 		SELECT * FROM TBL_SEND_SMS_HISTORY
 		WHERE SH_SEND_CENTER_CODE=#{shSendCenterCode}
 	</select>
-	<!-- 관리자가 요청하는 list -->
-	<select id="getSendSmsHistoryInfoListForAdmin" resultMap="SendSmsHistoryInfoResult" >
-		SELECT * FROM TBL_SEND_SMS_HISTORY
+	<select id="getSendSmsHistoryForCenter" resultMap="SendSmsHistoryResult" >
+		SELECT * FROM TBL_SEND_SMS_HISTORY 
+		WHERE SH_SEND_CODE=#{shSendCode}
 	</select>
 	
+	<!-- 관리자 요청 -->
+	<select id="getSendSmsHistoryListForAdmin" resultMap="SendSmsHistoryResult" >
+		SELECT SH_SEND_CODE, SH_SEND_DATETIME, SH_SEND_CENTER_CODE,
+		(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=SH_SEND_CENTER_CODE)AS SH_SEND_CENTER_NAME,
+		SH_RECIPIENT_NAME, SH_RECIPIENT_PHONE, SH_RECIPIENT_CONTENT, SH_SUCCESS_YN, SH_SUCCESS_DATETIME, SH_FAIL_REASON
+		FROM TBL_SEND_SMS_HISTORY ;
+	</select>
+	<select id="getSendSmsHistoryForAdmin" resultMap="SendSmsHistoryResult" parameterType="java.util.Map">
+		SELECT SH_SEND_CODE, SH_SEND_DATETIME, 
+		(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=#{shSendCenterCode})AS SH_SEND_CENTER_NAME,
+		SH_RECIPIENT_NAME, SH_RECIPIENT_PHONE, SH_RECIPIENT_CONTENT, SH_SUCCESS_YN, SH_SUCCESS_DATETIME, SH_FAIL_REASON
+		FROM TBL_SEND_SMS_HISTORY 
+		WHERE SH_SEND_CODE=#{shSendCode}
+	</select>
 	
 </mapper>

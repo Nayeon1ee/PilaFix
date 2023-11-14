@@ -1,5 +1,6 @@
 package com.dev.pilafix.common.sendsmshistory;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,15 @@ public class SendSmsHistoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/center/getSendSmsHistoryInfoList.do")
-	public String getSendSmsHistoryInfoList(HttpSession session,Model model) {
+	@GetMapping("/center/getSendSmsHistoryList.do")
+	public String getSendSmsHistoryList(HttpSession session,Model model) {
 		//로그인 완료되면 해당 문장 삭제 
 		session.setAttribute("loginUser",111);
 		
 		//로그인 완료되면 로그인 세션에서 꺼내오기 
 		int currentUserCode = (int) session.getAttribute("loginUser");
 		
-		model.addAttribute("sendSmsHistoryInfoList", service.getSendSmsHistoryInfoList(currentUserCode));
+		model.addAttribute("sendSmsHistoryList", service.getSendSmsHistoryListForCenter(currentUserCode));
 		return "center/center_send_message_list";
 	}
 	
@@ -41,9 +42,9 @@ public class SendSmsHistoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/center/getSendSmsHistoryInfo.do")
-	public String getSendSmsHistoryInfo(@RequestParam("shSendCode") String shSendCode, Model model) {
-		model.addAttribute("sendSmsHistoryInfo", service.getSendSmsHistoryInfo(shSendCode));
+	@GetMapping("/center/getSendSmsHistory.do")
+	public String getSendSmsHistory(@RequestParam("shSendCode") String shSendCode, Model model) {
+		model.addAttribute("sendSmsHistory", service.getSendSmsHistoryForCenter(shSendCode));
 		return "center/center_send_message_detail";
 	}
 	
@@ -54,13 +55,13 @@ public class SendSmsHistoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/admin/getSendSmsHistoryInfoList.do")
-	public String getSendSmsHistoryInfoListAdmin(HttpSession session,Model model) {
+	@GetMapping("/admin/getSendSmsHistoryList.do")
+	public String getSendSmsHistoryListAdmin(HttpSession session,Model model) {
 		
 		//관리자는 그냥 전체 리스트 뽑아와야 함
 		// service 메서드 추가해야 함 
 		//센터 디테일 끝낸 후 작업
-		model.addAttribute("sendSmsHistoryInfoList", service.getSendSmsHistoryInfoList());
+		model.addAttribute("sendSmsHistoryList", service.getSendSmsHistoryListForAmdin());
 		return "admin/admin_send_message_list";
 	}
 	
@@ -71,9 +72,9 @@ public class SendSmsHistoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/admin/getSendSmsHistoryInfo.do")
-	public String getSendSmsHistoryInfoAdmin(@RequestParam("shSendCode") String shSendCode, Model model) {
-		model.addAttribute("sendSmsHistoryInfo", service.getSendSmsHistoryInfo(shSendCode));
+	@GetMapping("/admin/getSendSmsHistory.do")
+	public String getSendSmsHistoryAdmin(@RequestParam("shSendCenterCode") int shSendCenterCode,@RequestParam("shSendCode") String shSendCode, Model model) {
+		model.addAttribute("sendSmsHistory", service.getSendSmsHistoryForAmdin(shSendCenterCode,shSendCode ));
 		return "admin/admin_send_message_detail";
 	}
 	

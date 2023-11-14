@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ include file="admin_header_common.jsp" %>
 
 	<main id="main" class="main">
@@ -23,7 +25,6 @@
 						<div class="card-body">
 							<h5 class="card-title">문자발송리스트</h5>
 							<p>센터의 문자 발송 내역입니다.</p>
-							
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
 								<div class="search-filter-inner">
@@ -74,30 +75,28 @@
 								<thead>
 									<tr>
 										<th scope="col">발송코드</th>
+										<th scope="col">발신센터</th>
 										<th scope="col">발송일시</th>
-										<th scope="col">수신자명</th>
-										<th scope="col">수신자번호</th>
 										<th scope="col">상태</th>
 										<th scope="col">비고</th>
 									</tr>
 								</thead>
 
 								<tbody>
-								<c:if test="${empty sendSmsHistoryInfoList }">
+								<c:if test="${empty sendSmsHistoryList }">
 									<tr>
 										<td colspan="6">문자발송 이력이 존재하지 않습니다. </td>
 									</tr>
 								</c:if>
-								<c:forEach var="list" items="${sendSmsHistoryInfoList }">
+								<c:forEach var="list" items="${sendSmsHistoryList }">
 									<tr>
 										<td>${list.shSendCode }</td>
-										<td>${list.shSendDatetime }</td>
-										<td><a href="getSendSmsHistoryInfo.do?shSendCode=${list.shSendCode }">${list.shRecipientName }</a></td>
-										<td>${list.shRecipientPhone }</td>
+										<td><a href="getSendSmsHistory.do?shSendCenterCode=${list.shSendCenterCode }&shSendCode=${list.shSendCode }">${list.shSendCenterName}</a></td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSendDatetime }"/>
 										<c:choose>
 											<c:when test="${list.shSuccessYn }">
 												<td>성공</td>
-												<td>${list.shSuccessDatetime }</td>
+												<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSuccessDatetime }"/></td>
 											</c:when>
 											<c:otherwise>
 												<td>실패</td>

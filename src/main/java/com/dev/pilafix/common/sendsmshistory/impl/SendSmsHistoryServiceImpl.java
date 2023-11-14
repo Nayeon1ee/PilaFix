@@ -1,6 +1,7 @@
 package com.dev.pilafix.common.sendsmshistory.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,18 +17,25 @@ public class SendSmsHistoryServiceImpl implements SendSmsHistoryService {
 	private SendSmsHistoryDAO dao;
 	
 	@Override
-	public List<SendSmsHistoryVO> getSendSmsHistoryInfoList(int currentUserCode) {
-		return dao.getSendSmsHistoryInfoList(currentUserCode);
+	public List<SendSmsHistoryVO> getSendSmsHistoryListForCenter(int currentUserCode) {
+		return dao.getSendSmsHistoryListForCenter(currentUserCode);
 	}
 
 	@Override
-	public SendSmsHistoryVO getSendSmsHistoryInfo(String shSendCode) {
-		return dao.getSendSmsHistoryInfo(shSendCode);
+	public SendSmsHistoryVO getSendSmsHistoryForCenter(String shSendCode ) {
+		return dao.getSendSmsHistoryForCenter(shSendCode );
 	}
+	
 
 	@Override
-	public List<SendSmsHistoryVO> getSendSmsHistoryInfoList() {
-		return dao.getSendSmsHistoryInfoList();
+	public List<SendSmsHistoryVO> getSendSmsHistoryListForAmdin() {
+		return dao.getSendSmsHistoryListForAdmin();
 	}
+	
+	@Override
+	public SendSmsHistoryVO getSendSmsHistoryForAmdin(int shSendCenterCode, String shSendCode) {
+		return dao.getSendSmsHistoryForAdmin(shSendCenterCode, shSendCode);
+	}
+	
 
 }
