@@ -8,4 +8,5 @@ public interface CenterInfoService {
 	int insertCenterInfo(CenterInfoVO vo);
 	int updateCenterInfo(CenterInfoVO vo);
 	int deleteCenterInfo(int seq);
+	int updateCenterInfoViewCnt(int cnt);
 }

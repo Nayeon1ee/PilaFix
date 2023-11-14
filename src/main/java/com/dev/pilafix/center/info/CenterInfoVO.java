@@ -1,15 +1,15 @@
 package com.dev.pilafix.center.info;
 
-import java.util.Date;
-
 public class CenterInfoVO {
 	private int seq;
 	private String title;
 	private String content;
-	private String writerMemberCode;
-	private Date regDate;
+	private int writerMemberCode;
+	private String regDate;
 	private int cnt;
 	private boolean openYN;
+
+	private String ctName;
 
 	public int getSeq() {
 		return seq;
@@ -35,19 +35,19 @@ public class CenterInfoVO {
 		this.content = content;
 	}
 
-	public String getWriterMemberCode() {
+	public int getWriterMemberCode() {
 		return writerMemberCode;
 	}
 
-	public void setWriterMemberCode(String writerMemberCode) {
+	public void setWriterMemberCode(int writerMemberCode) {
 		this.writerMemberCode = writerMemberCode;
 	}
 
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 
@@ -67,10 +67,19 @@ public class CenterInfoVO {
 		this.openYN = openYN;
 	}
 
+	public String getCtName() {
+		return ctName;
+	}
+
+	public void setCtName(String ctName) {
+		this.ctName = ctName;
+	}
+
 	@Override
 	public String toString() {
 		return "CenterInfoVO [seq=" + seq + ", title=" + title + ", content=" + content + ", writerMemberCode="
-				+ writerMemberCode + ", regDate=" + regDate + ", cnt=" + cnt + ", openYN=" + openYN + "]";
+				+ writerMemberCode + ", regDate=" + regDate + ", cnt=" + cnt + ", openYN=" + openYN + ", ctName="
+				+ ctName + "]";
 	}
 
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="admin_header_common.jsp" %>
   <main id="main" class="main">
 
@@ -12,18 +12,16 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
-
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">공지사항 수정페이지</h5>
               <p>웹관리자가 공지사항의 상세내용을 수정할수 있는 페이지입니다.</p>
    	 
 				<!-- Multi Columns Form -->
-				<form class="row g-3" id="registrationForm000">
+				<form class="row g-3" id="registrationForm000" action="updateAdminInfo.do" method="post">
 				<input type="hidden" name="seq" value="${adminInfo.seq}">
 				    <div class="col-md-5">
 				        <label class="form-label">작성자</label>
@@ -35,44 +33,64 @@
 				    </div>
 				    <div class="col-md-12">
 				        <label class="form-label">제목</label>
-				        <input type="text" class="form-control" id="titleInput000" value="${adminInfo.title }" >
+				        <input type="text" class="form-control" id="titleInput000" name="title" value="${adminInfo.title }" >
 				    </div>
 				    <div class="col-md-12">
 				        <label class="form-label">내용</label>
-				        <textarea class="form-control" id="contentInput000" style="height: 300px">${adminInfo.content }</textarea>
+				        <textarea class="form-control" id="contentInput000" name="content" style="height: 300px">${adminInfo.content }</textarea>
 				    </div>
-				    
-				<div class="col-sm-10">
-				  <div class="form-check form-check-inline radiobtn000">
-				    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-				    <label class="form-check-label" for="gridRadios1">
-				      공개
-				    </label>
-				  </div>
-				  <div class="form-check form-check-inline radiobtn001">
-				    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-				    <label class="form-check-label" for="gridRadios2">
-				      비공개
-				    </label>
-				  </div>
-				</div>
-				
+				   
+					<div class="col-sm-10">
+						<label class="form-label">공개 여부</label>
+						<c:choose>
+						<c:when test="${openYN}">
+							<fieldset class="row mb-3">
+			                  <div class="col-sm-10">
+			                    <div class="form-check form-check-inline">
+			                      <input class="form-check-input" type="radio" name="openYN" id="gridRadios1" value=true checked>
+			                      <label class="form-check-label" for="gridRadios1">
+			                        공개
+			                      </label>
+			                    </div>
+			                    <div class="form-check form-check-inline">
+			                      <input class="form-check-input" type="radio" name="openYN" id="gridRadios2" value=false>
+			                      <label class="form-check-label" for="gridRadios2">
+			                        비공개
+			                      </label>
+			                    </div>
+			                  </div>
+			                </fieldset>
+						</c:when>
+						<c:otherwise>
+							<fieldset class="row mb-3">
+			                  <div class="col-sm-10">
+			                    <div class="form-check form-check-inline">
+			                      <input class="form-check-input" type="radio" name="openYN" id="gridRadios1" value=true>
+			                      <label class="form-check-label" for="gridRadios1">
+			                        공개
+			                      </label>
+			                    </div>
+			                    <div class="form-check form-check-inline">
+			                      <input class="form-check-input" type="radio" name="openYN" id="gridRadios2" value=false checked>
+			                      <label class="form-check-label" for="gridRadios2">
+			                        비공개
+			                      </label>
+			                    </div>
+			                  </div>
+			                </fieldset>
+						</c:otherwise>
+					</c:choose>
+					</div>
 				    <div class="text-center">
-				        <button class="btn btn-secondary btn_registration_000" id="registrationButton000" type="submit" onclick="updateAdminInfo()">수정</button>
-				        <button class="btn btn-secondary" onclick="getAdminInfoList()">취소</button>
+				        <button type="submit" class="btn btn-secondary btn_registration_000" id="registrationButton000">완료</button>
+				        <button type="button" class="btn btn-primary" onclick="location.href='getAdminInfoList.do'">취소</button>
 				    </div>
 				</form><!-- End Multi Columns Form -->
-				             	
-      
-
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
   </main><!-- End #main -->
-<script src="admin_notice_modify.js"></script>
 
- <%@ include file="admin_footer_common.jsp" %>
+  <%@ include file="admin_footer_common.jsp" %>

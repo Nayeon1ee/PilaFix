@@ -21,15 +21,7 @@
             <div class="card-body">
               <h5 class="card-title">공지사항 등록페이지</h5>
               <p>웹관리자가 공지사항을 등록할 수 있는 페이지입니다.</p>
-
-
-             	<!-- 
-             	 
-             	 이 영역에 가져온 컴포넌트 넣기 
-             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
-             	 
-             	 -->
-
+              
 				<!-- Multi Columns Form -->
 				<form class="row g-3" id="registrationForm000" action="insertAdminInfo.do" method="post">
 				    <div class="col-md-5">
@@ -47,27 +39,27 @@
 				        <textarea class="form-control" name="content" id="contentInput000" style="height: 300px"></textarea>
 				    </div>
 				    
-				<div class="col-sm-10">
-				  <div class="form-check form-check-inline radiobtn000">
-				    <input class="form-check-input" type="radio" name="gridRadios openYN" id="gridRadios1" value=true checked>
-				    <label class="form-check-label" for="gridRadios1">
-				      공개
-				    </label>
-				  </div>
-				  <div class="form-check form-check-inline radiobtn001">
-				    <input class="form-check-input" type="radio" name="gridRadios openYN" id="gridRadios2" value=false>
-				    <label class="form-check-label" for="gridRadios2">
-				      비공개
-				    </label>
-				  </div>
-				</div>
-				    
-				    
-				    
-				    <div class="text-center">
-				        <button type="submit" class="btn btn-primary">등록</button>
-				        <button type="button" class="btn btn-primary" onclick="location.href='getAdminInfoList.do'" >취소</a></button>
-				    </div>
+				<label class="form-label">공개여부</label>
+	               <fieldset class="row mb-3">
+	                  <div class="col-sm-10">
+	                    <div class="form-check form-check-inline">
+	                      <input class="form-check-input" type="radio" name="openYN" id="gridRadios1" value=true checked>
+	                      <label class="form-check-label" for="gridRadios1">
+	                        공개
+	                      </label>
+	                    </div>
+	                    <div class="form-check form-check-inline">
+	                      <input class="form-check-input" type="radio" name="openYN" id="gridRadios2" value=false>
+	                      <label class="form-check-label" for="gridRadios2">
+	                        비공개
+	                      </label>
+	                    </div>
+	                  </div>
+	                </fieldset>
+			    <div class="text-center">
+			        <button type="submit" class="btn btn-primary">등록</button>
+			        <button type="button" class="btn btn-primary" onclick="location.href='getAdminInfoList.do'" >취소</button>
+			    </div>
 				</form><!-- End Multi Columns Form -->
 				             	
 
@@ -79,5 +71,4 @@
     </section>
 
   </main><!-- End #main -->
-  <script src="admin_notice_board_register.js"></script>
  <%@ include file="admin_footer_common.jsp" %>

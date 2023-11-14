@@ -16,18 +16,24 @@ public class CenterLessonController {
 	@GetMapping("/getCenterLessonList.do")
 	public String getCenterLessonList(Model model) {
 		model.addAttribute("CenterLessonList", service.getCenterLessonList());
-		return "center_lesson/getCenterLessonList.jsp";
+		return "center/center_class_management";
 	}
 	
 	@GetMapping("/getCenterLesson.do")
 	public String getCenterLesson(@RequestParam("seq") String lsCode, Model model) {
 		model.addAttribute("centerLesson", service.getCenterLesson(lsCode));
-		return "center_lesson/getCenterLesson.jsp";
+		return "center/center_detail_class";
+	}
+	
+	@PostMapping("/getCenterLesson.do")
+	public String updateCenterLesson(CenterLessonVO vo) {
+		service.updateCenterLesson(vo);
+		return "redirect:getCenterInfoList.do";
 	}
 	
 	@GetMapping("/insertCenterLesson.do")
 	public String insertCenterLesson() {
-		return "center_lesson/insertCenterLesson.jsp";
+		return "center/center_create_class";
 	}
 	
 	@PostMapping("/insertCenterLesson.do")

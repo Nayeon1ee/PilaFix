@@ -34,4 +34,9 @@ public class CenterLessonServiceImpl implements CenterLessonService {
 		return dao.deleteCenterLesson(lsCode);
 	}
 
+	@Override
+	public int updateCenterLesson(CenterLessonVO vo) {
+		return dao.updateCenterLesson(vo);
+	}
+
 }

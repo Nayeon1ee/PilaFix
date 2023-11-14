@@ -22,65 +22,51 @@
               <h5 class="card-title">공지사항 리스트</h5>
               <p>웹관리자가 작성하는 공지사항 리스트입니다. </p>
 
-
-             	<!-- 
-             	 
-             	 이 영역에 가져온 컴포넌트 넣기 
-             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
-             	 
-             	 -->
-             	 
-             	 
  <!-- 검색필터 시작 -->
-             <div class="search-filter">
+     <div class="search-filter">
       <div class="search-filter-inner" >
     
      <div class="serch-filter-content">
       <div class="search-top">
-              <div class="col-md-3">
-                  <label for="inputState" class="form-label">검색</label>
-                  <select id="inputState" class="form-select">
-                    <option selected disabled>전체</option>
-                    <option>글 제목</option>
-                    <option>글 작성자</option>
-                    <option></option>
-                  </select>
-                </div>
-           <div class="serch-input">
-             <div class="col-md-6">
-                  <input type="text" class="form-control" id="inputCity" placeholder="검색어를 입력해주세요">
-                </div>
-                <div class="search-btn">
-                <button type="submit" class="btn btn-primary search">검색</button>
-                <button type="reset" class="btn btn-primary search" id="resetButton">초기화</button>
-           </div>
+      	<div class="col-md-3">
+          <label for="inputState" class="form-label">검색</label>
+          <select id="inputState" class="form-select">
+            <option selected disabled>전체</option>
+            <option>글 제목</option>
+            <option>글 작성자</option>
+            <option></option>
+          </select>
+        </div>
+        <div class="serch-input">
+			<div class="col-md-6">
+               <input type="text" class="form-control" id="inputCity" placeholder="검색어를 입력해주세요">
             </div>
-            </div>
+             <div class="search-btn">
+             	<button type="submit" class="btn btn-primary search">검색</button>
+             	<button type="reset" class="btn btn-primary search" id="resetButton">초기화</button>
+        	</div>
+        </div>
+       </div>
              
-             <div class="search-date">
-                <div class="date-filter">
-                 <label for="inputState" class="form-label">기간검색</label>
-                <div class="col-sm-12">
-                    <input type="date" class="form-control-date" id="startDate">
-                  <span>~</span>
-                    <input type="date" class="form-control-date" id="endDate">
-                  </div>
-                  </div>
-                  </div>
-                  
-                </div>
-             </div>
-             </div>
+       <div class="search-date">
+       	<div class="date-filter">
+        	<label for="inputState" class="form-label">기간검색</label>
+        	<div class="col-sm-12">
+            	<input type="date" class="form-control-date" id="startDate">
+            	<span>~</span>
+              	<input type="date" class="form-control-date" id="endDate">
+            </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
 <!-- 검색필터 끝 -->
 
-
-
-              <!-- Table with stripped rows -->
               
+              <!--  버튼 div 가져오세용~ -->
               <div class="ad_noti_add_btn0 ad_noti_btn_000">
-              <button type="button" class="btn btn-primary" onclick="insertAdminInfo()">
-              <i class="bi"></i> 
-              + 공지사항 등록 </button>
+	              <button type="button" class="btn btn-primary" onclick="location.href='insertAdminInfo.do'" > 등록</button>
               </div>
               
               <table class="table datatable">
@@ -91,7 +77,8 @@
                     <th scope="col">글제목</th>
                     <th scope="col">작성자</th>
                     <th scope="col">작성일자</th>
-                    <th scope="col">공개</th>
+                    <th scope="col">조회수</th>
+                    <th scope="col">공개여부</th>
                   </tr>
                 </thead>
                 
@@ -107,8 +94,11 @@
 					<td><a href="getAdminInfo.do?seq=${adminInfo.seq }">${adminInfo.title }</a></td>
 					<td>${adminInfo.writerMemberName }</td>
 					<td>${adminInfo.regDate }</td>
-					<td>${adminInfo.openYN }</td>
-					<td><a href="updateAdminInfo.do?seq=${adminInfo.seq }">수정</a> | <a href="deleteAdminInfo.do?seq=${adminInfo.seq }">삭제</a></td>
+					<td>${adminInfo.cnt }</td>
+					<c:choose>
+						<c:when test="${openYN}"><td>Y</td></c:when>
+						<c:otherwise><td>N</td></c:otherwise>
+					</c:choose>
 				</tr>
 			</c:forEach>                                     
                 </tbody>
@@ -137,6 +127,5 @@
     </section>
 
   </main><!-- End #main -->
-  <script src="admin_notice_board.js"></script>
 
   <%@ include file="admin_footer_common.jsp" %>
