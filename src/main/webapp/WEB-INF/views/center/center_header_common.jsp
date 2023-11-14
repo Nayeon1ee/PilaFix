@@ -36,6 +36,8 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_terms.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_centerReg.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
   
   <!-- =======================================================
   * Template Name: PilaAdmin

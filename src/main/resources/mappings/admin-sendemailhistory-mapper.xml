@@ -21,13 +21,4 @@
 	<select id="getSendEmailHistoryInfoList" resultMap="SendEmailHistoryInfoResult" parameterType="sendEmailHistoryInfo">
 		SELECT MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE, MH_EMAIL_SEND_DATETIME, MH_RECIPIENT_NAME, MH_RECIPIENT_TITLE ,MH_RECIPIENT_CONTENT,MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME, MH_FAIL_REASON FROM TBL_SEND_EMAIL_HISTORY
 	</select>
-	<insert id="insertComplaintsInfo" parameterType="sendEmailHistoryInfo">
-		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN) VALUES(nextval('seq_faq'), #{fq_title}, #{fq_content}, '999', CURRENT_TIMESTAMP, #{fq_open_yn})
-	</insert>
-	<update id="updateComplaintsInfo" parameterType="sendEmailHistoryInfo">
-		UPDATE TBL_FAQ SET FQ_TITLE=#{fq_title}, FQ_CONTENT=#{fq_content}, FQ_OPEN_YN=#{fq_open_yn} WHERE FQ_NUMBER=#{fq_number}
-	</update>
-	<delete id="deleteComplaintsInfo" parameterType="Integer">
-		DELETE FROM TBL_FAQ WHERE FQ_NUMBER = #{fq_number}
-	</delete>
 </mapper>

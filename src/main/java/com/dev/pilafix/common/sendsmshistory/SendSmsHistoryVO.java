@@ -1,21 +1,22 @@
-package com.dev.pilafix.admin.sendsmshistory;
+package com.dev.pilafix.common.sendsmshistory;
 
 import java.util.Date;
 
 public class SendSmsHistoryVO {
-	private int shSendCode;
+	private String  shSendCode;
 	private Date shSendDatetime;
-	private String shSendCenterCode;
+	private int shSendCenterCode;
 	private String shRecipientName;
 	private String shRecipientPhone;
 	private String shRecipientContent;
 	private boolean shSuccessYn;
 	private Date shSuccessDatetime;
 	private String shFailReason;
-	public int getShSendCode() {
+	
+	public String getShSendCode() {
 		return shSendCode;
 	}
-	public void setShSendCode(int shSendCode) {
+	public void setShSendCode(String shSendCode) {
 		this.shSendCode = shSendCode;
 	}
 	public Date getShSendDatetime() {
@@ -24,10 +25,10 @@ public class SendSmsHistoryVO {
 	public void setShSendDatetime(Date shSendDatetime) {
 		this.shSendDatetime = shSendDatetime;
 	}
-	public String getShSendCenterCode() {
+	public int getShSendCenterCode() {
 		return shSendCenterCode;
 	}
-	public void setShSendCenterCode(String shSendCenterCode) {
+	public void setShSendCenterCode(int shSendCenterCode) {
 		this.shSendCenterCode = shSendCenterCode;
 	}
 	public String getShRecipientName() {
@@ -68,13 +69,15 @@ public class SendSmsHistoryVO {
 	}
 	@Override
 	public String toString() {
-		return "SendSmsHistoryVO [shSendCode=" + shSendCode + ", shSendCenterCode=" + shSendCenterCode
-				+ ", shRecipientName=" + shRecipientName + ", shRecipientPhone=" + shRecipientPhone
-				+ ", shRecipientContent=" + shRecipientContent + ", shSuccessYn=" + shSuccessYn + ", shFailReason="
+		return "SendSmsHistoryVO [shSendCode=" + shSendCode + ", shSendDatetime=" + shSendDatetime
+				+ ", shSendCenterCode=" + shSendCenterCode + ", shRecipientName=" + shRecipientName
+				+ ", shRecipientPhone=" + shRecipientPhone + ", shRecipientContent=" + shRecipientContent
+				+ ", shSuccessYn=" + shSuccessYn + ", shSuccessDatetime=" + shSuccessDatetime + ", shFailReason="
 				+ shFailReason + "]";
 	}
 	
 	
-
+	
+	
 
 }

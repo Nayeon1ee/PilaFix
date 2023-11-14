@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 <%@ include file="center_header_common.jsp" %>
  
   <main id="main" class="main">
@@ -21,7 +23,6 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">중제목 작성</h5>
-              <!-- <p>간략한 설명</p> -->
 
 
              	 <!-- Multi Columns Form -->
