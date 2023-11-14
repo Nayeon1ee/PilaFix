@@ -16,7 +16,7 @@ public class CenterInfoController {
 	@GetMapping("/getCenterInfoList.do")
 	public String getCenterInfoList(Model model) {
 		model.addAttribute("infoList", service.getCenterInfoList());
-		return "center/center_notice_board";
+		return "center/center_info_board";
 	}
 	
 	@GetMapping("/getCenterInfo.do")
@@ -31,12 +31,12 @@ public class CenterInfoController {
 	    int updatedList = service.updateCenterInfoViewCnt(centerInfo.getCnt());
 		model.addAttribute("centerInfo", service.getCenterInfo(seq));
 		model.addAttribute("updatedList", updatedList);
-		return "center/center_notice_board_detail";
+		return "center/center_info_board_detail";
 	}
 	
 	@GetMapping("/insertCenterInfo.do")
 	public String insertCenterInfo() {
-		return "center/center_notice_board_register";
+		return "center/center_info_board_register";
 	}
 	
 	@PostMapping("/insertCenterInfo.do")
@@ -48,7 +48,7 @@ public class CenterInfoController {
 	@GetMapping("/updateCenterInfo.do")
 	public String updateCenterInfo(@RequestParam("seq") Integer seq, Model model) {
 		model.addAttribute("centerInfo", service.getCenterInfo(seq));
-		return "center/center_notice_board_modify";
+		return "center/center_info_board_modify";
 	}
 	
 	@PostMapping("/updateCenterInfo.do")

@@ -104,12 +104,7 @@
 											<td>${centerLesson.lsCurrentApplication } / ${centerLesson.lsCapacity }</td>
 											<td>${centerLesson.lsDate }</td>
 											<td>${centerLesson.lsTime }:00</td>
-											<c:if test="${centerLesson.lsColseYN == true}">
-												<td>개강</td>
-											</c:if>
-											<c:if test="${centerLesson.lsColseYN == false}">
-												<td>폐강</td>
-											</c:if>
+											<td>${centerLesson.lsColseYN ? '개강' : '폐강'}</td>
 										</tr>
 									</c:forEach>
 								</tbody>

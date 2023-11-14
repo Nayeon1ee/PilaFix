@@ -21,17 +21,18 @@
 					<div class="card">
 						<div class="card-body">
 							<!-- Multi Columns Form -->
-							<form class="row g-3">
+							<form class="row g-3" action="insertCenterLesson.do" method="post" name="myForm"> 
+								<input type="hidden" class="form-control" name="lsCode" value="${centerLesson.lsCode }">
 								<div class="col-md-12 col-top">
 									<label class="form-label">수업 유형</label>
 									<div class="radio-box">
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="lsType" value="그룹" onclick="updateList(this.value)" id="flexRadioDefault1" checked>
+											<input class="form-check-input" type="radio" name="lsType" value="그룹" onclick="updateList(this.value)" id="flexRadioDefault1">
 											<label class="form-check-label" for="flexRadioDefault1">그룹</label>
 										</div>
 										<div class="form-check">
 											<input class="form-check-input" type="radio" name="lsType" value="개인" onclick="updateList(this.value)" id="flexRadioDefault1">
-												<label class="form-check-label" for="flexRadioDefault1">개인</label>
+											<label class="form-check-label" for="flexRadioDefault1">개인</label>
 										</div>
 									</div>
 								</div>
@@ -41,10 +42,11 @@
 								</div>
 								<div class="col-md-12">
 									<label class="form-label">강사명</label>
-									<select class="form-select" name="csName" aria-label="Default select example">
+									<select class="form-select" name="trainerMemberCode" aria-label="Default select example">
 										<option selected>강사</option>
-										<c:forEach var="centerLesson" items="${centerLesson }">
-											<option value="${centerLesson.trainerMemberCode}">${centerLesson.csName}</option>
+										<option value="123456">송하민</option>
+										<c:forEach var="trainer" items="${centerLesson }">
+											<option value="${trainer.trainerMemberCode}">${trainer.csName}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -72,23 +74,23 @@
 									<label class="form-label" >수업 시간</label>
 									<select id="timeSelect" class="time-select" name="lsTime">
 										<option selected>시간</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
-										<option value="8">8</option>
-										<option value="9">9</option>
-										<option value="10">10</option>
-										<option value="11">11</option>
-										<option value="12">12</option>
-										<option value="13">13</option>
-										<option value="14">14</option>
-										<option value="15">15</option>
-										<option value="16">16</option>
-										<option value="17">17</option>
-										<option value="18">18</option>
-										<option value="19">19</option>
-										<option value="20">20</option>
-										<option value="21">21</option>
-										<option value="22">22</option>
+										<option value="6">6시</option>
+										<option value="7">7시</option>
+										<option value="8">8시</option>
+										<option value="9">9시</option>
+										<option value="10">10시</option>
+										<option value="11">11시</option>
+										<option value="12">12시</option>
+										<option value="13">13시</option>
+										<option value="14">14시</option>
+										<option value="15">15시</option>
+										<option value="16">16시</option>
+										<option value="17">17시</option>
+										<option value="18">18시</option>
+										<option value="19">19시</option>
+										<option value="20">20시</option>
+										<option value="21">21시</option>
+										<option value="22">22시</option>
 									</select>
 									<button type="button" class="btn btn-primary" onclick="displaySelectedDateTime()">선택</button>
 									<div id="outputDateTime"></div>
@@ -104,13 +106,17 @@
 											<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value=false>
 											<label class="form-check-label" for="flexRadioDefault1">N</label>
 										</div>
-										<div class="p-check">
+										<div class="p-check" style="display: inline-block;">
 											<p>(Y를 선택하면 회원이 바로 구매가 가능합니다.)</p>
 											<p>(N을 선택하면 수강권을 생성만 합니다.)</p>
 										</div>
 									</div>
 								</div>
 								<div class="text-center"></div>
+								<div class="text-center">
+									<button type="submit" class="btn btn-primary">등록</button>
+									<button type="reset" class="btn btn-secondary" onclick="location.href='getCenterLessonList.do'">취소</button>
+								</div>
 							</form>
 							<!-- End Multi Columns Form -->
 						</div>
@@ -119,29 +125,6 @@
 			</div>
 		</section>
 
-		<div class="button_con">
-			<!-- Button trigger modal -->
-			<button type="submit" class="btn btn-primary create-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >수업 등록</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">수강권을 등록하시겠습니까?</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">취소</button>
-							<button type="button" class="btn btn-primary"
-								onclick="location.href='center_ticket_management'">등록</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<button type="button" class="btn btn-primary" onclick="location.href='getCenterLessonList.do'">목록</button>
-		</div>
 	</main>
 	<!-- End #main -->
 <script type="text/javascript">
