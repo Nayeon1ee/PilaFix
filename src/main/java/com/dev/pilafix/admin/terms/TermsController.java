@@ -23,6 +23,13 @@ public class TermsController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	
+	
+	@GetMapping("/logintest.do")
+	public String centerlogin() {
+		return "center/center_logintest";
+	}
+	
 	/**
 	 * 이용약관의 상세
 	 */
