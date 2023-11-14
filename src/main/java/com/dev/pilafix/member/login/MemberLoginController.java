@@ -63,7 +63,7 @@ public class MemberLoginController {
 	    
 	    if (member != null) {
 	        session.setAttribute("member", member);
-	        return "redirect:passwordChange.do";  
+	        return "member/ctConnect";  
 	    } else {
 	        redirectAttrs.addFlashAttribute("loginError", "존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
 	        return "redirect:memberLogin.do"; 
