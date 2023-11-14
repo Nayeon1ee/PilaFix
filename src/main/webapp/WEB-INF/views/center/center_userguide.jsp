@@ -23,14 +23,14 @@
               <h5 class="card-title">중제목 작성</h5>
               <p>간략한 설명</p>
 
-<div class="terms-btn">
-<span class="terms-reg-btn">
-<button type="button" class="btn btn-primary" onclick="location.href='insertUserguide.do'">이용정책 등록</button>
-</span>
-<span class="excel-down-btn">
-<button type="button" class="btn btn-success">엑셀다운</button>
-</span>
-</div>
+				<div class="terms-btn">
+				<span class="terms-reg-btn">
+					<button type="button" class="btn btn-primary" onclick="location.href='insertUserguide.do'">이용정책 등록</button>
+				</span>
+				<span class="excel-down-btn">
+					<button type="button" class="btn btn-success">엑셀다운</button>
+				</span>
+				</div>
 <!-- 게시판 시작 -->
               <!-- Table with stripped rows -->
               <table class="table datatable">
@@ -43,7 +43,7 @@
                   </tr>
                 </thead>
                 <tbody>
-               	 <c:if test="${userguideList == null }">
+               	 <c:if test="${empty userguideList}">
 					<tr>
 						<td colspan="5">등록된 글이 없습니다.</td>
 					</tr>
@@ -57,21 +57,7 @@
 					</tr>
 				 </c:forEach> 
                 </tbody>
-              </table>          	
-
-	 <!-- 페이징 처리 시작 -->
-              <div class="admin-screen-paging">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">4</a></li>
-                  <li class="page-item"><a class="page-link" href="#">5</a></li>
-                  <li class="page-item"><a class="page-link" href="#">다음</a></li>
-                </ul>
-             </div>
-      <!-- 페이징 처리 끝 -->
+              </table>         
 	
             </div>
           </div>

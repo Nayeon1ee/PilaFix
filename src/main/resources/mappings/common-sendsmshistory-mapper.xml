@@ -15,9 +15,17 @@
 		<result property="shFailReason" column="SH_FAIL_REASON" />
 	</resultMap>
 	<select id="getSendSmsHistoryInfo" resultMap="SendSmsHistoryInfoResult" parameterType="sendSmsHistoryInfo">
-		SELECT * FROM TBL_SEND_SMS_HISTORY WHERE SH_SEND_CODE :: INTEGER = #{shSendCode}
+		SELECT * FROM TBL_SEND_SMS_HISTORY WHERE SH_SEND_CODE=#{shSendCode}
 	</select>
-	<select id="getSendSmsHistoryInfoList" resultMap="SendSmsHistoryInfoResult" parameterType="sendSmsHistoryInfo">
-		SELECT SH_SEND_CODE, SH_SEND_DATETIME, SH_SEND_CENTER_CODE, SH_RECIPIENT_NAME, SH_RECIPIENT_PHONE ,SH_RECIPIENT_CONTENT,SH_SUCCESS_YN, SH_SUCCESS_DATETIME, SH_FAIL_REASON FROM TBL_SEND_SMS_HISTORY
+	<!-- 센터가 요청하는 list -->
+	<select id="getSendSmsHistoryInfoListForCenter" resultMap="SendSmsHistoryInfoResult" parameterType="sendSmsHistoryInfo">
+		SELECT * FROM TBL_SEND_SMS_HISTORY
+		WHERE SH_SEND_CENTER_CODE=#{shSendCenterCode}
 	</select>
+	<!-- 관리자가 요청하는 list -->
+	<select id="getSendSmsHistoryInfoListForAdmin" resultMap="SendSmsHistoryInfoResult" >
+		SELECT * FROM TBL_SEND_SMS_HISTORY
+	</select>
+	
+	
 </mapper>

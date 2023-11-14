@@ -1,4 +1,4 @@
-package com.dev.pilafix.common;
+package com.dev.pilafix.util;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

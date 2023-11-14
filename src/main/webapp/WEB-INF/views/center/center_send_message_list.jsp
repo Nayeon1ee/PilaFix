@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="admin_header_common.jsp" %>
+<%@ include file="center_header_common.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 
 	<main id="main" class="main">
 
@@ -23,7 +25,6 @@
 						<div class="card-body">
 							<h5 class="card-title">문자발송리스트</h5>
 							<p>센터의 문자 발송 내역입니다.</p>
-							
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
 								<div class="search-filter-inner">
@@ -91,13 +92,13 @@
 								<c:forEach var="list" items="${sendSmsHistoryInfoList }">
 									<tr>
 										<td>${list.shSendCode }</td>
-										<td>${list.shSendDatetime }</td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSendDatetime }"/>
 										<td><a href="getSendSmsHistoryInfo.do?shSendCode=${list.shSendCode }">${list.shRecipientName }</a></td>
 										<td>${list.shRecipientPhone }</td>
 										<c:choose>
 											<c:when test="${list.shSuccessYn }">
 												<td>성공</td>
-												<td>${list.shSuccessDatetime }</td>
+												<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSuccessDatetime }"/></td>
 											</c:when>
 											<c:otherwise>
 												<td>실패</td>
@@ -120,4 +121,4 @@
 	<!-- End #main -->
 
 	
-<%@ include file="admin_footer_common.jsp" %>
+<%@ include file="center_footer_common.jsp" %>

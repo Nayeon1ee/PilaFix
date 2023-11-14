@@ -1,4 +1,4 @@
-package com.dev.pilafix.common;
+package com.dev.pilafix.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,7 +24,7 @@ public class AwsS3Uploader {
 //	    public String bucket;
 //
 //	    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
-//	    File uploadFile = convert(multipartFile)        // íŒŒì¼ ìƒì„±
+//	    File uploadFile = convert(multipartFile)        // ?ŒŒ?¼ ?ƒ?„±
 //	                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File convert fail"));
 //
 //	        return upload(uploadFile, dirName);
@@ -32,12 +32,12 @@ public class AwsS3Uploader {
 //
 //	    private String upload(File uploadFile, String dirName) {
 //	        String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName();
-//	        String uploadImageUrl = putS3(uploadFile, fileName);    // s3ë¡œ ì—…ë¡œë“œ
+//	        String uploadImageUrl = putS3(uploadFile, fileName);    // s3ë¡? ?—…ë¡œë“œ
 //	        removeNewFile(uploadFile);
 //	        return uploadImageUrl;
 //	    }
 //
-//	    // 1. ë¡œì»¬ì— íŒŒì¼ìƒì„±
+//	    // 1. ë¡œì»¬?— ?ŒŒ?¼?ƒ?„±
 //	    private Optional<File> convert(MultipartFile file) throws IOException {
 //	        File convertFile = new File(file.getOriginalFilename());
 //	        if (convertFile.createNewFile()) {
@@ -50,14 +50,14 @@ public class AwsS3Uploader {
 //	        return Optional.empty();
 //	    }
 //
-//	    // 2. S3ì— íŒŒì¼ì—…ë¡œë“œ
+//	    // 2. S3?— ?ŒŒ?¼?—…ë¡œë“œ
 //	    private String putS3(File uploadFile, String fileName) {
 //	        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
 ////	        log.info("File Upload : " + fileName);
 //	        return amazonS3Client.getUrl(bucket, fileName).toString();
 //	    }
 //
-//	    // 3. ë¡œì»¬ì— ìƒì„±ëœ íŒŒì¼ì‚­ì œ
+//	    // 3. ë¡œì»¬?— ?ƒ?„±?œ ?ŒŒ?¼?‚­? œ
 //	    private void removeNewFile(File targetFile) {
 //	        if (targetFile.delete()) {
 ////	            log.info("File delete success");
