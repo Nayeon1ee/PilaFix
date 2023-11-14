@@ -45,13 +45,13 @@ public class FaqInfoController {
 	@GetMapping("/getFaqInfoList.do")
 	public String getFaqInfoList(Model model) {
 		model.addAttribute("FaqInfoList", service.getFaqInfoList());
-		return "admin_faq/getFaqInfoList.jsp";
+		return "admin/admin_FAQ";
 	}
 	
 	@GetMapping("/getFaqInfo.do")
 	public String getFaqInfo(@RequestParam("fqNumber") Integer fqNumber, Model model) {
 		model.addAttribute("faqInfo", service.getFaqInfo(fqNumber));
-		return "admin_faq/getFaqInfo.jsp";
+		return "admin/admin_FAQ_detail";
 	}
 	
 }
