@@ -59,7 +59,7 @@
 
 								<div class="text-center">
 							        <button type="submit" class="btn btn-primary">등록</button>
-							        <button type="button" class="btn btn-primary" onclick="location.href='getCenterfoList.do'" >취소</button>
+							        <button type="button" class="btn btn-primary" onclick="location.href='getCenterInfoList.do'">취소</button>
 							    </div>
 							</form>
 							<!-- End Multi Columns Form -->

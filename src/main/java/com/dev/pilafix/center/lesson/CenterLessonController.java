@@ -25,10 +25,10 @@ public class CenterLessonController {
 		return "center/center_detail_class";
 	}
 	
-	@PostMapping("/getCenterLesson.do")
+	@PostMapping("/updateCenterLesson.do")
 	public String updateCenterLesson(CenterLessonVO vo) {
 		service.updateCenterLesson(vo);
-		return "redirect:getCenterInfoList.do";
+		return "redirect:getCenterLessonList.do";
 	}
 	
 	@GetMapping("/insertCenterLesson.do")
@@ -48,4 +48,5 @@ public class CenterLessonController {
 		service.deleteCenterLesson(lsCode);
 		return "redirect:getCenterLessonList.do";
 	}
+	
 }

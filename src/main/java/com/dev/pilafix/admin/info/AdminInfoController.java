@@ -17,7 +17,7 @@ public class AdminInfoController {
 	@GetMapping("/getAdminInfoList.do")
 	public String getAdminInfoList(Model model) {
 		model.addAttribute("InfoList", service.getAdminInfoList());
-		return "admin/admin_notice_board";
+		return "admin/admin_info_board";
 	}
 
 	@GetMapping("/getAdminInfo.do")
@@ -33,12 +33,12 @@ public class AdminInfoController {
 	    
 	    model.addAttribute("adminInfo", service.getInfo(seq));
 	    model.addAttribute("updatedList", updatedList);
-		return "admin/admin_notice_board_detail";
+		return "admin/admin_info_board_detail";
 	}
 
 	@GetMapping("/insertAdminInfo.do")
 	public String insertAdminInfo() {
-		return "admin/admin_notice_board_register";
+		return "admin/admin_info_board_register";
 	}
 
 	@PostMapping("/insertAdminInfo.do")
@@ -50,7 +50,7 @@ public class AdminInfoController {
 	@GetMapping("/updateAdminInfo.do")
 	public String updateAdminInfo(@RequestParam("seq") Integer seq, Model model) {
 		model.addAttribute("adminInfo", service.getInfo(seq));
-		return "admin/admin_notice_board_modify";
+		return "admin/admin_info_board_modify";
 	}
 
 	@PostMapping("/updateAdminInfo.do")
