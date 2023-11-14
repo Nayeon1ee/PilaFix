@@ -26,6 +26,7 @@
 		<result property="ctId" column="CT_ID" />
 		<result property="ctPassword" column="CT_PASSWORD" />
 		<result property="roleCode" column="ROLE_CODE" />
+		<result property="businessRegistrationFilePath" column="BUSINESS_REGISTRATION_FILE_PATH" />
 	</resultMap>
 	
 	<select id="getCenter" resultMap="centerResult" >
@@ -45,7 +46,7 @@
 		#{ctAddress1}, #{ctAddress2}, #{ctAddress3},
 		#{ownerName},#{businessRegistrationNumber},#{ownerPhoneNumber1},#{ownerPhoneNumber2},#{ownerPhoneNumber3},
 		#{ownerEmail},TO_TIMESTAMP(#{contractStartDate}, 'YYYY-MM-DD'),TO_TIMESTAMP(#{contractEndDate}, 'YYYY-MM-DD'),
-		'F', 'F',CURRENT_TIMESTAMP,#{ctId},#{ctPassword},'CE')
+		'F', 'F',CURRENT_TIMESTAMP,#{ctId},#{ctPassword},'CE',#{businessRegistrationFilePath})
 	</insert>
 	<!-- 주소 변경 해야 함 -->
 	<update id="updateCenter" parameterType="center">

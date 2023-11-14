@@ -27,7 +27,8 @@ public class CenterVO {
 	private String ctId;
 	private String ctPassword;
 	private String roleCode;
-	private MultipartFile file;
+	private MultipartFile businessRegistrationFile;
+	private String businessRegistrationFilePath;
 	
 	public int getCtCode() {
 		return ctCode;
@@ -162,10 +163,22 @@ public class CenterVO {
 		this.roleCode = roleCode;
 	}
 	public MultipartFile getFile() {
-		return file;
+		return businessRegistrationFile;
 	}
-	public void setFile(MultipartFile file) {
-		this.file = file;
+	public void setFile(MultipartFile businessRegistrationFile) {
+		this.businessRegistrationFile = businessRegistrationFile;
+	}
+	public MultipartFile getBusinessRegistrationFile() {
+		return businessRegistrationFile;
+	}
+	public void setBusinessRegistrationFile(MultipartFile businessRegistrationFile) {
+		this.businessRegistrationFile = businessRegistrationFile;
+	}
+	public String getBusinessRegistrationFilePath() {
+		return businessRegistrationFilePath;
+	}
+	public void setBusinessRegistrationFilePath(String businessRegistrationFilePath) {
+		this.businessRegistrationFilePath = businessRegistrationFilePath;
 	}
 	@Override
 	public String toString() {
