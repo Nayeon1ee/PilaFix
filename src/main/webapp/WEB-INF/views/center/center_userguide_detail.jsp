@@ -33,11 +33,11 @@
                 </div>
                 <div class="col-md-2">
                   <label class="form-label">구분</label>
-                  <input type="text" readonly disabled class="form-control" value=${userguide.ugType }>
+                  <input type="text" readonly disabled class="form-control" value="${userguide.ugType }">
                 </div>
                 <div class="col-md-4">
                   <label class="form-label">이용정책 제목</label>
-                  <input type="text" readonly disabled class="form-control" value=${userguide.ugName }>
+                  <input type="text" readonly disabled class="form-control" value="${userguide.ugName }">
                 </div>
                 <div class="col-md-12">
                 	<label class="form-label">이용정책 내용</label>

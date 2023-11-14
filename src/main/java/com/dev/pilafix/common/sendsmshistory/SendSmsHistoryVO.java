@@ -12,6 +12,7 @@ public class SendSmsHistoryVO {
 	private boolean shSuccessYn;
 	private Date shSuccessDatetime;
 	private String shFailReason;
+	private String shSendCenterName;
 	
 	public String getShSendCode() {
 		return shSendCode;
@@ -67,15 +68,21 @@ public class SendSmsHistoryVO {
 	public void setShFailReason(String shFailReason) {
 		this.shFailReason = shFailReason;
 	}
+	public String getShSendCenterName() {
+		return shSendCenterName;
+	}
+	public void setShSendCenterName(String shSendCenterName) {
+		this.shSendCenterName = shSendCenterName;
+	}
 	@Override
 	public String toString() {
 		return "SendSmsHistoryVO [shSendCode=" + shSendCode + ", shSendDatetime=" + shSendDatetime
 				+ ", shSendCenterCode=" + shSendCenterCode + ", shRecipientName=" + shRecipientName
 				+ ", shRecipientPhone=" + shRecipientPhone + ", shRecipientContent=" + shRecipientContent
 				+ ", shSuccessYn=" + shSuccessYn + ", shSuccessDatetime=" + shSuccessDatetime + ", shFailReason="
-				+ shFailReason + "]";
+				+ shFailReason + ", shSendCenterName=" + shSendCenterName + "]";
 	}
-	
+
 	
 	
 	

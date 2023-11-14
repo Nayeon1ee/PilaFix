@@ -29,24 +29,24 @@
 							<form class="row g-3">
 								<div class="col-md-3">
 									<label class="form-label">수신자명</label> 
-									<input type="text" readonly disabled class="form-control" value=${sendSmsHistoryInfo.shRecipientName } >
+									<input type="text" readonly disabled class="form-control" value=${sendSmsHistory.shRecipientName } >
 								</div>
 								<div class="col-md-4">
 									<label class="form-label">수신자번호</label> 
-									<input type="text" readonly disabled class="form-control" value=${sendSmsHistoryInfo.shRecipientPhone } >
+									<input type="text" readonly disabled class="form-control" value=${sendSmsHistory.shRecipientPhone } >
 								</div>
 								<div class="col-md-5">
 									<label class="form-label">발송일시</label> 
-									<input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendSmsHistoryInfo.shSendDatetime }"/>'>
+									<input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendSmsHistory.shSendDatetime }"/>'>
 								</div>
 								<div class="col-md-3">
 									<label class="form-label">발송코드</label> 
-									<input type="text" readonly disabled class="form-control" value=${sendSmsHistoryInfo.shSendCode } >
+									<input type="text" readonly disabled class="form-control" value=${sendSmsHistory.shSendCode } >
 								</div>
 								<div class="col-md-4">
 									<label class="form-label">상태</label> 
 									<c:choose>
-										<c:when test="${sendSmsHistoryInfo.shSuccessYn }">
+										<c:when test="${sendSmsHistory.shSuccessYn }">
 											<input type="text" readonly disabled class="form-control" value="성공">
 										</c:when>
 										<c:otherwise>
@@ -57,20 +57,20 @@
 								<div class="col-md-5">
 									<label class="form-label">비고</label> 
 									<c:choose>
-										<c:when test="${sendSmsHistoryInfo.shSuccessYn }">
-											<input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendSmsHistoryInfo.shSuccessDatetime }"/>'>
+										<c:when test="${sendSmsHistory.shSuccessYn }">
+											<input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendSmsHistory.shSuccessDatetime }"/>'>
 										</c:when>
 										<c:otherwise>
-											<input type="text" readonly disabled class="form-control" value=${sendSmsHistoryInfo.shFailReason }>
+											<input type="text" readonly disabled class="form-control" value=${sendSmsHistory.shFailReason }>
 										</c:otherwise>
 									</c:choose>	
 								</div>
 								<div class="col-md-12">
 									<label class="form-label">발송 내용</label>
-									<textarea readonly class="form-control" style="height: 300px;" disabled>${sendSmsHistoryInfo.shRecipientContent }</textarea>
+									<textarea readonly class="form-control" style="height: 300px;" disabled>${sendSmsHistory.shRecipientContent }</textarea>
 								</div>
 								<div class="text-center">
-									<a href="center_send_sms_list" button class="btn btn-secondary">목록</a>
+									<a href="center_send_sms_list" button class="btn btn-primary">목록</a>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->
