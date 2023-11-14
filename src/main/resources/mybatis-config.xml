@@ -27,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.center.question_reply.QuestionReplyVO" alias="questionReply" />		
 		<typeAlias type="com.dev.pilafix.member.login.MemberLoginVO" alias="memberlogin" />
 	<typeAlias type="com.dev.pilafix.member.ConnectCt.ConnectCtVO" alias="ConnectCt" />
+	<typeAlias type="com.dev.pilafix.center.login.CenterLoginVO" alias="centerlogin" />
 	</typeAliases>
 	
 
@@ -49,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/center-lesson-mapper.xml" />
 		<mapper resource="mappings/member-login-mapper.xml" />
 		<mapper resource="mappings/member-ConnectCt-mapper.xml" />
+		<mapper resource="mappings/center-login-mapper.xml" />
 	</mappers>
 
 </configuration>

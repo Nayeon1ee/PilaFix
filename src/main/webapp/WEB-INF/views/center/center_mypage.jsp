@@ -430,25 +430,25 @@
 									<label for="inputAddress5" class="form-label">아이디</label>
 								</div>
 								<div class="col-120">
-									<input type="text" class="form-control" id="inputAddres5s"
-										placeholder="hong@naver.com" style="width: 93%;" disabled>
+									<input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerEmail }" 
+										 style="width: 93%;" disabled>
 									<div class="row mb-3"></div>
 								</div>
 
 
 								<div class="col-40">
 									<label for="inputAddress5" class="form-label">대표자 이름</label> <input
-										type="text" class="form-control" id="inputAddres5s"
+										type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerName }" 
 										placeholder="1234 Main St" disabled>
 								</div>
 								<div class="col-40" style="margin-top: 1%;">
 									<label for="inputAddress2" class="form-label">사업자 등록번호</label>
-									<input type="text" class="form-control" id="inputAddress2"
+									<input type="text" class="form-control" id="inputAddress2" value="${centerInfo.businessRegistrationNumber }"
 										placeholder="Apartment, studio, or floor" disabled>
 								</div>
 								<div class="col-40">
 									<label for="inputAddress5" class="form-label">대표자 이메일</label> <input
-										type="text" class="form-control" id="inputAddres5s"
+										type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerEmail }"
 										placeholder="이메일을 입력하세요" disabled>
 									<!-- <div class="col-sm-10">
 										<button type="submit" class="btn btn-primary">중복확인</button>
@@ -456,13 +456,13 @@
 								</div>
 								<div class="col-40">
 									<label for="inputAddress5" class="form-label">대표자 번호</label>
-									<div class="col-400" style="display: flex;">
-										<select disabled>
-											<option selected>전체</option>
-											<option>010</option>
-											<option>011</option>
-										</select> <input type="text" class="form-control" id="inputAddres5s"
-											disabled> <input type="text" class="form-control"
+									<div class="col-400" style="display: flex;" >
+										<select class="project_title" name="type" id="project_title" disabled="disabled">
+											<option selected >${centerInfo.ownerPhoneNumber1 }</option>
+											<option value="010">010</option>
+											<option value="011">011</option>
+										</select> <input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerPhoneNumber2 }"
+											disabled> <input type="text" class="form-control" value="${centerInfo.ownerPhoneNumber3 }"
 											id="inputAddres5s" disabled>
 										<!-- <div class="col-sm-10">
 										<button type="submit" class="btn btn-primary">중복확인</button>
@@ -471,18 +471,18 @@
 								</div>
 								<div class="col-30" style="margin-top: 1%;">
 									<label for="inputAddress2" class="form-label">센터명</label> <input
-										type="text" class="form-control" id="inputAddress2"
+										type="text" class="form-control" id="inputAddress2" value="${centerInfo.ctName }"
 										placeholder="센터명" disabled>
 								</div>
-								<div class="col-40">
+								<div class="col-40" >
 									<label for="inputAddress5" class="form-label">센터 번호</label>
-									<div class="col-400" style="display: flex;">
-										<select disabled>
-											<option selected>전체</option>
+									<div class="col-400" style="display: flex;" >
+										<select disabled >
+											<option selected >${centerInfo.ctPhoneNumber1 }</option>
 											<option>010</option>
 											<option>011</option>
-										</select> <input type="text" class="form-control" id="inputAddres5s"
-											disabled> <input type="text" class="form-control"
+										</select> <input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ctPhoneNumber2 }"
+											disabled> <input type="text" class="form-control" value="${centerInfo.ctPhoneNumber3 }"
 											id="inputAddres5s" disabled>
 										<!-- <div class="col-sm-10">
 										<button type="submit" class="btn btn-primary">중복확인</button>
@@ -495,18 +495,18 @@
 								</div>
 								<div class="col-120">
 									<input type="text" class="form-control" id="inputAddres5s"
-										placeholder="우편번호" style="width: 42%;" disabled>
+										placeholder="우편번호" style="width: 42%;" disabled value="${centerInfo.ctAddress1 }">
 
 									<div class="row mb-3"></div>
 								</div>
 								<div class="col-12">
 									<label for="inputAddress5" class="form-label">상세주소 1</label> <input
-										type="text" class="form-control" id="inputAddres5s"
+										type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ctAddress2 }"
 										placeholder="1234 Main St" disabled>
 								</div>
 								<div class="col-12" style="margin-top: 1%;">
 									<label for="inputAddress2" class="form-label">상세주소 2</label> <input
-										type="text" class="form-control" id="inputAddress2"
+										type="text" class="form-control" id="inputAddress2" value="${centerInfo.ctAddress3 }"
 										placeholder="Apartment, studio, or floor" disabled>
 								</div>
 
@@ -617,6 +617,9 @@
 		</section>
 
 	</main>
+	<script type="text/javascript">
+	var select_project_title=project_title.options[project_title.selectedIndex].value;
+	</script>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
@@ -660,8 +663,6 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
-
-
 	<script type="text/javascript">
 		function button_remove() {
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
@@ -675,6 +676,7 @@
 			alert("수정 완료 되었습니다.");
 			location.href = "admin_info_boardlist";
 		}
+		
 		</body>
 
 		</html>
