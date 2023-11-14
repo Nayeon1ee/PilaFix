@@ -39,4 +39,9 @@ public class CenterInfoServiceImple implements CenterInfoService {
 		return dao.deleteCenterInfo(seq);
 	}
 
+	@Override
+	public int updateCenterInfoViewCnt(int cnt) {
+		return dao.updateCenterInfoViewCnt(cnt);
+	}
+
 }

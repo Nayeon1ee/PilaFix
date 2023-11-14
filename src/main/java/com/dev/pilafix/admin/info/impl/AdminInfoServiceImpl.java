@@ -39,4 +39,9 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 		return dao.deleteAdminInfo(seq);
 	}
 
+	@Override
+	public int updateAdminInfoViewCnt(int cnt) {
+		return dao.updateAdminInfoViewCnt(cnt);
+	}
+
 }

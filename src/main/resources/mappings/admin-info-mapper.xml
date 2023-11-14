@@ -15,14 +15,15 @@
 		<result property="writerMemberCodeAd" column="AD_CODE" />
 		<result property="writerMemberName" column="AD_NAME" />
 	</resultMap>
-	<select id="getAdminInfo" resultMap="adminInfoResult" parameterType="adminInfo">
-		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') as IW_REGDATE, IW_VIEWS, IW_OPEN_YN, (SELECT AD_NAME FROM TBL_ADMIN WHERE AD_CODE='${writerMemberCodeAd}') as AD_NAME FROM TBL_INFO_W WHERE IW_NUMBER = ${seq}
-	</select>
 	<select id="getAdminInfoList" resultMap="adminInfoResult" parameterType="adminInfo">
-		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') as IW_REGDATE, IW_VIEWS, IW_OPEN_YN, IW_WRITER_MEMBER_CODE FROM TBL_INFO_W
+		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, TO_CHAR(IW_REGDATE, 'YYYY-MM-DD HH24:MI:SS') as IW_REGDATE, IW_VIEWS, IW_OPEN_YN, IW_WRITER_MEMBER_CODE, (SELECT AD_NAME FROM TBL_ADMIN WHERE AD_CODE=IW_WRITER_MEMBER_CODE) as AD_NAME FROM TBL_INFO_W
+	</select>
+	<select id="getAdminInfo" resultMap="adminInfoResult" parameterType="adminInfo">
+		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, TO_CHAR(IW_REGDATE, 'YYYY-MM-DD HH24:MI:SS') as IW_REGDATE, IW_VIEWS, IW_OPEN_YN, (SELECT AD_NAME FROM TBL_ADMIN WHERE AD_CODE=IW_WRITER_MEMBER_CODE) as AD_NAME FROM TBL_INFO_W WHERE IW_NUMBER = ${seq}
 	</select>
 	<insert id="insertAdminInfo" parameterType="adminInfo">
-		INSERT INTO TBL_INFO_W(IW_NUMBER, IW_TITLE, IW_CONTENT, IW_WRITER_MEMBER_CODE, IW_REGDATE, IW_VIEWS, IW_OPEN_YN) VALUES(nextval('seq_admin_info'), #{title}, #{content}, #{writerMemberCode}, CURRENT_TIMESTAMP, 0, #{openYN})
+		INSERT INTO TBL_INFO_W(IW_NUMBER, IW_TITLE, IW_CONTENT, IW_WRITER_MEMBER_CODE, IW_REGDATE,IW_OPEN_YN) 
+		VALUES(nextval('seq_admin_info'), #{title}, #{content}, 'ad1234', CURRENT_TIMESTAMP, #{openYN})
 	</insert>
 	<update id="updateAdminInfo" parameterType="adminInfo">
 		UPDATE TBL_INFO_W SET IW_TITLE=#{title}, IW_CONTENT=#{content}, IW_OPEN_YN=#{openYN} WHERE IW_NUMBER=#{seq}
@@ -30,4 +31,8 @@
 	<delete id="deleteAdminInfo" parameterType="Integer">
 		DELETE FROM TBL_INFO_W WHERE IW_NUMBER = #{seq}
 	</delete>
+	
+	<update id="updateAdminInfoViewCnt" parameterType="adminInfo">
+		UPDATE TBL_INFO_W SET IW_VIEWS = IW_VIEWS + 1 WHERE IW_NUMBER=#{seq}
+	</update>
 </mapper>

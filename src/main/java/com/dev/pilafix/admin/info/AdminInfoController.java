@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dev.pilafix.member.community.MemberCommunityVO;
+
 @Controller
 public class AdminInfoController {
 	@Autowired
@@ -20,7 +22,17 @@ public class AdminInfoController {
 
 	@GetMapping("/getAdminInfo.do")
 	public String getAdminInfo(@RequestParam("seq") Integer seq, Model model) {
-		model.addAttribute("adminInfo", service.getInfo(seq));
+		// 게시글 조회
+	    AdminInfoVO adminInfo = service.getInfo(seq);
+	    
+	    // 조회수 증가
+	    service.updateAdminInfoViewCnt(seq);
+	    
+	    // 리스트 업데이트
+	    int updatedList = service.updateAdminInfoViewCnt(adminInfo.getCnt());
+	    
+	    model.addAttribute("adminInfo", service.getInfo(seq));
+	    model.addAttribute("updatedList", updatedList);
 		return "admin/admin_notice_board_detail";
 	}
 
@@ -42,7 +54,7 @@ public class AdminInfoController {
 	}
 
 	@PostMapping("/updateAdminInfo.do")
-	public String update(AdminInfoVO vo, Model model) {
+	public String update(AdminInfoVO vo) {
 		service.updateAdminInfo(vo);
 		return "redirect:getAdminInfoList.do";
 	}

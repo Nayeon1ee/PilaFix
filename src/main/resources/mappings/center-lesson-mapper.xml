@@ -6,7 +6,7 @@
 	<resultMap type="centerLesson" id="centerLessonResult">
 		<id property="lsCode" column="LS_CODE"/>
 		<result property="lsName" column="LS_NAME"/>
-		<result property="lsTypYN" column="LS_TYPE_YN"/>
+		<result property="lsType" column="LS_TYPE"/>
 		<result property="lsDate" column="LS_DATE"/>
 		<result property="lsTime" column="LS_TIME"/>
 		<result property="lsCapacity" column="LS_CAPACITY"/>
@@ -22,16 +22,19 @@
 	</resultMap>
 	
 	<select id="getCenterLessonList" resultMap="centerLessonResult" >
-		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE_YN, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN FROM TBL_LESSON
+		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN FROM TBL_LESSON
 	</select>
 	<select id="getCenterLesson" resultMap="centerLessonResult">
-		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE_YN, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') as LS_REGISTRATION_DATE_TO_STRING, LS_CLOSE_YN FROM TBL_LESSON WHERE LS_CODE=#{lsCode}
+		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') as LS_REGISTRATION_DATE_TO_STRING, LS_CLOSE_YN FROM TBL_LESSON WHERE LS_CODE=#{lsCode}
 	</select>
 	<insert id="insertCenterLesson" parameterType="centerLesson">
-		INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE_YN, LS_DATE, LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN)
-		VALUES (CONCAT('LS',NEXTVAL('SEQ_LESSON')), #{lsName}, ${lsTypYN}, to_timestamp('${lsDate}', 'yyyy-MM-dd'), to_timestamp('${lsTime}', 'HH24:00'), ${lsCapacity}, 0, #{trainerMemberCode}, #{lsContent}, 'CN1234', to_timestamp('${lsDate}', 'yyyy-MM-dd'),true)
+		INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE, LS_DATE, LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN)
+		VALUES (CONCAT('LS',NEXTVAL('SEQ_LESSON')), #{lsName}, ${lsTyp}, to_timestamp('${lsDate}', 'yyyy-MM-dd'), to_timestamp('${lsTime}', 'HH24:00'), ${lsCapacity}, 0, #{trainerMemberCode}, #{lsContent}, 'CN1234', to_timestamp('${lsDate}', 'yyyy-MM-dd'),true)
 	</insert>
 	<delete id="deleteCenterLesson" parameterType="centerLesson">
 		DELETE FROM TBL_LESSON WHERE LS_CODE = #{lsCode}
 	</delete>
+	<update id="updateCenterLesson"  parameterType="Integer">
+		UPDATE TBL_LESSON SET LS_CLOSE_YN=${lsColseYN} WHERE LS_CODE = #{lsCode}
+	</update>
 </mapper>

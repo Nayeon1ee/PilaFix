@@ -18,7 +18,6 @@
 				<th>제목</th>
 				<th>작성일자</th>
 				<th>조회수</th>
-				<th>구매 가능 여부</th>
 			</tr>
 			<c:if test="${CommunityList	 == null }">
 				<tr>

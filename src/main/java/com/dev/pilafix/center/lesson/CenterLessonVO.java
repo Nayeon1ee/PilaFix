@@ -5,7 +5,7 @@ import java.util.Date;
 public class CenterLessonVO {
 	private String lsCode;
 	private String lsName;
-	private boolean lsTypYN;
+	private String lsType;
 	private String lsDate;
 	private String lsTime;
 	private int lsCapacity;
@@ -35,12 +35,12 @@ public class CenterLessonVO {
 		this.lsName = lsName;
 	}
 
-	public boolean isLsTypYN() {
-		return lsTypYN;
+	public String getLsType() {
+		return lsType;
 	}
 
-	public void setLsTypYN(boolean lsTypYN) {
-		this.lsTypYN = lsTypYN;
+	public void setLsType(String lsType) {
+		this.lsType = lsType;
 	}
 
 	public String getLsDate() {
@@ -133,14 +133,11 @@ public class CenterLessonVO {
 
 	@Override
 	public String toString() {
-		return "CenterLessonVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsTypYN=" + lsTypYN + ", lsDate=" + lsDate
+		return "CenterLessonVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsType=" + lsType + ", lsDate=" + lsDate
 				+ ", lsTime=" + lsTime + ", lsCapacity=" + lsCapacity + ", lsCurrentApplication=" + lsCurrentApplication
 				+ ", trainerMemberCode=" + trainerMemberCode + ", lsContent=" + lsContent + ", centerCode=" + centerCode
 				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsColseYN=" + lsColseYN
 				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", csName=" + csName + "]";
 	}
-
-
-
 
 }

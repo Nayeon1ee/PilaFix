@@ -8,4 +8,5 @@ public interface AdminInfoService {
 	int insertAdminInfo(AdminInfoVO vo);
 	int updateAdminInfo(AdminInfoVO vo);
 	int deleteAdminInfo(int seq);
+	int updateAdminInfoViewCnt(int cnt);
 }

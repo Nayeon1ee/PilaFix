@@ -22,11 +22,14 @@ public class CenterLessonDAO {
 	}
 	
 	public int insertCenterLesson(CenterLessonVO vo) {
-		System.out.println("гоюл");
 		return sqlSessionTemplate.insert("CenterLessonDAO.insertCenterLesson", vo);
 	}
 	
 	public int deleteCenterLesson(String lsCode) {
 		return sqlSessionTemplate.delete("CenterLessonDAO.deleteCenterLesson", lsCode);
+	}
+	
+	public int updateCenterLesson(CenterLessonVO vo) {
+		return sqlSessionTemplate.update("CenterLessonDAO.updateCenterLesson", vo);
 	}
 }

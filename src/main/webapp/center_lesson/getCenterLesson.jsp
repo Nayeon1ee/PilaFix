@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<th>수업 정원</th>
-				<td>${centerLesson.lsCurrentApplication }/${centerLesson.lsCapacity }</td>
+				<td>${centerLesson.lsCurrentApplication } / ${centerLesson.lsCapacity }</td>
 			</tr>
 			<tr>
 				<th>수업 내용</th>
@@ -47,20 +47,18 @@
 			<tr>
 				<th>폐강 여부</th>
 				<c:if test="${centerLesson.lsColseYN == true}">
-					<td>개강</td>
+					<td>N</td>
 				</c:if>
 				<c:if test="${centerLesson.lsColseYN == false}">
-					<td>폐강</td>
+					<td>Y</td>
 				</c:if>
 			</tr>
 			<tr>
 				<th>등록 일자</th>
-				<td>${centerLesson.lsRegistrationDateToString }</td>
-			</tr>
-			<tr>
-				<td><a href="deleteCenterLesson.do?lsCode=${centerLesson.lsCode }">삭제</a></td>
+				<td>${centerLesson.regDate }</td>
 			</tr>
 		</table>
+		<a href="deleteCenterLesson.do?lsCode=${centerLesson.lsCode }">삭제</a>
 		<a href="getCenterLessonList.do">글 목록</a>
 	</div>
 </body>

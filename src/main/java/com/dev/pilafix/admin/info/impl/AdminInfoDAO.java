@@ -32,4 +32,8 @@ public class AdminInfoDAO {
 	public int deleteAdminInfo(int seq) {
 		return sqlSessionTemplate.delete("AdminInfoDAO.deleteAdminInfo", seq);
 	}
+	
+	public int updateAdminInfoViewCnt(int cnt) {
+		return sqlSessionTemplate.update("AdminInfoDAO.updateAdminInfoViewCnt", cnt);
+	}
 }

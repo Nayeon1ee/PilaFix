@@ -31,6 +31,7 @@
 
 .datatable-input {
 	padding: 6px 12px;
+	display:none;
 }
 
 .datatable-info {

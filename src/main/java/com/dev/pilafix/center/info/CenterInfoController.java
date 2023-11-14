@@ -13,9 +13,30 @@ public class CenterInfoController {
 	@Autowired
 	private CenterInfoService service;
 	
+	@GetMapping("/getCenterInfoList.do")
+	public String getCenterInfoList(Model model) {
+		model.addAttribute("infoList", service.getCenterInfoList());
+		return "center/center_notice_board";
+	}
+	
+	@GetMapping("/getCenterInfo.do")
+	public String getCenterInfo(@RequestParam("seq") Integer seq, Model model) {
+		// 게시글 조회
+	    CenterInfoVO centerInfo = service.getCenterInfo(seq);
+	    
+	    // 조회수 증가
+	    service.updateCenterInfoViewCnt(seq);
+	    
+	    // 리스트 업데이트
+	    int updatedList = service.updateCenterInfoViewCnt(centerInfo.getCnt());
+		model.addAttribute("centerInfo", service.getCenterInfo(seq));
+		model.addAttribute("updatedList", updatedList);
+		return "center/center_notice_board_detail";
+	}
+	
 	@GetMapping("/insertCenterInfo.do")
 	public String insertCenterInfo() {
-		return "center_info/insertCenterInfo.jsp";
+		return "center/center_notice_board_register";
 	}
 	
 	@PostMapping("/insertCenterInfo.do")
@@ -26,12 +47,12 @@ public class CenterInfoController {
 	
 	@GetMapping("/updateCenterInfo.do")
 	public String updateCenterInfo(@RequestParam("seq") Integer seq, Model model) {
-		model.addAttribute("list", service.getCenterInfo(seq));
-		return "center_info/updateCenterInfo.jsp";
+		model.addAttribute("centerInfo", service.getCenterInfo(seq));
+		return "center/center_notice_board_modify";
 	}
 	
 	@PostMapping("/updateCenterInfo.do")
-	public String update(CenterInfoVO vo, Model model) {
+	public String update(CenterInfoVO vo) {
 		service.updateCenterInfo(vo);
 		return "redirect:getCenterInfoList.do";
 	}
@@ -40,17 +61,5 @@ public class CenterInfoController {
 	public String delete(int seq) {
 		service.deleteCenterInfo(seq);
 		return "redirect:getCenterInfoList.do";
-	}
-	
-	@GetMapping("/getCenterInfoList.do")
-	public String getCenterInfoList(Model model) {
-		model.addAttribute("infoList", service.getCenterInfoList());
-		return "center_info/getCenterInfoList.jsp";
-	}
-	
-	@GetMapping("/getCenterInfo.do")
-	public String getCenterInfo(@RequestParam("seq") Integer seq, Model model) {
-		model.addAttribute("centerInfo", service.getCenterInfo(seq));
-		return "center_info/getCenterInfo.jsp";
 	}
 }
