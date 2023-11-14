@@ -24,7 +24,7 @@
     </form>
 
     <div id="socialLogin">
-        <p>소셜 계정으로 로그인하기:</p>
+        <p>소셜 계정으로 빠른 로그인하기</p>
         <div id="socialButtons">
             <div style="width: 50px; height: 50px; background:gray; display: inline-block;"></div> <!-- 네이버 -->
             <div style="width: 50px; height: 50px; background:gray; display: inline-block;"></div> <!-- 카카오 -->

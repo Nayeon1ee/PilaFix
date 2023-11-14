@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,10 +45,19 @@
 		<input type="radio" name="csGenderMw" value="여자">여자</p>
 	
 	<p>이용약관</p>
-	<p><input type="checkbox"  name="csAgreementYn1" id="csAgreementYn1" value="true">[필수] 만 14세 이상입니다. </p>
-	<p><input type="checkbox"  name="csAgreementYn2" id="csAgreementYn2" value="true">[필수] 서비스 이용약관 동의 </p>
-	<p><input type="checkbox"  name="csAgreementYn3" id="csAgreementYn3" value="true">[필수] 개인정보 수집 및 이용동의 </P>
-	
+	<c:forEach var="termsList" items="${termsList}" varStatus="num">
+		<p><input type="checkbox"  name="csAgreementYn${num.count}" id="csAgreementYn${num.count}" value="true">
+		<c:choose>
+		<c:when test="${termsList.tmRequiredYn eq true }">
+		[필수]
+		</c:when>
+		<c:otherwise>
+		[선택]
+		</c:otherwise>
+		</c:choose>
+		${termsList.tmName }</p>
+		<textarea>${termsList.tmDetail }</textarea>
+	</c:forEach>
 	<p> <input type="submit" onclick="moveToLogin()" value="회원 가입"> </p>
 	
 	</form>

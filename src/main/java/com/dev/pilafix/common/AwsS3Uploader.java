@@ -17,7 +17,6 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 //@Component
 public class AwsS3Uploader {
 	
-		
 //	  @SuppressWarnings({ "unused", "deprecation" })
 //	  private final AmazonS3Client amazonS3Client = new AmazonS3Client();
 //
@@ -25,7 +24,7 @@ public class AwsS3Uploader {
 //	    public String bucket;
 //
 //	    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
-//	        File uploadFile = convert(multipartFile)        // 파일 생성
+//	    File uploadFile = convert(multipartFile)        // 파일 생성
 //	                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File convert fail"));
 //
 //	        return upload(uploadFile, dirName);

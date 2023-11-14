@@ -23,6 +23,9 @@ public class TermsController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	
+	
+	
 	/**
 	 * 이용약관의 상세
 	 */
@@ -71,11 +74,11 @@ public class TermsController {
 	public String update(TermsVO vo, Model model) {
 		service.updateTerms(vo);
 		
-		/* 발송이력메서드 호출 위해 이메일발송 대상자 리스트가져옴 */
-		 List<CenterVO> centers = service.getCenterList();
-		    for (CenterVO center : centers) {
-		        service.sendEmailAndInsertSendEmailHistory(center);
-		    }
+//		/* 발송이력메서드 호출 위해 이메일발송 대상자 리스트가져옴 */
+//		 List<CenterVO> centers = service.getCenterList();
+//		    for (CenterVO center : centers) {
+//		        service.sendEmailAndInsertSendEmailHistory(center);
+//		    }
 		return "redirect:getTermsList.do";
 
 	}

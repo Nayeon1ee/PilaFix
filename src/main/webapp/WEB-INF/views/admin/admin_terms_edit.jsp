@@ -440,25 +440,25 @@
               <form class="row g-3" action="updateTerms.do" method="post">
               <div class="col-md-2">
                   <label class="form-label">약관 번호</label>
-                 <!-- <input type="text" readonly disabled class="form-control" value="${terms.tmCode}"> --> 
+
                   <input type="hidden" name="tmCode" value="${terms.tmCode}">
-				  <input type="text" readonly class="form-control" value="${terms.tmCode}">
+				  <input type="text" id="tmCode" name="tmCode" disabled class="form-control" value="${terms.tmCode}">
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">등록일자</label>
-                  <input type="text" readonly disabled class="form-control" value="${terms.tmRegdate}">
+                  <input type="text" id="tmRegdate" name="tmRegdate"  disabled class="form-control" value="${terms.tmRegdate}">
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">최근 수정일</label>
-                  <input type="text" readonly disabled class="form-control" value="${terms.tmModifiedDate}" >
+                  <input type="text" id="tmModifiedDate" name="tmModifiedDate"  disabled class="form-control" value="${terms.tmModifiedDate}" >
                 </div>
                <div class="col-md-12">
                   <label class="form-label">약관명</label>
-                  <input type="text" name="tmName" class="form-control" value="${terms.tmName}">
+                  <input type="text" id="tmName" name="tmName" class="form-control" value="${terms.tmName}">
                 </div>
                 <div class="col-md-12">
                 <label class="form-label">약관 상세</label>
-                 <textarea name="tmDetail" class="form-control" style="height: 300px;">${terms.tmDetail}</textarea>
+                 <textarea id="tmDetail" name="tmDetail"  class="form-control" style="height: 300px;">${terms.tmDetail}</textarea>
                 </div>
 
  
@@ -514,7 +514,6 @@
  
  
     
-
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
