@@ -59,7 +59,7 @@ $(function(){
 					str+="<td>"+item.ctAddress+"</td>";
 					str+="</tr>"
 					str +='<tr>'
-					str+='<td><input type="button" value="연동 신청" ></td>';
+					str+='<td><input type="button" value="연동 신청" onclick="connectRequest(\'' + item.ctName + '\', \'' + item.ctCode + '\')"></td>';
 					str+="</tr>"
 					str+="</table>"
 					str+="<br>"
@@ -74,6 +74,59 @@ $(function(){
     });
     
 });
+
+function connectRequest(ctName,ctCode) {
+    if (window.confirm(ctName + ' 센터로 고객님의 성함과 연락처가 전송됩니다. \n연동 신청 하시겠습니까? ')) {
+        $.ajax({
+            type: 'post',
+            url: 'connectRequest.do',
+            data: {
+                'ctName': ctName,
+                'ctCode': ctCode
+            },
+            success: function(data) {
+            	console.log(data);
+            	var resultAsString = data.toString(); // int를 문자열로 변환
+                if (resultAsString === '1') {
+                    alert('연동 요청을 완료했습니다.');
+                } else {
+                	console.error(error); // 오류를 콘솔에 출력
+                    alert('연동요청 중 오류가 발생했습니다.');
+                }
+            },
+            error: function(error) {
+                alert('오류가 발생했습니다.');
+            }
+        });
+    }
+}
 </script>
+<!--  
+<script>
+function connectRequest() {
+	if (window.confirm('센터로 고객님의 성함과 연락처가 전송됩니다. \n연동 신청 하시겠습니까? ')) {
+		fetch('/pilafix/connectRequest.do', {
+			method: 'POST'
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('error');
+					alert('오류가 발생했습니다.')
+				}
+				alert('센터에 연동요청을 보냈습니다.');
+				//window.location.href = 'ct.do'; // 센터 목록 페이지로 리다이렉트
+			})
+			.catch(error => {
+				console.error(error);
+				alert('오류가 발생했습니다. 다시 시도해주세요')
+			});
+	}else {
+		return;
+	}
+};
+</script>
+-->
+
+
 </body>
 </html>
