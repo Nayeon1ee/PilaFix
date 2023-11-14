@@ -14,12 +14,7 @@
 <input type="text" id=searchKeyword name="searchKeyword" />
  <input type="button" id="searchCt" value="검색" />
  <br><br>
- <!--  검색 누르기 전까지는 이 화면이었다가 검색 누르면 바껴야함
-	<c:if test="" >
-		
-	</c:if>
-	
--->
+ <!--  검색 누르기 전까지는 이 화면이었다가 검색 누르면 바껴야함 -->
 		<div id="insertCenterList">
 		<p>이렇게 검색해보세요!</p>
 		<p>센터명</p>
