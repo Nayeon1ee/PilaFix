@@ -59,7 +59,7 @@ $(function(){
 					str+="<td>"+item.ctAddress+"</td>";
 					str+="</tr>"
 					str +='<tr>'
-					str+='<td><input type="button" value="연동 신청"></td>';
+					str+='<td><input type="button" value="연동 신청" ></td>';
 					str+="</tr>"
 					str+="</table>"
 					str+="<br>"
