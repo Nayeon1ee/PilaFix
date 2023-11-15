@@ -284,75 +284,133 @@
 
 		<ul class="sidebar-nav" id="sidebar-nav">
 
-			<li class="nav-item"><a class="nav-link "
-				href="center_detail_info"> <i class="bi bi-grid"></i> <span>내
-						정보</span>
-			</a></li>
+			<li class="nav-item">
+				<a class="nav-link " href="center_detail_info"> 
+					<i class="bi bi-grid"></i> <span> 정보</span>
+				</a>
+			</li>
 			<!-- End Dashboard Nav -->
 			<!-- 통계 예정  -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_CTS_management"> <i class="bi bi-person"></i><span>[센터]회원
-						목록 조회</span>
-			</a></li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#"> 
+					<i class="bi bi-person"></i>
+						<span>회원 관리</span>
+				</a>
+			</li>
 			<!-- End 회원관리 Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_teacher_info"> <i class="bi bi-journal-text"></i><span>[센터]강사
-						목록 조회</span>
-			</a>
-				<ul id="forms-nav" class="nav-content collapse "
-					data-bs-parent="#sidebar-nav">
-
-				</ul></li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#"> 
+					<i class="bi bi-journal-text"></i>
+						<span>강사 관리</span>
+				</a>
+			</li>
 			<!-- End 강사관리 Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_class_management"> <i
-					class="bi bi-layout-text-window-reverse"></i><span>[센터]수업 전체
-						일정 조회</span>
-			</a></li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
+					<i class="bi bi-person"></i>
+					<span>수업 관리</span>
+					<i class="bi bi-chevron-down ms-auto"></i>
+				</a>
+				<ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+					<li>
+						<a href="getCenterLessonList.do"><i class="bi bi-circle"></i>
+							<span>수업 목록 조회</span>
+						</a>
+					</li>
+					<li>
+						<a href="insertCenterLesson.do"><i class="bi bi-circle"></i>
+							<span>수업 개설</span>
+						</a>
+					</li>
+				</ul>
+			</li>
 			<!-- End 수업관리 Nav -->
-
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_ticket_management"> <i class="bi bi-gem"></i><span>[센터]수강권
-						관리</span>
-			</a></li>
+			
+			
+			<li class="nav-item">
+				<a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse">
+					<i class="bi bi-question-circle"></i><span>수강권 관리</span>
+					<i class="bi bi-chevron-down ms-auto"></i>
+				</a>
+				<ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+					<li>
+						<a href="getCenterTicketList.do"> 
+							<i class="bi bi-circle"></i><span>수강권 목록 조회</span>
+						</a>
+					</li>
+					<li>
+						<a href="insertCenterTicket.do"> 
+							<i class="bi bi-circle"></i><span>수강권 등록</span>
+						</a>
+					</li>
+				</ul>
+			</li>
 			<!-- End 수강권관리 Nav -->
-
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_notice_board"> <i class="bi bi-question-circle"></i><span>[센터]공지사항관리</span>
-			</a></li>
+			
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="getQuestionReplyList.do"> 
+					<i class="bi bi-envelope"></i><span>문의사항 관리</span>
+				</a>
+			</li>
+			<!-- End [센터]문의사항 Nav -->
+			
+			<li class="nav-item">
+				<a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" >
+					<i class="bi bi-shield-check"></i>
+						<span>공지사항 관리</span>
+					<i class="bi bi-chevron-down ms-auto"></i>
+				</a>
+				<ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+					<li>
+						<a href="getCenterInfoList.do"> 
+							<i class="bi bi-circle"></i><span>전체 공지사항 목록 조회</span>
+						</a>
+					</li>
+					<li>
+						<a href="insertCenterInfo.do"> 
+							<i class="bi bi-circle"></i><span>공지사항 등록</span>
+						</a>
+					</li>
+				</ul>
+			</li>
 			<!-- End 공지사항관리 Nav -->
+			
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_send_notice_list"> <i class="bi bi-card-list"></i>
-					<span>[센터]알림 발송 이력 관리</span>
-			</a></li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="getNoticeHistoryList.do"> 
+					<i class="bi bi-card-list"></i>
+					<span>알림 발송 이력 관리</span>
+				</a>
+			</li>
 			<!-- End [센터]알림 발송 이력 관리 Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_send_sms_list"> <i class="bi bi-envelope"></i> <span>[센터]문자
-						발송 이력 관리</span>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="center/getSendSmsHistoryList.do"> 
+					<i class="bi bi-envelope"></i> 
+					<span>문자 발송 이력 관리</span>
 			</a></li>
 			<!-- End [센터]문자 발송 이력 관리 Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="center_question_board"> <i class="bi bi-envelope"></i> <span>[센터]문의사항</span>
-			</a></li>
 
-			<!-- End [센터]문의사항 Nav -->
+			
+			
 			<li class="nav-heading">Pages</li>
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="users-profile.html"> <i class="bi bi-person"></i> <span>Profile</span>
-			</a></li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="users-profile.html"> 
+					<i class="bi bi-person"></i> <span>Profile</span>
+				</a>
+			</li>
 			<!-- End Profile Page Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="pages-login.html"> <i class="bi bi-box-arrow-in-right"></i>
-					<span>Login</span>
-			</a></li>
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="centerLogin.do"> 
+					<i class="bi bi-box-arrow-in-right"></i><span>Login</span>
+				</a>
+			</li>
 			<!-- End Login Page Nav -->
 
 		</ul>

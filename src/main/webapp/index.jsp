@@ -17,5 +17,8 @@
 	<a href="getMemberCommunityList.do">커뮤니티 확인</a>
 	<a href="insertCenterLessonList.do">수업 등록</a>
 	<a href="getCenterLessonList.do">수업 확인</a>
+	
+	
+	<button onclick="location.href='centerLogin.do'">센터 로그인</button>
 </body>
 </html>
