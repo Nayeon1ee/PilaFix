@@ -1,13 +1,13 @@
 package com.dev.pilafix.admin.center_manage;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.dev.pilafix.common.AwsS3;
 
 
 @Controller
 public class CenterController {
 	@Autowired
 	private CenterService service;
-	public AwsS3 awss3 = AwsS3.getInstance();
+	
+//	private S3Service s3Service;
+	
+	
 	
 	@GetMapping("/getCenterList.do")
 	public String getCenterList(Model model) {
@@ -45,49 +45,18 @@ public class CenterController {
 	public String insertForm() {
 		return "admin/admin_center_management_register";
 	}
- 
-    
+
 	/**
 	 * 센터 등록 및 세션 저장 
 	 * @param center
 	 * @return
-	 * @throws IOException 
 	 * @throws Exception
 	 */
     @PostMapping("/insertCenter.do")
-    public String insert(@ModelAttribute("center") CenterVO center, MultipartFile multipart, HttpSession session) throws IOException {
-		
-    	// aws s3 파일 업로드 처리 */
-    	if (!multipart.getOriginalFilename().equals("")) {
-			InputStream is = multipart.getInputStream();
-			String key = multipart.getOriginalFilename();
-			
-			System.out.println("기존 파일 명 : "+key);
-			
-			String fileExtension = key.substring(key.lastIndexOf("."),key.length());
-			
-			UUID uuid = UUID.randomUUID();
-			String[] uuids = uuid.toString().split("-");
-			String uniqueName = uuids[0];
-			System.out.println("생성된 고유문자열" + uniqueName);//사업자등록증_센터명_센터코드.으로 변경 
-			System.out.println("확장자명" + fileExtension);
-			
-			key = "사업자등록증_"+uniqueName +"_"+center.getCtName()+fileExtension; 
-			
-			System.out.println("파일명 : "+key);
-			
-			String contentType = multipart.getContentType();
-			long contentLength = multipart.getSize();
-			
-			String bucket = "pilafixbuc";
-			
-			awss3.upload(is, key, contentType, contentLength, bucket);
-
-			String filePath = "https://pilafixbuc.s3.ap-northeast-2.amazonaws.com/"+key;
-
-			center.setBusinessRegistrationFilePath(filePath);
-		}
-		
+    public String insert(@ModelAttribute("center") CenterVO center, HttpSession session) {
+//    	String path = s3Service.upload(file);
+//    	center.setBusinessRegistrationFilePath(path);
+    	
     	service.insertCenterAndSetSession(center, session);
         return "redirect:sendEmail.do";
     }
@@ -216,7 +185,29 @@ public class CenterController {
 		return service.emailCheck(ownerEmail);
 	}
 	
+	
+    @Value("${cloud.aws.credentials.access-key}")
+    private String accessKey;
 
+    @Value("${cloud.aws.credentials.secret-key}")
+    private String secretKey;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucketName;
+    
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
+    @GetMapping("/s3info")
+    @ResponseBody
+    public Map<String, String> getS3Info() {
+        Map<String, String> s3Info = new HashMap<>();
+        s3Info.put("accessKey", accessKey);
+        s3Info.put("secretKey", secretKey);
+        s3Info.put("bucketName", bucketName);
+        s3Info.put("region", region);
+        return s3Info;
+    }
 	
 	
 }
