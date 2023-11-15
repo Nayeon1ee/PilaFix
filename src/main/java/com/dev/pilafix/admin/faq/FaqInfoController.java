@@ -15,7 +15,7 @@ public class FaqInfoController {
 	
 	@GetMapping("/insertFaqInfo.do")
 	public String insertFaqInfo(FaqVO vo) {
-		return "admin_faq/insertFaqInfo.jsp";
+		return "admin/admin_FAQ_register";
 	}
 	
 	@PostMapping("/insertFaqInfo.do")
@@ -26,8 +26,8 @@ public class FaqInfoController {
 	
 	@GetMapping("/updateFaqInfo.do")
 	public String updateFaqInfo(@RequestParam("fqNumber") Integer fqNumber, Model model) {
-		model.addAttribute("list", service.getFaqInfo(fqNumber));
-		return "admin_faq/updateFaqInfo.jsp";
+		model.addAttribute("faqInfo", service.getFaqInfo(fqNumber));
+		return "admin/admin_FAQ_edit";
 	}
 	
 	@PostMapping("/updateFaqInfo.do")
