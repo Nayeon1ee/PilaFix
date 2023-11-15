@@ -27,6 +27,7 @@
                   <input type="text" readonly disabled class="form-control" value="${faqInfo.fqNumber }">
                 </div> --%>
                 <div class="col-md-12">
+                	<label class="form-label">구분</label>
                 	<c:choose>
 					<c:when test="${faqInfo.fqType}">
 						<input type="text" readonly class="form-control" value="공통" disabled>
