@@ -24,7 +24,9 @@
 					<div id="userInfo">
 						<div id="myInfoLink">내 정보 수정</div>
 						<div id="userInfoText">*** 회원님</div>
-						<a href="/logout.do" id="logout">로그아웃</a>
+						<form action="logout.do" method="post">
+						    <button type="submit">로그아웃</button>
+						</form>
 					</div>
 					<section class="info-box">
 						<div class="info-box04">
@@ -41,8 +43,7 @@
 						</div>
 						<div class="info-box04">
 							<p>
-								<a class="password_Change" href="password_change.do">비밀번호변경
-									▶</a>
+							<a class="password_Change" href="passwordChange.do">비밀번호변경▶</a>
 							</p>
 						</div>
 					</section>

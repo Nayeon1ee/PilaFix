@@ -41,12 +41,17 @@
 	</select>
 
 	<update id="updatePassword">
-        UPDATE TBL_CST SET csPassword = #{newPassword} WHERE csMemberCode = #{csMemberCode}
+        UPDATE TBL_CST SET CS_PASSWORD = #{newPassword} WHERE CS_MEMBER_CODE = #{csMemberCode}
     </update>
-	
-
-	<select id="findMemberByNameAndEmail" parameterType="map" resultMap="memberloginResult">
-    SELECT * FROM TBL_CST WHERE CS_NAME = #{csName} AND CS_EMAIL_ID = #{csEmailId}
+    
+    <select id="getMemberByNameAndEmail" resultMap="memberloginResult">
+    SELECT * FROM TBL_CST WHERE CS_NAME=#{csName} AND CS_EMAIL_ID=#{csEmailId}
 	</select>
 	
+	<!-- 이메일 발송 이력 등록 -->
+	<insert id="insertSendEmailHistory" parameterType="emailHistory">
+		INSERT INTO TBL_SEND_EMAIL_HISTORY(MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE, MH_EMAIL_SEND_DATETIME, MH_RECIPIENT_NAME,MH_RECIPIENT_TITLE,MH_RECIPIENT_CONTENT, MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME,MH_FAIL_REASON )
+		VALUES(CONCAT('EH',NEXTVAL('SEQ_SEND_EMAIL_HISTORY')), #{mhEmailSendType}, CURRENT_TIMESTAMP, #{mhRecipientName},#{mhRecipientTitle}, #{mhRecipientContent}, #{mhRecipientEmail}, #{mhSuccessYN},#{mhSuccessDate}, #{mhFailReason})
+	</insert>
+
 </mapper>
