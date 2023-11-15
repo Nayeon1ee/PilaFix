@@ -14,17 +14,14 @@
 			</nav>
 		</div>
 		<!-- End Page Title -->
-
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
-
 					<div class="card">
 						<div class="card-body">
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
 								<div class="search-filter-inner">
-
 									<div class="serch-filter-content">
 										<div class="search-top">
 											<div class="col-md-3">
@@ -45,7 +42,6 @@
 												</div>
 											</div>
 										</div>
-
 										<div class="search-date">
 											<div class="col-md-3">
 												<label for="inputState" class="form-label">기간검색</label>
@@ -70,11 +66,11 @@
 							<!-- 검색필터 끝 -->
 
 							<hr />
-
-							<div class="button_con">
-								<button type="button" class="btn btn-primary btn-lg" onclick="location.href='insertCenterLesson.do'">수업 등록</button>
+							<div class="terms-btn">
+					              <span class="terms-reg-btn">
+									<button type="button" class="btn btn-primary" onclick="location.href='insertCenterLesson.do'">수업 등록</button>
+								</span>
 							</div>
-
 							<!-- Table with stripped rows -->
 							<table class="table datatable">
 								<thead>
@@ -104,7 +100,10 @@
 											<td>${centerLesson.lsCurrentApplication } / ${centerLesson.lsCapacity }</td>
 											<td>${centerLesson.lsDate }</td>
 											<td>${centerLesson.lsTime }:00</td>
-											<td>${centerLesson.lsColseYN ? '개강' : '폐강'}</td>
+											<c:choose>
+												<c:when test="${centerLesson.lsColseYN}"><td>개강</td></c:when>
+												<c:otherwise><td>폐강</td></c:otherwise>
+											</c:choose>
 										</tr>
 									</c:forEach>
 								</tbody>

@@ -47,7 +47,7 @@
 				    </div>
 				    <div class="col-md-12">
 				        <label class="form-label">공개 여부</label>
-				        <input type="text" class="form-control" id="titleInput000" value="${openYN ? '공개' : '비공개'}" disabled>
+				        <input type="text" class="form-control" id="titleInput000" value="${adminInfo.openYN ? '공개' : '비공개'}" disabled>
 				    </div>
 					<div class="text-center">
 	                  <button type="button" class="btn btn-primary" onclick="location.href='updateAdminInfo.do?seq=${adminInfo.seq }'">수정</button>

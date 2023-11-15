@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CenterLessonController {
@@ -32,7 +33,8 @@ public class CenterLessonController {
 	}
 	
 	@GetMapping("/insertCenterLesson.do")
-	public String insertCenterLesson() {
+	@ResponseBody
+	public String insertCenterLesson(@RequestParam("trainerMemberCode") int trainerMemberCode) {
 		return "center/center_create_class";
 	}
 	

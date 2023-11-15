@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="center_header_common.jsp" %>
-
 	<main id="main" class="main">
-
 		<div class="pagetitle">
 			<h1>수업 생성</h1>
 			<nav>
@@ -41,14 +39,13 @@
 									<input type="text" class="form-control" name="lsName" placeholder="수업명을 입력하세요">
 								</div>
 								<div class="col-md-12">
-									<label class="form-label">강사명</label>
-									<select class="form-select" name="trainerMemberCode" aria-label="Default select example">
-										<option selected>강사</option>
-										<option value="123456">송하민</option>
-										<c:forEach var="trainer" items="${centerLesson }">
-											<option value="${trainer.trainerMemberCode}">${trainer.csName}</option>
-										</c:forEach>
-									</select>
+								    <label class="form-label">강사명</label>
+								    <select class="form-select" name="trainerMemberCode" aria-label="Default select example">
+								        <option selected>강사</option>
+								        <c:forEach var="trainer" items="${trainerList}">
+								            <option value="${trainer.trainerMemberCode}">${trainer.csName}</option>
+								        </c:forEach>
+								    </select>
 								</div>
 								<div class="col-md-12">
 									<label class="form-label">수업 정원</label>
@@ -99,20 +96,19 @@
 									<label class="form-label">예약 가능 여부</label>
 									<div class="radio-box">
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value=true>
+											<input class="form-check-input" type="radio" name="lsColseYN" id="flexRadioDefault1" value=true>
 											<label class="form-check-label" for="flexRadioDefault1">Y</label>
 										</div>
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value=false>
+											<input class="form-check-input" type="radio" name="lsColseYN" id="flexRadioDefault1" value=false>
 											<label class="form-check-label" for="flexRadioDefault1">N</label>
 										</div>
-										<div class="p-check" style="display: inline-block;">
+										<div class="p-check">
 											<p>(Y를 선택하면 회원이 바로 구매가 가능합니다.)</p>
 											<p>(N을 선택하면 수강권을 생성만 합니다.)</p>
 										</div>
 									</div>
 								</div>
-								<div class="text-center"></div>
 								<div class="text-center">
 									<button type="submit" class="btn btn-primary">등록</button>
 									<button type="reset" class="btn btn-secondary" onclick="location.href='getCenterLessonList.do'">취소</button>
@@ -124,7 +120,6 @@
 				</div>
 			</div>
 		</section>
-
 	</main>
 	<!-- End #main -->
 <script type="text/javascript">
@@ -157,8 +152,6 @@ function updateList(str){
 function removeForm(formElement) {
     formElement.parentNode.removeChild(formElement);
 }
-
-
 </script>
 
 <%@ include file="center_footer_common.jsp" %>
