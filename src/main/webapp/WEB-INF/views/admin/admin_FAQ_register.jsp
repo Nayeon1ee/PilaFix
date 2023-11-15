@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="admin_header_common.jsp" %>
-      <!-- ============================================================================================ -->
   <main id="main" class="main">
     <div class="pagetitle">
       <h1>FAQ 등록</h1>

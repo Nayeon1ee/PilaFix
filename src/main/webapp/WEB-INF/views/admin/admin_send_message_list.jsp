@@ -92,7 +92,7 @@
 								<c:forEach var="list" items="${sendSmsHistoryList }">
 									<tr>
 										<td>${list.shSendCode }</td>
-										<td><a href="getSendSmsHistory.do?shSendCenterCode=${list.shSendCenterCode }&shSendCode=${list.shSendCode }">${list.shSendCenterName}</a></td>
+										<td>${list.shSendCenterName}</td>
 										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSendDatetime }"/>
 										<c:choose>
 											<c:when test="${list.shSuccessYn }">
@@ -104,7 +104,7 @@
 												<td>${list.shFailReason }</td>
 											</c:otherwise>
 										</c:choose>
-										<td><a href="getSendSmsHistory.do?shSendCode=${list.shSendCode }">상세보기</a></td>
+										<td><a href="getSendSmsHistory.do?shSendCenterCode=${list.shSendCenterCode }&shSendCode=${list.shSendCode }">상세보기</a></td>
 									</tr>
 								</c:forEach>
 								</tbody>

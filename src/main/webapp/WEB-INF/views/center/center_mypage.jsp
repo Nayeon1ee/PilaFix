@@ -26,12 +26,6 @@
 							<h5 class="card-title">센터의 상세정보 페이지</h5>
 							<p>센터의 상세정보를 조회하고 비밀번호 변경이 가능한 페이지</p>
 
-							<!-- 
-             	 이 영역에 가져온 컴포넌트 넣기 
-             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
-             	 -->
-
-
 							<p style="magin-top: 1%;"></p>
 							<!--  
 							<div class="row mb-300" style="width: 122%; margin-top: 1%;">
@@ -132,9 +126,6 @@
 
 							</form>
 							<!-- End General Form Elements -->
-
-
-
 
 							<h5 class="card-title">비밀번호 변경</h5>
 							<p>비밀번호 변경을 원하면 아래 버튼을 클릭하세요.</p>

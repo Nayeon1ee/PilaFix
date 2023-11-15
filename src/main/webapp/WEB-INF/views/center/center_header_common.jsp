@@ -49,7 +49,6 @@
 </head>
 
 <body>
-<iframe id="preview-frame" class="preview-desktop" src="https://PilaFixmade.com/demo/templates/PilaAdmin/" frameborder="0"></iframe>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 

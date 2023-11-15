@@ -64,7 +64,6 @@
 <!-- 검색필터 끝 -->
 
               
-              <!--  버튼 div 가져오세용~ -->
               <div class="terms-btn">
 	              <span class="terms-reg-btn">
 					<button type="button" class="btn btn-primary" onclick="location.href='insertAdminInfo.do'">공지사항 등록</button>

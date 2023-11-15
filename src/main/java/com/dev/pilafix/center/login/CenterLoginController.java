@@ -39,7 +39,10 @@ public class CenterLoginController {
 	    
 	    if (center != null) {
 	        session.setAttribute("centerInfo", center);
-	        return "center/center_mypage";  
+	        
+	        //가입 완료되면 
+	        
+	        return "center/center_index";  
 	    } else {
 	        redirectAttrs.addFlashAttribute("loginError", "존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
 	        return "redirect:centerLogin.do"; 

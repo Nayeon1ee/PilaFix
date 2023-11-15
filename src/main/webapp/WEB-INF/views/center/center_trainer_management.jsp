@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="center_header_common.jsp" %>
+
 	<main id="main" class="main">
-		
+
 		<div class="pagetitle">
-			<h1>공지사항관리</h1>
+			<h1>강사관리</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">필요 시 작성</li>
@@ -21,8 +21,9 @@
 
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">공지사항 리스트</h5>
-							<p>센터가 작성하는 공지사항 리스트입니다.</p>
+							<h5 class="card-title">전체 강사 목록</h5>
+							<p>전체 강사 리스트입니다.</p>
+
 
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
@@ -57,8 +58,8 @@
 												<label for="inputState" class="form-label">기간검색</label>
 												<div class="col-sm-12">
 													<input type="date" class="form-control-date" id="startDate">
-													<span>~</span>
-													<input type="date" class="form-control-date" id="endDate">
+													<span>~</span> <input type="date" class="form-control-date"
+														id="endDate">
 												</div>
 											</div>
 										</div>
@@ -68,53 +69,110 @@
 							</div>
 							<!-- 검색필터 끝 -->
 
+
+
 							<!-- Table with stripped rows -->
-
-						<div class="terms-btn">
-							<span class="terms-reg-btn">
-								<button type="button" class="btn btn-primary" onclick="location.href='insertCenterInfo.do'">공지사항 등록</button>
-							</span>
-						</div>
-
-				
-
 							<table class="table datatable">
+
+
 
 								<thead>
 									<tr>
-										<th scope="col">NO.</th>
-										<th scope="col">글제목</th>
-										<th scope="col">작성일자</th>
-										<th scope="col">조회수</th>
-										<th scope="col">공개</th>
+										<th scope="col">회원번호</th>
+										<th scope="col">이름</th>
+										<th scope="col">성별</th>
+										<th scope="col">나이</th>
+										<th scope="col">이메일</th>
+										<th scope="col">전화번호</th>
+										<th scope="col">가입일자</th>
 									</tr>
 								</thead>
-
 								<tbody>
-									<c:if test="${infoList == null }">
-										<tr>
-											<td colspan="5">등록된 글이 없습니다.</td>
-										</tr>
-									</c:if>
-									<c:forEach var="centerInfo" items="${infoList }">
-										<tr>
-											<td>${centerInfo.seq }</td>
-											<td><a href="getCenterInfo.do?seq=${centerInfo.seq }">${centerInfo.title }</a></td>
-											<td>${centerInfo.regDate }</td>
-											<td>${centerInfo.cnt }</td>
-											<c:choose>
-												<c:when test="${centerInfo.openYN}"><td>Y</td></c:when>
-												<c:otherwise><td>N</td></c:otherwise>
-											</c:choose>
-										</tr>
-									</c:forEach>
+									<tr>
+										<td>007</td>
+										<td>홍길동</td>
+										<td>남자</td>
+										<td>30</td>
+										<td>hong@naver.com</td>
+										<td>010-1111-2222</td>
+										<td>2023.04.08</td>
+
+									</tr>
+
+									<tr>
+										<td>006</td>
+										<td>홍길동</td>
+										<td>남자</td>
+										<td>30</td>
+										<td>hong@naver.com</td>
+										<td>010-1111-2222</td>
+										<td>2023.04.08</td>
+									</tr>
+
+									<tr>
+										<td>005</td>
+										<td>홍길동</td>
+										<td>남자</td>
+										<td>30</td>
+										<td>hong@naver.com</td>
+										<td>010-1111-2222</td>
+										<td>2023.04.08</td>
+									</tr>
+
+									<tr>
+										<td>004</td>
+										<td>홍길동</td>
+										<td>남자</td>
+										<td>30</td>
+										<td>hong@naver.com</td>
+										<td>010-1111-2222</td>
+										<td>2023.04.08</td>
+									</tr>
+
+									<tr>
+										<td>003</td>
+										<td>홍길동</td>
+										<td>남자</td>
+										<td>30</td>
+										<td>hong@naver.com</td>
+										<td>010-1111-2222</td>
+										<td>2023.04.08</td>
+									</tr>
+
+									<tr>
+										<td>002</td>
+										<td>홍길동</td>
+										<td>남자</td>
+										<td>30</td>
+										<td>hong@naver.com</td>
+										<td>010-1111-2222</td>
+										<td>2023.04.08</td>
+									</tr>
+
+									<tr>
+										<td>001</td>
+										<td>홍길동</td>
+										<td>남자</td>
+										<td>30</td>
+										<td>hong@naver.com</td>
+										<td>010-1111-2222</td>
+										<td>2023.04.08</td>
+									</tr>
+
+
 								</tbody>
 							</table>
 							<!-- End Table with stripped rows -->
+
+						</div>
 					</div>
+
+
 				</div>
 			</div>
 		</section>
+
 	</main>
 	<!-- End #main -->
-<%@ include file="center_footer_common.jsp" %>
+
+<%@ include file="center_footer_common.jsp"%>
