@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,20 +8,22 @@
   
 <!-- 네아로 SDK -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-  
+
 </head>
 <body>
   
     <!-- 네이버 로그인 버튼 생성 위치 -->
     <div id="naverIdLogin"></div>
+
   
 </body>
+
 <script type="text/javascript">
     var naverLogin = new naver.LoginWithNaverId(
         {
-            clientId: "tT5efP_w58d8uG3tUgjl",
+            clientId: "glOsBPVhLHxSw_eaBO2D",
               // 본인의 Client ID로 수정, 띄어쓰기는 사용하지 마세요.
-            callbackUrl: "http://localhost:8080/naverLogin",
+            callbackUrl: "http://localhost:8080/pilafix/naver/callback.do",
               // 본인의 callBack url로 수정하세요.
             isPopup: false,
             loginButton: {color: "white", type: 3, height: 60}
@@ -29,4 +32,6 @@
     );
 naverLogin.init();
 </script>
+
+
 </html>
