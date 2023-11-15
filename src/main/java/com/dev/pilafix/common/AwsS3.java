@@ -23,7 +23,7 @@ public class AwsS3 {
 	   final private String accesskey = "A";
 	   final private String secretKey = "T"; // (분실시 액세스 재발급 받아야합니다.)
 	   private Regions clientRegion = Regions.AP_NORTHEAST_2;
-	   private String bucket = "pilafixbuc"; // 버킷 명
+	   private String bucket = "p"; // 버킷 명
 
 
 //	  @Value("${cloud.aws.credentials.access-key}")
