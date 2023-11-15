@@ -86,10 +86,14 @@
 						</div>
 					</div>
 				</div>
-			
-				<div class="FAQ-reg">
-					<button type="button" onclick="location.href='insertFaqInfo.do'" class="btn btn-primary left-align">FAQ등록</button>
 				</div>
+				
+				<div class="terms-btn">
+				<span class="terms-reg-btn">
+					<button type="button" onclick="location.href='insertFaqInfo.do'" class="btn btn-primary">FAQ등록</button>
+				</span>
+				</div>
+				
              	<!-- 게시판 시작 -->
     		<h5 class="card-title"></h5>
               <!-- Table with stripped rows -->
