@@ -24,15 +24,6 @@
 							<h5 class="card-title">알림발송리스트</h5>
 							<p>센터의 알림 발송 내역입니다. (예약/취소/공지/문의답변)</p>
 
-							<!-- 
-             	 
-             	 이 영역에 가져온 컴포넌트 넣기 
-             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
-             	 
-             	 -->
-
-
-
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
 								<div class="search-filter-inner">
@@ -89,18 +80,31 @@
 										<th scope="col">이벤트유형</th>
 										<th scope="col">고유식별코드</th>
 										<th scope="col">읽음여부</th>
+										<th scope="col">상세보기</th>
 									</tr>
 								</thead>
 								<tbody>
+								<c:if test="${empty noticeHistoryList}">
+									<td colspan="7">알림 이력이 존재하지 않습니다.</td>
+								</c:if>
+								<c:forEach var="list" items="${noticeHistoryList }">
 									<tr>
-										<td>0418</td>
-										<td><a href="center_send_notice_detail">2023.04.18 오후
-												01:08</a></td>
-										<td>010408</td>
-										<td>예약</td>
-										<td>예약번호</td>
-										<td>읽음</td>
+										<td>${list.ncId }</td>
+										<td>${list.ncSentDatetime }</td>
+										<td>${list.memberCode }</td>
+										<td>${list.eventType }</td>
+										<td>${list.uniqueIdentifierCode }</td>
+										<c:choose>
+											<c:when test="${list.readYn }">
+												<td>읽음</td>
+											</c:when>
+											<c:otherwise>
+												<td>읽지 않음</td>
+											</c:otherwise>
+										</c:choose>
+										<td><a href="getNoticeHistory.do?ncId=${list.ncId }">상세보기</a></td>
 									</tr>
+								</c:forEach>
 								</tbody>
 							</table>
 							<!-- End Table with stripped rows -->
