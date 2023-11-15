@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.pilafix.admin.center_manage.CenterVO;
 import com.dev.pilafix.admin.center_manage.impl.CenterDAO;
+import com.dev.pilafix.member.login.MemberSessionService;
 
 @Controller
 public class TermsController {
@@ -23,8 +24,7 @@ public class TermsController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	
-	
+
 	
 	/**
 	 * 이용약관의 상세
