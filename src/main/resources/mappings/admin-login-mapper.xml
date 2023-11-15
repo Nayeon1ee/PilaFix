@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="AdminLoginDAO">
+	<resultMap type="adminlogin" id="adminloginResult">
+		<id property="adCode" column="AD_CODE"/>
+		<result property="adName" column="AD_NAME" />
+		<result property="adContact1" column="AD_CONTACT1" />
+		<result property="adContact2" column="AD_CONTACT2" />
+		<result property="adContact3" column="AD_CONTACT3" />
+		<result property="adId" column="AD_ID" />
+		<result property="adPassword" column="AD_PASSWORD" />
+		<result property="accountUsageYn" column="ACCOUNT_USAGE_YN" />
+		<result property="roleCode" column="ROLE_CODE" />
+	</resultMap>
+
+	<select id="getAdminLoginInfo" resultMap="adminloginResult">
+		SELECT * FROM TBL_ADMIN WHERE AD_ID=#{adId}
+	</select>
+
+	<!-- <update id="updatePassword">
+        UPDATE TBL_CST SET csPassword = #{newPassword} WHERE csMemberCode = #{csMemberCode}
+    </update>
+	
+
+	<select id="findMemberByNameAndEmail" parameterType="map" resultMap="memberloginResult">
+    SELECT * FROM TBL_CST WHERE CS_NAME = #{csName} AND CS_EMAIL_ID = #{csEmailId}
+	</select> -->
+	
+</mapper>

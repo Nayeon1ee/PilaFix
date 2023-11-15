@@ -1,6 +1,6 @@
 package com.dev.pilafix.admin.sendemailhistory;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class SendEmailHistoryVO {
 	private String mhEmailSendCode;
