@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CenterTicketDAO">
+	<resultMap type="centerTicket" id="centerTicketResult">
+		<id property="tkCode" column="TK_CODE"/>
+		<result property="tkName" column="TK_NAME"/>
+		<result property="tkLessonType" column="TK_LESSON_TYPE"/>
+		<result property="tkCapacity" column="TK_CAPACITY"/>
+		<result property="tkUsageNumMonth" column="TK_USAGE_NUM_MONTH"/>
+		<result property="tkUsageCount" column="TK_USAGE_COUNT"/>
+		<result property="tkDescription" column="TK_DESCRIPTION"/>
+		<result property="tkPrice" column="TK_PRICE"/>
+		<result property="purchaseAvailableYN" column="PURCHASE_AVAILABLE_YN"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="RegistrationDate" column="REGISTRATION_DATE"/>
+	</resultMap>
+	
+	<select id="getCenterTicketList" resultMap="centerTicketResult" >
+		SELECT tk_CODE, tk_NAME, TK_LESSON_TYPE, tk_CAPACITY, TK_USAGE_NUM_MONTH, TK_USAGE_COUNT, TK_PRICE, PURCHASE_AVAILABLE_YN FROM TBL_TICKET
+	</select>
+	<select id="getCenterTicket" resultMap="centerTicketResult">
+		SELECT tk_CODE, tk_NAME, TK_LESSON_TYPE, tk_CAPACITY, TK_USAGE_NUM_MONTH, TK_USAGE_COUNT, TK_DESCRIPTION, TK_PRICE, PURCHASE_AVAILABLE_YN FROM TBL_TICKET WHERE TK_CODE=#{tkCode}
+	</select>
+	<insert id="insertCenterTicket" parameterType="centerTicket">
+	    INSERT INTO TBL_TICKET(TK_CODE, TK_LESSON_TYPE, tk_NAME, tk_CAPACITY, TK_USAGE_COUNT, TK_USAGE_NUM_MONTH, TK_DESCRIPTION, TK_PRICE, PURCHASE_AVAILABLE_YN, CENTER_CODE, REGISTRATION_DATE)
+	    VALUES (CONCAT('TK', NEXTVAL('SEQ_TICKET')), '${tkLessonType}', '${tkName}', ${tkCapacity}, ${tkUsageCount}, ${tkUsageNumMonth}, '${tkDescription}', ${tkPrice}, ${purchaseAvailableYN}, 111, CURRENT_TIMESTAMP)<!-- 들어간 센터 코드 변경 -->
+	</insert>
+	<delete id="deleteCenterTicket" parameterType="centerTicket">
+		DELETE FROM TBL_TICKET WHERE TK_CODE = #{tkCode}
+	</delete>
+	<update id="updateCenterTicket" parameterType="centerTicket" >
+		UPDATE TBL_TICKET SET PURCHASE_AVAILABLE_YN=${purchaseAvailableYN} WHERE TK_CODE=#{tkCode}
+	</update>
+</mapper>
