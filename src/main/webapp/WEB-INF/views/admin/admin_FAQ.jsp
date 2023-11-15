@@ -9,7 +9,7 @@
       <h1>FAQ 관리</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">필요 시 작성</li><!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
+          <!-- <li class="breadcrumb-item">FAQ 목록관리</li>기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -20,8 +20,8 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">중제목 작성</h5>
-              <p>간략한 설명</p>
+              <h5 class="card-title">FAQ 목록</h5>
+              <!-- <p>간략한 설명</p> -->
 
 
              	<div class="container-FAQ">
@@ -75,7 +75,7 @@
 				</div>
 			
 				<div class="FAQ-reg">
-					<button type="button" onclick="location.href='${pageContext.request.contextPath }/FAQ_register.do'" class="btn btn-primary left-align">FAQ등록</button>
+					<button type="button" onclick="location.href='insertFaqInfo.do'" class="btn btn-primary left-align">FAQ등록</button>
 				</div>
              	<!-- 게시판 시작 -->
     		<h5 class="card-title"></h5>
@@ -114,7 +114,7 @@
                 </tbody>
               </table>   
 				<!-- 페이징 처리 시작 -->
-              <div class="admin-screen-paging">
+             <!--  <div class="admin-screen-paging">
                 <ul class="pagination">
                   <li class="page-item"><a class="page-link" href="#">이전</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -124,7 +124,7 @@
                   <li class="page-item"><a class="page-link" href="#">5</a></li>
                   <li class="page-item"><a class="page-link" href="#">다음</a></li>
                 </ul>
-             </div>
+             </div> -->
       <!-- 페이징 처리 끝 -->
             </div>
           </div>
