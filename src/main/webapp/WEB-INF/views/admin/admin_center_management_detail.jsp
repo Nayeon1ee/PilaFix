@@ -1,8 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="admin_header_common.jsp" %>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Charts / ApexCharts - PilaAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/img/favicon.png" rel="icon">
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath }/resources/admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
+
+  <!-- =======================================================
+  * Template Name: PilaAdmin
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://PilaFixmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: PilaFixmade.com
+  * License: https://PilaFixmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+  <%@ include file="admin_header_common.jsp" %>
+      <!-- ============================================================================================ -->
+ 
+ 
   <main id="main" class="main">
 
     <div class="pagetitle">
@@ -20,91 +64,77 @@
 
           <div class="card">
             <div class="card-body">
-				<div class="area1">
-					<p>센터 프로필</p>
-				</div>
-				<div class="col-4000">
-						<label class="form-label">센터명</label>
-                 		<input type="text" readonly disabled class="form-control" value=${center.ctName }>
-                </div>
+             <p style="magin-top: 1%;"></p>
+				<div class="row mb-300" style="width: 122%; margin-top: 1%;">
+					<div class="col-sm-10">
+						<input type="text" class="form-control" value="센터프로필" disabled>
+					</div>
+					</div>
+				<div class="col-400">
+						<label for="inputAddress5" class="form-label">센터명</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="02-0000-0000">
+					</div>
 					<div class="col-4000" style="margin-top: 1%;">
-						<label class="form-label">주소</label>
-                 		<input type="text" readonly disabled class="form-control" value='${center.ctAddress1} ${center.ctAddress2} ${center.ctAddress3}'>
+						<label for="inputAddress2" class="form-label">주소</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="서울특별시 종로구 ">
 				</div>
 					<div class="col-40000">
-						<label class="form-label">센터번호</label> 
-						<input type="text" readonly disabled class="form-control" value=${center.ctPhoneNumber1 }${center.ctPhoneNumber2 }${center.ctPhoneNumber3 }>
+						<label for="inputAddress5" class="form-label">센터번호</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="xxx 종로점">
 					</div>
 					<div class="col-40000" style="margin-top: 1%;">
-						<label class="form-label">계약일</label>
-						<input type="text" readonly disabled class="form-control" value=${center.contractStartDate }>
+						<label for="inputAddress2" class="form-label">계약일</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="2023-01-01 ">
 					
 					</div>
 					<div class="col-40000" style="margin-top: 1%;">
-						<label class="form-label">계약만료일</label>
-						<input type="text" readonly disabled class="form-control" value=${center.contractEndDate }>
+						<label for="inputAddress2" class="form-label">만료일</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="2024-01-01 ">
 					
 					</div>
 					<div class="col-40000">
-						<label class="form-label">아이디</label> 
-						<input type="text" readonly disabled class="form-control" value=${center.ctId }>
+						<label for="inputAddress5" class="form-label">아이디</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="20230001">
 					</div>
 					<div class="col-40000" style="margin-top: 1%;">
-						<label class="form-label">계약 상태</label>
-						<!-- 만료여부 Y이면 만료/해지여부 Y이면 해지/둘 다 N값이면 계약  -->
-						<c:choose>
-							<c:when	test="${center.contractExpiryYN eq false and center.contractRevokeYN eq false}">
-								<input type="text" readonly disabled class="form-control" value="계약">
-							</c:when>
-							<c:when test="${center.contractExpiryYN eq true and center.contractRevokeYN eq false}">
-								<input type="text" readonly disabled class="form-control" value="만료">
-							</c:when>
-							<c:when	test="${center.contractExpiryYN eq false and center.contractRevokeYN eq true}">
-								<input type="text" readonly disabled class="form-control" value="해지">
-							</c:when>
-						</c:choose>
+						<label for="inputAddress2" class="form-label">회원상태</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="계약회원 ">
+					
 					</div>
 					<div class="col-40000" style="margin-top: 1%;">
-						<label class="form-label">만료여부</label>
-						<!-- 만료여부 처리 -->
-							<c:choose>
-								<c:when test="${center.contractExpiryYN }">
-									<input type="text" readonly disabled class="form-control" value="Y">					
-								</c:when>
-								<c:otherwise>
-									<input type="text" readonly disabled class="form-control" value="N">
-								</c:otherwise>
-							</c:choose>
+						<label for="inputAddress2" class="form-label">만료여부</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="Y ">
 					</div>
-					<div class="area2">
-						<p>대표자 정보</p>
+					<div class="row mb-300" style="width: 122%; margin-top: 1%;">
+					<div class="col-sm-10">
+						<input type="text" class="form-control" value="프로필정보" disabled>
 					</div>
-					<div class="col-4000">
-						<label class="form-label">대표자 이름</label> 
-						<input type="text" readonly disabled class="form-control" value=${center.ownerName }>
+					</div>
+					<div class="col-400">
+						<label for="inputAddress5" class="form-label">대표자 이름</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="홍길동">
 					</div>
 					<div class="col-4000" style="margin-top: 1%;">
-						<label class="form-label">대표자 이메일</label>
-						<input type="text" readonly disabled class="form-control" value=${center.ownerEmail }>
+						<label for="inputAddress2" class="form-label">대표자 이메일</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="naver.com ">
 					</div>
-					<div class="col-4000">
-						<label class="form-label">대표자 번호</label> 
-						<input type="text" readonly disabled class="form-control" value="${center.ownerPhoneNumber1 }${center.ownerPhoneNumber2 }${center.ownerPhoneNumber3 }">
+					<div class="col-400">
+						<label for="inputAddress5" class="form-label">대표자 번호</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="010-xxxx-xxxx">
 					</div>
 					<div class="col-4000" style="margin-top: 1%;">
-						<label class="form-label">사업자 등록번호</label>
-						<input type="text" readonly disabled class="form-control" value=${center.businessRegistrationNumber}>
+						<label for="inputAddress2" class="form-label">사업자 등록번호</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="110-2023-0044 ">
 					</div>
                </div>
                <div class="selectson">
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal2" >계약해지</button>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal3" >비밀번호 초기화</button>
+	               <button type="button" class="btn btn-link">계약해지</button>
+				   <button type="button" class="btn btn-link">비밀번호초기화</button>
 			   </div>
-               <div class="text-center">
+               <div class="row mb-6">
 					<div class="col-sm-1000">
-						<button type="submit" class="btn btn-primary" onclick="location.href='getCenterList.do'">목록</button>
-						<button type="submit" class="btn btn-primary" onclick="location.href='updateCenter.do?ctCode=${center.ctCode}'">수정</button>
-						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
+						<button type="submit" class="btn btn-primary" onclick="button_remove();">삭제</button>
+						<button type="submit" class="btn btn-primary" onclick="location href='admin_center_management.do'">취소</button>
 					</div>
 			   </div>
 			   <div class="row mb-300" style="width: 122%; margin-top: 1%;">
@@ -112,168 +142,239 @@
 						<input type="text" class="form-control0" value="문자발송이력" disabled>
 					</div>
 				</div>
-				<!-- 문자발송이력 테이블 추가 해야 함  -->
 			   <table class="table datatable">
-					<thead>
-						<tr>
-							<th scope="col">번호</th>
-							<th scope="col" class="contentcol">내용</th>
-							<th scope="col">수신인</th>
-							<th scope="col">발송일</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-					<c:if test="">
-						<tr>
-							<td colspan="5">등록된 센터가 없습니다.</td>
-						</tr>
-					</c:if>
-					<%--
-					<c:forEach var="emailHistory" items="${emailHistory }">
-						<tr>
-							<th scope="row">1</th>
-							<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
-							<td>Designer</td>
-							<td>2023-05-25</td>
-						</tr>
-						<tr>
-							<td>${emailHistory.mhEmailSendCode }</td>
-							<td>${emailHistory.mhRecipientTitle }</td>
-							<td>${emailHistory.mhRecipientName }</td>
-							<td>${emailHistory.mhEmailSendDate }</td>
-						</tr>
-					</c:forEach>
-					 --%>
-					</tbody>
-				</table>
-						
-						
-				<!-- End Table with stripped rows -->
-				<div class="admin-screen-paging">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">이전</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">4</a></li>
-						<li class="page-item"><a class="page-link" href="#">5</a></li>
-						<li class="page-item"><a class="page-link" href="#">다음</a></li>
-					</ul>
+													<thead>
+														<tr>
+															<th scope="col">번호</th>
+															<th scope="col" class="contentcol">내용</th>
+															<th scope="col">수신인</th>
+															<th scope="col">발송일</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">1</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+														<tr>
+															<th scope="row">2</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+														<tr>
+															<th scope="row">3</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+														<tr>
+															<th scope="row">4</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+														<tr>
+															<th scope="row">6</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+													</tbody>
+												</table>
+												<!-- End Table with stripped rows -->
+												
+					</div>
+	          </div>
+	        </div>
+	     
+	    </section><div class="pagetitle">
+      <h1>센터 상세화면</h1>
+      <!-- <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">필요 시 작성</li>기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시
+        </ol>
+      </nav> -->
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+             <p style="magin-top: 1%;"></p>
+				<div class="row mb-300" style="width: 122%; margin-top: 1%;">
+					<div class="col-sm-10">
+						<input type="text" class="form-control" value="센터프로필" disabled>
+					</div>
+					</div>
+				<div class="col-400">
+						<label for="inputAddress5" class="form-label">센터이름</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="02-0000-0000">
+					</div>
+					<div class="col-4000" style="margin-top: 1%;">
+						<label for="inputAddress2" class="form-label">주소</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="서울특별시 종로구 ">
 				</div>
+					<div class="col-40000">
+						<label for="inputAddress5" class="form-label">센터번호</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="xxx 종로점">
+					</div>
+					<div class="col-40000" style="margin-top: 1%;">
+						<label for="inputAddress2" class="form-label">계약일</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="2023-01-01 ">
+					
+					</div>
+					<div class="col-40000" style="margin-top: 1%;">
+						<label for="inputAddress2" class="form-label">만료일</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="2024-01-01 ">
+					
+					</div>
+					<div class="col-40000">
+						<label for="inputAddress5" class="form-label">아이디</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="20230001">
+					</div>
+					<div class="col-40000" style="margin-top: 1%;">
+						<label for="inputAddress2" class="form-label">회원상태</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="계약회원 ">
+					
+					</div>
+					<div class="col-40000" style="margin-top: 1%;">
+						<label for="inputAddress2" class="form-label">만료여부</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="Y ">
+					</div>
+					<div class="row mb-300" style="width: 122%; margin-top: 1%;">
+					<div class="col-sm-10">
+						<input type="text" class="form-control" value="프로필정보" disabled>
+					</div>
+					</div>
+					<div class="col-400">
+						<label for="inputAddress5" class="form-label">대표자 이름</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="홍길동">
+					</div>
+					<div class="col-4000" style="margin-top: 1%;">
+						<label for="inputAddress2" class="form-label">대표자 이메일</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="naver.com ">
+					</div>
+					<div class="col-400">
+						<label for="inputAddress5" class="form-label">대표자 번호</label> 
+						<input type="text" class="form-control" id="inputAddres5s" placeholder="010-xxxx-xxxx">
+					</div>
+					<div class="col-4000" style="margin-top: 1%;">
+						<label for="inputAddress2" class="form-label">사업자 등록번호</label>
+						<input type="text" class="form-control" id="inputAddress2" placeholder="110-2023-0044 ">
+					</div>
+               </div>
+               <div class="selectson">
+	               <button type="button" class="btn btn-link">계약해지</button>
+				   <button type="button" class="btn btn-link">비밀번호초기화</button>
+			   </div>
+               <div class="row mb-6">
+					<div class="col-sm-1000">
+						<button type="submit" class="btn btn-primary" onclick="button_remove();">삭제</button>
+						<button type="submit" class="btn btn-primary" onclick="location.href='admin_center_management.do'">취소</button>
+					</div>
+			   </div>
+			   <div class="row mb-300" style="width: 122%; margin-top: 1%;">
+					<div class="col-sm-10">
+						<input type="text" class="form-control0" value="문자발송이력" disabled>
+					</div>
+				</div>
+			   <table class="table datatable">
+													<thead>
+														<tr>
+															<th scope="col">번호</th>
+															<th scope="col" class="contentcol">내용</th>
+															<th scope="col">수신인</th>
+															<th scope="col">발송일</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">1</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+														<tr>
+															<th scope="row">2</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+														<tr>
+															<th scope="row">3</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+														<tr>
+															<th scope="row">4</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+														<tr>
+															<th scope="row">6</th>
+															<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
+															<td>Designer</td>
+															<td>2023-05-25</td>
+														</tr>
+													</tbody>
+												</table>
+												<!-- End Table with stripped rows -->
+												<div class="admin-screen-paging">
+													<ul class="pagination">
+														<li class="page-item"><a class="page-link" href="#">이전</a></li>
+														<li class="page-item"><a class="page-link" href="#">1</a></li>
+														<li class="page-item"><a class="page-link" href="#">2</a></li>
+														<li class="page-item"><a class="page-link" href="#">3</a></li>
+														<li class="page-item"><a class="page-link" href="#">4</a></li>
+														<li class="page-item"><a class="page-link" href="#">5</a></li>
+														<li class="page-item"><a class="page-link" href="#">다음</a></li>
+													</ul>
+					</div>
 	          </div>
 	        </div>
 	      </div>
 	    </section>
 
   </main><!-- End #main -->
-  
-<!-- 삭제 버튼 모달 -->
-<div class="modal fade" id="basicModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">삭제 버튼을 누르시면 다시 복구시킬 수 없습니다.</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" onclick="deleteCenter(${center.ctCode })">삭제</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 모달의 확인 누르면 삭제 진행-->
+ 
+  <!-- ======= Footer ======= -->
+ <%@ include file="admin_footer_common.jsp" %>
+ <!-- End Footer -->
 
-<!-- 계약 해지 버튼 모달 -->
-<div class="modal fade" id="basicModal2" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">정말로 해지하시겠습니까?</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">해지하면 계약상태를 되돌릴 수 없습니다.</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" onclick="revokeCenter(${center.ctCode })">해지</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 모달의 확인 누르면 해지 진행-->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-<!-- 비밀번호 초기화 버튼 모달 -->
-<div class="modal fade" id="basicModal3" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">비밀번호를 초기화하시겠습니까?</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">초기 비밀번호 : 1111</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" onclick="resetPassword(${center.ctCode })">확인</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 모달의 확인 누르면 비밀번호 초기화 진행-->
+  <!-- Vendor JS Files -->
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/quill/quill.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/vendor/php-email-form/validate.js"></script>
 
+  <!-- Template Main JS File -->
+  <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
+</body>
 <script type="text/javascript">
+function button_remove(){
+  if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+      document.form.submit();
+  }else{   //
+      return;
+  }
+}
 
-// 삭제 클릭 시 모달 작동 
-function deleteCenter(ctCode){
-	fetch('/pilafix/deleteCenter.do?ctCode=' + ctCode, {
-		method: 'GET'
-	})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('error');
-			}
-			window.location.href = 'getCenterList.do'; // 에러나면 목록 페이지로 리다이렉트
-		})
-		.catch(error => {
-			console.error(error);
-		});
-};
-
-
-// 계약 해지 클릭 시 모달 작동 
-function revokeCenter(ctCode){
-	fetch('/pilafix/revokeCenter.do?ctCode=' + ctCode, {
-		method: 'GET'
-	})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('error');
-			}
-			window.location.href = 'getCenterList.do'; // 에러나면 목록 페이지로 리다이렉트
-		})
-		.catch(error => {
-			console.error(error);
-		});
-};
-
-// 비밀번호 초기화 클릭 시 모달 작동 
-function resetPassword(ctCode){
-	fetch('/pilafix/resetPassword.do?ctCode=' + ctCode, {
-		method: 'GET'
-	})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('error');
-			}
-			window.location.href = 'getCenterList.do'; // 에러나면 목록 페이지로 리다이렉트
-		})
-		.catch(error => {
-			console.error(error);
-		});
-};
-
-
+function button_success(){
+	alert("수정 완료 되었습니다.");
+	location.href="admin_center_management.do";
+}
 </script>
-
-<%@ include file="admin_footer_common.jsp"%>
+</html>

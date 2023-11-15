@@ -32,8 +32,8 @@
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
 
-<!-- 내가 만든 css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
+  <link href="${pageContext.request.contextPath }/resources/css/style_admin_send_sms_detail.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath }/resources/css/style_admin_common.css" rel="stylesheet">
   
   <!-- =======================================================
   * Template Name: PilaAdmin
@@ -52,7 +52,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>커뮤니티 상세</h1>
+      <h1>문자발송이력관리</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">필요 시 작성</li><!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
@@ -66,64 +66,62 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">중제목 작성</h5>
-              <p>간략한 설명</p>
+              <h5 class="card-title">전체 센터의 문자 발송이력 상세</h5>
+              <p>전체 센터의 문자 발송이력 상세 페이지입니다.</p>
 
 
-             	  <!-- Multi Columns Form -->
+             	<!-- 
+             	 이 영역에 가져온 컴포넌트 넣기 
+             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
+             	 -->
+             	 
+            <!-- Multi Columns Form -->
               <form class="row g-3">
-              <div class="col-md-2">
-                  <label class="form-label">글 번호</label>
-                  <input type="text" readonly disabled class="form-control" value="1">
+              	<div class="col-md-4">
+                  <label class="form-label">수신인</label>
+                  <input type="text" readonly class="form-control" value="홍길동" disabled>
                 </div>
-                <div class="col-md-5">
-                  <label class="form-label">작성자</label>
-                  <input type="text" readonly disabled class="form-control" value="김xx">
+                <div class="col-md-4">
+                  <label class="form-label">수신자 번호</label>
+                  <input type="text" readonly class="form-control" value="010-1111-1111" disabled>
                 </div>
-                <div class="col-md-5">
-                  <label class="form-label">작성일</label>
-                  <input type="text" readonly disabled class="form-control" value="2023-01-01" >
+                <div class="col-md-4">
+                  <label class="form-label">발송일자</label>
+                  <input type="text" readonly class="form-control" value="2023.04.08" disabled>
                 </div>
-               <div class="col-md-12">
-                  <label class="form-label">글 제목</label>
-                  <input type="text" readonly disabled class="form-control" value="xx점 토미 강사 추천" >
+                <div class="col-md-4">
+                  <label class="form-label">발송코드</label>
+                  <input type="text" readonly class="form-control" value="010408" disabled>
                 </div>
+                <div class="col-md-4">
+                  <label class="form-label">상태</label>
+                  <input type="text" readonly class="form-control" value="성공" disabled>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">비고</label>
+                  <input type="text" readonly class="form-control" value="2023.04.08" disabled>
+                </div>
+                
+		
                 <div class="col-md-12">
-                	<label class="form-label">글 내용</label>
-                	 <textarea readonly disabled class="form-control" style="height: 300px;">xx점 토미강사 추천 굳굳</textarea>
+                	<label class="form-label">발송 내용</label>
+                	 <textarea readonly class="form-control" style="height: 300px;" disabled>
+예약완료내용</textarea>
                 </div>
                 <div class="text-center">
-               	  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-                  <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
+                  <button type="button" class="btn btn-secondary" onclick="location.href='admin_send_message_list.do'">목록</button>
                 </div>
               </form><!-- End Multi Columns Form -->
-
+             	
             </div>
           </div>
 
         </div>
       </div>
     </section>
-	<!-- 삭제 버튼 모달 -->
-	<div class="modal fade" id="basicModal" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      확인 버튼을 누르시면 다시 복구시킬 수 없습니다.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary" onclick="location href='admin_communuty.do'">확인</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
   </main><!-- End #main -->
+ 
  
  
  
@@ -147,13 +145,6 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
-
-<!-- 커뮤니티 상세페이지에서 커뮤니티 게시판 전체 목록으로 나가기-->
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>
 
 </body>
 

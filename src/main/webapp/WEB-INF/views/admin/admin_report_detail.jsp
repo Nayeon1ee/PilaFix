@@ -31,10 +31,11 @@
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
-
-<!-- 내가 만든 css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
   
+  <!-- 내가 만든 css -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_baned_comment.css">
+
   <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -52,7 +53,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>커뮤니티 상세</h1>
+      <h1>대제목 작성</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">필요 시 작성</li><!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
@@ -69,11 +70,10 @@
               <h5 class="card-title">중제목 작성</h5>
               <p>간략한 설명</p>
 
-
-             	  <!-- Multi Columns Form -->
+<!-- Multi Columns Form -->
               <form class="row g-3">
               <div class="col-md-2">
-                  <label class="form-label">글 번호</label>
+                  <label class="form-label">글번호</label>
                   <input type="text" readonly disabled class="form-control" value="1">
                 </div>
                 <div class="col-md-5">
@@ -91,6 +91,31 @@
                 <div class="col-md-12">
                 	<label class="form-label">글 내용</label>
                 	 <textarea readonly disabled class="form-control" style="height: 300px;">xx점 토미강사 추천 굳굳</textarea>
+                </div>
+                <div class="baned-info">신고 정보</div>
+                <div class="col-md-5">
+                  <label class="form-label">신고사유</label>
+                  <input type="text" readonly disabled class="form-control" value="[욕설/혐오/차별적 표현]" >
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">신고자</label>
+                  <input type="text" readonly disabled class="form-control" value="사오정" >
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">신고자 이메일</label>
+                  <input type="text" readonly disabled class="form-control" value="sa@naver.com" >
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label">신고사유</label>
+                  <input type="text" readonly disabled class="form-control" value="[스팸/홍보/도배글]" >
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">신고자</label>
+                  <input type="text" readonly disabled class="form-control" value="가나다" >
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">신고자 이메일</label>
+                  <input type="text" readonly disabled class="form-control" value="ga@naver.com" >
                 </div>
                 <div class="text-center">
                	  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
@@ -117,11 +142,12 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary" onclick="location href='admin_communuty.do'">확인</button>
+                      <button type="button" class="btn btn-primary"  onclick="location.href=‘admin_report.do’”="">확인</button>
                     </div>
                   </div>
                 </div>
               </div>
+
 
   </main><!-- End #main -->
  
@@ -154,7 +180,6 @@ function goBack() {
   window.history.back();
 }
 </script>
-
 </body>
 
 </html>

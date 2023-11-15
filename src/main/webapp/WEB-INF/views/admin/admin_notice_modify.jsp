@@ -52,23 +52,13 @@
 <!-- Template Main CSS File -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
-
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
-
-
-
 <link
-	href="${pageContext.request.contextPath }/resources/css/style_admin_send_email_list.css"
+	href="${pageContext.request.contextPath }/resources/css/style_admin_notice_board_modify.css"
 	rel="stylesheet">
 <link
 	href="${pageContext.request.contextPath }/resources/css/style_admin_common.css"
 	rel="stylesheet">
 
-<link
-	href="${pageContext.request.contextPath }/resources/css/style_admin_common_2.css"
-	rel="stylesheet">
 <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -86,7 +76,7 @@
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>이메일발송이력관리</h1>
+			<h1>공지사항관리</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">필요 시 작성</li>
@@ -102,9 +92,8 @@
 
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">이메일 발송이력 리스트</h5>
-							<p>웹관리자가 보내는 이메일 발송이력 리스트입니다. (대표자 계정생성, 약관 변경시, 회원가입시 이메일인증,
-								비밀번호찾을때)</p>
+							<h5 class="card-title">공지사항 수정페이지</h5>
+							<p>웹관리자가 공지사항의 상세내용을 수정할수 있는 페이지입니다.</p>
 
 
 							<!-- 
@@ -115,106 +104,49 @@
              	 -->
 
 
-							<!-- 검색필터 시작 -->
-							<div class="search-filter">
-								<div class="search-filter-inner">
+							<!-- Multi Columns Form -->
+							<form class="row g-3" id="registrationForm000">
+								<div class="col-md-5">
+									<label class="form-label">작성자</label> <input type="text"
+										class="form-control" value="관리자1" disabled>
+								</div>
+								<div class="col-md-5">
+									<label class="form-label">작성일자</label> <input type="text"
+										class="form-control" value="2023.04.08" disabled>
+								</div>
+								<div class="col-md-12">
+									<label class="form-label">제목</label> <input type="text"
+										class="form-control" id="titleInput000" value="등록된 공지사항">
+								</div>
+								<div class="col-md-12">
+									<label class="form-label">내용</label>
+									<textarea class="form-control" id="contentInput000"
+										style="height: 300px">등록된 공지사항 내용</textarea>
+								</div>
 
-									<div class="serch-filter-content">
-										<div class="search-top">
-											<div class="col-md-3">
-												<label for="inputState" class="form-label">검색</label> <select
-													id="inputState" class="form-select">
-													<option selected disabled>전체</option>
-													<option>글 제목</option>
-													<option>글 작성자</option>
-													<option></option>
-												</select>
-											</div>
-											<div class="serch-input">
-												<div class="col-md-6">
-													<input type="text" class="form-control" id="inputCity"
-														placeholder="검색어를 입력해주세요">
-												</div>
-												<div class="search-btn">
-													<button type="submit" class="btn btn-primary search">검색</button>
-													<button type="reset" class="btn btn-primary search"
-														id="resetButton">초기화</button>
-												</div>
-											</div>
-										</div>
-
-										<div class="search-date">
-											<div class="date-filter">
-												<label for="inputState" class="form-label">기간검색</label>
-												<div class="col-sm-12">
-													<input type="date" class="form-control-date" id="startDate">
-													<span>~</span> <input type="date" class="form-control-date"
-														id="endDate">
-												</div>
-											</div>
-										</div>
-
+								<div class="col-sm-10">
+									<div class="form-check form-check-inline radiobtn000">
+										<input class="form-check-input" type="radio" name="gridRadios"
+											id="gridRadios1" value="option1" checked=""> <label
+											class="form-check-label" for="gridRadios1"> 공개 </label>
+									</div>
+									<div class="form-check form-check-inline radiobtn001">
+										<input class="form-check-input" type="radio" name="gridRadios"
+											id="gridRadios2" value="option2"> <label
+											class="form-check-label" for="gridRadios2"> 비공개 </label>
 									</div>
 								</div>
-							</div>
-							<!-- 검색필터 끝 -->
 
 
 
-							<!-- Table with stripped rows -->
-							<table class="table datatable">
-
-								<thead>
-									<tr>
-										<th scope="col">NO.</th>
-										<th scope="col">구분</th>
-										<th scope="col">메일제목</th>
-										<th scope="col">수신인</th>
-										<th scope="col">수신메일</th>
-										<th scope="col">발송일</th>
-									</tr>
-								</thead>
-
-								<tbody>
-									<tr>
-										<td>0418</td>
-										<td>변경약관동의</td>
-										<td><a href=admin_send_email_detail.do
-											class="admin-alink-color">[필라픽스]변경약관 동의 메일입니다.</a></td>
-										<td>홍길동</td>
-										<td>hong@naver.com</td>
-										<td>2023.04.18 오후 01:08</td>
-									</tr>
-									<tr>
-										<td>0417</td>
-										<td>비밀번호찾기</td>
-										<td><a href="admin_send_email_detail.do"
-											class="admin-alink-color">[필라픽스]비밀번호 찾기 인증 메일입니다.</a></td>
-										<td>홍길동</td>
-										<td>hong@naver.com</td>
-										<td>2023.04.18 오후 01:08</td>
-									</tr>
-									<tr>
-										<td>0416</td>
-										<td>회원가입인증</td>
-										<td><a href="admin_send_email_detail.do"
-											class="admin-alink-color">[필라픽스]회원가입 인증 메일입니다.</a></td>
-										<td>홍길동</td>
-										<td>hong@naver.com</td>
-										<td>2023.04.18 오후 01:08</td>
-									</tr>
-									<tr>
-										<td>0415</td>
-										<td>센터계정생성</td>
-										<td><a href="admin_send_email_detail.do"
-											class="admin-alink-color">[필라픽스]계정생성 메일입니다.</a></td>
-										<td>홍길동</td>
-										<td>hong@naver.com</td>
-										<td>2023.04.18 오후 01:08</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- End Table with stripped rows -->
+								<div class="text-center">
+									<button type="button" class="btn btn-primary"
+										onclick="location.href='admin_notice_edit.do'">수정</button>
+									<button type="button" class="btn btn-secondary"
+										onclick="goBack()">취소</button>
+								</div>
+							</form>
+							<!-- End Multi Columns Form -->
 
 						</div>
 					</div>
@@ -225,9 +157,6 @@
 
 	</main>
 	<!-- End #main -->
-
-
-
 
 
 	<!-- ======= Footer ======= -->
@@ -259,8 +188,6 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/admin_common_2.js"></script>
 </body>
 
 </html>

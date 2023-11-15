@@ -32,9 +32,11 @@
   <!-- Template Main CSS File -->
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
 
-<!-- 내가 만든 css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
-  
+
+
+
+  <link href="${pageContext.request.contextPath }/resources/css/style_admin_teacher_info.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath }/resources/css/style_admin_common.css" rel="stylesheet">
   <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -52,7 +54,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>커뮤니티 상세</h1>
+      <h1>강사관리</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">필요 시 작성</li><!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
@@ -66,37 +68,109 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">중제목 작성</h5>
-              <p>간략한 설명</p>
+              <h5 class="card-title">강사관리 상세페이지</h5>
+              <p>웹관리자의 강사관리 상세페이지입니다. </p>
 
 
-             	  <!-- Multi Columns Form -->
+             	<!-- 
+             	 
+             	 이 영역에 가져온 컴포넌트 넣기 
+             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
+             	 
+             	 -->
+             	 
+             	 
+            <!-- Multi Columns Form -->
               <form class="row g-3">
-              <div class="col-md-2">
-                  <label class="form-label">글 번호</label>
-                  <input type="text" readonly disabled class="form-control" value="1">
+              	<div class="col-md-4">
+                  <label class="form-label">이름</label>
+                  <input type="text" readonly class="form-control" value="홍길동" disabled>
                 </div>
-                <div class="col-md-5">
-                  <label class="form-label">작성자</label>
-                  <input type="text" readonly disabled class="form-control" value="김xx">
+                <div class="col-md-4">
+                  <label class="form-label">이메일아이디</label>
+                  <input type="text" readonly class="form-control" value="hong@naver.com" disabled >
                 </div>
-                <div class="col-md-5">
-                  <label class="form-label">작성일</label>
-                  <input type="text" readonly disabled class="form-control" value="2023-01-01" >
+                <div class="col-md-4">
+                  <label class="form-label">전화번호</label>
+                  <input type="text" readonly class="form-control" value="010-1111-1111" disabled >
                 </div>
-               <div class="col-md-12">
-                  <label class="form-label">글 제목</label>
-                  <input type="text" readonly disabled class="form-control" value="xx점 토미 강사 추천" >
+                <div class="col-md-4">
+                  <label class="form-label">생년얼일</label>
+                  <input type="text" readonly class="form-control" value="2000.04.08" disabled>
                 </div>
-                <div class="col-md-12">
-                	<label class="form-label">글 내용</label>
-                	 <textarea readonly disabled class="form-control" style="height: 300px;">xx점 토미강사 추천 굳굳</textarea>
+                <div class="col-md-4">
+                  <label class="form-label">성별</label>
+                  <input type="text" readonly class="form-control" value="여자" disabled>
                 </div>
-                <div class="text-center">
-               	  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-                  <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
+                <div class="col-md-4">
+                  <label class="form-label">회원가입일</label>
+                  <input type="text" readonly class="form-control" value="2023.01.08" disabled>
                 </div>
+                <div class="col-md-4">
+                  <label class="form-label">회원상태</label>
+                  <input type="text" readonly class="form-control" value="일반회원" disabled>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">가입유형</label>
+                  <input type="text" readonly class="form-control" value="카카오" disabled>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">현재연동센터</label>
+                  <input type="text" readonly class="form-control" value="000필라테스 00점" disabled >
+                </div>
+                
+
               </form><!-- End Multi Columns Form -->
+
+               <br>
+               <br>
+		
+		<div class="card card_box_shadow">
+            <div class="card-body">
+              <h5 class="card-title">연동센터이력</h5>
+              <p>강사가 연동한 센터들이 보여집니다.</p>
+	
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">센터명</th>
+                    <th scope="col">주소</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                  <tr>
+                    <td>2</td>
+                    <td>00필라테스00점</td>
+                    <td>경기도 고양시 덕양구 000로 00번지</td>
+                  </tr>
+
+                  <tr>
+                    <td>2</td>
+                    <td>00필라테스00점</td>
+                    <td>경기도 고양시 덕양구 000로 00번지</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+              
+              <!-- 페이징 처리 시작 -->
+              
+      <!-- 페이징 처리 끝 -->
+              
+              
+            </div>
+          </div>   
+  
+             	<div class="text-left">
+                  <button type="button" class="btn btn-secondary" onclick="location.href='admin_trainer.do'">목록</button>
+                </div> 
+             	 
+             	 
+             	 
 
             </div>
           </div>
@@ -104,24 +178,6 @@
         </div>
       </div>
     </section>
-	<!-- 삭제 버튼 모달 -->
-	<div class="modal fade" id="basicModal" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      확인 버튼을 누르시면 다시 복구시킬 수 없습니다.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary" onclick="location href='admin_communuty.do'">확인</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
   </main><!-- End #main -->
  
@@ -131,7 +187,6 @@
 
   <!-- ======= Footer ======= -->
   <%@ include file="admin_footer_common.jsp" %>
-  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -147,14 +202,6 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
-
-<!-- 커뮤니티 상세페이지에서 커뮤니티 게시판 전체 목록으로 나가기-->
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>
-
 </body>
 
 </html>

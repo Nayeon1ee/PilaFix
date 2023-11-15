@@ -1,4 +1,7 @@
-package com.dev.pilafix;
+/**
+ * 
+ */
+  package com.dev.pilafix;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -36,14 +39,14 @@ public class HomeController {
 
 		return "home";
 	}
-	// ¼ö¹Ì
+	// ï¿½ï¿½ï¿½ï¿½
 
 	@GetMapping("/ticket")
 	public String ticket() {
 		return "ticket";
 	}
 
-	// ³ª¿¬
+	// ï¿½ï¿½ï¿½ï¿½
 
 	@GetMapping("/myschedule")
 	public String myschedule() {
@@ -65,7 +68,7 @@ public class HomeController {
 		return "reservation_group";
 	}
 
-	// ÇÏ¹Î
+	// ï¿½Ï¹ï¿½
 
 	@GetMapping("/privatedetailclass")
 	public String privatedetailclass() {
@@ -82,23 +85,25 @@ public class HomeController {
 		return "classlist";
 	}
 
-	// ¿µ¿ì
-
+	// ï¿½ï¿½ï¿½ï¿½
+	
+ // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½
 	@GetMapping("/centeraddress")
 	public String centeraddress() {
 		return "centeraddress";
 	}
-
+ // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@GetMapping("/register")
 	public String register() {
 		return "register";
 	}
-
+ // ï¿½ï¿½ï¿½ï¿½ & È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@GetMapping("/memberA")
 	public String memberA() {
 		return "memberA";
 	}
-
+	
+ /// ï¿½Ì¸ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
 	@GetMapping("/emailfind")
 	public String emailfind() {
 		return "emailfind";
@@ -114,7 +119,7 @@ public class HomeController {
 		return "login";
 	}
 
-	// ÀºÁÖ
+	// ï¿½ï¿½ï¿½ï¿½
 
 	@GetMapping("/paymentHistorydetail")
 	public String paymentHistorydetail() {
@@ -150,7 +155,9 @@ public class HomeController {
 	public String passwordchange() {
 		return "passwordchange";
 	}
-
+	
+   // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	
 	@GetMapping("/myinfo")
 	public String myinfo() {
 		return "myinfo";
@@ -160,21 +167,20 @@ public class HomeController {
 	public String membernotice() {
 		return "membernotice";
 	}
-
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@GetMapping("/memberpage")
 	public String memberpage() {
 		return "memberpage";
 	}
 
-	// °ü¸®ÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	// °ü¸®ÀÚ ¸ÞÀÎ(ÀÓ½Ã)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ó½ï¿½)
 	
 	@RequestMapping("/admin_common.do")
 	public String admin_common() {
-		return "admin_common.jsp";
+		return "admin/admin_common";
 	}
-
 
 	@RequestMapping("/admin_baned_comment")
 	public String admin_baned_comment() {
@@ -237,30 +243,31 @@ public class HomeController {
 	}
 
 
-// ¿¹½Ã
+// test
+	
 	@RequestMapping("/admin_info_boardlist.do")
 	   public String admin_info_boardlist() {
-	      return "admin_info_boardlist.jsp";
+	      return "admin/admin_info_boardlist";
 	   }
 
-	@RequestMapping("/admin_info")
+	@RequestMapping("/admin_info.do")
 	public String admin_info() {
-		return "admin_info";
+		return "admin/admin_info";
 	}
 
-	@RequestMapping("/admin_info_getboard")
+	@RequestMapping("/admin_info_getboard.do")
 	public String admin_info_getboard() {
-		return "admin_info_getboard";
+		return "admin/admin_info_getboard";
 	}
 
-	@RequestMapping("/admin_CTS_management")
+	@RequestMapping("/admin_CTS_management.do")
 	public String admin_CTS_management() {
-		return "admin_CTS_management";
+		return "admin/admin_CTS_management";
 	}
 
-	@RequestMapping("/admin_CTS_info")
+	@RequestMapping("/admin_CTS_info.do")
 	public String admin_CTS_info() {
-		return "admin_CTS_info";
+		return "admin/admin_CTS_info";
 	}
 
 	@RequestMapping("/admin_notice_board_detail")
@@ -308,14 +315,14 @@ public class HomeController {
 		return "admin_teacher_management";
 	}
 
-	// ¼¾ÅÍ ³×ºñ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½×ºï¿½
 
 	@RequestMapping("/center_common")
 	public String center_common() {
 		return "center_common";
 	}
 
-	// ¼¾ÅÍ
+	// ï¿½ï¿½ï¿½ï¿½
 
 	@RequestMapping("/center_question_board")
 	public String center_question_board() {
@@ -429,3 +436,5 @@ public class HomeController {
 	}
 
 }
+
+ 

@@ -53,22 +53,14 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
 
-
+<!-- 내가 만든 css -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
+	href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/style_admin_baned_comment.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
 
-
-
-<link
-	href="${pageContext.request.contextPath }/resources/css/style_admin_send_email_list.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath }/resources/css/style_admin_common.css"
-	rel="stylesheet">
-
-<link
-	href="${pageContext.request.contextPath }/resources/css/style_admin_common_2.css"
-	rel="stylesheet">
 <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -79,14 +71,14 @@
 </head>
 
 <body>
-	<%@ include file="admin_header_common.jsp"%>
+	<%@ include file="admin_header_common.jsp" %>
 	<!-- ============================================================================================ -->
 
 
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>이메일발송이력관리</h1>
+			<h1>신고글 관리</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">필요 시 작성</li>
@@ -102,18 +94,8 @@
 
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">이메일 발송이력 리스트</h5>
-							<p>웹관리자가 보내는 이메일 발송이력 리스트입니다. (대표자 계정생성, 약관 변경시, 회원가입시 이메일인증,
-								비밀번호찾을때)</p>
-
-
-							<!-- 
-             	 
-             	 이 영역에 가져온 컴포넌트 넣기 
-             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
-             	 
-             	 -->
-
+							<h5 class="card-title">중제목 작성</h5>
+							<p>간략한 설명</p>
 
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
@@ -126,8 +108,7 @@
 													id="inputState" class="form-select">
 													<option selected disabled>전체</option>
 													<option>글 제목</option>
-													<option>글 작성자</option>
-													<option></option>
+													<option>작성자</option>
 												</select>
 											</div>
 											<div class="serch-input">
@@ -144,6 +125,14 @@
 										</div>
 
 										<div class="search-date">
+											<div class="col-md-3">
+												<label for="inputState" class="form-label">처리상태</label> <select
+													id="inputState2" class="form-select">
+													<option selected disabled>전체</option>
+													<option>처리완료</option>
+													<option>처리대기</option>
+												</select>
+											</div>
 											<div class="date-filter">
 												<label for="inputState" class="form-label">기간검색</label>
 												<div class="col-sm-12">
@@ -153,68 +142,90 @@
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</div>
 							<!-- 검색필터 끝 -->
-
-
-
+							<!-- 게시판 시작 -->
+							<h5 class="card-title"></h5>
 							<!-- Table with stripped rows -->
 							<table class="table datatable">
-
 								<thead>
 									<tr>
 										<th scope="col">NO.</th>
-										<th scope="col">구분</th>
-										<th scope="col">메일제목</th>
-										<th scope="col">수신인</th>
-										<th scope="col">수신메일</th>
-										<th scope="col">발송일</th>
+										<th scope="col">글제목</th>
+										<th scope="col">작성자</th>
+										<th scope="col">작성일</th>
+										<th scope="col">신고건수</th>
+										<th scope="col">처리상태</th>
 									</tr>
 								</thead>
-
 								<tbody>
 									<tr>
-										<td>0418</td>
-										<td>변경약관동의</td>
-										<td><a href=admin_send_email_detail.do
-											class="admin-alink-color">[필라픽스]변경약관 동의 메일입니다.</a></td>
+										<th scope="row">5</th>
+										<td><a href=admin_report_detail.do class="admin-alink-color">xx점 후기</a></td>
 										<td>홍길동</td>
-										<td>hong@naver.com</td>
-										<td>2023.04.18 오후 01:08</td>
+										<td>2016-05-25</td>
+										<td><span class="tooltip-baned-reason">3건 <span
+												class="tooltip-baned-text"><p>신고사유</p>- 성희롱적 발언<br>-
+													스팸/홍보/도배글<br>- 개인정보 노출 게시물 </span></span></td>
+										<td>처리대기</td>
 									</tr>
 									<tr>
-										<td>0417</td>
-										<td>비밀번호찾기</td>
-										<td><a href="admin_send_email_detail.do"
-											class="admin-alink-color">[필라픽스]비밀번호 찾기 인증 메일입니다.</a></td>
-										<td>홍길동</td>
-										<td>hong@naver.com</td>
-										<td>2023.04.18 오후 01:08</td>
+										<th scope="row">4</th>
+										<td><a href=admin_report_detail.do class="admin-alink-color">코인 어쩌구</a></td>
+										<td>김00</td>
+										<td>2013-03-23</td>
+										<td><span class="tooltip-baned-reason">2건 <span
+												class="tooltip-baned-text"><p>신고사유</p>- 성희롱적 발언<br>-
+													개인정보 노출 게시물 </span></span></td>
+										<td>처리완료</td>
 									</tr>
 									<tr>
-										<td>0416</td>
-										<td>회원가입인증</td>
-										<td><a href="admin_send_email_detail.do"
-											class="admin-alink-color">[필라픽스]회원가입 인증 메일입니다.</a></td>
-										<td>홍길동</td>
-										<td>hong@naver.com</td>
-										<td>2023.04.18 오후 01:08</td>
+										<th scope="row">3</th>
+										<td><a href=admin_report_detail.do class="admin-alink-color">너모 힘들다</a></td>
+										<td>신00</td>
+										<td>2011-06-12</td>
+										<td><span class="tooltip-baned-reason">1건 <span
+												class="tooltip-baned-text"><p>신고사유</p>- 성희롱적 발언<br>
+											</span></span></td>
+										<td>처리완료</td>
 									</tr>
 									<tr>
-										<td>0415</td>
-										<td>센터계정생성</td>
-										<td><a href="admin_send_email_detail.do"
-											class="admin-alink-color">[필라픽스]계정생성 메일입니다.</a></td>
-										<td>홍길동</td>
-										<td>hong@naver.com</td>
-										<td>2023.04.18 오후 01:08</td>
+										<th scope="row">2</th>
+										<td><a href=admin_report_detail.do class="admin-alink-color">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</a></td>
+										<td>신00</td>
+										<td>2011-08-12</td>
+										<td><span class="tooltip-baned-reason">3건 <span
+												class="tooltip-baned-text"><p>신고사유</p>- 성희롱적 발언<br>-
+													스팸/홍보/도배글<br>- 개인정보 노출 게시물 </span></span></td>
+										<td>처리완료</td>
+									</tr>
+									<tr>
+										<th scope="row">1</th>
+										<td><a href=admin_report_detail.do class="admin-alink-color">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</a></td>
+										<td>신00</td>
+										<td>2011-08-12</td>
+										<td><span class="tooltip-baned-reason">1건 <span
+												class="tooltip-baned-text"><p>신고사유</p>- 스팸/홍보/도배글 </span></span></td>
+										<td>처리완료</td>
 									</tr>
 								</tbody>
 							</table>
-							<!-- End Table with stripped rows -->
+
+							<!-- 페이징 처리 시작 -->
+							<div class="admin-screen-paging">
+								<ul class="pagination">
+									<li class="page-item"><a class="page-link" href="#">이전</a></li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#">4</a></li>
+									<li class="page-item"><a class="page-link" href="#">5</a></li>
+									<li class="page-item"><a class="page-link" href="#">다음</a></li>
+								</ul>
+							</div>
+							<!-- 페이징 처리 끝 -->
 
 						</div>
 					</div>
@@ -231,7 +242,7 @@
 
 
 	<!-- ======= Footer ======= -->
-	<%@ include file="admin_footer_common.jsp"%>
+	<%@ include file="admin_footer_common.jsp" %>
 	<!-- End Footer -->
 
 	<a href="#"
@@ -259,8 +270,10 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
+
+	<!--내가 만든 JS File -->
 	<script
-		src="${pageContext.request.contextPath}/resources/js/admin_common_2.js"></script>
+		src="${pageContext.request.contextPath }/resources/js/admin_common_1.js"></script>
 </body>
 
 </html>

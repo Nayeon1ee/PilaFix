@@ -30,11 +30,9 @@
   <link href="${pageContext.request.contextPath }/resources/admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
-
-<!-- 내가 만든 css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common.css">
-  
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
+<link href="${pageContext.request.contextPath }/resources/css/style_admin_notice_board_register.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/css/style_admin_common.css" rel="stylesheet">
   <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -52,7 +50,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>커뮤니티 상세</h1>
+      <h1>공지사항관리</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">필요 시 작성</li><!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
@@ -66,65 +64,66 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">중제목 작성</h5>
-              <p>간략한 설명</p>
+              <h5 class="card-title">공지사항 등록페이지</h5>
+              <p>웹관리자가 공지사항을 등록할 수 있는 페이지입니다.</p>
 
 
-             	  <!-- Multi Columns Form -->
-              <form class="row g-3">
-              <div class="col-md-2">
-                  <label class="form-label">글 번호</label>
-                  <input type="text" readonly disabled class="form-control" value="1">
-                </div>
-                <div class="col-md-5">
-                  <label class="form-label">작성자</label>
-                  <input type="text" readonly disabled class="form-control" value="김xx">
-                </div>
-                <div class="col-md-5">
-                  <label class="form-label">작성일</label>
-                  <input type="text" readonly disabled class="form-control" value="2023-01-01" >
-                </div>
-               <div class="col-md-12">
-                  <label class="form-label">글 제목</label>
-                  <input type="text" readonly disabled class="form-control" value="xx점 토미 강사 추천" >
-                </div>
-                <div class="col-md-12">
-                	<label class="form-label">글 내용</label>
-                	 <textarea readonly disabled class="form-control" style="height: 300px;">xx점 토미강사 추천 굳굳</textarea>
-                </div>
-                <div class="text-center">
-               	  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-                  <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
-                </div>
-              </form><!-- End Multi Columns Form -->
+             	<!-- 
+             	 
+             	 이 영역에 가져온 컴포넌트 넣기 
+             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
+             	 
+             	 -->
 
+				<!-- Multi Columns Form -->
+				<form class="row g-3" id="registrationForm000">
+				    <div class="col-md-5">
+				        <label class="form-label">작성자</label>
+				        <input type="text" class="form-control" value="">
+				    </div>
+				    <div class="col-md-5">
+				        <label class="form-label">작성일자</label>
+				        <input type="text" class="form-control" value="">
+				    </div>
+				    <div class="col-md-12">
+				        <label class="form-label">제목</label>
+				        <input type="text" class="form-control" id="titleInput000" value="" />
+				    </div>
+				    <div class="col-md-12">
+				        <label class="form-label">내용</label>
+				        <textarea class="form-control" id="contentInput000" style="height: 300px"></textarea>
+				    </div>
+				    
+				<div class="col-sm-10">
+				  <div class="form-check form-check-inline radiobtn000">
+				    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked="">
+				    <label class="form-check-label" for="gridRadios1">
+				      공개
+				    </label>
+				  </div>
+				  <div class="form-check form-check-inline radiobtn001">
+				    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+				    <label class="form-check-label" for="gridRadios2">
+				      비공개
+				    </label>
+				  </div>
+				</div>
+				    
+				    
+				    
+				    <div class="text-center">
+				        <button class="btn btn-secondary btn_registration_000" id="registrationButton000">등록</button>
+				        <button type="reset" class="btn btn-secondary" onclick="goBack()">취소</button>
+				    </div>
+				</form><!-- End Multi Columns Form -->
+				             	
             </div>
           </div>
-
         </div>
       </div>
     </section>
-	<!-- 삭제 버튼 모달 -->
-	<div class="modal fade" id="basicModal" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      확인 버튼을 누르시면 다시 복구시킬 수 없습니다.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary" onclick="location href='admin_communuty.do'">확인</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
   </main><!-- End #main -->
- 
  
  
     
@@ -147,14 +146,6 @@
 
   <!-- Template Main JS File -->
   <script src="${pageContext.request.contextPath }/resources/admin/assets/js/main.js"></script>
-
-<!-- 커뮤니티 상세페이지에서 커뮤니티 게시판 전체 목록으로 나가기-->
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>
-
 </body>
 
 </html>
