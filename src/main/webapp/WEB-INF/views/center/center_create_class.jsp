@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <%@ include file="center_header_common.jsp" %>
 	<main id="main" class="main">
 		<div class="pagetitle">
@@ -39,14 +40,14 @@
 									<input type="text" class="form-control" name="lsName" placeholder="수업명을 입력하세요">
 								</div>
 								<div class="col-md-12">
-								    <label class="form-label">강사명</label>
-								    <select class="form-select" name="trainerMemberCode" aria-label="Default select example">
-								        <option selected>강사</option>
-								        <c:forEach var="trainer" items="${trainerList}">
-								            <option value="${trainer.trainerMemberCode}">${trainer.csName}</option>
-								        </c:forEach>
-								    </select>
-								</div>
+							        <label class="form-label">강사명</label>
+							        <select class="form-select" name="trainerMemberCode" aria-label="Default select example" id="centerCode">
+						        	<option selected>강사</option>
+							        <c:forEach	var="trainerList" items="${trainerList }">
+							        	<option value="${trainerList.csMemberCode }">${trainerList.csName }</option>
+							        </c:forEach>
+							        </select>
+							    </div>
 								<div class="col-md-12">
 									<label class="form-label">수업 정원</label>
 									<select class="form-select" name="lsCapacity" id="lsCapacity"  aria-label="Default select example">
@@ -89,7 +90,7 @@
 										<option value="21">21시</option>
 										<option value="22">22시</option>
 									</select>
-									<button type="button" class="btn btn-primary" onclick="displaySelectedDateTime()">선택</button>
+									<!-- <button type="button" class="btn btn-primary" onclick="displaySelectedDateTime()">선택</button> -->
 									<div id="outputDateTime"></div>
 								</div>
 								<div class="col-md-12">
@@ -152,6 +153,7 @@ function updateList(str){
 function removeForm(formElement) {
     formElement.parentNode.removeChild(formElement);
 }
+
 </script>
 
 <%@ include file="center_footer_common.jsp" %>
