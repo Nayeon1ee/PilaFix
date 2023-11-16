@@ -19,13 +19,31 @@
 
     // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
     function naverSignInCallback() {
-        alert(naver_id_login.getProfileData('email'));
-        alert(naver_id_login.getProfileData('id'));
-        alert(naver_id_login.getProfileData('birthday'));
-        alert(naver_id_login.getProfileData('gender'));
-        alert(naver_id_login.getProfileData('mobile'));
-        alert(naver_id_login.getProfileData('name'));
-        alert(naver_id_login.getProfileData('birthyear'));
+// naver_id_login.getProfileData('프로필항목명');
+		// 프로필 항목은 네이버 개발가이드를 참고하시기 바랍니다.
+		
+    	var profileData = {
+                email: naver_id_login.getProfileData('email'),
+                id: naver_id_login.getProfileData('id'),
+                birthday: naver_id_login.getProfileData('birthday'),
+                gender: naver_id_login.getProfileData('gender'),
+                mobile: naver_id_login.getProfileData('mobile'),
+                name: naver_id_login.getProfileData('name'),
+                birthyear: naver_id_login.getProfileData('birthyear')
+            };
+    	 $.ajax({
+             type: 'POST',
+             url: 'naverLogin.do', // Replace with your actual controller endpoint
+             contentType: 'application/json',
+             data: JSON.stringify(profileData),
+             success: function(response) {
+                 console.log('Profile data sent to server successfully:', response);
+             },
+             error: function(error) {
+                 console.error('Error sending profile data to server:', error);
+             }
+         });
+
     }
 
 </script>
