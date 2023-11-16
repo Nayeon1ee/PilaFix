@@ -12,7 +12,7 @@ public interface MemberLoginService {
 	int createAuthNumber();
 	int sendAuthEmail(MemberVO member);
 
-	 
+//	boolean login(String csEmailId, String csPassword);
 
 	
 }

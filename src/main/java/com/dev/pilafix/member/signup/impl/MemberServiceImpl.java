@@ -39,10 +39,14 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(MemberVO vo) {
 		// 가입시 입력한 비밀번호를 읽어와서
 		String csPassword = vo.getCsPassword();
+		System.out.println("가입 시 입력한 비밀번호 : " + csPassword);
 		
 		// 암호화 한 후에
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedPwd = encoder.encode(csPassword);
+		
+		System.out.println("암호화 비밀번호   : "+encodedPwd);
+		
 		// vo에 다시 넣어준다.
 		vo.setCsPassword(encodedPwd);
 		// 암호화된 비밀번호가 들어 있는 vo를 dao에 전달해서 새로운 회원 정보를 추가한다.

@@ -35,7 +35,17 @@ public class MemberLoginController {
 		return "member/register";
 	}
 	
-	
+//	@PostMapping("/memberLogin.do")
+//	public String memberLogin(@RequestParam("csEmailId") String csEmailId,
+//							@RequestParam("csPassword") String csPassword,
+//								HttpSession session, Model model) {
+//		service.login(csEmailId, csPassword);
+//		
+//		
+//		
+//		return null;
+//		
+//	}
 
 	
 	/**
@@ -64,7 +74,7 @@ public class MemberLoginController {
 	@PostMapping("/memberLogin.do")
 	public String memberLogin(@RequestParam("csEmailId") String csEmailId,
 	                          @RequestParam("csPassword") String csPassword,
-	                          HttpSession session, RedirectAttributes redirectAttrs) {
+	                          HttpSession session, Model model) {
 	    
 		MemberVO member = service.memberLogin(csEmailId, csPassword);
 	    
@@ -81,24 +91,25 @@ public class MemberLoginController {
 	        if ("ME".equals(member.getCsRoleCode())) {
 	            // 회원인 경우
 	            if (hasConnectedCenters) {
-	                return "redirect:/memberMainPage.do"; // 메인 페이지로 리다이렉트
-	            } else {
-//	                return "member/ctConnect"; // 센터연동페이지
 	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
+	            } else {
+	                return "member/ctConnect"; // 센터연동페이지
+//	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
 	            }
 	        } else {
 	            // 강사인 경우
 	            if (hasConnectedCenters) {
-	                return "redirect:/trainerMainPage.do"; // 강사 메인 페이지로 리다이렉트
-	            } else {
-//	                return "member/ctConnect"; // 센터연동페이지
 	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
+	            } else {
+	                return "member/ctConnect"; // 센터연동페이지
+//	            	System.out.println("로그인성공");
+//	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
 	            }
 	        }
 	    } else {
 	        // 로그인 실패 메시지와 함께 로그인 페이지로 리다이렉트
-	        redirectAttrs.addFlashAttribute("loginError", "존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
-	        return "redirect:/memberLogin.do"; 
+	        model.addAttribute("message" ,"존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
+	        return "redirect:memberLogin.do"; 
 	    }
 	}
 
@@ -108,14 +119,14 @@ public class MemberLoginController {
 //	                          @RequestParam("csPassword") String csPassword,
 //	                          HttpSession session, RedirectAttributes redirectAttrs) {
 //	    
-//	    MemberLoginVO member = service.memberLogin(csEmailId, csPassword);
+//	    MemberVO member = service.memberLogin(csEmailId, csPassword);
 //	    
 //	    if (member != null) {  	
 ////	        session.setAttribute("member", member);
 ////	        return "member/ctConnect";  
 //	    } else {
 //	        redirectAttrs.addFlashAttribute("loginError", "존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
-//	        return "redirect:memberLogin.do"; 
+//			return "member/login";
 //	    }
 //	}
 	
@@ -152,14 +163,22 @@ public class MemberLoginController {
 	@PostMapping("/updatePassword.do")
 	public String updatePassword(@RequestParam("currentPassword") String currentPassword,
 	                             @RequestParam("newPassword") String newPassword,
-	                             HttpSession session,
-	                             RedirectAttributes redirectAttrs) {
+	                             HttpSession session,Model model) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
 		
 		// 콘솔에 새 비밀번호 확인용 나중에지울것
-	    System.out.println("New Password: " + newPassword);
+		System.out.println("사용자에게 입력받은 현재 비밀번호 : "+currentPassword);
+		System.out.println("실제 DB에 있는 현재 비밀번호 : "+member.getCsPassword());
+		System.out.println("입력받은 비밀번호 암호화     : "+encoder.encode(currentPassword));
+
+		System.out.println("동일 여부 :  "+(member.getCsPassword().equals(encoder.encode(currentPassword))));
+		
+		
+		System.out.println("변경된 비밀번호 : "+newPassword);
 	    
-	    MemberVO member = (MemberVO) session.getAttribute("member");
-	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		System.out.println("변경된 비밀번호 암호화 : "+encoder.encode(newPassword));
 	    
 	    if (encoder.matches(currentPassword, member.getCsPassword())) {
 	        // 새 비밀번호 암호화
@@ -169,11 +188,14 @@ public class MemberLoginController {
 	        // 세션에서 사용자 정보 제거
 	        session.removeAttribute("member");
 	        // 비밀번호 변경 성공 메시지 로그인 페이지로 리다이렉트
-	        redirectAttrs.addFlashAttribute("passwordChangeSuccess", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.");	        
+	        model.addAttribute("message","비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.");
+//	        redirectAttrs.addFlashAttribute("passwordChangeSuccess", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.");	        
 	        return "redirect:/memberLogin.do";
 	    } else {
 	        // 현재 비밀번호가 일치하지 않으면 에러 메시지
-	        redirectAttrs.addFlashAttribute("passwordChangeError", "현재 비밀번호가 일치하지 않습니다.");
+	        model.addAttribute("message","현재 비밀번호가 일치하지 않습니다.");
+
+//	        redirectAttrs.addFlashAttribute("passwordChangeError", "현재 비밀번호가 일치하지 않습니다.");
 	        
 	        // 비밀번호 변경 페이지로 다시 리다이렉트
 	        return "redirect:/passwordChange.do";

@@ -17,6 +17,10 @@ public class MemberLoginDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
+	
+	public String login(String csEmailId) {
+		return sqlSessionTemplate.selectOne("MemberLoginDAO.login", csEmailId);
+	}
 
 	public MemberVO getMemberLoginInfo(String csEmailId) {
         return sqlSessionTemplate.selectOne("MemberLoginDAO.getMemberLoginInfo", csEmailId);

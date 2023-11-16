@@ -14,10 +14,16 @@ public class QuestionReplyController {
 	@Autowired
 	private QuestionReplyService service;
 	
+//	@GetMapping("/getQuestionReplyList.do")
+//	public String getQuestionReplyList(Model model) {
+//	    model.addAttribute("questionReplyList", service.getQuestionReplyList());
+//	    return "questionreply/getQuestionReplyList";
+//	}
+	
 	@GetMapping("/getQuestionReplyList.do")
-	public String getQuestionReplyList(Model model) {
+	public String center_inquiry_response(Model model) {
 	    model.addAttribute("questionReplyList", service.getQuestionReplyList());
-	    return "questionreply/getQuestionReplyList.jsp";
+	    return "questionreply/getQuestionReplyList";
 	}
 	
 
@@ -26,7 +32,7 @@ public class QuestionReplyController {
 		
 		model.addAttribute("question", service.getTargetQuestion(reTargetPostNumber)); //답변의 targetNumber와 문의글의 qsNumber가 동일하므로 
 		model.addAttribute("questionReply", service.getQuestionReply(reTargetPostNumber));
-	    return "questionreply/getQuestionReply.jsp";
+	    return "questionreply/getQuestionReply";
 	}
 	
 	

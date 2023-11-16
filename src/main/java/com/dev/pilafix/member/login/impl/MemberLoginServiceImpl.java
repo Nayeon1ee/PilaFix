@@ -34,6 +34,13 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 		return dao.getMemberLoginInfo(csEmailId);
 	}
 
+
+//	@Override
+//	public boolean login(String csEmailId, String csPassword) {
+//		dao.login(csEmailId)
+//	}
+	
+
 	@Override
 	public MemberVO memberLogin(String csEmailId, String csPassword) {
 		MemberVO member = dao.getMemberLoginInfo(csEmailId);
@@ -167,5 +174,7 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 		System.out.println("인증번호 : " + authNumber);
 		return authNumber;
 	}
+
+
 
 }
