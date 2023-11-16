@@ -2,6 +2,8 @@ package com.dev.pilafix.admin.member_trainer_manage;
 
 import java.util.List;
 
+import com.dev.pilafix.common.member.MemberVO;
+
 
 public interface MemberTrainerManageSerice {
 	
