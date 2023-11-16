@@ -17,6 +17,7 @@
     <section class="section">
 			<div class="row">
 				<div class="col-lg-12">
+
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">FAQ 목록</h5>
@@ -24,6 +25,7 @@
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
 								<div class="search-filter-inner">
+
 									<div class="serch-filter-content">
 										<div class="search-top">
 											<div class="col-md-3">
