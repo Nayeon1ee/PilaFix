@@ -10,6 +10,9 @@ public class NaverVO {
 	private String mobile;
 	private String name;
 	private String birthyear;
+	
+	
+	
 	public String getEmail() {
 		return email;
 	}
@@ -57,6 +60,7 @@ public class NaverVO {
 		return "NaverVO [email=" + email + ", id=" + id + ", birthday=" + birthday + ", gender=" + gender + ", mobile="
 				+ mobile + ", name=" + name + ", birthyear=" + birthyear + "]";
 	}
+	
 	
 	
 	
