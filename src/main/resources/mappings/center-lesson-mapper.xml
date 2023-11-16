@@ -16,7 +16,8 @@
 		<result property="centerCode" column="CENTER_CODE"/>
 		<result property="lsRegistrationDate" column="LS_REGISTRATION_DATE"/>
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
-		<result property="csName" column="CS_NAME"/>	
+		<result property="csName" column="CS_NAME"/>
+		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>
 		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE_TO_STRING"/>
 	</resultMap>
@@ -37,4 +38,11 @@
 	<update id="updateCenterLesson"  parameterType="centerLesson">
 		UPDATE TBL_LESSON SET LS_CLOSE_YN=${lsColseYN} WHERE LS_CODE=#{lsCode}
 	</update>
+	
+	<select id="getTrainerCode" resultMap="centerLessonResult">
+		SELECT DISTINCT CS_MEMBER_CODE, CS_NAME
+		FROM TBL_CST
+		WHERE CS_MEMBER_CODE > 8000
+		AND (CONNECTED_CENTER_CODE1 = 111 OR CONNECTED_CENTER_CODE2 = 111 OR CONNECTED_CENTER_CODE3 = 111)
+	</select>
 </mapper>
