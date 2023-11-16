@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,14 +34,21 @@ public class MemberLoginController {
 	}
 	
 	
-	/**
-	 * 로그인 테스트를 위한 페이지
-	 */
-	@GetMapping("/logintest.do")
-	public String logintest() {
-		return "member/login_test";
-	}
+
 	
+	/**
+	 * 로그인이후 우선 이동할 마이페이지(로그아웃,비밀번호변경 테스트)
+	 */
+	@GetMapping("/memberMyinfo.do")
+	public String memberMyinfo(HttpSession session, Model model) {
+	    MemberLoginVO sessionMember = (MemberLoginVO) session.getAttribute("member");
+	    if (sessionMember != null) {
+	        String csEmailId = sessionMember.getCsEmailId();
+	        MemberLoginVO memberInfo = service.getMemberByEmail(csEmailId); // 이메일 ID를 사용하여 상세 정보 조회
+	        model.addAttribute("memberInfo", memberInfo);
+	    }
+	    return "member/myinfo_management";
+	}
 	
 	
 	
@@ -74,7 +82,7 @@ public class MemberLoginController {
 	                return "redirect:/memberMainPage.do"; // 메인 페이지로 리다이렉트
 	            } else {
 //	                return "member/ctConnect"; // 센터연동페이지
-	            	return "redirect:/logintest.do"; //비밀번호변경, 로그아웃테스트페이지
+	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
 	            }
 	        } else {
 	            // 강사인 경우
@@ -82,7 +90,7 @@ public class MemberLoginController {
 	                return "redirect:/trainerMainPage.do"; // 강사 메인 페이지로 리다이렉트
 	            } else {
 //	                return "member/ctConnect"; // 센터연동페이지
-	            	return "redirect:/logintest.do"; //비밀번호변경, 로그아웃테스트페이지
+	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
 	            }
 	        }
 	    } else {
@@ -229,9 +237,7 @@ public class MemberLoginController {
 
 	
 	
-	
-	
-	
+
 	
 
 	

@@ -29,6 +29,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.member.ConnectCt.ConnectCtVO" alias="ConnectCt" />
 		<typeAlias type="com.dev.pilafix.center.login.CenterLoginVO" alias="centerlogin" />
 		<typeAlias type="com.dev.pilafix.center.notice.NoticeHistoryVO" alias="noticeHistory" />
+        <typeAlias type="com.dev.pilafix.member.login_kakao.KakaoVO" alias="kakaologin" />
 		<typeAlias type="com.dev.pilafix.admin.login.AdminLoginVO" alias="adminlogin" />
 	</typeAliases>
 	
@@ -55,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/member-ConnectCt-mapper.xml" />
 		<mapper resource="mappings/center-login-mapper.xml" />
 		<mapper resource="mappings/center-notice-mapper.xml" />
+		<mapper resource="mappings/member-kakaologin-mapper.xml" />
 		<mapper resource="mappings/admin-login-mapper.xml" />
 	</mappers>
 
