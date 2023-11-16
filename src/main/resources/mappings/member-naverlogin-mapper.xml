@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NaverDAO">
+<resultMap type="naverlogin" id="naverloginResult">
+	<result property="email" column="CS_EMAIL_ID"/>
+</resultMap>
+
+<select id="getMemberEmail" resultType="int">
+	SELECT COUNT(*) FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
+</select>
+</mapper>

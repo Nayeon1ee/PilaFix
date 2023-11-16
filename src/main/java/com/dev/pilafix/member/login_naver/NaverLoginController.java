@@ -1,6 +1,13 @@
 package com.dev.pilafix.member.login_naver;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,26 +18,53 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class NaverLoginController {
 	
+	@Autowired
+	private NaverLoginService service;
+	
 	@RequestMapping("/naver.do")
     public String naver() {
         return "member/naverLoginTest";
     }
 	
-	 @RequestMapping(value="/naver/callback.do", method=RequestMethod.GET)
+	 @RequestMapping(value="/callback.do", method=RequestMethod.GET)
 	    public String callBack(){
 	        return "member/naverLoginCallback";
 	    }
 	 
-	 @PostMapping("/naver/naverLogin.do")
+	 @PostMapping("/naverLogin.do")
 	 @ResponseBody
-	 public String handleProfileData(@RequestBody NaverVO profileData ) {
+	 public String handleProfileData(@RequestBody NaverVO profileData,HttpSession session ) {
 	        // Now you can access individual fields of profileData
 	        System.out.println("Received profile data: " + profileData.toString());
 	        // Process the data as needed
-
-	        // Return a response if necessary
+//	        Map<String, Object> naverProfileData = new HashMap<>();
+//	        naverProfileData.put("naverProfileData", naverProfileData);
+	        String email = profileData.getEmail();
+	        //네이버 프로필에서 받아온 값 중에서 아이디가 디비에 존재하는지 확인 (1이면 존재,0이면 없음)
+	        int dbIdCheck = service.dbIdCheck(email);
+	        System.out.println(dbIdCheck);
+	        
+	        //아이디 디비에 존재하면 그사람 정보 세션에 담아서 그사람 메인 뿌려주고 
+	        //디비에 정보 없으면 회원 디비에 정보 넣고(회원가입 시키고) 메인 뿌려줌
+	        if (dbIdCheck > 0) {
+	        	
+	        }else {
+	        	
+	        }
+	       
 	        return "Data received successfully!";
+	       // return "redirect:/getNaverMemInfo.do";
 	    }
+	
+	 /**
+	 * 네이버로 로그인한 사람 정보가 회원디비에 있으면 그사람정보 가져와서 메인뿌려주고
+	 * 디비에 정보 없으면 회원 디비에 정보 넣고(회원가입하고) 메인 뿌려줌
+	 * @return
+	 */
+	 @GetMapping("/getNaverMemInfo.do")
+	public String getNaverMemInfo() {
+        return "";
+    }
 	
 //	 @PostMapping("/naver/naverLogin.do")
 //	 @ResponseBody
