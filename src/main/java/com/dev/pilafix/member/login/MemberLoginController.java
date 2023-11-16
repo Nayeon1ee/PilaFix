@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dev.pilafix.common.member.MemberVO;
 
@@ -93,8 +93,8 @@ public class MemberLoginController {
 	            if (hasConnectedCenters) {
 	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
 	            } else {
-	                return "member/ctConnect"; // 센터연동페이지
-//	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
+//	                return "member/ctConnect"; // 센터연동페이지
+	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
 	            }
 	        } else {
 	            // 강사인 경우
@@ -145,16 +145,17 @@ public class MemberLoginController {
 	}
 
 
-	@PostMapping("/verifyCurrentPassword.do")
-	@ResponseBody
-	public String verifyCurrentPassword(@RequestParam("currentPassword") String currentPassword,
-	                                    HttpSession session) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	    
-	    boolean passwordMatch = encoder.matches(currentPassword, member.getCsPassword());
-	    return "{\"passwordMatch\": " + passwordMatch + "}";
-	}
+//	@PostMapping("/verifyCurrentPassword.do")
+//	@ResponseBody
+//	public String verifyCurrentPassword(@RequestParam("currentPassword") String currentPassword,
+//	                                    HttpSession session) {
+//		MemberVO member = (MemberVO) session.getAttribute("member");
+//	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//	    
+////	    boolean passwordMatch = encoder.matches(currentPassword, member.getCsPassword());
+//	    boolean passwordMatch = BCrypt.checkpw(currentPassword, member.getCsPassword());
+//	    return "{\"passwordMatch\": " + passwordMatch + "}";
+//	}
 
 	/**
 	 * 현재 비밀번호가 일치하고
@@ -180,7 +181,8 @@ public class MemberLoginController {
 	    
 		System.out.println("변경된 비밀번호 암호화 : "+encoder.encode(newPassword));
 	    
-	    if (encoder.matches(currentPassword, member.getCsPassword())) {
+//	    if (encoder.matches(currentPassword, member.getCsPassword())) {
+	    if (BCrypt.checkpw(currentPassword, member.getCsPassword())) {	
 	        // 새 비밀번호 암호화
 	        String encodedNewPassword = encoder.encode(newPassword);        
 	        // DB에 새 비밀번호 업데이트
@@ -259,12 +261,7 @@ public class MemberLoginController {
 	    return response;
 	}
 
-	
-	
 
-	
-
-	
 	
 	@PostMapping("/logout.do")
 	public String logout(HttpSession session) {

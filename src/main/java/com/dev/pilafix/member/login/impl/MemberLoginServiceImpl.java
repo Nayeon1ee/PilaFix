@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,8 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 
 		if (member != null) {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			if (encoder.matches(csPassword, member.getCsPassword())) {
+//			if (encoder.matches(csPassword, member.getCsPassword())) {
+			if (BCrypt.checkpw(csPassword, member.getCsPassword())) {
 				return member;
 			}else {
 	            // 로그인 실패
