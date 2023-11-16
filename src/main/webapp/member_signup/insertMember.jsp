@@ -29,7 +29,7 @@
 	<button type="button" class="btn btn-primary" id="sendEmailButton">인증요청</button>
 </div>
 	<div class="mail-check-box">
-<input type="text" class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"><button id="" >확인</button>
+<input type="text" class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"><button type="button" id="" >확인</button>
 </div>
 	<span id="mail-check-warn"></span>
 	

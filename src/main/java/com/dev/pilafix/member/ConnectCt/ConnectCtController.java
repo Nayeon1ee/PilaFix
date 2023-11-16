@@ -23,9 +23,10 @@ public class ConnectCtController {
 	 * 센터연동화면 요청
 	 * @return
 	 */
+	//로그인후 센터연동화면 나옴 이 url은 기능 테스트위한 url이고 나중에 로그인이랑 연결하면 지워야함
 	@GetMapping("/ct.do")
 	public String ct(){
-		return "member_ctConnect/ctConnect.jsp";
+		return "member/ctConnect";
 	}
 
 	/**
