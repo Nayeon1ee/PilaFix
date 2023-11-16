@@ -20,10 +20,10 @@ public class QuestionReplyController {
 //	    return "questionreply/getQuestionReplyList";
 //	}
 	
-	@GetMapping("/getQuestionReplyList.do")
-	public String center_inquiry_response(Model model) {
-	    model.addAttribute("questionReplyList", service.getQuestionReplyList());
-	    return "questionreply/getQuestionReplyList";
+	@GetMapping("/getCTQuestionList.do")
+	public String getCTQuestionList(Model model) {
+	    model.addAttribute("questionReply", service.getQuestionReplyList());
+	    return "center/center_inquiry";
 	}
 	
 
@@ -32,22 +32,19 @@ public class QuestionReplyController {
 		
 		model.addAttribute("question", service.getTargetQuestion(reTargetPostNumber)); //답변의 targetNumber와 문의글의 qsNumber가 동일하므로 
 		model.addAttribute("questionReply", service.getQuestionReply(reTargetPostNumber));
-	    return "questionreply/getQuestionReply";
+	    return "center/center_inquiry_response";
 	}
 	
 	
-//	@GetMapping("/insertQuestionReply.do")
-//	public String insertForm() {
-//		return "questionreply/insertQuestionReply.jsp";
+//	@PostMapping("getQuestionReply.do")
+//	public String getCTquestionRE(@RequestParam("reTargetPostNumber")Integer reTargetPostNumber, Model model) {
+//		
+//		return "redirect: getQuestionReply.do?reTargetPostNumber=\" +vo.getReTargetPostNumber();
 //	}
 	
-//	@Transactional
-//	@PostMapping("/insertQuestionReply.do")
-//	public String insert(QuestionReplyVO vo) {
-//		service.insertQuestionReply(vo);
-//		service.updateAnswerYn(vo.getReTargetPostNumber());
-//		return "redirect:getQuestionReply.do?reTargetPostNumber="+vo.getReTargetPostNumber();
-//	}
+	
+	
+	
 
 //	@Transactional
 	@PostMapping("/insertQuestionReply.do")
