@@ -64,5 +64,9 @@ hr {
 	margin-right: 10px;
 }
 
+.p-check {
+	position: absolute;
+	left: 100px;
+}
 
 /* 메인 끝 */

@@ -23,14 +23,6 @@
 							<!-- Multi Columns Form -->
 							<form class="row g-3" id="registrationForm000" action="updateCenterInfo.do" method="post">
 							<input type="hidden" name="seq" value="${centerInfo.seq}">
-								<div class="col-md-5">
-									<label class="form-label">작성자</label>
-									<input type="text" class="form-control" value="${centerInfo.ctName }" disabled>
-								</div>
-								<div class="col-md-5">
-									<label class="form-label">작성일자</label>
-									<input type="text" class="form-control" value="${centerInfo.regDate }" disabled>
-								</div>
 								<div class="col-md-12">
 									<label class="form-label">제목</label>
 									<input type="text" class="form-control" id="titleInput000" name="title" value="${centerInfo.title }" />
@@ -39,11 +31,14 @@
 									<label class="form-label">내용</label>
 									<textarea class="form-control" id="contentInput000" name="content" style="height: 300px">${centerInfo.content }</textarea>
 								</div>
-
+								<div class="col-md-5">
+									<label class="form-label">작성일자</label>
+									<input type="text" class="form-control" value="${centerInfo.regDate }" disabled>
+								</div>
 								<div class="col-sm-10">
 								<label class="form-label">공개 여부</label>
 								<c:choose>
-								<c:when test="${openYN}">
+								<c:when test="${centerInfo.openYN}">
 									<fieldset class="row mb-3">
 					                  <div class="col-sm-10">
 					                    <div class="form-check form-check-inline">

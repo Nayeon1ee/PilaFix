@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ include file="admin_header_common_1.jsp" %>
+<%@ include file="admin_header_common.jsp" %>
   <main id="main" class="main">
 
     <div class="pagetitle">
@@ -112,7 +112,7 @@
 									</div>
 									<div class="col-md-6">
 										<label for="inputEmail5" class="form-label">사업자등록증 업로드</label>
-										<input type="file" class="form-control" id="businessRegistrationFile" name="businessRegistrationFile" >
+										<input type="file" class="form-control" name="businessRegistrationFile" >
 										<!-- 기능 구현 후 주석 해제 
 										<input class="form-control" type="file" id="formFile" name="businessRegistrationFile"> -->
 									</div>
@@ -226,52 +226,6 @@ function address() {
     }).open();
 }
 
-<!-- 파일 업로드 -->
-    // 서버에서 전달한 AWS S3 정보를 사용하여 AWS 객체를 초기화
-    AWS.config.update({
-        accessKeyId: '${accessKey}', // 서버에서 전달한 accessKey 값 사용
-        secretAccessKey: '${secretKey}', // 서버에서 전달한 secretKey 값 사용
-        region: '${region}' // AWS S3 bucket이 위치한 리전 설정
-    });
-
-    // S3 객체 생성
-    var s3 = new AWS.S3();
-
-    // 파일 업로드 함수
-    function uploadFile(file) {
-        var fileName = 'business_registration_file/' + file.name; // S3에 저장될 파일명 설정 (prefix를 원하는 대로 변경하세요)
-
-        // S3에 업로드할 파라미터 설정
-        var params = {
-            Bucket: '${bucketName}', // 서버에서 전달한 bucketName 값 사용
-            Key: fileName,
-            Body: file,
-            ACL: 'public-read' // 업로드된 파일을 모든 사용자에게 읽기 권한 부여
-        };
-
-        // S3에 파일 업로드 요청
-        s3.upload(params, function(err, data) {
-            if (err) {
-                console.log("S3 업로드 오류:", err);
-            } else {
-                console.log("S3 업로드 성공:", data.Location);
-                // 업로드 성공 시 AWS S3에서 반환된 파일 경로(data.Location)를 서버로 전송하거나 필요한 작업을 수행합니다.
-            }
-        });
-    }
-
-    // 파일 업로드 버튼 클릭 시 실행
-    document.getElementById('uploadFile').addEventListener('click', function() {
-        var fileInput = document.getElementById('businessRegistrationFile');
-        var file = fileInput.files[0];
-
-        if (file) {
-            // 파일이 선택되었을 경우 업로드 함수 호출
-            uploadFile(file);
-        } else {
-            console.log("파일을 선택하세요.");
-        }
-    });
 </script>
 
 

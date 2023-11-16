@@ -80,20 +80,21 @@
 										<th scope="col">수신자번호</th>
 										<th scope="col">상태</th>
 										<th scope="col">비고</th>
+										<th scope="col">상세보기</th>
 									</tr>
 								</thead>
 
 								<tbody>
 								<c:if test="${empty sendSmsHistoryList }">
 									<tr>
-										<td colspan="6">문자발송 이력이 존재하지 않습니다. </td>
+										<td colspan="7">문자발송 이력이 존재하지 않습니다. </td>
 									</tr>
 								</c:if>
 								<c:forEach var="list" items="${sendSmsHistoryList }">
 									<tr>
 										<td>${list.shSendCode }</td>
 										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSendDatetime }"/>
-										<td><a href="getSendSmsHistory.do?shSendCode=${list.shSendCode }">${list.shRecipientName }</a></td>
+										<td>${list.shRecipientName }</a></td>
 										<td>${list.shRecipientPhone }</td>
 										<c:choose>
 											<c:when test="${list.shSuccessYn }">
@@ -105,6 +106,7 @@
 												<td>${list.shFailReason }</td>
 											</c:otherwise>
 										</c:choose>
+										<td><a href="getSendSmsHistory.do?shSendCode=${list.shSendCode }">상세보기</a></td>
 									</tr>
 								</c:forEach>
 								</tbody>

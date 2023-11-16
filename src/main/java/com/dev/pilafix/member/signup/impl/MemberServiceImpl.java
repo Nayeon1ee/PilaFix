@@ -2,6 +2,7 @@ package com.dev.pilafix.member.signup.impl;
 
 import java.util.List;
 
+
 import java.util.Random;
 
 import javax.mail.AuthenticationFailedException;
@@ -16,8 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
+import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.signup.MemberService;
-import com.dev.pilafix.member.signup.MemberVO;
 import com.dev.pilafix.member.signup.TermsVO;
 
 

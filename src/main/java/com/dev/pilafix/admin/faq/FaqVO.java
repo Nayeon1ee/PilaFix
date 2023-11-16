@@ -1,6 +1,6 @@
 package com.dev.pilafix.admin.faq;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class FaqVO {
 	private int fqNumber;

@@ -64,9 +64,10 @@
 <!-- 검색필터 끝 -->
 
               
-              <!--  버튼 div 가져오세용~ -->
-              <div class="ad_noti_add_btn0 ad_noti_btn_000">
-	              <button type="button" class="btn btn-primary" onclick="location.href='insertAdminInfo.do'" > 등록</button>
+              <div class="terms-btn">
+	              <span class="terms-reg-btn">
+					<button type="button" class="btn btn-primary" onclick="location.href='insertAdminInfo.do'">공지사항 등록</button>
+				</span>
               </div>
               
               <table class="table datatable">
@@ -88,7 +89,7 @@
 					<td colspan="5">등록된 글이 없습니다.</td>
 				</tr>
 			</c:if>
-			<c:forEach var="adminInfo" items="${InfoList }">
+			<c:forEach var="adminInfo" items="${InfoList}">
 				<tr>
 					<td>${adminInfo.seq }</td>
 					<td><a href="getAdminInfo.do?seq=${adminInfo.seq }">${adminInfo.title }</a></td>
@@ -96,28 +97,14 @@
 					<td>${adminInfo.regDate }</td>
 					<td>${adminInfo.cnt }</td>
 					<c:choose>
-						<c:when test="${openYN}"><td>Y</td></c:when>
+						<c:when test="${adminInfo.openYN}"><td>Y</td></c:when>
 						<c:otherwise><td>N</td></c:otherwise>
 					</c:choose>
 				</tr>
 			</c:forEach>                                     
                 </tbody>
               </table>
-              <!-- End Table with stripped rows -->             	 
-             	 
-             <!-- 페이징 처리 시작 -->
-              <div class="admin-screen-paging">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">4</a></li>
-                  <li class="page-item"><a class="page-link" href="#">5</a></li>
-                  <li class="page-item"><a class="page-link" href="#">다음</a></li>
-                </ul>
-             </div>
-      <!-- 페이징 처리 끝 -->	 
+              <!-- End Table with stripped rows -->
 
             </div>
           </div>

@@ -33,7 +33,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 
 		model.addAttribute("serverTime", formattedDate);
-
+		System.out.println("인덱스 화면 호출");
 		return "home";
 	}
 	// 수미

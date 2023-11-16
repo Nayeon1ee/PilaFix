@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ include file="center_header_common.jsp" %>
-
 	<main id="main" class="main">
-
 		<div class="pagetitle">
 			<h1>공지사항관리</h1>
 			<nav>
@@ -15,26 +12,15 @@
 			</nav>
 		</div>
 		<!-- End Page Title -->
-
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
-
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">공지사항 상세 페이지</h5>
 							<p>센터가 공지사항을 조회할 수 있는 페이지입니다.</p>
-
 							<!-- Multi Columns Form -->
 							<form class="row g-3" id="registrationForm000">
-								<div class="col-md-5">
-									<label class="form-label">작성자</label>
-									<input type="text" class="form-control" value="${centerInfo.ctName }" disabled>
-								</div>
-								<div class="col-md-5">
-									<label class="form-label">작성일자</label>
-									<input type="text" class="form-control" value="${centerInfo.regDate }" disabled>
-								</div>
 								<div class="col-md-12">
 									<label class="form-label">제목</label>
 									<input type="text" class="form-control" id="titleInput000" value="${centerInfo.title }" disabled>
@@ -47,9 +33,13 @@
 							        <label class="form-label">조회수</label>
 							        <input type="text" class="form-control" id="titleInput000" value="${centerInfo.cnt }" disabled>
 							    </div>
+							    <div class="col-md-5">
+									<label class="form-label">작성일자</label>
+									<input type="text" class="form-control" value="${centerInfo.regDate }" disabled>
+								</div>
 								<div class="col-md-12">
 							        <label class="form-label">공개 여부</label>
-							        <input type="text" class="form-control" id="titleInput000" value="${openYN ? '공개' : '비공개'}" disabled>
+							        <input type="text" class="form-control" id="titleInput000" value="${centerInfo.openYN ? '공개' : '비공개'}" disabled>
 							    </div>
 								<div class="text-center">
 				                  <button type="button" class="btn btn-primary" onclick="location.href='updateCenterInfo.do?seq=${centerInfo.seq }'">수정</button>
@@ -58,14 +48,11 @@
 				                </div>
 							</form>
 							<!-- End Multi Columns Form -->
-
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</section>
-
 	</main>
 	<!-- End #main -->
 	 <div class="modal fade" id="basicModal" tabindex="-1">
@@ -98,8 +85,6 @@ function deleteCommunity(cmNumber) {
 			.catch(error => {
 				console.error(error);
 			});
-
 };
 </script>
-
 <%@ include file="center_footer_common.jsp" %>

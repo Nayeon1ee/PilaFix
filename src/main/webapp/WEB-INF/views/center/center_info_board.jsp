@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="center_header_common.jsp" %>
 	<main id="main" class="main">
-
+		
+		<div class="pagetitle">
 			<h1>공지사항관리</h1>
 			<nav>
 				<ol class="breadcrumb">
@@ -69,11 +70,13 @@
 
 							<!-- Table with stripped rows -->
 
-							<div class="ad_noti_add_btn0 ad_noti_btn_000">
-								<button type="button" class="btn btn-primary" onclick="location.href='insertCenterInfo.do'">
-									<i class="bi"></i> + 공지사항등록
-								</button>
-							</div>
+						<div class="terms-btn">
+							<span class="terms-reg-btn">
+								<button type="button" class="btn btn-primary" onclick="location.href='insertCenterInfo.do'">공지사항 등록</button>
+							</span>
+						</div>
+
+				
 
 							<table class="table datatable">
 
@@ -81,7 +84,6 @@
 									<tr>
 										<th scope="col">NO.</th>
 										<th scope="col">글제목</th>
-										<th scope="col">작성자</th>
 										<th scope="col">작성일자</th>
 										<th scope="col">조회수</th>
 										<th scope="col">공개</th>
@@ -98,41 +100,21 @@
 										<tr>
 											<td>${centerInfo.seq }</td>
 											<td><a href="getCenterInfo.do?seq=${centerInfo.seq }">${centerInfo.title }</a></td>
-											<td>${centerInfo.ctName }</td>
 											<td>${centerInfo.regDate }</td>
 											<td>${centerInfo.cnt }</td>
 											<c:choose>
-												<c:when test="${openYN}"><td>Y</td></c:when>
+												<c:when test="${centerInfo.openYN}"><td>Y</td></c:when>
 												<c:otherwise><td>N</td></c:otherwise>
 											</c:choose>
-											<td>${centerInfo.openYN }</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 							<!-- End Table with stripped rows -->
-
-							<!-- 페이징 처리 시작 -->
-							<div class="admin-screen-paging">
-								<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#">이전</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item"><a class="page-link" href="#">다음</a></li>
-								</ul>
-							</div>
-							<!-- 페이징 처리 끝 -->
-
-						</div>
 					</div>
-
 				</div>
 			</div>
 		</section>
-
 	</main>
 	<!-- End #main -->
 <%@ include file="center_footer_common.jsp" %>

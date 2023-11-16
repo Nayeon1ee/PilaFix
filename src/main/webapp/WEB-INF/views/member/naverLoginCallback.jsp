@@ -5,15 +5,97 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Insert title here</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>네이버 로그인 콜백</title>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
- 
-<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var naver_id_login = new naver_id_login("glOsBPVhLHxSw_eaBO2D", "http://localhost:8080/pilafix/naver/callback.do");
+    // 접근 토큰 값 출력
+    alert(naver_id_login.oauthParams.access_token);
+    // 네이버 사용자 프로필 조회
+    naver_id_login.get_naver_userprofile("naverSignInCallback()");
+	console.log(naver_id_login.getProfileData('mobile'));
+    // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+    function naverSignInCallback() {
+// naver_id_login.getProfileData('프로필항목명');
+		// 프로필 항목은 네이버 개발가이드를 참고하시기 바랍니다.
+		
+    	var profileData = {
+                email: naver_id_login.getProfileData('email'),
+                id: naver_id_login.getProfileData('id'),
+                birthday: naver_id_login.getProfileData('birthday'),
+                gender: naver_id_login.getProfileData('gender'),
+                mobile: naver_id_login.getProfileData('mobile'),
+                name: naver_id_login.getProfileData('name'),
+                birthyear: naver_id_login.getProfileData('birthyear'),
+            };
+    	 $.ajax({
+             type: 'POST',
+             url: 'naverLogin.do', // Replace with your actual controller endpoint
+             contentType: 'application/json',
+             data: JSON.stringify(profileData),
+             success: function(response) {
+                 console.log('Profile data sent to server successfully:', response);
+             },
+             error: function(error) {
+                 console.error('Error sending profile data to server:', error);
+             }
+         });
+
+    }
+
+</script>
+<!--  
+<script>
+var naver_id_login = new naver_id_login("glOsBPVhLHxSw_eaBO2D", "http://localhost:8080/naver/callback");
+// 접근 토큰 값 출력
+alert(naver_id_login.oauthParams.access_token);
+// 네이버 사용자 프로필 조회
+naver_id_login.get_naver_userprofile("naverSignInCallback()");
+console.log('콜백실행')  
+// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+
+function naverSignInCallback() {
+  alert(naver_id_login.getProfileData('email'));
+  alert(naver_id_login.getProfileData('nickname'));
+  alert(naver_id_login.getProfileData('age'));
+  
+  nickname = naver_id_login.getProfileData('nickname');
+	name = naver_id_login.getProfileData('name');
+	email = naver_id_login.getProfileData('email');
+	id = naver_id_login.getProfileData('id');
+		
+	
+		$.ajax({
+			type: 'POST',
+			url: 'naverLogin.do', 
+			data: {
+				'userid': nickname,
+				'username': name,
+				'email': email,
+				'naver_uid': id 
+				}, // data
+			dataType: 'text',
+			success: function(result) {
+				if(result == 1) {
+					console.log('성공')
+					closePopupAndRedirect(); 
+				} else  {
+					window.close();
+				}
+			}, 
+			error: function(result) {
+				window.close();
+			} 
+		})
+}
+</script>-->
+ <!--  
 <script>
     var naverLogin = new naver.LoginWithNaverId({
-        clientId: "tT5efP_w58d8uG3tUgjl", // 본인걸로 수정, 띄어쓰기 금지.
+        clientId: "glOsBPVhLHxSw_eaBO2D", // 본인걸로 수정, 띄어쓰기 금지.
         callbackUrl: "http://localhost:8080/pilafix/saveNaverLogin.do", // 아무거나 설정
         // 로그인시 팝업 띄울건지
         isPopup: false,
@@ -59,5 +141,6 @@
     });
 });
 </script>
+-->
 </body>
 </html>

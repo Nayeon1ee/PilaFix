@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
-import com.dev.pilafix.member.login.MemberLoginVO;
+import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.signup.TermsVO;
 
 @Repository
@@ -18,7 +18,7 @@ public class MemberLoginDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public MemberLoginVO getMemberLoginInfo(String csEmailId) {
+	public MemberVO getMemberLoginInfo(String csEmailId) {
         return sqlSessionTemplate.selectOne("MemberLoginDAO.getMemberLoginInfo", csEmailId);
 	} 
 

@@ -29,12 +29,12 @@
 	</select>
 	<insert id="insertCenterLesson" parameterType="centerLesson">
 		INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE, LS_DATE, LS_TIME, LS_CAPACITY, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN)
-		VALUES (CONCAT('LS',NEXTVAL('SEQ_LESSON')), #{lsName}, #{lsType}, to_timestamp('${lsDate}', 'yyyy-MM-dd'), to_timestamp('${lsTime}', 'HH24:00'), #{lsCapacity}, #{trainerMemberCode}, #{lsContent}, 111, CURRENT_TIMESTAMP, true)
+		VALUES (CONCAT('LS', NEXTVAL('SEQ_LESSON')), #{lsName}, #{lsType}, to_timestamp('${lsDate}', 'yyyy-MM-dd'), to_timestamp('${lsTime}', 'HH24:00'), #{lsCapacity}, #{trainerMemberCode}, #{lsContent}, 111, CURRENT_TIMESTAMP, ${lsColseYN})
 	</insert>
 	<delete id="deleteCenterLesson" parameterType="centerLesson">
 		DELETE FROM TBL_LESSON WHERE LS_CODE = #{lsCode}
 	</delete>
-	<update id="updateCenterLesson"  parameterType="Integer">
+	<update id="updateCenterLesson"  parameterType="centerLesson">
 		UPDATE TBL_LESSON SET LS_CLOSE_YN=${lsColseYN} WHERE LS_CODE=#{lsCode}
 	</update>
 </mapper>

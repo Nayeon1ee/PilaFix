@@ -43,7 +43,7 @@
 					<div class="col-sm-10">
 						<label class="form-label">공개 여부</label>
 						<c:choose>
-						<c:when test="${openYN}">
+						<c:when test="${adminInfo.openYN}">
 							<fieldset class="row mb-3">
 			                  <div class="col-sm-10">
 			                    <div class="form-check form-check-inline">

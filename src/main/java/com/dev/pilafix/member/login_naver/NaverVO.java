@@ -3,60 +3,67 @@ package com.dev.pilafix.member.login_naver;
 import java.sql.Date;
 
 public class NaverVO {
-	private String n_birthyear;
-	private String n_birthday;
-	private String n_email;
-	private String n_gender;
-	private String n_id;
-	private String n_name;
-	private String n_mobile;
-	public String getN_birthyear() {
-		return n_birthyear;
+	private String email;
+	private String id;
+	private String birthday;
+	private String gender;
+	private String mobile;
+	private String name;
+	private String birthyear;
+	
+	
+	
+	public String getEmail() {
+		return email;
 	}
-	public void setN_birthyear(String n_birthyear) {
-		this.n_birthyear = n_birthyear;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getN_birthday() {
-		return n_birthday;
+	public String getId() {
+		return id;
 	}
-	public void setN_birthday(String n_birthday2) {
-		this.n_birthday = n_birthday2;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getN_email() {
-		return n_email;
+	public String getBirthday() {
+		return birthday;
 	}
-	public void setN_email(String n_email) {
-		this.n_email = n_email;
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
-	public String getN_gender() {
-		return n_gender;
+	public String getGender() {
+		return gender;
 	}
-	public void setN_gender(String n_gender) {
-		this.n_gender = n_gender;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public String getN_id() {
-		return n_id;
+	public String getMobile() {
+		return mobile;
 	}
-	public void setN_id(String n_id) {
-		this.n_id = n_id;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
-	public String getN_name() {
-		return n_name;
+	public String getName() {
+		return name;
 	}
-	public void setN_name(String n_name) {
-		this.n_name = n_name;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getN_mobile() {
-		return n_mobile;
+	public String getBirthyear() {
+		return birthyear;
 	}
-	public void setN_mobile(String n_mobile) {
-		this.n_mobile = n_mobile;
+	public void setBirthyear(String birthyear) {
+		this.birthyear = birthyear;
 	}
 	@Override
 	public String toString() {
-		return "NaverVO [n_birthyear=" + n_birthyear + ", n_birthday=" + n_birthday + ", n_email=" + n_email
-				+ ", n_gender=" + n_gender + ", n_id=" + n_id + ", n_name=" + n_name + ", n_mobile=" + n_mobile + "]";
+		return "NaverVO [email=" + email + ", id=" + id + ", birthday=" + birthday + ", gender=" + gender + ", mobile="
+				+ mobile + ", name=" + name + ", birthyear=" + birthyear + "]";
 	}
+	
+	
+	
+	
 	
 	
 	
