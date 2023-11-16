@@ -8,7 +8,7 @@
 		<result property="ctCode" column="CT_CODE"/>
 </resultMap>
 
-<resultMap type="com.dev.pilafix.member.login.MemberLoginVO" id="member">
+<resultMap type="com.dev.pilafix.common.member.MemberVO" id="member">
 		<result property="csMemberCode" column="MEMBER_CODE"/>
 		<result property="csName" column="MEMBER_NAME"/>
 		<result property="csPhoneNumber1" column="CS_PHONE_NUMBER1"/>

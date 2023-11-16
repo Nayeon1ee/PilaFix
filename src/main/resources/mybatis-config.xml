@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/center-lesson-mapper.xml" />
 		<mapper resource="mappings/center-ticket-mapper.xml" />
 		<mapper resource="mappings/member-login-mapper.xml" />
-		<mapper resource="mappings/member-ConnectCt-mapper.xml" />
+		<mapper resource="mappings/member-connectct-mapper.xml" />
 		<mapper resource="mappings/center-login-mapper.xml" />
 		<mapper resource="mappings/center-notice-mapper.xml" />
 		<mapper resource="mappings/member-kakaologin-mapper.xml" />
