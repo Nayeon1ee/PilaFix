@@ -18,7 +18,8 @@
 	<select id="getFaqInfoList" resultMap="faqInfoResult" parameterType="faqInfo">
 		SELECT C.ROLE_NAME, A.FQ_TYPE, A.FQ_NUMBER, A.FQ_TITLE, A.FQ_CONTENT, A.FQ_REGDATE
 		FROM TBL_FAQ AS A
-		LEFT OUTER JOIN TBL_USER_ROLE C ON C.ROLE_CODE = A.FQ_TYPE;
+		LEFT OUTER JOIN TBL_USER_ROLE C ON C.ROLE_CODE = A.FQ_TYPE
+		ORDER BY A.FQ_NUMBER DESC;
 	</select>
 	<insert id="insertFaqInfo" parameterType="faqInfo">
 		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN, FQ_TYPE) VALUES(nextval('seq_faq'), #{fqTitle}, #{fqContent}, '999', CURRENT_TIMESTAMP, #{fqOpenYn} , #{fqType})

@@ -37,14 +37,16 @@ public class AdminLoginController {
 	                          @RequestParam("adPassword") String adPassword,
 	                          HttpSession session, RedirectAttributes redirectAttrs) {
 	    
-		AdminVO adminInfo = service.adminLogin(adId, adPassword);
+		AdminVO admin = service.adminLogin(adId, adPassword);
 	    
-	    if (adminInfo != null) {
-	        session.setAttribute("adminInfo", adminInfo);
+	    if (admin != null) {
+	        session.setAttribute("admin", admin);
 	        return "admin/admin_mypage";  
 	    } else {
 	        redirectAttrs.addFlashAttribute("loginError", "존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
 	        return "redirect:adminLogin.do"; 
 	    }
 	}
+	
+	
 }
