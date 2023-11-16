@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dev.pilafix.common.AwsS3;
+import com.dev.pilafix.common.member.CenterVO;
 
 
 @Controller

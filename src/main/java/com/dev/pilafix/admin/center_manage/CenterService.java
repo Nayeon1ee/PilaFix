@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.dev.pilafix.common.member.CenterVO;
+
 public interface CenterService {
 	
 	List<CenterVO> getCenterList();

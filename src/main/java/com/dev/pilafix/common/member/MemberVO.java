@@ -20,9 +20,9 @@ public class MemberVO {
 	private boolean csAgreementYn2; //약관동의2
 	private boolean csAgreementYn3; //약관동의3
 	private String csRegistrationType; // 가입유형 : 일반/카카오/네이버/구글
-	private String connectedCenterCode1; // 현재연동센터코드1 : 미연동 상태일 수 있음
-	private String connectedCenterCode2; // 현재연동센터코드2 : 미연동 상태일 수 있음
-	private String connectedCenterCode3; // 현재연동센터코드3 : 미연동 상태일 수 있음
+	private int connectedCenterCode1; // 현재연동센터코드1 : 미연동 상태일 수 있음
+	private int connectedCenterCode2; // 현재연동센터코드2 : 미연동 상태일 수 있음
+	private int connectedCenterCode3; // 현재연동센터코드3 : 미연동 상태일 수 있음
 	private String ticketCodePersonal1; // 보유수강권코드_개인 : 보유한 수강권이 없을 수 있음/수강권 결제 완료 시 해당 컬럼 업데이트  
 	private int ticketRemainingCountPersonal1; // 보유수강권잔여횟수_개인 : 수강권 결제 완료 시 해당 컬럼 업데이트  
 	private Date ticketStartDatePersonal1; // 보유수강권시작일자_개인
@@ -33,6 +33,9 @@ public class MemberVO {
 	private Date ticketStartDateGroup1; // 보유수강권시작일자_그룹
 	private Date ticketExpiryDateGroup1; // 보유수강권만료일자_그룹
 	private boolean ticketExpiryYnGroup1; // 보유수강권만료여부_그룹
+	private String connectedCenterName1; //연동 센터 명 (센터 코드랑 조인해서 가져옴)
+	private String connectedCenterName2; //연동 센터 명 (센터 코드랑 조인해서 가져옴)
+	private String connectedCenterName3; //연동 센터 명 (센터 코드랑 조인해서 가져옴)
 	
 	public int getCsMemberCode() {
 		return csMemberCode;
@@ -130,22 +133,22 @@ public class MemberVO {
 	public void setCsRegistrationType(String csRegistrationType) {
 		this.csRegistrationType = csRegistrationType;
 	}
-	public String getConnectedCenterCode1() {
+	public int getConnectedCenterCode1() {
 		return connectedCenterCode1;
 	}
-	public void setConnectedCenterCode1(String connectedCenterCode1) {
+	public void setConnectedCenterCode1(int connectedCenterCode1) {
 		this.connectedCenterCode1 = connectedCenterCode1;
 	}
-	public String getConnectedCenterCode2() {
+	public int getConnectedCenterCode2() {
 		return connectedCenterCode2;
 	}
-	public void setConnectedCenterCode2(String connectedCenterCode2) {
+	public void setConnectedCenterCode2(int connectedCenterCode2) {
 		this.connectedCenterCode2 = connectedCenterCode2;
 	}
-	public String getConnectedCenterCode3() {
+	public int getConnectedCenterCode3() {
 		return connectedCenterCode3;
 	}
-	public void setConnectedCenterCode3(String connectedCenterCode3) {
+	public void setConnectedCenterCode3(int connectedCenterCode3) {
 		this.connectedCenterCode3 = connectedCenterCode3;
 	}
 	public String getTicketCodePersonal1() {
@@ -208,6 +211,24 @@ public class MemberVO {
 	public void setTicketExpiryYnGroup1(boolean ticketExpiryYnGroup1) {
 		this.ticketExpiryYnGroup1 = ticketExpiryYnGroup1;
 	}
+	public String getConnectedCenterName1() {
+		return connectedCenterName1;
+	}
+	public void setConnectedCenterName1(String connectedCenterName1) {
+		this.connectedCenterName1 = connectedCenterName1;
+	}
+	public String getConnectedCenterName2() {
+		return connectedCenterName2;
+	}
+	public void setConnectedCenterName2(String connectedCenterName2) {
+		this.connectedCenterName2 = connectedCenterName2;
+	}
+	public String getConnectedCenterName3() {
+		return connectedCenterName3;
+	}
+	public void setConnectedCenterName3(String connectedCenterName3) {
+		this.connectedCenterName3 = connectedCenterName3;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [csMemberCode=" + csMemberCode + ", csRoleCode=" + csRoleCode + ", csEmailId=" + csEmailId
@@ -223,7 +244,9 @@ public class MemberVO {
 				+ ", ticketExpiryYnPersonal1=" + ticketExpiryYnPersonal1 + ", ticketCodeGroup1=" + ticketCodeGroup1
 				+ ", ticketRemainingCountGroup1=" + ticketRemainingCountGroup1 + ", ticketStartDateGroup1="
 				+ ticketStartDateGroup1 + ", ticketExpiryDateGroup1=" + ticketExpiryDateGroup1
-				+ ", ticketExpiryYnGroup1=" + ticketExpiryYnGroup1 + "]";
+				+ ", ticketExpiryYnGroup1=" + ticketExpiryYnGroup1 + ", connectedCenterName1=" + connectedCenterName1
+				+ ", connectedCenterName2=" + connectedCenterName2 + ", connectedCenterName3=" + connectedCenterName3
+				+ "]";
 	}
 	
 	

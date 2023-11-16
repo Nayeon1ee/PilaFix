@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.dev.pilafix.common.member.MemberVO;
+
 @Controller
 public class MemberTrainerManageController {
 	

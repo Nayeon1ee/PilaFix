@@ -1,9 +1,6 @@
 package com.dev.pilafix.admin.center_manage.impl;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
@@ -11,24 +8,14 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.dev.pilafix.admin.center_manage.CenterService;
-import com.dev.pilafix.admin.center_manage.CenterVO;
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
+import com.dev.pilafix.common.member.CenterVO;
 
 @Service
 public class CenterServiceImpl implements CenterService {
