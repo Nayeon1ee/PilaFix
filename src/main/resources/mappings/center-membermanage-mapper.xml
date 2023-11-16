@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CenterDAO">
+	<resultMap type="center" id="centerResult">
+		<id property="ctCode" column="CT_CODE"/>
+		<result property="ctName" column="CT_NAME" />
+		<result property="ctPhoneNumber1" column="CT_PHONE_NUMBER1" />
+		<result property="ctPhoneNumber2" column="CT_PHONE_NUMBER2" />
+		<result property="ctPhoneNumber3" column="CT_PHONE_NUMBER3" />
+		<result property="ctAddress1" column="CT_ADDRESS1" />
+		<result property="ctAddress2" column="CT_ADDRESS2" />
+		<result property="ctAddress3" column="CT_ADDRESS3" />
+		<result property="ownerName" column="OWNER_NAME" />
+		<result property="businessRegistrationNumber" column="BUSINESS_REGISTRATION_NUMBER" />
+		<result property="ownerPhoneNumber1" column="OWNER_PHONE_NUMBER1" />
+		<result property="ownerPhoneNumber2" column="OWNER_PHONE_NUMBER2" />
+		<result property="ownerPhoneNumber3" column="OWNER_PHONE_NUMBER3" />
+		<result property="ownerEmail" column="OWNER_EMAIL" />
+		<result property="contractStartDate" column="CONTRACT_START_DATE" />
+		<result property="contractEndDate" column="CONTRACT_END_DATE" />
+		<result property="contractExpiryYn" column="CONTRACT_EXPIRY_YN" />
+		<result property="contractRevokeYn" column="CONTRACT_REVOKE_YN" />
+		<result property="ctRegistrationDate" column="CT_REGISTRATION_DATE" />
+		<result property="ctId" column="CT_ID" />
+		<result property="ctPassword" column="CT_PASSWORD" />
+		<result property="roleCode" column="ROLE_CODE" />
+		<result property="businessRegistrationFilePath" column="BUSINESS_REGISTRATION_FILE_PATH" />
+	</resultMap>
+	
+	<select id="getCenter" resultMap="centerResult" >
+		SELECT * FROM TBL_CENTER WHERE CT_CODE=#{ctCode}
+	</select>
+	
+	<select id="getCenterList" resultMap="centerResult">
+		SELECT CT_CODE,CT_NAME,CT_ADDRESS1,CT_ADDRESS2,CT_ADDRESS3,CT_PHONE_NUMBER1,CT_PHONE_NUMBER2,CT_PHONE_NUMBER3,
+		CT_ID,OWNER_NAME,CONTRACT_START_DATE,CONTRACT_END_DATE,CONTRACT_REVOKE_YN,CONTRACT_EXPIRY_YN FROM TBL_CENTER 
+		ORDER BY CT_CODE DESC;
+	</select>
+	
+	<!-- 주소 변경 해야 함 -->
+	<insert id="insertCenter" parameterType="center">
+		INSERT INTO	TBL_CENTER
+		VALUES(nextval('seq_center'),#{ctName},#{ctPhoneNumber1}, #{ctPhoneNumber2},#{ctPhoneNumber3}, 
+		#{ctAddress1}, #{ctAddress2}, #{ctAddress3},
+		#{ownerName},#{businessRegistrationNumber},#{ownerPhoneNumber1},#{ownerPhoneNumber2},#{ownerPhoneNumber3},
+		#{ownerEmail},TO_TIMESTAMP(#{contractStartDate}, 'YYYY-MM-DD'),TO_TIMESTAMP(#{contractEndDate}, 'YYYY-MM-DD'),
+		'F', 'F',CURRENT_TIMESTAMP,#{ctId},#{ctPassword},'CE',#{businessRegistrationFilePath})
+	</insert>
+	<!-- 주소 변경 해야 함 -->
+	<update id="updateCenter" parameterType="center">
+		UPDATE TBL_CENTER SET CT_NAME=#{ctName}, CT_ADDRESS1='API 연동 예정1', CT_ADDRESS2='API 연동 예정2', CT_ADDRESS3='API 연동 예정3',
+		CT_PHONE_NUMBER1=#{ctPhoneNumber1},CT_PHONE_NUMBER2=#{ctPhoneNumber2},CT_PHONE_NUMBER3=#{ctPhoneNumber3},
+		OWNER_EMAIL=#{ownerEmail}, CONTRACT_START_DATE=TO_TIMESTAMP(#{contractStartDate}, 'YYYY-MM-DD'),CONTRACT_END_DATE=TO_TIMESTAMP(#{contractEndDate}, 'YYYY-MM-DD'),
+		OWNER_PHONE_NUMBER1=#{ownerPhoneNumber1},OWNER_PHONE_NUMBER2=#{ownerPhoneNumber2},OWNER_PHONE_NUMBER3=#{ownerPhoneNumber3}
+		WHERE CT_CODE=#{ctCode}
+	</update>
+	
+	<delete id="deleteCenter"  parameterType="Integer">
+		DELETE FROM TBL_CENTER WHERE CT_CODE=#{ctCode}
+	</delete>
+	
+	<!-- 이메일 체크 -->
+	<select id="emailCheck" resultType="int">
+		SELECT COUNT(*) FROM TBL_CENTER WHERE OWNER_EMAIL=#{ownerEmail}
+	</select>
+	
+	<!-- 아이디 체크 -->
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*) FROM TBL_CENTER WHERE CT_ID=#{ctId}
+	</select>
+	
+	<!-- 이메일 발송 이력 등록 -->
+	<insert id="insertSendEmailHistory" parameterType="emailHistory">
+		INSERT INTO TBL_SEND_EMAIL_HISTORY(MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE, MH_EMAIL_SEND_DATETIME, MH_RECIPIENT_NAME,MH_RECIPIENT_TITLE,MH_RECIPIENT_CONTENT, MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME,MH_FAIL_REASON )
+		VALUES(CONCAT('EH',NEXTVAL('SEQ_SEND_EMAIL_HISTORY')), #{mhEmailSendType}, CURRENT_TIMESTAMP, #{mhRecipientName},#{mhRecipientTitle}, #{mhRecipientContent}, #{mhRecipientEmail}, #{mhSuccessYN},#{mhSuccessDate}, #{mhFailReason})
+	</insert>
+	
+	<!-- 해지 상태로 변경  -->
+	<update id="updateContractRevokeYN" parameterType="Integer">
+		UPDATE TBL_CENTER set CONTRACT_REVOKE_YN=TRUE WHERE ct_code=#{ctCode};
+	</update>
+	
+	<!-- 비밀번호 초기화  -->
+	<update id="resetPassword" parameterType="Integer">
+		UPDATE TBL_CENTER set CT_PASSWORD='1111' WHERE ct_code=#{ctCode};
+	</update>
+	
+</mapper>

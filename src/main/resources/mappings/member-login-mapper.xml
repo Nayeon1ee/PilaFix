@@ -35,6 +35,14 @@
 
 	</resultMap>
 	
+	<select id="loginTest" resultType="String">
+		SELECT CS_PASSWORD FROM TBL_CST WHERE CS_EMAIL_ID=#{csEmailId}
+	</select>
+	
+	<update id="updatePwTest" >
+        UPDATE TBL_CST SET CS_PASSWORD = #{newPassword} WHERE CS_EMAIL_ID = #{csEmailId}
+    </update>
+	
 	<select id="login">
 		SELECT CS_PASSWORD FROM TBL_CST WHERE CS_EMAIL_ID=#{csEmailId}
 	</select>
