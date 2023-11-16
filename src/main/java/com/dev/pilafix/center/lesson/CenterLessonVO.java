@@ -12,11 +12,12 @@ public class CenterLessonVO {
 	private int lsCurrentApplication;
 	private int trainerMemberCode;
 	private String lsContent;
-	private String centerCode;
+	private int centerCode;
 	private Date lsRegistrationDate;
 	private boolean lsColseYN;
 	private String lsRegistrationDateToString;
 
+	private int csMemberCode;
 	private String csName;
 
 	public String getLsCode() {
@@ -91,11 +92,11 @@ public class CenterLessonVO {
 		this.lsContent = lsContent;
 	}
 
-	public String getCenterCode() {
+	public int getCenterCode() {
 		return centerCode;
 	}
 
-	public void setCenterCode(String centerCode) {
+	public void setCenterCode(int centerCode) {
 		this.centerCode = centerCode;
 	}
 
@@ -123,6 +124,14 @@ public class CenterLessonVO {
 		this.lsRegistrationDateToString = lsRegistrationDateToString;
 	}
 
+	public int getCsMemberCode() {
+		return csMemberCode;
+	}
+
+	public void setCsMemberCode(int csMemberCode) {
+		this.csMemberCode = csMemberCode;
+	}
+
 	public String getCsName() {
 		return csName;
 	}
@@ -137,7 +146,8 @@ public class CenterLessonVO {
 				+ ", lsTime=" + lsTime + ", lsCapacity=" + lsCapacity + ", lsCurrentApplication=" + lsCurrentApplication
 				+ ", trainerMemberCode=" + trainerMemberCode + ", lsContent=" + lsContent + ", centerCode=" + centerCode
 				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsColseYN=" + lsColseYN
-				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", csName=" + csName + "]";
+				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", csMemberCode=" + csMemberCode
+				+ ", csName=" + csName + "]";
 	}
 
 }

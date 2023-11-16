@@ -63,10 +63,10 @@
 	
 	
 	<!-- 로그인 실패 메시지 표시 -->
-    <c:if test="${not empty loginError}">
-        <div class="alert alert-danger" role="alert">
-            ${loginError}
-        </div>
+    <c:if test="${not empty message}">
+        <!-- <div class="alert alert-danger" role="alert"> -->
+            ${message}
+        <!-- </div> -->
     </c:if>
     
     

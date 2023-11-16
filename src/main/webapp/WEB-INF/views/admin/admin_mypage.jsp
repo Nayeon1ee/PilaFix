@@ -16,18 +16,14 @@
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
-
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">관리자의 상세정보 페이지</h5>
 							<!-- <p>센터의 상세정보를 조회하고 비밀번호 변경이 가능한 페이지</p> -->
-
 							<!-- 
              	 이 영역에 가져온 컴포넌트 넣기 
              	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
              	 -->
-
-
 							<p style="magin-top: 1%;"></p>
 							<!--  
 							<div class="row mb-300" style="width: 122%; margin-top: 1%;">
@@ -36,56 +32,54 @@
 								</div>
 							</div>
 							-->
-
 							<form name="admin_info">
-
 								<div class="col-120">
 									<label for="inputAddress5" class="form-label">아이디</label>
 								</div>
 								<div class="col-120">
-									<input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerEmail }" 
+									<input type="text" class="form-control" id="inputAddres5s" value="${admin.adId }" 
 										 style="width: 93%;" disabled>
 									<div class="row mb-3"></div>
 								</div>
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">대표자 이름</label> <input
-										type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerName }" 
+									<label for="inputAddress5" class="form-label">관리자명</label> <input
+										type="text" class="form-control" id="inputAddres5s" value="${admin.adName }" 
 										placeholder="1234 Main St" disabled>
 								</div>
-								<div class="col-40" style="margin-top: 1%;">
+								<%-- <div class="col-40" style="margin-top: 1%;">
 									<label for="inputAddress2" class="form-label">사업자 등록번호</label>
 									<input type="text" class="form-control" id="inputAddress2" value="${centerInfo.businessRegistrationNumber }"
 										placeholder="Apartment, studio, or floor" disabled>
-								</div>
-								<div class="col-40">
+								</div> --%>
+								<%-- <div class="col-40">
 									<label for="inputAddress5" class="form-label">대표자 이메일</label> <input
 										type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerEmail }"
 										placeholder="이메일을 입력하세요" disabled>
 									<!-- <div class="col-sm-10">
 										<button type="submit" class="btn btn-primary">중복확인</button>
 									</div> -->
-								</div>
+								</div> --%>
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">대표자 번호</label>
+									<label for="inputAddress5" class="form-label">관리자 번호</label>
 									<div class="col-400" style="display: flex;" >
 										<select class="project_title" name="type" id="project_title" disabled="disabled">
-											<option selected >${centerInfo.ownerPhoneNumber1 }</option>
+											<option selected >${admin.adContact1 }</option>
 											<option value="010">010</option>
 											<option value="011">011</option>
-										</select> <input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerPhoneNumber2 }"
-											disabled> <input type="text" class="form-control" value="${centerInfo.ownerPhoneNumber3 }"
+										</select> <input type="text" class="form-control" id="inputAddres5s" value="${admin.adContact2 }"
+											disabled> <input type="text" class="form-control" value="${admin.adContact3 }"
 											id="inputAddres5s" disabled>
 										<!-- <div class="col-sm-10">
 										<button type="submit" class="btn btn-primary">중복확인</button>
 									</div> -->
 									</div>
 								</div>
-								<div class="col-30" style="margin-top: 1%;">
+								<%-- <div class="col-30" style="margin-top: 1%;">
 									<label for="inputAddress2" class="form-label">센터명</label> <input
 										type="text" class="form-control" id="inputAddress2" value="${centerInfo.ctName }"
 										placeholder="센터명" disabled>
-								</div>
-								<div class="col-40" >
+								</div> --%>
+								<%-- <div class="col-40" >
 									<label for="inputAddress5" class="form-label">센터 번호</label>
 									<div class="col-400" style="display: flex;" >
 										<select disabled >
@@ -119,7 +113,7 @@
 									<label for="inputAddress2" class="form-label">상세주소 2</label> <input
 										type="text" class="form-control" id="inputAddress2" value="${centerInfo.ctAddress3 }"
 										placeholder="Apartment, studio, or floor" disabled>
-								</div>
+								</div> --%>
 
 
 							</form>

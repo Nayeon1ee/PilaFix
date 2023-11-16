@@ -46,12 +46,12 @@ public class ComplaintsController {
 	@GetMapping("/getComplaintsInfoList.do")
 	public String getComplaintsInfoList(Model model) {
 		model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
-		return "admin_complaints/getComplaintsInfoList.jsp";
+		return "admin/admin_report";
 	}
 
 	@GetMapping("/getComplaintsInfo.do")
 	public String getComplaintsInfo(@RequestParam("cpTargetPostNumber") Integer cpTargetPostNumber, Model model) {
 		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpTargetPostNumber));
-		return "admin_complaints/getComplaintsInfo.jsp";
+		return "admin/admin_report_detail";
 	}
 }

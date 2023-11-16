@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="center_header_common.jsp" %>
+<%@ include file="center_header_common2.jsp" %>
 	<main id="main" class="main">
 
 		<div class="pagetitle">
@@ -19,9 +19,9 @@
 								<option>글 번호</option>
 								<option>문의제목</option>
 								<option>작성자</option>
-								<option>문의일시</option>
+								<option>작성일시</option>
+								<option>수정일시</option>
 								<option>문의상태</option>
-								<option></option>
 							</select>
 						</div>
 						<div class="serch-input">

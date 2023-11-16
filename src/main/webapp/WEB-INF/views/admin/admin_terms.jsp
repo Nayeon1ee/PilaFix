@@ -65,9 +65,10 @@
 				   	</tr>
 				</c:forEach>
                 </tbody>
-              </table>          	
+              </table>
+              <!-- End Table with stripped rows -->          	
 
-	 <!-- 페이징 처리 시작 -->
+	 <!-- 페이징 처리 시작 
               <div class="admin-screen-paging">
                 <ul class="pagination">
                   <li class="page-item"><a class="page-link" href="#">이전</a></li>
@@ -79,7 +80,7 @@
                   <li class="page-item"><a class="page-link" href="#">다음</a></li>
                 </ul>
              </div>
-      <!-- 페이징 처리 끝 -->
+    페이징 처리 끝 -->
 	
             </div>
           </div>

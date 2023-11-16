@@ -8,4 +8,6 @@ public interface CenterLessonService {
 	int insertCenterLesson(CenterLessonVO vo);
 	int deleteCenterLesson(String lsCode);
 	int updateCenterLesson(CenterLessonVO vo);
+	
+	List<CenterLessonVO> getTrainerCode(int centerCode);
 }
