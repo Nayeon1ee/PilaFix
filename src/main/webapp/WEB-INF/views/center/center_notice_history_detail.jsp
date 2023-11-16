@@ -32,7 +32,7 @@
 								</div>
 								<div class="col-md-4">
 									<label class="form-label">회원코드</label> 
-									<input type="text" readonly disabled class="form-control" value="${noticeHistory.ncId }">
+									<input type="text" readonly disabled class="form-control" value="${noticeHistory.memberCode }">
 								</div>
 								<div class="col-md-5">
 									<label class="form-label">발송일시</label> 

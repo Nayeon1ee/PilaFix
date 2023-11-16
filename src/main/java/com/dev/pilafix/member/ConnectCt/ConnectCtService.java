@@ -2,12 +2,12 @@ package com.dev.pilafix.member.ConnectCt;
 
 import java.util.List;
 
-import com.dev.pilafix.member.login.MemberLoginVO;
+import com.dev.pilafix.common.member.MemberVO;
 
 public interface ConnectCtService {
 
 	List<ConnectCtVO> searchCt(String searchKeyword);
 
-	int connectRequest(MemberLoginVO member, int ctCode);
+	int connectRequest(MemberVO member, int ctCode);
 
 }

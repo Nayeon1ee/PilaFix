@@ -21,15 +21,14 @@ public class CenterVO {
 	private String ownerEmail;
 	private Date contractStartDate;
 	private Date contractEndDate;
-	private boolean contractExpiryYN;
-	private boolean contractRevokeYN;
+	private boolean contractExpiryYn;
+	private boolean contractRevokeYn;
 	private Date ctRegistrationDate;
 	private String ctId;
 	private String ctPassword;
 	private String roleCode;
 	private MultipartFile businessRegistrationFile;
 	private String businessRegistrationFilePath;
-	
 	public int getCtCode() {
 		return ctCode;
 	}
@@ -126,17 +125,17 @@ public class CenterVO {
 	public void setContractEndDate(Date contractEndDate) {
 		this.contractEndDate = contractEndDate;
 	}
-	public boolean isContractExpiryYN() {
-		return contractExpiryYN;
+	public boolean isContractExpiryYn() {
+		return contractExpiryYn;
 	}
-	public void setContractExpiryYN(boolean contractExpiryYN) {
-		this.contractExpiryYN = contractExpiryYN;
+	public void setContractExpiryYn(boolean contractExpiryYn) {
+		this.contractExpiryYn = contractExpiryYn;
 	}
-	public boolean isContractRevokeYN() {
-		return contractRevokeYN;
+	public boolean isContractRevokeYn() {
+		return contractRevokeYn;
 	}
-	public void setContractRevokeYN(boolean contractRevokeYN) {
-		this.contractRevokeYN = contractRevokeYN;
+	public void setContractRevokeYn(boolean contractRevokeYn) {
+		this.contractRevokeYn = contractRevokeYn;
 	}
 	public Date getCtRegistrationDate() {
 		return ctRegistrationDate;
@@ -162,12 +161,6 @@ public class CenterVO {
 	public void setRoleCode(String roleCode) {
 		this.roleCode = roleCode;
 	}
-	public MultipartFile getFile() {
-		return businessRegistrationFile;
-	}
-	public void setFile(MultipartFile businessRegistrationFile) {
-		this.businessRegistrationFile = businessRegistrationFile;
-	}
 	public MultipartFile getBusinessRegistrationFile() {
 		return businessRegistrationFile;
 	}
@@ -188,9 +181,10 @@ public class CenterVO {
 				+ ", businessRegistrationNumber=" + businessRegistrationNumber + ", ownerPhoneNumber1="
 				+ ownerPhoneNumber1 + ", ownerPhoneNumber2=" + ownerPhoneNumber2 + ", ownerPhoneNumber3="
 				+ ownerPhoneNumber3 + ", ownerEmail=" + ownerEmail + ", contractStartDate=" + contractStartDate
-				+ ", contractEndDate=" + contractEndDate + ", contractExpiryYN=" + contractExpiryYN
-				+ ", contractRevokeYN=" + contractRevokeYN + ", ctRegistrationDate=" + ctRegistrationDate + ", ctId="
-				+ ctId + ", ctPassword=" + ctPassword + ", roleCode=" + roleCode + "]";
+				+ ", contractEndDate=" + contractEndDate + ", contractExpiryYn=" + contractExpiryYn
+				+ ", contractRevokeYn=" + contractRevokeYn + ", ctRegistrationDate=" + ctRegistrationDate + ", ctId="
+				+ ctId + ", ctPassword=" + ctPassword + ", roleCode=" + roleCode + ", businessRegistrationFile="
+				+ businessRegistrationFile + ", businessRegistrationFilePath=" + businessRegistrationFilePath + "]";
 	}
 	
 	

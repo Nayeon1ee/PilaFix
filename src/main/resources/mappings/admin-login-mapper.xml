@@ -4,7 +4,7 @@
 
 
 <mapper namespace="AdminLoginDAO">
-	<resultMap type="adminlogin" id="adminloginResult">
+	<resultMap type="admin" id="adminloginResult">
 		<id property="adCode" column="AD_CODE"/>
 		<result property="adName" column="AD_NAME" />
 		<result property="adContact1" column="AD_CONTACT1" />

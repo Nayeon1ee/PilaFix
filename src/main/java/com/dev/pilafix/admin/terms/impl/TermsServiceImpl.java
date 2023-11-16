@@ -11,11 +11,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.admin.center_manage.CenterVO;
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
 import com.dev.pilafix.admin.center_manage.impl.CenterDAO;
 import com.dev.pilafix.admin.terms.TermsService;
 import com.dev.pilafix.admin.terms.TermsVO;
+import com.dev.pilafix.common.member.CenterVO;
 
 @Service
 public class TermsServiceImpl implements TermsService {

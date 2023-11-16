@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.login.AdminLoginService;
-import com.dev.pilafix.admin.login.AdminLoginVO;
+import com.dev.pilafix.common.member.AdminVO;
 
 
 
@@ -19,8 +19,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	private static final Logger logger = LoggerFactory.getLogger(AdminLoginServiceImpl.class);
 	
 	@Override
-	public AdminLoginVO adminLogin(String adId, String adPassword) {
-		AdminLoginVO admin = dao.getAdminLoginInfo(adId);
+	public AdminVO adminLogin(String adId, String adPassword) {
+		AdminVO admin = dao.getAdminLoginInfo(adId);
 		if (admin != null) {
 			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		        if (encoder.matches(adPassword, admin.getAdPassword())) {

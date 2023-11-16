@@ -8,8 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.ConnectCt.ConnectCtVO;
-import com.dev.pilafix.member.login.MemberLoginVO;
 
 @Repository
 public class ConnectCtDAO {
@@ -22,7 +22,7 @@ public class ConnectCtDAO {
 	}
 
 
-	public int connectRequest(MemberLoginVO member, int ctCode) {
+	public int connectRequest(MemberVO member, int ctCode) {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("member", member);
 	    parameters.put("ctCode", ctCode);

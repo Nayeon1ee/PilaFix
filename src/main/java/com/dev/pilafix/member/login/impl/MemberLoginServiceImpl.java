@@ -15,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
+import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.login.MemberLoginService;
-import com.dev.pilafix.member.login.MemberLoginVO;
 
 @Service
 public class MemberLoginServiceImpl implements MemberLoginService {
@@ -30,13 +30,13 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 	private static final Logger logger = LoggerFactory.getLogger(MemberLoginServiceImpl.class);
 
 	@Override
-	public MemberLoginVO getMemberByEmail(String csEmailId) {
+	public MemberVO getMemberByEmail(String csEmailId) {
 		return dao.getMemberLoginInfo(csEmailId);
 	}
 
 	@Override
-	public MemberLoginVO memberLogin(String csEmailId, String csPassword) {
-		MemberLoginVO member = dao.getMemberLoginInfo(csEmailId);
+	public MemberVO memberLogin(String csEmailId, String csPassword) {
+		MemberVO member = dao.getMemberLoginInfo(csEmailId);
 
 		if (member != null) {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -84,7 +84,7 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 	 * 이메일 발송 및 이력 등록
 	 */
 	@Override
-	public int sendAuthEmail(MemberLoginVO member) {
+	public int sendAuthEmail(MemberVO member) {
 		String csEmailId = member.getCsEmailId();
 		int flag = 0;// 발송 성공 여부
 		String errorMessage = ""; // 에러 시 실패 사유

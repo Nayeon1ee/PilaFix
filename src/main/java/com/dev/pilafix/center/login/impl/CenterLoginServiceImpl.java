@@ -7,9 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.center.login.CenterLoginService;
-import com.dev.pilafix.center.login.CenterLoginVO;
-
-
+import com.dev.pilafix.common.member.CenterVO;
 
 @Service
 public class CenterLoginServiceImpl implements CenterLoginService {
@@ -19,8 +17,8 @@ public class CenterLoginServiceImpl implements CenterLoginService {
 	private static final Logger logger = LoggerFactory.getLogger(CenterLoginServiceImpl.class);
 	
 	@Override
-	public CenterLoginVO centerLogin(String ctId, String ctPassword) {
-		CenterLoginVO center = dao.getCenterLoginInfo(ctId);
+	public CenterVO centerLogin(String ctId, String ctPassword) {
+		CenterVO center = dao.getCenterLoginInfo(ctId);
 		if (center != null) {
 			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		        if (encoder.matches(ctPassword, center.getCtPassword())) {

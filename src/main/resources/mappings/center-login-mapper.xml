@@ -4,7 +4,7 @@
 
 
 <mapper namespace="CenterLoginDAO">
-	<resultMap type="centerlogin" id="centerloginResult">
+	<resultMap type="center" id="centerloginResult">
 		<id property="ctCode" column="CT_CODE"/>
 		<result property="ctName" column="CT_CODE" />
 		<result property="ctPhoneNumber1" column="CT_PHONE_NUMBER1" />
@@ -27,7 +27,6 @@
 		<result property="ctId" column="CT_ID" />
 		<result property="ctPassword" column="CT_PASSWORD" />
 		<result property="roleCode" column="ROLE_CODE" />
-
 	</resultMap>
 	
 

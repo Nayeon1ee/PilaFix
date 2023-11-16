@@ -20,8 +20,8 @@
 		<result property="ownerEmail" column="OWNER_EMAIL" />
 		<result property="contractStartDate" column="CONTRACT_START_DATE" />
 		<result property="contractEndDate" column="CONTRACT_END_DATE" />
-		<result property="contractExpiryYN" column="CONTRACT_EXPIRY_YN" />
-		<result property="contractRevokeYN" column="CONTRACT_REVOKE_YN" />
+		<result property="contractExpiryYn" column="CONTRACT_EXPIRY_YN" />
+		<result property="contractRevokeYn" column="CONTRACT_REVOKE_YN" />
 		<result property="ctRegistrationDate" column="CT_REGISTRATION_DATE" />
 		<result property="ctId" column="CT_ID" />
 		<result property="ctPassword" column="CT_PASSWORD" />

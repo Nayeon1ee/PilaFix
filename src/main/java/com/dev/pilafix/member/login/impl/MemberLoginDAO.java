@@ -36,7 +36,7 @@ public class MemberLoginDAO {
     }
     
     
-    public MemberLoginVO getMemberByNameAndEmail(String csName, String csEmailId) {
+    public MemberVO getMemberByNameAndEmail(String csName, String csEmailId) {
         Map<String, Object> params = new HashMap<>();
         params.put("csName", csName);
         params.put("csEmailId", csEmailId);

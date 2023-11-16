@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dev.pilafix.common.member.MemberVO;
+
 @Controller
 public class MemberLoginController {
 	
@@ -41,10 +43,10 @@ public class MemberLoginController {
 	 */
 	@GetMapping("/memberMyinfo.do")
 	public String memberMyinfo(HttpSession session, Model model) {
-	    MemberLoginVO sessionMember = (MemberLoginVO) session.getAttribute("member");
+		MemberVO sessionMember = (MemberVO) session.getAttribute("member");
 	    if (sessionMember != null) {
 	        String csEmailId = sessionMember.getCsEmailId();
-	        MemberLoginVO memberInfo = service.getMemberByEmail(csEmailId); // 이메일 ID를 사용하여 상세 정보 조회
+	        MemberVO memberInfo = service.getMemberByEmail(csEmailId); // 이메일 ID를 사용하여 상세 정보 조회
 	        model.addAttribute("memberInfo", memberInfo);
 	    }
 	    return "member/myinfo_management";
@@ -64,16 +66,16 @@ public class MemberLoginController {
 	                          @RequestParam("csPassword") String csPassword,
 	                          HttpSession session, RedirectAttributes redirectAttrs) {
 	    
-	    MemberLoginVO member = service.memberLogin(csEmailId, csPassword);
+		MemberVO member = service.memberLogin(csEmailId, csPassword);
 	    
 	    if (member != null) {
 	        // 로그인 성공, 세션에 사용자 정보 저장
 	        session.setAttribute("member", member);
 	        
 	        // 연동된 센터가 있는지 확인하고, 역할에 따라 적절한 페이지로 리다이렉트
-	        boolean hasConnectedCenters = member.getConnectedCenterCode1() != null || 
-	                                      member.getConnectedCenterCode2() != null ||
-	                                      member.getConnectedCenterCode3() != null;
+	        boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || 
+	                                      member.getConnectedCenterCode2() != 0 ||
+	                                      member.getConnectedCenterCode3() != 0;
 
 	        // 역할과 연동된 센터에 따라 리다이렉트
 	        if ("ME".equals(member.getCsRoleCode())) {
@@ -136,7 +138,7 @@ public class MemberLoginController {
 	@ResponseBody
 	public String verifyCurrentPassword(@RequestParam("currentPassword") String currentPassword,
 	                                    HttpSession session) {
-	    MemberLoginVO member = (MemberLoginVO) session.getAttribute("member");
+		MemberVO member = (MemberVO) session.getAttribute("member");
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	    
 	    boolean passwordMatch = encoder.matches(currentPassword, member.getCsPassword());
@@ -156,7 +158,7 @@ public class MemberLoginController {
 		// 콘솔에 새 비밀번호 확인용 나중에지울것
 	    System.out.println("New Password: " + newPassword);
 	    
-	    MemberLoginVO member = (MemberLoginVO) session.getAttribute("member");
+	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	    
 	    if (encoder.matches(currentPassword, member.getCsPassword())) {
@@ -196,7 +198,7 @@ public class MemberLoginController {
 	// 인증번호 발송 요청 처리
 	@PostMapping("/sendAuthNumber.do")
     @ResponseBody
-    public ResponseEntity<?> sendAuthNumber(MemberLoginVO member, HttpSession session) {
+    public ResponseEntity<?> sendAuthNumber(MemberVO member, HttpSession session) {
         try {
             int authNumber = service.sendAuthEmail(member);
             session.setAttribute("authNumber", authNumber);
@@ -218,7 +220,7 @@ public class MemberLoginController {
 	    Map<String, Object> response = new HashMap<>();
 
 	    if (isValid) {
-	        MemberLoginVO member = service.getMemberByEmail(csEmailId);
+	    	MemberVO member = service.getMemberByEmail(csEmailId);
 	        if (member != null) {
 	            session.setAttribute("member", member);
 	            response.put("valid", true);

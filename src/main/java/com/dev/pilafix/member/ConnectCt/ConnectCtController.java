@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dev.pilafix.member.login.MemberLoginVO;
+import com.dev.pilafix.common.member.MemberVO;
 
 
 @Controller
@@ -44,7 +44,7 @@ public class ConnectCtController {
 	@PostMapping("connectRequest.do")
 	@ResponseBody
 	public int connectRequest(HttpSession session,@RequestParam int ctCode){
-		MemberLoginVO member =   (MemberLoginVO) session.getAttribute("member");
+		MemberVO member =   (MemberVO) session.getAttribute("member");
 		int result = service.connectRequest(member,ctCode);
 		System.out.println("#######쿼리문의 결과값"+result);
 		return result;

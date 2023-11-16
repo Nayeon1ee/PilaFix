@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dev.pilafix.common.member.AdminVO;
+
 
 @Controller
 public class AdminLoginController {
@@ -35,7 +37,7 @@ public class AdminLoginController {
 	                          @RequestParam("adPassword") String adPassword,
 	                          HttpSession session, RedirectAttributes redirectAttrs) {
 	    
-	    AdminLoginVO adminInfo = service.adminLogin(adId, adPassword);
+		AdminVO adminInfo = service.adminLogin(adId, adPassword);
 	    
 	    if (adminInfo != null) {
 	        session.setAttribute("adminInfo", adminInfo);

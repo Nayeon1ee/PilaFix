@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dev.pilafix.common.member.CenterVO;
+
 
 @Controller
 public class CenterLoginController {
@@ -35,7 +37,7 @@ public class CenterLoginController {
 	                          @RequestParam("ctPassword") String ctPassword,
 	                          HttpSession session, RedirectAttributes redirectAttrs) {
 	    
-	    CenterLoginVO center = service.centerLogin(ctId, ctPassword);
+	    CenterVO center = service.centerLogin(ctId, ctPassword);
 	    
 	    if (center != null) {
 	        session.setAttribute("centerInfo", center);

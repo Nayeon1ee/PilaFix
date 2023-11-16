@@ -2,7 +2,8 @@ package com.dev.pilafix.admin.terms;
 
 import java.util.List;
 
-import com.dev.pilafix.admin.center_manage.CenterVO;
+import com.dev.pilafix.common.member.CenterVO;
+
 
 public interface TermsService {
 	List<TermsVO> getTermsList();

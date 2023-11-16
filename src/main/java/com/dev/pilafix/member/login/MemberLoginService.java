@@ -1,14 +1,16 @@
 package com.dev.pilafix.member.login;
 
+import com.dev.pilafix.common.member.MemberVO;
+
 public interface MemberLoginService {
 	
-	MemberLoginVO getMemberByEmail(String csEmailId);
-	MemberLoginVO memberLogin(String csEmailId, String csPassword);
+	MemberVO getMemberByEmail(String csEmailId);
+	MemberVO memberLogin(String csEmailId, String csPassword);
 	 
 	void updatePassword(int csMemberCode, String newPassword);
 	 
 	int createAuthNumber();
-	int sendAuthEmail(MemberLoginVO member);
+	int sendAuthEmail(MemberVO member);
 
 	 
 

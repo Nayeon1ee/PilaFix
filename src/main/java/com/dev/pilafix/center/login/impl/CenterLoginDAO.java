@@ -5,7 +5,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dev.pilafix.center.login.CenterLoginVO;
+import com.dev.pilafix.common.member.CenterVO;
 
 @Repository
 public class CenterLoginDAO {
@@ -13,7 +13,7 @@ public class CenterLoginDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public CenterLoginVO getCenterLoginInfo(String ctId) {
+	public CenterVO getCenterLoginInfo(String ctId) {
         return sqlSessionTemplate.selectOne("CenterLoginDAO.getCenterLoginInfo", ctId);
 	} 
 

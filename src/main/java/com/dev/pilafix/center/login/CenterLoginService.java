@@ -1,9 +1,11 @@
 package com.dev.pilafix.center.login;
 
+import com.dev.pilafix.common.member.CenterVO;
+
 public interface CenterLoginService {
 	
 
-	CenterLoginVO centerLogin(String ctId, String ctPassword);
+	CenterVO centerLogin(String ctId, String ctPassword);
 	 
 	
 }

@@ -1,8 +1,7 @@
-package com.dev.pilafix.admin.login;
+package com.dev.pilafix.common.member;
 
-import java.sql.Date;
-
-public class AdminLoginVO {
+public class AdminVO {
+	
 	private String adCode;
 	private String adName;
 	private String adContact1;
@@ -72,6 +71,5 @@ public class AdminLoginVO {
 				+ adContact2 + ", adContact3=" + adContact3 + ", adId=" + adId + ", adPassword=" + adPassword
 				+ ", accountUsageYn=" + accountUsageYn + ", roleCode=" + roleCode + "]";
 	}
-	
-	
+
 }

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.ConnectCt.ConnectCtService;
 import com.dev.pilafix.member.ConnectCt.ConnectCtVO;
-import com.dev.pilafix.member.login.MemberLoginVO;
 
 @Service
 public class ConnectCtServiceImpl implements ConnectCtService {
@@ -21,7 +21,7 @@ public class ConnectCtServiceImpl implements ConnectCtService {
 
 
 	@Override
-	public int connectRequest(MemberLoginVO member, int ctCode) {
+	public int connectRequest(MemberVO member, int ctCode) {
 		return dao.connectRequest(member,ctCode);
 	}
 	

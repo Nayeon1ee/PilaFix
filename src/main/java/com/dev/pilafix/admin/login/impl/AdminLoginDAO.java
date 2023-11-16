@@ -5,7 +5,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dev.pilafix.admin.login.AdminLoginVO;
+import com.dev.pilafix.common.member.AdminVO;
+
 
 @Repository
 public class AdminLoginDAO {
@@ -13,7 +14,7 @@ public class AdminLoginDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public AdminLoginVO getAdminLoginInfo(String adId) {
+	public AdminVO getAdminLoginInfo(String adId) {
         return sqlSessionTemplate.selectOne("AdminLoginDAO.getAdminLoginInfo", adId);
 	} 
 
