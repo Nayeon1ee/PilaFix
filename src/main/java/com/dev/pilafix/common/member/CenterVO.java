@@ -1,4 +1,4 @@
-package com.dev.pilafix.admin.center_manage;
+package com.dev.pilafix.common.member;
 
 import java.sql.Date;
 

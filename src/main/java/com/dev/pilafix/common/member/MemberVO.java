@@ -1,10 +1,9 @@
-package com.dev.pilafix.member.login;
+package com.dev.pilafix.common.member;
 
 import java.sql.Date;
 
-public class MemberLoginVO {
-	// 센터 수강권 수업 예약 기타게시판테이블들과 연동되어야함
-	// 회원이 작성한 게시글,댓글?
+public class MemberVO {
+	
 	private int csMemberCode; // 회원코드 : 회원이면시퀀스번호 2000부터 시작 / 강사면 시퀀스 8000부터시작
 	private String csRoleCode; // 권한코드
 	private String csEmailId; // 이메일아이디
@@ -17,7 +16,9 @@ public class MemberLoginVO {
 	private Date csBirth; // 생년월일 : 소셜 로그인의 경우 값이 없을 수 있음 
 	private String csGenderMw; // 성별 : 소셜 로그인의 경우 값이 없을 수 있음 
 	private boolean csDeleteYn; // 탈퇴여부
-	private boolean csAgreementYn; // 약관동의여부
+	private boolean csAgreementYn1; //약관동의1
+	private boolean csAgreementYn2; //약관동의2
+	private boolean csAgreementYn3; //약관동의3
 	private String csRegistrationType; // 가입유형 : 일반/카카오/네이버/구글
 	private String connectedCenterCode1; // 현재연동센터코드1 : 미연동 상태일 수 있음
 	private String connectedCenterCode2; // 현재연동센터코드2 : 미연동 상태일 수 있음
@@ -32,6 +33,7 @@ public class MemberLoginVO {
 	private Date ticketStartDateGroup1; // 보유수강권시작일자_그룹
 	private Date ticketExpiryDateGroup1; // 보유수강권만료일자_그룹
 	private boolean ticketExpiryYnGroup1; // 보유수강권만료여부_그룹
+	
 	public int getCsMemberCode() {
 		return csMemberCode;
 	}
@@ -104,11 +106,23 @@ public class MemberLoginVO {
 	public void setCsDeleteYn(boolean csDeleteYn) {
 		this.csDeleteYn = csDeleteYn;
 	}
-	public boolean isCsAgreementYn() {
-		return csAgreementYn;
+	public boolean isCsAgreementYn1() {
+		return csAgreementYn1;
 	}
-	public void setCsAgreementYn(boolean csAgreementYn) {
-		this.csAgreementYn = csAgreementYn;
+	public void setCsAgreementYn1(boolean csAgreementYn1) {
+		this.csAgreementYn1 = csAgreementYn1;
+	}
+	public boolean isCsAgreementYn2() {
+		return csAgreementYn2;
+	}
+	public void setCsAgreementYn2(boolean csAgreementYn2) {
+		this.csAgreementYn2 = csAgreementYn2;
+	}
+	public boolean isCsAgreementYn3() {
+		return csAgreementYn3;
+	}
+	public void setCsAgreementYn3(boolean csAgreementYn3) {
+		this.csAgreementYn3 = csAgreementYn3;
 	}
 	public String getCsRegistrationType() {
 		return csRegistrationType;
@@ -196,11 +210,12 @@ public class MemberLoginVO {
 	}
 	@Override
 	public String toString() {
-		return "MemberLoginVO [csMemberCode=" + csMemberCode + ", csRoleCode=" + csRoleCode + ", csEmailId=" + csEmailId
+		return "MemberVO [csMemberCode=" + csMemberCode + ", csRoleCode=" + csRoleCode + ", csEmailId=" + csEmailId
 				+ ", csPassword=" + csPassword + ", csName=" + csName + ", csPhoneNumber1=" + csPhoneNumber1
 				+ ", csPhoneNumber2=" + csPhoneNumber2 + ", csPhoneNumber3=" + csPhoneNumber3 + ", csRegistrationDate="
 				+ csRegistrationDate + ", csBirth=" + csBirth + ", csGenderMw=" + csGenderMw + ", csDeleteYn="
-				+ csDeleteYn + ", csAgreementYn=" + csAgreementYn + ", csRegistrationType=" + csRegistrationType
+				+ csDeleteYn + ", csAgreementYn1=" + csAgreementYn1 + ", csAgreementYn2=" + csAgreementYn2
+				+ ", csAgreementYn3=" + csAgreementYn3 + ", csRegistrationType=" + csRegistrationType
 				+ ", connectedCenterCode1=" + connectedCenterCode1 + ", connectedCenterCode2=" + connectedCenterCode2
 				+ ", connectedCenterCode3=" + connectedCenterCode3 + ", ticketCodePersonal1=" + ticketCodePersonal1
 				+ ", ticketRemainingCountPersonal1=" + ticketRemainingCountPersonal1 + ", ticketStartDatePersonal1="
@@ -212,5 +227,7 @@ public class MemberLoginVO {
 	}
 	
 	
-
+	
+	
+	
 }
