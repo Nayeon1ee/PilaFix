@@ -20,7 +20,7 @@ public class QuestionDAO {
 	}
 	
 	public List<QuestionReplyVO> getQuestionReply(int writerMemberCode) {
-		return sqlSessionTemplate.selectList("QuestionReplyDAO.getQuestionReplyList",writerMemberCode);
+		return sqlSessionTemplate.selectList("QuestionDAO.getQuestionReplyList",writerMemberCode);
 	}
 
 	
