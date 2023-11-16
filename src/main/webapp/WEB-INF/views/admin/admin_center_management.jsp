@@ -116,19 +116,19 @@
 							<!-- 계약 상태에 대한 처리 -->
 							<!-- 만료여부 Y이면 만료/해지여부 Y이면 해지/둘 다 N값이면 계약  -->
 							<c:choose>
-								<c:when test="${center.contractExpiryYN eq false and center.contractRevokeYN eq false}">
+								<c:when test="${center.contractExpiryYn eq false and center.contractRevokeYn eq false}">
 									<td>계약</td>
 								</c:when>
-								<c:when test="${center.contractExpiryYN eq true and center.contractRevokeYN eq false}">
+								<c:when test="${center.contractExpiryYn eq true and center.contractRevokeYn eq false}">
 									<td>만료</td>
 								</c:when>
-								<c:when test="${center.contractExpiryYN eq false and center.contractRevokeYN eq true}">
+								<c:when test="${center.contractExpiryYn eq false and center.contractRevokeYn eq true}">
 									<td>해지</td>
 								</c:when>
 							</c:choose>
 							<!-- 만료여부 처리 -->
 							<c:choose>
-								<c:when test="${center.contractExpiryYN}">
+								<c:when test="${center.contractExpiryYn}">
 									<td>Y</td>						
 								</c:when>
 								<c:otherwise>

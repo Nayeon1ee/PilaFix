@@ -53,13 +53,13 @@
 						<label class="form-label">계약 상태</label>
 						<!-- 만료여부 Y이면 만료/해지여부 Y이면 해지/둘 다 N값이면 계약  -->
 						<c:choose>
-							<c:when	test="${center.contractExpiryYN eq false and center.contractRevokeYN eq false}">
+							<c:when	test="${center.contractExpiryYn eq false and center.contractRevokeYn eq false}">
 								<input type="text" readonly disabled class="form-control" value="계약">
 							</c:when>
-							<c:when test="${center.contractExpiryYN eq true and center.contractRevokeYN eq false}">
+							<c:when test="${center.contractExpiryYn eq true and center.contractRevokeYn eq false}">
 								<input type="text" readonly disabled class="form-control" value="만료">
 							</c:when>
-							<c:when	test="${center.contractExpiryYN eq false and center.contractRevokeYN eq true}">
+							<c:when	test="${center.contractExpiryYn eq false and center.contractRevokeYn eq true}">
 								<input type="text" readonly disabled class="form-control" value="해지">
 							</c:when>
 						</c:choose>
@@ -68,7 +68,7 @@
 						<label class="form-label">만료여부</label>
 						<!-- 만료여부 처리 -->
 							<c:choose>
-								<c:when test="${center.contractExpiryYN }">
+								<c:when test="${center.contractExpiryYn }">
 									<input type="text" readonly disabled class="form-control" value="Y">					
 								</c:when>
 								<c:otherwise>
