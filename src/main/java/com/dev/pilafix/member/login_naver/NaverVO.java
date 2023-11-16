@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class NaverVO {
 	private String email;
-	private String id;
 	private String birthday;
 	private String gender;
 	private String mobile;
@@ -19,12 +18,7 @@ public class NaverVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	public String getBirthday() {
 		return birthday;
 	}
@@ -57,7 +51,7 @@ public class NaverVO {
 	}
 	@Override
 	public String toString() {
-		return "NaverVO [email=" + email + ", id=" + id + ", birthday=" + birthday + ", gender=" + gender + ", mobile="
+		return "NaverVO [email=" + email  + ", birthday=" + birthday + ", gender=" + gender + ", mobile="
 				+ mobile + ", name=" + name + ", birthyear=" + birthyear + "]";
 	}
 	
