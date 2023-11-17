@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NaverDAO">
+<!--  
+<resultMap type="naverlogin" id="naverloginResult">
+	<result property="email" column="CS_EMAIL_ID"/>
+</resultMap>
+-->
+<resultMap type="com.dev.pilafix.common.member.MemberVO" id="member">
+		<id property="csMemberCode" column="CS_MEMBER_CODE"/>
+		<result property="csRoleCode" column="CS_ROLE_CODE" />
+		<result property="csEmailId" column="CS_EMAIL_ID" />
+		<result property="csPassword" column="CS_PASSWORD" />
+		<result property="csName" column="CS_NAME" />
+		<result property="csPhoneNumber1" column="CS_PHONE_NUMBER1" />
+		<result property="csPhoneNumber2" column="CS_PHONE_NUMBER2" />
+		<result property="csPhoneNumber3" column="CS_PHONE_NUMBER3" />
+		<result property="csRegistrationDate" column="CS_REGISTRATION_DATE" />
+		<result property="csBirth" column="CS_BIRTH" />
+		<result property="csGenderMw" column="CS_GENDER_MW" />
+		<result property="csDeleteYn" column="CS_DELETE_YN" />
+		<result property="csAgreementYn1" column="CS_AGREEMENT_YN1" />
+		<result property="csAgreementYn2" column="CS_AGREEMENT_YN2" />
+		<result property="csAgreementYn3" column="CS_AGREEMENT_YN3" />
+		<result property="csRegistrationType" column="CS_REGISTRATION_TYPE" />
+		<result property="connectedCenterCode1" column="CONNECTED_CENTER_CODE1" />
+		<result property="connectedCenterCode2" column="CONNECTED_CENTER_CODE2" />
+		<result property="connectedCenterCode3" column="CONNECTED_CENTER_CODE3" />
+		<result property="ticketCodePersonal1" column="TICKET_CODE_PERSONAL1" />
+		<result property="ticketRemainingCountPersonal1" column="TICKET_REMAINING_COUNT_PERSONAL1" />
+		<result property="ticketStartDatePersonal1" column="TICKET_START_DATE_PERSONAL1" />
+		<result property="ticketExpiryDatePersonal1" column="TICKET_EXPIRY_DATE_PERSONAL1" />
+		<result property="ticketExpiryYnPersonal1" column="TICKET_EXPIRY_YN_PERSONAL1" />
+		<result property="ticketCodeGroup1" column="TICKET_CODE_GROUP1" />
+		<result property="ticketRemainingCountGroup1" column="TICKET_REMAINING_COUNT_GROUP1" />
+		<result property="ticketStartDateGroup1" column="TICKET_START_DATE_GROUP1" />
+		<result property="ticketExpiryDateGroup1" column="TICKET_EXPIRY_DATE_GROUP1" />
+		<result property="ticketExpiryYnGroup1" column="TICKET_EXPIRY_YN_GROUP1" />
+</resultMap>
+
+<select id="getMemberEmail" resultType="int">
+	SELECT COUNT(*) FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
+</select>
+
+<select id="getMember" resultType="member" >
+	SELECT * FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
+</select>
+
+
+</mapper>

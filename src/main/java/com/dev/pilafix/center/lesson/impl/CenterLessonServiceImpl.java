@@ -39,4 +39,9 @@ public class CenterLessonServiceImpl implements CenterLessonService {
 		return dao.updateCenterLesson(vo);
 	}
 
+	@Override
+	public List<CenterLessonVO> getTrainerCode(int centerCode) {
+		return dao.getTrainerCode(centerCode);
+	}
+
 }

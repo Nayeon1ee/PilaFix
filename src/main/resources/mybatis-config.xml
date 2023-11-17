@@ -26,10 +26,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
    		<typeAlias type="com.dev.pilafix.center.lesson.CenterLessonVO" alias="centerLesson" />
    		<typeAlias type="com.dev.pilafix.center.ticket.CenterTicketVO" alias="centerTicket" />
 		<typeAlias type="com.dev.pilafix.member.question.QuestionVO" alias="question" />
-		<typeAlias type="com.dev.pilafix.center.question_reply.QuestionReplyVO" alias="questionReply" />		
 		<typeAlias type="com.dev.pilafix.member.ConnectCt.ConnectCtVO" alias="ConnectCt" />
 		<typeAlias type="com.dev.pilafix.center.notice.NoticeHistoryVO" alias="noticeHistory" />
         <typeAlias type="com.dev.pilafix.member.login_kakao.KakaoVO" alias="kakaologin" />
+        <typeAlias type="com.dev.pilafix.member.login_naver.NaverVO" alias="naverlogin" />
 	</typeAliases>
 	
 
@@ -42,7 +42,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/admin-centermanage-mapper.xml" />
 		<mapper resource="mappings/admin-terms-mapper.xml" />
 		<mapper resource="mappings/member-question-mapper.xml" />
-		<mapper resource="mappings/center-questionreply-mapper.xml" />
 		<mapper resource="mappings/member-signup-mapper.xml" />
 		<mapper resource="mappings/admin-faq-mapper.xml" />
 		<mapper resource="mappings/admin-complaints-mapper.xml" />
@@ -57,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/center-notice-mapper.xml" />
 		<mapper resource="mappings/member-kakaologin-mapper.xml" />
 		<mapper resource="mappings/admin-login-mapper.xml" />
+		<mapper resource="mappings/member-naverlogin-mapper.xml" />
 	</mappers>
 
 </configuration>

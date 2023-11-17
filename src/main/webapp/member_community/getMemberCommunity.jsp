@@ -63,7 +63,7 @@
 			    <input type="hidden" name="memberCmWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
 			    
 			    <c:forEach items="${blameList}" var="blameList">
-			        <input type="radio" name="blame" value="${blameList.memberBlamerReasonCode}">${blameList.memberBlameReasonName}<br>
+			        <input type="radio" name="blame" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br>
 			    </c:forEach>
 			    <input type="submit" value="신고">
 			</form>
@@ -72,10 +72,10 @@
 
         <button id="popup_open_btn" >신고하기</button>
 	</div>
-	<hr/>
-	<table>
+	<hr>
 			<!-- 답변 영역 -->
-                <c:if test="${not empty memberCommunityReply.memberReTitle}"> <!-- 답변여부가 Y이면서, reply가 null이 아니면  -->
+			<table>
+				<c:if test="${not empty memberCommunityReply.memberReTitle }"> <!-- 답변여부가 Y이면서, reply가 null이 아니면  -->
 					<tr>
 						<th>답변내용</th>
 						<td>${memberCommunityReply.reContent }</td>
@@ -88,10 +88,11 @@
 						<th>작성일시</th>
 						<td>${memberCommunityReply.reRegdate }</td>
 					</tr>
-					</table>
                 </c:if>
-                <c:otherwise>
-					<form action="insertMemberCommunityReply.do" method="post">
+				</table>
+					
+			
+			<form action="insertMemberCommunityReply.do" method="post">
 						<input type="hidden" name="reTargetPostNumber" value="${question.qsNumber}">
                 		<input type="hidden" name="reTitle" value="[댓글]">
                 		
@@ -104,7 +105,7 @@
 							답변내용 <input type="text" name="reContent">
 							<input type="submit" value="답변등록">
 					</form>
-                </c:otherwise>
+                
 	
 	 <script>
             function modal(id) {
