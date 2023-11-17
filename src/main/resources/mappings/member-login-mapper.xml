@@ -38,6 +38,8 @@
 	<!-- 로그인 하기 위해 이메일로 비밀번호 가져오기 -->
 	<select id="getPasswordByEmail" resultType="java.lang.String">
 	    SELECT CS_PASSWORD FROM TBL_CST WHERE CS_EMAIL_ID=#{csEmailId}
+	</select>
+	
 	<select id="loginTest" resultType="String">
 		SELECT CS_PASSWORD FROM TBL_CST WHERE CS_EMAIL_ID=#{csEmailId}
 	</select>
