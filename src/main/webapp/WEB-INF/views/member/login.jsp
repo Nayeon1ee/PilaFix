@@ -56,7 +56,7 @@
         비밀번호 찾기
     </a>
     <div class="vr" style="border-left: 2px solid; height: 20px;"></div>
-    <a href="register.do" class="link-body-emphasis" style="text-decoration: none; margin-left: 10px;">
+    <a href="selectMeOrTr2.do" class="link-body-emphasis" style="text-decoration: none; margin-left: 10px;">
         회원가입
     </a>
 </div>

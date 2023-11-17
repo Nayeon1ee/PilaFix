@@ -15,6 +15,10 @@ public class QuestionReplyDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	public int getTotalQuestionCount() {
+	    return sqlSessionTemplate.selectOne("QuestionReplyDAO.getTotalQuestionCount");
+	}
+	
 	public List<QuestionVO> getQuestionReplyList(){
     	return sqlSessionTemplate.selectList("QuestionDAO.getQuestionList");
     }
@@ -44,10 +48,8 @@ public class QuestionReplyDAO {
 	public int updateAnswerYn(int qsNumber) {
 		return sqlSessionTemplate.update("QuestionDAO.updateAnswerYn", qsNumber);
 	} 
-
-
 	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo) {
-		// insert �˸��̷�
+		// insert ¾Ë¸²ÀÌ·Â
 		sqlSessionTemplate.update("QuestionDAO.updateAnswerYn", vo.getReTargetPostNumber());
     	return sqlSessionTemplate.insert("QuestionDAO.insertQuestionReply",vo);
 	}

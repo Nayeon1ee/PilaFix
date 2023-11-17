@@ -17,6 +17,15 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 	private QuestionReplyDAO dao;
 	
 
+	/**
+	 * 문의사항 전체 건수 가져오기
+	 */
+	@Override
+	public int getTotalQuestionCount() {
+		return dao.getTotalQuestionCount();
+	}
+	
+	
 	@Override
 	public List<QuestionVO> getQuestionReplyList() {
 		return dao.getQuestionReplyList();
@@ -44,11 +53,8 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 		return dao.insertQuestionReply(vo);
 	}
 
-	@Override
-	public int updateQuestionReply(QuestionReplyVO vo) {
-		return dao.updateQuestionReply(vo);
-	}
 
+	
 	@Override
 	public int deleteQuestionReply(int reNumber) {
 		return dao.deleteQuestionReply(reNumber);
@@ -72,7 +78,8 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo) {
 		return dao.insertQuestionReplyAndUpdateAnswerYn(vo);
 	}
-	
+
+
 	
 
 }

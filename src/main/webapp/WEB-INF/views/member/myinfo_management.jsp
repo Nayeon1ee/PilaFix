@@ -45,7 +45,7 @@
 						</div>
 						<div class="info-box04">
 							<p>
-							<a class="password_Change" href="passwordChange.do">비밀번호변경▶</a>
+							<a class="password_Change" href="checkCurrentPassword.do">비밀번호변경▶</a>
 							</p>
 						</div>
 					</section>
