@@ -48,8 +48,7 @@
 </head>
 <!-- 내 css -->
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common.css">
+
 
 
 <body>
@@ -97,121 +96,119 @@
 		<section id="services" class="services">
 			<div class="container">
 
-				<div class='ticket'>
-					<div class="slect-wrap">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/select-arr.png"
-							alt="arr Image"> <select>
-							<option>룩스 필라테스삼송점</option>
-							<option>이브 필라테스 종로점</option>
-						</select>
-					</div>
-					<hr>
-					<div>
-						<ul class="nav nav-tabs">
-							<li class="nav-item"><a class="nav-link active"
-								aria-current="page" href="#">전체</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">개인</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">그룹</a></li>
-							</li>
-						</ul>
-					</div>
-					<section class="ticket-list">
-						<div class="list-group-ticket" id="list-item">
-							<a href="#" class="list-group-item list-group-item-action active"
-								aria-current="true">
-								<div class="d-flex w-100 justify-content-between">
-									<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
-								</div>
-								<p class="mb-1">척추가 맞춰지는 필라테스</p>
-								<div>
-									<table>
-										<td>
-										<tr>2023.10.10~2024.01.01
-										</tr>
-										<tr>
-											<span
-												style="font-weight: bold; text-align: right; display: block;">
-												650,000원 </span>
-										</tr>
-										</td>
-									</table>
-								</div>
-							</a>
-						</div>
+				<form action="member_login.do" method="post" class="row g-3">
 
-						<div class="list-group-ticket" id="list-item">
-							<a href="#" class="list-group-item list-group-item-action active"
-								aria-current="true">
-								<div class="d-flex w-100 justify-content-between">
-									<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
-								</div>
-								<p class="mb-1">척추가 맞춰지는 필라테스</p>
-								<div>
-									<table>
-										<td>
-										<tr>2023.10.10~2024.01.01
-										</tr>
-										<tr>
-											<span
-												style="font-weight: bold; text-align: right; display: block;">
-												650,000원 </span>
-										</tr>
-										</td>
-									</table>
-								</div>
-							</a>
+					<div class="col-md-7 mx-auto">
+						<div class="form-floating">
+							<input type="email" class="form-control" name="csEmailId"
+								id="floatingInput" placeholder="name@example.com"> <label
+								for="floatingInput">Email address</label>
 						</div>
-						<div class="list-group-ticket" id="list-item">
-							<a href="#" class="list-group-item list-group-item-action active"
-								aria-current="true">
-								<div class="d-flex w-100 justify-content-between">
-									<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
-								</div>
-								<p class="mb-1">척추가 맞춰지는 필라테스</p>
-								<div>
-									<table>
-										<td>
-										<tr>2023.10.10~2024.01.01
-										</tr>
-										<tr>
-											<span
-												style="font-weight: bold; text-align: right; display: block;">
-												650,000원 </span>
-										</tr>
-										</td>
-									</table>
-								</div>
-							</a>
+					</div>
+
+					<div class="col-md-7 mx-auto">
+						<div class="form-floating">
+							<input type="password" class="form-control" name="csPassword"
+								id="floatingPassword" placeholder="Password"> <label
+								for="floatingPassword">Password</label>
 						</div>
-						<div class="list-group-ticket" id="list-item">
-							<a href="#" class="list-group-item list-group-item-action active"
-								aria-current="true">
-								<div class="d-flex w-100 justify-content-between">
-									<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
-								</div>
-								<p class="mb-1">척추가 맞춰지는 필라테스</p>
-								<div>
-									<table>
-										<td>
-										<tr>2023.10.10~2024.01.01
-										</tr>
-										<tr>
-											<span
-												style="font-weight: bold; text-align: right; display: block;">
-												650,000원 </span>
-										</tr>
-										</td>
-									</table>
-								</div>
-							</a>
-						</div>
+					</div>
+
+					<div class="text-center col-12 mt-3">
+						<input type="submit" class="btn btn-primary" value="로그인"
+							style="width: 20%;">
+					</div>
+
+				</form>
+
+
+
+
+
+
+				<div id="socialLogin"
+					style="display: flex; justify-content: center;">
+					<p style="margin-top: 20px; text-align: center;">소셜 계정으로 빠른
+						로그인하기</p>
 				</div>
+
+
+				<!-- 소설계정 로그인 아이콘영역 -->
+				<div id="socialButtons"
+					style="display: flex; justify-content: center;">
+
+					<div
+						style="width: 40px; height: 40px; background: white; display: inline-block; margin: 5px;">
+						<a href="[네이버 로그인 링크]"> <img
+							src="${pageContext.request.contextPath}/resources/images/naver_login_bt.png"
+							alt="네이버 로그인" style="max-width: 100%; max-height: 100%;">
+						</a>
+					</div>
+
+					<div
+						style="width: 40px; height: 40px; background: white; display: inline-block; margin: 5px;">
+						<a href="[카카오 로그인 링크]"> <img
+							src="${pageContext.request.contextPath}/resources/images/kakao_login_bt.png"
+							alt="카카오 로그인" style="max-width: 100%; max-height: 100%;">
+						</a>
+					</div>
+
+					<div
+						style="width: 40px; height: 40px; background: white; display: inline-block; margin: 5px;">
+						<a href="[구글 로그인 링크]"> <img
+							src="${pageContext.request.contextPath}/resources/images/google_login_bt.png"
+							alt="구글 로그인" style="max-width: 100%; max-height: 100%;">
+						</a>
+					</div>
+
+
+				</div>
+
+
+
+
+				<div
+					style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+					<a href="findpassword.do" class="link-dark"
+						style="text-decoration: none; margin-right: 10px;"> 비밀번호 찾기 </a>
+					<div class="vr" style="border-left: 2px solid; height: 20px;"></div>
+					<a href="register.do" class="link-body-emphasis"
+						style="text-decoration: none; margin-left: 10px;"> 회원가입 </a>
+				</div>
+
+				<!-- 로그인 실패 메시지 표시 -->
+				<c:if test="${not empty loginError}">
+					<div class="alert alert-danger mx-auto"
+						style="width: 20%; margin-top: 3%;" role="alert">${loginError}</div>
+				</c:if>
+
+
+				<script type="text/javascript">
+    function validateLoginForm() {
+        var email = document.getElementById('csEmailId').value;
+        var password = document.getElementById('csPassword').value;
+        if (!email || !password) {
+            alert('아이디와 비밀번호를 모두 입력해주세요.');
+            return false;
+        }
+        return true;
+    }
+
+    //로그인실패
+    function loginFailed() {
+        alert('아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.');
+    }   
+    function passwordCertification(){
+    	let email = document.getElementById(elementId: '');   	
+    }
+    
+    
+    </script>
+				<!-- End Our Skills Section -->
 			</div>
 		</section>
-		<!-- End Our Skills Section -->
-
 	</main>
+
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
@@ -243,7 +240,8 @@
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script src="assets/js/main.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
 
 </body>
 
