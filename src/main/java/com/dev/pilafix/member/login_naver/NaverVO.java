@@ -9,9 +9,16 @@ public class NaverVO {
 	private String mobile;
 	private String name;
 	private String birthyear;
+	private String roleCode;
 	
 	
 	
+	public String getRoleCode() {
+		return roleCode;
+	}
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -51,8 +58,8 @@ public class NaverVO {
 	}
 	@Override
 	public String toString() {
-		return "NaverVO [email=" + email  + ", birthday=" + birthday + ", gender=" + gender + ", mobile="
-				+ mobile + ", name=" + name + ", birthyear=" + birthyear + "]";
+		return "NaverVO [email=" + email + ", birthday=" + birthday + ", gender=" + gender + ", mobile=" + mobile
+				+ ", name=" + name + ", birthyear=" + birthyear + ", roleCode=" + roleCode + "]";
 	}
 	
 	

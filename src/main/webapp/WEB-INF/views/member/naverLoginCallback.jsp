@@ -93,6 +93,7 @@ if (status) {
         data: JSON.stringify(profileData),
         success: function(response) {
             console.log('Profile data sent to server successfully:', response);
+            window.location.href = response;
         },
         error: function(error) {
             console.error('Error sending profile data to server:', error);

@@ -8,4 +8,6 @@ public interface NaverLoginService {
 
 	MemberVO getMember(String email);
 
+	int insertNaverMember(String email);
+
 }

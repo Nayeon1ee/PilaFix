@@ -3,11 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="NaverDAO">
-<!--  
+  
 <resultMap type="naverlogin" id="naverloginResult">
 	<result property="email" column="CS_EMAIL_ID"/>
 </resultMap>
--->
+
 <resultMap type="com.dev.pilafix.common.member.MemberVO" id="member">
 		<id property="csMemberCode" column="CS_MEMBER_CODE"/>
 		<result property="csRoleCode" column="CS_ROLE_CODE" />
@@ -44,9 +44,13 @@
 	SELECT COUNT(*) FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
 </select>
 
-<select id="getMember" resultType="member" >
+<select id="getMember" resultMap="member" >
 	SELECT * FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
 </select>
+
+<insert id="insertNaverMember" parameterType="naverlogin">
+	INSERT INTO TBL_CST 
+</insert>
 
 
 </mapper>
