@@ -24,11 +24,11 @@ public class QuestionReplyDAO {
     }
 	
 	public QuestionVO getTargetQuestion(int qsNumber) {
-    	return sqlSessionTemplate.selectOne("QuestionReplyDAO.getTargetQuestion",qsNumber);
+    	return sqlSessionTemplate.selectOne("QuestionDAO.getTargetQuestion",qsNumber);
 	}
 	
     public QuestionReplyVO getQuestionReply(int reTargetPostNumber) {
-    	return sqlSessionTemplate.selectOne("QuestionReplyDAO.getQuestionReply",reTargetPostNumber);
+    	return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionReply",reTargetPostNumber);
     }
 	
 //	public QuestionReplyVO getQuestionReply(int reTargetPostNumber) {
@@ -36,22 +36,22 @@ public class QuestionReplyDAO {
 //	};
     
     public int insertQuestionReply(QuestionReplyVO vo) {
-    	return sqlSessionTemplate.insert("QuestionReplyDAO.insertQuestionReply",vo);
+    	return sqlSessionTemplate.insert("QuestionDAO.insertQuestionReply",vo);
     }
-
+    public int updateQuestionReply(QuestionReplyVO vo) {
+    	return sqlSessionTemplate.update("QuestionDAO.updateQuestionReply",vo);
+    } 
     public int deleteQuestionReply(int reNumber){
-    	return sqlSessionTemplate.delete("QuestionReplyDAO.deleteQuestionReply",reNumber);
+    	return sqlSessionTemplate.delete("QuestionDAO.deleteQuestionReply",reNumber);
     }
 
 	public int updateAnswerYn(int qsNumber) {
-		return sqlSessionTemplate.update("QuestionReplyDAO.updateAnswerYn", qsNumber);
+		return sqlSessionTemplate.update("QuestionDAO.updateAnswerYn", qsNumber);
 	} 
-
-
 	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo) {
-		// insert �˸��̷�
-		sqlSessionTemplate.update("QuestionReplyDAO.updateAnswerYn", vo.getReTargetPostNumber());
-    	return sqlSessionTemplate.insert("QuestionReplyDAO.insertQuestionReply",vo);
+		// insert ¾Ë¸²ÀÌ·Â
+		sqlSessionTemplate.update("QuestionDAO.updateAnswerYn", vo.getReTargetPostNumber());
+    	return sqlSessionTemplate.insert("QuestionDAO.insertQuestionReply",vo);
 	}
     
 }

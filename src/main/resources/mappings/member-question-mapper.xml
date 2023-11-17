@@ -14,22 +14,78 @@
 		<result property="qsAnswerYn" column="QS_ANSWER_YN" />
 	</resultMap>
 	
-	<select id="getQuestion" resultMap="questionResult" >
-		SELECT * FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
-	</select>
+	<resultMap type="questionReply" id="questionReplyResult">
+		<id property="reNumber" column="RE_NUMBER"/>
+		<result property="reTitle" column="RE_TITLE" />
+		<result property="reContent" column="RE_CONTENT" />
+		<result property="writerRoleCode" column="WRITER_ROLE_CODE" />
+		<result property="writerMemberCode" column="WRITER_MEMBER_CODE" />
+		<result property="reRegdate" column="RE_REGDATE" />
+		<result property="reTargetPostType" column="RE_TARGET_POST_TYPE" />
+		<result property="reTargetPostNumber" column="RE_TARGET_POST_NUMBER" />
+	</resultMap>
+	
+	<!-- [센터] 문의사항 목록 조회 --><!-- 추후에 로그인 완료 시 센터코드 조건 줘야 함 --> 
 	<select id="getQuestionList" resultMap="questionResult">
 		SELECT QS_NUMBER,QS_TITLE,QS_REGDATE, QS_MODIFIED_DATE,QS_ANSWER_YN,QS_CONTENT FROM TBL_QUESTION
 	</select>
+
+	<!-- [센터] 문의사항 상세 조회 -->
+	<select id="getQuestion" resultMap="questionResult" >
+		SELECT * FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
+	</select>
 	
+	<!-- [회원] 등록한 문의사항 목록에 해당하는 답변 목록 -->
+	<select id="getQReplyList" parameterType="Integer" resultMap="questionReplyResult">
+		SELECT * FROM TBL_REPLY WHERE RE_TARGET_POST_TYPE='QST' AND WRITER_MEMBER_CODE=#{writerMemberCode};
+	</select>
+	
+	<!-- [센터] 하나의 상세 문의사항에 대한 답변 조회 -->
+	<select id="getQReply" resultMap="questionReplyResult" >
+		SELECT * FROM TBL_REPLY WHERE RE_TARGET_POST_NUMBER=#{reTargetPostNumber}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- [회원] 문의사항 등록 -->
 	<insert id="insertQuestion" parameterType="question">
 		INSERT INTO	TBL_QUESTION
 		VALUES(nextval('seq_question'), #{qsTitle}, #{qsContent},#{qsWriterMemberCode}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,false)
 	</insert>
-		<update id="updateQuestion" parameterType="question">
+	
+	<!-- 문의사항 수정 -->
+	<update id="updateQuestion" parameterType="question">
 		UPDATE TBL_QUESTION SET QS_TITLE=#{qsTitle}, QS_CONTENT=#{qsContent}, QS_MODIFIED_DATE=CURRENT_TIMESTAMP WHERE QS_NUMBER=#{qsNumber}
 	</update>
+	
+	<!-- 문의사항 삭제 -->
 	<delete id="deleteQuestion"  parameterType="Integer">
 		DELETE FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
 	</delete>
+	
+	
+	<!-- 답변 등록 -->
+	<insert id="insertQReply" parameterType="questionReply">
+		INSERT INTO	TBL_REPLY
+		VALUES(nextval('seq_reply'), #{reTitle}, #{reContent}, 'CE', #{writerMemberCode}, CURRENT_TIMESTAMP, 'QST', #{reTargetPostNumber})
+	</insert>
+	<!-- 답변 등록 시 원글의 답변여부 true -->
+	<update id="updateAnswerYn" parameterType="Integer">
+		UPDATE TBL_QUESTION SET QS_ANSWER_YN = true WHERE QS_NUMBER = #{qsNumber}	
+	</update>
+	
+	<update id="updateQReply" parameterType="questionReply">
+		UPDATE TBL_REPLY SET RE_TITLE=#{reTitle}, RE_CONTENT=#{reContent}, RE_REGDATE=CURRENT_TIMESTAMP WHERE RE_NUMBER=#{reNumber}
+	</update>
+	
+	<delete id="deleteQReply" >
+		DELETE FROM TBL_REPLY WHERE RE_NUMBER=#{reNumber}
+	</delete>
+
 	
 </mapper>

@@ -38,6 +38,16 @@
 	<!-- 로그인 하기 위해 이메일로 비밀번호 가져오기 -->
 	<select id="getPasswordByEmail" resultType="java.lang.String">
 	    SELECT CS_PASSWORD FROM TBL_CST WHERE CS_EMAIL_ID=#{csEmailId}
+	<select id="loginTest" resultType="String">
+		SELECT CS_PASSWORD FROM TBL_CST WHERE CS_EMAIL_ID=#{csEmailId}
+	</select>
+	
+	<update id="updatePwTest" >
+        UPDATE TBL_CST SET CS_PASSWORD = #{newPassword} WHERE CS_EMAIL_ID = #{csEmailId}
+    </update>
+	
+	<select id="login">
+		SELECT CS_PASSWORD FROM TBL_CST WHERE CS_EMAIL_ID=#{csEmailId}
 	</select>
 	
 	<!-- 회원의 전체 정보 조회 -->

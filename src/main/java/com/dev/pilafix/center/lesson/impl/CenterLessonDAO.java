@@ -1,6 +1,8 @@
 package com.dev.pilafix.center.lesson.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +33,11 @@ public class CenterLessonDAO {
 	
 	public int updateCenterLesson(CenterLessonVO vo) {
 		return sqlSessionTemplate.update("CenterLessonDAO.updateCenterLesson", vo);
+	}
+	
+	public List<CenterLessonVO> getTrainerCode(int centerCode) {
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("centerCode", centerCode);
+		return sqlSessionTemplate.selectList("CenterLessonDAO.getTrainerCode", centerCode);
 	}
 }
