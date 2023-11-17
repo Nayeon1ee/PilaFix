@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dev.pilafix.common.member.MemberVO;
@@ -89,7 +90,7 @@ public class MemberLoginController {
 	            if (hasConnectedCenters) {
 	                return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
 	            } else {
-	                return "member/ctConnect"; // 센터 연동 페이지
+	                return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
 	            }
 	        } else {
 	            // 강사인 경우
@@ -188,10 +189,10 @@ public class MemberLoginController {
 	}
 	
 	@PostMapping("/checkCurrentPassword.do")
-	public String checkCurrentPassword(@ModelAttribute MemberVO memberVO, HttpSession session, Model model) {
+	public String checkCurrentPassword(@RequestParam("currentPassword") String currentPassword, HttpSession session, Model model) {
 	    MemberVO currentMember = (MemberVO) session.getAttribute("member");
 
-	    if (service.checkPassword(currentMember.getCsMemberCode(), memberVO.getCurrentPassword())) {
+	    if (service.checkPassword(currentMember.getCsMemberCode(), currentPassword)) {
 	        // 현재 비밀번호가 일치하면 비밀번호 변경 페이지로 이동
 	        return "redirect:/updatePassword.do";
 	    } else {
