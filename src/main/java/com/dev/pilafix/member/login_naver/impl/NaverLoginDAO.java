@@ -18,4 +18,10 @@ public class NaverLoginDAO {
 		return sqlSessionTemplate.selectOne("NaverDAO.getMember",email);
 	}
 
+	public int insertNaverMember(String email) {
+		return sqlSessionTemplate.insert("NaverDAO.insertNaverMember",email);
+	}
+
+
+
 }

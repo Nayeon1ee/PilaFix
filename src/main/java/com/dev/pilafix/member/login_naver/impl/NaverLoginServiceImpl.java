@@ -25,4 +25,10 @@ public class NaverLoginServiceImpl implements NaverLoginService {
 		return dao.getMember(email);
 	}
 
+
+	@Override
+	public int insertNaverMember(String email) {
+		return dao.insertNaverMember(email);
+	}
+
 }

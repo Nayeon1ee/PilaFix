@@ -45,31 +45,53 @@ public class NaverLoginController {
 	        //아이디 디비에 존재하면 그사람 정보 세션에 담아서 그사람 메인 뿌려주고 
 	        if (dbIdCheck > 0) {
 	        	MemberVO member =  service.getMember(email);
+	        	
 	        	//여기에서 멤버가 널이냐고 물업고 찍어보기 => 멤버 없다고 나옴
-	        	if(member == null) {
-	        		System.out.println("멤버없음");
-	        	}else {
-	        		System.out.println("멤버 있음");
-	        	}
-	        	//System.out.println("CsRoleCode: " + member.getCsRoleCode());
+//	        	if(member == null) {
+//	        		System.out.println("멤버없음");
+//	        	}else {
+//	        		System.out.println("멤버 있음");
+//	        	}
+	        	//System.out.println("csRoleCode: " + member.getCsRoleCode());
 	        	session.setAttribute("member", member);
 	        	if(member != null && "TR".equals(member.getCsRoleCode())) {
 	        		System.out.println("강사 페이지메인 url써야함");
-	        		return "강사 페이지메인 url써야함";
+	        		return "main.do";
 	        	}else{
 	        		System.out.println("회원 페이지메인 url써야함");
-	        		return "회원 페이지메인 url써야함";
+	        		return "main.do";
 	        	}
 	        	
 	        //디비에 정보 없으면 회원 디비에 정보 넣고(회원가입 시키고) 메인 뿌려줌
 	        }else {
-	        	//service.insertNaverMember(email);
-	        	
+	        	//int result = service.insertNaverMember(email);
+	        	return "choose.do";
 	        }
 	       
-	        return "Data received successfully!";
+//	        return "Data received successfully!";
 	       // return "redirect:/getNaverMemInfo.do";
 	    }
+	 
+	 // 네이버 로그인시 기존에 회원가입 되어있는 사람일경우 메인 뿌려줌 
+	 // 리턴 값 나중에 메인 주소로 변경해야함 
+	@GetMapping("/main.do")
+		public String main() {
+	        return "member/testMain";
+	    }
+	
+	// 기존에 회원가입 안된사람은 회원/강사 선택하는 화면으로 보냄
+	@GetMapping("/choose.do")
+	public String choose() {
+        return "member/chooseRole";
+    }
+	
+	//회원 강사 선택 화면에서 선택하고 확인누르면 이제 디비에 저장
+	@PostMapping("/insertNaverMember.do")
+	@ResponseBody
+	public String insertNaverMember(@RequestBody NaverVO roleCode) {
+		System.out.println("강사회원 선택값: "+roleCode);
+        return "";
+    }
 	
 	 /**
 	 * 네이버로 로그인한 사람 정보가 회원디비에 있으면 그사람정보 가져와서 메인뿌려주고
