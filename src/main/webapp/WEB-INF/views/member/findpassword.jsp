@@ -149,7 +149,7 @@
         // '다음' 버튼 이벤트 핸들러
         $('#findPwNext-btn').click(function() {
         	 if (isAuthSuccess) {
-        	        window.location.href = window.location.origin + "/pilafix/passwordChange.do"; // 인증 성공시 리다이렉트
+        	        window.location.href = window.location.origin + "/pilafix/updatePassword.do"; // 인증 성공시 리다이렉트
         	    } else {
         	        alert('먼저 인증을 완료해야 합니다.');
         	    }

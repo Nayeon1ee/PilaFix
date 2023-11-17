@@ -15,6 +15,10 @@ public class QuestionReplyDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	public int getTotalQuestionCount() {
+	    return sqlSessionTemplate.selectOne("QuestionReplyDAO.getTotalQuestionCount");
+	}
+	
 	public List<QuestionVO> getQuestionReplyList(){
     	return sqlSessionTemplate.selectList("QuestionDAO.getQuestionList");
     }
@@ -34,9 +38,7 @@ public class QuestionReplyDAO {
     public int insertQuestionReply(QuestionReplyVO vo) {
     	return sqlSessionTemplate.insert("QuestionReplyDAO.insertQuestionReply",vo);
     }
-    public int updateQuestionReply(QuestionReplyVO vo) {
-    	return sqlSessionTemplate.update("QuestionReplyDAO.updateQuestionReply",vo);
-    } 
+
     public int deleteQuestionReply(int reNumber){
     	return sqlSessionTemplate.delete("QuestionReplyDAO.deleteQuestionReply",reNumber);
     }

@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,61 +28,68 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 	private JavaMailSender mailSender;
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberLoginServiceImpl.class);
-
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	
+	
+	
 	@Override
 	public MemberVO getMemberByEmail(String csEmailId) {
 		return dao.getMemberLoginInfo(csEmailId);
 	}
 
-
-//	@Override
-//	public boolean login(String csEmailId, String csPassword) {
-//		dao.login(csEmailId)
-//	}
 	
-
 	@Override
-	public MemberVO memberLogin(String csEmailId, String csPassword) {
-		MemberVO member = dao.getMemberLoginInfo(csEmailId);
-
-		if (member != null) {
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//			if (encoder.matches(csPassword, member.getCsPassword())) {
-			if (BCrypt.checkpw(csPassword, member.getCsPassword())) {
-				return member;
-			}else {
-	            // 로그인 실패
-	            logger.warn("Password does not match for user: {}", csEmailId);
-	        }
+    public boolean memberLogin(String csEmailId, String csPassword) {
+        String storedPassword = dao.getPasswordByEmail(csEmailId);
+        return storedPassword != null && encoder.matches(csPassword, storedPassword);
+    }
+	
+	@Override
+	public MemberVO loginAndGetMember(String csEmailId, String csPassword) {
+		String storedPassword = dao.getPasswordByEmail(csEmailId);
+		if (storedPassword != null && encoder.matches(csPassword, storedPassword)) {
+	        // 로그인 성공, MemberVO 객체 반환
+	    	System.out.println("비밀번호일치회원: " + csEmailId);
+	    	//로그인 시 필요한 기본 정보 조회 mapper
+	    	return dao.getMemberLoginInfo(csEmailId);
 	    } else {
-	        logger.warn("No member found with email: {}", csEmailId);
+	        // 로그인 실패, null 반환
+	        return null;
 	    }
-		return null;
 	}
-
-	// 로그찍어보기
+	
+	
+	@Override
+    public boolean checkPassword(int csMemberCode, String currentPassword) {
+        MemberVO member = dao.getMemberInfo(csMemberCode);
+        if (member != null && member.getCsPassword() != null) {
+            return encoder.matches(currentPassword, member.getCsPassword());
+        }
+        return false;
+    }
 //	@Override
-//	public MemberLoginVO memberLogin(String csEmailId, String csPassword) {
-//	    MemberLoginVO member = dao.getMemberLoginInfo(csEmailId);
-//	    
-//	    System.out.println("memberLogin - Member info from DB: " + member);
-//	    if (member != null) {
-//	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//	        if (encoder.matches(csPassword, member.getCsPassword())) {
-//                logger.info("Password matches for user: {}", csEmailId);
-//                return member;
-//            } else {
-//                logger.warn("Password does not match for user: {}", csEmailId);
-//            }
-//        } else {
-//            logger.warn("No member found with email: {}", csEmailId);
-//        }
-//	    return null;
+//	public MemberVO memberLogin(String csEmailId, String csPassword) {
+//		MemberVO member = dao.getMemberLoginInfo(csEmailId);
+//
+//		if (member != null) {
+//			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+////			if (encoder.matches(csPassword, member.getCsPassword())) {
+//			if (BCrypt.checkpw(csPassword, member.getCsPassword())) {
+//				return member;
+//			}else {
+//	            // 로그인 실패
+//	            logger.warn("Password does not match for user: {}", csEmailId);
+//	        }
+//	    } else {
+//	        logger.warn("No member found with email: {}", csEmailId);
+//	    }
+//		return null;
 //	}
+
+
 
 	@Override
 	public void updatePassword(int csMemberCode, String newPassword) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedNewPassword = encoder.encode(newPassword);
 		dao.updatePassword(csMemberCode, encodedNewPassword);
 
