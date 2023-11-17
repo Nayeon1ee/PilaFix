@@ -1,8 +1,5 @@
 package com.dev.pilafix.member.login_naver;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.dev.pilafix.common.member.MemberVO;
 
 @Controller
 public class NaverLoginController {
@@ -45,10 +43,27 @@ public class NaverLoginController {
 	        System.out.println(dbIdCheck);
 	        
 	        //아이디 디비에 존재하면 그사람 정보 세션에 담아서 그사람 메인 뿌려주고 
-	        //디비에 정보 없으면 회원 디비에 정보 넣고(회원가입 시키고) 메인 뿌려줌
 	        if (dbIdCheck > 0) {
+	        	MemberVO member =  service.getMember(email);
+	        	//여기에서 멤버가 널이냐고 물업고 찍어보기 => 멤버 없다고 나옴
+	        	if(member == null) {
+	        		System.out.println("멤버없음");
+	        	}else {
+	        		System.out.println("멤버 있음");
+	        	}
+	        	//System.out.println("CsRoleCode: " + member.getCsRoleCode());
+	        	session.setAttribute("member", member);
+	        	if(member != null && "TR".equals(member.getCsRoleCode())) {
+	        		System.out.println("강사 페이지메인 url써야함");
+	        		return "강사 페이지메인 url써야함";
+	        	}else{
+	        		System.out.println("회원 페이지메인 url써야함");
+	        		return "회원 페이지메인 url써야함";
+	        	}
 	        	
+	        //디비에 정보 없으면 회원 디비에 정보 넣고(회원가입 시키고) 메인 뿌려줌
 	        }else {
+	        	//service.insertNaverMember(email);
 	        	
 	        }
 	       
