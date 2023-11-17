@@ -7,6 +7,8 @@ import com.dev.pilafix.member.question.QuestionVO;
 public interface QuestionReplyService {
 	
 	
+	int getTotalQuestionCount();
+	
 	QuestionVO getTargetQuestion(int qsNumber);
 	
 	List<QuestionVO> getQuestionReplyList();
@@ -15,12 +17,12 @@ public interface QuestionReplyService {
 	
 	int insertQuestionReply(QuestionReplyVO vo);
 	
-	int updateQuestionReply(QuestionReplyVO vo);
-	
 	int deleteQuestionReply(int reNumber);
 	
 	void updateAnswerYn(int qsNumber);
 
 	int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo);
+	
+	
 
 }

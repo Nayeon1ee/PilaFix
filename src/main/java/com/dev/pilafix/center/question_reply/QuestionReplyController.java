@@ -22,7 +22,9 @@ public class QuestionReplyController {
 	
 	@GetMapping("/getCTQuestionList.do")
 	public String getCTQuestionList(Model model) {
-	    model.addAttribute("questionReply", service.getQuestionReplyList());
+		int totalQuestionCount = service.getTotalQuestionCount();
+	    model.addAttribute("totalQuestionCount", totalQuestionCount);
+	    model.addAttribute("questionReplyList", service.getQuestionReplyList());
 	    return "center/center_inquiry";
 	}
 	

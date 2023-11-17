@@ -30,8 +30,18 @@
 						<a href="memberPage.jsp">마이페이지</a> > 내정보관리 > 비밀번호변경
 					</h3>
 					
-<form id="passwordChangeForm" action="updatePassword.do" method="post" onsubmit="return checkNewPasswordMatch();">
-
+					<form action="/updatePassword.do" method="post">
+				    <input type="password" name="currentPassword" placeholder="현재 비밀번호">
+				    <input type="password" name="newPassword" placeholder="새 비밀번호">
+				    <input type="submit" value="비밀번호 변경">
+				    <!-- 메시지 출력 -->
+				    <c:if test="${not empty message}">
+				        <p>${message}</p>
+				    </c:if>
+					</form>
+										
+					<!-- 1116 주석처리
+					<form id="passwordChangeForm" action="updatePassword.do" method="post" onsubmit="return checkNewPasswordMatch();">
 					<div class="password-change-container">
 					<div class="input-container">
 						<label for="current-password">현재 비밀번호:</label>
@@ -58,14 +68,13 @@
 				        <div id="confirm-password-match-message" class="password-match-message"></div>
 				    </div>
 				    <hr class="line">
-					
-					
 				    <!-- 비밀번호 변경 버튼 -->
 				    <div class="change-password-button">
 				        <button type="submit" class="btn btn-primary">비밀번호 변경</button>
 				    </div>
 					</div>
     </form>
+      -->
     </div>
 </main>
 
