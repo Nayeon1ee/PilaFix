@@ -30,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.center.notice.NoticeHistoryVO" alias="noticeHistory" />
         <typeAlias type="com.dev.pilafix.member.login_kakao.KakaoVO" alias="kakaologin" />
         <typeAlias type="com.dev.pilafix.member.login_naver.NaverVO" alias="naverlogin" />
+        <typeAlias type="com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO" alias="connectRequest" />
 	</typeAliases>
 	
 
@@ -47,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/admin-complaints-mapper.xml" />
 		<mapper resource="mappings/admin-sendemailhistory-mapper.xml" />
 		<mapper resource="mappings/common-sendsmshistory-mapper.xml" />
-		<mapper resource="mappings/admin-membermanage-mapper.xml"/>
+		<mapper resource="mappings/common-membermanage-mapper.xml"/>
 		<mapper resource="mappings/center-lesson-mapper.xml" />
 		<mapper resource="mappings/center-ticket-mapper.xml" />
 		<mapper resource="mappings/member-login-mapper.xml" />

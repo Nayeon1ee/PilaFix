@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dev.pilafix.common.AwsS3;
 import com.dev.pilafix.common.member.CenterVO;
+import com.dev.pilafix.util.AwsS3;
 
 
 @Controller

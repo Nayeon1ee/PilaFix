@@ -1,4 +1,4 @@
-package com.dev.pilafix.common;
+package com.dev.pilafix.util;
 
 import java.io.File;
 import java.io.InputStream;

@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib  prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="center_header_common.jsp" %>
-
 
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>회원관리</h1>
+			<h1>강사관리</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">필요 시 작성</li>
@@ -19,16 +21,12 @@
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
-
+				
+				
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">회원 연동 요청</h5>
 							<p>회원의 연동 요청 리스트입니다.</p>
-
-							<!-- 
-             	 이 영역에 가져온 컴포넌트 넣기 
-             	 PilaAdmin의 demo 보면서 마우스 우클릭하여 소스 보기 해서 가져올 컴포넌트 위치 잘 설정하여 넣기  
-             	 -->
 
 							<div class="table-summary">
 								<p>
@@ -51,9 +49,8 @@
 								</thead>
 								<tbody>
 									<tr>
-										<th scope="row"><a href="center_CTS_info">003</a></th>
-										<td><a href="center_CTS_info">홍길동</a></td>
-										<td><a href="center_CTS_info">hong@naver.com</a></td>
+										<td>홍길동</td>
+										<td>홍길동</td>
 										<td>010-1111-2222</td>
 										<td>2023.06.08</td>
 										<td class="stateOfrequest">요청대기</td>
@@ -67,22 +64,7 @@
 										</td>
 									</tr>
 
-									<tr>
-										<th scope="row"><a href="center_CTS_info">002</a></th>
-										<td><a href="center_CTS_info">홍길동</a></td>
-										<td><a href="center_CTS_info">hong@naver.com</a></td>
-										<td>010-1111-2222</td>
-										<td>2023.06.08</td>
-										<td class="stateOfrequest">요청대기</td>
-										<td>
-											<div class="d-grid gap-2 d-md-block">
-												<button type="button" class="btn btn-primary btn-sm"
-													onclick="acceptRequest(this)">수락</button>
-												<button type="button" class="btn btn-primary btn-sm"
-													onclick="rejectRequest(this)">거절</button>
-											</div>
-										</td>
-									</tr>
+									
 
 									<tr>
 										<th scope="row"><a href="center_CTS_info">001</a></th>
@@ -110,11 +92,11 @@
 
 
 
-
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">전체 회원 목록</h5>
-							<p>연동완료된 전체 회원 리스트입니다.</p>
+							<h5 class="card-title">전체 강사 목록</h5>
+							<p>전체 강사 리스트입니다.</p>
+
 
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
@@ -176,79 +158,37 @@
 										<th scope="col">이메일</th>
 										<th scope="col">전화번호</th>
 										<th scope="col">가입일자</th>
-										<th scope="col">수강권현황</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th scope="row"><a href="center_CTS_info">010418</a></th>
-										<td><a href="center_CTS_info">홍길동</a></td>
-										<td>남자</td>
-										<td>30</td>
-										<td><a href="center_CTS_info">hong@naver.com</a></td>
-										<td>010-1111-2222</td>
-										<td>2023.04.08</td>
-										<td class="subscription-status00">개인 0 / 그룹 0</td>
-									</tr>
-
-									<tr>
-										<th scope="row"><a href="center_CTS_info">010418</a></th>
-										<td><a href="center_CTS_info">홍길동</a></td>
-										<td>남자</td>
-										<td>30</td>
-										<td><a href="center_CTS_info">hong@naver.com</a></td>
-										<td>010-1111-2222</td>
-										<td>2023.04.08</td>
-										<td class="subscription-status00">개인 0 / 그룹 0</td>
-									</tr>
-
-
-									<tr>
-										<th scope="row"><a href="center_CTS_info">010408</a></th>
-										<td><a href="center_CTS_info">홍길동</a></td>
-										<td>남자</td>
-										<td>30</td>
-										<td><a href="center_CTS_info">hong@naver.com</a></td>
-										<td>010-1111-2222</td>
-										<td>2023.04.08</td>
-										<td class="subscription-status00">개인 0 / 그룹 0</td>
-									</tr>
+									<c:if test="${memberList == null }">
+										<tr>
+											<td colspan="8">등록된 회원이 없습니다.</td>
+										</tr>
+									</c:if>
+									<c:forEach var="member" items="${memberList }">
+										    <tr>
+											  <td>${member.csMemberCode }</td>
+										      <td><a href="getMember.do?csMemberCode=${member.csMemberCode }&csRoleCode=${member.csRoleCode}">${member.csName }</a></td>
+										      <td>${member.csGenderMw }</td>
+										      <!-- 생년월일에 따라 나이 분기 필요 -->
+										      <c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
+												<c:set var="birthYear" value="${fn:substring(member.csBirth, 0, 4)}" />
+												<c:set var="age" value="${currentYear - birthYear}" />
+												<td>${age}세</td>
+												
+											
+										      <td>${member.csEmailId }</td>
+										      <td>${member.csPhoneNumber1 }${member.csPhoneNumber2 }${member.csPhoneNumber3}</td>
+										      
+										      <td>${member.csRegistrationDate }</td>
+						
+											
+										</tr>
+									</c:forEach>
 
 
-									<tr>
-										<th scope="row"><a href="center_CTS_info">010408</a></th>
-										<td><a href="center_CTS_info">홍길동</a></td>
-										<td>남자</td>
-										<td>30</td>
-										<td><a href="center_CTS_info">hong@naver.com</a></td>
-										<td>010-1111-2222</td>
-										<td>2023.04.08</td>
-										<td class="subscription-status00">개인 0 / 그룹 0</td>
-									</tr>
 
-
-									<tr>
-										<th scope="row"><a href="center_CTS_info">010808</a></th>
-										<td><a href="center_CTS_info">홍길동</a></td>
-										<td>남자</td>
-										<td>30</td>
-										<td><a href="center_CTS_info">hong@naver.com</a></td>
-										<td>010-1111-2222</td>
-										<td>2023.04.08</td>
-										<td class="subscription-status00">개인 0 / 그룹 0</td>
-									</tr>
-
-
-									<tr>
-										<th scope="row"><a href="center_CTS_info">010808</a></th>
-										<td><a href="center_CTS_info">홍길동</a></td>
-										<td>남자</td>
-										<td>30</td>
-										<td><a href="center_CTS_info">hong@naver.com</a></td>
-										<td>010-1111-2222</td>
-										<td>2023.04.08</td>
-										<td class="subscription-status00">개인 0 / 그룹 0</td>
-									</tr>
 
 								</tbody>
 							</table>
@@ -264,4 +204,5 @@
 
 	</main>
 	<!-- End #main -->
-<%@ include file="center_footer_common.jsp" %>
+
+<%@ include file="center_footer_common.jsp"%>

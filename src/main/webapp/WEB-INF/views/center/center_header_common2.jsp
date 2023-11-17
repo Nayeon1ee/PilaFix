@@ -284,7 +284,7 @@
 		<ul class="sidebar-nav" id="sidebar-nav">
 
 			<li class="nav-item">
-				<a class="nav-link " href="center_detail_info"> 
+				<a class="nav-link " href="#"> 
 					<i class="bi bi-grid"></i> <span> 정보</span>
 				</a>
 			</li>
@@ -292,7 +292,7 @@
 			<!-- 통계 예정  -->
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="#"> 
+				<a class="nav-link collapsed" href="getMemberManageList.do"> 
 					<i class="bi bi-person"></i>
 						<span>회원 관리</span>
 				</a>
@@ -300,7 +300,7 @@
 			<!-- End 회원관리 Nav -->
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="#"> 
+				<a class="nav-link collapsed" href="getTrainerManageList.do"> 
 					<i class="bi bi-journal-text"></i>
 						<span>강사 관리</span>
 				</a>
