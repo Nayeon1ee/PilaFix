@@ -1,13 +1,13 @@
-package com.dev.pilafix.member.question.impl;
+package com.dev.pilafix.common.question.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.member.question.QuestionReplyVO;
-import com.dev.pilafix.member.question.QuestionService;
-import com.dev.pilafix.member.question.QuestionVO;
+import com.dev.pilafix.common.question.QuestionReplyVO;
+import com.dev.pilafix.common.question.QuestionService;
+import com.dev.pilafix.common.question.QuestionVO;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
