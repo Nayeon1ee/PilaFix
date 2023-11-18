@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.common.member.MemberVO" alias="member" />
 		<typeAlias type="com.dev.pilafix.common.member.CenterVO" alias="center" />
 		<typeAlias type="com.dev.pilafix.common.member.AdminVO" alias="admin" />
-		<typeAlias type="com.dev.pilafix.member.question.QuestionVO" alias="question" />
+		<typeAlias type="com.dev.pilafix.common.question.QuestionVO" alias="question" />
 		<typeAlias type="com.dev.pilafix.center.question_reply.QuestionReplyVO" alias="questionReply" />
 		<typeAlias type="com.dev.pilafix.admin.faq.FaqVO" alias="faqInfo" />
 		<typeAlias type="com.dev.pilafix.admin.complaints.ComplaintsVO" alias="complaintsInfo" />
@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.common.sendsmshistory.SendSmsHistoryVO" alias="sendSmsHistory" />
    		<typeAlias type="com.dev.pilafix.center.lesson.CenterLessonVO" alias="centerLesson" />
    		<typeAlias type="com.dev.pilafix.center.ticket.CenterTicketVO" alias="centerTicket" />
-		<typeAlias type="com.dev.pilafix.member.question.QuestionVO" alias="question" />
+		<typeAlias type="com.dev.pilafix.common.question.QuestionVO" alias="question" />
 		<typeAlias type="com.dev.pilafix.member.ConnectCt.ConnectCtVO" alias="ConnectCt" />
 		<typeAlias type="com.dev.pilafix.center.notice.NoticeHistoryVO" alias="noticeHistory" />
         <typeAlias type="com.dev.pilafix.member.login_kakao.KakaoVO" alias="kakaologin" />
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/member-community-mapper.xml" />
 		<mapper resource="mappings/admin-centermanage-mapper.xml" />
 		<mapper resource="mappings/admin-terms-mapper.xml" />
-		<mapper resource="mappings/member-question-mapper.xml" />
+		<mapper resource="mappings/common-question-mapper.xml" />
 		<mapper resource="mappings/member-signup-mapper.xml" />
 		<mapper resource="mappings/admin-faq-mapper.xml" />
 		<mapper resource="mappings/admin-complaints-mapper.xml" />
