@@ -26,10 +26,14 @@ public class MemberManageDAO {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList");
 	}
 
-	public List<ConnectRequestVO> getConnectRequestForMem() {
+	public List<ConnectRequestVO> getConnectRequestForMe() {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getCenterRequestForMe");
 	}
-
+	
+	public List<ConnectRequestVO> getConnectRequestForTr() {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getCenterRequestForTr");
+	}
+	
 	/**
 	 * 연동 요청 처리 
 	 * @param crCode
@@ -50,12 +54,21 @@ public class MemberManageDAO {
 			sqlSessionTemplate.insert("MemberManageDAO.insertConnHistory", params);
 			
 			// 연동처리 STEP03 - TBL_CST CONNECTED_CENTER_CODE 업데이트
-			sqlSessionTemplate.update("MemberManageDAO.updateCSTConn", memberCode);
+			//여기서 맵 줘야 함 centercode랑 memberCode
+			sqlSessionTemplate.update("MemberManageDAO.updateCSTConn", params);
 			
 		} catch (Exception e) {
 			// 예외 처리 
 			throw new RuntimeException("데이터베이스 업데이트 오류", e);
 		}
+	}
+
+	/**
+	 * 연동 거절 
+	 * @param crCode
+	 */
+	public void updateRejectDate(String crCode) {
+		sqlSessionTemplate.update("MemberManageDAO.updateRejectDate", crCode);
 	}
 
 }
