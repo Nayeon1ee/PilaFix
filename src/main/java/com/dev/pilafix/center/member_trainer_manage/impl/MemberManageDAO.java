@@ -40,12 +40,12 @@ public class MemberManageDAO {
 			// 연동처리 STEP02 - TBL_CENTER_CONN에 이력 등록
 			Map<String, Object> params = new HashMap<>();
 			params.put("crCode", crCode);
-			params.put("memberCode", csMemberCode);
+			params.put("memberCode", memberCode);
 			params.put("centerCode", centerCode);
 			sqlSessionTemplate.insert("MemberManageDAO.insertConnHistory", params);
 			
 			// 연동처리 STEP03 - TBL_CST CONNECTED_CENTER_CODE 업데이트
-			sqlSessionTemplate.update("MemberManageDAO.updateCSTConn", csMemberCode);
+			sqlSessionTemplate.update("MemberManageDAO.updateCSTConn", memberCode);
 			
 		} catch (Exception e) {
 			// 예외 처리 

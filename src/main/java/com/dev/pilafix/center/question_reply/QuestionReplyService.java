@@ -2,7 +2,7 @@ package com.dev.pilafix.center.question_reply;
 
 import java.util.List;
 
-import com.dev.pilafix.member.question.QuestionVO;
+import com.dev.pilafix.common.question.QuestionVO;
 
 public interface QuestionReplyService {
 	

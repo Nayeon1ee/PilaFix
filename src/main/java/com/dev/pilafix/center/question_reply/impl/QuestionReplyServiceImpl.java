@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.pilafix.center.question_reply.QuestionReplyService;
 import com.dev.pilafix.center.question_reply.QuestionReplyVO;
-import com.dev.pilafix.member.question.QuestionVO;
+import com.dev.pilafix.common.question.QuestionVO;
 
 @Service
 public class QuestionReplyServiceImpl implements QuestionReplyService {

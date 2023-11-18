@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.center.question_reply.QuestionReplyVO;
-import com.dev.pilafix.member.question.QuestionVO;
+import com.dev.pilafix.common.question.QuestionVO;
 
 @Repository
 public class QuestionReplyDAO {
@@ -49,7 +49,7 @@ public class QuestionReplyDAO {
 		return sqlSessionTemplate.update("QuestionDAO.updateAnswerYn", qsNumber);
 	} 
 	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo) {
-		// insert ¾Ë¸²ÀÌ·Â
+		// insert
 		sqlSessionTemplate.update("QuestionDAO.updateAnswerYn", vo.getReTargetPostNumber());
     	return sqlSessionTemplate.insert("QuestionDAO.insertQuestionReply",vo);
 	}
