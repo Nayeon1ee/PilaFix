@@ -169,7 +169,7 @@
 									<c:forEach var="member" items="${memberList }">
 										    <tr>
 											  <td>${member.csMemberCode }</td>
-										      <td><a href="getMember.do?csMemberCode=${member.csMemberCode }&csRoleCode=${member.csRoleCode}">${member.csName }</a></td>
+										      <td><a href="getTrainerManage.do?csMemberCode=${member.csMemberCode }&csRoleCode=${member.csRoleCode}">${member.csName }</a></td>
 										      <td>${member.csGenderMw }</td>
 										      <!-- 생년월일에 따라 나이 분기 필요 -->
 										      <c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
