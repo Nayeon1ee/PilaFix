@@ -80,7 +80,7 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width:1000px">
+			<div class="container" style="max-width:700px">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
