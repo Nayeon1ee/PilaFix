@@ -134,8 +134,9 @@ public class NaverLoginController {
 		service.insertNaverMember(naverMember);
         return "main.do";
     }
-	public Date transformDate(String combinedBirthc) {
-		Date d = Date.valueOf(combinedBirthc);
+	//문자열인 combinedBirth를 sql의 Date타입으로 변환
+	public Date transformDate(String combinedBirth) {
+		Date d = Date.valueOf(combinedBirth);
 		return d;
 	}
 	
