@@ -80,7 +80,7 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width:1000px">
+			<div class="container">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
@@ -94,7 +94,7 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container">
+			<div class="container" style="max-width:1000px">
 
 				<form action="member_login.do" method="post" class="row g-3">
 
