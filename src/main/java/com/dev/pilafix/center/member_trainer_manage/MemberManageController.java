@@ -98,7 +98,7 @@ public class MemberManageController {
 	 * @return
 	 */
 	@GetMapping("/getTrainerManage.do")
-	public String getTrainer(int csMemberCode, String csRoleCode,Model model) {
+	public String getTrainerManage(int csMemberCode, String csRoleCode,Model model) {
 		//회원 정보 
 		model.addAttribute("member", service.getMember(csMemberCode, csRoleCode));
 
@@ -108,7 +108,7 @@ public class MemberManageController {
 		
 		// 최근 결제 내역 저장
 		
-		return "center/center_member_list";
+		return "center/center_trainer_detail";
 	}
 	
 	
