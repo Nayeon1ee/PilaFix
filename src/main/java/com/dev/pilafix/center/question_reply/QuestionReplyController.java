@@ -14,62 +14,41 @@ public class QuestionReplyController {
 	@Autowired
 	private QuestionReplyService service;
 	
-//	@GetMapping("/getQuestionReplyList.do")
-//	public String getQuestionReplyList(Model model) {
+//
+//	
+//	@GetMapping("/getCTQuestionList.do")
+//	public String getCTQuestionList(Model model) {
+//		int totalQuestionCount = service.getTotalQuestionCount();
+//	    model.addAttribute("totalQuestionCount", totalQuestionCount);
 //	    model.addAttribute("questionReplyList", service.getQuestionReplyList());
-//	    return "questionreply/getQuestionReplyList";
+//	    return "center/center_inquiry";
 //	}
-	
-	@GetMapping("/getCTQuestionList.do")
-	public String getCTQuestionList(Model model) {
-		int totalQuestionCount = service.getTotalQuestionCount();
-	    model.addAttribute("totalQuestionCount", totalQuestionCount);
-	    model.addAttribute("questionReplyList", service.getQuestionReplyList());
-	    return "center/center_inquiry";
-	}
-	
-
-	@GetMapping("/getQuestionReply.do")
-	public String getQuestionReply(@RequestParam("reTargetPostNumber") Integer reTargetPostNumber, Model model) {
-		
-		model.addAttribute("question", service.getTargetQuestion(reTargetPostNumber)); //답변의 targetNumber와 문의글의 qsNumber가 동일하므로 
-		model.addAttribute("questionReply", service.getQuestionReply(reTargetPostNumber));
-	    return "center/center_inquiry_response";
-	}
-	
-	
-//	@PostMapping("getQuestionReply.do")
-//	public String getCTquestionRE(@RequestParam("reTargetPostNumber")Integer reTargetPostNumber, Model model) {
+//	
+//
+//	@GetMapping("/getQuestionReply.do")
+//	public String getQuestionReply(@RequestParam("reTargetPostNumber") Integer reTargetPostNumber, Model model) {
 //		
-//		return "redirect: getQuestionReply.do?reTargetPostNumber=\" +vo.getReTargetPostNumber();
+//		model.addAttribute("question", service.getTargetQuestion(reTargetPostNumber)); //답변의 targetNumber와 문의글의 qsNumber가 동일하므로 
+//		model.addAttribute("questionReply", service.getQuestionReply(reTargetPostNumber));
+//	    return "center/center_inquiry_response";
 //	}
-	
-	
-	
-	
-
-//	@Transactional
-	@PostMapping("/insertQuestionReply.do")
-	public String insert(QuestionReplyVO vo) {
-		service.insertQuestionReplyAndUpdateAnswerYn(vo);
-		return "redirect:getQuestionReply.do?reTargetPostNumber="+vo.getReTargetPostNumber();
-	}
-	
-
-	
-	@GetMapping("/deleteQuestionReply.do")
-	public String delete(int reNumber) {
-		service.deleteQuestionReply(reNumber);
-		return "redirect:getQuestionReplyList.do";
-	}
+//	
+//
+//
+////	@Transactional
+//	@PostMapping("/insertQuestionReply.do")
+//	public String insert(QuestionReplyVO vo) {
+//		service.insertQuestionReplyAndUpdateAnswerYn(vo);
+//		return "redirect:getQuestionReply.do?reTargetPostNumber="+vo.getReTargetPostNumber();
+//	}
+//	
+//
+//	
 //	@GetMapping("/deleteQuestionReply.do")
-//	public String delete(@RequestParam(name = "reNumber") Integer reNumber) {
-//	    if (reNumber != null) {
-//	        service.deleteQuestionReply(reNumber);
-//	    }
-//	    return "redirect:getQuestionReplyList.do";
+//	public String delete(int reNumber) {
+//		service.deleteQuestionReply(reNumber);
+//		return "redirect:getQuestionReplyList.do";
 //	}
 
-	
 
 }
