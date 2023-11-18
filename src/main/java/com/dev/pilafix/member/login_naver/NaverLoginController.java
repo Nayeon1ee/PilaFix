@@ -1,5 +1,12 @@
 package com.dev.pilafix.member.login_naver;
 
+import java.sql.Date;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +41,7 @@ public class NaverLoginController {
 	 public String handleProfileData(@RequestBody NaverVO profileData,HttpSession session ) {
 	        // Now you can access individual fields of profileData
 	        System.out.println("Received profile data: " + profileData.toString());
+	        session.setAttribute("naverMemberProfile", profileData);
 	        // Process the data as needed
 //	        Map<String, Object> naverProfileData = new HashMap<>();
 //	        naverProfileData.put("naverProfileData", naverProfileData);
@@ -88,10 +96,48 @@ public class NaverLoginController {
 	//회원 강사 선택 화면에서 선택하고 확인누르면 이제 디비에 저장
 	@PostMapping("/insertNaverMember.do")
 	@ResponseBody
-	public String insertNaverMember(@RequestBody NaverVO roleCode) {
-		System.out.println("강사회원 선택값: "+roleCode);
-        return "";
+	public String insertNaverMember(@RequestBody Map<String, String> role,HttpSession session) {
+		//System.out.println("강사회원 선택값: "+role.get("role"));
+		
+		//String roleCode = role.get("role");
+		NaverVO naverMemberProfile = (NaverVO) session.getAttribute("naverMemberProfile");
+		//System.out.println("멤버 안의 값 확인 :" + naverMemberProfile.getMobile());
+		
+		//한번에 받아온 핸드폰 번호 잘라서 각 변수에 담기
+		String mobileNumber = naverMemberProfile.getMobile();
+		String[] parts = mobileNumber.split("-");
+		naverMemberProfile.setNum1(parts[0]);
+		naverMemberProfile.setNum2(parts[1]);
+		naverMemberProfile.setNum3(parts[2]);
+	    System.out.println("확인용 자른 전화번호 다시 가져오기 :"+naverMemberProfile.getNum1()+naverMemberProfile.getNum2()+naverMemberProfile.getNum3());
+		//F면 여자 M이면 남자라고 저장하기
+		String gender = naverMemberProfile.getGender();
+		if ("F".equals(gender)) {
+			naverMemberProfile.setnGender("여자");
+	    } else if ("M".equals(gender)) {
+	    	naverMemberProfile.setnGender("남자");
+	    }
+		System.out.println("확인용 성별 : "+naverMemberProfile.getnGender());
+		//생일 합치기
+		String combinedBirth = naverMemberProfile.getBirthyear() + "-" + naverMemberProfile.getBirthday();
+		System.out.println("타입 변환전 데이터 : "+combinedBirth);
+		
+		naverMemberProfile.setBirth(transformDate(combinedBirth));
+		System.out.println("확인용 생일 합치기 : " + naverMemberProfile.getBirth());
+		
+		//회원/강사 선택값 VO에 저장
+		naverMemberProfile.setChooseRole(role.get("role"));
+		System.out.println("확인용 회원강사 선택값 : "+naverMemberProfile.getChooseRole());
+		
+		Map<String, Object> naverMember = new HashMap<>();
+		naverMember.put("member", naverMemberProfile);
+		service.insertNaverMember(naverMember);
+        return "main.do";
     }
+	public Date transformDate(String combinedBirthc) {
+		Date d = Date.valueOf(combinedBirthc);
+		return d;
+	}
 	
 	 /**
 	 * 네이버로 로그인한 사람 정보가 회원디비에 있으면 그사람정보 가져와서 메인뿌려주고
