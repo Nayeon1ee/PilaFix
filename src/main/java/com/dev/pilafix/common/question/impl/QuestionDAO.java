@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.question.QuestionReplyVO;
 import com.dev.pilafix.common.question.QuestionVO;
 
@@ -39,6 +40,38 @@ public class QuestionDAO {
 	public int deleteQuestion(int qsNumber) {
 		return sqlSessionTemplate.delete("QuestionDAO.deleteQuestion", qsNumber);
 	}
+	
+	// 로그인한 회원의 연동된 센터 이름 가져오려고 추가
+	public List<CenterVO> getConnectedCT(int csMemberCode) {
+        return sqlSessionTemplate.selectList("QuestionDAO.getConnectedCT", csMemberCode);
+    }
+
+	public int getTotalQuestionCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	public List<QuestionVO> getQuestionReplyList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int insertQuestionReply(QuestionReplyVO replyvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int deleteQuestionReply(int reNumber) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 
 

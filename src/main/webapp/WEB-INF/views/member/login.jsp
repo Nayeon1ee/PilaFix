@@ -96,7 +96,7 @@
 		<section id="services" class="services">
 			<div class="container" style="max-width:1000px">
 
-				<form action="member_login.do" method="post" class="row g-3">
+				<form action="memberLogin.do" method="post" class="row g-3">
 
 					<div class="col-md-7 mx-auto">
 						<div class="form-floating">
@@ -176,11 +176,12 @@
 						style="text-decoration: none; margin-left: 10px;"> 회원가입 </a>
 				</div>
 
-				<!-- 로그인 실패 메시지 표시 -->
-				<c:if test="${not empty loginError}">
-					<div class="alert alert-danger mx-auto"
-						style="width: 20%; margin-top: 3%;" role="alert">${loginError}</div>
-				</c:if>
+	<!-- 로그인 실패 메시지 표시 -->
+    <c:if test="${not empty message}">
+        <!-- <div class="alert alert-danger" role="alert"> -->
+            ${message}
+        <!-- </div> -->
+    </c:if>
 
 
 				<script type="text/javascript">
@@ -201,8 +202,7 @@
     function passwordCertification(){
     	let email = document.getElementById(elementId: '');   	
     }
-    
-    
+
     </script>
 				<!-- End Our Skills Section -->
 			</div>
