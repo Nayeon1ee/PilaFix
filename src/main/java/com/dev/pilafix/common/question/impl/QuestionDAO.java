@@ -1,4 +1,4 @@
-package com.dev.pilafix.member.question.impl;
+package com.dev.pilafix.common.question.impl;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dev.pilafix.member.question.QuestionReplyVO;
-import com.dev.pilafix.member.question.QuestionVO;
+import com.dev.pilafix.common.question.QuestionReplyVO;
+import com.dev.pilafix.common.question.QuestionVO;
 
 @Repository
 public class QuestionDAO {

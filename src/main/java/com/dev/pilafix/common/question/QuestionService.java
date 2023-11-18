@@ -1,4 +1,4 @@
-package com.dev.pilafix.member.question;
+package com.dev.pilafix.common.question;
 
 import java.util.List;
 
