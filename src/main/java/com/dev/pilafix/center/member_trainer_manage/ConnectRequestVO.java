@@ -5,8 +5,8 @@ import java.sql.Date;
 public class ConnectRequestVO {
 	
 	private String crCode;
-	private String centerCode;
-	private String memberCode;
+	private int centerCode;
+	private int memberCode;
 	private String memberName;
 	private String memberPhone;
 	private Date crReqDate;
@@ -19,16 +19,16 @@ public class ConnectRequestVO {
 	public void setCrCode(String crCode) {
 		this.crCode = crCode;
 	}
-	public String getCenterCode() {
+	public int getCenterCode() {
 		return centerCode;
 	}
-	public void setCenterCode(String centerCode) {
+	public void setCenterCode(int centerCode) {
 		this.centerCode = centerCode;
 	}
-	public String getMemberCode() {
+	public int getMemberCode() {
 		return memberCode;
 	}
-	public void setMemberCode(String memberCode) {
+	public void setMemberCode(int memberCode) {
 		this.memberCode = memberCode;
 	}
 	public String getMemberName() {
