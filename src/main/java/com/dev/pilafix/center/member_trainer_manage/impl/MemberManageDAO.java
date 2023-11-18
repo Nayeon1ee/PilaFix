@@ -30,7 +30,12 @@ public class MemberManageDAO {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getCenterRequestForMe");
 	}
 
-	
+	/**
+	 * 연동 요청 처리 
+	 * @param crCode
+	 * @param memberCode
+	 * @param centerCode
+	 */
 	@Transactional
 	public void updateConnectionYnAndInsertConnHistory(String crCode, int memberCode, int centerCode) {
 		try {

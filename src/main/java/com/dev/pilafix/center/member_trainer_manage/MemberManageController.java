@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
@@ -39,11 +40,8 @@ public class MemberManageController {
 	 * 
 	 * @return 수락 후 목록 재조회 
 	 */
-	@GetMapping("/acceptRequest.do")
+	@PostMapping("/acceptRequest.do")
 	public String acceptRequest(String crCode, int memberCode, int centerCode) {
-		
-		//jsp에서 버튼 눌렀을 때 파라미터 값 줘야 함 
-		
 		
 		service.acceptRequest(crCode, memberCode, centerCode);
 		// 회원 승낙 후 회원 목록 조회로 이동 

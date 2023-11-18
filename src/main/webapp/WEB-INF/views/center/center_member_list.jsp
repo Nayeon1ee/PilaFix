@@ -181,9 +181,25 @@
 											  </c:if>
 												
 											  <td>개인${personalTicket} | 그룹${groupTicket}</td>
-						
-											
 										</tr>
+										
+										<!-- 연동 요청 수락 버튼 모달 - 회원 이름 출력 위해 for문 안에  -->
+										<div class="modal fade" id="basicModal" tabindex="-1">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title"> 수락하시겠습니까 문구 작성하세용  </h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body"> ${member.csName } 회원의 요청을 수락하시겠습니까 </div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+														<button type="button" class="btn btn-primary" onclick="acceptRequest(${request.crCode},${request.memberCode}, ${request.centerCode })">확인</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										
 									</c:forEach>
 
 								</tbody>
@@ -201,31 +217,10 @@
 	</main>
 	<!-- End #main -->
 	
-	
-
-<!-- 연동 요청 수락 버튼 모달 -->
-<div class="modal fade" id="basicModal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title"> 수락하시겠습니까 문구 작성하세용  </h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">  수락하시겠습니까 문구 작성하세용  </div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" onclick="acceptRequest(${request.crCode},${request.memberCode}, ${request.centerCode })">확인</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 모달의 확인 누르면 삭제 진행-->
-
-
 <script>
 function acceptRequest(crCode, csMemberCode, centerCode) {
 	fetch('/pilafix/acceptRequest.do?crCode=' + cmNumber+'&csMemberCode='+csMemberCode+'&centerCode='+centerCode, {
-		method: 'GET'
+		method: 'POST'
 	})
 		.then(response => {
 			if (!response.ok) {
