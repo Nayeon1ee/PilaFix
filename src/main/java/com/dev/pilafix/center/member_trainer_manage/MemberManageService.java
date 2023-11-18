@@ -14,7 +14,7 @@ public interface MemberManageService {
 
 	List<ConnectRequestVO> getConnectRequestForMem();
 
-	void acceptRequest(String crCode, int csMemberCode, int centerCode);
+	void acceptRequest(String crCode, int memberCode, int centerCode);
 
 
 

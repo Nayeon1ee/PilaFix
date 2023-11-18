@@ -40,6 +40,8 @@ public class MemberManageServiceImpl implements MemberManageService{
 	public void acceptRequest(String crCode, int memberCode, int centerCode) {
 		dao.updateConnectionYnAndInsertConnHistory(crCode, memberCode, centerCode);
 	}
+	
+	
 
 	/* ======================== 강사 관리 ======================== */ 
 	@Override
