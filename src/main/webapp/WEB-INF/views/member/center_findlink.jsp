@@ -103,7 +103,7 @@
 
 		<!-- ======= Contact Section ======= -->
 		<section id="contact" class="contact">
-			<div class="container">
+			<div class="container" style="max-width:1000px";>
 
 				<div class="row">
 
@@ -119,10 +119,10 @@
 							class="php-email-form">
 							<div class="row">
 								<div class="col-md-6 form-group">
-									<label for="staticEmail" class="col-sm-4 col-form-label">연동
+									<label for="staticEmail" class="col-sm-6 col-form-label">연동
 										센터 찾기</label>
 								</div>
-								<div class="col-md-6 form-group mt-3 mt-md-0">
+								<div class="col-md-9 form-group mt-3 mt-md-0">
 									<label for="basic-url" class="form-label">홍길동님, 원하는 센터를
 										검색하세요!</label>
 								</div>
@@ -133,7 +133,7 @@
 									aria-describedby="basic-addon3 basic-addon4"
 									placeholder="센터명, 주소를 입력">
 							</div>
-							<br> <br> <br>
+							<br> <br>
 
 							<div class="form-group mt-3">
 								<div class="text-center" id="basic-addon4">이렇게 검색해 보세요!</div>
