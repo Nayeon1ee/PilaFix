@@ -21,27 +21,27 @@ public class MemberManageController {
 	@Autowired
 	private MemberManageService service;
 
-	/* ======================== È¸¿ø °ü¸® ======================== */ 
+	/* ======================== íšŒì› ê´€ë¦¬ ======================== */ 
 	/**
-	 * È¸¿ø ¸ñ·Ï Á¶È¸ 
+	 * íšŒì› ëª©ë¡ ì¡°íšŒ 
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/getMemberManageList.do")
 	public String getMemberManageList(HttpSession session, Model model) {
-		// ¼¼¼Ç¿¡¼­ ÆÄ¶ó¹ÌÅÍ ¹Ş¾Æ¿Í¾ß ÇÔ
+		// ì„¸ì…˜ì—ì„œ íŒŒë¼ë¯¸í„° ë°›ì•„ì™€ì•¼ í•¨
 //        Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
 
       
-        // È¸¿øÀÌ ·Î±×ÀÎµÇ¾î ÀÖ´ÂÁö È®ÀÎ
+        // íšŒì›ì´ ë¡œê·¸ì¸ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸
 //        if (user != null) {
-            //¼¾ÅÍ ¿¬µ¿ ¿äÃ» ¸®½ºÆ® 
+            //ì„¼í„° ì—°ë™ ìš”ì²­ ë¦¬ìŠ¤íŠ¸ 
         	model.addAttribute("request", service.getConnectRequestForMe());
     		model.addAttribute("memberList", service.getMemberManageList());
 //        } else {
-            // ·Î±×ÀÎµÇ¾î ÀÖÁö ¾ÊÀº °æ¿ì¿¡ ´ëÇÑ Ã³¸®
-//            return "redirect:/login"; // ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+            // ë¡œê·¸ì¸ë˜ì–´ ìˆì§€ ì•Šì€ ê²½ìš°ì— ëŒ€í•œ ì²˜ë¦¬
+//            return "redirect:/login"; // ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 //        }
 
         return "center/center_member_list";
@@ -49,8 +49,8 @@ public class MemberManageController {
 	
 	
 	/**
-	 * È¸¿ø »ó¼¼ Á¶È¸ 
-	 * È¸¿ø Á¤º¸, ¹®ÀÇ ³»¿ª, ¿¹¾à ¼ö¾÷ ³»¿ª, °áÁ¦ ³»¿ª Á¶È¸ ÇÊ¿ä 
+	 * íšŒì› ìƒì„¸ ì¡°íšŒ 
+	 * íšŒì› ì •ë³´, ë¬¸ì˜ ë‚´ì—­, ì˜ˆì•½ ìˆ˜ì—… ë‚´ì—­, ê²°ì œ ë‚´ì—­ ì¡°íšŒ í•„ìš” 
 	 * 
 	 * @param csMemberCode
 	 * @param csRoleCode
@@ -59,16 +59,16 @@ public class MemberManageController {
 	 */
 	@GetMapping("/getMemberManage.do")
 	public String getMemberManage(int csMemberCode, String csRoleCode,Model model) {
-		//È¸¿ø Á¤º¸ 
+		//íšŒì› ì •ë³´ 
 		model.addAttribute("member", service.getMember(csMemberCode, csRoleCode));
 
-		// ÃÖ±Ù ¹®ÀÇ ³»¿ª ÀúÀå 
+		// ìµœê·¼ ë¬¸ì˜ ë‚´ì—­ ì €ì¥ 
 		List<QuestionVO> qlist =  service.getQuestion();
 		
-		// ÃÖ±Ù ¿¹¾à ¼ö¾÷ ³»¿ª ÀúÀå 
+		// ìµœê·¼ ì˜ˆì•½ ìˆ˜ì—… ë‚´ì—­ ì €ì¥ 
 		
 		
-		// ÃÖ±Ù °áÁ¦ ³»¿ª ÀúÀå
+		// ìµœê·¼ ê²°ì œ ë‚´ì—­ ì €ì¥
 		List<PaymentHistoryVO> payList = service.getPayment();
 		
 		
@@ -77,9 +77,9 @@ public class MemberManageController {
 	
 	
 	
-	/* ======================== °­»ç °ü¸® ======================== */ 
+	/* ======================== ê°•ì‚¬ ê´€ë¦¬ ======================== */ 
 	/**
-	 * °­»ç ¸ñ·Ï Á¶È¸ 
+	 * ê°•ì‚¬ ëª©ë¡ ì¡°íšŒ 
 	 * 
 	 * @param model
 	 * @return
@@ -92,8 +92,8 @@ public class MemberManageController {
 	}
 	
 	/**
-	 * °­»ç »ó¼¼ Á¶È¸ 
-	 * ¼ö¾÷ ÁøÇà ÇöÈ², ±×·ì ¼ö¾÷ ³»¿ª, °³ÀÎ ¼ö¾÷ ³»¿ª, ÀüÃ¼ ¼ö¾÷ ³»¿ª 
+	 * ê°•ì‚¬ ìƒì„¸ ì¡°íšŒ 
+	 * ìˆ˜ì—… ì§„í–‰ í˜„í™©, ê·¸ë£¹ ìˆ˜ì—… ë‚´ì—­, ê°œì¸ ìˆ˜ì—… ë‚´ì—­, ì „ì²´ ìˆ˜ì—… ë‚´ì—­ 
 	 * 
 	 * @param csMemberCode
 	 * @param csRoleCode
@@ -101,24 +101,29 @@ public class MemberManageController {
 	 * @return
 	 */
 	@GetMapping("/getTrainerManage.do")
-	public String getTrainer(int csMemberCode, String csRoleCode,Model model) {
-		//È¸¿ø Á¤º¸ 
+	public String getTrainerManage(int csMemberCode, String csRoleCode,Model model) {
+		//íšŒì› ì •ë³´ 
 		model.addAttribute("member", service.getMember(csMemberCode, csRoleCode));
 
-
-		return "center/center_member_list";
+		// ìµœê·¼ ë¬¸ì˜ ë‚´ì—­ ì €ì¥ 
+		
+		// ìµœê·¼ ì˜ˆì•½ ìˆ˜ì—… ë‚´ì—­ ì €ì¥ 
+		
+		// ìµœê·¼ ê²°ì œ ë‚´ì—­ ì €ì¥
+		
+		return "center/center_trainer_detail";
 	}
 	
 	
-	/* ======================== °øÅë ======================== */ 
+	/* ======================== ê³µí†µ ======================== */ 
 	/**
-	 * È¸¿ø/°­»ç ¿¬µ¿ ¿äÃ» ¼ö¶ô 
+	 * íšŒì›/ê°•ì‚¬ ì—°ë™ ìš”ì²­ ìˆ˜ë½ 
 	 * 
-	 * ¿¬µ¿Ã³¸® STEP01 - TBL_CENTER_REQUEST ¿¬µ¿¿©ºÎ, ÀÏÀÚ ¾÷µ¥ÀÌÆ®
-	 * ¿¬µ¿Ã³¸® STEP02 - TBL_CENTER_CONN¿¡ ÀÌ·Â µî·Ï
-	 * ¿¬µ¿Ã³¸® STEP03 - TBL_CST CONNECTED_CENTER_CODE ¾÷µ¥ÀÌÆ®
+	 * ì—°ë™ì²˜ë¦¬ STEP01 - TBL_CENTER_REQUEST ì—°ë™ì—¬ë¶€, ì¼ì ì—…ë°ì´íŠ¸
+	 * ì—°ë™ì²˜ë¦¬ STEP02 - TBL_CENTER_CONNì— ì´ë ¥ ë“±ë¡
+	 * ì—°ë™ì²˜ë¦¬ STEP03 - TBL_CST CONNECTED_CENTER_CODE ì—…ë°ì´íŠ¸
 	 * 
-	 * @return ¼ö¶ô ÈÄ ¸ñ·Ï ÀçÁ¶È¸ 
+	 * @return ìˆ˜ë½ í›„ ëª©ë¡ ì¬ì¡°íšŒ 
 	 */
 	@GetMapping("/acceptRequest.do")
 	public String acceptRequest(@RequestParam("crCode") String crCode, @RequestParam("memberCode") int memberCode, @RequestParam("centerCode") int centerCode) {
@@ -127,11 +132,11 @@ public class MemberManageController {
 	}
 	
 	/**
-	 * È¸¿ø/°­»ç ¿¬µ¿ ¿äÃ» °ÅÀı 
+	 * íšŒì›/ê°•ì‚¬ ì—°ë™ ìš”ì²­ ê±°ì ˆ 
 	 * 
-	 * TBL_CENTER_REQUEST °ÅÀı ÀÏÀÚ ¾÷µ¥ÀÌÆ®
+	 * TBL_CENTER_REQUEST ê±°ì ˆ ì¼ì ì—…ë°ì´íŠ¸
 	 * 
-	 * @return °ÅÀı ÈÄ ¸ñ·Ï ÀçÁ¶È¸ 
+	 * @return ê±°ì ˆ í›„ ëª©ë¡ ì¬ì¡°íšŒ 
 	 */
 	@GetMapping("/rejectRequest.do")
 	public String rejectRequest(@RequestParam("crCode") String crCode) {

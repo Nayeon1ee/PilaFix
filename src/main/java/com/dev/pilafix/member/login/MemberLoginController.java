@@ -78,7 +78,18 @@ public class MemberLoginController {
 	    if (member != null) {
 	        // 로그인 성공, 세션에 사용자 정보 저장
 	    	System.out.println("로그인성공: " + memberVO.getCsEmailId());
-	        session.setAttribute("member", member);
+	        
+	    	// 세션에 담을 Map 생성 
+	        Map<String, Object> loginUser = new HashMap<>();
+	        loginUser.put("csMemberCode", member.getCsMemberCode());
+	        loginUser.put("csName", member.getCsName());
+	        loginUser.put("csRoleCode", member.getCsRoleCode());
+	        loginUser.put("csEmailId", member.getCsEmailId());
+	        String userPhone = member.getCsPhoneNumber1()+member.getCsPhoneNumber2()+member.getCsPhoneNumber3();
+	        loginUser.put("csPhoneNumber", userPhone);
+	        
+	        // 세션에 Map 저장 
+	        session.setAttribute("loginUser", loginUser);
 	        
 	     // 연동된 센터가 있는지 확인
 	        boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || 

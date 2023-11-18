@@ -19,14 +19,23 @@
 	<select id="getAdminLoginInfo" resultMap="adminloginResult">
 		SELECT * FROM TBL_ADMIN WHERE AD_ID=#{adId}
 	</select>
-
-	<!-- <update id="updatePassword">
-        UPDATE TBL_CST SET csPassword = #{newPassword} WHERE csMemberCode = #{csMemberCode}
-    </update>
 	
-
-	<select id="findMemberByNameAndEmail" parameterType="map" resultMap="memberloginResult">
+	<insert id="insertAdminRegister" parameterType="admin">
+		INSERT INTO TBL_ADMIN(AD_CODE, AD_NAME, AD_CONTACT1, AD_CONTACT2, AD_CONTACT3, AD_ID, AD_PASSWORD, ACCOUNT_USAGE_YN, ROLE_CODE) 
+		VALUES(CONCAT('AD',NEXTVAL('SEQ_ADMIN_LOGIN')), #{adName}, #{adContact1}, #{adContact2} , #{adContact3}, #{adId} , #{adPassword}, 't' , 'AD')
+	</insert>
+	
+	<select id="adIdCheck" resultType="int">
+		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_ID=#{adId}
+	</select>
+	
+	<!-- <update id="adminupdatePassword">
+        UPDATE TBL_ADMIN SET AD_PASSWORD = #{newPassword} WHERE AD_CODE = #{adCode}
+    </update> -->
+    
+	
+	<!-- <select id="findMemberByNameAndEmail" parameterType="map" resultMap="memberloginResult">
     SELECT * FROM TBL_CST WHERE CS_NAME = #{csName} AND CS_EMAIL_ID = #{csEmailId}
-	</select> -->
+	</select> --> 
 	
 </mapper>

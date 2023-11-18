@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.login.AdminLoginService;
 import com.dev.pilafix.common.member.AdminVO;
+import com.dev.pilafix.common.member.MemberVO;
 
 
 
@@ -18,38 +19,64 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	private AdminLoginDAO dao;
 	private static final Logger logger = LoggerFactory.getLogger(AdminLoginServiceImpl.class);
 	
-//	@Override
-//	public AdminVO adminLogin(String adId, String adPassword) {
-//		AdminVO admin = dao.getAdminLoginInfo(adId);
+	@Override
+	public AdminVO adminLogin(String adId, String adPassword) {
+		AdminVO admin = dao.getAdminLoginInfo(adId);
+
+		if (admin != null) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			if (encoder.matches(adPassword, admin.getAdPassword())) {
+				return admin;
+			}else {
+	            // 로그인 실패
+	            logger.warn("Password does not match for user: {}", adId);
+	        }
+	    } else {
+	        logger.warn("No member found with email: {}", adId);
+	    }
+		return null;
+	}
+	
 //		if (admin != null) {
-//			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		        if (encoder.matches(adPassword, admin.getAdPassword())) {
-//		            return admin;
-//		        }
+//		    // 여기서 admin은 사용자 객체일 것으로 가정합니다.
+//		    String hashedAdPassword = admin.getAdPassword(); // admin 객체로부터 해싱된 비밀번호를 가져옵니다.
+//
+//		    if (adPassword.equals(hashedAdPassword)) {
+//		        // adPassword와 해싱된 비밀번호가 일치한다면, 인증이 성공한 것으로 가정합니다.
+//		        return admin;
+//		    }
 //		}
 //		return null;
 //	}
 	@Override
-	public AdminVO adminLogin(String adId, String adPassword) {
-		AdminVO admin = dao.getAdminLoginInfo(adId);
-//		if (admin != null) {
-//			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		        if (encoder.matches(adPassword, admin.getAdPassword())) {
-//		            return admin;
-//		        }
-//		}
-//		return null;
-		if (admin != null) {
-		    // 여기서 admin은 사용자 객체일 것으로 가정합니다.
-		    String hashedAdPassword = admin.getAdPassword(); // admin 객체로부터 해싱된 비밀번호를 가져옵니다.
+	public int insertAdminRegister(AdminVO vo) {
+		String adPassword = vo.getAdPassword();
+		System.out.println("가입 시 입력한 비밀번호 : " + adPassword);
+		
+		// 암호화 한 후에
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedPwd = encoder.encode(adPassword);
+		
+		System.out.println("암호화 비밀번호   : "+encodedPwd);
+		
+		// vo에 다시 넣어준다.
+		System.out.println("1111");
+		vo.setAdPassword(encodedPwd);
+		System.out.println("1112");
+		return dao.insertAdminRegister(vo);
+	}
+	@Override
+	public int adIdCheck(String adId) {
+		return dao.adIdCheck(adId);
+	}
+	@Override
+	public void adminupdatePassword(String adCode, String newPassword) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedNewPassword = encoder.encode(newPassword);
+		dao.adminupdatePassword(adCode, encodedNewPassword);
+		
+	}
 
-		    if (adPassword.equals(hashedAdPassword)) {
-		        // adPassword와 해싱된 비밀번호가 일치한다면, 인증이 성공한 것으로 가정합니다.
-		        return admin;
-		    }
-		}
-		return null;
-	} 
 
 	
 //	//로그찍어보기
@@ -71,5 +98,5 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 //        }
 //	    return null;
 //	}
-
+	
 }

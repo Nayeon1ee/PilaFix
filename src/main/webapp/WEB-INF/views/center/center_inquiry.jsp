@@ -87,36 +87,27 @@
 									</tr>
 								</thead>
 								<tbody>
-								<c:if test="${empty questionReplyList }">
+								<c:if test="${empty questionList }">
 									<tr>
 										<td colspan="7">문의사항이 존재하지 않습니다. </td>
 									</tr>
 								</c:if>
-								<c:forEach var="list" items="${questionReplyList }">
+								<c:forEach var="list" items="${questionList }">
 									<tr>
-										<td>${list. }</td>
+										<td>${list.qsNumber }</td>
 										<td>${list.qsTitle }</td>
-										<td>${list.qsTitle }</td>
+										<td>${list.writerName }</td>
 										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.qsRegdate }"/>
 										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.qsModifiedDate }"/>
 										<td><button type="submit"
 												onclick="location.href='' "
-												class="btn btn-primary mb-3">${list.qsAnswerYn ? '필수' : '선택'}</button></td>
+												class="btn btn-primary mb-3">${list.qsAnswerYn ? '답변대기' : '답변완료'}</button></td>
 									</tr>
-							</c:forEach>
+								</c:forEach>
 			                </tbody>
 							</table>
 							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
+
 							<!-- End Table with stripped rows -->
 							<div class="admin-screen-paging">
 								<ul class="pagination">

@@ -1,5 +1,7 @@
 package com.dev.pilafix.member.login_naver;
 
+import java.util.Map;
+
 import com.dev.pilafix.common.member.MemberVO;
 
 public interface NaverLoginService {
@@ -8,6 +10,6 @@ public interface NaverLoginService {
 
 	MemberVO getMember(String email);
 
-	int insertNaverMember(String email);
+	int insertNaverMember(Map<String, Object> naverMember);
 
 }

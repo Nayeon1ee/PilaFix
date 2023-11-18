@@ -25,9 +25,12 @@
 		<result property="reTargetPostNumber" column="RE_TARGET_POST_NUMBER" />
 	</resultMap>
 	
-	<!-- [센터] 문의사항 목록 조회 --><!-- 추후에 로그인 완료 시 센터코드 조건 줘야 함 --> 
+	<!-- [센터] 문의사항 목록 조회 작성자이름가져오기 --><!-- 추후에 로그인 완료 시 센터코드 조건 줘야 함 --> 
 	<select id="getQuestionList" resultMap="questionResult">
-		SELECT QS_NUMBER,QS_TITLE,QS_REGDATE, QS_MODIFIED_DATE,QS_ANSWER_YN,QS_CONTENT FROM TBL_QUESTION
+		<!-- SELECT QS_NUMBER,QS_TITLE,QS_REGDATE, QS_MODIFIED_DATE,QS_ANSWER_YN,QS_CONTENT FROM TBL_QUESTION -->
+		SELECT Q.*, M.CS_NAME AS writerName
+    	FROM TBL_QUESTION Q
+    	INNER JOIN TBL_CST M ON Q.QS_WRITER_MEMBER_CODE = M.CS_MEMBER_CODE
 	</select>
 
 	<!-- [센터] 문의사항 상세 조회 -->
@@ -67,6 +70,19 @@
 	<delete id="deleteQuestion"  parameterType="Integer">
 		DELETE FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
 	</delete>
+
+
+	<!-- 로그인한 회원의 연동된 센터 이름 가져오기 -->
+	<select id="getConnectedCT" resultType="com.dev.pilafix.common.member.CenterVO">
+		SELECT C.CT_CODE, C.CT_NAME
+		FROM TBL_CENTER C
+		INNER JOIN TBL_CST M ON C.CT_CODE IN (M.CONNECTED_CENTER_CODE1,
+		M.CONNECTED_CENTER_CODE2, M.CONNECTED_CENTER_CODE3)
+		WHERE M.CS_MEMBER_CODE = #{csMemberCode}
+	</select>
+	
+	
+	
 	
 	
 	<!-- 답변 등록 -->
@@ -75,7 +91,7 @@
 		VALUES(nextval('seq_reply'), #{reTitle}, #{reContent}, 'CE', #{writerMemberCode}, CURRENT_TIMESTAMP, 'QST', #{reTargetPostNumber})
 	</insert>
 	<!-- 답변 등록 시 원글의 답변여부 true -->
-	<update id="updateAnswerYn" parameterType="Integer">
+	<update id="updateQAnswerYn" parameterType="Integer">
 		UPDATE TBL_QUESTION SET QS_ANSWER_YN = true WHERE QS_NUMBER = #{qsNumber}	
 	</update>
 	

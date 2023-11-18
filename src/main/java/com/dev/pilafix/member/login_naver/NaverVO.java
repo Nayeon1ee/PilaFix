@@ -9,15 +9,50 @@ public class NaverVO {
 	private String mobile;
 	private String name;
 	private String birthyear;
-	private String roleCode;
+	private String num1;
+	private String num2;
+	private String num3;
+	private Date birth;
+	private String nGender;
+	private String chooseRole;
 	
 	
 	
-	public String getRoleCode() {
-		return roleCode;
+	public String getChooseRole() {
+		return chooseRole;
 	}
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
+	public void setChooseRole(String chooseRole) {
+		this.chooseRole = chooseRole;
+	}
+	public String getNum1() {
+		return num1;
+	}
+	public void setNum1(String num1) {
+		this.num1 = num1;
+	}
+	public String getNum2() {
+		return num2;
+	}
+	public void setNum2(String num2) {
+		this.num2 = num2;
+	}
+	public String getNum3() {
+		return num3;
+	}
+	public void setNum3(String num3) {
+		this.num3 = num3;
+	}
+	public Date getBirth() {
+		return birth;
+	}
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+	public String getnGender() {
+		return nGender;
+	}
+	public void setnGender(String nGender) {
+		this.nGender = nGender;
 	}
 	public String getEmail() {
 		return email;
@@ -59,8 +94,11 @@ public class NaverVO {
 	@Override
 	public String toString() {
 		return "NaverVO [email=" + email + ", birthday=" + birthday + ", gender=" + gender + ", mobile=" + mobile
-				+ ", name=" + name + ", birthyear=" + birthyear + ", roleCode=" + roleCode + "]";
+				+ ", name=" + name + ", birthyear=" + birthyear + ", num1=" + num1 + ", num2=" + num2 + ", num3=" + num3
+				+ ", birth=" + birth + ", nGender=" + nGender + ", chooseRole=" + chooseRole + "]";
 	}
+	
+	
 	
 	
 	

@@ -64,7 +64,7 @@
             data: JSON.stringify({ role: selectedRole }),
             success: function (response) {
                 console.log('Role data sent to server successfully:', response);
-                // 추가적인 처리가 필요하다면 여기에 작성
+                window.location.href = response;
             },
             error: function (error) {
                 console.error('Error sending role data to server:', error);
