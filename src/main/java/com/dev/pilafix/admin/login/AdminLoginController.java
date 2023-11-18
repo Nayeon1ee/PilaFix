@@ -1,10 +1,12 @@
 package com.dev.pilafix.admin.login;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.dev.pilafix.admin.faq.FaqVO;
 import com.dev.pilafix.common.member.AdminVO;
 import com.dev.pilafix.common.member.MemberVO;
 
@@ -46,6 +47,12 @@ public class AdminLoginController {
 	    if (admin != null) {
 	        session.setAttribute("admin", admin);
 	        // 원래는 index 상에 관리자화면으로 넘어가는 link가 필요함. 일단 등록화면부터 구현하기위해 넣어둠
+	        Map<String, Object> loginAdmin = new HashMap<>();
+	        loginAdmin.put("adCode", admin.getAdCode());
+	        loginAdmin.put("adName", admin.getAdName());
+	        
+	        // 세션에 Map 저장 
+	        session.setAttribute("loginAdmin", loginAdmin);
 	        
 	        return "admin/admin_login_register";  
 	    } else {
@@ -73,67 +80,59 @@ public class AdminLoginController {
 	}
 	
 	
-//	@GetMapping("/passwordChange.do")
+	
+	
+//	/**
+//	 * 비밀번호 변경 및 확인
+//	 * @return
+//	 */
+//	@GetMapping("/adminpasswordChange.do")
 //	public String passwordChange() {
-//	    return "member/password_change"; 
+//	    return "admin/password_change"; 
 //	}
-
-
-//	@PostMapping("/verifyCurrentLoginPassword.do")
-//	@ResponseBody
-//	public String verifyCurrentLoginPassword(@RequestParam("currentPassword") String currentPassword,
-//	                                    HttpSession session) {
-//		AdminVO admin = (AdminVO) session.getAttribute("admin");
-//	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//	    
-//	    boolean passwordMatch = encoder.matches(currentPassword, admin.getAdPassword());
-//	    return "{\"passwordMatch\": " + passwordMatch + "}";
-//	}
-
+//
 //	/**
 //	 * 현재 비밀번호가 일치하고
 //	 * 새 비밀번호 = 비밀번호확인 일 경우에 비밀번호 변경
 //	 */
-//	@PostMapping("/adminupdatePassword.do")
-//	public String adminupdatePassword(@RequestParam("currentPassword") String currentPassword,
-//	                             @RequestParam("newPassword") String newPassword,
-//	                             HttpSession session,Model model) {
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//	@GetMapping("/adminCheckCurrentPassword.do")
+//	public String getadminCheckCurrentPassword() {
+//		return "admin/passwordcheck";
+//	}
+//	@GetMapping("/adminUpdatePassword.do")
+//	public String getadminUpdatePassword() {
+//		return "admin/passwordchangeform";
+//	}
+//	
+//	@PostMapping("/adminCheckCurrentPassword.do")
+//	public String adminCheckCurrentPassword(@RequestParam("currentPassword") String currentPassword, HttpSession session, Model model) {
+//	    AdminVO currentMember = (AdminVO) session.getAttribute("admin");
 //
-//		AdminVO admin = (AdminVO) session.getAttribute("admin");
-//		
-//		// 콘솔에 새 비밀번호 확인용 나중에지울것
-//		System.out.println("사용자에게 입력받은 현재 비밀번호 : "+currentPassword);
-//		System.out.println("실제 DB에 있는 현재 비밀번호 : "+admin.getAdPassword());
-//		System.out.println("입력받은 비밀번호 암호화     : "+encoder.encode(currentPassword));
-//
-//		System.out.println("동일 여부 :  "+(admin.getAdPassword().equals(encoder.encode(currentPassword))));
-//		
-//		
-//		System.out.println("변경된 비밀번호 : "+newPassword);
-//	    
-//		System.out.println("변경된 비밀번호 암호화 : "+encoder.encode(newPassword));
-//	    
-//	    if (encoder.matches(currentPassword, admin.getAdPassword())) {
-//	        // 새 비밀번호 암호화
-//	        String encodedNewPassword = encoder.encode(newPassword);        
-//	        // DB에 새 비밀번호 업데이트
-//	        service.adminupdatePassword(admin.getAdCode(), encodedNewPassword);
-//	        // 세션에서 사용자 정보 제거
-//	        session.removeAttribute("admin");
-//	        // 비밀번호 변경 성공 메시지 로그인 페이지로 리다이렉트
-//	        model.addAttribute("message","비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.");
-////	        redirectAttrs.addFlashAttribute("passwordChangeSuccess", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.");	        
-//	        return "redirect:/adminLogin.do";
+//	    if (service.admincheckPassword(currentMember.getAdCode(), currentPassword)) {
+//	        // 현재 비밀번호가 일치하면 비밀번호 변경 페이지로 이동
+//	        return "redirect:/updatePassword.do";
 //	    } else {
-//	        // 현재 비밀번호가 일치하지 않으면 에러 메시지
-//	        model.addAttribute("message","현재 비밀번호가 일치하지 않습니다.");
-//
-////	        redirectAttrs.addFlashAttribute("passwordChangeError", "현재 비밀번호가 일치하지 않습니다.");
-//	        
-//	        // 비밀번호 변경 페이지로 다시 리다이렉트
-//	        return "redirect:/passwordChange.do";
+//	        model.addAttribute("message", "현재 비밀번호가 일치하지 않습니다.");
+//	        return "admin/passwordcheck";
 //	    }
 //	}
+//	@PostMapping("/adminUpdatePassword.do")
+//	public String adminUpdatePassword(HttpServletRequest request, HttpSession session, Model model) {
+//	    String newPassword = request.getParameter("newPassword");
+//	    String confirmPassword = request.getParameter("confirmPassword");
+//
+//	    if (!newPassword.equals(confirmPassword)) {
+//	        model.addAttribute("message", "새 비밀번호가 일치하지 않습니다.");
+//	        return "admin/passwordchangeform";
+//	    }
+//
+//	    AdminVO currentMember = (AdminVO) session.getAttribute("admin");
+//	    service.adminupdatePassword(currentMember.getAdCode(), newPassword);
+//	    session.removeAttribute("member");
+//	    model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해 주세요.");
+//	    return "redirect:/memberLogin.do";
+//	}
+	
+	
 	
 }
