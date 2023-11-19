@@ -41,18 +41,14 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
 </head>
 <!-- 내 css -->
-<link
-	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_FAQ.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style_membernotice.css">
 
 <body>
 
@@ -83,13 +79,13 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container">
+			<div class="container" style="max-width: 1000px">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>faq</li>
+					<li>notice</li>
 				</ol>
-				<h2>FAQ</h2>
+				<h2>공지사항</h2>
 
 			</div>
 		</section>
@@ -97,7 +93,8 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container" style="max-width: 700px">
+			<div class="container mx-auto" style="max-width: 700px;">
+
 
 				<div id="userInfo"
 					class="d-flex align-items-center justify-content-center mb-2">
@@ -112,8 +109,20 @@
 					</div>
 				</div>
 
+				<section class="section000 pb-5 mb-5">
+					<div class="btn-group" role="group"
+						aria-label="Basic radio toggle button group">
+						<input type="radio" class="btn-check" name="btnradio"
+							id="btnradio1" autocomplete="off" checked> <label
+							class="btn btn-outline-primary" for="btnradio1">센터</label> <input
+							type="radio" class="btn-check" name="btnradio" id="btnradio2"
+							autocomplete="off"> <label
+							class="btn btn-outline-primary" for="btnradio2">필라픽스</label>
+					</div>
+				</section>
+
 				<section class="section002 py-3 my-3">
-					<nav class="navbar navbar-expand-lg py-1 my-1">
+					<nav class="navbar navbar-expand-lg">
 						<div class="container-fluid">
 							<button class="navbar-toggler" type="button"
 								data-bs-toggle="collapse"
@@ -127,7 +136,7 @@
 									<li class="nav-item dropdown"><a
 										class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 										role="button" data-bs-toggle="dropdown" aria-expanded="false"
-										style="font-size: 16px";>검색 </a>
+										style="font-size: 16px">검색 </a>
 										<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 											<li><a class="dropdown-item" href="#">제목</a></li>
 											<hr class="dropdown-divider">
@@ -148,125 +157,46 @@
 					</nav>
 				</section>
 
-				<div id="searchResults" style="display: none;">
-
-					<!-- 여기에 검색 결과가 표시 -->
-
-				</div>
-
-				<div>
-					<p class="total-faq-count">전체 00건</p>
-					<hr>
-				</div>
-
-
-
-				<div class="accordion" id="accordionExample">
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-								aria-expanded="true" aria-controls="inquiryCollapse">
-								<div class="inquiry-item">
-									<div class="inquiry-details">
-										<div class="inquiry-title">
-											<strong>Q</strong> 질문입니다.
-										</div>
-									</div>
-								</div>
-							</button>
-						</h2>
-						<div id="inquiryCollapse" class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<strong>A</strong> <br> 답변입니다.
+				<!--  리스트 수정중 -->
+				<form class="row g-3">
+					<ul class="list-group list-group-numbered w-100">
+						<li
+							class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">제목</div>
+								조회수: 234
 							</div>
-						</div>
-					</div>
-
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#inquiryCollapse2"
-								aria-expanded="true" aria-controls="inquiryCollapse2">
-								<div class="inquiry-item">
-									<div class="inquiry-details">
-										<div class="inquiry-title">
-											<strong>Q</strong> 질문입니다.
-										</div>
-									</div>
-								</div>
-							</button>
-						</h2>
-						<div id="inquiryCollapse2"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<strong>A</strong> <br> 답변입니다.
+							<div class="badge rounded-pill my-auto"
+								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
+						</li>
+						<hr class="my-1">
+						<li
+							class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">제목</div>
+								조회수: 234
 							</div>
-						</div>
-					</div>
-
-
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#inquiryCollapse3"
-								aria-expanded="true" aria-controls="inquiryCollapse3">
-								<div class="inquiry-item">
-									<div class="inquiry-details">
-										<div class="inquiry-title">
-											<strong>Q</strong> 질문입니다.
-										</div>
-									</div>
-								</div>
-							</button>
-						</h2>
-						<div id="inquiryCollapse3"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<strong>A</strong> <br> 답변입니다.
+							<div class="badge rounded-pill my-auto"
+								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
+						</li>
+						<hr class="my-1">
+						<li
+							class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">제목</div>
+								조회수: 234
 							</div>
-						</div>
-					</div>
+							<div class="badge rounded-pill my-auto"
+								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
+						</li>
+						<hr class="my-1">
+					</ul>
+				</form>
+				<!--  리스트 수정중 -->
 
-
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#inquiryCollapse4"
-								aria-expanded="true" aria-controls="inquiryCollapse4">
-								<div class="inquiry-item">
-									<div class="inquiry-details">
-										<div class="inquiry-title">
-											<strong>Q</strong> 질문입니다.
-										</div>
-									</div>
-								</div>
-							</button>
-						</h2>
-						<div id="inquiryCollapse4"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<strong>A</strong> <br> 답변입니다.
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-
-
+				<!-- End Our Skills Section -->
 			</div>
-
-
-			<!-- End Our Skills Section -->
-
-
 		</section>
-
 	</main>
 
 	<!-- End #main -->
@@ -280,10 +210,9 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/quiry_FAQ.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/bootstrap/js_bootstrap_common.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<!-- Vendor JS Files -->
 	<script

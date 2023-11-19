@@ -31,7 +31,7 @@
 
 .datatable-input {
 	padding: 6px 12px;
-	display:none;
+	display: none;
 }
 
 .datatable-info {
@@ -163,30 +163,6 @@
 	height: 100%;
 	position: relative;
 	width: 100%;
-}
-
-.datatable-sorter::before,
-.datatable-sorter::after {
-	content: "";
-	height: 0;
-	width: 0;
-	position: absolute;
-	right: 4px;
-	border-left: 4px solid transparent;
-	border-right: 4px solid transparent;
-	opacity: 0.2;
-}
-
-
-.datatable-sorter::before {
-	border-top: 4px solid #000;
-	bottom: 0px;
-}
-
-.datatable-sorter::after {
-	border-bottom: 4px solid #000;
-	border-top: 4px solid transparent;
-	top: 0px;
 }
 
 .datatable-ascending .datatable-sorter::after,
