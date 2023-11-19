@@ -172,8 +172,7 @@
 										<th scope="col">나이</th>
 										<th scope="col">이메일</th>
 										<th scope="col">전화번호</th>
-										<th scope="col">가입일자</th>
-										<th scope="col">수강권현황</th>
+										<th scope="col">가입일자</th> <!-- 센터에 연동된 일자를 써야하는 것 아닌지..? -->
 									</tr>
 								</thead>
 								<tbody>
@@ -192,26 +191,10 @@
 												<c:set var="birthYear" value="${fn:substring(member.csBirth, 0, 4)}" />
 												<c:set var="age" value="${currentYear - birthYear}" />
 												<td>${age}세</td>
-												
-											
 										      <td>${member.csEmailId }</td>
 										      <td>${member.csPhoneNumber1 }${member.csPhoneNumber2 }${member.csPhoneNumber3}</td>
-										      
 										      <td>${member.csRegistrationDate }</td>
 										      
-										      <!-- 수강권 보유 여부에 따라 개수 세팅 (그룹1 | 개인1) -->
-										      <c:set var="personalTicket" value="0" />
-											  <c:set var="groupTicket" value="0" />
-												
-											  <c:if test="${not empty member.ticketCodePersonal1 and member.ticketExpiryYnPersonal1 eq 'false'}">
-												    <c:set var="personalTicket" value="1" />
-											  </c:if>
-												
-											  <c:if test="${not empty member.ticketCodeGroup1 and member.ticketExpiryYnGroup1 eq 'false'}">
-												    <c:set var="groupTicket" value="1" />
-											  </c:if>
-												
-											  <td>개인${personalTicket} | 그룹${groupTicket}</td>
 										</tr>
 									</c:forEach>
 
