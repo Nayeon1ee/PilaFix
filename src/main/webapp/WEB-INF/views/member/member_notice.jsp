@@ -47,9 +47,8 @@
 
 </head>
 <!-- 내 css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_inquiryform.css">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style_membernotice.css">
 
 <body>
 
@@ -84,9 +83,9 @@
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>inquiryForm</li>
+					<li>notice</li>
 				</ol>
-				<h2>문의사항</h2>
+				<h2>공지사항</h2>
 
 			</div>
 		</section>
@@ -103,46 +102,97 @@
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
-					<div class="col-7"></div>
+					<div class="col-9"></div>
 					<div id="userName"
-						style="font-size: 18px; margin-right: 10px; color: #9b56e9; font-weight: bold;">
+						style="font-size: 18px; color: #9b56e9; font-weight: bold;">
 						<i class="fas fa-user mr-1"></i>*** 회원님
 					</div>
-					<div id="userlogout"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold;">
-						<a href="#" style="text-decoration: none; color: inherit;"> <i
-							class="fas fa-user mr-1"></i>로그아웃
-						</a>
-					</div>
 				</div>
 
-				<div class="inquiry-form mt-5">
-					<h2>문의사항</h2>
-					<hr>
-
-					<div class="center-selection">
-						<p>센터 선택</p>
-						<select>
-							<option>척추가 뽀개지는 필라테스 상봉점</option>
-							<!-- 다른 센터 옵션들 추가 -->
-						</select>
+				<section class="section000 pb-5 mb-5">
+					<div class="btn-group" role="group"
+						aria-label="Basic radio toggle button group">
+						<input type="radio" class="btn-check" name="btnradio"
+							id="btnradio1" autocomplete="off" checked> <label
+							class="btn btn-outline-primary" for="btnradio1">센터</label> <input
+							type="radio" class="btn-check" name="btnradio" id="btnradio2"
+							autocomplete="off"> <label
+							class="btn btn-outline-primary" for="btnradio2">필라픽스</label>
 					</div>
+				</section>
 
-					<div class="input-section">
-						<p>문의하실 제목을 입력해주세요</p>
-						<input type="text">
-					</div>
+				<section class="section002 py-3 my-3">
+					<nav class="navbar navbar-expand-lg">
+						<div class="container-fluid">
+							<button class="navbar-toggler" type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#navbarSupportedContent"
+								aria-controls="navbarSupportedContent" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class="collapse navbar-collapse" id="navbarSupportedContent">
+								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+									<li class="nav-item dropdown"><a
+										class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+										role="button" data-bs-toggle="dropdown" aria-expanded="false"
+										style="font-size: 16px">검색 </a>
+										<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+											<li><a class="dropdown-item" href="#">제목</a></li>
+											<hr class="dropdown-divider">
+											<li><a class="dropdown-item" href="#">글내용</a></li>
+											<hr class="dropdown-divider">
+											<li><a class="dropdown-item" href="#">제목+글내용</a></li>
+										</ul></li>
+								</ul>
+								<form action="search" method="post" class="d-flex">
+									<div class="input-group">
+										<input type="search" name="search" class="form-control"
+											placeholder="검색" aria-label="검색">
+										<button type="submit" class="btn btn-outline-primary">검색</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</nav>
+				</section>
 
-					<div class="input-section">
-						<p>문의하실 내용을 입력해주세요</p>
-						<textarea class="form-control" rows="6"></textarea>
-					</div>
-
-					<div style="display: flex; justify-content: flex-end;">
-						<button class="submit-button">문의하기</button>
-					</div>
-				</div>
-
+				<!--  리스트 수정중 -->
+				<form class="row g-3">
+					<ul class="list-group list-group-numbered w-100">
+						<li
+							class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">제목</div>
+								조회수: 234
+							</div>
+							<div class="badge rounded-pill my-auto"
+								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
+						</li>
+						<hr class="my-1">
+						<li
+							class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">제목</div>
+								조회수: 234
+							</div>
+							<div class="badge rounded-pill my-auto"
+								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
+						</li>
+						<hr class="my-1">
+						<li
+							class="list-group-item d-flex justify-content-between align-items-start">
+							<div class="ms-2 me-auto">
+								<div class="fw-bold">제목</div>
+								조회수: 234
+							</div>
+							<div class="badge rounded-pill my-auto"
+								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
+						</li>
+						<hr class="my-1">
+					</ul>
+				</form>
+				<!--  리스트 수정중 -->
 
 				<!-- End Our Skills Section -->
 			</div>
@@ -160,6 +210,9 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<!-- Vendor JS Files -->
 	<script

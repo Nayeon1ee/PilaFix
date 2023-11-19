@@ -48,8 +48,13 @@
 </head>
 <!-- 내 css -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_inquiryform.css">
-
+	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_Nayeon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style_memberpage.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	integrity="sha384-qzj+YDlIk69ua5vUHwOs5J8HKAO1f7f1Z48fqA+0EdA+7W6f9X+MPeJ6XWN4KZET"
+	crossorigin="anonymous">
 
 <body>
 
@@ -67,7 +72,7 @@
 				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
 					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
 					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
 			</div>
 		</div>
 	</section>
@@ -80,13 +85,13 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>inquiryForm</li>
+					<li>mypage</li>
 				</ol>
-				<h2>문의사항</h2>
+				<h2>마이페이지</h2>
 
 			</div>
 		</section>
@@ -94,59 +99,114 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container mx-auto" style="max-width: 700px;">
+			<div class="container" style="max-width: 1000px">
 
 
-				<div id="userInfo"
-					class="d-flex align-items-center justify-content-center mb-2">
-					<div id="myInfoLink" class="mr-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
-					</div>
-					<div class="col-7"></div>
-					<div id="userName"
-						style="font-size: 18px; margin-right: 10px; color: #9b56e9; font-weight: bold;">
-						<i class="fas fa-user mr-1"></i>*** 회원님
-					</div>
-					<div id="userlogout"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold;">
-						<a href="#" style="text-decoration: none; color: inherit;"> <i
-							class="fas fa-user mr-1"></i>로그아웃
-						</a>
-					</div>
-				</div>
+				<div id="myPage" class="text-center">
 
-				<div class="inquiry-form mt-5">
-					<h2>문의사항</h2>
-					<hr>
-
-					<div class="center-selection">
-						<p>센터 선택</p>
-						<select>
-							<option>척추가 뽀개지는 필라테스 상봉점</option>
-							<!-- 다른 센터 옵션들 추가 -->
-						</select>
+					<div id="userInfo"
+						class="d-flex align-items-center justify-content-center mb-2">
+						<div id="myInfoLink" class="mr-2"
+							style="font-size: 18px; color: #9b56e9; font-weight: bold;">
+							<i class="fas fa-cog mr-1"></i>내 정보 관리
+						</div>
+						<div class="col-6"></div>
+						<div id="userName"
+							style="font-size: 18px; color: #9b56e9; font-weight: bold;">
+							<i class="fas fa-user mr-1"></i>*** 회원님
+						</div>
 					</div>
 
-					<div class="input-section">
-						<p>문의하실 제목을 입력해주세요</p>
-						<input type="text">
-					</div>
+					<section
+						class="my-passes container mt-5 d-flex justify-content-center"
+						style="max-width: 700px;">
+						<div class="text-center">
+							<h3>나의 수강권 현황</h3>
+							<div class="pass-box row">
+								<div
+									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
+									<div class="icon-box mx-auto">
+										<div class="icon">
+											<i class="bx bx-file"></i>
+										</div>
+										<p>[지점이름] 개인수강권</p>
+										<p>기간: 2023.10.17~2023.12.08</p>
+										<p>수강권내역: 사용중</p>
+										<p>잔여일수: 126일 남음 / 총 150일</p>
+										<p>잔여횟수: 34회 남음 / 총 60회</p>
+										<p>사용가능지점: 1지점</p>
+									</div>
+								</div>
 
-					<div class="input-section">
-						<p>문의하실 내용을 입력해주세요</p>
-						<textarea class="form-control" rows="6"></textarea>
-					</div>
+								<div
+									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
+									<div class="icon-box mx-auto">
+										<div class="icon">
+											<i class="bx bx-file"></i>
+										</div>
+										<p>[지점이름] 그룹수강권</p>
+										<p>기간: 2023.10.17~2023.12.08</p>
+										<p>수강권내역: 사용중</p>
+										<p>잔여일수: 126일 남음 / 총 150일</p>
+										<p>잔여횟수: 34회 남음 / 총 60회</p>
+										<p>사용가능지점: 1지점</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
 
-					<div style="display: flex; justify-content: flex-end;">
-						<button class="submit-button">문의하기</button>
-					</div>
+
+					<section class="icon-list text-center mx-auto"
+						style="max-width: 700px;">
+						<div class="icon-grid">
+							<div class="icon-row row">
+								<div class="icon-item col-md-4">
+									<a href="memberNotice.jsp"> <i class="bi bi-megaphone"></i>
+										<p>공지사항</p>
+									</a>
+								</div>
+								<div class="icon-item col-md-4">
+									<a href="paymentHistory.jsp"> <i class="bi bi-cash-coin"></i>
+										<p>결제내역</p>
+									</a>
+								</div>
+								<div class="icon-item col-md-4">
+									<a href="#"> <i class="bi bi-gear"></i>
+										<p>연동센터관리</p>
+									</a>
+								</div>
+							</div>
+							<div class="icon-row row">
+								<div class="icon-item col-md-4">
+									<a href="FAQpage.jsp"> <i class="bi bi-question"></i>
+										<p>FAQ</p>
+									</a>
+								</div>
+								<div class="icon-item col-md-4">
+									<a href="inquiry.jsp"> <i class="bi bi-chat"></i>
+										<p>문의사항</p>
+									</a>
+								</div>
+								<div class="icon-item col-md-4">
+									<a href="#"> <i class="bi bi-file-earmark-text"></i>
+										<p>약관 및 정책</p>
+									</a>
+								</div>
+							</div>
+						</div>
+					</section>
+
+
+
 				</div>
 
 
 				<!-- End Our Skills Section -->
+
 			</div>
 		</section>
+
 	</main>
 
 	<!-- End #main -->
@@ -160,6 +220,11 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 
 	<!-- Vendor JS Files -->
 	<script

@@ -1446,12 +1446,12 @@ button::-moz-focus-inner {
 .tox .tox-dialog__body-content a {
   color: #207ab7;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .tox .tox-dialog__body-content a:hover,
 .tox .tox-dialog__body-content a:focus {
   color: #114060;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .tox .tox-dialog__body-content a:focus-visible {
   border-radius: 1px;
@@ -1460,7 +1460,7 @@ button::-moz-focus-inner {
 }
 .tox .tox-dialog__body-content a:active {
   color: #092335;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .tox .tox-dialog__body-content svg {
   fill: #222f3e;
@@ -2496,7 +2496,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-notification a {
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .tox .tox-notification--in {
   opacity: 1;
@@ -3836,7 +3836,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-statusbar__path-item:focus:not(:disabled):not([aria-disabled=true]),
 .tox .tox-statusbar__wordcount:focus:not(:disabled):not([aria-disabled=true]) {
   color: rgba(34, 47, 62, 0.7);
-  text-decoration: underline;
+  text-decoration: none;
 }
 .tox .tox-statusbar__branding svg {
   vertical-align: -0.25em;
