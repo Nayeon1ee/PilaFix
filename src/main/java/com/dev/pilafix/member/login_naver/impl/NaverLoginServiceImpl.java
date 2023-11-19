@@ -1,5 +1,7 @@
 package com.dev.pilafix.member.login_naver.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +28,10 @@ public class NaverLoginServiceImpl implements NaverLoginService {
 	}
 
 
+
 	@Override
-	public int insertNaverMember(String email) {
-		return dao.insertNaverMember(email);
+	public int insertNaverMember(Map<String, Object> naverMember) {
+		return dao.insertNaverMember(naverMember);
 	}
 
 }

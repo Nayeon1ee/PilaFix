@@ -1,5 +1,8 @@
 package com.dev.pilafix.center.login;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +44,12 @@ public class CenterLoginController {
 	    
 	    if (center != null) {
 	        session.setAttribute("centerInfo", center);
+	        Map<String, Object> loginCenter = new HashMap<>();
+	        loginCenter.put("ctCode", center.getCtCode());
+	        loginCenter.put("ctName", center.getCtName());
 	        
+	        // 세션에 Map 저장 
+	        session.setAttribute("loginCenter", loginCenter);
 	        //가입 완료되면 
 	        
 	        return "center/center_index";  

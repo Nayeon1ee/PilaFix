@@ -1,5 +1,7 @@
 package com.dev.pilafix.member.login_naver.impl;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,8 +20,8 @@ public class NaverLoginDAO {
 		return sqlSessionTemplate.selectOne("NaverDAO.getMember",email);
 	}
 
-	public int insertNaverMember(String email) {
-		return sqlSessionTemplate.insert("NaverDAO.insertNaverMember",email);
+	public int insertNaverMember(Map<String, Object> naverMember) {
+		return sqlSessionTemplate.insert("NaverDAO.insertNaverMember",naverMember);
 	}
 
 

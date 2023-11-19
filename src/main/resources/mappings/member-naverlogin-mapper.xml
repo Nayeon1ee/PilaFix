@@ -48,9 +48,21 @@
 	SELECT * FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
 </select>
 
-<insert id="insertNaverMember" parameterType="naverlogin">
-	INSERT INTO TBL_CST 
+<!-- 강사일 땐 시퀀스 8000부터, 회원 일땐 시퀀스 2000부터 들어가야해서 dynamic sql사용 -->
+<insert id="insertNaverMember" parameterType="java.util.Map">
+	INSERT INTO TBL_CST
+	<choose>
+		<when test="member.chooseRole == 'ME'">
+			VALUES(nextval('seq_member_signup'),
+		</when>
+		<when test="member.chooseRole == 'TR'">
+			VALUES(nextval('seq_trainer_signup'),
+		</when>
+	</choose>
+	#{member.chooseRole},#{member.email},
+		'1111',#{member.name},
+		#{member.num1},#{member.num2},#{member.num3},CURRENT_TIMESTAMP,#{member.birth},
+		#{member.nGender},'N','T','T','T','네이버')
 </insert>
-
 
 </mapper>
