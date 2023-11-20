@@ -9,7 +9,6 @@ public class CommunityVO {
 	private int cmWriterMemberCode;
 	private Date cmRegdate;
 	
-	//테스트
 	private String csName;
 	
 	
@@ -19,7 +18,6 @@ public class CommunityVO {
 	public void setCsName(String csName) {
 		this.csName = csName;
 	}
-	//테스트 끝
 	
 	public int getCmNumber() {
 		return cmNumber;

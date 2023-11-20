@@ -17,7 +17,7 @@ public class LoginTestDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	/**
-	 * °¡ÀÔ 
+	 * íšŒì›ê°€ì…
 	 * 
 	 * @param vo
 	 * @return

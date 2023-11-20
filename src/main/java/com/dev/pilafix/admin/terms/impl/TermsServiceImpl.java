@@ -25,7 +25,7 @@ public class TermsServiceImpl implements TermsService {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	// ¸ŞÀÏ¹ß¼ÛÀÌ·Â test¶§¹®¿¡ ¿ì¼± Ãß°¡
+	// ë©”ì¼ë°œì†¡ì´ë ¥ testë•Œë¬¸ì— ìš°ì„  ì¶”ê°€
 	@Autowired
     private CenterDAO centerDAO;
 	
@@ -62,35 +62,35 @@ public class TermsServiceImpl implements TermsService {
 
 	@Override
 	public void sendEmailAndInsertSendEmailHistory(CenterVO center) {
-		int flag = 0;// ¹ß¼Û ¼º°ø ¿©ºÎ
-		String errorMessage = ""; // ¿¡·¯ ½Ã ½ÇÆĞ »çÀ¯
+		int flag = 0;// ë°œì†¡ ì„±ê³µ ì—¬ë¶€
+		String errorMessage = ""; // ì—ëŸ¬ ì‹œ ì‹¤íŒ¨ ì‚¬ìœ 
 
 		String ownerEmail = center.getOwnerEmail();
 		String ctId = center.getCtId();
 		String ctPassword = center.getCtPassword();
 		String ownerName = center.getOwnerName();
 
-		// ====ÀÌ¸ŞÀÏ ¹ß¼Û======
-		String from = "inayeon1212@gmail.com"; // º¸³»´Â »ç¶÷
-		String title = "[ÇÊ¶óÇÈ½º] ÀÌ¿ë¾à°ü º¯°æ ¾È³»"; // Á¦¸ñ
-		String toSend = ownerEmail; // ¹Ş´Â »ç¶÷
+		// ====ì´ë©”ì¼ ë°œì†¡======
+		String from = "inayeon1212@gmail.com"; // ë³´ë‚´ëŠ” ì‚¬ëŒ
+		String title = "[í•„ë¼í”½ìŠ¤] ì´ìš©ì•½ê´€ ë³€ê²½ ì•ˆë‚´"; // ì œëª©
+		String toSend = ownerEmail; // ë°›ëŠ” ì‚¬ëŒ
 
-		// ¸ŞÀÏ ³»¿ë
+		// ë©”ì¼ ë‚´ìš©
 		StringBuilder content = new StringBuilder();
 		content.append(
 				"<html><body style='font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;'>");
 		content.append(
 				"<div style='background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);'>");
-		content.append("<h1 style='color: #333333; text-align: center;'>ÀÌ¿ë¾à°ü º¯°æ ¾È³»</h1>");
+		content.append("<h1 style='color: #333333; text-align: center;'>ì´ìš©ì•½ê´€ ë³€ê²½ ì•ˆë‚´</h1>");
 		content.append("<p style='color: #555555; text-align: center;'>");
 		content.append(ownerName);
-		content.append(" ´Ô, ¾È³çÇÏ¼¼¿ä ÇÊ¶óÇÈ½ºÀÔ´Ï´Ù.");
+		content.append(" ë‹˜, ì•ˆë…•í•˜ì„¸ìš” í•„ë¼í”½ìŠ¤ì…ë‹ˆë‹¤.");
 		content.append(center.getCtName());
-		content.append(" ÇÊ¶óÇÈ½º ¼­ºñ½º¸¦ ÀÌ¿ëÇØÁÖ½Ã´Â È¸¿ø ¿©·¯ºĞ²² °¨»çµå¸³´Ï´Ù. </p>");
-		content.append("<p style='color: #555555; text-align: center;'>ÀÌ¿ë¾à°üÀÇ ³»¿ëÀÌ 2024³â 1¿ù 10ÀÏÀÚ·Î º¯°æµÉ ¿¹Á¤ÀÓÀ» ¾È³»µå¸³´Ï´Ù.</p>");
-		content.append("<p style='color: #555555; text-align: center;'>1. º¯°æ³»¿ë\r\n"
+		content.append(" í•„ë¼í”½ìŠ¤ ì„œë¹„ìŠ¤ë¥¼ ì´ìš©í•´ì£¼ì‹œëŠ” íšŒì› ì—¬ëŸ¬ë¶„ê»˜ ê°ì‚¬ë“œë¦½ë‹ˆë‹¤. </p>");
+		content.append("<p style='color: #555555; text-align: center;'>ì´ìš©ì•½ê´€ì˜ ë‚´ìš©ì´ 2024ë…„ 1ì›” 10ì¼ìë¡œ ë³€ê²½ë  ì˜ˆì •ì„ì„ ì•ˆë‚´ë“œë¦½ë‹ˆë‹¤.</p>");
+		content.append("<p style='color: #555555; text-align: center;'>1. ë³€ê²½ë‚´ìš©\r\n"
 				+ "\r\n"
-				+ "ÀÌ¹ø ¾à°ü °³Á¤ÀÇ ÁÖ¿ä ³»¿ëÀº ¾Æ·¡¿Í °°½À´Ï´Ù. »ó¼¼ÇÑ ³»¿ëÀº ¾à°ü Àü¹®À» È®ÀÎÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.</p>");
+				+ "ì´ë²ˆ ì•½ê´€ ê°œì •ì˜ ì£¼ìš” ë‚´ìš©ì€ ì•„ë˜ì™€ ê°™ìŠµë‹ˆë‹¤. ìƒì„¸í•œ ë‚´ìš©ì€ ì•½ê´€ ì „ë¬¸ì„ í™•ì¸í•˜ì—¬ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.</p>");
 		content.append("</div></body></html>");
 
 		try {
@@ -98,12 +98,12 @@ public class TermsServiceImpl implements TermsService {
 			MimeMessageHelper messageHelper;
 
 			messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setFrom(from); // º¸³»´Â»ç¶÷ (ÇÊ¼ö)
-			messageHelper.setTo(toSend); // ¹Ş´Â»ç¶÷ ÀÌ¸ŞÀÏ
-			messageHelper.setSubject(title); // ¸ŞÀÏÁ¦¸ñ
+			messageHelper.setFrom(from); // ë³´ë‚´ëŠ”ì‚¬ëŒ (í•„ìˆ˜)
+			messageHelper.setTo(toSend); // ë°›ëŠ”ì‚¬ëŒ ì´ë©”ì¼
+			messageHelper.setSubject(title); // ë©”ì¼ì œëª©
 
-			// HTML Çü½ÄÀÇ ÀÌ¸ŞÀÏ ³»¿ë ¼³Á¤
-			messageHelper.setText(content.toString(), true); // ¸ŞÀÏ ³»¿ëÀ» HTML Çü½ÄÀ¸·Î ¼³Á¤
+			// HTML í˜•ì‹ì˜ ì´ë©”ì¼ ë‚´ìš© ì„¤ì •
+			messageHelper.setText(content.toString(), true); // ë©”ì¼ ë‚´ìš©ì„ HTML í˜•ì‹ìœ¼ë¡œ ì„¤ì •
 
 			mailSender.send(message);
 
@@ -119,9 +119,9 @@ public class TermsServiceImpl implements TermsService {
 			e.printStackTrace();
 		}
 
-		// ====ÀÌ¸ŞÀÏ ¹ß¼Û ÀÌ·Â µî·Ï======
+		// ====ì´ë©”ì¼ ë°œì†¡ ì´ë ¥ ë“±ë¡======
 		SendEmailHistoryVO email = new SendEmailHistoryVO();
-		email.setMhEmailSendType("º¯°æ¾à°üµ¿ÀÇ");
+		email.setMhEmailSendType("ë³€ê²½ì•½ê´€ë™ì˜");
 		email.setMhRecipientName(center.getOwnerName());
 		email.setMhRecipientTitle(title);
 		email.setMhRecipientContent(content.toString());
