@@ -21,7 +21,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 	@Autowired
 	private MemberManageDAO dao;
 
-	/* ======================== 회원 관리 ======================== */
+	/* ======================== �쉶�썝 愿�由� ======================== */
 
 	@Override
 	public List<MemberVO> getMemberManageList() {
@@ -31,6 +31,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 	@Override
 	public MemberVO getMember(int csMemberCode) {
 		return dao.getMember(csMemberCode);
+		
+	}
 
     @Override
 	public List<ConnectRequestVO> getConnectRequestForMe() {
@@ -39,7 +41,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
 	/**
-	 * 문의내역 조회
+	 * 臾몄쓽�궡�뿭 議고쉶
 	 */
 	@Override
 	public List<QuestionVO> getQuestionForManage(int csMemberCode) {
@@ -48,7 +50,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 
 
 	/**
-	 * 결제 내역 조회
+	 * 寃곗젣 �궡�뿭 議고쉶
 	 */
 	@Override
 	public List<PaymentHistoryVO> getPaymentForManage(int csMemberCode) {
@@ -56,7 +58,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
 	/**
-	 * 예약 내역 조회 예약 구현 후 VO 가져오기
+	 * �삁�빟 �궡�뿭 議고쉶 �삁�빟 援ы쁽 �썑 VO 媛��졇�삤湲�
 	 */
 //	@Override
 //	public List<ReservationVO> getReserveForManage(int csMemberCode) {
@@ -64,8 +66,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 //	}
 
 	/**
-	 * 그룹/개인 티켓에 대한 정보 조회
-	 * 수강권 별 존재 여부에 따라 조회하여 List에 저장됨 
+	 * 洹몃９/媛쒖씤 �떚耳볦뿉 ���븳 �젙蹂� 議고쉶
+	 * �닔媛뺢텒 蹂� 議댁옱 �뿬遺��뿉 �뵲�씪 議고쉶�븯�뿬 List�뿉 ���옣�맖 
 	 * 
 	 */
 	@Override
@@ -82,18 +84,19 @@ public class MemberManageServiceImpl implements MemberManageService {
 	@Override
 	public List<ConnectRequestVO> getConnectRequestForTr() {
 		return dao.getConnectRequestForTr();
+	}
 
 	public Map<String, TicketInfoVO> getTicketInfo(String tkCodeP, String tkCodeG) {
 		 Map<String, TicketInfoVO> ticketMap = new HashMap<>();
 		
-		// center/center_manage.jsp 화면에서 상태에 따라 값을 꺼내야 하기 때문 
+		// center/center_manage.jsp �솕硫댁뿉�꽌 �긽�깭�뿉 �뵲�씪 媛믪쓣 爰쇰궡�빞 �븯湲� �븣臾� 
 		
-		if (!tkCodeP.equals("0") && !tkCodeG.equals("0")) { // 둘다 존재 
+		if (!tkCodeP.equals("0") && !tkCodeG.equals("0")) { // �몮�떎 議댁옱 
 			ticketMap.put("group", dao.getTicketInfoForManage(tkCodeG));
 			ticketMap.put("personal", dao.getTicketInfoForManage(tkCodeP));
-		}else if (tkCodeP.equals("0") && !tkCodeG.equals("0")) { // 그룹 수강권만 존재
+		}else if (tkCodeP.equals("0") && !tkCodeG.equals("0")) { // 洹몃９ �닔媛뺢텒留� 議댁옱
 			ticketMap.put("group", dao.getTicketInfoForManage(tkCodeG));
-		}else if (!tkCodeP.equals("0") && tkCodeG.equals("0")) { // 개인 수강권만 존재
+		}else if (!tkCodeP.equals("0") && tkCodeG.equals("0")) { // 媛쒖씤 �닔媛뺢텒留� 議댁옱
 			ticketMap.put("personal", dao.getTicketInfoForManage(tkCodeP));
 		}
 
@@ -101,19 +104,14 @@ public class MemberManageServiceImpl implements MemberManageService {
 
 	}
 
-	/* ======================== 강사 관리 ======================== */
+	/* ======================== 媛뺤궗 愿�由� ======================== */
 	@Override
 	public List<MemberVO> getTrainerManageList() {
 		return dao.getTrainerManageList();
 	}
 
-	@Override
-	public List<ConnectRequestVO> getConnectRequestForTr() {
-		return dao.getConnectRequestForTr();
-	}
-
 	/**
-	 * 占쏙옙占쏙옙 占쏙옙청 占쏙옙占쏙옙
+	 * �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕泥� �뜝�룞�삕�뜝�룞�삕
 	 */
 	@Override
 	public void acceptRequest(String crCode, int memberCode, int centerCode) {
@@ -121,20 +119,11 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
 	/**
-	 * 占쏙옙占쏙옙 占쏙옙청 占쏙옙占쏙옙
+	 * �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕泥� �뜝�룞�삕�뜝�룞�삕
 	 */
 	@Override
 	public void rejectRequest(String crCode) {
 		dao.updateRejectDate(crCode);
-	}
-
-
-	/**
-	 * 회원 상세 조회
-	 */
-	@Override
-	public MemberVO getMemberManage(int csMemberCode) {
-		return dao.getMemberManage(csMemberCode);
 	}
 
 

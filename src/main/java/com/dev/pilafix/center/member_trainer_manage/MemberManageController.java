@@ -70,7 +70,7 @@ public class MemberManageController {
 
 	public String getMemberManage(HttpSession session, int csMemberCode, Model model) {
 		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
-		MemberVO member = service.getMemberManage(csMemberCode);
+		MemberVO member = service.getMember(csMemberCode);
 		String tkCodeG = member.getTicketCodeGroup1();
 		String tkCodeP= member.getTicketCodePersonal1();
 		
