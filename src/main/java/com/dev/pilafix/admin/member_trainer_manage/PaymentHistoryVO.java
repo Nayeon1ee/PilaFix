@@ -10,7 +10,8 @@ public class PaymentHistoryVO {
 	private int memberCode;
 	private String paMethod;
 	private Date paDatetime;
-	private int centerName;
+	private String centerName;
+	private String ticketName; //화면 출력 용 
 	
 	public String getPaId() {
 		return paId;
@@ -48,18 +49,24 @@ public class PaymentHistoryVO {
 	public void setPaDatetime(Date paDatetime) {
 		this.paDatetime = paDatetime;
 	}
-	public int getCenterName() {
+	public String getCenterName() {
 		return centerName;
 	}
-	public void setCenterName(int centerName) {
+	public void setCenterName(String centerName) {
 		this.centerName = centerName;
+	}
+	public String getTicketName() {
+		return ticketName;
+	}
+	public void setTicketName(String ticketName) {
+		this.ticketName = ticketName;
 	}
 	@Override
 	public String toString() {
 		return "PaymentHistoryVO [paId=" + paId + ", ticketCode=" + ticketCode + ", paAmount=" + paAmount
 				+ ", memberCode=" + memberCode + ", paMethod=" + paMethod + ", paDatetime=" + paDatetime
-				+ ", centerName=" + centerName + "]";
+				+ ", centerName=" + centerName + ", ticketName=" + ticketName + "]";
 	}
-	
 
+	
 }
