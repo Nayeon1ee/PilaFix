@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.devmaster.pilafix">
+	<logger name="com.dev.pilafix">
 		<level value="info" />
 	</logger>
 	

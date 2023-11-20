@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
 import com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO;
+import com.dev.pilafix.center.member_trainer_manage.TicketInfoVO;
 import com.dev.pilafix.common.member.MemberVO;
+import com.dev.pilafix.common.question.QuestionVO;
 
 @Repository
 public class MemberManageDAO {
@@ -32,6 +35,51 @@ public class MemberManageDAO {
 	
 	public List<ConnectRequestVO> getConnectRequestForTr() {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getCenterRequestForTr");
+	}
+	
+	/**
+	 * 문의사항 내역 조회 
+	 * 
+	 * @param csMemberCode
+	 * @return
+	 */
+	public List<QuestionVO> getQuestionForManage(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getQuestionForManage",csMemberCode);
+	}
+
+	/**
+	 * 결제 내역 조회 
+	 * 
+	 * @param csMemberCode
+	 * @return
+	 */
+	public List<PaymentHistoryVO> getPaymentForManage(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getPaymentForManage",csMemberCode);
+	}
+	
+	/**
+	 * 티켓 정보 화면 출력용 
+	 * (수강권 명, 수강권 총 횟수)
+	 * 
+	 * @param tkCode
+	 * @return
+	 */
+	public TicketInfoVO getTicketInfoForManage(String tkCode){
+		return sqlSessionTemplate.selectOne("MemberManageDAO.getTicketInfo",tkCode);
+	}
+	
+//	public List<ReservationVO> getReserveForManage(int csMemberCode) {
+//		return sqlSessionTemplate.selectList("MemberManageDAO.getReserveForManage",csMemberCode);
+//	}
+	
+	/**
+	 * 회원 상세 정보 조회
+	 * 
+	 * @param csMemberCode
+	 * @return
+	 */
+	public MemberVO getMemberManage(int csMemberCode) {
+		return sqlSessionTemplate.selectOne("MemberManageDAO.getMemberManage", csMemberCode);
 	}
 	
 	/**
@@ -70,5 +118,8 @@ public class MemberManageDAO {
 	public void updateRejectDate(String crCode) {
 		sqlSessionTemplate.update("MemberManageDAO.updateRejectDate", crCode);
 	}
+
+	
+
 
 }
