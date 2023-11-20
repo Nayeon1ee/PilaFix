@@ -47,11 +47,15 @@
                   <label class="form-label">작성일자</label>
                   <input type="text" readonly disabled class="form-control" value=${userguide.ugRegistrationDate } >
                 </div>
-
+               <div class="col-md-12">
+                  <label class="form-label">공개여부</label>
+                   <input type="text" readonly disabled class="form-control" value=${userguide.ugOpenYN ? "공개":"비공개" } >
+                </div>
+                
                 <div class="text-center">
                   <button type="button" class="btn btn-primary" onclick="location.href='updateUserguide.do?ugCode=${userguide.ugCode }'">수정</button>
                   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-                  <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
+                  <button type="button" class="btn btn-secondary" onclick="location.href='getUserguideList.do'">취소</button>
                 </div>
               </form><!-- End Multi Columns Form -->
 

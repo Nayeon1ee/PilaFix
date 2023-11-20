@@ -23,8 +23,8 @@ public class SendSmsHistoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/center/getSendSmsHistoryList.do")
-	public String getSendSmsHistoryList(HttpSession session,Model model) {
+	@GetMapping("/getSendSmsHistoryListForCe.do")
+	public String getSendSmsHistoryListForCe(HttpSession session,Model model) {
 		//로그인 완료되면 해당 문장 삭제 
 		session.setAttribute("loginUser",111);
 		
@@ -42,8 +42,8 @@ public class SendSmsHistoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/center/getSendSmsHistory.do")
-	public String getSendSmsHistory(@RequestParam("shSendCode") String shSendCode, Model model) {
+	@GetMapping("/getSendSmsHistoryForCe.do")
+	public String getSendSmsHistoryForCe(@RequestParam("shSendCode") String shSendCode, Model model) {
 		model.addAttribute("sendSmsHistory", service.getSendSmsHistoryForCenter(shSendCode));
 		return "center/center_send_message_detail";
 	}
@@ -55,8 +55,8 @@ public class SendSmsHistoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/admin/getSendSmsHistoryList.do")
-	public String getSendSmsHistoryListAdmin(HttpSession session,Model model) {
+	@GetMapping("/getSendSmsHistoryListForAd.do")
+	public String getSendSmsHistoryListForAd(HttpSession session,Model model) {
 		
 		//관리자는 그냥 전체 리스트 뽑아와야 함
 		// service 메서드 추가해야 함 
@@ -72,8 +72,8 @@ public class SendSmsHistoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/admin/getSendSmsHistory.do")
-	public String getSendSmsHistoryAdmin(@RequestParam("shSendCenterCode") int shSendCenterCode,@RequestParam("shSendCode") String shSendCode, Model model) {
+	@GetMapping("/getSendSmsHistoryForAd.do")
+	public String getSendSmsHistoryForAd(@RequestParam("shSendCenterCode") int shSendCenterCode,@RequestParam("shSendCode") String shSendCode, Model model) {
 		model.addAttribute("sendSmsHistory", service.getSendSmsHistoryForAmdin(shSendCenterCode,shSendCode ));
 		return "admin/admin_send_message_detail";
 	}

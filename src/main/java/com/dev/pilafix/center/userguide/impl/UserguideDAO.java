@@ -15,8 +15,8 @@ public class UserguideDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	
-	public List<UserguideVO> getUserguideList(){
-		return sqlSessionTemplate.selectList("UserguideDAO.getUserguideList");
+	public List<UserguideVO> getUserguideList(int ctCode){
+		return sqlSessionTemplate.selectList("UserguideDAO.getUserguideList", ctCode);
 	}
 	
 	public UserguideVO getUserguide(int ugCode) {

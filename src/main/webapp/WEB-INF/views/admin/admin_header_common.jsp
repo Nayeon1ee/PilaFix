@@ -359,7 +359,7 @@
 			<!-- End 이메일 발송이력 관리 Nav -->
 
 			<li class="nav-item"><a class="nav-link collapsed"
-				href="admin/getSendSmsHistoryList.do"> <i
+				href="getSendSmsHistoryListForAd.do"> <i
 					class="bi bi-envelope"></i> <span>문자 발송 이력 관리</span>
 			</a></li>
 			<!-- End 문자 발송이력 관리 Nav -->
