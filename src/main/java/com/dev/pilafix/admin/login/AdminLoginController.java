@@ -45,7 +45,6 @@ public class AdminLoginController {
 		AdminVO admin = service.adminLogin(adId, adPassword);
 		
 	    if (admin != null) {
-	        session.setAttribute("admin", admin);
 	        // 원래는 index 상에 관리자화면으로 넘어가는 link가 필요함. 일단 등록화면부터 구현하기위해 넣어둠
 	        Map<String, Object> loginAdmin = new HashMap<>();
 	        loginAdmin.put("adCode", admin.getAdCode());

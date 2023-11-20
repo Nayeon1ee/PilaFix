@@ -43,7 +43,6 @@ public class CenterLoginController {
 	    CenterVO center = service.centerLogin(ctId, ctPassword);
 	    
 	    if (center != null) {
-	        session.setAttribute("centerInfo", center);
 	        Map<String, Object> loginCenter = new HashMap<>();
 	        loginCenter.put("ctCode", center.getCtCode());
 	        loginCenter.put("ctName", center.getCtName());
