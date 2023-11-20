@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.login.AdminLoginService;
 import com.dev.pilafix.common.member.AdminVO;
-import com.dev.pilafix.common.member.MemberVO;
+import com.dev.pilafix.common.member.CenterVO;
 
 
 
@@ -18,6 +18,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Autowired
 	private AdminLoginDAO dao;
 	private static final Logger logger = LoggerFactory.getLogger(AdminLoginServiceImpl.class);
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	@Override
 	public AdminVO adminLogin(String adId, String adPassword) {
@@ -60,11 +61,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		System.out.println("암호화 비밀번호   : "+encodedPwd);
 		
 		// vo에 다시 넣어준다.
-		System.out.println("1111");
 		vo.setAdPassword(encodedPwd);
-		System.out.println("1112");
 		return dao.insertAdminRegister(vo);
 	}
+	
+	
 	@Override
 	public int adIdCheck(String adId) {
 		return dao.adIdCheck(adId);
@@ -76,6 +77,27 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		dao.adminupdatePassword(adCode, encodedNewPassword);
 		
 	}
+
+	@Override
+	public boolean admincheckPassword(String adCode, String currentPassword) {
+		AdminVO admin = dao.getAdminInfo(adCode);
+        if (admin != null && admin.getAdPassword() != null) {
+            return encoder.matches(currentPassword, admin.getAdPassword());
+        }
+        return false;
+	}
+
+	@Override
+	public int adPasswordCheck(String adPassword) {
+		return dao.adPasswordCheck(adPassword);
+	}
+
+//	@Override
+//	public int updateAdminInfo(AdminVO vo) {
+//		return dao.updateAdminInfo(vo);
+//	}
+
+
 
 
 	
