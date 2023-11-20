@@ -21,7 +21,7 @@
                 top: 10px;
                 right: 10px;
             }
-        </style>
+</style>
 </head>
 <body>
 
@@ -50,7 +50,7 @@
 				<td>${memberCommunity.memberCmViews }</td>
 			</tr>
 			<tr>
-				<td><a href="updateMemberCommunity.do?seq=${memberCommunity.memberCmNumber }">수정</a> | <a href="deleteMemberCommunity.do?seq=${memberCommunity.memberCmNumber}">삭제</a></td>
+				<td><a href="updateMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber }">수정</a> | <a href="deleteMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber}">삭제</a></td>
 			</tr>
 		</table>
 		<a href="getMemberCommunityList.do">글 목록</a>
@@ -58,13 +58,14 @@
 			
 			<p>게시글 신고</p>
 			<p>신고 사유를 선택하여 주시기 바랍니다.</p>
-            <form action="getMemberCommunity.do" method="post">
+            <form action="insertBlamer.do" method="post">
 			    <input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
-			    <input type="hidden" name="memberCmWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
-			    
-			    <c:forEach items="${blameList}" var="blameList">
-			        <input type="radio" name="blame" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br>
-			    </c:forEach>
+			    <input type="hidden" name="memberTargetWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
+			    <div class="radio-box">
+				    <c:forEach items="${blameList}" var="blameList">
+				        <input type="radio" name="memberBlameReasonCode" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br>
+				    </c:forEach>
+			    </div>
 			    <input type="submit" value="신고">
 			</form>
             <a class="modal_close_btn">닫기</a>
@@ -74,7 +75,6 @@
 		<hr>
 			<!-- 답변 영역 -->
 			<table>
-				<c:if test="${not empty memberCommunityReply.memberReTitle }"> <!-- 답변여부가 Y이면서, reply가 null이 아니면  -->
 					<tr>
 						<th>답변내용</th>
 						<td>${memberCommunityReply.reContent }</td>
@@ -87,25 +87,20 @@
 						<th>작성일시</th>
 						<td>${memberCommunityReply.reRegdate }</td>
 					</tr>
-                </c:if>
 				</table>
 					
 			
 			<form action="insertMemberCommunityReply.do" method="post">
-						<input type="hidden" name="reTargetPostNumber" value="${question.qsNumber}">
-                		<input type="hidden" name="reTitle" value="[댓글]">
-                		
-                		<%--  
-                		############### 센터 로그인 완료되면 ###########
-                		<input type="hidden" name="writerMemberCode" value="여기에 세션에서 센터코드 뽑기" >
-                		--> 회원의 문의사항에 답변이 보이게 
-                		#######################################
-                		--%>
-							답변내용 <input type="text" name="reContent">
-							<input type="submit" value="답변등록">
-					</form>
-                
-	
+				
+           		<%--  
+           		############### 센터 로그인 완료되면 ###########
+           		<input type="hidden" name="writerMemberCode" value="여기에 세션에서 센터코드 뽑기" >
+           		--> 회원의 문의사항에 답변이 보이게 
+           		#######################################
+           		--%>
+				답변내용 <input type="text" name="memberReContent">
+				<input type="submit" value="답변등록">
+			</form>
 <script>
      function modal(id) {
          var zIndex = 9999;
@@ -158,6 +153,6 @@
          // 모달창 띄우기
          modal('my_modal');
      });
- </script>
+</script>
 </body>
 </html>

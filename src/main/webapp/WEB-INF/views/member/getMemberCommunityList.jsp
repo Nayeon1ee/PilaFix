@@ -26,13 +26,13 @@
 			<c:forEach var="CommunityList" items="${getMemberCommunityList }">
 				<tr>
 					<td>${CommunityList.memberCmNumber }</td>
-					<td><a href="getMemberCommunity.jsp?memberCmNumber=${CommunityList.memberCmNumber }">${CommunityList.memberCmTitle }</a></td>
+					<td><a href="getMemberCommunity.do?memberCmNumber=${CommunityList.memberCmNumber }">${CommunityList.memberCmTitle }</a></td>
 					<td>${CommunityList.memberCmRegdate }</td>
 					<td>${CommunityList.memberCmViews }</td>
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="insertMemberCommunity.jsp">글 등록</a>
+		<a href="insertMemberCommunity.do">글 등록</a>
 	</div>
 </body>
 </html>

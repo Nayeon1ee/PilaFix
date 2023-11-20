@@ -1,6 +1,7 @@
 package com.dev.pilafix.member.community.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,12 @@ public class MemberCommunityDAO {
 		return sqlSessionTemplate.selectList("MemberCommunityDAO.getBlameList");
 	}
 	
-	public int insertBlame(int memberCmNumber, String ipAddress) {
-		return sqlSessionTemplate.insert("MemberCommunityDAO.insertBlame", memberCmNumber);
+	public int insertBlame(Map<String, Object> blame) {
+	    System.out.println("[DAO] "+blame.get("memberCmWriterMemberCode"));
+	    System.out.println("[DAO] "+blame.get("memberTargetWriterMemberCode"));
+	    System.out.println("[DAO] "+blame.get("memberCmNumber"));
+	    
+		return sqlSessionTemplate.insert("MemberCommunityDAO.insertBlame", blame);
 	}
 	
 	public MemberCommunityVO getMemberCommunityReply(int memberReNumber) {
@@ -51,6 +56,6 @@ public class MemberCommunityDAO {
 	}
 	
 	public int insertMemberCommunityReply(int memberCmNumber) {
-		return sqlSessionTemplate.insert("MemberCommunityDAO.insertMemberCommunityReple", memberCmNumber);
+		return sqlSessionTemplate.insert("MemberCommunityDAO.insertMemberCommunityReply", memberCmNumber);
 	}
 }

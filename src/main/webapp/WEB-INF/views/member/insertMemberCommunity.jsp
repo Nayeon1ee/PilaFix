@@ -14,7 +14,7 @@
 	<input type="submit" value="등록">
 </form>
 
-<a href="getMemberCommunityList.jsp">글 목록</a>
+<a href="getMemberCommunityList.do">글 목록</a>
 
 </body>
 </html>
