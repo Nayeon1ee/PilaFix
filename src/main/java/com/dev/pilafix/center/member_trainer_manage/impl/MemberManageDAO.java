@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO;
 import com.dev.pilafix.common.member.MemberVO;
 
@@ -35,7 +36,7 @@ public class MemberManageDAO {
 	}
 	
 	/**
-	 * ¿¬µ¿ ¿äÃ» Ã³¸® 
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» Ã³ï¿½ï¿½ 
 	 * @param crCode
 	 * @param memberCode
 	 * @param centerCode
@@ -43,32 +44,44 @@ public class MemberManageDAO {
 	@Transactional
 	public void updateConnectionYnAndInsertConnHistory(String crCode, int memberCode, int centerCode) {
 		try {
-			// ¿¬µ¿Ã³¸® STEP01 - TBL_CENTER_REQUEST ¿¬µ¿¿©ºÎ, ÀÏÀÚ ¾÷µ¥ÀÌÆ®
+			// ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ STEP01 - TBL_CENTER_REQUEST ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 			sqlSessionTemplate.update("MemberManageDAO.updateConn", crCode);
 			
-			// ¿¬µ¿Ã³¸® STEP02 - TBL_CENTER_CONN¿¡ ÀÌ·Â µî·Ï
+			// ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ STEP02 - TBL_CENTER_CONNï¿½ï¿½ ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½
 			Map<String, Object> params = new HashMap<>();
 			params.put("crCode", crCode);
 			params.put("memberCode", memberCode);
 			params.put("centerCode", centerCode);
 			sqlSessionTemplate.insert("MemberManageDAO.insertConnHistory", params);
 			
-			// ¿¬µ¿Ã³¸® STEP03 - TBL_CST CONNECTED_CENTER_CODE ¾÷µ¥ÀÌÆ®
-			//¿©±â¼­ ¸Ê Áà¾ß ÇÔ centercode¶û memberCode
+			// ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ STEP03 - TBL_CST CONNECTED_CENTER_CODE ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+			//ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ centercodeï¿½ï¿½ memberCode
 			sqlSessionTemplate.update("MemberManageDAO.updateCSTConn", params);
 			
 		} catch (Exception e) {
-			// ¿¹¿Ü Ã³¸® 
-			throw new RuntimeException("µ¥ÀÌÅÍº£ÀÌ½º ¾÷µ¥ÀÌÆ® ¿À·ù", e);
+			// ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ 
+			throw new RuntimeException("ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½", e);
 		}
 	}
 
 	/**
-	 * ¿¬µ¿ °ÅÀý 
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	 * @param crCode
 	 */
 	public void updateRejectDate(String crCode) {
 		sqlSessionTemplate.update("MemberManageDAO.updateRejectDate", crCode);
+	}
+
+	public MemberVO getMember(int csMemberCode) {
+		return sqlSessionTemplate.selectOne("MemberManageDAO.getMember", csMemberCode);
+	}
+	
+	public List<CenterLessonVO> getGroupLesson(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getGroupLesson",csMemberCode);
+	}
+
+	public List<CenterLessonVO> getPersonalLesson(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getPersonalLesson",csMemberCode);
 	}
 
 }

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="center_header_common.jsp" %>
+<%@ taglib  prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 	<main id="main" class="main">
@@ -35,25 +38,30 @@
 
 											<img src="#" alt="logo" class="rounded-circle rounded-logo">
 
-											<h5>홍길동</h5>
-											<h5>1992.01.08 (만 00세)</h5>
+											<h5>${member.csName}</h5>
+											<c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
+												<c:set var="birthYear" value="${fn:split(member.csBirth,'-')[0]}" />
+												<c:set var="birthMonth" value="${fn:split(member.csBirth,'-')[1]}" />
+												<c:set var="birthDay" value="${fn:split(member.csBirth,'-')[2]}" />
+												<c:set var="age" value="${currentYear - birthYear}" />
+											<h5>${birthYear}년&nbsp;${birthMonth}월&nbsp;${birthDay}일&nbsp; (만 ${age}세)</h5>
 											<div class="social-links mt-2">
 												<table class="CTS_information00">
 													<tr>
 														<td class="CTS_information01">회원번호</td>
-														<td>010408</td>
+														<td>${member.csMemberCode}</td>
 													</tr>
 													<tr>
 														<td class="CTS_information01">연락처</td>
-														<td>010-1234-5678</td>
+														<td>${member.csPhoneNumber1}-${member.csPhoneNumber2}-${member.csPhoneNumber3}</td>
 													</tr>
 													<tr>
 														<td class="CTS_information01">이메일</td>
-														<td>choi@naver.com</td>
+														<td>${member.csEmailId}</td>
 													</tr>
 													<tr>
 														<td class="CTS_information01">회원등록일</td>
-														<td>2023.01.08</td>
+														<td>${member.csRegistrationDate}</td>
 													</tr>
 												</table>
 											</div>

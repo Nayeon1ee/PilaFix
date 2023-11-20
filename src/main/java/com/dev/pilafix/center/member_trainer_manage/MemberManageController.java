@@ -1,6 +1,7 @@
 package com.dev.pilafix.center.member_trainer_manage;
 
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.common.question.QuestionVO;
 
 
@@ -21,27 +23,27 @@ public class MemberManageController {
 	@Autowired
 	private MemberManageService service;
 
-	/* ======================== 회원 관리 ======================== */ 
+	/* ======================== �쉶�썝 愿�由� ======================== */ 
 	/**
-	 * 회원 목록 조회 
+	 * �쉶�썝 紐⑸줉 議고쉶 
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/getMemberManageList.do")
 	public String getMemberManageList(HttpSession session, Model model) {
-		// 세션에서 파라미터 받아와야 함
+		// �꽭�뀡�뿉�꽌 �뙆�씪誘명꽣 諛쏆븘���빞 �븿
 //        Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
 
       
-        // 회원이 로그인되어 있는지 확인
+        // �쉶�썝�씠 濡쒓렇�씤�릺�뼱 �엳�뒗吏� �솗�씤
 //        if (user != null) {
-            //센터 연동 요청 리스트 
+            //�꽱�꽣 �뿰�룞 �슂泥� 由ъ뒪�듃 
         	model.addAttribute("request", service.getConnectRequestForMe());
     		model.addAttribute("memberList", service.getMemberManageList());
 //        } else {
-            // 로그인되어 있지 않은 경우에 대한 처리
-//            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            // 濡쒓렇�씤�릺�뼱 �엳吏� �븡�� 寃쎌슦�뿉 ���븳 泥섎━
+//            return "redirect:/login"; // 濡쒓렇�씤 �럹�씠吏�濡� 由щ떎�씠�젆�듃
 //        }
 
         return "center/center_member_list";
@@ -59,16 +61,16 @@ public class MemberManageController {
 	 */
 	@GetMapping("/getMemberManage.do")
 	public String getMemberManage(int csMemberCode, String csRoleCode,Model model) {
-		//회원 정보 
-		model.addAttribute("member", service.getMember(csMemberCode, csRoleCode));
+		//회원 정보
+		model.addAttribute("member", service.getMember(csMemberCode));
 
-		// 최근 문의 내역 저장 
+		// 理쒓렐 臾몄쓽 �궡�뿭 ���옣 
 		List<QuestionVO> qlist =  service.getQuestion();
 		
-		// 최근 예약 수업 내역 저장 
+		// 理쒓렐 �삁�빟 �닔�뾽 �궡�뿭 ���옣 
 		
 		
-		// 최근 결제 내역 저장
+		// 理쒓렐 寃곗젣 �궡�뿭 ���옣
 		List<PaymentHistoryVO> payList = service.getPayment();
 		
 		
@@ -77,9 +79,9 @@ public class MemberManageController {
 	
 	
 	
-	/* ======================== 강사 관리 ======================== */ 
+	/* ======================== 媛뺤궗 愿�由� ======================== */ 
 	/**
-	 * 강사 목록 조회 
+	 * 媛뺤궗 紐⑸줉 議고쉶 
 	 * 
 	 * @param model
 	 * @return
@@ -103,27 +105,30 @@ public class MemberManageController {
 	@GetMapping("/getTrainerManage.do")
 	public String getTrainerManage(int csMemberCode, String csRoleCode,Model model) {
 		//회원 정보 
-		model.addAttribute("member", service.getMember(csMemberCode, csRoleCode));
+		model.addAttribute("member", service.getMember(csMemberCode));
 
-		// 최근 문의 내역 저장 
+		//그룹 수업내용
 		
-		// 최근 예약 수업 내역 저장 
 		
-		// 최근 결제 내역 저장
+		model.addAttribute("groupLesson", service.getGroupLesson(csMemberCode));
+		//개인 수업내용
+		model.addAttribute("personalLesson", service.getPersonalLesson(csMemberCode));
+		//전체 수업내용
+		
 		
 		return "center/center_trainer_detail";
 	}
 	
 	
-	/* ======================== 공통 ======================== */ 
+	/* ======================== 怨듯넻 ======================== */ 
 	/**
-	 * 회원/강사 연동 요청 수락 
+	 * �쉶�썝/媛뺤궗 �뿰�룞 �슂泥� �닔�씫 
 	 * 
-	 * 연동처리 STEP01 - TBL_CENTER_REQUEST 연동여부, 일자 업데이트
-	 * 연동처리 STEP02 - TBL_CENTER_CONN에 이력 등록
-	 * 연동처리 STEP03 - TBL_CST CONNECTED_CENTER_CODE 업데이트
+	 * �뿰�룞泥섎━ STEP01 - TBL_CENTER_REQUEST �뿰�룞�뿬遺�, �씪�옄 �뾽�뜲�씠�듃
+	 * �뿰�룞泥섎━ STEP02 - TBL_CENTER_CONN�뿉 �씠�젰 �벑濡�
+	 * �뿰�룞泥섎━ STEP03 - TBL_CST CONNECTED_CENTER_CODE �뾽�뜲�씠�듃
 	 * 
-	 * @return 수락 후 목록 재조회 
+	 * @return �닔�씫 �썑 紐⑸줉 �옱議고쉶 
 	 */
 	@GetMapping("/acceptRequest.do")
 	public String acceptRequest(@RequestParam("crCode") String crCode, @RequestParam("memberCode") int memberCode, @RequestParam("centerCode") int centerCode) {
@@ -132,11 +137,11 @@ public class MemberManageController {
 	}
 	
 	/**
-	 * 회원/강사 연동 요청 거절 
+	 * �쉶�썝/媛뺤궗 �뿰�룞 �슂泥� 嫄곗젅 
 	 * 
-	 * TBL_CENTER_REQUEST 거절 일자 업데이트
+	 * TBL_CENTER_REQUEST 嫄곗젅 �씪�옄 �뾽�뜲�씠�듃
 	 * 
-	 * @return 거절 후 목록 재조회 
+	 * @return 嫄곗젅 �썑 紐⑸줉 �옱議고쉶 
 	 */
 	@GetMapping("/rejectRequest.do")
 	public String rejectRequest(@RequestParam("crCode") String crCode) {

@@ -1,12 +1,15 @@
 package com.dev.pilafix.center.lesson;
 
-import java.util.Date;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
 
 public class CenterLessonVO {
 	private String lsCode;
 	private String lsName;
 	private String lsType;
-	private String lsDate;
+	private Date lsDate;
 	private String lsTime;
 	private int lsCapacity;
 	private int lsCurrentApplication;
@@ -16,9 +19,20 @@ public class CenterLessonVO {
 	private Date lsRegistrationDate;
 	private boolean lsColseYN;
 	private String lsRegistrationDateToString;
+	private Timestamp lsTimeDB;
 
 	private int csMemberCode;
 	private String csName;
+
+	
+	
+	public Timestamp getLsTimeDB() {
+		return lsTimeDB;
+	}
+
+	public void setLsTimeDB(Timestamp lsTimeDB) {
+		this.lsTimeDB = lsTimeDB;
+	}
 
 	public String getLsCode() {
 		return lsCode;
@@ -44,11 +58,11 @@ public class CenterLessonVO {
 		this.lsType = lsType;
 	}
 
-	public String getLsDate() {
+	public Date getLsDate() {
 		return lsDate;
 	}
 
-	public void setLsDate(String lsDate) {
+	public void setLsDate(Date lsDate) {
 		this.lsDate = lsDate;
 	}
 
@@ -146,8 +160,10 @@ public class CenterLessonVO {
 				+ ", lsTime=" + lsTime + ", lsCapacity=" + lsCapacity + ", lsCurrentApplication=" + lsCurrentApplication
 				+ ", trainerMemberCode=" + trainerMemberCode + ", lsContent=" + lsContent + ", centerCode=" + centerCode
 				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsColseYN=" + lsColseYN
-				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", csMemberCode=" + csMemberCode
-				+ ", csName=" + csName + "]";
+				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB
+				+ ", csMemberCode=" + csMemberCode + ", csName=" + csName + "]";
 	}
+
+	
 
 }

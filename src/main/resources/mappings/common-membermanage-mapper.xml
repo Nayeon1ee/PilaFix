@@ -70,15 +70,32 @@
 		<result property="centerAddress" column="CENTER_ADDRESS" />
 	</resultMap>
 	
+	<resultMap type="com.dev.pilafix.center.lesson.CenterLessonVO" id="centerLessonResult">
+		<id property="lsCode" column="LS_CODE"/>
+		<result property="lsName" column="LS_NAME"/>
+		<result property="lsType" column="LS_TYPE"/>
+		<result property="lsDate" column="LS_DATE"/>
+		<result property="lsTime" column="LS_TIME"/>
+		<result property="lsCapacity" column="LS_CAPACITY"/>
+		<result property="lsCurrentApplication" column="LS_CURRENT_APPLICANTS"/>
+		<result property="trainerMemberCode" column="TRAINER_MEMBER_CODE"/>
+		<result property="lsContent" column="LS_CONTENT"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="lsRegistrationDate" column="LS_REGISTRATION_DATE"/>
+		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
+		<result property="csName" column="CS_NAME"/>
+		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
+		<result property="lsColseYN" column="LS_CLOSE_YN"/>
+		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE"/>
+	</resultMap>
+	
 	<!-- 회원 목록 조회 -->
 	<select id="getMemberList" resultMap="memberResult">
 		SELECT * FROM TBL_CST
 		WHERE CS_ROLE_CODE = 'ME'
 		AND (CONNECTED_CENTER_CODE1 = 111 OR CONNECTED_CENTER_CODE2 = 111 OR CONNECTED_CENTER_CODE3 = 111);
 	</select>
-	<select id="getMember" resultMap="memberResult" >
-		SELECT *  FROM TBL_CST WHERE CS_MEMBER_CODE=#{csMemberCode}
-	</select>
+
 
 	<!-- 강사 목록 조회 -->
 	<select id="getTrainerList" resultMap="memberResult">
@@ -160,6 +177,28 @@
 		SELECT CH_CODE, CENTER_CODE,(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)as CENTER_NAME, 
 		(SELECT CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' || CT_ADDRESS3 FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)as CENTER_ADDRESS
 		FROM TBL_CENTER_CONN WHERE MEMBER_CODE=#{csMemberCode}
+	</select>
+	
+	<!-- 회원/강사 목록 조회 -->
+	<select id="getMember" resultMap="memberResult" >
+		SELECT *  FROM TBL_CST WHERE CS_MEMBER_CODE=#{csMemberCode}
+	</select>
+	
+	<!-- 강사의 그룹수업 조회 -->
+	<select id="getGroupLesson" resultMap="centerLessonResult" >
+		SELECT *  FROM TBL_LESSON WHERE trainer_member_code=#{csMemberCode} AND ls_type='그룹'
+		
+		<!--  SELECT ls_name,ls_type,ls_date,EXTRACT(HOUR FROM ls_time) || ':' || EXTRACT(MINUTE FROM ls_time)AS ls_time ,LS_REGISTRATION_DATE FROM TBL_LESSON WHERE trainer_member_code=#{csMemberCode} AND ls_type='그룹'
+		-->
+SELECT ls_code, ls_name, ls_type, ls_date, TO_CHAR(ls_time, 'YYYY-MM-DD HH24:MI:ss AM') AS ls_time, ls_capacity, ls_current_applicants, trainer_member_code, ls_content, center_code, ls_registration_date, ls_close_yn
+FROM TBL_LESSON
+WHERE trainer_member_code = #{csMemberCode} AND ls_type = '그룹';
+
+	</select>
+	
+	<!-- 강사의 개인수업 조회 -->
+	<select id="getPersonalLesson" resultMap="centerLessonResult" >
+		SELECT *  FROM TBL_LESSON WHERE trainer_member_code=#{csMemberCode} AND ls_type='개인'
 	</select>
 	
 </mapper>

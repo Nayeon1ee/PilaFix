@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO;
 import com.dev.pilafix.center.member_trainer_manage.MemberManageService;
 import com.dev.pilafix.common.member.MemberVO;
@@ -17,7 +18,7 @@ public class MemberManageServiceImpl implements MemberManageService{
 	@Autowired
 	private MemberManageDAO dao;
 	
-	/* ======================== È¸¿ø °ü¸® ======================== */ 
+	/* ======================== È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ======================== */ 
 
 
 	@Override
@@ -26,8 +27,8 @@ public class MemberManageServiceImpl implements MemberManageService{
 	}
 
 	@Override
-	public MemberVO getMember(int csMemberCode, String csRoleCode) {
-		return null;
+	public MemberVO getMember(int csMemberCode) {
+		return dao.getMember(csMemberCode);
 	}
 
 	@Override
@@ -35,10 +36,20 @@ public class MemberManageServiceImpl implements MemberManageService{
 		return dao.getConnectRequestForMe();
 	}
 
-	/* ======================== °­»ç °ü¸® ======================== */ 
+	/* ======================== ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ======================== */ 
 	@Override
 	public List<MemberVO> getTrainerManageList() {
 		return dao.getTrainerManageList();
+	}
+	
+	@Override
+	public List<CenterLessonVO> getGroupLesson(int csMemberCode) {
+		return dao.getGroupLesson(csMemberCode);
+	}
+	
+	@Override
+	public List<CenterLessonVO> getPersonalLesson(int csMemberCode) {
+		return dao.getPersonalLesson(csMemberCode);
 	}
 	
 	@Override
@@ -59,7 +70,7 @@ public class MemberManageServiceImpl implements MemberManageService{
 	}
 
 	/**
-	 * ¿¬µ¿ ¿äÃ» ¼ö¶ô
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
 	 */
 	@Override
 	public void acceptRequest(String crCode, int memberCode, int centerCode) {
@@ -67,12 +78,15 @@ public class MemberManageServiceImpl implements MemberManageService{
 	}
 	
 	/**
-	 * ¿¬µ¿ ¿äÃ» °ÅÀý
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½
 	 */
 	@Override
 	public void rejectRequest(String crCode) {
 		dao.updateRejectDate(crCode);
 	}
+
+	
+
 	
 	
 
