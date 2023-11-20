@@ -10,6 +10,7 @@ public class UserguideVO {
 	private Date ugRegistrationDate;
 	private Date ugModifiedDate;
 	private boolean ugOpenYN;
+	private int ugCenterCode;
 	
 
 	public int getUgCode() {
@@ -54,11 +55,19 @@ public class UserguideVO {
 	public void setUgOpenYN(boolean ugOpenYN) {
 		this.ugOpenYN = ugOpenYN;
 	}
+	
+	public int getUgCenterCode() {
+		return ugCenterCode;
+	}
+	public void setUgCenterCode(int ugCenterCode) {
+		this.ugCenterCode = ugCenterCode;
+	}
 	@Override
 	public String toString() {
 		return "UserguideVO [ugCode=" + ugCode + ", ugType=" + ugType + ", ugName=" + ugName + ", ugContent="
 				+ ugContent + ", ugRegistrationDate=" + ugRegistrationDate + ", ugModifiedDate=" + ugModifiedDate
-				+ ", ugOpenYN=" + ugOpenYN + "]";
+				+ ", ugOpenYN=" + ugOpenYN + ", ugCenterCode=" + ugCenterCode + "]";
 	}
+	
 	
 }

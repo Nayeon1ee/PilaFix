@@ -40,6 +40,7 @@
                     <th scope="col">구분</th>
                     <th scope="col">이용정책명</th>
                     <th scope="col">작성일자</th>
+                    <th scope="col">공개여부</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -54,6 +55,14 @@
 						<td>${list.ugType }</td>
 						<td><a href="getUserguide.do?ugCode=${list.ugCode }">${list.ugName }</a></td>
 						<td>${list.ugRegistrationDate }</td>
+						<c:choose>
+							<c:when test="${list.ugOpenYN }">
+								<td>공개</td>
+							</c:when>
+							<c:otherwise>
+								<td>비공개</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				 </c:forEach> 
                 </tbody>

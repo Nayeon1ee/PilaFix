@@ -106,7 +106,7 @@
 												<td>${list.shFailReason }</td>
 											</c:otherwise>
 										</c:choose>
-										<td><a href="getSendSmsHistory.do?shSendCode=${list.shSendCode }">상세보기</a></td>
+										<td><a href="getSendSmsHistoryForCe.do?shSendCode=${list.shSendCode }">상세보기</a></td>
 									</tr>
 								</c:forEach>
 								</tbody>

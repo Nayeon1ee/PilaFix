@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UserguideService {
 	
-	List<UserguideVO> getUserguideList();
+	List<UserguideVO> getUserguideList(int ctCode);
 	UserguideVO getUserguide(int ugCode);
 	int insertUserguide(UserguideVO vo);
 	int updateUserguide(UserguideVO vo);

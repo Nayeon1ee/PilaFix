@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.pilafix.center.info.CenterInfoVO;
 
@@ -21,8 +22,17 @@ public class CenterInfoDAO {
 	    return sqlSessionTemplate.selectOne("CenterInfoDAO.getCenterInfo",seq);
 	}
 	
+	@Transactional
 	public int insertCenterInfo(CenterInfoVO vo) {
-		return sqlSessionTemplate.insert("CenterInfoDAO.insertCenterInfo", vo);
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.insert("CenterInfoDAO.insertCenterInfo", vo);
+//			sqlSessionTemplate.insert("", noticeVo );
+		}catch (Exception e) {
+			throw new RuntimeException("데이터베이스 업데이트 오류", e);
+		}
+		
+		return result;
 	}
 	
 	public int updateCenterInfo(CenterInfoVO vo) {
