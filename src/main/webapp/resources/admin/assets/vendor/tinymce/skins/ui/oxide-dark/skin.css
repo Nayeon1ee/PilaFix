@@ -1446,12 +1446,12 @@ button::-moz-focus-inner {
 .tox .tox-dialog__body-content a {
   color: #67aeff;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .tox .tox-dialog__body-content a:hover,
 .tox .tox-dialog__body-content a:focus {
   color: #cde5ff;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .tox .tox-dialog__body-content a:focus-visible {
   border-radius: 1px;
@@ -1460,7 +1460,7 @@ button::-moz-focus-inner {
 }
 .tox .tox-dialog__body-content a:active {
   color: #ffffff;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .tox .tox-dialog__body-content svg {
   fill: #fff;
@@ -2496,7 +2496,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-notification a {
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .tox .tox-notification--in {
   opacity: 1;

@@ -91,7 +91,7 @@
 														<c:choose>
 															<c:when test="${not empty member.ticketCodePersonal1 }">
 																${ticketInfo['personal'].tkName}
-																<!-- 이거 티켓 명 나오도록 VO에 추가하고 resultMap에도 추가 -->
+																<!-- map에서 수강권 정보 꺼내옴 -->
 															</c:when>
 															<c:otherwise>
 																-
@@ -252,7 +252,7 @@
 														<c:choose>
 															<c:when test="${not empty member.ticketCodeGroup1 }">
 																${member.ticketRemainingCountGroup1}회 남음 / 총 ${ticketInfo['group'].tkUsageCount}회
-																<!-- 이거 수강권 총 횟수 나오도록 VO에 추가하고 resultMap에도 추가 -->
+																<!-- map에서 수강권 정보 꺼내옴 -->
 															</c:when>
 															<c:otherwise>
 																		-
@@ -396,7 +396,7 @@
 													<td><fmt:formatDate pattern="yyyy.MM.dd(E) a h:mm" var="formattedDate" value="${plist.paDatetime}" />${formattedDate }</td>
 													<td>${plist.paAmount }</td>
 													<td>${plist.paMethod }</td>
-													<td>${plist.ticketName }</td> <!-- 이거 티켓 명 나오도록 VO에 추가하고 resultMap에도 추가 -->
+													<td>${plist.ticketName }</td> 
 													<td></td>
 												</tr>
 											</c:forEach>
