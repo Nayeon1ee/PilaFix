@@ -21,9 +21,8 @@ public interface QuestionService {
 	List<QuestionVO> getQuestionReplyList();
 	QuestionVO getTargetQuestion(Integer reTargetPostNumber);
 	
-	int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo);
+	void insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo, int questionNumber);
 	int deleteQuestionReply(int reNumber);
 	void updateAnswerYn(int qsNumber);
-	
 	
 }
