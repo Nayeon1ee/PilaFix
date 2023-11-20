@@ -1,4 +1,4 @@
-package com.dev.pilafix.center.notice;
+package com.dev.pilafix.center.notice_history;
 
 import java.util.List;
 

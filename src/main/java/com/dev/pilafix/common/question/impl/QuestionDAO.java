@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.question.QuestionReplyVO;
@@ -51,8 +52,7 @@ public class QuestionDAO {
 		return 0;
 	}
 
-
-	public List<QuestionVO> getQuestionReplyList() {
+	public List<QuestionVO> getQReplyList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -66,11 +66,24 @@ public class QuestionDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
+	
+	/**
+	 * 센터가 답변을 등록하면 회원의 답변여부 true로 업데이트
+	 * @param replyvo
+	 * @param questionNumber
+	 */
+	@Transactional
+    public void insertReplyAndUpdateQuestion(QuestionReplyVO replyvo, int questionNumber) {
+        try {
+            sqlSessionTemplate.insert("QuestionMapper.insertReply", replyvo);
+           
+            sqlSessionTemplate.update("QuestionMapper.updateAnswerYn", questionNumber);
+        } catch (Exception e) {
+            
+            throw new RuntimeException("RuntimeException: ", e);
+        }
+    }
 	
 	
 

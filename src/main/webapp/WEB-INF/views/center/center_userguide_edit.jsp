@@ -99,7 +99,7 @@
 	             
 	                <div class="text-center">
 	                  <button type="submit" class="btn btn-primary">수정</button>
-	                  <button type="reset" class="btn btn-secondary">취소</button>
+                 	 <button type="button" class="btn btn-secondary" onclick="location.href='getUserguide.do?ugCode=${userguide.ugCode }'">취소</button>
 	                </div>
               </form>
               <!-- End Multi Columns Form -->

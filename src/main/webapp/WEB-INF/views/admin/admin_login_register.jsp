@@ -32,6 +32,7 @@
 							</div>
 							-->
 							<form name="admin_info" action="insertAdminRegister.do" method="post">
+							<input type="hidden" name="adId" value="${admin.adId}">
 								<div class="col-md-12">
 										<label for="inputAddress5" class="form-label">아이디</label>
 										<div class="input-group">
@@ -40,14 +41,14 @@
 										</div>
 										<div id="adIdCheckMessage"></div>
 									</div>
-								<div class="col-120">
-									<label for="inputAddress5" class="form-label" >비밀번호</label>
-								</div>
-								<div class="col-120">
-									<input type="text" class="form-control" id="inputAddres5s" 
-										 style="width: 93%;" name="adPassword" placeholder="비밀번호를 입력하세요" >
-									<div class="row mb-3"></div>
-								</div>
+								<div class="col-md-12">
+										<label for="inputAddress5" class="form-label">비밀번호</label>
+										<div class="input-group">
+											<input type="text" class="form-control" id="adPassword" name="adPassword" placeholder="비밀번호를 입력하세요">
+											<button type="button" class="btn btn-primary" id="adPasswordCheck">중복확인</button>
+										</div>
+										<div id="adPasswordCheckMessage"></div>
+									</div>
 								<div class="col-40">
 									<label for="inputAddress5" class="form-label">관리자명</label> <input
 										type="text" class="form-control" id="inputAddres5s" 
@@ -67,7 +68,7 @@
 									</div>
 								</div> --%>
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">관리자 번호</label>
+									<label for="inputAddress5" class="form-label">관리자번호</label>
 									<div class="col-400" style="display: flex;" >
 										<select class="project_title" name="adContact1" id="project_title" >
 											<option selected >전화번호</option>
@@ -123,17 +124,14 @@
 								</div> --%>
 								<div class="text-center">
 				                  <button type="submit" class="btn btn-primary">등록</button>
+				                   <%-- <button type="submit" class="btn btn-primary" onclick="location.href='updateAdmin.do?adCode=${amdin.adCode}'">수정</button> --%>
 				                  <button type="reset" class="btn btn-secondary" onclick="goBack()">취소</button>
 				                </div>
 							</form>
 							<!-- End General Form Elements -->
-
-							<!-- <h5 class="card-title">비밀번호 변경</h5>
+							<h5 class="card-title">비밀번호 변경</h5>
 							<p>비밀번호 변경을 원하면 아래 버튼을 클릭하세요.</p>
-							Basic Modal
-							<button type="button" class="btn btn-primary"
-								data-bs-toggle="modal" data-bs-target="#basicModal">
-								비밀번호 변경</button> -->
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">비밀번호 변경</button>
 							<div class="modal fade" id="basicModal" tabindex="-1">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -145,9 +143,7 @@
 										<div class="modal-body">
 											<div class="tab-content pt-2">
 												<div class="tab-pane fade pt-3 active show"
-													id="profile-change-password" role="tabpanel">
-													<!-- Change Password Form -->
-													<form>
+													id="profile-change-password" role="tabpanel"><form action="/adminUpdatePassword.do" method="post">
 														<div class="row mb-3">
 															<label for="currentPassword"
 																class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
@@ -167,12 +163,12 @@
 														</div>
 
 														<div class="row mb-3">
-															<label for="renewPassword"
+															<label for="newPassword"
 																class="col-md-4 col-lg-3 col-form-label">새 비밀번호
 																확인</label>
 															<div class="col-md-8 col-lg-9">
-																<input name="renewpassword" type="password"
-																	class="form-control" id="renewPassword">
+																<input name="newPassword" type="password"
+																	class="form-control" id="newPassword">
 															</div>
 														</div>
 
@@ -180,11 +176,8 @@
 															<button type="submit" class="btn btn-primary">비밀번호변경</button>
 														</div>
 													</form>
-													<!-- End Change Password Form -->
 												</div>
-											</div>
-											<!-- End Bordered Tabs -->
-										</div>
+											</div></div>
 										<!-- <div class="modal-footer">
 					                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 					                      <button type="button" class="btn btn-primary">Save changes</button>
@@ -226,6 +219,30 @@ $(function(){
                 }
             },
             error: function(error){ alert(error); }
+        });
+    });
+});
+$(function(){
+    $("#adPasswordCheck").click(function(){
+        let adPassword = $("#adPassword").val();  //비밀번호
+        console.log("3333")
+        $.ajax({
+            type: 'post', 
+            url: "adPasswordCheck.do", 
+            data: {"adPassword": adPassword}, 
+            success: function(data){ 
+                let messageDiv = $("#adPasswordCheckMessage");
+                if(data < 1){ 
+                    // 사용 가능한 아이디인 경우 메시지 표시
+                    messageDiv.html("사용 가능한 비밀번호입니다.");
+                    messageDiv.css("color", "green"); 
+                } else { 
+                    // 중복된 아이디인 경우 메시지 표시
+                    messageDiv.html("중복된 아이디입니다. 다른 비밀번호를 입력해주세요.");
+                    messageDiv.css("color", "red");
+                }
+            },
+            error: function(error){ alert("error"); }
         });
     });
 });

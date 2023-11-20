@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Charts / ApexCharts - PilaAdmin Bootstrap Template</title>
+  <title>센터 관리자 페이지</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -350,7 +350,7 @@
 			<!-- End 수강권관리 Nav -->
 			
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="getQuestionReplyList.do"> 
+				<a class="nav-link collapsed" href="getCTQuestionList.do"> 
 					<i class="bi bi-envelope"></i><span>문의사항 관리</span>
 				</a>
 			</li>
@@ -377,6 +377,26 @@
 			</li>
 			<!-- End 공지사항관리 Nav -->
 			
+			<li class="nav-item">
+				<a class="nav-link collapsed" data-bs-target="#userguide-nav" data-bs-toggle="collapse" >
+					<i class="bi bi-shield-check"></i>
+						<span>이용정책 관리</span>
+					<i class="bi bi-chevron-down ms-auto"></i>
+				</a>
+				<ul id="userguide-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+					<li>
+						<a href="getUserguideList.do"> 
+							<i class="bi bi-circle"></i><span>이용정책 목록 조회</span>
+						</a>
+					</li>
+					<li>
+						<a href="insertUserguide.do"> 
+							<i class="bi bi-circle"></i><span>이용정책 등록</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<!-- End 이용정책관리 Nav -->
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="getNoticeHistoryList.do"> 
@@ -387,7 +407,7 @@
 			<!-- End [센터]알림 발송 이력 관리 Nav -->
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="center/getSendSmsHistoryList.do"> 
+				<a class="nav-link collapsed" href="getSendSmsHistoryListForCe.do"> 
 					<i class="bi bi-envelope"></i> 
 					<span>문자 발송 이력 관리</span>
 			</a></li>

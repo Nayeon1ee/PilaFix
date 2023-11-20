@@ -34,6 +34,9 @@ public class SendSmsHistoryServiceImpl implements SendSmsHistoryService {
 	
 	@Override
 	public SendSmsHistoryVO getSendSmsHistoryForAmdin(int shSendCenterCode, String shSendCode) {
+		System.out.println("shSendCenterCode : "+ shSendCenterCode);
+		System.out.println("shSendCenterCode : "+ shSendCode);
+		
 		return dao.getSendSmsHistoryForAdmin(shSendCenterCode, shSendCode);
 	}
 	

@@ -1,12 +1,12 @@
-package com.dev.pilafix.center.notice.impl;
+package com.dev.pilafix.center.notice_history.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.pilafix.center.notice.NoticeHistoryService;
-import com.dev.pilafix.center.notice.NoticeHistoryVO;
+import com.dev.pilafix.center.notice_history.NoticeHistoryService;
+import com.dev.pilafix.center.notice_history.NoticeHistoryVO;
 
 @Service
 public class NoticeHistoryServiceImpl implements NoticeHistoryService {

@@ -29,13 +29,18 @@
 		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_ID=#{adId}
 	</select>
 	
-	<!-- <update id="adminupdatePassword">
-        UPDATE TBL_ADMIN SET AD_PASSWORD = #{newPassword} WHERE AD_CODE = #{adCode}
-    </update> -->
-    
+	<select id="adPasswordCheck" resultType="int">
+		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_PASSWORD=#{adPassword}
+	</select>
 	
-	<!-- <select id="findMemberByNameAndEmail" parameterType="map" resultMap="memberloginResult">
+	<!-- 비밀번호 변경 -->
+	<update id="adminupdatePassword">
+        UPDATE TBL_ADMIN SET AD_PASSWORD = #{newPassword} WHERE AD_CODE = #{adCode}
+    </update>
+    
+	<!-- 
+	<select id="findMemberByNameAndEmail" parameterType="map" resultMap="memberloginResult">
     SELECT * FROM TBL_CST WHERE CS_NAME = #{csName} AND CS_EMAIL_ID = #{csEmailId}
-	</select> --> 
+	</select>  -->
 	
 </mapper>

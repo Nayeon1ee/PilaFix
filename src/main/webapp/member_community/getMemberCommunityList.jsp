@@ -8,7 +8,6 @@
 <title>커뮤니티 목록</title>
 </head>
 <body>
-
 	<div align="center">
 		<h1>글 목록</h1>
 		<hr>
@@ -19,24 +18,21 @@
 				<th>작성일자</th>
 				<th>조회수</th>
 			</tr>
-			<c:if test="${CommunityList	 == null }">
+			<c:if test="${getMemberCommunityList == null }">
 				<tr>
-					<td colspan="5">등록된 글이 없습니다.</td>
+					<td colspan="5">등록된 글이 없습니다??</td>
 				</tr>
 			</c:if>
-			<c:forEach var="memberCommunity" items="${CommunityList }">
+			<c:forEach var="CommunityList" items="${getMemberCommunityList }">
 				<tr>
-					<td>${memberCommunity.memberCmNumber }</td>
-					<td><a href="getMemberCommunity.do?seq=${memberCommunity.memberCmNumber }">${memberCommunity.memberCmTitle }</a></td>
-					<td>${memberCommunity.memberCmRegdate }</td>
-					<td>${memberCommunity.memberCmViews }</td>
-					<td><a href="updateMemberCommunity.do?seq=${memberCommunity.memberCmNumber }">수정</a> | <a href="deleteMemberCommunity.do?seq=${memberCommunity.memberCmNumber }">삭제</a></td>
+					<td>${CommunityList.memberCmNumber }</td>
+					<td><a href="getMemberCommunity.jsp?memberCmNumber=${CommunityList.memberCmNumber }">${CommunityList.memberCmTitle }</a></td>
+					<td>${CommunityList.memberCmRegdate }</td>
+					<td>${CommunityList.memberCmViews }</td>
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="insertMemberCommunity.do">글 등록</a>
-
+		<a href="insertMemberCommunity.jsp">글 등록</a>
 	</div>
-
 </body>
 </html>

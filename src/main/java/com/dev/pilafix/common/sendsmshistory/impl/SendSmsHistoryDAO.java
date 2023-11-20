@@ -27,7 +27,7 @@ public class SendSmsHistoryDAO {
 	}
 
 	public SendSmsHistoryVO getSendSmsHistoryForCenter(String shSendCode) {
-		return sqlsessiontemplate.selectOne("SendSmsHistoryDAO.getSendSmsHistoryForAdmin", shSendCode);
+		return sqlsessiontemplate.selectOne("SendSmsHistoryDAO.getSendSmsHistoryForCenter", shSendCode);
 
 	}
 
@@ -41,6 +41,8 @@ public class SendSmsHistoryDAO {
 	}
 
 	public SendSmsHistoryVO getSendSmsHistoryForAdmin(int shSendCenterCode, String shSendCode) {
+		System.out.println("shSendCenterCode : "+ shSendCenterCode);
+		System.out.println("shSendCenterCode : "+ shSendCode);	
 
 		// 파라미터가 2개이므로 Map으로 넘김
 		Map<String, Object> params = new HashMap<>();
@@ -48,6 +50,8 @@ public class SendSmsHistoryDAO {
 		params.put("shSendCode", shSendCode);
 		
 		System.out.println("파라미터 값 "+params.toString());
+		System.out.println("shSendCenterCode : "+ params.get("shSendCenterCode"));
+		System.out.println("shSendCenterCode : "+ params.get("shSendCode"));
 		
 		return sqlsessiontemplate.selectOne("SendSmsHistoryDAO.getSendSmsHistoryForAdmin", params);
 	}

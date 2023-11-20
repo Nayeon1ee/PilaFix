@@ -1,6 +1,7 @@
 package com.dev.pilafix.common.question;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +22,7 @@ public class QuestionController {
 	private QuestionService service;
 
 	/**
-	 * ¹®ÀÇ»çÇ× Á¶È¸ 
+	 * ë¬¸ì˜ì‚¬í•­ ì¡°íšŒ 
 	 * 
 	 * @param qsNumber
 	 * @param model
@@ -34,75 +35,109 @@ public class QuestionController {
 	}
 	
 	/**
-	 * ¹®ÀÇ»çÇ× ¸ñ·Ï Á¶È¸ 
+	 * ë¬¸ì˜ì‚¬í•­ ëª©ë¡ ì¡°íšŒ 
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/getQuestionList.do")
-	public String getQuestionList(Model model) {
-		//·Î±×ÀÎ ÈÄ ¼¼¼Ç¿¡ ÀúÀåµÈ »ç¿ëÀÚ Á¤º¸¿¡¼­ ÄÚµå ²¨³»¼­ getQuestionListÀÇ ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞÇØ¾ß ÇÔ
-		model.addAttribute("questionList", service.getQuestionList());
-//		service.getQuestionReply();
-		return "member/inquiry";
+	public String getQuestionList(HttpSession session, Model model) {
+		//ë¡œê·¸ì¸ í›„ ì„¸ì…˜ì— ì €ì¥ëœ ì‚¬ìš©ì ì •ë³´ì—ì„œ ì½”ë“œ êº¼ë‚´ì„œ getQuestionListì˜ íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬í•´ì•¼ í•¨
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+
+		if (user != null) {
+			int csMemberCode = (int) user.get("csMemberCode");
+			model.addAttribute("questionList", service.getQuestionList());
+			// service.getQuestionReply();
+//			return "member/inquiry";
+			return "member/inquiry_test";
+		} else {
+			return "member/login";
+		}
 	}
 	
 	
 	/**
-	 * È¸¿øÀÇ ¿¬µ¿µÈ ¼¾ÅÍ ¸ñ·Ï
+	 * íšŒì›ì˜ ì—°ë™ëœ ì„¼í„° ëª©ë¡
 	 */
 	@GetMapping("/getCTlistByME.do")
-    public String showInsertQuestionForm(HttpSession session, Model model) {
-        int csMemberCode = (Integer)session.getAttribute("csMemberCode");
-        List<CenterVO> connectedCenters = service.getConnectedCenters(csMemberCode);
-        model.addAttribute("connectedCenters", connectedCenters);
-        return "member/inquiry_detail";
-    }
+	public String showInsertQuestionForm(HttpSession session, Model model) {
+		int csMemberCode = (Integer) session.getAttribute("csMemberCode");
+		List<CenterVO> connectedCenters = service.getConnectedCenters(csMemberCode);
+		model.addAttribute("connectedCenters", connectedCenters);
+//		return "member/inquiry_detail";
+		return "member/inquiry_detail_test";
+	}
 	
 	
 	/**
-	 * js·Î ´äº¯ ¸ñ·Ï ¹ŞÀ½ 
+	 * jsë¡œ ë‹µë³€ ëª©ë¡ ë°›ìŒ 
 	 * @return
 	 */
 	@GetMapping("/getQuestionReplyOnJS.do")
 	@ResponseBody
 	public List<QuestionReplyVO> getQuestionReply(@RequestParam("qsWriterMemberCode") int qsWriterMemberCode) {
-		System.out.println("ÀÛ¼ºÀÚ ¹øÈ£ : "+qsWriterMemberCode);
+		System.out.println("ì‘ì„±ì ë²ˆí˜¸ : "+qsWriterMemberCode);
 		return service.getQuestionReply(qsWriterMemberCode);
 	}
 	
 	@GetMapping("/insertQuestion.do")
-	public String insertForm() {
-		return "member/inquiry_detail";
+	public String insertForm(HttpSession session) {
+	    if(session.getAttribute("loginUser") == null) {
+	    	return "member/login";
+	    }
+//	    return "member/inquiry_detail"; 
+	    return "member/inquiry_detail_test"; 
 	}
 	
 	@PostMapping("/insertQuestion.do")
-	public String insert(QuestionVO vo) {
+	public String insert(HttpSession session, QuestionVO vo) {
+		
+		if(session.getAttribute("loginUser") == null) {
+			return "member/login";
+	    }
 		// ==========================
-		// Å×½ºÆ®¿ë ÀÛ¼ºÀÚ ¼¼ÆÃ ÃßÈÄ¿¡ ·Î±×ÀÎ ¼¼¼Ç °ª ³Ö°í(insertQuestion.jsp) »èÁ¦ ÇÊ¿ä 
-		vo.setQsWriterMemberCode(123); 
+		// í…ŒìŠ¤íŠ¸ìš© ì‘ì„±ì ì„¸íŒ… ì¶”í›„ì— ë¡œê·¸ì¸ ì„¸ì…˜ ê°’ ë„£ê³ (insertQuestion.jsp) ì‚­ì œ í•„ìš” 
+		//vo.setQsWriterMemberCode(123); 
 		// ==========================
 
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+	    int csMemberCode = (int) user.get("csMemberCode");
+	    vo.setQsWriterMemberCode(csMemberCode); 
+	    
 		service.insertQuestion(vo);
 		return "redirect:getQuestionList.do";
 	}
 	
 	
 	@GetMapping("/updateQuestion.do")
-	public String updateForm(@RequestParam("qsNumber")Integer qsNumber, Model model) {
-		model.addAttribute("question", service.getQuestion(qsNumber));
-		return "question/updateQuestion.jsp";
+	public String updateForm(@RequestParam("qsNumber") Integer qsNumber, HttpSession session,Model model) {
+		 if(session.getAttribute("loginUser") == null) {
+			 return "member/login";
+		    }
+		 QuestionVO question = service.getQuestion(qsNumber); //
+		 model.addAttribute("question", question);
+		 List<CenterVO> connectedCenters = service.getConnectedCenters(question.getQsWriterMemberCode());
+		 model.addAttribute("connectedCenters", connectedCenters); //
+		 return "member/inquiry_edit";
 	}
 	
+	
 	@PostMapping("/updateQuestion.do")
-	public String update(QuestionVO vo, Model model) {
+	public String update(QuestionVO vo,HttpSession session) {
+		 if(session.getAttribute("loginUser") == null) {
+			 return "member/login";
+		    }
+		
 		service.updateQuestion(vo);
 		return "redirect:getQuestionList.do";
 	}
-	
-	
+
 	@GetMapping("/deleteQuestion.do")
-	public String delete(int qsNumber) {
+	public String delete(@RequestParam("qsNumber") int qsNumber, HttpSession session) {
+	    if(session.getAttribute("loginUser") == null) {
+	    	return "member/login";
+	    }
 		service.deleteQuestion(qsNumber);
 		return "redirect:getQuestionList.do";
 	}
@@ -113,44 +148,51 @@ public class QuestionController {
 	
 	
 	/**
-	 * ¼¾ÅÍ ·Î±×ÀÎ ÀÌÈÄ 
-	 * È¸¿øµéÀÇ ¹®ÀÇ»çÇ× ¸®½ºÆ® 
+	 * ì„¼í„° ë¡œê·¸ì¸ ì´í›„ 
+	 * íšŒì›ë“¤ì˜ ë¬¸ì˜ì‚¬í•­ ë¦¬ìŠ¤íŠ¸ 
 	 */
 	@GetMapping("/getCTQuestionList.do")
 	public String getCTQuestionList(Model model) {
 		int totalQuestionCount = service.getTotalQuestionCount();
-	    model.addAttribute("totalQuestionCount", totalQuestionCount);
-	    model.addAttribute("questionReplyList", service.getQuestionList());
-	    return "center/center_inquiry";
+		model.addAttribute("totalQuestionCount", totalQuestionCount);
+		model.addAttribute("questionList", service.getQuestionList());
+		return "center/center_inquiry";
 	}
 	
 	/**
-	 * ¼¾ÅÍÀÇ ´äº¯
+	 * ì„¼í„°ì˜ ë‹µë³€
 	 */
 	@GetMapping("/getQuestionReply.do")
 	public String getQuestionReply(@RequestParam("reTargetPostNumber") Integer reTargetPostNumber, Model model) {
-		
-		model.addAttribute("question", service.getTargetQuestion(reTargetPostNumber)); //´äº¯ÀÇ targetNumber¿Í ¹®ÀÇ±ÛÀÇ qsNumber°¡ µ¿ÀÏÇÏ¹Ç·Î 
+
+		model.addAttribute("question", service.getTargetQuestion(reTargetPostNumber)); // ï¿½äº¯ï¿½ï¿½ targetNumberï¿½ï¿½ ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½
+																						// qsNumberï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½
 		model.addAttribute("questionReply", service.getQuestionReply(reTargetPostNumber));
-	    return "center/center_inquiry_response";
+		return "center/center_inquiry_response";
 	}
-	
 
 	/**
-	 * ´äº¯ µî·Ï
-	 * + È¸¿øÀÇ ´äº¯¿©ºÎ ÄÃ·³ update
-	 * DAO¿¡¼­ Transactional ÇÏ³ª¶óµµ ½ÇÆĞ ½Ã ÀüºÎ ½ÇÆĞ try~catch ¹® ½á¼­ ¿¡·¯ Ã³¸®
-	 * Âü°í : com.dev.pilafix.center.member_trainer_manage ÆĞÅ°ÁöÀÇ ÄÁÆ®·Ñ·¯ acceptRequest.do È£Ãâ ½Ã µ¿ÀÛ °úÁ¤
+	 * ë‹µë³€ ë“±ë¡
+	 * + íšŒì›ì˜ ë‹µë³€ì—¬ë¶€ ì»¬ëŸ¼ update
+	 * DAOì—ì„œ Transactional í•˜ë‚˜ë¼ë„ ì‹¤íŒ¨ ì‹œ ì „ë¶€ ì‹¤íŒ¨ try~catch ë¬¸ ì¨ì„œ ì—ëŸ¬ ì²˜ë¦¬
+	 * ì°¸ê³  : com.dev.pilafix.center.member_trainer_manage íŒ¨í‚¤ì§€ì˜ ì»¨íŠ¸ë¡¤ëŸ¬ acceptRequest.do í˜¸ì¶œ ì‹œ ë™ì‘ ê³¼ì •
 	 */
+	@GetMapping("/insertQuestionReply.do")
+	public String insertQuestionReplyForm(@RequestParam("qsNumber") Integer qsNumber, Model model) {
+		QuestionVO question = service.getQuestion(qsNumber); // ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+		model.addAttribute("question", question);
+		return "center/center_inquiry_response";
+	}
+
 //	@Transactional
 	@PostMapping("/insertQuestionReply.do")
-	public String insertQuestionReply(QuestionReplyVO replyvo) {
-		service.insertQuestionReplyAndUpdateAnswerYn(replyvo);
-		return "redirect:getQuestionReply.do?reTargetPostNumber="+replyvo.getReTargetPostNumber();
+	public String insertQuestionReply(QuestionReplyVO replyvo, @RequestParam("qsNumber") int qsNumber) {
+		service.insertQuestionReplyAndUpdateAnswerYn(replyvo, qsNumber);
+		return "redirect:getCTQuestionList.do";
 	}
 	
 	/**
-	 * ´äº¯ »èÁ¦
+	 * ë‹µë³€ ì‚­ì œ
 	 */
 	@GetMapping("/deleteQuestionReply.do")
 	public String deleteQuestionReply(int reNumber) {

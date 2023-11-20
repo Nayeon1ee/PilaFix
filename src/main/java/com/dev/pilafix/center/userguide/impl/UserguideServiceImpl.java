@@ -15,19 +15,12 @@ public class UserguideServiceImpl implements UserguideService {
 	private UserguideDAO dao;
 	
 	@Override
-	public List<UserguideVO> getUserguideList() {
-		return dao.getUserguideList();
+	public List<UserguideVO> getUserguideList(int ctCode) {
+		return dao.getUserguideList(ctCode);
 	}
 
 	@Override
 	public UserguideVO getUserguide(int ugCode) {
-
-		System.out.println("serviceimpl getUserguide µø¿€ ");
-//		UserguideVO vo = dao.getUserguide(ugCode);
-//		System.out.println(vo.getUgCode());
-//		System.out.println(vo.getUgName());
-//		System.out.println("===========");
-		
 		return dao.getUserguide(ugCode);
 	}
 
