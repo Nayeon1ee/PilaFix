@@ -117,7 +117,7 @@ public class MemberManageDAO {
 	}
 
 	/**
-	 * 占쏙옙占쏙옙 占쏙옙占쏙옙 
+	 * 연동 요청 거절
 	 * @param crCode
 	 */
 	public void updateRejectDate(String crCode) {
