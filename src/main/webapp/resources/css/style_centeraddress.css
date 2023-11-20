@@ -1,9 +1,12 @@
 
+body {
+  background-color: #f5f5f5;
+}
 
 label {
   font-weight: bold;
   font-size: 1.5rem;
-  color: #9b56e9;
+  color: #9B67FF;
 }
 
 .form-label {
@@ -12,12 +15,12 @@ label {
 }
 
 .input-group-text {
-  background-color: #9b56e9;
+  background-color: #9B67FF;
   color: #fff;
 }
 
 .card {
-  background-color: white;
+  background-color: #fff;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }

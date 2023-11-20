@@ -350,7 +350,7 @@
 			<!-- End 수강권관리 Nav -->
 			
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="getQuestionReplyList.do"> 
+				<a class="nav-link collapsed" href="getCTQuestionList.do"> 
 					<i class="bi bi-envelope"></i><span>문의사항 관리</span>
 				</a>
 			</li>

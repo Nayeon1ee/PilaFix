@@ -1,12 +1,40 @@
 @charset "UTF-8";
 
+.container000 {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
 
+.container000>.content000 {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.container000>.content000>area1 {
+	background-color: #e8f2fe;
+	flex-basis: 300px;
+	flex-shrink: 0;
+}
+
+.container000>.content000>main {
+	background-color: white;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.container000>.content000>area2 {
+	background-color: #e8f2fe;
+	flex-basis: 300px;
+	flex-shrink: 0;
+}
 
 .total-faq-count {
   font-size: 14px;
   color: #888;
   text-align: left;
-  padding-left: 10px; 
+  padding-left: 10px; /* 왼쪽 패딩을 추가합니다. */
 }
 
 #myPage {
@@ -18,8 +46,15 @@
     text-decoration: none;
 }
 
+
+#userInfo {
+	display: flex;
+	justify-content: space-between; 
+	align-items: center; 
+}
+
 #myInfoLink {
-	text-decoration: none;
+	text-decoration: underline;
 	cursor: pointer;
 }
 
@@ -29,14 +64,14 @@
 }
 
 #logout {
-	text-decoration: none;
+	text-decoration: underline;
 	cursor: pointer;
 	margin-left: 10px;
 }
-
+/* my-styles.css */
 
 .my-passes {
-    border: 1px solid; 
+    border: 1px solid #ddd; 
     padding: 20px; 
     border-radius:15px;
   padding: 20px;
@@ -49,6 +84,12 @@
     max-width: 600px;
     margin: 50px auto;
 
+}
+
+.section000{
+  display: flex;
+  justify-content: center;
+  margin-top: 60px; 
 }
 
 
@@ -71,4 +112,7 @@
   padding: 0.5rem 1rem; 
 }
 
-
+.section002 {
+  margin-top:50px;
+  margin-top:50px;
+}
