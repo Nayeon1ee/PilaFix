@@ -9,7 +9,7 @@ public class QuestionReplyVO {
 	private String writerRoleCode; // 작성자권한코드 : ME이면 회원, CE면 센터 
 	private int writerMemberCode; // 작성자회원코드
 	private Date reRegdate; //DEFAULT NOW()
-	private String reTargetPostType; //원글유형 : 문의사항or커뮤니티 
+	private String reTargetPostType; //원글유형 : 문의사항or커뮤니티 문의사항이므로 'QST'로 고정
 	private int reTargetPostNumber; //원글번호
 	public int getReNumber() {
 		return reNumber;

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
 <%@ include file="center_header_common.jsp" %>
 	<main id="main" class="main">
 
@@ -92,23 +94,27 @@
 										<td colspan="7">문의사항이 존재하지 않습니다. </td>
 									</tr>
 								</c:if>
-								<c:forEach var="list" items="${questionList }">
-									<tr>
-										<td>${list.qsNumber }</td>
-										<td>${list.qsTitle }</td>
-										<td>${list.writerName }</td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.qsRegdate }"/>
-										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.qsModifiedDate }"/>
-										<td><button type="submit"
-												onclick="location.href='' "
-												class="btn btn-primary mb-3">${list.qsAnswerYn ? '답변대기' : '답변완료'}</button></td>
-									</tr>
+
+								<c:forEach items="${questionList}" var="list">
+								    <tr>
+								        <td>${list['qsNumber']}</td>
+								        <td>${list['qsTitle']}</td>
+								        <td>${list['writerName']}</td> <!-- 작성자 이름 -->
+								        <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list['qsRegdate']}" /></td> <!-- 문의 일시 -->
+								        <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list['qsModifiedDate']}" /></td> <!-- 수정 일시 -->
+								        <td>
+								            <button type="button" class="btn btn-primary mb-3" 
+								                onclick="handleQuestionReply(${list.qsNumber}, ${list.qsAnswerYn})">
+								                ${list.qsAnswerYn ? '답변대기' : '답변완료'}
+								            </button>
+								        </td>
+								    </tr>
 								</c:forEach>
 			                </tbody>
 							</table>
 							
 
-							<!-- End Table with stripped rows -->
+							<!-- End Table with stripped rows 
 							<div class="admin-screen-paging">
 								<ul class="pagination">
 									<li class="page-item"><a class="page-link" href="#">이전</a></li>
@@ -119,16 +125,31 @@
 									<li class="page-item"><a class="page-link" href="#">5</a></li>
 									<li class="page-item"><a class="page-link" href="#">다음</a></li>
 								</ul>
-							</div>
+							</div>-->
 						</div>
 					</div>
 
 				</div>
 			</div>
 		</section>
-
 	</main>
 	<!-- End #main -->
+	<script>
+	function handleQuestionReply(qsNumber, qsAnswerYn) {
+	    if (qsAnswerYn) {
+	        // 답변 대기 상태인 경우, 답변 작성 페이지로 이동
+	        location.href = '/insertQuestionReply.do?qsNumber=' + qsNumber;
+	    } else {
+	        // 답변 완료 상태인 경우, 답변 조회 페이지로 이동
+	        location.href = '/getQuestionReply.do?reTargetPostNumber=' + qsNumber;
+	    }
+	}	
+	</script>
+	
+	
+	
+	
+	
 	<script
 		src="${pageContext.request.contextPath }/resources/js/admin_common_2.js"></script>
 

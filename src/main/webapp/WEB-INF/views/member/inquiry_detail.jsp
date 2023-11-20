@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +23,7 @@
 				<div id="myPage">
 
 					
-					<form action="inquiry.do" >
+					<form action="insertQuestion.do" method="post">
 					<div class="inquiry-form">
 						<h2>문의사항</h2>
 						<hr>
@@ -36,12 +38,12 @@
 						</div>
 						<div class="input-section">
 							<p>문의하실 제목을 입력해주세요</p>
-							<input type="text">
+							<input type="text" name="qsTitle">
 						</div>
 
 						<div class="input-section">
 							<p>문의하실 내용을 입력해주세요</p>
-							<textarea></textarea>
+							<textarea name="qsContent"></textarea>
 						</div>
 
 						<button class="submit-button">문의하기</button>

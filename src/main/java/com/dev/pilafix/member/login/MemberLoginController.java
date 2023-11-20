@@ -201,16 +201,26 @@ public class MemberLoginController {
 	
 	@PostMapping("/checkCurrentPassword.do")
 	public String checkCurrentPassword(@RequestParam("currentPassword") String currentPassword, HttpSession session, Model model) {
-	    MemberVO currentMember = (MemberVO) session.getAttribute("member");
-
-	    if (service.checkPassword(currentMember.getCsMemberCode(), currentPassword)) {
+	    Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");	    
+//	    MemberVO currentMember = (MemberVO) session.getAttribute("member");
+	    
+	    if (loginUser != null) {
+	        int csMemberCode = (int) loginUser.get("csMemberCode");
+	    if (service.checkPassword(csMemberCode, currentPassword)) {
 	        // 현재 비밀번호가 일치하면 비밀번호 변경 페이지로 이동
 	        return "redirect:/updatePassword.do";
 	    } else {
 	        model.addAttribute("message", "현재 비밀번호가 일치하지 않습니다.");
 	        return "member/passwordcheck";
 	    }
+	} 
+	    else {
+        // 세션에 로그인 정보가 없는 경우
+        return "memer/login";
+    }
 	}
+
+
 	@PostMapping("/updatePassword.do")
 	public String updatePassword(HttpServletRequest request, HttpSession session, Model model) {
 	    String newPassword = request.getParameter("newPassword");
@@ -221,11 +231,19 @@ public class MemberLoginController {
 	        return "member/passwordchangeform";
 	    }
 
-	    MemberVO currentMember = (MemberVO) session.getAttribute("member");
-	    service.updatePassword(currentMember.getCsMemberCode(), newPassword);
-	    session.removeAttribute("member");
-	    model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해 주세요.");
-	    return "redirect:/memberLogin.do";
+	 // loginUser 맵에서 csMemberCode 추출
+	    Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+	    if (loginUser != null) {
+	        int csMemberCode = (int) loginUser.get("csMemberCode");
+	        service.updatePassword(csMemberCode, newPassword);
+	        
+	        session.removeAttribute("loginUser");
+	        model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해 주세요.");
+	        return "redirect:/memberLogin.do";
+	    } else {
+	        // 세션에 로그인 정보가 없는 경우
+	    	 return "memer/login";
+	    }
 	}
 
 	
