@@ -22,13 +22,13 @@ public class AdminInfoController {
 
 	@GetMapping("/getAdminInfo.do")
 	public String getAdminInfo(@RequestParam("seq") Integer seq, Model model) {
-		// °Ô½Ã±Û Á¶È¸
+		// ê²Œì‹œê¸€ ì¡°íšŒ
 	    AdminInfoVO adminInfo = service.getInfo(seq);
 	    
-	    // Á¶È¸¼ö Áõ°¡
+	    // ì¡°íšŒìˆ˜ ì¦ê°€
 	    service.updateAdminInfoViewCnt(seq);
 	    
-	    // ¸®½ºÆ® ¾÷µ¥ÀÌÆ®
+	    // ë¦¬ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
 	    int updatedList = service.updateAdminInfoViewCnt(adminInfo.getCnt());
 	    
 	    model.addAttribute("adminInfo", service.getInfo(seq));

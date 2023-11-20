@@ -24,7 +24,7 @@ public class AwsS3Uploader {
 //	    public String bucket;
 //
 //	    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
-//	    File uploadFile = convert(multipartFile)        // ?ŒŒ?¼ ?ƒ?„±
+//	    File uploadFile = convert(multipartFile)        // ?è¡€?æ”µ ?ï¿½?â”³
 //	                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File convert fail"));
 //
 //	        return upload(uploadFile, dirName);
@@ -32,12 +32,12 @@ public class AwsS3Uploader {
 //
 //	    private String upload(File uploadFile, String dirName) {
 //	        String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName();
-//	        String uploadImageUrl = putS3(uploadFile, fileName);    // s3ë¡? ?—…ë¡œë“œ
+//	        String uploadImageUrl = putS3(uploadFile, fileName);    // s3ï¿½? ?ç¾…ï¿½ç½¹ç³–
 //	        removeNewFile(uploadFile);
 //	        return uploadImageUrl;
 //	    }
 //
-//	    // 1. ë¡œì»¬?— ?ŒŒ?¼?ƒ?„±
+//	    // 1. ï¿½æ‡ï½»ï½¬?ä¹± ?è¡€?æ”µ?ï¿½?â”³
 //	    private Optional<File> convert(MultipartFile file) throws IOException {
 //	        File convertFile = new File(file.getOriginalFilename());
 //	        if (convertFile.createNewFile()) {
@@ -50,14 +50,14 @@ public class AwsS3Uploader {
 //	        return Optional.empty();
 //	    }
 //
-//	    // 2. S3?— ?ŒŒ?¼?—…ë¡œë“œ
+//	    // 2. S3?ä¹± ?è¡€?æ”µ?ç¾…ï¿½ç½¹ç³–
 //	    private String putS3(File uploadFile, String fileName) {
 //	        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
 ////	        log.info("File Upload : " + fileName);
 //	        return amazonS3Client.getUrl(bucket, fileName).toString();
 //	    }
 //
-//	    // 3. ë¡œì»¬?— ?ƒ?„±?œ ?ŒŒ?¼?‚­? œ
+//	    // 3. ï¿½æ‡ï½»ï½¬?ä¹± ?ï¿½?â”³?é — ?è¡€?æ”µ?ã?
 //	    private void removeNewFile(File targetFile) {
 //	        if (targetFile.delete()) {
 ////	            log.info("File delete success");

@@ -22,7 +22,7 @@ public class CenterLoginController {
 	private CenterLoginService service;
 	
 	/**
-	 * ·Î±×ÀÎ Å×½ºÆ®
+	 * ë¡œê·¸ì¸ í…ŒìŠ¤íŠ¸
 	 * @return
 	 */
 	@GetMapping("/centerLogin.do")
@@ -30,9 +30,9 @@ public class CenterLoginController {
 		return "center/center_login";
 	}
 	/**
-	 * ·Î±×ÀÎÇÒ¶§ ¾ÏÈ£È­µÈ ºñ¹Ğ¹øÈ£¿Í ºñ±³ÇÏ¿© ·Î±×ÀÎ
-	 * member.getCsRoleCode °¡ "ME"ÀÌ¸é È¸¿øÀÇ ¸ŞÀÎÆäÀÌÁö, ¾Æ´Ï¸é °­»çÀÇ ¸ŞÀÎÆäÀÌÁö·Î ÀÌµ¿
-	 * ·Î±×ÀÎ ½ÇÆĞ½Ã ½ÇÆĞ ¸Ş½ÃÁö
+	 * ë¡œê·¸ì¸í• ë•Œ ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸ì™€ ë¹„êµí•˜ì—¬ ë¡œê·¸ì¸
+	 * member.getCsRoleCode ê°€ "ME"ì´ë©´ íšŒì›ì˜ ë©”ì¸í˜ì´ì§€, ì•„ë‹ˆë©´ ê°•ì‚¬ì˜ ë©”ì¸í˜ì´ì§€ë¡œ ì´ë™
+	 * ë¡œê·¸ì¸ ì‹¤íŒ¨ì‹œ ì‹¤íŒ¨ ë©”ì‹œì§€
 	 */
 	
 	@PostMapping("/centerLogin.do")
@@ -47,13 +47,13 @@ public class CenterLoginController {
 	        loginCenter.put("ctCode", center.getCtCode());
 	        loginCenter.put("ctName", center.getCtName());
 	        
-	        // ¼¼¼Ç¿¡ Map ÀúÀå 
+	        // ì„¸ì…˜ì— Map ì €ì¥ 
 	        session.setAttribute("loginCenter", loginCenter);
-	        //°¡ÀÔ ¿Ï·áµÇ¸é 
+	        //ê°€ì… ì™„ë£Œë˜ë©´ 
 	        
 	        return "center/center_index";  
 	    } else {
-	        redirectAttrs.addFlashAttribute("loginError", "Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğ°Å³ª ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+	        redirectAttrs.addFlashAttribute("loginError", "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ê±°ë‚˜ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	        return "redirect:centerLogin.do"; 
 	    }
 	}

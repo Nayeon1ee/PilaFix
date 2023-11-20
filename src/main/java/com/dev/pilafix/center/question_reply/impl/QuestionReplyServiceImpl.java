@@ -18,7 +18,7 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 //	
 //
 //	/**
-//	 * ¹®ÀÇ»çÇ× ÀüÃ¼ °Ç¼ö °¡Á®¿À±â
+//	 * ë¬¸ì˜ì‚¬í•­ ì „ì²´ ê±´ìˆ˜ ê°€ì ¸ì˜¤ê¸°
 //	 */
 //	@Override
 //	public int getTotalQuestionCount() {
@@ -32,7 +32,7 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 //	}
 //
 //	/**
-//	 * ÆÄ¶ó¹ÌÅÍ qsNumber¿¡ ¸Â´Â ÇÏ³ªÀÇ ¹®ÀÇ»çÇ× Á¶È¸
+//	 * íŒŒë¼ë¯¸í„° qsNumberì— ë§ëŠ” í•˜ë‚˜ì˜ ë¬¸ì˜ì‚¬í•­ ì¡°íšŒ
 //	 */
 //	@Override
 //	public QuestionVO getTargetQuestion(int qsNumber) {
@@ -40,7 +40,7 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 //	}
 //	
 //	/**
-//	 * ÆÄ¶ó¹ÌÅÍ reTargetPostNumber¿¡ ¸Â´Â (¹®ÀÇ»çÇ×¿¡ ´ëÇÑ) ´äº¯ ³»¿ë Á¶È¸
+//	 * íŒŒë¼ë¯¸í„° reTargetPostNumberì— ë§ëŠ” (ë¬¸ì˜ì‚¬í•­ì— ëŒ€í•œ) ë‹µë³€ ë‚´ìš© ì¡°íšŒ
 //	 */
 //	@Override
 //	public QuestionReplyVO getQuestionReply(int reTargetPostNumber) {
@@ -62,7 +62,7 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 //
 //	
 //	/**
-//	 * ´äº¯ÀÌ µî·ÏµÇ¸é ¿ø±ÛÀÇ ´äº¯¿©ºÎ ÄÃ·³ true·Î ¾÷µ¥ÀÌÆ®
+//	 * ë‹µë³€ì´ ë“±ë¡ë˜ë©´ ì›ê¸€ì˜ ë‹µë³€ì—¬ë¶€ ì»¬ëŸ¼ trueë¡œ ì—…ë°ì´íŠ¸
 //	 */
 //	@Override
 //	@Transactional
@@ -72,7 +72,7 @@ public class QuestionReplyServiceImpl implements QuestionReplyService {
 //	}
 //
 //	/**
-//	 * ´äº¯ÀÌ µî·ÏµÉ¶§ È¸¿ø¹®ÀÇ»çÇ× ´äº¯¿©ºÎ ÄÃ·³ true·Î ¾÷µ¥ÀÌÆ® (insert + update)
+//	 * ë‹µë³€ì´ ë“±ë¡ë ë•Œ íšŒì›ë¬¸ì˜ì‚¬í•­ ë‹µë³€ì—¬ë¶€ ì»¬ëŸ¼ trueë¡œ ì—…ë°ì´íŠ¸ (insert + update)
 //	 */
 //	@Override
 //	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO vo) {

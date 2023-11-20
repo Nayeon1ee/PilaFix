@@ -3,13 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="NaverDAO">
-  
-<resultMap type="naverlogin" id="naverloginResult">
-	<result property="email" column="CS_EMAIL_ID"/>
-</resultMap>
 
-<resultMap type="com.dev.pilafix.common.member.MemberVO" id="member">
-		<id property="csMemberCode" column="CS_MEMBER_CODE"/>
+	<resultMap type="naverlogin" id="naverloginResult">
+		<result property="email" column="CS_EMAIL_ID" />
+	</resultMap>
+
+	<resultMap type="com.dev.pilafix.common.member.MemberVO" id="member">
+		<id property="csMemberCode" column="CS_MEMBER_CODE" />
 		<result property="csRoleCode" column="CS_ROLE_CODE" />
 		<result property="csEmailId" column="CS_EMAIL_ID" />
 		<result property="csPassword" column="CS_PASSWORD" />
@@ -38,31 +38,31 @@
 		<result property="ticketStartDateGroup1" column="TICKET_START_DATE_GROUP1" />
 		<result property="ticketExpiryDateGroup1" column="TICKET_EXPIRY_DATE_GROUP1" />
 		<result property="ticketExpiryYnGroup1" column="TICKET_EXPIRY_YN_GROUP1" />
-</resultMap>
+	</resultMap>
 
-<select id="getMemberEmail" resultType="int">
-	SELECT COUNT(*) FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
-</select>
+	<select id="getMemberEmail" resultType="int">
+		SELECT COUNT(*) FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
+	</select>
 
-<select id="getMember" resultMap="member" >
-	SELECT * FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
-</select>
+	<select id="getMember" resultMap="member">
+		SELECT * FROM TBL_CST WHERE CS_EMAIL_ID = #{email}
+	</select>
 
-<!-- 강사일 땐 시퀀스 8000부터, 회원 일땐 시퀀스 2000부터 들어가야해서 dynamic sql사용 -->
-<insert id="insertNaverMember" parameterType="java.util.Map">
-	INSERT INTO TBL_CST
-	<choose>
-		<when test="member.chooseRole == 'ME'">
-			VALUES(nextval('seq_member_signup'),
-		</when>
-		<when test="member.chooseRole == 'TR'">
-			VALUES(nextval('seq_trainer_signup'),
-		</when>
-	</choose>
-	#{member.chooseRole},#{member.email},
+	<!-- 강사일 땐 시퀀스 8000부터, 회원 일땐 시퀀스 2000부터 들어가야해서 dynamic sql사용 -->
+	<insert id="insertNaverMember" parameterType="java.util.Map">
+		INSERT INTO TBL_CST
+		<choose>
+			<when test="member.chooseRole == 'ME'">
+				VALUES(nextval('seq_member_signup'),
+			</when>
+			<when test="member.chooseRole == 'TR'">
+				VALUES(nextval('seq_trainer_signup'),
+			</when>
+		</choose>
+		#{member.chooseRole},#{member.email},
 		'1111',#{member.name},
 		#{member.num1},#{member.num2},#{member.num3},CURRENT_TIMESTAMP,#{member.birth},
 		#{member.nGender},'N','T','T','T','네이버')
-</insert>
+	</insert>
 
 </mapper>

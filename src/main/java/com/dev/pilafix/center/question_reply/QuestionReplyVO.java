@@ -7,15 +7,15 @@ import com.dev.pilafix.common.question.QuestionVO;
 
 public class QuestionReplyVO {
 
-	private int reNumber; // ´äº¯¹øÈ£ ½ÃÄö½º 700ºÎÅÍ ½ÃÀÛ
-	private String reTitle; // ´äº¯Á¦¸ñ
-	private String reContent; // ´äº¯³»¿ë
-	private String writerRoleCode; // ÀÛ¼ºÀÚ±ÇÇÑÄÚµå : MEÀÌ¸é È¸¿ø, CE¸é ¼¾ÅÍ 
-	private int writerMemberCode; // ÀÛ¼ºÀÚÈ¸¿øÄÚµå
-	private Date reRegdate; // ÀÛ¼ºÀÏ½Ã DEFAULT NOW()
-	private String reTargetPostType; // ¿ø±ÛÀ¯Çü : ¹®ÀÇ»çÇ×orÄ¿¹Â´ÏÆ¼
-	//FAQ:FAQ, °øÁö»çÇ×_¼¾ÅÍ:INFO_C, °øÁö»çÇ×_À¥:INFO_W, ¹®ÀÇ»çÇ×:QST, Ä¿¹Â´ÏÆ¼:CMT, ´äº¯:REP
-	private int reTargetPostNumber; // ¿ø±Û¹øÈ£
+	private int reNumber; // ë‹µë³€ë²ˆí˜¸ ì‹œí€€ìŠ¤ 700ë¶€í„° ì‹œì‘
+	private String reTitle; // ë‹µë³€ì œëª©
+	private String reContent; // ë‹µë³€ë‚´ìš©
+	private String writerRoleCode; // ì‘ì„±ìê¶Œí•œì½”ë“œ : MEì´ë©´ íšŒì›, CEë©´ ì„¼í„° 
+	private int writerMemberCode; // ì‘ì„±ìíšŒì›ì½”ë“œ
+	private Date reRegdate; // ì‘ì„±ì¼ì‹œ DEFAULT NOW()
+	private String reTargetPostType; // ì›ê¸€ìœ í˜• : ë¬¸ì˜ì‚¬í•­orì»¤ë®¤ë‹ˆí‹°
+	//FAQ:FAQ, ê³µì§€ì‚¬í•­_ì„¼í„°:INFO_C, ê³µì§€ì‚¬í•­_ì›¹:INFO_W, ë¬¸ì˜ì‚¬í•­:QST, ì»¤ë®¤ë‹ˆí‹°:CMT, ë‹µë³€:REP
+	private int reTargetPostNumber; // ì›ê¸€ë²ˆí˜¸
 	
 	public int getReNumber() {
 		return reNumber;

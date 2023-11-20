@@ -27,7 +27,7 @@ public class AdminLoginController {
 	private AdminLoginService service;
 	
 	/**
-	 * ·Î±×ÀÎ Å×½ºÆ®
+	 * ë¡œê·¸ì¸ í…ŒìŠ¤íŠ¸
 	 * @return
 	 */
 	@GetMapping("/adminLogin.do")
@@ -35,9 +35,9 @@ public class AdminLoginController {
 		return "admin/admin_login";
 	}
 	/**
-	 * ·Î±×ÀÎÇÒ¶§ ¾ÏÈ£È­µÈ ºñ¹Ğ¹øÈ£¿Í ºñ±³ÇÏ¿© ·Î±×ÀÎ
-	 * member.getCsRoleCode °¡ "admin"ÀÌ¸é È¸¿øÀÇ ¸ŞÀÎÆäÀÌÁö, ¾Æ´Ï¸é °­»çÀÇ ¸ŞÀÎÆäÀÌÁö·Î ÀÌµ¿
-	 * ·Î±×ÀÎ ½ÇÆĞ½Ã ½ÇÆĞ ¸Ş½ÃÁö
+	 * ë¡œê·¸ì¸í• ë•Œ ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸ì™€ ë¹„êµí•˜ì—¬ ë¡œê·¸ì¸
+	 * member.getCsRoleCode ê°€ "admin"ì´ë©´ íšŒì›ì˜ ë©”ì¸í˜ì´ì§€, ì•„ë‹ˆë©´ ê°•ì‚¬ì˜ ë©”ì¸í˜ì´ì§€ë¡œ ì´ë™
+	 * ë¡œê·¸ì¸ ì‹¤íŒ¨ì‹œ ì‹¤íŒ¨ ë©”ì‹œì§€
 	 */
 	@PostMapping("/adminLogin.do")
 	public String adminLogin(@RequestParam("adId") String adId,
@@ -47,17 +47,17 @@ public class AdminLoginController {
 		AdminVO admin = service.adminLogin(adId, adPassword);
 		
 	    if (admin != null) {
-	        // ¿ø·¡´Â index »ó¿¡ °ü¸®ÀÚÈ­¸éÀ¸·Î ³Ñ¾î°¡´Â link°¡ ÇÊ¿äÇÔ. ÀÏ´Ü µî·ÏÈ­¸éºÎÅÍ ±¸ÇöÇÏ±âÀ§ÇØ ³Ö¾îµÒ
+	        // ì›ë˜ëŠ” index ìƒì— ê´€ë¦¬ìí™”ë©´ìœ¼ë¡œ ë„˜ì–´ê°€ëŠ” linkê°€ í•„ìš”í•¨. ì¼ë‹¨ ë“±ë¡í™”ë©´ë¶€í„° êµ¬í˜„í•˜ê¸°ìœ„í•´ ë„£ì–´ë‘ 
 	        Map<String, Object> loginAdmin = new HashMap<>();
 	        loginAdmin.put("adCode", admin.getAdCode());
 	        loginAdmin.put("adName", admin.getAdName());
 	        
-	        // ¼¼¼Ç¿¡ Map ÀúÀå 
+	        // ì„¸ì…˜ì— Map ì €ì¥ 
 	        session.setAttribute("loginAdmin", loginAdmin);
 	        
 	        return "admin/admin_login_register";  
 	    } else {
-	        redirectAttrs.addFlashAttribute("loginError", "Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğ°Å³ª ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+	        redirectAttrs.addFlashAttribute("loginError", "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ê±°ë‚˜ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	        
 	        return "redirect:adminLogin.do"; 
 	    }
@@ -81,7 +81,7 @@ public class AdminLoginController {
 		return service.adIdCheck(adId);
 	}
 	/**
-	 * ºñ¹Ğ¹øÈ£ º¯°æ
+	 * ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
 	 * @param adId
 	 * @return
 	 */
@@ -93,7 +93,7 @@ public class AdminLoginController {
 	}
 	
 	/**
-	 * ºñ¹Ğ¹øÈ£ º¯°æ ¹× È®ÀÎ
+	 * ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ë° í™•ì¸
 	 * @return
 	 */
 	@GetMapping("/adminpasswordChange.do")
@@ -102,8 +102,8 @@ public class AdminLoginController {
 	}
 
 	/**
-	 * ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ°í
-	 * »õ ºñ¹Ğ¹øÈ£ = ºñ¹Ğ¹øÈ£È®ÀÎ ÀÏ °æ¿ì¿¡ ºñ¹Ğ¹øÈ£ º¯°æ
+	 * í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ê³ 
+	 * ìƒˆ ë¹„ë°€ë²ˆí˜¸ = ë¹„ë°€ë²ˆí˜¸í™•ì¸ ì¼ ê²½ìš°ì— ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
 	 */
 	@GetMapping("/adminCheckCurrentPassword.do")
 	public String getadminCheckCurrentPassword() {
@@ -119,10 +119,10 @@ public class AdminLoginController {
 	    AdminVO currentMember = (AdminVO) session.getAttribute("admin");
 
 	    if (service.admincheckPassword(currentMember.getAdCode(), currentPassword)) {
-	        // ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ¸é ºñ¹Ğ¹øÈ£ º¯°æ ÆäÀÌÁö·Î ÀÌµ¿
+	        // í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ë©´ ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ í˜ì´ì§€ë¡œ ì´ë™
 	        return "redirect:/adminupdatePassword.do";
 	    } else {
-	        model.addAttribute("message", "ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+	        model.addAttribute("message", "í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	        return "admin/passwordcheck";
 	    }
 	}
@@ -132,14 +132,14 @@ public class AdminLoginController {
 	    String confirmPassword = request.getParameter("confirmPassword");
 
 	    if (!newPassword.equals(confirmPassword)) {
-		    	model.addAttribute("message", "»õ ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+		    	model.addAttribute("message", "ìƒˆ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		        return "admin/passwordchangeform";
 	    }
 
 	    AdminVO currentMember = (AdminVO) session.getAttribute("admin");
 	    service.adminupdatePassword(currentMember.getAdCode(), newPassword);
 	    session.removeAttribute("admin");
-	    model.addAttribute("message", "ºñ¹Ğ¹øÈ£°¡ ¼º°øÀûÀ¸·Î º¯°æµÇ¾ú½À´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇØ ÁÖ¼¼¿ä.");
+	    model.addAttribute("message", "ë¹„ë°€ë²ˆí˜¸ê°€ ì„±ê³µì ìœ¼ë¡œ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•´ ì£¼ì„¸ìš”.");
 	    return "redirect:/memberLogin.do";
 	}
 	

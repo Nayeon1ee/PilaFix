@@ -26,7 +26,7 @@ public class UserguideController {
 	@PostMapping("/insertUserguide.do")
 	public String insert(HttpSession session, UserguideVO vo) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginCenter");
-		// ¼¼¼Ç¿¡ ÀÖ´Â Á¤º¸¸¦ °¡Á®¿Í¼­ ÀÛ¼º¼¾ÅÍÄÚµå Ãß°¡ 
+		// ì„¸ì…˜ì— ìˆëŠ” ì •ë³´ë¥¼ ê°€ì ¸ì™€ì„œ ì‘ì„±ì„¼í„°ì½”ë“œ ì¶”ê°€ 
 		if(!user.isEmpty()) {
 			vo.setUgCenterCode((int)user.get("ctCode"));
 			service.insertUserguide(vo);

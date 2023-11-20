@@ -15,7 +15,7 @@ public class CommunityController {
 	public String getCommunityList(Model model) {
 		model.addAttribute("communityList",service.getCommunityList());
 		return "admin/admin_community";
-		// jspÆÄÀÏÀÌ webapp¹Ø¿¡ admin_communityÆú´õ ¾È¿¡ ÀÖ¾î¼­
+		// jspíŒŒì¼ì´ webappë°‘ì— admin_communityí´ë” ì•ˆì— ìˆì–´ì„œ
 	}
 	
 	@GetMapping("/getCommunity.do")
@@ -27,7 +27,7 @@ public class CommunityController {
 	@GetMapping("/deleteCommunity.do")
 	public String delete(int cmNumber) {
 		service.deleteCommunity(cmNumber);
-		return "redirect:/getCommunityList.do"; // .do·Î ¿äÃ»ÇØ¾ß À§¿¡ getCommunityList.do¼öÇàÇÏ°í µğºñ°¡¼­ ¹Ù²ïÁ¤º¸·Î ´Ù½Ã °¡Á®¿È
+		return "redirect:/getCommunityList.do"; // .doë¡œ ìš”ì²­í•´ì•¼ ìœ„ì— getCommunityList.doìˆ˜í–‰í•˜ê³  ë””ë¹„ê°€ì„œ ë°”ë€ì •ë³´ë¡œ ë‹¤ì‹œ ê°€ì ¸ì˜´
 		
 	}
 }

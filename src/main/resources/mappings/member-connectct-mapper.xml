@@ -3,38 +3,40 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ConnectCtDAO">
-<resultMap type="ConnectCt" id="connectCtResult">
-		<result property="ctName" column="CT_NAME"/>
-		<result property="ctCode" column="CT_CODE"/>
-</resultMap>
+	<resultMap type="ConnectCt" id="connectCtResult">
+		<result property="ctName" column="CT_NAME" />
+		<result property="ctCode" column="CT_CODE" />
+	</resultMap>
 
-<resultMap type="com.dev.pilafix.common.member.MemberVO" id="member">
-		<result property="csMemberCode" column="MEMBER_CODE"/>
-		<result property="csName" column="MEMBER_NAME"/>
-		<result property="csPhoneNumber1" column="CS_PHONE_NUMBER1"/>
-		<result property="csPhoneNumber2" column="CS_PHONE_NUMBER2"/>
-		<result property="csPhoneNumber3" column="CS_PHONE_NUMBER3"/>
-</resultMap>
-		
-		
-	
-<!-- 연동센터 검색시 키워드에 맞는 센터 찾아오는 쿼리문 -->
-<select id="searchCtList" resultMap="connectCtResult">
- 
-	SELECT CT_CODE,CT_NAME,CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' || CT_ADDRESS3 AS ctAddress
-	FROM TBL_CENTER
-	WHERE CT_NAME LIKE '%'||#{searchKeyword}||'%' OR CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' || CT_ADDRESS3 LIKE '%'||#{searchKeyword}||'%';
+	<resultMap type="com.dev.pilafix.common.member.MemberVO"
+		id="member">
+		<result property="csMemberCode" column="MEMBER_CODE" />
+		<result property="csName" column="MEMBER_NAME" />
+		<result property="csPhoneNumber1" column="CS_PHONE_NUMBER1" />
+		<result property="csPhoneNumber2" column="CS_PHONE_NUMBER2" />
+		<result property="csPhoneNumber3" column="CS_PHONE_NUMBER3" />
+	</resultMap>
 
- <!-- 잘 가져오나 테스트용
-SELECT CT_NAME,CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' || CT_ADDRESS3 AS ctAddress
-	FROM TBL_CENTER
-	WHERE CT_NAME LIKE '%필라%' OR CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' || CT_ADDRESS3 LIKE '%필라%';
--->
-</select>
-<insert id="connectRequest" parameterType="java.util.Map" >
-	INSERT INTO TBL_center_request
-	VALUES (concat('CC',nextval('seq_center_connect')),#{ctCode},#{member.csMemberCode},#{member.csName},concat(#{member.csPhoneNumber1},#{member.csPhoneNumber2},#{member.csPhoneNumber3}),CURRENT_TIMESTAMP,'N')
-</insert>
-	
-	
+
+
+	<!-- 연동센터 검색시 키워드에 맞는 센터 찾아오는 쿼리문 -->
+	<select id="searchCtList" resultMap="connectCtResult">
+
+		SELECT CT_CODE,CT_NAME,CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' ||
+		CT_ADDRESS3 AS ctAddress
+		FROM TBL_CENTER
+		WHERE CT_NAME LIKE '%'||#{searchKeyword}||'%' OR CT_ADDRESS1 || ' ' ||
+		CT_ADDRESS2 || ' ' || CT_ADDRESS3 LIKE '%'||#{searchKeyword}||'%';
+
+		<!-- 잘 가져오나 테스트용 SELECT CT_NAME,CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' 
+			' || CT_ADDRESS3 AS ctAddress FROM TBL_CENTER WHERE CT_NAME LIKE '%필라%' OR 
+			CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' || CT_ADDRESS3 LIKE '%필라%'; -->
+	</select>
+	<insert id="connectRequest" parameterType="java.util.Map">
+		INSERT INTO TBL_center_request
+		VALUES
+		(concat('CC',nextval('seq_center_connect')),#{ctCode},#{member.csMemberCode},#{member.csName},concat(#{member.csPhoneNumber1},#{member.csPhoneNumber2},#{member.csPhoneNumber3}),CURRENT_TIMESTAMP,'N')
+	</insert>
+
+
 </mapper>

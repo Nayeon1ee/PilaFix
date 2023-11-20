@@ -21,13 +21,13 @@ public class CenterInfoController {
 	
 	@GetMapping("/getCenterInfo.do")
 	public String getCenterInfo(@RequestParam("seq") Integer seq, Model model) {
-		// °Ô½Ã±Û Á¶È¸
+		// ê²Œì‹œê¸€ ì¡°íšŒ
 	    CenterInfoVO centerInfo = service.getCenterInfo(seq);
 	    
-	    // Á¶È¸¼ö Áõ°¡
+	    // ì¡°íšŒìˆ˜ ì¦ê°€
 	    service.updateCenterInfoViewCnt(seq);
 	    
-	    // ¸®½ºÆ® ¾÷µ¥ÀÌÆ®
+	    // ë¦¬ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
 	    int updatedList = service.updateCenterInfoViewCnt(centerInfo.getCnt());
 		model.addAttribute("centerInfo", service.getCenterInfo(seq));
 		model.addAttribute("updatedList", updatedList);

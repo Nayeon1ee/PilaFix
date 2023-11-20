@@ -29,7 +29,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 			if (encoder.matches(adPassword, admin.getAdPassword())) {
 				return admin;
 			}else {
-	            // ·Î±×ÀÎ ½ÇÆĞ
+	            // ë¡œê·¸ì¸ ì‹¤íŒ¨
 	            logger.warn("Password does not match for user: {}", adId);
 	        }
 	    } else {
@@ -39,11 +39,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	}
 	
 //		if (admin != null) {
-//		    // ¿©±â¼­ adminÀº »ç¿ëÀÚ °´Ã¼ÀÏ °ÍÀ¸·Î °¡Á¤ÇÕ´Ï´Ù.
-//		    String hashedAdPassword = admin.getAdPassword(); // admin °´Ã¼·ÎºÎÅÍ ÇØ½ÌµÈ ºñ¹Ğ¹øÈ£¸¦ °¡Á®¿É´Ï´Ù.
+//		    // ì—¬ê¸°ì„œ adminì€ ì‚¬ìš©ì ê°ì²´ì¼ ê²ƒìœ¼ë¡œ ê°€ì •í•©ë‹ˆë‹¤.
+//		    String hashedAdPassword = admin.getAdPassword(); // admin ê°ì²´ë¡œë¶€í„° í•´ì‹±ëœ ë¹„ë°€ë²ˆí˜¸ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
 //
 //		    if (adPassword.equals(hashedAdPassword)) {
-//		        // adPassword¿Í ÇØ½ÌµÈ ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÑ´Ù¸é, ÀÎÁõÀÌ ¼º°øÇÑ °ÍÀ¸·Î °¡Á¤ÇÕ´Ï´Ù.
+//		        // adPasswordì™€ í•´ì‹±ëœ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•œë‹¤ë©´, ì¸ì¦ì´ ì„±ê³µí•œ ê²ƒìœ¼ë¡œ ê°€ì •í•©ë‹ˆë‹¤.
 //		        return admin;
 //		    }
 //		}
@@ -52,15 +52,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	@Override
 	public int insertAdminRegister(AdminVO vo) {
 		String adPassword = vo.getAdPassword();
-		System.out.println("°¡ÀÔ ½Ã ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£ : " + adPassword);
+		System.out.println("ê°€ì… ì‹œ ì…ë ¥í•œ ë¹„ë°€ë²ˆí˜¸ : " + adPassword);
 		
-		// ¾ÏÈ£È­ ÇÑ ÈÄ¿¡
+		// ì•”í˜¸í™” í•œ í›„ì—
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedPwd = encoder.encode(adPassword);
 		
-		System.out.println("¾ÏÈ£È­ ºñ¹Ğ¹øÈ£   : "+encodedPwd);
+		System.out.println("ì•”í˜¸í™” ë¹„ë°€ë²ˆí˜¸   : "+encodedPwd);
 		
-		// vo¿¡ ´Ù½Ã ³Ö¾îÁØ´Ù.
+		// voì— ë‹¤ì‹œ ë„£ì–´ì¤€ë‹¤.
 		vo.setAdPassword(encodedPwd);
 		return dao.insertAdminRegister(vo);
 	}
@@ -101,7 +101,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
 
 	
-//	//·Î±×Âï¾îº¸±â
+//	//ë¡œê·¸ì°ì–´ë³´ê¸°
 //	@Override
 //	public CenterLoginVO centerLogin(String ctId, String ctPassword) {
 //	    CenterLoginVO center = dao.getCenterLoginInfo(ctId);
