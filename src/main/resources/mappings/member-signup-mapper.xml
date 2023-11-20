@@ -3,9 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MemberDAO">
-<resultMap type="member" id="memberResult">
-		<id property="csMemberCode" column="CS_MEMBER_CODE"/>
-		<result property="csEmailId" column="CS_EMAIL_ID"/>
+	<resultMap type="member" id="memberResult">
+		<id property="csMemberCode" column="CS_MEMBER_CODE" />
+		<result property="csEmailId" column="CS_EMAIL_ID" />
 		<result property="csPassword" column="CS_PASSWORD" />
 		<result property="csName" column="CS_NAME" />
 		<result property="csPhoneNumber1" column="CS_PHONE_NUMBER1" />
@@ -19,7 +19,7 @@
 		<result property="csRegistraionType" column="CS_REGISTRATION_TYPE" />
 		<result property="csRegistrationDate" column="CS_REGISTRATION_DATE" />
 		<result property="csRoleCode" column="CS_ROLE_CODE" />
-</resultMap>
+	</resultMap>
 
 	<resultMap type="com.dev.pilafix.member.signup.TermsVO" id="termsResult1">
 		<result property="tmName" column="TM_NAME" />
@@ -28,36 +28,45 @@
 		<result property="tmOpenYn" column="TM_OPEN_YN" />
 	</resultMap>
 
-<select id="idCheck" resultType="int">
-		SELECT COUNT(*) as cnt FROM TBL_CST WHERE cs_email_id = #{csEmailId}
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*) as cnt FROM
+		TBL_CST WHERE cs_email_id = #{csEmailId}
 	</select>
 
-<!-- 강사일 땐 시퀀스 8000부터, 회원 일땐 시퀀스 2000부터 들어가야해서 dynamic sql사용 -->
-<insert id="insertMember" parameterType="member">
-	INSERT INTO TBL_CST
-	<if test="csRoleCode=='ME'">
-		VALUES(nextval('seq_member_signup'),#{csRoleCode},#{csEmailId},
-		#{csPassword},#{csName},
-		#{csPhoneNumber1},#{csPhoneNumber2},#{csPhoneNumber3},CURRENT_TIMESTAMP,#{csBirth},
-		#{csGenderMw},'N',#{csAgreementYn1},#{csAgreementYn2},#{csAgreementYn3},'일반');
-	</if>
-	<if test="csRoleCode=='TR'">
-		VALUES(nextval('seq_trainer_signup'),#{csRoleCode},#{csEmailId},
-		#{csPassword},#{csName},
-		#{csPhoneNumber1},#{csPhoneNumber2},#{csPhoneNumber3},CURRENT_TIMESTAMP,#{csBirth},
-		#{csGenderMw},'N',#{csAgreementYn1},#{csAgreementYn2},#{csAgreementYn3},'일반');
-	</if>
-</insert>
-
-<!-- 이메일 발송 이력 등록 -->
-	<insert id="insertSendEmailHistory" parameterType="emailHistory">
-		INSERT INTO TBL_SEND_EMAIL_HISTORY(MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE, MH_EMAIL_SEND_DATETIME, MH_RECIPIENT_NAME,MH_RECIPIENT_TITLE,MH_RECIPIENT_CONTENT, MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME,MH_FAIL_REASON )
-		VALUES(CONCAT('EH',NEXTVAL('SEQ_SEND_EMAIL_HISTORY')), #{mhEmailSendType}, CURRENT_TIMESTAMP, #{mhRecipientName},#{mhRecipientTitle}, #{mhRecipientContent}, #{mhRecipientEmail}, #{mhSuccessYN},#{mhSuccessDate}, #{mhFailReason})
+	<!-- 강사일 땐 시퀀스 8000부터, 회원 일땐 시퀀스 2000부터 들어가야해서 dynamic sql사용 -->
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO TBL_CST
+		<if test="csRoleCode=='ME'">
+			VALUES(nextval('seq_member_signup'),#{csRoleCode},#{csEmailId},
+			#{csPassword},#{csName},
+			#{csPhoneNumber1},#{csPhoneNumber2},#{csPhoneNumber3},CURRENT_TIMESTAMP,#{csBirth},
+			#{csGenderMw},'N',#{csAgreementYn1},#{csAgreementYn2},#{csAgreementYn3},'일반');
+		</if>
+		<if test="csRoleCode=='TR'">
+			VALUES(nextval('seq_trainer_signup'),#{csRoleCode},#{csEmailId},
+			#{csPassword},#{csName},
+			#{csPhoneNumber1},#{csPhoneNumber2},#{csPhoneNumber3},CURRENT_TIMESTAMP,#{csBirth},
+			#{csGenderMw},'N',#{csAgreementYn1},#{csAgreementYn2},#{csAgreementYn3},'일반');
+		</if>
 	</insert>
-	
+
+	<!-- 이메일 발송 이력 등록 -->
+	<insert id="insertSendEmailHistory" parameterType="emailHistory">
+		INSERT INTO
+		TBL_SEND_EMAIL_HISTORY(MH_EMAIL_SEND_CODE, MH_EMAIL_SEND_TYPE,
+		MH_EMAIL_SEND_DATETIME,
+		MH_RECIPIENT_NAME,MH_RECIPIENT_TITLE,MH_RECIPIENT_CONTENT,
+		MH_RECIPIENT_EMAIL, MH_SUCCESS_YN, MH_SUCCESS_DATETIME,MH_FAIL_REASON
+		)
+		VALUES(CONCAT('EH',NEXTVAL('SEQ_SEND_EMAIL_HISTORY')),
+		#{mhEmailSendType}, CURRENT_TIMESTAMP,
+		#{mhRecipientName},#{mhRecipientTitle}, #{mhRecipientContent},
+		#{mhRecipientEmail}, #{mhSuccessYN},#{mhSuccessDate}, #{mhFailReason})
+	</insert>
+
 	<!-- 약관 가져오기 -->
 	<select id="getTermsList" resultMap="termsResult1">
-	select TM_NAME,TM_DETAIL,TM_REQUIRED_YN FROM TBL_TERMS WHERE TM_OPEN_YN=true
+		select TM_NAME,TM_DETAIL,TM_REQUIRED_YN FROM TBL_TERMS WHERE TM_OPEN_YN=true
 	</select>
 
 </mapper>

@@ -21,9 +21,9 @@ public class AwsS3 {
 	   // Amazon-s3-sdk
 	   private AmazonS3 s3Client;
 	   final private String accesskey = "A";
-	   final private String secretKey = "T"; // (ºĞ½Ç½Ã ¾×¼¼½º Àç¹ß±Ş ¹Ş¾Æ¾ßÇÕ´Ï´Ù.)
+	   final private String secretKey = "T"; // (ë¶„ì‹¤ì‹œ ì•¡ì„¸ìŠ¤ ì¬ë°œê¸‰ ë°›ì•„ì•¼í•©ë‹ˆë‹¤.)
 	   private Regions clientRegion = Regions.AP_NORTHEAST_2;
-	   private String bucket = "p"; // ¹öÅ¶ ¸í
+	   private String bucket = "p"; // ë²„í‚· ëª…
 
 
 //	  @Value("${cloud.aws.credentials.access-key}")
@@ -54,7 +54,7 @@ public class AwsS3 {
 		}
 	}
 
-	// aws S3 client »ı¼º
+	// aws S3 client ìƒì„±
 	private void createS3Client() {
 
 		AWSCredentials credentials = new BasicAWSCredentials(accesskey, secretKey);
@@ -74,7 +74,7 @@ public class AwsS3 {
 		uploadToS3(new PutObjectRequest(bucket, key, is, objectMetadata));
 	}
 
-	// PutObjectRequest´Â Aws S3 ¹öÅ¶¿¡ ¾÷·ÎµåÇÒ °´Ã¼ ¸ŞÅ¸ µ¥ÀÌÅÍ¿Í ÆÄÀÏ µ¥ÀÌÅÍ·Î ÀÌ·ç¾îÁ®ÀÖ´Ù.
+	// PutObjectRequestëŠ” Aws S3 ë²„í‚·ì— ì—…ë¡œë“œí•  ê°ì²´ ë©”íƒ€ ë°ì´í„°ì™€ íŒŒì¼ ë°ì´í„°ë¡œ ì´ë£¨ì–´ì ¸ìˆë‹¤.
 	private void uploadToS3(PutObjectRequest putObjectRequest) {
 
 		try {
@@ -92,7 +92,7 @@ public class AwsS3 {
 
 	public void copy(String orgKey, String copyKey) {
 		try {
-			// Copy °´Ã¼ »ı¼º
+			// Copy ê°ì²´ ìƒì„±
 			CopyObjectRequest copyObjRequest = new CopyObjectRequest(this.bucket, orgKey, this.bucket, copyKey);
 			// Copy
 			this.s3Client.copyObject(copyObjRequest);
@@ -108,7 +108,7 @@ public class AwsS3 {
 
 	public void delete(String key) {
 		try {
-			// Delete °´Ã¼ »ı¼º
+			// Delete ê°ì²´ ìƒì„±
 			DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(this.bucket, key);
 			// Delete
 			this.s3Client.deleteObject(deleteObjectRequest);

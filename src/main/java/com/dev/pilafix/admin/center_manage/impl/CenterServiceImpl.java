@@ -52,7 +52,7 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	/**
-	 * ¾ÆÀÌµğ Áßº¹ Ã¼Å© 
+	 * ì•„ì´ë”” ì¤‘ë³µ ì²´í¬ 
 	 */
 	@Override
 	public int idCheck(String ctId){
@@ -60,7 +60,7 @@ public class CenterServiceImpl implements CenterService {
 	}
 	
 	/**
-	 * ÀÌ¸ŞÀÏ Áßº¹ Ã¼Å© 
+	 * ì´ë©”ì¼ ì¤‘ë³µ ì²´í¬ 
 	 */
 	@Override
 	public int emailCheck(String ownerEmail){
@@ -68,41 +68,41 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	/**
-	 * ÀÌ¸ŞÀÏ ¹ß¼Û ¹× ÀÌ·Â µî·Ï
+	 * ì´ë©”ì¼ ë°œì†¡ ë° ì´ë ¥ ë“±ë¡
 	 */
     @Override
     public void sendEmailAndInsertSendEmailHistory(CenterVO center) {
     	
-    	int flag = 0;// ¹ß¼Û ¼º°ø ¿©ºÎ
-    	String errorMessage=""; //¿¡·¯ ½Ã ½ÇÆĞ »çÀ¯ 
+    	int flag = 0;// ë°œì†¡ ì„±ê³µ ì—¬ë¶€
+    	String errorMessage=""; //ì—ëŸ¬ ì‹œ ì‹¤íŒ¨ ì‚¬ìœ  
     	
         String ownerEmail = center.getOwnerEmail();
         String ctId = center.getCtId();
         String ctPassword = center.getCtPassword();
         String ownerName = center.getOwnerName();
 		
-		//====ÀÌ¸ŞÀÏ ¹ß¼Û======
-	    String from = "pilafix1@gmail.com"; //º¸³»´Â »ç¶÷
-	    String title = "[ÇÊ¶óÇÈ½º] ¼¾ÅÍ µî·Ï ¿Ï·á ¾È³»"; // Á¦¸ñ
-	    String toSend = ownerEmail; //¹Ş´Â »ç¶÷
+		//====ì´ë©”ì¼ ë°œì†¡======
+	    String from = "pilafix1@gmail.com"; //ë³´ë‚´ëŠ” ì‚¬ëŒ
+	    String title = "[í•„ë¼í”½ìŠ¤] ì„¼í„° ë“±ë¡ ì™„ë£Œ ì•ˆë‚´"; // ì œëª©
+	    String toSend = ownerEmail; //ë°›ëŠ” ì‚¬ëŒ
 
-	    //¸ŞÀÏ ³»¿ë
+	    //ë©”ì¼ ë‚´ìš©
 	    StringBuilder content = new StringBuilder();
 	    content.append("<html><body style='font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;'>");
 	    content.append("<div style='background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);'>");
-	    content.append("<h1 style='color: #333333; text-align: center;'>¼¾ÅÍ µî·Ï ¿Ï·á ¾È³»</h1>");
+	    content.append("<h1 style='color: #333333; text-align: center;'>ì„¼í„° ë“±ë¡ ì™„ë£Œ ì•ˆë‚´</h1>");
 	    content.append("<p style='color: #555555; text-align: center;'>");
 	    content.append(ownerName);
-	    content.append(" ´ëÇ¥´Ô, ");
+	    content.append(" ëŒ€í‘œë‹˜, ");
 	    content.append(center.getCtName());
-	    content.append(" ¼¾ÅÍ µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.</p>");
-	    content.append("<p style='color: #555555; text-align: center;'>¾Æ·¡ °èÁ¤À¸·Î ·Î±×ÀÎ ÈÄ, ºñ¹Ğ¹øÈ£¸¦ ²À º¯°æÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.</p>");
-	    content.append("<p style='margin-top: 20px; text-align: center;'><strong>¾ÆÀÌµğ: </strong>");
+	    content.append(" ì„¼í„° ë“±ë¡ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.</p>");
+	    content.append("<p style='color: #555555; text-align: center;'>ì•„ë˜ ê³„ì •ìœ¼ë¡œ ë¡œê·¸ì¸ í›„, ë¹„ë°€ë²ˆí˜¸ë¥¼ ê¼­ ë³€ê²½í•˜ì—¬ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.</p>");
+	    content.append("<p style='margin-top: 20px; text-align: center;'><strong>ì•„ì´ë””: </strong>");
 	    content.append(ctId);
-	    content.append("</p><p style='text-align: center;'><strong>ºñ¹Ğ¹øÈ£: </strong>");
+	    content.append("</p><p style='text-align: center;'><strong>ë¹„ë°€ë²ˆí˜¸: </strong>");
 	    content.append(ctPassword);
 	    content.append("</p>");
-	    content.append("<p style='color: #555555; text-align: center;'>ÇÊ¶óÇÈ½º¸¦ ÀÌ¿ëÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù.</p>");
+	    content.append("<p style='color: #555555; text-align: center;'>í•„ë¼í”½ìŠ¤ë¥¼ ì´ìš©í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤.</p>");
 	    content.append("</div></body></html>");
 		
 		try {
@@ -110,12 +110,12 @@ public class CenterServiceImpl implements CenterService {
 			MimeMessageHelper messageHelper;
 
 			messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setFrom(from); // º¸³»´Â»ç¶÷ (ÇÊ¼ö)
-		    messageHelper.setTo(toSend); // ¹Ş´Â»ç¶÷ ÀÌ¸ŞÀÏ
-		    messageHelper.setSubject(title); // ¸ŞÀÏÁ¦¸ñ
+			messageHelper.setFrom(from); // ë³´ë‚´ëŠ”ì‚¬ëŒ (í•„ìˆ˜)
+		    messageHelper.setTo(toSend); // ë°›ëŠ”ì‚¬ëŒ ì´ë©”ì¼
+		    messageHelper.setSubject(title); // ë©”ì¼ì œëª©
 
-		    // HTML Çü½ÄÀÇ ÀÌ¸ŞÀÏ ³»¿ë ¼³Á¤
-		    messageHelper.setText(content.toString(), true); // ¸ŞÀÏ ³»¿ëÀ» HTML Çü½ÄÀ¸·Î ¼³Á¤
+		    // HTML í˜•ì‹ì˜ ì´ë©”ì¼ ë‚´ìš© ì„¤ì •
+		    messageHelper.setText(content.toString(), true); // ë©”ì¼ ë‚´ìš©ì„ HTML í˜•ì‹ìœ¼ë¡œ ì„¤ì •
 
 		    mailSender.send(message);
 		    
@@ -131,9 +131,9 @@ public class CenterServiceImpl implements CenterService {
 		    e.printStackTrace();
 		}
 		
-		//====ÀÌ¸ŞÀÏ ¹ß¼Û ÀÌ·Â µî·Ï======
+		//====ì´ë©”ì¼ ë°œì†¡ ì´ë ¥ ë“±ë¡======
 		SendEmailHistoryVO email = new SendEmailHistoryVO();
-		email.setMhEmailSendType("¼¾ÅÍ°èÁ¤»ı¼º");
+		email.setMhEmailSendType("ì„¼í„°ê³„ì •ìƒì„±");
 		email.setMhRecipientName(center.getOwnerName());
 		email.setMhRecipientTitle(title);
 		email.setMhRecipientContent(content.toString());
@@ -151,55 +151,55 @@ public class CenterServiceImpl implements CenterService {
 
     
     /**
-     * ¼¾ÅÍ µî·Ï ¹× ¼¼¼Ç ÀúÀå 
+     * ì„¼í„° ë“±ë¡ ë° ì„¸ì…˜ ì €ì¥ 
      */
     @Override
     public void insertCenterAndSetSession(CenterVO center, HttpSession session) {
     	  
-    	//ÀÌ¸ŞÀÏ Àü¼ÛÀ» À§ÇØ ¼¼¼Ç¿¡ center °´Ã¼ ÀúÀå
-    	session.setAttribute("pw", center.getCtPassword()); // ¾ÏÈ£È­ Àü pw ÀúÀå 
+    	//ì´ë©”ì¼ ì „ì†¡ì„ ìœ„í•´ ì„¸ì…˜ì— center ê°ì²´ ì €ì¥
+    	session.setAttribute("pw", center.getCtPassword()); // ì•”í˜¸í™” ì „ pw ì €ì¥ 
     	session.setAttribute("center", center);
     	
-    	//ÆÄÀÏ ÀúÀå 
+    	//íŒŒì¼ ì €ì¥ 
 //    	MultipartFile file = center.getBusinessRegistrationFile();
 //    	String fileName = file.getOriginalFilename();
 //    	
 //        s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
 //                .withCannedAcl(CannedAccessControlList.PublicRead));
 //    	
-//    	//½ÇÁ¦ ÆÄÀÏ¸í 
+//    	//ì‹¤ì œ íŒŒì¼ëª… 
 //    	String fileRealName = file.getOriginalFilename();
-//		// È®ÀåÀÚ ÃßÃâ
+//		// í™•ì¥ì ì¶”ì¶œ
 //    	String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-//		// ¾÷·Îµå °æ·Î
-//    	String uploadFolder = "D:\\test\\upload"; //¼­¹ö ÁÖ¼Ò·Î º¯°æÇØ¾ß ÇÔ 
+//		// ì—…ë¡œë“œ ê²½ë¡œ
+//    	String uploadFolder = "D:\\test\\upload"; //ì„œë²„ ì£¼ì†Œë¡œ ë³€ê²½í•´ì•¼ í•¨ 
 //		
-//		//°íÀ¯¹øÈ£ ÃßÃâ
+//		//ê³ ìœ ë²ˆí˜¸ ì¶”ì¶œ
 //		String[] uuids = UUID.randomUUID().toString().split("-");
 //		
-//		//¾÷·ÎµåÇÒ ÆÄÀÏ¸í ÁöÁ¤
+//		//ì—…ë¡œë“œí•  íŒŒì¼ëª… ì§€ì •
 //		StringBuffer uniqueName = new StringBuffer();
-//		uniqueName.append("»ç¾÷ÀÚµî·ÏÁõ_");
+//		uniqueName.append("ì‚¬ì—…ìë“±ë¡ì¦_");
 //		uniqueName.append(center.getCtName());
 //		uniqueName.append("_");
-//		uniqueName.append(uuids[0]); //°íÀ¯¹øÈ£
+//		uniqueName.append(uuids[0]); //ê³ ìœ ë²ˆí˜¸
 //		
 //		File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  
-//		//¼­¹ö ÁÖ¼Ò º¯°æ ÈÄ¿¡ db¿¡ ÇØ´ç path ÀúÀåµÉ ¼ö ÀÖµµ·Ï ÇÔ
+//		//ì„œë²„ ì£¼ì†Œ ë³€ê²½ í›„ì— dbì— í•´ë‹¹ path ì €ì¥ë  ìˆ˜ ìˆë„ë¡ í•¨
 //		
 //		try {
-//			file.transferTo(saveFile); // ½ÇÁ¦ ÆÄÀÏ ÀúÀå¸Ş¼­µå
+//			file.transferTo(saveFile); // ì‹¤ì œ íŒŒì¼ ì €ì¥ë©”ì„œë“œ
 //			
 //		} catch (IllegalStateException e) {
-//			System.out.println("ÆÄÀÏ ÀúÀå ½ÇÆĞ");
+//			System.out.println("íŒŒì¼ ì €ì¥ ì‹¤íŒ¨");
 //			e.printStackTrace();
 //		} catch (IOException e) {
-//			System.out.println("ÆÄÀÏ ÀúÀå ½ÇÆĞ");
+//			System.out.println("íŒŒì¼ ì €ì¥ ì‹¤íŒ¨");
 //			e.printStackTrace();
 //		}
 //		center.setBusinessRegistrationFilePath(s3Client.getUrl(bucket, fileName).toString());
     	
-    	// Å¬¶óÀÌ¾ğÆ®¿¡°Ô pw Àü¼Û(¼¼¼Ç¿¡ ¼¼ÆÃ ÈÄ ¾ÏÈ£È­)
+    	// í´ë¼ì´ì–¸íŠ¸ì—ê²Œ pw ì „ì†¡(ì„¸ì…˜ì— ì„¸íŒ… í›„ ì•”í˜¸í™”)
     	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     	String encodedPwd = encoder.encode(center.getCtPassword());
     	center.setCtPassword(encodedPwd);
@@ -209,8 +209,8 @@ public class CenterServiceImpl implements CenterService {
 
     
     /**
-     * °è¾à ÇØÁö ¸Ş¼­µå 
-     * ÆÄ¶ó¹ÌÅÍ·Î ¹ŞÀº ctCode¿¡ ÇØ´çÇÏ´Â ¼¾ÅÍÀÇ °è¾à ÇØÁö true º¯°æ
+     * ê³„ì•½ í•´ì§€ ë©”ì„œë“œ 
+     * íŒŒë¼ë¯¸í„°ë¡œ ë°›ì€ ctCodeì— í•´ë‹¹í•˜ëŠ” ì„¼í„°ì˜ ê³„ì•½ í•´ì§€ true ë³€ê²½
      */
 	@Override
 	public void revokeCenter(int ctCode) {
@@ -219,7 +219,7 @@ public class CenterServiceImpl implements CenterService {
 	}
 	
 	/**
-	 * ºñ¹Ğ¹øÈ£ ÃÊ±âÈ­ ¸Ş¼­µå 
+	 * ë¹„ë°€ë²ˆí˜¸ ì´ˆê¸°í™” ë©”ì„œë“œ 
 	 */
 	@Override
 	public void resetPassword(int ctCode) {

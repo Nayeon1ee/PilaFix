@@ -12,10 +12,10 @@ public interface MemberTrainerManageSerice {
 	
 	MemberVO getMember(int csMemberCode);
 	
-//	¼ö°­±Ç °áÁ¦ ÀÌ·Â Á¶È¸
+//	ìˆ˜ê°•ê¶Œ ê²°ì œ ì´ë ¥ ì¡°íšŒ
 	List<PaymentHistoryVO> getPaymentList(int csMemberCode);
 	
-//	¿¬µ¿ ¼¾ÅÍ ÀÌ·Â Á¶È¸ Ãß°¡
+//	ì—°ë™ ì„¼í„° ì´ë ¥ ì¡°íšŒ ì¶”ê°€
 	List<CenterConnectHistoryVO> getCenterConnectHistory(int csMemberCode);
 	
 

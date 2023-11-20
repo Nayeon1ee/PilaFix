@@ -19,7 +19,7 @@ public class TermsController {
 
 	
 	/**
-	 * ÀÌ¿ë¾à°üÀÇ »ó¼¼
+	 * ì´ìš©ì•½ê´€ì˜ ìƒì„¸
 	 */
 	@GetMapping("/getTerms.do")
 	public String getTerms(@RequestParam("tmCode")Integer tmCode, Model model) {
@@ -53,8 +53,8 @@ public class TermsController {
 	
 	
 	/**
-	 * ÀÌ¿ë¾à°ü ¼öÁ¤ÇÏ±â
-	 * ¼öÁ¤½Ã ¼öÁ¤¾à°ü¿¡ ´ëÇØ ÀÌ¸ŞÀÏ ¹ß¼Û : ¹ß¼ÛÀÌ·Â ½×¿©¾ßÇÔ
+	 * ì´ìš©ì•½ê´€ ìˆ˜ì •í•˜ê¸°
+	 * ìˆ˜ì •ì‹œ ìˆ˜ì •ì•½ê´€ì— ëŒ€í•´ ì´ë©”ì¼ ë°œì†¡ : ë°œì†¡ì´ë ¥ ìŒ“ì—¬ì•¼í•¨
 	 */
 	@GetMapping("/updateTerms.do")
 	public String updateTerms(@RequestParam("tmCode") Integer tmCode, Model model) {
@@ -66,7 +66,7 @@ public class TermsController {
 	public String update(TermsVO vo, Model model) {
 		service.updateTerms(vo);
 		
-//		/* ¹ß¼ÛÀÌ·Â¸Ş¼­µå È£Ãâ À§ÇØ ÀÌ¸ŞÀÏ¹ß¼Û ´ë»óÀÚ ¸®½ºÆ®°¡Á®¿È */
+//		/* ë°œì†¡ì´ë ¥ë©”ì„œë“œ í˜¸ì¶œ ìœ„í•´ ì´ë©”ì¼ë°œì†¡ ëŒ€ìƒì ë¦¬ìŠ¤íŠ¸ê°€ì ¸ì˜´ */
 //		 List<CenterVO> centers = service.getCenterList();
 //		    for (CenterVO center : centers) {
 //		        service.sendEmailAndInsertSendEmailHistory(center);

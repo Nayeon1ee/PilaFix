@@ -33,17 +33,17 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 
 		model.addAttribute("serverTime", formattedDate);
-		System.out.println("ÀÎµ¦½º È­¸é È£Ãâ");
+		System.out.println("ì¸ë±ìŠ¤ í™”ë©´ í˜¸ì¶œ");
 		return "home";
 	}
-	// ¼ö¹Ì
+	// ìˆ˜ë¯¸
 
 	@GetMapping("/ticket")
 	public String ticket() {
 		return "ticket";
 	}
 
-	// ³ª¿¬
+	// ë‚˜ì—°
 
 	@GetMapping("/myschedule")
 	public String myschedule() {
@@ -65,7 +65,7 @@ public class HomeController {
 		return "reservation_group";
 	}
 
-	// ÇÏ¹Î
+	// í•˜ë¯¼
 
 	@GetMapping("/privatedetailclass")
 	public String privatedetailclass() {
@@ -82,7 +82,7 @@ public class HomeController {
 		return "classlist";
 	}
 
-	// ¿µ¿ì
+	// ì˜ìš°
 
 	@GetMapping("/centeraddress")
 	public String centeraddress() {
@@ -114,7 +114,7 @@ public class HomeController {
 		return "login";
 	}
 
-	// ÀºÁÖ
+	// ì€ì£¼
 
 	@GetMapping("/paymentHistorydetail")
 	public String paymentHistorydetail() {
@@ -166,9 +166,9 @@ public class HomeController {
 		return "memberpage";
 	}
 
-	// °ü¸®ÀÚ
+	// ê´€ë¦¬ì
 
-	// °ü¸®ÀÚ ¸ŞÀÎ(ÀÓ½Ã)
+	// ê´€ë¦¬ì ë©”ì¸(ì„ì‹œ)
 	
 	@RequestMapping("/admin_common.do")
 	public String admin_common() {
@@ -237,7 +237,7 @@ public class HomeController {
 	}
 
 
-// ¿¹½Ã
+// ì˜ˆì‹œ
 	@RequestMapping("/admin_info_boardlist.do")
 	   public String admin_info_boardlist() {
 	      return "admin_info_boardlist.jsp";
@@ -308,14 +308,14 @@ public class HomeController {
 		return "admin_teacher_management";
 	}
 
-	// ¼¾ÅÍ ³×ºñ
+	// ì„¼í„° ë„¤ë¹„
 
 	@RequestMapping("/center_common")
 	public String center_common() {
 		return "center_common";
 	}
 
-	// ¼¾ÅÍ
+	// ì„¼í„°
 
 	@RequestMapping("/center_question_board")
 	public String center_question_board() {

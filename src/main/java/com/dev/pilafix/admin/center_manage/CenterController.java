@@ -37,7 +37,7 @@ public class CenterController {
 	@GetMapping("/getCenter.do")
 	public String getCenter(int ctCode, Model model) {
 		model.addAttribute("center", service.getCenter(ctCode));
-		//ÀÌ¸ŞÀÏ »ó¼¼ ´ë½Å ¹®ÀÚ »ó¼¼ µé¾î¿Í¾ß ÇÔ
+		//ì´ë©”ì¼ ìƒì„¸ ëŒ€ì‹  ë¬¸ì ìƒì„¸ ë“¤ì–´ì™€ì•¼ í•¨
 //		model.addAttribute("smsHistory", service.getSmsHistory(ctCode)); 
 		return "admin/admin_center_management_detail";
 	}
@@ -49,7 +49,7 @@ public class CenterController {
  
     
 	/**
-	 * ¼¾ÅÍ µî·Ï ¹× ¼¼¼Ç ÀúÀå 
+	 * ì„¼í„° ë“±ë¡ ë° ì„¸ì…˜ ì €ì¥ 
 	 * @param center
 	 * @return
 	 * @throws IOException 
@@ -58,24 +58,24 @@ public class CenterController {
     @PostMapping("/insertCenter.do")
     public String insert(@ModelAttribute("center") CenterVO center, MultipartFile multipart, HttpSession session) throws IOException {
 		
-    	// aws s3 ÆÄÀÏ ¾÷·Îµå Ã³¸® */
+    	// aws s3 íŒŒì¼ ì—…ë¡œë“œ ì²˜ë¦¬ */
     	if (!multipart.getOriginalFilename().equals("")) {
 			InputStream is = multipart.getInputStream();
 			String key = multipart.getOriginalFilename();
 			
-			System.out.println("±âÁ¸ ÆÄÀÏ ¸í : "+key);
+			System.out.println("ê¸°ì¡´ íŒŒì¼ ëª… : "+key);
 			
 			String fileExtension = key.substring(key.lastIndexOf("."),key.length());
 			
 			UUID uuid = UUID.randomUUID();
 			String[] uuids = uuid.toString().split("-");
 			String uniqueName = uuids[0];
-			System.out.println("»ı¼ºµÈ °íÀ¯¹®ÀÚ¿­" + uniqueName);//»ç¾÷ÀÚµî·ÏÁõ_¼¾ÅÍ¸í_¼¾ÅÍÄÚµå.À¸·Î º¯°æ 
-			System.out.println("È®ÀåÀÚ¸í" + fileExtension);
+			System.out.println("ìƒì„±ëœ ê³ ìœ ë¬¸ìì—´" + uniqueName);//ì‚¬ì—…ìë“±ë¡ì¦_ì„¼í„°ëª…_ì„¼í„°ì½”ë“œ.ìœ¼ë¡œ ë³€ê²½ 
+			System.out.println("í™•ì¥ìëª…" + fileExtension);
 			
-			key = "»ç¾÷ÀÚµî·ÏÁõ_"+uniqueName +"_"+center.getCtName()+fileExtension; 
+			key = "ì‚¬ì—…ìë“±ë¡ì¦_"+uniqueName +"_"+center.getCtName()+fileExtension; 
 			
-			System.out.println("ÆÄÀÏ¸í : "+key);
+			System.out.println("íŒŒì¼ëª… : "+key);
 			
 			String contentType = multipart.getContentType();
 			long contentLength = multipart.getSize();
@@ -100,17 +100,17 @@ public class CenterController {
 //    	return "admin/uploadTest";
 //    }
 //    
-//	// ÀÌ¹ÌÁö ¾÷·Îµå Å×½ºÆ® 
+//	// ì´ë¯¸ì§€ ì—…ë¡œë“œ í…ŒìŠ¤íŠ¸ 
 //	@PostMapping("/uploadTest.do")
 //	public String uploadTest(@ModelAttribute("businessRegistrationFile")MultipartFile businessRegistrationFile) {
-//		System.out.println("upload È£Ãâ");
+//		System.out.println("upload í˜¸ì¶œ");
 //		
-//		String fileRealName = businessRegistrationFile.getOriginalFilename(); //ÆÄÀÏ¸íÀ» ¾ò¾î³¾ ¼ö ÀÖ´Â ¸Ş¼­µå
-//		long size = businessRegistrationFile.getSize(); //ÆÄÀÏ »çÀÌÁî
+//		String fileRealName = businessRegistrationFile.getOriginalFilename(); //íŒŒì¼ëª…ì„ ì–»ì–´ë‚¼ ìˆ˜ ìˆëŠ” ë©”ì„œë“œ
+//		long size = businessRegistrationFile.getSize(); //íŒŒì¼ ì‚¬ì´ì¦ˆ
 //		
-//		System.out.println("ÆÄÀÏ¸í : "  + fileRealName);
-//		System.out.println("¿ë·®Å©±â(byte) : " + size);
-//		//¼­¹ö¿¡ ÀúÀåÇÒ ÆÄÀÏÀÌ¸§ fileextensionÀ¸·Î .jspÀÌ·±½ÄÀÇ  È®ÀåÀÚ ¸íÀ» ±¸ÇÔ
+//		System.out.println("íŒŒì¼ëª… : "  + fileRealName);
+//		System.out.println("ìš©ëŸ‰í¬ê¸°(byte) : " + size);
+//		//ì„œë²„ì— ì €ì¥í•  íŒŒì¼ì´ë¦„ fileextensionìœ¼ë¡œ .jspì´ëŸ°ì‹ì˜  í™•ì¥ì ëª…ì„ êµ¬í•¨
 //		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
 //		String uploadFolder = "D:\\test\\upload";
 //		
@@ -119,18 +119,18 @@ public class CenterController {
 //		String[] uuids = uuid.toString().split("-");
 //		
 //		String uniqueName = uuids[0];
-//		System.out.println("»ı¼ºµÈ °íÀ¯¹®ÀÚ¿­" + uniqueName);//»ç¾÷ÀÚµî·ÏÁõ_¼¾ÅÍ¸í_¼¾ÅÍÄÚµå.À¸·Î º¯°æ 
-//		System.out.println("È®ÀåÀÚ¸í" + fileExtension);
+//		System.out.println("ìƒì„±ëœ ê³ ìœ ë¬¸ìì—´" + uniqueName);//ì‚¬ì—…ìë“±ë¡ì¦_ì„¼í„°ëª…_ì„¼í„°ì½”ë“œ.ìœ¼ë¡œ ë³€ê²½ 
+//		System.out.println("í™•ì¥ìëª…" + fileExtension);
 //		
 //		
-//		File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // Àû¿ë ÈÄ
+//		File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // ì ìš© í›„
 //		try {
-//			businessRegistrationFile.transferTo(saveFile); // ½ÇÁ¦ ÆÄÀÏ ÀúÀå¸Ş¼­µå(filewriter ÀÛ¾÷À» ¼Õ½±°Ô ÇÑ¹æ¿¡ Ã³¸®ÇØÁØ´Ù.)
+//			businessRegistrationFile.transferTo(saveFile); // ì‹¤ì œ íŒŒì¼ ì €ì¥ë©”ì„œë“œ(filewriter ì‘ì—…ì„ ì†ì‰½ê²Œ í•œë°©ì— ì²˜ë¦¬í•´ì¤€ë‹¤.)
 //		} catch (IllegalStateException e) {
-//			System.out.println("ÆÄÀÏ ÀúÀå ½ÇÆĞ");
+//			System.out.println("íŒŒì¼ ì €ì¥ ì‹¤íŒ¨");
 //			e.printStackTrace();
 //		} catch (IOException e) {
-//			System.out.println("ÆÄÀÏ ÀúÀå ½ÇÆĞ");
+//			System.out.println("íŒŒì¼ ì €ì¥ ì‹¤íŒ¨");
 //			e.printStackTrace();
 //		}
 //		
@@ -140,21 +140,21 @@ public class CenterController {
 	
 	
 	/**
-	 * ÀÌ¸ŞÀÏ ¹ß¼Û ¹× ¹ß¼Û ÀÌ·Â ÀúÀå 
+	 * ì´ë©”ì¼ ë°œì†¡ ë° ë°œì†¡ ì´ë ¥ ì €ì¥ 
 	 * @return
 	 * @throws Exception
 	 */
 	@GetMapping("/sendEmail.do")
 	public String sendmail(HttpSession session) {
         CenterVO center = (CenterVO) session.getAttribute("center");
-        center.setCtPassword((String)session.getAttribute("pw")); //¾ÏÈ£È­ µÇÁö ¾ÊÀº pw
+        center.setCtPassword((String)session.getAttribute("pw")); //ì•”í˜¸í™” ë˜ì§€ ì•Šì€ pw
         service.sendEmailAndInsertSendEmailHistory(center);
         session.removeAttribute("center");
         return "redirect:getCenterList.do";
     }
 	
 	/**
-	 * ¼öÁ¤ ¿äÃ» 
+	 * ìˆ˜ì • ìš”ì²­ 
 	 * @param ctCode
 	 * @param model
 	 * @return
@@ -166,7 +166,7 @@ public class CenterController {
 	}
 	
 	/**
-	 * ½ÇÁ¦ DB ¼öÁ¤ ½ÃÇà 
+	 * ì‹¤ì œ DB ìˆ˜ì • ì‹œí–‰ 
 	 * @param vo
 	 * @return
 	 */
@@ -177,7 +177,7 @@ public class CenterController {
 	}
 	
 	/**
-	 * Json Å×½ºÆ® »ùÇÃ 
+	 * Json í…ŒìŠ¤íŠ¸ ìƒ˜í”Œ 
 	 * @return
 	 */
 	@RequestMapping("/jsTest.do")

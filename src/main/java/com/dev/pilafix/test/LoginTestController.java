@@ -32,7 +32,7 @@ public class LoginTestController {
 		if(result) {
 			return "member/login_test_form";
 		}else {
-			//½ÇÆĞ ½Ã È¸¿ø°¡ÀÔ ÆäÀÌÁö·Î ´Ù½Ã ÀÌµ¿ 
+			//ì‹¤íŒ¨ ì‹œ íšŒì›ê°€ì… í˜ì´ì§€ë¡œ ë‹¤ì‹œ ì´ë™ 
 			return "member/login_test_signup";
 		}
 	}
@@ -51,15 +51,15 @@ public class LoginTestController {
 		if(session!=null) {
 			boolean result = service.loginTest(id, pw);
 			
-			//¼­ºñ½º¿¡¼­ ¹Ş¾Æ¿Â °ªÀÌ trueÀÌ¸é ¸ŞÀÎÀ¸·Î ÀÌµ¿ 
-			//¼­ºñ½º¿¡¼­ ¹Ş¾Æ¿Â °ªÀÌ falseÀÌ¸é ·Î±×ÀÎ ½ÇÆĞ·Î ´Ù½Ã ·Î±×ÀÎ È­¸éÀ¸·Î ÀÌµ¿ 
+			//ì„œë¹„ìŠ¤ì—ì„œ ë°›ì•„ì˜¨ ê°’ì´ trueì´ë©´ ë©”ì¸ìœ¼ë¡œ ì´ë™ 
+			//ì„œë¹„ìŠ¤ì—ì„œ ë°›ì•„ì˜¨ ê°’ì´ falseì´ë©´ ë¡œê·¸ì¸ ì‹¤íŒ¨ë¡œ ë‹¤ì‹œ ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì´ë™ 
 			
 			if(result) {
-				System.out.println("·Î±×ÀÎ ¼º°ø ");
-				session.setAttribute("id", id); //ºñ¹Ğ¹øÈ£ º¯°æ À§ÇÔ 
+				System.out.println("ë¡œê·¸ì¸ ì„±ê³µ ");
+				session.setAttribute("id", id); //ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ìœ„í•¨ 
 				return "member/login_test_success";
 			}else {
-				System.out.println("·Î±×ÀÎ ½ÇÆĞ ");
+				System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨ ");
 				return "redirect:loginTest.do";
 //				return "member/login_test_fail";
 			}
