@@ -99,7 +99,8 @@
 		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>
 		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE"/>
-
+	</resultMap>
+	
 	<resultMap type="com.dev.pilafix.center.member_trainer_manage.TicketInfoVO" id="ticketInfo">
 		<result property="tkCode" column="TK_CODE" />
 		<result property="tkName" column="TK_NAME" />
