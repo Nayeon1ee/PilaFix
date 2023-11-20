@@ -49,7 +49,6 @@ public class QuestionServiceImpl implements QuestionService {
 	public List<CenterVO> getConnectedCenters(int csMemberCode) {
 		return dao.getConnectedCT(csMemberCode);
 	}
-
 	
 	
 	/**
@@ -62,7 +61,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public List<QuestionVO> getQuestionReplyList() {
-		return dao.getQuestionReplyList();
+		return dao.getQReplyList();
 	}
 
 	@Override
@@ -77,10 +76,11 @@ public class QuestionServiceImpl implements QuestionService {
 	 * 답변이 등록될때 회원문의사항 답변여부 컬럼 true로 업데이트 (insert + update)
 	 */
 	@Override
-	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo) {
-		return dao.insertQuestionReplyAndUpdateAnswerYn(replyvo);
-	}
-
+    public void insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo, int questionNumber) {
+        dao.insertReplyAndUpdateQuestion(replyvo, questionNumber);
+    }
+	
+	
 	@Override
 	public int deleteQuestionReply(int reNumber) {
 		return dao.deleteQuestionReply(reNumber);
@@ -91,7 +91,6 @@ public class QuestionServiceImpl implements QuestionService {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 
    

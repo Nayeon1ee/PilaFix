@@ -10,10 +10,23 @@ public class QuestionVO {
 	private Date qsRegdate; //DEFAULT NOW()
 	private Date qsModifiedDate;
 	private boolean qsAnswerYn;//답변여부
+	private String qstWriterName; //문의사항 작성자 이름
+	private String qsCenterName; //문의사항 작성시 연동센터이름
 
 	
 	
-	
+	public String getQsCenterName() {
+		return qsCenterName;
+	}
+	public void setQsCenterName(String qsCenterName) {
+		this.qsCenterName = qsCenterName;
+	}
+	public String getQstWriterName() {
+		return qstWriterName;
+	}
+	public void setQstWriterName(String qstWriterName) {
+		this.qstWriterName = qstWriterName;
+	}
 	public int getQsNumber() {
 		return qsNumber;
 	}
@@ -60,20 +73,10 @@ public class QuestionVO {
 	public String toString() {
 		return "QuestionVO [qsNumber=" + qsNumber + ", qsTitle=" + qsTitle + ", qsContent=" + qsContent
 				+ ", qsWriterMemberCode=" + qsWriterMemberCode + ", qsRegdate=" + qsRegdate + ", qsModifiedDate="
-				+ qsModifiedDate + ", qsAnswerYn=" + qsAnswerYn + "]";
+				+ qsModifiedDate + ", qsAnswerYn=" + qsAnswerYn + ", qstWriterName=" + qstWriterName + ", qsCenterName="
+				+ qsCenterName + "]";
 	}
-
 	
 	
-	
-	
-	
-	
-	
-	
-	
-
-	
-
 	
 }
