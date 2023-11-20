@@ -1,6 +1,7 @@
 package com.dev.pilafix.member.community.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,8 +51,11 @@ public class MemberCommunityServiceImpl implements MemberCommunityService {
 	}
 	
 	@Override
-	public int insertBlame(int memberCmNumber, String ipAddress) {
-		return dao.insertBlame(memberCmNumber, ipAddress);
+	public int insertBlame(Map<String, Object> blame) {
+	    System.out.println("[Service] "+blame.get("memberCmWriterMemberCode"));
+	    System.out.println("[Service] "+blame.get("memberTargetWriterMemberCode"));
+	    System.out.println("[Service] "+blame.get("memberCmNumber"));
+		return dao.insertBlame(blame);
 	}
 
 	@Override
