@@ -1,12 +1,13 @@
 package com.dev.pilafix.common.question;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dev.pilafix.common.member.CenterVO;
 
 public interface QuestionService {
 	
-	List<QuestionVO> getQuestionList();
+	List<Map<String, Object>> getQuestionList();
 	QuestionVO getQuestion(int qsNumber);
 	
 	int insertQuestion(QuestionVO vo); 
@@ -21,7 +22,8 @@ public interface QuestionService {
 	List<QuestionVO> getQuestionReplyList();
 	QuestionVO getTargetQuestion(Integer reTargetPostNumber);
 	
-	int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo);
+	
+	void insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo, int questionNumber);
 	int deleteQuestionReply(int reNumber);
 	void updateAnswerYn(int qsNumber);
 	

@@ -1,6 +1,7 @@
 package com.dev.pilafix.common.question.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,14 @@ public class QuestionServiceImpl implements QuestionService {
     private QuestionDAO dao;
 
 	@Override
-	public List<QuestionVO> getQuestionList() {
+	public List<Map<String, Object>> getQuestionList() {
 		return dao.getQuestionList();
 	}
+	
+//	@Override
+//	public List<QuestionReplyVO> getQuestionReply(int writerMemberCode) {
+//		return dao.getQuestionReply(writerMemberCode);
+//	}
 	
 	@Override
 	public List<QuestionReplyVO> getQuestionReply(int writerMemberCode) {
@@ -62,7 +68,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public List<QuestionVO> getQuestionReplyList() {
-		return dao.getQuestionReplyList();
+		return dao.getQReplyList();
 	}
 
 	@Override
@@ -77,10 +83,11 @@ public class QuestionServiceImpl implements QuestionService {
 	 * 답변이 등록될때 회원문의사항 답변여부 컬럼 true로 업데이트 (insert + update)
 	 */
 	@Override
-	public int insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo) {
-		return dao.insertQuestionReplyAndUpdateAnswerYn(replyvo);
-	}
-
+    public void insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo, int questionNumber) {
+        dao.insertReplyAndUpdateQuestion(replyvo, questionNumber);
+    }
+	
+	
 	@Override
 	public int deleteQuestionReply(int reNumber) {
 		return dao.deleteQuestionReply(reNumber);

@@ -1,18 +1,11 @@
 package com.dev.pilafix.center.member_trainer_manage;
 
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
-import com.dev.pilafix.common.question.QuestionVO;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
@@ -20,37 +13,44 @@ public class MemberManageController {
 	
 	@Autowired
 	private MemberManageService service;
-
-	/* ======================== íšŒì› ê´€ë¦¬ ======================== */ 
+	
+	/* ======================== È¸¿ø °ü¸® ======================== */ 
 	/**
-	 * íšŒì› ëª©ë¡ ì¡°íšŒ 
+	 * È¸¿ø ¸ñ·Ï Á¶È¸ 
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/getMemberManageList.do")
-	public String getMemberManageList(HttpSession session, Model model) {
-		// ì„¸ì…˜ì—ì„œ íŒŒë¼ë¯¸í„° ë°›ì•„ì™€ì•¼ í•¨
-//        Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-
-      
-        // íšŒì›ì´ ë¡œê·¸ì¸ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸
-//        if (user != null) {
-            //ì„¼í„° ì—°ë™ ìš”ì²­ ë¦¬ìŠ¤íŠ¸ 
-        	model.addAttribute("request", service.getConnectRequestForMe());
-    		model.addAttribute("memberList", service.getMemberManageList());
-//        } else {
-            // ë¡œê·¸ì¸ë˜ì–´ ìˆì§€ ì•Šì€ ê²½ìš°ì— ëŒ€í•œ ì²˜ë¦¬
-//            return "redirect:/login"; // ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
-//        }
-
-        return "center/center_member_list";
+	public String getMemberManageList(Model model) {
+		// ¼¾ÅÍ ¿¬µ¿ ¿äÃ» ¸ñ·Ï °¡Á®¿È 
+		// ¼¼¼Ç¿¡¼­ ÆÄ¶ó¹ÌÅÍ ¹Ş¾Æ¿Í¾ß ÇÔ
+		model.addAttribute("request", service.getConnectRequestForMem());
+		
+		model.addAttribute("memberList", service.getMemberManageList());
+		return "center/center_member_list";
 	}
 	
+	/**
+	 * È¸¿ø/°­»ç ¿¬µ¿ ¿äÃ» ¼ö¶ô 
+	 * 
+	 * ¿¬µ¿Ã³¸® STEP01 - TBL_CENTER_REQUEST ¿¬µ¿¿©ºÎ, ÀÏÀÚ ¾÷µ¥ÀÌÆ®
+	 * ¿¬µ¿Ã³¸® STEP02 - TBL_CENTER_CONN¿¡ ÀÌ·Â µî·Ï
+	 * ¿¬µ¿Ã³¸® STEP03 - TBL_CST CONNECTED_CENTER_CODE ¾÷µ¥ÀÌÆ®
+	 * 
+	 * @return ¼ö¶ô ÈÄ ¸ñ·Ï ÀçÁ¶È¸ 
+	 */
+	@PostMapping("/acceptRequest.do")
+	public String acceptRequest(String crCode, int memberCode, int centerCode) {
+		
+		service.acceptRequest(crCode, memberCode, centerCode);
+		// È¸¿ø ½Â³« ÈÄ È¸¿ø ¸ñ·Ï Á¶È¸·Î ÀÌµ¿ 
+		return "redirect:getMemberManageList.do";
+	}
 	
 	/**
-	 * íšŒì› ìƒì„¸ ì¡°íšŒ 
-	 * íšŒì› ì •ë³´, ë¬¸ì˜ ë‚´ì—­, ì˜ˆì•½ ìˆ˜ì—… ë‚´ì—­, ê²°ì œ ë‚´ì—­ ì¡°íšŒ í•„ìš” 
+	 * È¸¿ø »ó¼¼ Á¶È¸ 
+	 * È¸¿ø Á¤º¸, ¹®ÀÇ ³»¿ª, ¿¹¾à ¼ö¾÷ ³»¿ª, °áÁ¦ ³»¿ª Á¶È¸ ÇÊ¿ä 
 	 * 
 	 * @param csMemberCode
 	 * @param csRoleCode
@@ -59,41 +59,38 @@ public class MemberManageController {
 	 */
 	@GetMapping("/getMemberManage.do")
 	public String getMemberManage(int csMemberCode, String csRoleCode,Model model) {
-		//íšŒì› ì •ë³´ 
+		//È¸¿ø Á¤º¸ 
 		model.addAttribute("member", service.getMember(csMemberCode, csRoleCode));
 
-		// ìµœê·¼ ë¬¸ì˜ ë‚´ì—­ ì €ì¥ 
-		List<QuestionVO> qlist =  service.getQuestion();
+		// ÃÖ±Ù ¹®ÀÇ ³»¿ª ÀúÀå 
 		
-		// ìµœê·¼ ì˜ˆì•½ ìˆ˜ì—… ë‚´ì—­ ì €ì¥ 
+		// ÃÖ±Ù ¿¹¾à ¼ö¾÷ ³»¿ª ÀúÀå 
 		
+		// ÃÖ±Ù °áÁ¦ ³»¿ª ÀúÀå
 		
-		// ìµœê·¼ ê²°ì œ ë‚´ì—­ ì €ì¥
-		List<PaymentHistoryVO> payList = service.getPayment();
-		
-		
-		return "center/center_member_detail";
+		return "center/center_member_list";
 	}
 	
 	
 	
-	/* ======================== ê°•ì‚¬ ê´€ë¦¬ ======================== */ 
+	/* ======================== °­»ç °ü¸® ======================== */ 
 	/**
-	 * ê°•ì‚¬ ëª©ë¡ ì¡°íšŒ 
+	 * °­»ç ¸ñ·Ï Á¶È¸ 
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/getTrainerManageList.do")
 	public String getTrainerManageList(Model model) {
-		model.addAttribute("request", service.getConnectRequestForTr());
+		
 		model.addAttribute("memberList",service.getTrainerManageList());
+		
 		return "center/center_trainer_list";
 	}
 	
 	/**
-	 * ê°•ì‚¬ ìƒì„¸ ì¡°íšŒ 
-	 * ìˆ˜ì—… ì§„í–‰ í˜„í™©, ê·¸ë£¹ ìˆ˜ì—… ë‚´ì—­, ê°œì¸ ìˆ˜ì—… ë‚´ì—­, ì „ì²´ ìˆ˜ì—… ë‚´ì—­ 
+	 * °­»ç »ó¼¼ Á¶È¸ 
+	 * ¼ö¾÷ ÁøÇà ÇöÈ², ±×·ì ¼ö¾÷ ³»¿ª, °³ÀÎ ¼ö¾÷ ³»¿ª, ÀüÃ¼ ¼ö¾÷ ³»¿ª 
 	 * 
 	 * @param csMemberCode
 	 * @param csRoleCode
@@ -102,47 +99,21 @@ public class MemberManageController {
 	 */
 	@GetMapping("/getTrainerManage.do")
 	public String getTrainerManage(int csMemberCode, String csRoleCode,Model model) {
-		//íšŒì› ì •ë³´ 
+		//È¸¿ø Á¤º¸ 
 		model.addAttribute("member", service.getMember(csMemberCode, csRoleCode));
 
-		// ìµœê·¼ ë¬¸ì˜ ë‚´ì—­ ì €ì¥ 
+		// ÃÖ±Ù ¹®ÀÇ ³»¿ª ÀúÀå 
 		
-		// ìµœê·¼ ì˜ˆì•½ ìˆ˜ì—… ë‚´ì—­ ì €ì¥ 
+		// ÃÖ±Ù ¿¹¾à ¼ö¾÷ ³»¿ª ÀúÀå 
 		
-		// ìµœê·¼ ê²°ì œ ë‚´ì—­ ì €ì¥
+		// ÃÖ±Ù °áÁ¦ ³»¿ª ÀúÀå
 		
 		return "center/center_trainer_detail";
 	}
 	
 	
-	/* ======================== ê³µí†µ ======================== */ 
-	/**
-	 * íšŒì›/ê°•ì‚¬ ì—°ë™ ìš”ì²­ ìˆ˜ë½ 
-	 * 
-	 * ì—°ë™ì²˜ë¦¬ STEP01 - TBL_CENTER_REQUEST ì—°ë™ì—¬ë¶€, ì¼ì ì—…ë°ì´íŠ¸
-	 * ì—°ë™ì²˜ë¦¬ STEP02 - TBL_CENTER_CONNì— ì´ë ¥ ë“±ë¡
-	 * ì—°ë™ì²˜ë¦¬ STEP03 - TBL_CST CONNECTED_CENTER_CODE ì—…ë°ì´íŠ¸
-	 * 
-	 * @return ìˆ˜ë½ í›„ ëª©ë¡ ì¬ì¡°íšŒ 
-	 */
-	@GetMapping("/acceptRequest.do")
-	public String acceptRequest(@RequestParam("crCode") String crCode, @RequestParam("memberCode") int memberCode, @RequestParam("centerCode") int centerCode) {
-		service.acceptRequest(crCode, memberCode, centerCode);
-		return "redirect:getMemberManageList.do";
-	}
 	
-	/**
-	 * íšŒì›/ê°•ì‚¬ ì—°ë™ ìš”ì²­ ê±°ì ˆ 
-	 * 
-	 * TBL_CENTER_REQUEST ê±°ì ˆ ì¼ì ì—…ë°ì´íŠ¸
-	 * 
-	 * @return ê±°ì ˆ í›„ ëª©ë¡ ì¬ì¡°íšŒ 
-	 */
-	@GetMapping("/rejectRequest.do")
-	public String rejectRequest(@RequestParam("crCode") String crCode) {
-		service.rejectRequest(crCode);
-		return "redirect:getMemberManageList.do";
-	}
+	
 	
 
 }

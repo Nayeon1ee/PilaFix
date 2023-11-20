@@ -76,37 +76,25 @@
 		WHERE CS_ROLE_CODE = 'ME'
 		AND (CONNECTED_CENTER_CODE1 = 111 OR CONNECTED_CENTER_CODE2 = 111 OR CONNECTED_CENTER_CODE3 = 111);
 	</select>
-	<select id="getMember" resultMap="memberResult" >
-		SELECT *  FROM TBL_CST WHERE CS_MEMBER_CODE=#{csMemberCode}
-	</select>
 
 	<!-- 강사 목록 조회 -->
 	<select id="getTrainerList" resultMap="memberResult">
 		SELECT * FROM TBL_CST WHERE CS_ROLE_CODE = 'TR'
 	</select>
 
+	<select id="getMember" resultMap="memberResult" >
+		SELECT *  FROM TBL_CST WHERE CS_MEMBER_CODE=#{csMemberCode}
+	</select>
 	
 	<!-- 회원 연동 요청 목록 조회  -->
 	<select id="getCenterRequestForMe" resultMap="connectRequestResult" >
-		<![CDATA[
-		SELECT * FROM TBL_CENTER_REQUEST 
-		WHERE CENTER_CODE='111' 
-			AND CR_CONNECTION_YN=FALSE 
-			AND MEMBER_CODE < 8000 
-			AND CR_REJECT_DATE IS NULL;
-		]]>
-		<!-- select * from tbl_center_request where center_code=#{centerCode} and cr_connection_yn=false AND MEMBER_CODE &gt; 8000 AND CR_REJECT_DATE IS NULL  -->
+		SELECT * FROM TBL_CENTER_REQUEST WHERE CENTER_CODE='111' AND CR_CONNECTION_YN=FALSE AND MEMBER_CODE &gt; 8000
+		<!-- select * from tbl_center_request where center_code=#{centerCode} and cr_connection_yn=false AND MEMBER_CODE > 8000 -->
 	</select>
 	<!-- 강사 연동 요청 목록 조회  -->
 	<select id="getCenterRequestForTr" resultMap="connectRequestResult" >
-		<![CDATA[
-		SELECT * FROM TBL_CENTER_REQUEST 
-		WHERE CENTER_CODE='111' 
-			AND CR_CONNECTION_YN=FALSE 
-			AND MEMBER_CODE > 8000
-			AND CR_REJECT_DATE IS NULL;
-		]]>
-		<!-- select * from tbl_center_request where center_code=#{centerCode} and cr_connection_yn=false AND MEMBER_CODE &lt; 8000 AND CR_REJECT_DATE IS NULL-->
+		SELECT * FROM TBL_CENTER_REQUEST WHERE CENTER_CODE='111' AND CR_CONNECTION_YN=FALSE AND MEMBER_CODE &lt; 8000
+		<!-- select * from tbl_center_request where center_code=#{centerCode} and cr_connection_yn=false AND MEMBER_CODE < 8000 -->
 	</select>
 	
 	
@@ -122,20 +110,14 @@
 		VALUES(#{crCode}, #{memberCode}, #{centerCode}, CURRENT_TIMESTAMP, TRUE);
 	</insert>
 	<!-- 연동처리 STEP03 - TBL_CST CONNECTED_CENTER_CODE 업데이트  -->
-	<update id="updateCSTConn" parameterType="java.util.Map">
-	    UPDATE TBL_CST SET
+	<update id="updateCSTConn">
+		 UPDATE TBL_CST SET
 	        CONNECTED_CENTER_CODE1 = CASE WHEN CONNECTED_CENTER_CODE1 = 0 THEN #{centerCode} ELSE CONNECTED_CENTER_CODE1 END,
-	        CONNECTED_CENTER_CODE2 = CASE WHEN CONNECTED_CENTER_CODE2 = 0 THEN CONNECTED_CENTER_CODE2 ELSE 0 END,
-	        CONNECTED_CENTER_CODE3 = CASE WHEN CONNECTED_CENTER_CODE3 = 0 THEN CONNECTED_CENTER_CODE3 ELSE 0 END
-	    WHERE CS_MEMBER_CODE = #{memberCode};
+	        CONNECTED_CENTER_CODE2 = CASE WHEN CONNECTED_CENTER_CODE2 = 0 THEN #{centerCode} ELSE CONNECTED_CENTER_CODE2 END,
+	        CONNECTED_CENTER_CODE3 = CASE WHEN CONNECTED_CENTER_CODE3 = 0 THEN #{centerCode} ELSE CONNECTED_CENTER_CODE3 END
+   		 WHERE MEMBER_CODE = #{memberCode};
 	</update>
 	
-	<!-- 연동 거절 -->
-	<update id="updateRejectDate">
-		UPDATE TBL_CENTER_REQUEST 
-		SET CR_REJECT_DATE=CURRENT_TIMESTAMP
-		WHERE CR_CODE=#{crCode}
-	</update>
 	
 	
 	
