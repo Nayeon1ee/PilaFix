@@ -37,19 +37,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int insertMember(MemberVO vo) {
-		// °¡ÀÔ½Ã ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£¸¦ ÀĞ¾î¿Í¼­
+		// ê°€ì…ì‹œ ì…ë ¥í•œ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì½ì–´ì™€ì„œ
 		String csPassword = vo.getCsPassword();
-		System.out.println("°¡ÀÔ ½Ã ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£ : " + csPassword);
+		System.out.println("ê°€ì… ì‹œ ì…ë ¥í•œ ë¹„ë°€ë²ˆí˜¸ : " + csPassword);
 		
-		// ¾ÏÈ£È­ ÇÑ ÈÄ¿¡
+		// ì•”í˜¸í™” í•œ í›„ì—
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encodedPwd = encoder.encode(csPassword);
 		
-		System.out.println("¾ÏÈ£È­ ºñ¹Ğ¹øÈ£   : "+encodedPwd);
+		System.out.println("ì•”í˜¸í™” ë¹„ë°€ë²ˆí˜¸   : "+encodedPwd);
 		
-		// vo¿¡ ´Ù½Ã ³Ö¾îÁØ´Ù.
+		// voì— ë‹¤ì‹œ ë„£ì–´ì¤€ë‹¤.
 		vo.setCsPassword(encodedPwd);
-		// ¾ÏÈ£È­µÈ ºñ¹Ğ¹øÈ£°¡ µé¾î ÀÖ´Â vo¸¦ dao¿¡ Àü´ŞÇØ¼­ »õ·Î¿î È¸¿ø Á¤º¸¸¦ Ãß°¡ÇÑ´Ù.
+		// ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸ê°€ ë“¤ì–´ ìˆëŠ” voë¥¼ daoì— ì „ë‹¬í•´ì„œ ìƒˆë¡œìš´ íšŒì› ì •ë³´ë¥¼ ì¶”ê°€í•œë‹¤.
 		return dao.insertMember(vo);
 	}
 
@@ -62,44 +62,44 @@ public class MemberServiceImpl implements MemberService {
 //	public void idCheck(String csEmailId, HttpServletResponse response) throws IOException {
 //		int count = dao.idCheck(csEmailId);
 //		if(count == 0) {
-//			//dao¿¡¼­ selectÀÌ µÇÁö ¾Ê¾Æ¾ß true
-//			//id°¡ ¾ø¾î¾ß true(»ç¿ë °¡´É)
+//			//daoì—ì„œ selectì´ ë˜ì§€ ì•Šì•„ì•¼ true
+//			//idê°€ ì—†ì–´ì•¼ true(ì‚¬ìš© ê°€ëŠ¥)
 //			response.getWriter().print("1");
 //		}else {
-//			//id°¡ ÀÖÀ¸¸é false(Áßº¹À¸·Î »ç¿ë ºÒ°¡´É)
+//			//idê°€ ìˆìœ¼ë©´ false(ì¤‘ë³µìœ¼ë¡œ ì‚¬ìš© ë¶ˆê°€ëŠ¥)
 //			response.getWriter().print("0");
 //		}
 //		
 //	}
 	
 	/**
-	 * ÀÌ¸ŞÀÏ ¹ß¼Û ¹× ÀÌ·Â µî·Ï
+	 * ì´ë©”ì¼ ë°œì†¡ ë° ì´ë ¥ ë“±ë¡
 	 */
 	@Override
     public int mailCheckAndInsertSendEmailHistory(String csEmailId) {
     	
-    	int flag = 0;// ¹ß¼Û ¼º°ø ¿©ºÎ
-    	String errorMessage=""; //¿¡·¯ ½Ã ½ÇÆĞ »çÀ¯ 
+    	int flag = 0;// ë°œì†¡ ì„±ê³µ ì—¬ë¶€
+    	String errorMessage=""; //ì—ëŸ¬ ì‹œ ì‹¤íŒ¨ ì‚¬ìœ  
     	
     	
     	int authNumber = createAuthNumber();
     	
 		
-		//====ÀÌ¸ŞÀÏ ¹ß¼Û======
-	    String from = "inayeon1212@gmail.com"; //º¸³»´Â »ç¶÷
-	    String title = "[ÇÊ¶óÇÈ½º] È¸¿ø°¡ÀÔ ÀÌ¸ŞÀÏ ÀÎÁõ ¸ŞÀÏ"; // Á¦¸ñ
-	    String toSend = csEmailId; //¹Ş´Â »ç¶÷
+		//====ì´ë©”ì¼ ë°œì†¡======
+	    String from = "inayeon1212@gmail.com"; //ë³´ë‚´ëŠ” ì‚¬ëŒ
+	    String title = "[í•„ë¼í”½ìŠ¤] íšŒì›ê°€ì… ì´ë©”ì¼ ì¸ì¦ ë©”ì¼"; // ì œëª©
+	    String toSend = csEmailId; //ë°›ëŠ” ì‚¬ëŒ
 
-	    //¸ŞÀÏ ³»¿ë
+	    //ë©”ì¼ ë‚´ìš©
 	    StringBuilder content = new StringBuilder();
 	    content.append("<html><body style='font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;'>");
 	    content.append("<div style='background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);'>");
-	    content.append("<h1 style='color: #333333; text-align: center;'>È¸¿ø °¡ÀÔ ÀÌ¸ŞÀÏ ÀÎÁõ¹øÈ£ Àü¼Û</h1>");
+	    content.append("<h1 style='color: #333333; text-align: center;'>íšŒì› ê°€ì… ì´ë©”ì¼ ì¸ì¦ë²ˆí˜¸ ì „ì†¡</h1>");
 	    content.append("<p style='color: #555555; text-align: center;'>");
-	    content.append("</p><p style='text-align: center;'><strong>ÀÎÁõ¹øÈ£: </strong>");
+	    content.append("</p><p style='text-align: center;'><strong>ì¸ì¦ë²ˆí˜¸: </strong>");
 	    content.append(authNumber);
 	    content.append("</p>");
-	    content.append("<p style='color: #555555; text-align: center;'>È¸¿ø°¡ÀÔ ÆäÀÌÁö·Î µ¹¾Æ°¡ ÀÎÁõ¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.</p>");
+	    content.append("<p style='color: #555555; text-align: center;'>íšŒì›ê°€ì… í˜ì´ì§€ë¡œ ëŒì•„ê°€ ì¸ì¦ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤.</p>");
 	    content.append("</div></body></html>");
 		
 		try {
@@ -107,12 +107,12 @@ public class MemberServiceImpl implements MemberService {
 			MimeMessageHelper messageHelper;
 
 			messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setFrom(from); // º¸³»´Â»ç¶÷ (ÇÊ¼ö)
-		    messageHelper.setTo(toSend); // ¹Ş´Â»ç¶÷ ÀÌ¸ŞÀÏ
-		    messageHelper.setSubject(title); // ¸ŞÀÏÁ¦¸ñ
+			messageHelper.setFrom(from); // ë³´ë‚´ëŠ”ì‚¬ëŒ (í•„ìˆ˜)
+		    messageHelper.setTo(toSend); // ë°›ëŠ”ì‚¬ëŒ ì´ë©”ì¼
+		    messageHelper.setSubject(title); // ë©”ì¼ì œëª©
 
-		    // HTML Çü½ÄÀÇ ÀÌ¸ŞÀÏ ³»¿ë ¼³Á¤
-		    messageHelper.setText(content.toString(), true); // ¸ŞÀÏ ³»¿ëÀ» HTML Çü½ÄÀ¸·Î ¼³Á¤
+		    // HTML í˜•ì‹ì˜ ì´ë©”ì¼ ë‚´ìš© ì„¤ì •
+		    messageHelper.setText(content.toString(), true); // ë©”ì¼ ë‚´ìš©ì„ HTML í˜•ì‹ìœ¼ë¡œ ì„¤ì •
 
 		    mailSender.send(message);
 		    
@@ -128,10 +128,10 @@ public class MemberServiceImpl implements MemberService {
 		    e.printStackTrace();
 		}
 		
-		//====ÀÌ¸ŞÀÏ ¹ß¼Û ÀÌ·Â µî·Ï======
+		//====ì´ë©”ì¼ ë°œì†¡ ì´ë ¥ ë“±ë¡======
 		SendEmailHistoryVO email = new SendEmailHistoryVO();
-		email.setMhEmailSendType("È¸¿ø°¡ÀÔ ÀÎÁõ");
-		email.setMhRecipientName("È¸¿ø"); //È¸¿ø°¡ÀÔ½Ã È¸¿øÀº ÀÌ¸§ÀÌ ¾øÀ½
+		email.setMhEmailSendType("íšŒì›ê°€ì… ì¸ì¦");
+		email.setMhRecipientName("íšŒì›"); //íšŒì›ê°€ì…ì‹œ íšŒì›ì€ ì´ë¦„ì´ ì—†ìŒ
 		email.setMhRecipientTitle(title);
 		email.setMhRecipientContent(content.toString());
 		email.setMhRecipientEmail(toSend);
@@ -143,19 +143,19 @@ public class MemberServiceImpl implements MemberService {
 			email.setMhSuccessYN(false);
 			email.setMhFailReason(errorMessage);
 		}
-		dao.sendEmailToMem(email); //ÀÌ¸ŞÀÏ ¹ß¼ÛÀÌ·Â ÀúÀå
+		dao.sendEmailToMem(email); //ì´ë©”ì¼ ë°œì†¡ì´ë ¥ ì €ì¥
 		return authNumber;
     }
 	
 	/**
-	 * ÀÎÁõ¹øÈ£ ³­¼ö·Î ¹ß±Ş
+	 * ì¸ì¦ë²ˆí˜¸ ë‚œìˆ˜ë¡œ ë°œê¸‰
 	 * @return
 	 */
     public int createAuthNumber() {
-    	// ³­¼öÀÇ ¹üÀ§ 111111 ~ 999999 (6ÀÚ¸® ³­¼ö)
+    	// ë‚œìˆ˜ì˜ ë²”ìœ„ 111111 ~ 999999 (6ìë¦¬ ë‚œìˆ˜)
     	Random r = new Random();
     	int authNumber = r.nextInt(888888) + 111111;
-    	System.out.println("ÀÎÁõ¹øÈ£ : " + authNumber);
+    	System.out.println("ì¸ì¦ë²ˆí˜¸ : " + authNumber);
     	return authNumber;
     }
     

@@ -25,10 +25,10 @@ public class MemberCommunityController {
 
 	@GetMapping("getMemberCommunity.do")
 	public String getMemberCommunity(@RequestParam("memberCmNumber") Integer memberCmNumber, Model model) {
-		// 게시글 조회
+		//
 		MemberCommunityVO memberCommunity = service.getMemberCommunity(memberCmNumber);
 
-		// 조회수 증가
+		//
 		service.updateMemberCommunityViewCnt(memberCmNumber);
 		int updatedList = service.updateMemberCommunityViewCnt(memberCommunity.getMemberCmViews());
 		

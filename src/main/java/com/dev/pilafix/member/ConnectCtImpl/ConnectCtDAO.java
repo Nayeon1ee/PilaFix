@@ -17,7 +17,7 @@ public class ConnectCtDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<ConnectCtVO> searchCt(String searchKeyword) {
-		System.out.println("DAOµµ´Þ");
+		System.out.println("DAO");
 		return sqlSessionTemplate.selectList("ConnectCtDAO.searchCtList",searchKeyword);
 	}
 

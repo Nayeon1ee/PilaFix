@@ -3,7 +3,7 @@ package com.dev.pilafix.member.signup;
 public class TermsVO {
 	private String tmName;
 	private String tmDetail;
-	private boolean tmRequiredYn;//필수면 Y 선택이면 N
+	private boolean tmRequiredYn;
 	private boolean tmOpenYn;
 	public String getTmName() {
 		return tmName;

@@ -3,15 +3,15 @@ package com.dev.pilafix.common.question;
 import java.sql.Date;
 
 public class QuestionVO {
-	private int qsNumber;//½ÃÄö½º ¹øÈ£ 250000ºÎÅÍ ½ÃÀÛ
+	private int qsNumber;//ì‹œí€€ìŠ¤ ë²ˆí˜¸ 250000ë¶€í„° ì‹œì‘
 	private String qsTitle;
 	private String qsContent;
-	private int qsWriterMemberCode; //ÀÛ¼ºÀÚÈ¸¿øÄÚµå
+	private int qsWriterMemberCode; //ì‘ì„±ìíšŒì›ì½”ë“œ
 	private Date qsRegdate; //DEFAULT NOW()
 	private Date qsModifiedDate;
-	private boolean qsAnswerYn;//´äº¯¿©ºÎ
-	private String qstWriterName; //¹®ÀÇ»çÇ× ÀÛ¼ºÀÚ ÀÌ¸§
-	private String qsCenterName; //¹®ÀÇ»çÇ× ÀÛ¼º½Ã ¿¬µ¿¼¾ÅÍÀÌ¸§
+	private boolean qsAnswerYn;//ë‹µë³€ì—¬ë¶€
+	private String qstWriterName; //ë¬¸ì˜ì‚¬í•­ ì‘ì„±ì ì´ë¦„
+	private String qsCenterName; //ë¬¸ì˜ì‚¬í•­ ì‘ì„±ì‹œ ì—°ë™ì„¼í„°ì´ë¦„
 
 	
 	

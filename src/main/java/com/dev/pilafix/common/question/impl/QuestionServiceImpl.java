@@ -52,7 +52,7 @@ public class QuestionServiceImpl implements QuestionService {
 	
 	
 	/**
-	 * ¹®ÀÇ»çÇ× ÀüÃ¼ °Ç¼ö °¡Á®¿À±â
+	 * ë¬¸ì˜ì‚¬í•­ ì „ì²´ ê±´ìˆ˜ ê°€ì ¸ì˜¤ê¸°
 	 */
 	@Override
 	public int getTotalQuestionCount() {
@@ -73,7 +73,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	
 	/**
-	 * ´äº¯ÀÌ µî·ÏµÉ¶§ È¸¿ø¹®ÀÇ»çÇ× ´äº¯¿©ºÎ ÄÃ·³ true·Î ¾÷µ¥ÀÌÆ® (insert + update)
+	 * ë‹µë³€ì´ ë“±ë¡ë ë•Œ íšŒì›ë¬¸ì˜ì‚¬í•­ ë‹µë³€ì—¬ë¶€ ì»¬ëŸ¼ trueë¡œ ì—…ë°ì´íŠ¸ (insert + update)
 	 */
 	@Override
     public void insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo, int questionNumber) {

@@ -22,7 +22,7 @@ public class KakaoLoginController {
 
 	
 //	/**
-//	 * Å¬¶óÀÌ¾ğÆ®·ÎºÎÅÍ Àü´Ş¹ŞÀº ¾×¼¼½º ÅäÅ«À» »ç¿ëÇÏ¿© Ä«Ä«¿À ·Î±×ÀÎ ¼­ºñ½º¸¦ È£Ãâ
+//	 * í´ë¼ì´ì–¸íŠ¸ë¡œë¶€í„° ì „ë‹¬ë°›ì€ ì•¡ì„¸ìŠ¤ í† í°ì„ ì‚¬ìš©í•˜ì—¬ ì¹´ì¹´ì˜¤ ë¡œê·¸ì¸ ì„œë¹„ìŠ¤ë¥¼ í˜¸ì¶œ
 //	 */
 	@GetMapping("/kakaoTest.do")
     public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session){
@@ -40,15 +40,15 @@ public class KakaoLoginController {
 	
 	}
 	
-	// ·Î±×ÀÎ ÈÄ ¸®µğ·º¼Ç Ã³¸®¸¦ À§ÇÑ ¸ÅÇÎ
+	// ë¡œê·¸ì¸ í›„ ë¦¬ë””ë ‰ì…˜ ì²˜ë¦¬ë¥¼ ìœ„í•œ ë§¤í•‘
     @GetMapping("/kakaoLoginTest.do")
     public String kakaoLoginRedirect(HttpSession session) {
         KakaoVO userinfo = (KakaoVO) session.getAttribute("user");
         if (userinfo != null) {
-            // »ç¿ëÀÚ Á¤º¸°¡ ÀÖÀ¸¸é, ¿øÇÏ´Â ÆäÀÌÁö·Î ¸®µğ·º¼Ç
+            // ì‚¬ìš©ì ì •ë³´ê°€ ìˆìœ¼ë©´, ì›í•˜ëŠ” í˜ì´ì§€ë¡œ ë¦¬ë””ë ‰ì…˜
             return "redirect:/memberMyinfo.do";
         } else {
-            // »ç¿ëÀÚ Á¤º¸°¡ ¾øÀ¸¸é, ·Î±×ÀÎ ÆäÀÌÁö³ª ¿¡·¯ ÆäÀÌÁö·Î ¸®µğ·º¼Ç
+            // ì‚¬ìš©ì ì •ë³´ê°€ ì—†ìœ¼ë©´, ë¡œê·¸ì¸ í˜ì´ì§€ë‚˜ ì—ëŸ¬ í˜ì´ì§€ë¡œ ë¦¬ë””ë ‰ì…˜
             return "redirect:/memberLogin.do"; 
         }
     }
@@ -56,7 +56,7 @@ public class KakaoLoginController {
 	
 //	@PostMapping("/kakaoLoginTest.do")
 //	public ResponseEntity<?> kakaoLoginTest(@RequestBody String accessToken) {
-//		// accessTokenÀ» »ç¿ëÇÏ¿© Ä«Ä«¿À API¿¡ »ç¿ëÀÚ Á¤º¸ ¿äÃ»
+//		// accessTokenì„ ì‚¬ìš©í•˜ì—¬ ì¹´ì¹´ì˜¤ APIì— ì‚¬ìš©ì ì •ë³´ ìš”ì²­
 //		KakaoVO kakao = service.getUserInfo(accessToken);
 //		return ResponseEntity.ok().body(kakao);
 //	}

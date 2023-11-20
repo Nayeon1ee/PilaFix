@@ -50,18 +50,18 @@ public class MemberLoginController {
 
 
 	/**
-	 * ·Î±×ÀÎÇÒ¶§ ¾ÏÈ£È­µÈ ºñ¹Ğ¹øÈ£¿Í ºñ±³ÇÏ¿© ·Î±×ÀÎ member.getCsRoleCode °¡ "ME"ÀÌ¸é È¸¿øÀÇ ¸ŞÀÎÆäÀÌÁö, ¾Æ´Ï¸é °­»çÀÇ
-	 * ¸ŞÀÎÆäÀÌÁö·Î ÀÌµ¿ ¿¬µ¿µÈ ¼¾ÅÍ°¡ ÀÖÀ¸¸é ¿¬µ¿ÆäÀÌÁö return "member/ctConnect"; , ¾Æ´Ï¸é ¸ŞÀÎÆäÀÌÁö ·Î±×ÀÎ ½ÇÆĞ½Ã ½ÇÆĞ
-	 * ¸Ş½ÃÁö
+	 * ë¡œê·¸ì¸í• ë•Œ ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸ì™€ ë¹„êµí•˜ì—¬ ë¡œê·¸ì¸ member.getCsRoleCode ê°€ "ME"ì´ë©´ íšŒì›ì˜ ë©”ì¸í˜ì´ì§€, ì•„ë‹ˆë©´ ê°•ì‚¬ì˜
+	 * ë©”ì¸í˜ì´ì§€ë¡œ ì´ë™ ì—°ë™ëœ ì„¼í„°ê°€ ìˆìœ¼ë©´ ì—°ë™í˜ì´ì§€ return "member/ctConnect"; , ì•„ë‹ˆë©´ ë©”ì¸í˜ì´ì§€ ë¡œê·¸ì¸ ì‹¤íŒ¨ì‹œ ì‹¤íŒ¨
+	 * ë©”ì‹œì§€
 	 */
 	@PostMapping("/memberLogin.do")
 	public String memberLogin(@ModelAttribute MemberVO memberVO, HttpSession session, Model model) {
 		MemberVO member = service.loginAndGetMember(memberVO.getCsEmailId(), memberVO.getCsPassword());
 		if (member != null) {
-			// ·Î±×ÀÎ ¼º°ø, ¼¼¼Ç¿¡ »ç¿ëÀÚ Á¤º¸ ÀúÀå
-			System.out.println("·Î±×ÀÎ¼º°ø: " + memberVO.getCsEmailId());
+			// ë¡œê·¸ì¸ ì„±ê³µ, ì„¸ì…˜ì— ì‚¬ìš©ì ì •ë³´ ì €ì¥
+			System.out.println("ë¡œê·¸ì¸ì„±ê³µ: " + memberVO.getCsEmailId());
 
-			// ¼¼¼Ç¿¡ ´ãÀ» Map »ı¼º
+			// ì„¸ì…˜ì— ë‹´ì„ Map ìƒì„±
 			Map<String, Object> loginUser = new HashMap<>();
 			loginUser.put("csMemberCode", member.getCsMemberCode());
 			loginUser.put("csName", member.getCsName());
@@ -70,36 +70,36 @@ public class MemberLoginController {
 			String userPhone = member.getCsPhoneNumber1() + member.getCsPhoneNumber2() + member.getCsPhoneNumber3();
 			loginUser.put("csPhoneNumber", userPhone);
 
-			// ¼¼¼Ç¿¡ Map ÀúÀå
+			// ì„¸ì…˜ì— Map ì €ì¥
 			session.setAttribute("loginUser", loginUser);
 
-			// ¿¬µ¿µÈ ¼¾ÅÍ°¡ ÀÖ´ÂÁö È®ÀÎ
+			// ì—°ë™ëœ ì„¼í„°ê°€ ìˆëŠ”ì§€ í™•ì¸
 			boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || member.getConnectedCenterCode2() != 0
 					|| member.getConnectedCenterCode3() != 0;
-			// ¿ªÇÒ¿¡ µû¶ó ÀûÀıÇÑ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+			// ì—­í• ì— ë”°ë¼ ì ì ˆí•œ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 			if ("ME".equals(member.getCsRoleCode())) {
-				// È¸¿øÀÎ °æ¿ì
+				// íšŒì›ì¸ ê²½ìš°
 				if (hasConnectedCenters) {
-					return "redirect:/memberMyinfo.do"; // ºñ¹Ğ¹øÈ£ º¯°æ, ·Î±×¾Æ¿ô Å×½ºÆ® ÆäÀÌÁö
+					return "redirect:/memberMyinfo.do"; // ë¹„ë°€ë²ˆí˜¸ ë³€ê²½, ë¡œê·¸ì•„ì›ƒ í…ŒìŠ¤íŠ¸ í˜ì´ì§€
 				} else {
-					return "redirect:/memberMyinfo.do"; // ¼¾ÅÍ ¿¬µ¿ ÆäÀÌÁö
+					return "redirect:/memberMyinfo.do"; // ì„¼í„° ì—°ë™ í˜ì´ì§€
 				}
 			} else {
-				// °­»çÀÎ °æ¿ì
+				// ê°•ì‚¬ì¸ ê²½ìš°
 				if (hasConnectedCenters) {
-					return "redirect:/memberMyinfo.do"; // ºñ¹Ğ¹øÈ£ º¯°æ, ·Î±×¾Æ¿ô Å×½ºÆ® ÆäÀÌÁö
+					return "redirect:/memberMyinfo.do"; // ë¹„ë°€ë²ˆí˜¸ ë³€ê²½, ë¡œê·¸ì•„ì›ƒ í…ŒìŠ¤íŠ¸ í˜ì´ì§€
 				} else {
-					return "member/ctConnect"; // ¼¾ÅÍ ¿¬µ¿ ÆäÀÌÁö
+					return "member/ctConnect"; // ì„¼í„° ì—°ë™ í˜ì´ì§€
 				}
 			}
 		} else {
-			// ·Î±×ÀÎ ½ÇÆĞ ¸Ş½ÃÁö¿Í ÇÔ²² ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
-			model.addAttribute("loginError", "¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+			// ë¡œê·¸ì¸ ì‹¤íŒ¨ ë©”ì‹œì§€ì™€ í•¨ê»˜ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™
+			model.addAttribute("loginError", "ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			return "member/login";
 		}
 	}
 
-// 11.16 »õ·Î¿î ·Î±×ÀÎtestÀ§ÇÑ ÁÖ¼®Ã³¸®	
+// 11.16 ìƒˆë¡œìš´ ë¡œê·¸ì¸testìœ„í•œ ì£¼ì„ì²˜ë¦¬	
 //	@PostMapping("/memberLogin.do")
 //	public String memberLogin(@RequestParam("csEmailId") String csEmailId,
 //	                          @RequestParam("csPassword") String csPassword,
@@ -108,43 +108,43 @@ public class MemberLoginController {
 //		MemberVO member = service.memberLogin(csEmailId, csPassword);
 //	    
 //	    if (member != null) {
-//	        // ·Î±×ÀÎ ¼º°ø, ¼¼¼Ç¿¡ »ç¿ëÀÚ Á¤º¸ ÀúÀå
+//	        // ë¡œê·¸ì¸ ì„±ê³µ, ì„¸ì…˜ì— ì‚¬ìš©ì ì •ë³´ ì €ì¥
 //	        session.setAttribute("member", member);
 //	        
-//	        // ¿¬µ¿µÈ ¼¾ÅÍ°¡ ÀÖ´ÂÁö È®ÀÎÇÏ°í, ¿ªÇÒ¿¡ µû¶ó ÀûÀıÇÑ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+//	        // ì—°ë™ëœ ì„¼í„°ê°€ ìˆëŠ”ì§€ í™•ì¸í•˜ê³ , ì—­í• ì— ë”°ë¼ ì ì ˆí•œ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 //	        boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || 
 //	                                      member.getConnectedCenterCode2() != 0 ||
 //	                                      member.getConnectedCenterCode3() != 0;
 //
-//	        // ¿ªÇÒ°ú ¿¬µ¿µÈ ¼¾ÅÍ¿¡ µû¶ó ¸®´ÙÀÌ·ºÆ®
+//	        // ì—­í• ê³¼ ì—°ë™ëœ ì„¼í„°ì— ë”°ë¼ ë¦¬ë‹¤ì´ë ‰íŠ¸
 //	        if ("ME".equals(member.getCsRoleCode())) {
-//	            // È¸¿øÀÎ °æ¿ì
+//	            // íšŒì›ì¸ ê²½ìš°
 //	            if (hasConnectedCenters) {
-//	            	return "redirect:/memberMyinfo.do"; //ºñ¹Ğ¹øÈ£º¯°æ, ·Î±×¾Æ¿ôÅ×½ºÆ®ÆäÀÌÁö
+//	            	return "redirect:/memberMyinfo.do"; //ë¹„ë°€ë²ˆí˜¸ë³€ê²½, ë¡œê·¸ì•„ì›ƒí…ŒìŠ¤íŠ¸í˜ì´ì§€
 //	            } else {
-////	                return "member/ctConnect"; // ¼¾ÅÍ¿¬µ¿ÆäÀÌÁö
-//	            	return "redirect:/memberMyinfo.do"; //ºñ¹Ğ¹øÈ£º¯°æ, ·Î±×¾Æ¿ôÅ×½ºÆ®ÆäÀÌÁö
+////	                return "member/ctConnect"; // ì„¼í„°ì—°ë™í˜ì´ì§€
+//	            	return "redirect:/memberMyinfo.do"; //ë¹„ë°€ë²ˆí˜¸ë³€ê²½, ë¡œê·¸ì•„ì›ƒí…ŒìŠ¤íŠ¸í˜ì´ì§€
 //	            }
 //	        } else {
-//	            // °­»çÀÎ °æ¿ì
+//	            // ê°•ì‚¬ì¸ ê²½ìš°
 //	            if (hasConnectedCenters) {
-//	            	return "redirect:/memberMyinfo.do"; //ºñ¹Ğ¹øÈ£º¯°æ, ·Î±×¾Æ¿ôÅ×½ºÆ®ÆäÀÌÁö
+//	            	return "redirect:/memberMyinfo.do"; //ë¹„ë°€ë²ˆí˜¸ë³€ê²½, ë¡œê·¸ì•„ì›ƒí…ŒìŠ¤íŠ¸í˜ì´ì§€
 //	            } else {
-//	                return "member/ctConnect"; // ¼¾ÅÍ¿¬µ¿ÆäÀÌÁö
-////	            	System.out.println("·Î±×ÀÎ¼º°ø");
-////	            	return "redirect:/memberMyinfo.do"; //ºñ¹Ğ¹øÈ£º¯°æ, ·Î±×¾Æ¿ôÅ×½ºÆ®ÆäÀÌÁö
+//	                return "member/ctConnect"; // ì„¼í„°ì—°ë™í˜ì´ì§€
+////	            	System.out.println("ë¡œê·¸ì¸ì„±ê³µ");
+////	            	return "redirect:/memberMyinfo.do"; //ë¹„ë°€ë²ˆí˜¸ë³€ê²½, ë¡œê·¸ì•„ì›ƒí…ŒìŠ¤íŠ¸í˜ì´ì§€
 //	            }
 //	        }
 //	    } else {
-//	        // ·Î±×ÀÎ ½ÇÆĞ ¸Ş½ÃÁö¿Í ÇÔ²² ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
-//	        model.addAttribute("message" ,"Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğ°Å³ª ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+//	        // ë¡œê·¸ì¸ ì‹¤íŒ¨ ë©”ì‹œì§€ì™€ í•¨ê»˜ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
+//	        model.addAttribute("message" ,"ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ê±°ë‚˜ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 //	        return "redirect:memberLogin.do"; 
 //	    }
 //	}
 	
 	
 	/**
-	 * ·Î±×ÀÎÀÌÈÄ ¿ì¼± ÀÌµ¿ÇÒ ¸¶ÀÌÆäÀÌÁö(·Î±×¾Æ¿ô,ºñ¹Ğ¹øÈ£º¯°æ Å×½ºÆ®)
+	 * ë¡œê·¸ì¸ì´í›„ ìš°ì„  ì´ë™í•  ë§ˆì´í˜ì´ì§€(ë¡œê·¸ì•„ì›ƒ,ë¹„ë°€ë²ˆí˜¸ë³€ê²½ í…ŒìŠ¤íŠ¸)
 	 */
 	@GetMapping("/memberMyinfo.do")
 	public String memberMyinfo(HttpSession session, Model model) {
@@ -158,7 +158,7 @@ public class MemberLoginController {
 	}
 
 	/**
-	 * ºñ¹Ğ¹øÈ£ º¯°æÇÒ¶§ ÇöÀç ºñ¹Ğ¹øÈ£¿Í DB ºñ¹Ğ¹øÈ£ ºñ±³
+	 * ë¹„ë°€ë²ˆí˜¸ ë³€ê²½í• ë•Œ í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ì™€ DB ë¹„ë°€ë²ˆí˜¸ ë¹„êµ
 	 */
 	@GetMapping("/passwordChange.do")
 	public String passwordChange() {
@@ -177,7 +177,7 @@ public class MemberLoginController {
 //	}
 
 	/**
-	 * ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ°í »õ ºñ¹Ğ¹øÈ£ = ºñ¹Ğ¹øÈ£È®ÀÎ ÀÏ °æ¿ì¿¡ ºñ¹Ğ¹øÈ£ º¯°æ
+	 * í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ê³  ìƒˆ ë¹„ë°€ë²ˆí˜¸ = ë¹„ë°€ë²ˆí˜¸í™•ì¸ ì¼ ê²½ìš°ì— ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
 	 */
 	@GetMapping("/checkCurrentPassword.do")
 	public String getcheckCurrentPassword() {
@@ -198,14 +198,14 @@ public class MemberLoginController {
 		if (loginUser != null) {
 			int csMemberCode = (int) loginUser.get("csMemberCode");
 			if (service.checkPassword(csMemberCode, currentPassword)) {
-				// ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ¸é ºñ¹Ğ¹øÈ£ º¯°æ ÆäÀÌÁö·Î ÀÌµ¿
+				// í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ë©´ ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ í˜ì´ì§€ë¡œ ì´ë™
 				return "redirect:/updatePassword.do";
 			} else {
-				model.addAttribute("message", "ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+				model.addAttribute("message", "í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 				return "member/passwordcheck";
 			}
 		} else {
-			// ·Î±×ÀÎÇÑ Á¤º¸°¡ ¾øÀ¸¸é ·Î±×ÀÎÆäÀÌÁö·Î ÀÌµ¿
+			// ë¡œê·¸ì¸í•œ ì •ë³´ê°€ ì—†ìœ¼ë©´ ë¡œê·¸ì¸í˜ì´ì§€ë¡œ ì´ë™
 			return "memer/login";
 		}
 	}
@@ -216,7 +216,7 @@ public class MemberLoginController {
 		String confirmPassword = request.getParameter("confirmPassword");
 
 		if (!newPassword.equals(confirmPassword)) {
-			model.addAttribute("message", "»õ ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+			model.addAttribute("message", "ìƒˆ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			return "member/passwordchangeform";
 		}
 
@@ -226,7 +226,7 @@ public class MemberLoginController {
 			service.updatePassword(csMemberCode, newPassword);
 
 			session.removeAttribute("loginUser");
-			model.addAttribute("message", "ºñ¹Ğ¹øÈ£°¡ ¼º°øÀûÀ¸·Î º¯°æµÇ¾ú½À´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇØ ÁÖ¼¼¿ä.");
+			model.addAttribute("message", "ë¹„ë°€ë²ˆí˜¸ê°€ ì„±ê³µì ìœ¼ë¡œ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•´ ì£¼ì„¸ìš”.");
 			return "redirect:/memberLogin.do";
 		} else {
 
@@ -234,7 +234,7 @@ public class MemberLoginController {
 		}
 	}
 
-// 11.16 ±âÁ¸ÄÚµå ÁÖ¼®Ã³¸®	
+// 11.16 ê¸°ì¡´ì½”ë“œ ì£¼ì„ì²˜ë¦¬	
 //	@PostMapping("/updatePassword.do")
 //	public String updatePassword(@RequestParam("currentPassword") String currentPassword,
 //	                             @RequestParam("newPassword") String newPassword,
@@ -243,43 +243,43 @@ public class MemberLoginController {
 //
 //		MemberVO member = (MemberVO) session.getAttribute("member");
 //		
-//		// ÄÜ¼Ö¿¡ »õ ºñ¹Ğ¹øÈ£ È®ÀÎ¿ë ³ªÁß¿¡Áö¿ï°Í
-//		System.out.println("»ç¿ëÀÚ¿¡°Ô ÀÔ·Â¹ŞÀº ÇöÀç ºñ¹Ğ¹øÈ£ : "+currentPassword);
-//		System.out.println("½ÇÁ¦ DB¿¡ ÀÖ´Â ÇöÀç ºñ¹Ğ¹øÈ£ : "+member.getCsPassword());
-//		System.out.println("ÀÔ·Â¹ŞÀº ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­     : "+encoder.encode(currentPassword));
+//		// ì½˜ì†”ì— ìƒˆ ë¹„ë°€ë²ˆí˜¸ í™•ì¸ìš© ë‚˜ì¤‘ì—ì§€ìš¸ê²ƒ
+//		System.out.println("ì‚¬ìš©ìì—ê²Œ ì…ë ¥ë°›ì€ í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ : "+currentPassword);
+//		System.out.println("ì‹¤ì œ DBì— ìˆëŠ” í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ : "+member.getCsPassword());
+//		System.out.println("ì…ë ¥ë°›ì€ ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™”     : "+encoder.encode(currentPassword));
 //
-//		System.out.println("µ¿ÀÏ ¿©ºÎ :  "+(member.getCsPassword().equals(encoder.encode(currentPassword))));
+//		System.out.println("ë™ì¼ ì—¬ë¶€ :  "+(member.getCsPassword().equals(encoder.encode(currentPassword))));
 //		
 //		
-//		System.out.println("º¯°æµÈ ºñ¹Ğ¹øÈ£ : "+newPassword);
+//		System.out.println("ë³€ê²½ëœ ë¹„ë°€ë²ˆí˜¸ : "+newPassword);
 //	    
-//		System.out.println("º¯°æµÈ ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­ : "+encoder.encode(newPassword));
+//		System.out.println("ë³€ê²½ëœ ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” : "+encoder.encode(newPassword));
 //	    
 ////	    if (encoder.matches(currentPassword, member.getCsPassword())) {
 //	    if (BCrypt.checkpw(currentPassword, member.getCsPassword())) {	
-//	        // »õ ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­
+//	        // ìƒˆ ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™”
 //	        String encodedNewPassword = encoder.encode(newPassword);        
-//	        // DB¿¡ »õ ºñ¹Ğ¹øÈ£ ¾÷µ¥ÀÌÆ®
+//	        // DBì— ìƒˆ ë¹„ë°€ë²ˆí˜¸ ì—…ë°ì´íŠ¸
 //	        service.updatePassword(member.getCsMemberCode(), encodedNewPassword);
-//	        // ¼¼¼Ç¿¡¼­ »ç¿ëÀÚ Á¤º¸ Á¦°Å
+//	        // ì„¸ì…˜ì—ì„œ ì‚¬ìš©ì ì •ë³´ ì œê±°
 //	        session.removeAttribute("member");
-//	        // ºñ¹Ğ¹øÈ£ º¯°æ ¼º°ø ¸Ş½ÃÁö ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
-//	        model.addAttribute("message","ºñ¹Ğ¹øÈ£°¡ ¼º°øÀûÀ¸·Î º¯°æµÇ¾ú½À´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇØÁÖ¼¼¿ä.");
-////	        redirectAttrs.addFlashAttribute("passwordChangeSuccess", "ºñ¹Ğ¹øÈ£°¡ ¼º°øÀûÀ¸·Î º¯°æµÇ¾ú½À´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇØÁÖ¼¼¿ä.");	        
+//	        // ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ì„±ê³µ ë©”ì‹œì§€ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
+//	        model.addAttribute("message","ë¹„ë°€ë²ˆí˜¸ê°€ ì„±ê³µì ìœ¼ë¡œ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•´ì£¼ì„¸ìš”.");
+////	        redirectAttrs.addFlashAttribute("passwordChangeSuccess", "ë¹„ë°€ë²ˆí˜¸ê°€ ì„±ê³µì ìœ¼ë¡œ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•´ì£¼ì„¸ìš”.");	        
 //	        return "redirect:/memberLogin.do";
 //	    } else {
-//	        // ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é ¿¡·¯ ¸Ş½ÃÁö
-//	        model.addAttribute("message","ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+//	        // í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•Šìœ¼ë©´ ì—ëŸ¬ ë©”ì‹œì§€
+//	        model.addAttribute("message","í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 //
-////	        redirectAttrs.addFlashAttribute("passwordChangeError", "ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+////	        redirectAttrs.addFlashAttribute("passwordChangeError", "í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 //	        
-//	        // ºñ¹Ğ¹øÈ£ º¯°æ ÆäÀÌÁö·Î ´Ù½Ã ¸®´ÙÀÌ·ºÆ®
+//	        // ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ í˜ì´ì§€ë¡œ ë‹¤ì‹œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 //	        return "redirect:/passwordChange.do";
 //	    }
 //	}
 
 	/**
-	 * ºñ¹Ğ¹øÈ£ Ã£±â ÀÌ¸§,ÀÌ¸ŞÀÏ ÀÔ·Â¹Ş¾Æ¼­ ÀÌ¸ŞÀÏ·Î ÀÎÁõ¹øÈ£ Àü¼Û ÈÄ, ¿Ã¹Ù¸¥ ÀÎÁõ¹øÈ£ ÀÔ·Â½Ã È¸¿øÀÇ ºñ¹Ğ¹øÈ£ º¯°æ ÆäÀÌÁö·Î ÀÌµ¿
+	 * ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° ì´ë¦„,ì´ë©”ì¼ ì…ë ¥ë°›ì•„ì„œ ì´ë©”ì¼ë¡œ ì¸ì¦ë²ˆí˜¸ ì „ì†¡ í›„, ì˜¬ë°”ë¥¸ ì¸ì¦ë²ˆí˜¸ ì…ë ¥ì‹œ íšŒì›ì˜ ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ í˜ì´ì§€ë¡œ ì´ë™
 	 */
 
 	@GetMapping("/findpassword.do")
@@ -287,7 +287,7 @@ public class MemberLoginController {
 		return "member/findpassword";
 	}
 
-	// ÀÎÁõ¹øÈ£ ¹ß¼Û ¿äÃ» Ã³¸®
+	// ì¸ì¦ë²ˆí˜¸ ë°œì†¡ ìš”ì²­ ì²˜ë¦¬
 	@PostMapping("/sendAuthNumber.do")
 	@ResponseBody
 	public ResponseEntity<?> sendAuthNumber(MemberVO member, HttpSession session) {
@@ -301,7 +301,7 @@ public class MemberLoginController {
 		}
 	}
 
-	// ÀÎÁõ¹øÈ£ °ËÁõ ¿äÃ» Ã³¸® ¹× »ç¿ëÀÚ ·Î±×ÀÎ Ã³¸®
+	// ì¸ì¦ë²ˆí˜¸ ê²€ì¦ ìš”ì²­ ì²˜ë¦¬ ë° ì‚¬ìš©ì ë¡œê·¸ì¸ ì²˜ë¦¬
 	@PostMapping("/checkAuthNumber.do")
 	@ResponseBody
 	public Map<String, Object> checkAuthNumber(HttpServletRequest request, HttpSession session) {

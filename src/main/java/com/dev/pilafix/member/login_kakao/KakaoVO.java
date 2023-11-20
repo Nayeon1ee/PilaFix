@@ -2,7 +2,7 @@ package com.dev.pilafix.member.login_kakao;
 
 public class KakaoVO {
 
-	private String K_name; // ¿Ã∏ß
+	private String K_name; 
 	private String K_email;
 	public String getK_name() {
 		return K_name;

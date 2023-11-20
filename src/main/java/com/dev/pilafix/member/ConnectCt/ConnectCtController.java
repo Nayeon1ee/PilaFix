@@ -20,24 +20,24 @@ public class ConnectCtController {
 	private ConnectCtService service;
 	
 	/**
-	 * ¼¾ÅÍ¿¬µ¿È­¸é ¿äÃ»
+	 * ì„¼í„°ì—°ë™í™”ë©´ ìš”ì²­
 	 * @return
 	 */
-	//·Î±×ÀÎÈÄ ¼¾ÅÍ¿¬µ¿È­¸é ³ª¿È ÀÌ urlÀº ±â´É Å×½ºÆ®À§ÇÑ urlÀÌ°í ³ªÁß¿¡ ·Î±×ÀÎÀÌ¶û ¿¬°áÇÏ¸é Áö¿ö¾ßÇÔ
+	//ë¡œê·¸ì¸í›„ ì„¼í„°ì—°ë™í™”ë©´ ë‚˜ì˜´ ì´ urlì€ ê¸°ëŠ¥ í…ŒìŠ¤íŠ¸ìœ„í•œ urlì´ê³  ë‚˜ì¤‘ì— ë¡œê·¸ì¸ì´ë‘ ì—°ê²°í•˜ë©´ ì§€ì›Œì•¼í•¨
 	@GetMapping("/ct.do")
 	public String ct(){
 		return "member/ctConnect";
 	}
 
 	/**
-	 * ¿¬µ¿ÇÒ ¼¾ÅÍ °Ë»ö½Ã µğºñ°¡¼­ Å°¿öµå¿¡ ¸Â´Â ¼¾ÅÍ °Ë»öÇØ¼­ È­¸é¿¡ »Ñ·ÁÁÜ 
+	 * ì—°ë™í•  ì„¼í„° ê²€ìƒ‰ì‹œ ë””ë¹„ê°€ì„œ í‚¤ì›Œë“œì— ë§ëŠ” ì„¼í„° ê²€ìƒ‰í•´ì„œ í™”ë©´ì— ë¿Œë ¤ì¤Œ 
 	 * @param searchKeyword
 	 * @return
 	 */
 	@GetMapping("/searchCt.do")
 	@ResponseBody
 	public List<ConnectCtVO> searchCt(String searchKeyword){
-		System.out.println("È­¸é¿¡¼­ ÄÁÆ®·Ñ·¯·Î ³Ñ¾î¿Â °Ë»ö Å°¿öµå" + searchKeyword);
+		System.out.println("í™”ë©´ì—ì„œ ì»¨íŠ¸ë¡¤ëŸ¬ë¡œ ë„˜ì–´ì˜¨ ê²€ìƒ‰ í‚¤ì›Œë“œ" + searchKeyword);
 		List<ConnectCtVO> searchCenterList = service.searchCt(searchKeyword);
 		return searchCenterList;
 	}
@@ -47,7 +47,7 @@ public class ConnectCtController {
 	public int connectRequest(HttpSession session,@RequestParam int ctCode){
 		MemberVO member =   (MemberVO) session.getAttribute("member");
 		int result = service.connectRequest(member,ctCode);
-		System.out.println("#######Äõ¸®¹®ÀÇ °á°ú°ª"+result);
+		System.out.println("#######ì¿¼ë¦¬ë¬¸ì˜ ê²°ê³¼ê°’"+result);
 		return result;
 	}
 

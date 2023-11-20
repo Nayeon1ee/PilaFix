@@ -4,38 +4,38 @@ import java.sql.Date;
 
 public class MemberVO {
 	
-	private int csMemberCode; // È¸¿øÄÚµå : È¸¿øÀÌ¸é½ÃÄö½º¹øÈ£ 2000ºÎÅÍ ½ÃÀÛ / °­»ç¸é ½ÃÄö½º 8000ºÎÅÍ½ÃÀÛ
-	private String csRoleCode; // ±ÇÇÑÄÚµå
-	private String csEmailId; // ÀÌ¸ŞÀÏ¾ÆÀÌµğ
-	private String csPassword; // ºñ¹Ğ¹øÈ£ : ¾ÏÈ£È­
-	private String csName; // ÀÌ¸§
-	private String csPhoneNumber1; // ¿¬¶ôÃ³1
-	private String csPhoneNumber2; // ¿¬¶ôÃ³2
-	private String csPhoneNumber3; // ¿¬¶ôÃ³3
-	private Date csRegistrationDate; // °¡ÀÔÀÏÀÚ : DEFAULT NOW()
-	private Date csBirth; // »ı³â¿ùÀÏ : ¼Ò¼È ·Î±×ÀÎÀÇ °æ¿ì °ªÀÌ ¾øÀ» ¼ö ÀÖÀ½ 
-	private String csGenderMw; // ¼ºº° : ¼Ò¼È ·Î±×ÀÎÀÇ °æ¿ì °ªÀÌ ¾øÀ» ¼ö ÀÖÀ½ 
-	private boolean csDeleteYn; // Å»Åğ¿©ºÎ
-	private boolean csAgreementYn1; //¾à°üµ¿ÀÇ1
-	private boolean csAgreementYn2; //¾à°üµ¿ÀÇ2
-	private boolean csAgreementYn3; //¾à°üµ¿ÀÇ3
-	private String csRegistrationType; // °¡ÀÔÀ¯Çü : ÀÏ¹İ/Ä«Ä«¿À/³×ÀÌ¹ö/±¸±Û
-	private int connectedCenterCode1; // ÇöÀç¿¬µ¿¼¾ÅÍÄÚµå1 : ¹Ì¿¬µ¿ »óÅÂÀÏ ¼ö ÀÖÀ½
-	private int connectedCenterCode2; // ÇöÀç¿¬µ¿¼¾ÅÍÄÚµå2 : ¹Ì¿¬µ¿ »óÅÂÀÏ ¼ö ÀÖÀ½
-	private int connectedCenterCode3; // ÇöÀç¿¬µ¿¼¾ÅÍÄÚµå3 : ¹Ì¿¬µ¿ »óÅÂÀÏ ¼ö ÀÖÀ½
-	private String ticketCodePersonal1; // º¸À¯¼ö°­±ÇÄÚµå_°³ÀÎ : º¸À¯ÇÑ ¼ö°­±ÇÀÌ ¾øÀ» ¼ö ÀÖÀ½/¼ö°­±Ç °áÁ¦ ¿Ï·á ½Ã ÇØ´ç ÄÃ·³ ¾÷µ¥ÀÌÆ®  
-	private int ticketRemainingCountPersonal1; // º¸À¯¼ö°­±ÇÀÜ¿©È½¼ö_°³ÀÎ : ¼ö°­±Ç °áÁ¦ ¿Ï·á ½Ã ÇØ´ç ÄÃ·³ ¾÷µ¥ÀÌÆ®  
-	private Date ticketStartDatePersonal1; // º¸À¯¼ö°­±Ç½ÃÀÛÀÏÀÚ_°³ÀÎ
-	private Date ticketExpiryDatePersonal1; // º¸À¯¼ö°­±Ç¸¸·áÀÏÀÚ_°³ÀÎ : ¼ö°­±Ç °áÁ¦ ¿Ï·á ½Ã ÇØ´ç ÄÃ·³ ¾÷µ¥ÀÌÆ® / °áÁ¦µÈ ³¯·ÎºÎÅÍ ÇØ´ç ¼ö°­±ÇÀÇ ±â°£ °è»êÇØ¼­ ³Ö¾î¾ß ÇÔ 
-	private boolean ticketExpiryYnPersonal1; // º¸À¯¼ö°­±Ç¸¸·á¿©ºÎ_°³ÀÎ : »ç¿ëÁßÀÏ ¶§´Â N, ¸¸·á ½Ã¿¡ Y (Áï, ±âÁ¸ ¼ö°­±Ç ±¸¸Å ÈÄ ¸¸·á-> Àç±¸¸ÅÇÏÁö ¾ÊÀº °í°´)
-	private String ticketCodeGroup1; // º¸À¯¼ö°­±ÇÄÚµå_±×·ì
-	private int ticketRemainingCountGroup1; // º¸À¯¼ö°­±ÇÀÜ¿©È½¼ö_±×·ì
-	private Date ticketStartDateGroup1; // º¸À¯¼ö°­±Ç½ÃÀÛÀÏÀÚ_±×·ì
-	private Date ticketExpiryDateGroup1; // º¸À¯¼ö°­±Ç¸¸·áÀÏÀÚ_±×·ì
-	private boolean ticketExpiryYnGroup1; // º¸À¯¼ö°­±Ç¸¸·á¿©ºÎ_±×·ì
-	private String connectedCenterName1; //¿¬µ¿ ¼¾ÅÍ ¸í (¼¾ÅÍ ÄÚµå¶û Á¶ÀÎÇØ¼­ °¡Á®¿È)
-	private String connectedCenterName2; //¿¬µ¿ ¼¾ÅÍ ¸í (¼¾ÅÍ ÄÚµå¶û Á¶ÀÎÇØ¼­ °¡Á®¿È)
-	private String connectedCenterName3; //¿¬µ¿ ¼¾ÅÍ ¸í (¼¾ÅÍ ÄÚµå¶û Á¶ÀÎÇØ¼­ °¡Á®¿È)
+	private int csMemberCode; // íšŒì›ì½”ë“œ : íšŒì›ì´ë©´ì‹œí€€ìŠ¤ë²ˆí˜¸ 2000ë¶€í„° ì‹œì‘ / ê°•ì‚¬ë©´ ì‹œí€€ìŠ¤ 8000ë¶€í„°ì‹œì‘
+	private String csRoleCode; // ê¶Œí•œì½”ë“œ
+	private String csEmailId; // ì´ë©”ì¼ì•„ì´ë””
+	private String csPassword; // ë¹„ë°€ë²ˆí˜¸ : ì•”í˜¸í™”
+	private String csName; // ì´ë¦„
+	private String csPhoneNumber1; // ì—°ë½ì²˜1
+	private String csPhoneNumber2; // ì—°ë½ì²˜2
+	private String csPhoneNumber3; // ì—°ë½ì²˜3
+	private Date csRegistrationDate; // ê°€ì…ì¼ì : DEFAULT NOW()
+	private Date csBirth; // ìƒë…„ì›”ì¼ : ì†Œì…œ ë¡œê·¸ì¸ì˜ ê²½ìš° ê°’ì´ ì—†ì„ ìˆ˜ ìˆìŒ 
+	private String csGenderMw; // ì„±ë³„ : ì†Œì…œ ë¡œê·¸ì¸ì˜ ê²½ìš° ê°’ì´ ì—†ì„ ìˆ˜ ìˆìŒ 
+	private boolean csDeleteYn; // íƒˆí‡´ì—¬ë¶€
+	private boolean csAgreementYn1; //ì•½ê´€ë™ì˜1
+	private boolean csAgreementYn2; //ì•½ê´€ë™ì˜2
+	private boolean csAgreementYn3; //ì•½ê´€ë™ì˜3
+	private String csRegistrationType; // ê°€ì…ìœ í˜• : ì¼ë°˜/ì¹´ì¹´ì˜¤/ë„¤ì´ë²„/êµ¬ê¸€
+	private int connectedCenterCode1; // í˜„ì¬ì—°ë™ì„¼í„°ì½”ë“œ1 : ë¯¸ì—°ë™ ìƒíƒœì¼ ìˆ˜ ìˆìŒ
+	private int connectedCenterCode2; // í˜„ì¬ì—°ë™ì„¼í„°ì½”ë“œ2 : ë¯¸ì—°ë™ ìƒíƒœì¼ ìˆ˜ ìˆìŒ
+	private int connectedCenterCode3; // í˜„ì¬ì—°ë™ì„¼í„°ì½”ë“œ3 : ë¯¸ì—°ë™ ìƒíƒœì¼ ìˆ˜ ìˆìŒ
+	private String ticketCodePersonal1; // ë³´ìœ ìˆ˜ê°•ê¶Œì½”ë“œ_ê°œì¸ : ë³´ìœ í•œ ìˆ˜ê°•ê¶Œì´ ì—†ì„ ìˆ˜ ìˆìŒ/ìˆ˜ê°•ê¶Œ ê²°ì œ ì™„ë£Œ ì‹œ í•´ë‹¹ ì»¬ëŸ¼ ì—…ë°ì´íŠ¸  
+	private int ticketRemainingCountPersonal1; // ë³´ìœ ìˆ˜ê°•ê¶Œì”ì—¬íšŸìˆ˜_ê°œì¸ : ìˆ˜ê°•ê¶Œ ê²°ì œ ì™„ë£Œ ì‹œ í•´ë‹¹ ì»¬ëŸ¼ ì—…ë°ì´íŠ¸  
+	private Date ticketStartDatePersonal1; // ë³´ìœ ìˆ˜ê°•ê¶Œì‹œì‘ì¼ì_ê°œì¸
+	private Date ticketExpiryDatePersonal1; // ë³´ìœ ìˆ˜ê°•ê¶Œë§Œë£Œì¼ì_ê°œì¸ : ìˆ˜ê°•ê¶Œ ê²°ì œ ì™„ë£Œ ì‹œ í•´ë‹¹ ì»¬ëŸ¼ ì—…ë°ì´íŠ¸ / ê²°ì œëœ ë‚ ë¡œë¶€í„° í•´ë‹¹ ìˆ˜ê°•ê¶Œì˜ ê¸°ê°„ ê³„ì‚°í•´ì„œ ë„£ì–´ì•¼ í•¨ 
+	private boolean ticketExpiryYnPersonal1; // ë³´ìœ ìˆ˜ê°•ê¶Œë§Œë£Œì—¬ë¶€_ê°œì¸ : ì‚¬ìš©ì¤‘ì¼ ë•ŒëŠ” N, ë§Œë£Œ ì‹œì— Y (ì¦‰, ê¸°ì¡´ ìˆ˜ê°•ê¶Œ êµ¬ë§¤ í›„ ë§Œë£Œ-> ì¬êµ¬ë§¤í•˜ì§€ ì•Šì€ ê³ ê°)
+	private String ticketCodeGroup1; // ë³´ìœ ìˆ˜ê°•ê¶Œì½”ë“œ_ê·¸ë£¹
+	private int ticketRemainingCountGroup1; // ë³´ìœ ìˆ˜ê°•ê¶Œì”ì—¬íšŸìˆ˜_ê·¸ë£¹
+	private Date ticketStartDateGroup1; // ë³´ìœ ìˆ˜ê°•ê¶Œì‹œì‘ì¼ì_ê·¸ë£¹
+	private Date ticketExpiryDateGroup1; // ë³´ìœ ìˆ˜ê°•ê¶Œë§Œë£Œì¼ì_ê·¸ë£¹
+	private boolean ticketExpiryYnGroup1; // ë³´ìœ ìˆ˜ê°•ê¶Œë§Œë£Œì—¬ë¶€_ê·¸ë£¹
+	private String connectedCenterName1; //ì—°ë™ ì„¼í„° ëª… (ì„¼í„° ì½”ë“œë‘ ì¡°ì¸í•´ì„œ ê°€ì ¸ì˜´)
+	private String connectedCenterName2; //ì—°ë™ ì„¼í„° ëª… (ì„¼í„° ì½”ë“œë‘ ì¡°ì¸í•´ì„œ ê°€ì ¸ì˜´)
+	private String connectedCenterName3; //ì—°ë™ ì„¼í„° ëª… (ì„¼í„° ì½”ë“œë‘ ì¡°ì¸í•´ì„œ ê°€ì ¸ì˜´)
 	
 	public int getCsMemberCode() {
 		return csMemberCode;

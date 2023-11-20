@@ -20,12 +20,12 @@ public class KakaoLoginDAO {
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
 
-//	// 정보 저장
+//	//
 //    public void kakaoinsert(HashMap<String, Object> userInfo) {
 //    	sqlSessionTemplate.insert(MAPPER+".insert",userInfo);
 //    }
 	
-	 // 정보 확인
+	 //
     public KakaoVO findkakao(HashMap<String, Object> userInfo) {
         System.out.println("RN:"+userInfo.get("nickname"));
         System.out.println("RE:"+userInfo.get("email"));

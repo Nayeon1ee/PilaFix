@@ -16,12 +16,12 @@ public class MemberLoginDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	//·Î±×ÀÎ ÀÌ°Å»ç¿ëÇØº¸±â : ÀÌ¸ŞÀÏ·Î ºñ¹Ğ¹øÈ£¸¸ select
+	//ë¡œê·¸ì¸ ì´ê±°ì‚¬ìš©í•´ë³´ê¸° : ì´ë©”ì¼ë¡œ ë¹„ë°€ë²ˆí˜¸ë§Œ select
 	public String getPasswordByEmail(String csEmailId) {
         return sqlSessionTemplate.selectOne("MemberLoginDAO.getPasswordByEmail", csEmailId);
     }
 	
-	//·Î±×ÀÎ ÈÄ °¡Á®¿Ã Á¤º¸
+	//ë¡œê·¸ì¸ í›„ ê°€ì ¸ì˜¬ ì •ë³´
 	public MemberVO getMemberLoginInfo(String csEmailId) {
         return sqlSessionTemplate.selectOne("MemberLoginDAO.getMemberLoginInfo", csEmailId);
 	} 
@@ -30,7 +30,7 @@ public class MemberLoginDAO {
         return sqlSessionTemplate.selectOne("MemberLoginDAO.getMemberInfo", csMemberCode);
     }
 
-	// ºñ¹Ğ¹øÈ£º¯°æ
+	// ë¹„ë°€ë²ˆí˜¸ë³€ê²½
     public void updatePassword(int csMemberCode, String newPassword) {
         Map<String, Object> params = new HashMap<>();
         params.put("csMemberCode", csMemberCode);

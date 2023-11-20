@@ -46,15 +46,15 @@ public class NaverLoginController {
 //	        Map<String, Object> naverProfileData = new HashMap<>();
 //	        naverProfileData.put("naverProfileData", naverProfileData);
 		String email = profileData.getEmail();
-		// ³×ÀÌ¹ö ÇÁ·ÎÇÊ¿¡¼­ ¹Ş¾Æ¿Â °ª Áß¿¡¼­ ¾ÆÀÌµğ°¡ µğºñ¿¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ (1ÀÌ¸é Á¸Àç,0ÀÌ¸é ¾øÀ½)
+		// ë„¤ì´ë²„ í”„ë¡œí•„ì—ì„œ ë°›ì•„ì˜¨ ê°’ ì¤‘ì—ì„œ ì•„ì´ë””ê°€ ë””ë¹„ì— ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸ (1ì´ë©´ ì¡´ì¬,0ì´ë©´ ì—†ìŒ)
 		int dbIdCheck = service.dbIdCheck(email);
 		System.out.println(dbIdCheck);
 
-		// ¾ÆÀÌµğ µğºñ¿¡ Á¸ÀçÇÏ¸é ±×»ç¶÷ Á¤º¸ ¼¼¼Ç¿¡ ´ã¾Æ¼­ ±×»ç¶÷ ¸ŞÀÎ »Ñ·ÁÁÖ°í
+		// ì•„ì´ë”” ë””ë¹„ì— ì¡´ì¬í•˜ë©´ ê·¸ì‚¬ëŒ ì •ë³´ ì„¸ì…˜ì— ë‹´ì•„ì„œ ê·¸ì‚¬ëŒ ë©”ì¸ ë¿Œë ¤ì£¼ê³ 
 		if (dbIdCheck > 0) {
 			MemberVO member = service.getMember(email);
 
-			// ¼¼¼Ç¿¡ ´ãÀ» Map»ı¼º
+			// ì„¸ì…˜ì— ë‹´ì„ Mapìƒì„±
 			Map<String, Object> loginUser = new HashMap<>();
 			loginUser.put("csMemberCode", member.getCsMemberCode());
 			loginUser.put("csName", member.getCsName());
@@ -66,14 +66,14 @@ public class NaverLoginController {
 			session.setAttribute("loginUser", loginUser);
 
 			if (member != null && "TR".equals(member.getCsRoleCode())) {
-				System.out.println("°­»ç ÆäÀÌÁö¸ŞÀÎ url½á¾ßÇÔ");
+				System.out.println("ê°•ì‚¬ í˜ì´ì§€ë©”ì¸ urlì¨ì•¼í•¨");
 				return "main.do";
 			} else {
-				System.out.println("È¸¿ø ÆäÀÌÁö¸ŞÀÎ url½á¾ßÇÔ");
+				System.out.println("íšŒì› í˜ì´ì§€ë©”ì¸ urlì¨ì•¼í•¨");
 				return "main.do";
 			}
 
-			// µğºñ¿¡ Á¤º¸ ¾øÀ¸¸é(±âÁ¸È¸¿øÀÌ ¾Æ´Ï¸é) °­»ç/È¸¿ø°­»ç ¼±ÅÃÇÏ´Â È­¸éÀ¸·Î ³Ñ±è
+			// ë””ë¹„ì— ì •ë³´ ì—†ìœ¼ë©´(ê¸°ì¡´íšŒì›ì´ ì•„ë‹ˆë©´) ê°•ì‚¬/íšŒì›ê°•ì‚¬ ì„ íƒí•˜ëŠ” í™”ë©´ìœ¼ë¡œ ë„˜ê¹€
 		} else {
 			// int result = service.insertNaverMember(email);
 			return "choose.do";
@@ -83,56 +83,56 @@ public class NaverLoginController {
 		// return "redirect:/getNaverMemInfo.do";
 	}
 
-	// ³×ÀÌ¹ö ·Î±×ÀÎ½Ã ±âÁ¸¿¡ È¸¿ø°¡ÀÔ µÇ¾îÀÖ´Â »ç¶÷ÀÏ°æ¿ì ¸ŞÀÎ »Ñ·ÁÁÜ
-	// ¸®ÅÏ °ª ³ªÁß¿¡ ¸ŞÀÎ ÁÖ¼Ò·Î º¯°æÇØ¾ßÇÔ
+	// ë„¤ì´ë²„ ë¡œê·¸ì¸ì‹œ ê¸°ì¡´ì— íšŒì›ê°€ì… ë˜ì–´ìˆëŠ” ì‚¬ëŒì¼ê²½ìš° ë©”ì¸ ë¿Œë ¤ì¤Œ
+	// ë¦¬í„´ ê°’ ë‚˜ì¤‘ì— ë©”ì¸ ì£¼ì†Œë¡œ ë³€ê²½í•´ì•¼í•¨
 	@GetMapping("/main.do")
 	public String main() {
 		return "member/testMain";
 	}
 
-	// ±âÁ¸¿¡ È¸¿ø°¡ÀÔ ¾ÈµÈ»ç¶÷Àº È¸¿ø/°­»ç ¼±ÅÃÇÏ´Â È­¸éÀ¸·Î º¸³¿
+	// ê¸°ì¡´ì— íšŒì›ê°€ì… ì•ˆëœì‚¬ëŒì€ íšŒì›/ê°•ì‚¬ ì„ íƒí•˜ëŠ” í™”ë©´ìœ¼ë¡œ ë³´ëƒ„
 	@GetMapping("/choose.do")
 	public String choose() {
 		return "member/chooseRole";
 	}
 
-	// È¸¿ø °­»ç ¼±ÅÃ È­¸é¿¡¼­ ¼±ÅÃÇÏ°í È®ÀÎ´©¸£¸é ÀÌÁ¦ µğºñ¿¡ ÀúÀå
+	// íšŒì› ê°•ì‚¬ ì„ íƒ í™”ë©´ì—ì„œ ì„ íƒí•˜ê³  í™•ì¸ëˆ„ë¥´ë©´ ì´ì œ ë””ë¹„ì— ì €ì¥
 	@PostMapping("/insertNaverMember.do")
 	@ResponseBody
 	public String insertNaverMember(@RequestBody Map<String, String> role, HttpSession session) {
-		// System.out.println("°­»çÈ¸¿ø ¼±ÅÃ°ª: "+role.get("role"));
+		// System.out.println("ê°•ì‚¬íšŒì› ì„ íƒê°’: "+role.get("role"));
 
 		// String roleCode = role.get("role");
 		NaverVO naverMemberProfile = (NaverVO) session.getAttribute("naverMemberProfile");
 
-		// ÇÑ¹ø¿¡ ¹Ş¾Æ¿Â ÇÚµåÆù ¹øÈ£ Àß¶ó¼­ °¢ º¯¼ö¿¡ ´ã±â
+		// í•œë²ˆì— ë°›ì•„ì˜¨ í•¸ë“œí° ë²ˆí˜¸ ì˜ë¼ì„œ ê° ë³€ìˆ˜ì— ë‹´ê¸°
 		String mobileNumber = naverMemberProfile.getMobile();
 		String[] parts = mobileNumber.split("-");
 		naverMemberProfile.setNum1(parts[0]);
 		naverMemberProfile.setNum2(parts[1]);
 		naverMemberProfile.setNum3(parts[2]);
-		System.out.println("È®ÀÎ¿ë ÀÚ¸¥ ÀüÈ­¹øÈ£ ´Ù½Ã °¡Á®¿À±â :" + naverMemberProfile.getNum1() + naverMemberProfile.getNum2()
+		System.out.println("í™•ì¸ìš© ìë¥¸ ì „í™”ë²ˆí˜¸ ë‹¤ì‹œ ê°€ì ¸ì˜¤ê¸° :" + naverMemberProfile.getNum1() + naverMemberProfile.getNum2()
 				+ naverMemberProfile.getNum3());
 
-		// F¸é ¿©ÀÚ MÀÌ¸é ³²ÀÚ¶ó°í ÀúÀåÇÏ±â
+		// Fë©´ ì—¬ì Mì´ë©´ ë‚¨ìë¼ê³  ì €ì¥í•˜ê¸°
 		String gender = naverMemberProfile.getGender();
 		if ("F".equals(gender)) {
-			naverMemberProfile.setnGender("¿©ÀÚ");
+			naverMemberProfile.setnGender("ì—¬ì");
 		} else if ("M".equals(gender)) {
-			naverMemberProfile.setnGender("³²ÀÚ");
+			naverMemberProfile.setnGender("ë‚¨ì");
 		}
-		System.out.println("È®ÀÎ¿ë ¼ºº° : " + naverMemberProfile.getnGender());
+		System.out.println("í™•ì¸ìš© ì„±ë³„ : " + naverMemberProfile.getnGender());
 
-		// »ıÀÏ ÇÕÄ¡±â
+		// ìƒì¼ í•©ì¹˜ê¸°
 		String combinedBirth = naverMemberProfile.getBirthyear() + "-" + naverMemberProfile.getBirthday();
-		System.out.println("Å¸ÀÔ º¯È¯Àü µ¥ÀÌÅÍ : " + combinedBirth);
+		System.out.println("íƒ€ì… ë³€í™˜ì „ ë°ì´í„° : " + combinedBirth);
 
 		naverMemberProfile.setBirth(transformDate(combinedBirth));
-		System.out.println("È®ÀÎ¿ë »ıÀÏ ÇÕÄ¡±â : " + naverMemberProfile.getBirth());
+		System.out.println("í™•ì¸ìš© ìƒì¼ í•©ì¹˜ê¸° : " + naverMemberProfile.getBirth());
 
-		// È¸¿ø/°­»ç ¼±ÅÃ°ª VO¿¡ ÀúÀå
+		// íšŒì›/ê°•ì‚¬ ì„ íƒê°’ VOì— ì €ì¥
 		naverMemberProfile.setChooseRole(role.get("role"));
-		System.out.println("È®ÀÎ¿ë È¸¿ø°­»ç ¼±ÅÃ°ª : " + naverMemberProfile.getChooseRole());
+		System.out.println("í™•ì¸ìš© íšŒì›ê°•ì‚¬ ì„ íƒê°’ : " + naverMemberProfile.getChooseRole());
 
 		Map<String, Object> naverMember = new HashMap<>();
 		naverMember.put("member", naverMemberProfile);
@@ -141,7 +141,7 @@ public class NaverLoginController {
 		String email = naverMemberProfile.getEmail();
 		MemberVO member = service.getMember(email);
 		
-		// ¼¼¼Ç¿¡ ´ãÀ» ¸Ê »ı¼º
+		// ì„¸ì…˜ì— ë‹´ì„ ë§µ ìƒì„±
 		Map<String, Object> loginUser = new HashMap<>();
 		loginUser.put("csMemberCode", member.getCsMemberCode());
 		loginUser.put("csName", member.getCsName());
@@ -155,7 +155,7 @@ public class NaverLoginController {
 		return "main.do";
 	}
 
-	// ¹®ÀÚ¿­ÀÎ combinedBirth¸¦ sqlÀÇ DateÅ¸ÀÔÀ¸·Î º¯È¯
+	// ë¬¸ìì—´ì¸ combinedBirthë¥¼ sqlì˜ Dateíƒ€ì…ìœ¼ë¡œ ë³€í™˜
 	public Date transformDate(String combinedBirth) {
 		Date d = Date.valueOf(combinedBirth);
 		return d;

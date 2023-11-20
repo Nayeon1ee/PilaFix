@@ -18,7 +18,7 @@ public class SendSmsHistoryDAO {
 
 
 	/**
-	 * ¼¾ÅÍ¿¡¼­ È£ÃâÇÏ´Â ÀÌ·Â list
+	 * ì„¼í„°ì—ì„œ í˜¸ì¶œí•˜ëŠ” ì´ë ¥ list
 	 * 
 	 * @return
 	 */
@@ -32,7 +32,7 @@ public class SendSmsHistoryDAO {
 	}
 
 	/**
-	 * À¥ °ü¸®ÀÚ°¡ È£ÃâÇÏ´Â ÀÌ·Â list
+	 * ì›¹ ê´€ë¦¬ìê°€ í˜¸ì¶œí•˜ëŠ” ì´ë ¥ list
 	 * 
 	 * @return
 	 */
@@ -44,12 +44,12 @@ public class SendSmsHistoryDAO {
 		System.out.println("shSendCenterCode : "+ shSendCenterCode);
 		System.out.println("shSendCenterCode : "+ shSendCode);	
 
-		// ÆÄ¶ó¹ÌÅÍ°¡ 2°³ÀÌ¹Ç·Î MapÀ¸·Î ³Ñ±è
+		// íŒŒë¼ë¯¸í„°ê°€ 2ê°œì´ë¯€ë¡œ Mapìœ¼ë¡œ ë„˜ê¹€
 		Map<String, Object> params = new HashMap<>();
 		params.put("shSendCenterCode", shSendCenterCode);
 		params.put("shSendCode", shSendCode);
 		
-		System.out.println("ÆÄ¶ó¹ÌÅÍ °ª "+params.toString());
+		System.out.println("íŒŒë¼ë¯¸í„° ê°’ "+params.toString());
 		System.out.println("shSendCenterCode : "+ params.get("shSendCenterCode"));
 		System.out.println("shSendCenterCode : "+ params.get("shSendCode"));
 		

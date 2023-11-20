@@ -6,12 +6,12 @@ public class ConnectCtVO {
 	private String ctAddress;
 	private String searchKeyword;
 	
-	private int csMemberCode; // È¸¿øÄÚµå : È¸¿øÀÌ¸é½ÃÄö½º¹øÈ£ 2000ºÎÅÍ ½ÃÀÛ / °­»ç¸é ½ÃÄö½º 8000ºÎÅÍ½ÃÀÛ
-	private String csName; // ÀÌ¸§
-	private String csPhoneNumber1; // ¿¬¶ôÃ³1
-	private String csPhoneNumber2; // ¿¬¶ôÃ³2
-	private String csPhoneNumber3; // ¿¬¶ôÃ³3
-	private String memberPhone; // ÇÕÄ£ ¿¬¶ôÃ³
+	private int csMemberCode; // íšŒì›ì½”ë“œ : íšŒì›ì´ë©´ì‹œí€€ìŠ¤ë²ˆí˜¸ 2000ë¶€í„° ì‹œì‘ / ê°•ì‚¬ë©´ ì‹œí€€ìŠ¤ 8000ë¶€í„°ì‹œì‘
+	private String csName; // ì´ë¦„
+	private String csPhoneNumber1; // ì—°ë½ì²˜1
+	private String csPhoneNumber2; // ì—°ë½ì²˜2
+	private String csPhoneNumber3; // ì—°ë½ì²˜3
+	private String memberPhone; // í•©ì¹œ ì—°ë½ì²˜
 	
 	
 	public int getCtCode() {

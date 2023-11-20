@@ -28,14 +28,14 @@ public class MemberController {
 	
 	
 	/**
-	 * È¸¿ø °¡ÀÔ Àü È¸¿ø or °­»ç¼±ÅÃ
+	 * íšŒì› ê°€ì… ì „ íšŒì› or ê°•ì‚¬ì„ íƒ
 	 * @param csRoleCode
 	 * @return
 	 */
-	// selectMeOrTr.jsp¿¡¼­ ³Ñ¾î¿Â °ª(csRoleCode)¹Ş¾Æ¼­ È¸¿ø °¡ÀÔ Æû¿¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÜ
+	// selectMeOrTr.jspì—ì„œ ë„˜ì–´ì˜¨ ê°’(csRoleCode)ë°›ì•„ì„œ íšŒì› ê°€ì… í¼ì— íŒŒë¼ë¯¸í„°ë¡œ ë„˜ê²¨ì¤Œ
 	@GetMapping("/getUserRole.do")
 	public String getUserRole(@RequestParam("csRoleCode") String csRoleCode,Model model ) {
-		//Å×½ºÆ®¿ë System.out.println(csRoleCode);
+		//í…ŒìŠ¤íŠ¸ìš© System.out.println(csRoleCode);
 		String code = "";
 		if (csRoleCode.equals("ME")) {
 			code = "ME";
@@ -53,16 +53,16 @@ public class MemberController {
 	}
 	
 	/** 
-	 * ¾ÆÀÌµğ Áßº¹ Ã¼Å©
+	 * ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
 	 * @param csEmailId
 	 * @return
 	 */
-//	@ResponseBody //jsonÇüÅÂ·Î º¯È¯ÇØÁÜ
+//	@ResponseBody //jsoní˜•íƒœë¡œ ë³€í™˜í•´ì¤Œ
 //	@RequestMapping(value="/idCheck.do")
 //	public String idCheck(String csEmailId) {
 //		String str = null;
 //		int value = service.idCheck(csEmailId);
-//		System.out.println(value); //Å×½ºÆ®¿ë : µğºñ¿¡¼­ ¼¿·ºÇØ¿Â°Å Àß Ãâ·ÂµÇ³ª È®ÀÎ
+//		System.out.println(value); //í…ŒìŠ¤íŠ¸ìš© : ë””ë¹„ì—ì„œ ì…€ë ‰í•´ì˜¨ê±° ì˜ ì¶œë ¥ë˜ë‚˜ í™•ì¸
 //		str = "{\"value\":\""+value+"\"}";
 //	return str;
 //
@@ -75,14 +75,14 @@ public class MemberController {
 		int flag = service.idCheck(csEmailId);
 		
 		if(flag == 1) result="Y";
-		//¾ÆÀÌµğ°¡ ÀÖÀ»½Ã Y ¾øÀ»½Ã N À¸·Îjsp view ·Î º¸³¿
+		//ì•„ì´ë””ê°€ ìˆì„ì‹œ Y ì—†ì„ì‹œ N ìœ¼ë¡œjsp view ë¡œ ë³´ëƒ„
 		return result;
 		
 	}
 	
 /**
- * È¸¿ø °¡ÀÔ
- * È¸¿ø °¡ÀÔ¹öÆ° ´©¸£¸é ½ÇÇà /È¸¿ø°¡ÀÔ ¿Ï·áÇÏ¸é ·Î±×ÀÎ È­¸éÀ¸·Î ÀÏ´Ü º¸³¿
+ * íšŒì› ê°€ì…
+ * íšŒì› ê°€ì…ë²„íŠ¼ ëˆ„ë¥´ë©´ ì‹¤í–‰ /íšŒì›ê°€ì… ì™„ë£Œí•˜ë©´ ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì¼ë‹¨ ë³´ëƒ„
  * @param vo
  * @return
 */
@@ -92,32 +92,32 @@ public String insertMember(MemberVO vo) {
 	return "member_signup/loginEx.jsp";
 }
 
-//ÀÌ¸ŞÀÏ Àü¼Û
+//ì´ë©”ì¼ ì „ì†¡
 @GetMapping("/mailCheck.do")
 @ResponseBody
 public String mailCheck(String csEmailId,HttpSession session) {
-	System.out.println("ÀÌ¸ŞÀÏ ÀÎÁõ¿äÃ» µé¾î¿È");
-	System.out.println("¿äÃ» º¸³¾ ÀÌ¸ŞÀÏ :" + csEmailId);
+	System.out.println("ì´ë©”ì¼ ì¸ì¦ìš”ì²­ ë“¤ì–´ì˜´");
+	System.out.println("ìš”ì²­ ë³´ë‚¼ ì´ë©”ì¼ :" + csEmailId);
 //	int authNumber = service.mailCheckAndInsertSendEmailHistory(csEmailId );
 	
 	session.setAttribute("authNumber",service.mailCheckAndInsertSendEmailHistory(csEmailId) );
 	session.setMaxInactiveInterval(60);
 	String authNumber = String.valueOf(session.getAttribute("authNumber"));
-    System.out.println("ÄÁÆ®·Ñ·¯¿¡¼­ ¼¼¼Ç¿¡ ÀúÀåµÈ °ª Ãâ·Â : " + authNumber);
+    System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ì„¸ì…˜ì— ì €ì¥ëœ ê°’ ì¶œë ¥ : " + authNumber);
     return authNumber;
 }
 
 //@GetMapping("/mailCheck.do")
 //@ResponseBody
 //public String mailCheck(String csEmailId,HttpSession session) {
-//	System.out.println("ÀÌ¸ŞÀÏ ÀÎÁõ¿äÃ» µé¾î¿È");
-//	System.out.println("¿äÃ» º¸³¾ ÀÌ¸ŞÀÏ :" + csEmailId);
+//	System.out.println("ì´ë©”ì¼ ì¸ì¦ìš”ì²­ ë“¤ì–´ì˜´");
+//	System.out.println("ìš”ì²­ ë³´ë‚¼ ì´ë©”ì¼ :" + csEmailId);
 //	session.setAttribute("authNumber",service.mailCheckAndInsertSendEmailHistory(csEmailId) );
 //	session.setMaxInactiveInterval(60);
-//	 // ¼¼¼Ç¿¡ ÀúÀåµÈ authNumber¸¦ ÀÀ´ä µ¥ÀÌÅÍ·Î ¹İÈ¯
+//	 // ì„¸ì…˜ì— ì €ì¥ëœ authNumberë¥¼ ì‘ë‹µ ë°ì´í„°ë¡œ ë°˜í™˜
 //    String authNumber = String.valueOf(session.getAttribute("authNumber"));
-//    System.out.println("¼¼¼Ç¿¡ ÀúÀåµÈ °ª : " + authNumber);
-//    return authNumber; // ¸®ÅÏÇØÁÙ ÇÊ¿ä ¾øÀ½ ÀÌ°Å ¹Ù²ã¾ßÇÔ 11/09
+//    System.out.println("ì„¸ì…˜ì— ì €ì¥ëœ ê°’ : " + authNumber);
+//    return authNumber; // ë¦¬í„´í•´ì¤„ í•„ìš” ì—†ìŒ ì´ê±° ë°”ê¿”ì•¼í•¨ 11/09
 //}
 
 

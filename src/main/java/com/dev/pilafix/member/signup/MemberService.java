@@ -21,10 +21,7 @@ public interface MemberService {
 	
 	List<TermsVO> getTermsList();
 	
-	/**
-	 * 이메일 발송 및 이력 등록
-	 * @return 
-	 */
+
 //	void mailCheckAndInsertSendEmailHistory(String csEmailId);
 	
 

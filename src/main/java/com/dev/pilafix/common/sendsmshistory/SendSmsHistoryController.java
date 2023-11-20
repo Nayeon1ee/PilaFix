@@ -17,7 +17,7 @@ public class SendSmsHistoryController {
 	private SendSmsHistoryService service;
 	
 	/**
-	 * [¼¾ÅÍ] ¹®ÀÚ¹ß¼ÛÀÌ·Â°ü¸®
+	 * [ì„¼í„°] ë¬¸ìë°œì†¡ì´ë ¥ê´€ë¦¬
 	 * 
 	 * @param session
 	 * @param model
@@ -25,10 +25,10 @@ public class SendSmsHistoryController {
 	 */
 	@GetMapping("/getSendSmsHistoryListForCe.do")
 	public String getSendSmsHistoryListForCe(HttpSession session,Model model) {
-		//·Î±×ÀÎ ¿Ï·áµÇ¸é ÇØ´ç ¹®Àå »èÁ¦ 
+		//ë¡œê·¸ì¸ ì™„ë£Œë˜ë©´ í•´ë‹¹ ë¬¸ì¥ ì‚­ì œ 
 		session.setAttribute("loginUser",111);
 		
-		//·Î±×ÀÎ ¿Ï·áµÇ¸é ·Î±×ÀÎ ¼¼¼Ç¿¡¼­ ²¨³»¿À±â 
+		//ë¡œê·¸ì¸ ì™„ë£Œë˜ë©´ ë¡œê·¸ì¸ ì„¸ì…˜ì—ì„œ êº¼ë‚´ì˜¤ê¸° 
 		int currentUserCode = (int) session.getAttribute("loginUser");
 		
 		model.addAttribute("sendSmsHistoryList", service.getSendSmsHistoryListForCenter(currentUserCode));
@@ -36,7 +36,7 @@ public class SendSmsHistoryController {
 	}
 	
 	/**
-	 * [¼¾ÅÍ] ¹®ÀÚ¹ß¼ÛÀÌ·Â°ü¸®
+	 * [ì„¼í„°] ë¬¸ìë°œì†¡ì´ë ¥ê´€ë¦¬
 	 * 
 	 * @param shSendCode
 	 * @param model
@@ -49,7 +49,7 @@ public class SendSmsHistoryController {
 	}
 	
 	/**
-	 * [°ü¸®ÀÚ] ¹®ÀÚ¹ß¼ÛÀÌ·Â°ü¸®
+	 * [ê´€ë¦¬ì] ë¬¸ìë°œì†¡ì´ë ¥ê´€ë¦¬
 	 * 
 	 * @param session
 	 * @param model
@@ -58,15 +58,15 @@ public class SendSmsHistoryController {
 	@GetMapping("/getSendSmsHistoryListForAd.do")
 	public String getSendSmsHistoryListForAd(HttpSession session,Model model) {
 		
-		//°ü¸®ÀÚ´Â ±×³É ÀüÃ¼ ¸®½ºÆ® »Ì¾Æ¿Í¾ß ÇÔ
-		// service ¸Ş¼­µå Ãß°¡ÇØ¾ß ÇÔ 
-		//¼¾ÅÍ µğÅ×ÀÏ ³¡³½ ÈÄ ÀÛ¾÷
+		//ê´€ë¦¬ìëŠ” ê·¸ëƒ¥ ì „ì²´ ë¦¬ìŠ¤íŠ¸ ë½‘ì•„ì™€ì•¼ í•¨
+		// service ë©”ì„œë“œ ì¶”ê°€í•´ì•¼ í•¨ 
+		//ì„¼í„° ë””í…Œì¼ ëë‚¸ í›„ ì‘ì—…
 		model.addAttribute("sendSmsHistoryList", service.getSendSmsHistoryListForAmdin());
 		return "admin/admin_send_message_list";
 	}
 	
 	/**
-	 * [°ü¸®ÀÚ] ¹®ÀÚ¹ß¼ÛÀÌ·Â°ü¸® »ó¼¼
+	 * [ê´€ë¦¬ì] ë¬¸ìë°œì†¡ì´ë ¥ê´€ë¦¬ ìƒì„¸
 	 * 
 	 * @param shSendCode
 	 * @param model

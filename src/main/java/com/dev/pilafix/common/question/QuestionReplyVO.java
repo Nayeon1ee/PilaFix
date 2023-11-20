@@ -3,14 +3,14 @@ package com.dev.pilafix.common.question;
 import java.sql.Date;
 
 public class QuestionReplyVO {
-	private int reNumber; //½ÃÄö½º ¹øÈ£ 700000ºÎÅÍ ½ÃÀÛ 
+	private int reNumber; //ì‹œí€€ìŠ¤ ë²ˆí˜¸ 700000ë¶€í„° ì‹œì‘ 
 	private String reTitle;
 	private String reContent;
-	private String writerRoleCode; // ÀÛ¼ºÀÚ±ÇÇÑÄÚµå : MEÀÌ¸é È¸¿ø, CE¸é ¼¾ÅÍ 
-	private int writerMemberCode; // ÀÛ¼ºÀÚÈ¸¿øÄÚµå
+	private String writerRoleCode; // ì‘ì„±ìê¶Œí•œì½”ë“œ : MEì´ë©´ íšŒì›, CEë©´ ì„¼í„° 
+	private int writerMemberCode; // ì‘ì„±ìíšŒì›ì½”ë“œ
 	private Date reRegdate; //DEFAULT NOW()
-	private String reTargetPostType; //¿ø±ÛÀ¯Çü : ¹®ÀÇ»çÇ×orÄ¿¹Â´ÏÆ¼ 
-	private int reTargetPostNumber; //¿ø±Û¹øÈ£
+	private String reTargetPostType; //ì›ê¸€ìœ í˜• : ë¬¸ì˜ì‚¬í•­orì»¤ë®¤ë‹ˆí‹° 
+	private int reTargetPostNumber; //ì›ê¸€ë²ˆí˜¸
 	public int getReNumber() {
 		return reNumber;
 	}

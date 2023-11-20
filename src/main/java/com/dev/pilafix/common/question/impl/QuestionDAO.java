@@ -42,7 +42,7 @@ public class QuestionDAO {
 		return sqlSessionTemplate.delete("QuestionDAO.deleteQuestion", qsNumber);
 	}
 	
-	// ·Î±×ÀÎÇÑ È¸¿øÀÇ ¿¬µ¿µÈ ¼¾ÅÍ ÀÌ¸§ °¡Á®¿À·Á°í Ãß°¡
+	// ë¡œê·¸ì¸í•œ íšŒì›ì˜ ì—°ë™ëœ ì„¼í„° ì´ë¦„ ê°€ì ¸ì˜¤ë ¤ê³  ì¶”ê°€
 	public List<CenterVO> getConnectedCT(int csMemberCode) {
         return sqlSessionTemplate.selectList("QuestionDAO.getConnectedCT", csMemberCode);
     }
@@ -69,7 +69,7 @@ public class QuestionDAO {
 	
 	
 	/**
-	 * ¼¾ÅÍ°¡ ´äº¯À» µî·ÏÇÏ¸é È¸¿øÀÇ ´äº¯¿©ºÎ true·Î ¾÷µ¥ÀÌÆ®
+	 * ì„¼í„°ê°€ ë‹µë³€ì„ ë“±ë¡í•˜ë©´ íšŒì›ì˜ ë‹µë³€ì—¬ë¶€ trueë¡œ ì—…ë°ì´íŠ¸
 	 * @param replyvo
 	 * @param questionNumber
 	 */
