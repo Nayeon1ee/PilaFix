@@ -34,7 +34,7 @@ public class MemberManageController {
 
 	/* ======================== 회원관리 ======================== */ 
 	/**
-	 * �쉶�썝 紐⑸줉 議고쉶 
+	 * 회원목록 조회
 	 * 
 	 * @param model
 	 * @return
@@ -163,7 +163,7 @@ public class MemberManageController {
 	 * @param memberCode
 	 * @param centerCode
 	 * 
-	 * @return �닔�씫 �썑 紐⑸줉 �옱議고쉶 
+	 * @return 수락 후 목록 재조회
 	 */
 	@GetMapping("/acceptRequest.do")
 	public String acceptRequest(@RequestParam("crCode") String crCode, @RequestParam("memberCode") int memberCode, @RequestParam("centerCode") int centerCode) {

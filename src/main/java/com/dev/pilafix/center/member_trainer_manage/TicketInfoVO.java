@@ -1,9 +1,9 @@
 package com.dev.pilafix.center.member_trainer_manage;
 
 public class TicketInfoVO {
-	private String tkCode; // Æ¼ÄÏÄÚµå 
-	private String tkName; // Æ¼ÄÏ¸í
-	private String tkUsageCount; // »ç¿ëÈ½¼ö
+	private String tkCode; // í‹°ì¼“ì½”ë“œ 
+	private String tkName; // í‹°ì¼“ëª…
+	private String tkUsageCount; // ì‚¬ìš©íšŸìˆ˜
 	
 	public String getTkCode() {
 		return tkCode;

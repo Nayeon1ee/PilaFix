@@ -16,10 +16,10 @@ public class NoticeHistoryController {
 	
 	@GetMapping("/getNoticeHistoryList.do")
 	public String getNoticeHistoryList(HttpSession session, Model model) {
-		//·Î±×ÀÎ ¿Ï·áµÇ¸é ÇØ´ç ¹®Àå »èÁ¦ 
+		//ë¡œê·¸ì¸ ì™„ë£Œë˜ë©´ í•´ë‹¹ ë¬¸ì¥ ì‚­ì œ 
 		session.setAttribute("loginUser",111);
 		
-		//·Î±×ÀÎ ¿Ï·áµÇ¸é ·Î±×ÀÎ ¼¼¼Ç¿¡¼­ ²¨³»¿À±â 
+		//ë¡œê·¸ì¸ ì™„ë£Œë˜ë©´ ë¡œê·¸ì¸ ì„¸ì…˜ì—ì„œ êº¼ë‚´ì˜¤ê¸° 
 		int currentUserCode = (int) session.getAttribute("loginUser");
 		
 		model.addAttribute("noticeHistoryList",service.getNoticeHistoryList(currentUserCode));

@@ -29,7 +29,7 @@ public class CenterInfoDAO {
 			result = sqlSessionTemplate.insert("CenterInfoDAO.insertCenterInfo", vo);
 //			sqlSessionTemplate.insert("", noticeVo );
 		}catch (Exception e) {
-			throw new RuntimeException("µ¥ÀÌÅÍº£ÀÌ½º ¾÷µ¥ÀÌÆ® ¿À·ù", e);
+			throw new RuntimeException("ë°ì´í„°ë² ì´ìŠ¤ ì—…ë°ì´íŠ¸ ì˜¤ë¥˜", e);
 		}
 		
 		return result;

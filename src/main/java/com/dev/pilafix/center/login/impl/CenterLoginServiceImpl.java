@@ -28,7 +28,7 @@ public class CenterLoginServiceImpl implements CenterLoginService {
 		return null;
 	}
 	
-//	//�α�����
+//	//·Î±×Âï¾îº¸±â
 //	@Override
 //	public CenterLoginVO centerLogin(String ctId, String ctPassword) {
 //	    CenterLoginVO center = dao.getCenterLoginInfo(ctId);

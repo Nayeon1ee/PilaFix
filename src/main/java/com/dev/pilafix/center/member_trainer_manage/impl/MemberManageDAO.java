@@ -96,23 +96,23 @@ public class MemberManageDAO {
 	@Transactional
 	public void updateConnectionYnAndInsertConnHistory(String crCode, int memberCode, int centerCode) {
 		try {
-			// 占쏙옙占쏙옙처占쏙옙 STEP01 - TBL_CENTER_REQUEST 占쏙옙占쏙옙占쏙옙占쏙옙, 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙트
+			// 연동요청처리 STEP01 - TBL_CENTER_REQUEST 연동여부, 일자 업데이트
 			sqlSessionTemplate.update("MemberManageDAO.updateConn", crCode);
 			
-			// 占쏙옙占쏙옙처占쏙옙 STEP02 - TBL_CENTER_CONN占쏙옙 占싱뤄옙 占쏙옙占
+			// 연동처리 STEP02 - TBL_CENTER_CONN에 이력 등록
 			Map<String, Object> params = new HashMap<>();
 			params.put("crCode", crCode);
 			params.put("memberCode", memberCode);
 			params.put("centerCode", centerCode);
 			sqlSessionTemplate.insert("MemberManageDAO.insertConnHistory", params);
 			
-			// 占쏙옙占쏙옙처占쏙옙 STEP03 - TBL_CST CONNECTED_CENTER_CODE 占쏙옙占쏙옙占쏙옙트
-			//占쏙옙占썩서 占쏙옙 占쏙옙占 占쏙옙 centercode占쏙옙 memberCode
+			// 연동처리 STEP03 - TBL_CST CONNECTED_CENTER_CODE 업데이트
+			//여기서 맵 줘야 함 centercode랑 memberCode
 			sqlSessionTemplate.update("MemberManageDAO.updateCSTConn", params);
 			
 		} catch (Exception e) {
-			// 占쏙옙占쏙옙 처占쏙옙 
-			throw new RuntimeException("占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙占쏙옙트 占쏙옙占쏙옙", e);
+			// 예외 처리
+			throw new RuntimeException("데이터 베이스 업데이트 실패", e);
 		}
 	}
 
