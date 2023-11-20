@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import com.dev.pilafix.center.lesson.CenterLessonVO;
+
 import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
+
 import com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO;
 import com.dev.pilafix.center.member_trainer_manage.TicketInfoVO;
 import com.dev.pilafix.common.member.MemberVO;
@@ -38,7 +42,8 @@ public class MemberManageDAO {
 	}
 	
 	/**
-	 * ¹®ÀÇ»çÇ× ³»¿ª Á¶È¸ 
+
+	 * ë¬¸ì˜ì‚¬í•­ ë‚´ì—­ ì¡°íšŒ 
 	 * 
 	 * @param csMemberCode
 	 * @return
@@ -48,7 +53,7 @@ public class MemberManageDAO {
 	}
 
 	/**
-	 * °áÁ¦ ³»¿ª Á¶È¸ 
+	 * ê²°ì œ ë‚´ì—­ ì¡°íšŒ 
 	 * 
 	 * @param csMemberCode
 	 * @return
@@ -58,8 +63,8 @@ public class MemberManageDAO {
 	}
 	
 	/**
-	 * Æ¼ÄÏ Á¤º¸ È­¸é Ãâ·Â¿ë 
-	 * (¼ö°­±Ç ¸í, ¼ö°­±Ç ÃÑ È½¼ö)
+	 * í‹°ì¼“ ì •ë³´ í™”ë©´ ì¶œë ¥ìš© 
+	 * (ìˆ˜ê°•ê¶Œ ëª…, ìˆ˜ê°•ê¶Œ ì´ íšŸìˆ˜)
 	 * 
 	 * @param tkCode
 	 * @return
@@ -73,7 +78,7 @@ public class MemberManageDAO {
 //	}
 	
 	/**
-	 * È¸¿ø »ó¼¼ Á¤º¸ Á¶È¸
+	 * íšŒì› ìƒì„¸ ì •ë³´ ì¡°íšŒ
 	 * 
 	 * @param csMemberCode
 	 * @return
@@ -83,7 +88,7 @@ public class MemberManageDAO {
 	}
 	
 	/**
-	 * ¿¬µ¿ ¿äÃ» Ã³¸® 
+	 * ì—°ë™ ìš”ì²­ ì²˜ë¦¬ 
 	 * @param crCode
 	 * @param memberCode
 	 * @param centerCode
@@ -91,35 +96,46 @@ public class MemberManageDAO {
 	@Transactional
 	public void updateConnectionYnAndInsertConnHistory(String crCode, int memberCode, int centerCode) {
 		try {
-			// ¿¬µ¿Ã³¸® STEP01 - TBL_CENTER_REQUEST ¿¬µ¿¿©ºÎ, ÀÏÀÚ ¾÷µ¥ÀÌÆ®
+			// å ì™ì˜™å ì™ì˜™ì²˜å ì™ì˜™ STEP01 - TBL_CENTER_REQUEST å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™, å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™íŠ¸
 			sqlSessionTemplate.update("MemberManageDAO.updateConn", crCode);
 			
-			// ¿¬µ¿Ã³¸® STEP02 - TBL_CENTER_CONN¿¡ ÀÌ·Â µî·Ï
+			// å ì™ì˜™å ì™ì˜™ì²˜å ì™ì˜™ STEP02 - TBL_CENTER_CONNå ì™ì˜™ å ì‹±ë¤„ì˜™ å ì™ì˜™å 
 			Map<String, Object> params = new HashMap<>();
 			params.put("crCode", crCode);
 			params.put("memberCode", memberCode);
 			params.put("centerCode", centerCode);
 			sqlSessionTemplate.insert("MemberManageDAO.insertConnHistory", params);
 			
-			// ¿¬µ¿Ã³¸® STEP03 - TBL_CST CONNECTED_CENTER_CODE ¾÷µ¥ÀÌÆ®
-			//¿©±â¼­ ¸Ê Áà¾ß ÇÔ centercode¶û memberCode
+			// å ì™ì˜™å ì™ì˜™ì²˜å ì™ì˜™ STEP03 - TBL_CST CONNECTED_CENTER_CODE å ì™ì˜™å ì™ì˜™å ì™ì˜™íŠ¸
+			//å ì™ì˜™å ì©ì„œ å ì™ì˜™ å ì™ì˜™å  å ì™ì˜™ centercodeå ì™ì˜™ memberCode
 			sqlSessionTemplate.update("MemberManageDAO.updateCSTConn", params);
 			
 		} catch (Exception e) {
-			// ¿¹¿Ü Ã³¸® 
-			throw new RuntimeException("µ¥ÀÌÅÍº£ÀÌ½º ¾÷µ¥ÀÌÆ® ¿À·ù", e);
+			// å ì™ì˜™å ì™ì˜™ ì²˜å ì™ì˜™ 
+			throw new RuntimeException("å ì™ì˜™å ì™ì˜™å ì‹¶ë¸ì˜™å ì‹±ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™íŠ¸ å ì™ì˜™å ì™ì˜™", e);
 		}
 	}
 
 	/**
-	 * ¿¬µ¿ °ÅÀı 
+	 * å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™ 
 	 * @param crCode
 	 */
 	public void updateRejectDate(String crCode) {
 		sqlSessionTemplate.update("MemberManageDAO.updateRejectDate", crCode);
 	}
 
+
+	public MemberVO getMember(int csMemberCode) {
+		return sqlSessionTemplate.selectOne("MemberManageDAO.getMember", csMemberCode);
+	}
 	
+	public List<CenterLessonVO> getGroupLesson(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getGroupLesson",csMemberCode);
+	}
+
+	public List<CenterLessonVO> getPersonalLesson(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getPersonalLesson",csMemberCode);
+	}
 
 
 }

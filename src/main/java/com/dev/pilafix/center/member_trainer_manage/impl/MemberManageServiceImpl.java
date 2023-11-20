@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO;
 import com.dev.pilafix.center.member_trainer_manage.MemberManageService;
 import com.dev.pilafix.center.member_trainer_manage.TicketInfoVO;
@@ -20,7 +21,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 	@Autowired
 	private MemberManageDAO dao;
 
-	/* ======================== È¸¿ø °ü¸® ======================== */
+	/* ======================== íšŒì› ê´€ë¦¬ ======================== */
 
 	@Override
 	public List<MemberVO> getMemberManageList() {
@@ -28,20 +29,26 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
 	@Override
+	public MemberVO getMember(int csMemberCode) {
+		return dao.getMember(csMemberCode);
+
+    @Override
 	public List<ConnectRequestVO> getConnectRequestForMe() {
 		return dao.getConnectRequestForMe();
+
 	}
 
 	/**
-	 * ¹®ÀÇ³»¿ª Á¶È¸
+	 * ë¬¸ì˜ë‚´ì—­ ì¡°íšŒ
 	 */
 	@Override
 	public List<QuestionVO> getQuestionForManage(int csMemberCode) {
 		return dao.getQuestionForManage(csMemberCode);
 	}
 
+
 	/**
-	 * °áÁ¦ ³»¿ª Á¶È¸
+	 * ê²°ì œ ë‚´ì—­ ì¡°íšŒ
 	 */
 	@Override
 	public List<PaymentHistoryVO> getPaymentForManage(int csMemberCode) {
@@ -49,7 +56,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
 	/**
-	 * ¿¹¾à ³»¿ª Á¶È¸ ¿¹¾à ±¸Çö ÈÄ VO °¡Á®¿À±â
+	 * ì˜ˆì•½ ë‚´ì—­ ì¡°íšŒ ì˜ˆì•½ êµ¬í˜„ í›„ VO ê°€ì ¸ì˜¤ê¸°
 	 */
 //	@Override
 //	public List<ReservationVO> getReserveForManage(int csMemberCode) {
@@ -57,29 +64,44 @@ public class MemberManageServiceImpl implements MemberManageService {
 //	}
 
 	/**
-	 * ±×·ì/°³ÀÎ Æ¼ÄÏ¿¡ ´ëÇÑ Á¤º¸ Á¶È¸
-	 * ¼ö°­±Ç º° Á¸Àç ¿©ºÎ¿¡ µû¶ó Á¶È¸ÇÏ¿© List¿¡ ÀúÀåµÊ 
+	 * ê·¸ë£¹/ê°œì¸ í‹°ì¼“ì— ëŒ€í•œ ì •ë³´ ì¡°íšŒ
+	 * ìˆ˜ê°•ê¶Œ ë³„ ì¡´ì¬ ì—¬ë¶€ì— ë”°ë¼ ì¡°íšŒí•˜ì—¬ Listì— ì €ì¥ë¨ 
 	 * 
 	 */
 	@Override
+
+	public List<CenterLessonVO> getGroupLesson(int csMemberCode) {
+		return dao.getGroupLesson(csMemberCode);
+	}
+	
+	@Override
+	public List<CenterLessonVO> getPersonalLesson(int csMemberCode) {
+		return dao.getPersonalLesson(csMemberCode);
+	}
+	
+	@Override
+	public List<ConnectRequestVO> getConnectRequestForTr() {
+		return dao.getConnectRequestForTr();
+
 	public Map<String, TicketInfoVO> getTicketInfo(String tkCodeP, String tkCodeG) {
 		 Map<String, TicketInfoVO> ticketMap = new HashMap<>();
 		
-		// center/center_manage.jsp È­¸é¿¡¼­ »óÅÂ¿¡ µû¶ó °ªÀ» ²¨³»¾ß ÇÏ±â ¶§¹® 
+		// center/center_manage.jsp í™”ë©´ì—ì„œ ìƒíƒœì— ë”°ë¼ ê°’ì„ êº¼ë‚´ì•¼ í•˜ê¸° ë•Œë¬¸ 
 		
-		if (!tkCodeP.equals("0") && !tkCodeG.equals("0")) { // µÑ´Ù Á¸Àç 
+		if (!tkCodeP.equals("0") && !tkCodeG.equals("0")) { // ë‘˜ë‹¤ ì¡´ì¬ 
 			ticketMap.put("group", dao.getTicketInfoForManage(tkCodeG));
 			ticketMap.put("personal", dao.getTicketInfoForManage(tkCodeP));
-		}else if (tkCodeP.equals("0") && !tkCodeG.equals("0")) { // ±×·ì ¼ö°­±Ç¸¸ Á¸Àç
+		}else if (tkCodeP.equals("0") && !tkCodeG.equals("0")) { // ê·¸ë£¹ ìˆ˜ê°•ê¶Œë§Œ ì¡´ì¬
 			ticketMap.put("group", dao.getTicketInfoForManage(tkCodeG));
-		}else if (!tkCodeP.equals("0") && tkCodeG.equals("0")) { // °³ÀÎ ¼ö°­±Ç¸¸ Á¸Àç
+		}else if (!tkCodeP.equals("0") && tkCodeG.equals("0")) { // ê°œì¸ ìˆ˜ê°•ê¶Œë§Œ ì¡´ì¬
 			ticketMap.put("personal", dao.getTicketInfoForManage(tkCodeP));
 		}
 
 		return ticketMap;
+
 	}
 
-	/* ======================== °­»ç °ü¸® ======================== */
+	/* ======================== ê°•ì‚¬ ê´€ë¦¬ ======================== */
 	@Override
 	public List<MemberVO> getTrainerManageList() {
 		return dao.getTrainerManageList();
@@ -91,7 +113,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
 	/**
-	 * ¿¬µ¿ ¿äÃ» ¼ö¶ô
+	 * å ì™ì˜™å ì™ì˜™ å ì™ì˜™ì²­ å ì™ì˜™å ì™ì˜™
 	 */
 	@Override
 	public void acceptRequest(String crCode, int memberCode, int centerCode) {
@@ -99,19 +121,21 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
 	/**
-	 * ¿¬µ¿ ¿äÃ» °ÅÀı
+	 * å ì™ì˜™å ì™ì˜™ å ì™ì˜™ì²­ å ì™ì˜™å ì™ì˜™
 	 */
 	@Override
 	public void rejectRequest(String crCode) {
 		dao.updateRejectDate(crCode);
 	}
 
+
 	/**
-	 * È¸¿ø »ó¼¼ Á¶È¸
+	 * íšŒì› ìƒì„¸ ì¡°íšŒ
 	 */
 	@Override
 	public MemberVO getMemberManage(int csMemberCode) {
 		return dao.getMemberManage(csMemberCode);
 	}
+
 
 }

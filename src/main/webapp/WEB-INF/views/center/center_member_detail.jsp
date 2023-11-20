@@ -4,6 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib  prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="center_header_common.jsp" %>
+<%@ taglib  prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 	<main id="main" class="main">
@@ -36,6 +39,7 @@
 										<div
 											class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
+
 											<img src="${pageContext.request.contextPath }/resources/images/customer.png"  class="rounded-circle rounded-logo" alt="logo"  width="50%"><br>
 											
 											<h5>${member.csName }</h5>
@@ -44,10 +48,12 @@
 											<c:set var="birthYear" value="${fn:substring(member.csBirth, 0, 4)}" />
 											<c:set var="age" value="${currentYear - birthYear}" />
 											<h5>${member.csBirth } (${age}세)</h5>
+
 											<div class="social-links mt-2">
 												<table class="CTS_information00">
 													<tr>
 														<td class="CTS_information01">회원번호</td>
+
 														<td>${member.csMemberCode }</td>
 													</tr>
 													<tr>
@@ -57,6 +63,7 @@
 													<tr>
 														<td class="CTS_information01">이메일</td>
 														<td>${member.csEmailId }</td>
+
 													</tr>
 													<tr>
 														<td class="CTS_information01">회원등록일</td>

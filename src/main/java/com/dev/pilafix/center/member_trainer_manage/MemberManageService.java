@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.common.question.QuestionVO;
 
@@ -13,7 +14,9 @@ public interface MemberManageService {
 
 	List<MemberVO> getTrainerManageList();
 
-	MemberVO getMemberManage(int csMemberCode);
+
+	MemberVO getMember(int csMemberCode);
+
 
 	List<ConnectRequestVO> getConnectRequestForMe();
 
@@ -31,6 +34,10 @@ public interface MemberManageService {
 
 
 
+
+	List<CenterLessonVO> getGroupLesson(int csMemberCode);
+
+	List<CenterLessonVO> getPersonalLesson(int csMemberCode);
 
 
 

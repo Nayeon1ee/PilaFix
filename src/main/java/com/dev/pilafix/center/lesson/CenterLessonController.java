@@ -39,7 +39,7 @@ public class CenterLessonController {
 	
 	@GetMapping("/insertCenterLesson.do")
 	public String insertCenterLesson(HttpServletRequest request, Model model) {
-		//¼¼¼Ç¿¡¼­ ·Î±×ÀÎ À¯Àú »Ì¾Æ¿Í¾ß ÇÔ (¾Æ·¡ ÄÚµå´Â ¿¹½Ã)
+		//ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾Æ¿Í¾ï¿½ ï¿½ï¿½ (ï¿½Æ·ï¿½ ï¿½Úµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 //		int centerCode = session.getAttribute("user");
 		
 		HttpSession session = request.getSession();

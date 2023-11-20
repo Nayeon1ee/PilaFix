@@ -1,7 +1,12 @@
 package com.dev.pilafix.center.member_trainer_manage;
 
 
+
+import java.sql.Date;
+import java.util.List;
+
 import java.util.Map;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
+import com.dev.pilafix.center.lesson.CenterLessonVO;
+import com.dev.pilafix.common.question.QuestionVO;
+
 import com.dev.pilafix.common.member.MemberVO;
+
 
 
 @Controller
@@ -20,15 +31,17 @@ public class MemberManageController {
 	@Autowired
 	private MemberManageService service;
 
+
 	/* ======================== 회원관리 ======================== */ 
 	/**
-	 * 회원 목록 조회 
+	 * �쉶�썝 紐⑸줉 議고쉶 
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/getMemberManageList.do")
 	public String getMemberManageList(HttpSession session, Model model) {
+
 		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
 
         if (center != null) {
@@ -54,6 +67,7 @@ public class MemberManageController {
 	 * @return
 	 */
 	@GetMapping("/getMemberManage.do")
+
 	public String getMemberManage(HttpSession session, int csMemberCode, Model model) {
 		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
 		MemberVO member = service.getMemberManage(csMemberCode);
@@ -85,11 +99,13 @@ public class MemberManageController {
 			return "center/center_member_detail";
 		}
 		return "redirect:centerLogin.do"; 
+
 		
 	}
 	
 	
 	
+
 	/* ======================== 강사관리 ======================== */ 
 	/**
 	 * 강사 목록 조회
@@ -116,12 +132,24 @@ public class MemberManageController {
 	@GetMapping("/getTrainerManage.do")
 	public String getTrainerManage(int csMemberCode, String csRoleCode,Model model) {
 		//회원 정보 
-		model.addAttribute("member", service.getMemberManage(csMemberCode));
+
+		model.addAttribute("member", service.getMember(csMemberCode));
+
+		//그룹 수업내용
+		
+		
+		model.addAttribute("groupLesson", service.getGroupLesson(csMemberCode));
+		//개인 수업내용
+		model.addAttribute("personalLesson", service.getPersonalLesson(csMemberCode));
+		//전체 수업내용
+		
+		
 
 		return "center/center_trainer_detail";
 	}
 	
 	
+
 	/* ======================== 공통 ======================== */ 
 
 	/**
@@ -135,7 +163,7 @@ public class MemberManageController {
 	 * @param memberCode
 	 * @param centerCode
 	 * 
-	 * @return 수락 후 목록 재조회 
+	 * @return �닔�씫 �썑 紐⑸줉 �옱議고쉶 
 	 */
 	@GetMapping("/acceptRequest.do")
 	public String acceptRequest(@RequestParam("crCode") String crCode, @RequestParam("memberCode") int memberCode, @RequestParam("centerCode") int centerCode) {
