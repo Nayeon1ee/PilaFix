@@ -53,6 +53,11 @@
 					<div class="info-box04" style="text-align: center;">
 						<a class="withdraw_button" href="withdraw.jsp">회원탈퇴</a>
 					</div>
+					
+					<div class="info-box04" style="text-align: center;">
+						<a class="withdraw_button" href="ticketPage.do">수강권구매</a>
+					</div>
+					
 			</main>
 
 			<area2>

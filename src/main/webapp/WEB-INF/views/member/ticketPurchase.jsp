@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,9 @@
 	href="${pageContext.request.contextPath}/resources/css/ticket.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+	
+<!-- 내가 추가한 js -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 	<div class="container000">
@@ -28,11 +32,27 @@
 					<div class="slect-wrap">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/select-arr.png"
-							alt="arr Image"> <select>
-							<option>룩스 필라테스삼송점</option>
-							<option>이브 필라테스 종로점</option>
+							alt="arr Image"> 
+						<!-- 로그인한 회원코드의 연동된 센터가 없으면 수강권 구매할 수 없으므로 연동센터없으면 연동센터없다고 뿌려주고 있으면 그 센터의 이름 셀렉박스 옵션으로 넣어줌 -->
+						<select id="centerSelect" onchange="getCenterInfo()">
+							<c:choose>
+								<c:when test="${empty connCenterList}">
+									<option selected>연동센터 없음</option>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="center" items="${connCenterList}">
+										<option value="${center.ctCode}">센터코드: ${center.ctCode}&센터이름: ${center.ctName}</option>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</select>
 					</div>
+					<!-- 셀렉트박스 끝 -->
+					
+					<!-- 셀렉트박스에서 선택한 센터의 수강권 정보를 업데이트할 부분 -->
+					<div id="centerInfoContainer"></div>
+					
+					
 					<hr>
 					<div>
 						<ul class="nav nav-tabs">
@@ -225,6 +245,29 @@
 		</section>
 
 	</div>
+	<!-- 셀렉트박스에서 센터 선택하면 해당 센터의 수강권정보 가져오는 js  -->
+	<script>
+    function getCenterInfo() {
+        var selectedCenterCode = document.getElementById("centerSelect").value;
+		console.log("선택한 지점 코드"+selectedCenterCode);
+        // Ajax 요청
+        $.ajax({
+            type: "Post",
+            url: "getCenterTicketInfo.do",  // 적절한 URL로 변경
+            data: { ctCode: selectedCenterCode },
+            success: function(data) {
+                // 성공 시 아래에 정보 업데이트
+                //document.getElementById("centerInfoContainer").innerHTML = data;
+                console.log("값 가져옴")
+            },
+            error: function() {
+                console.error("Ajax 요청 실패");
+            }
+        });
+    }
+</script>
+	
+	
 	<!-- 클릭하면 우측 화면 디폴트에서 상세화면으로 바뀌게 하는 js -->
 	<script>
 		// JavaScript를 사용하여 요소 클릭 시 내용 교체

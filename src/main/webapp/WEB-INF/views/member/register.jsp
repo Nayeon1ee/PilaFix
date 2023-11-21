@@ -170,13 +170,13 @@
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
 							style="float: left; width: 20%;">휴대전화 번호</label> <input
-							type="text" class="form-control" name="csPhoneNumber1" 
+							type="text" class="form-control" name="csPhoneNumber1" placeholder="3자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
 							<input
-							type="text" class="form-control" name="csPhoneNumber2"
+							type="text" class="form-control" name="csPhoneNumber2" placeholder="4자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
 							<input
-							type="text" class="form-control" name="csPhoneNumber3"
+							type="text" class="form-control" name="csPhoneNumber3" placeholder="4자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
 					</div>
 					
