@@ -105,14 +105,14 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">글 작성</h5>
+						<h5 class="card-title">게시글 작성</h5>
 						<p>개인 정보가 포함되지 않도록 유의하시고, 아래와 같은 규정에 따라 삭제될 수 있습니다.</p>
 
 
 						<!-- Multi Columns Form -->
 						<form class="row g-3">
 							<div class="col-md-2">
-								<label class="form-label">글 번호</label> <input type="text"
+								<label class="form-label"> 번호</label> <input type="text"
 									readonly disabled class="form-control" value="1">
 							</div>
 							<div class="col-md-5">
@@ -121,18 +121,17 @@
 							</div>
 							<div class="col-md-5">
 								<label class="form-label">작성일</label> <input type="text"
-									readonly disabled class="form-control" value="2023-11-21">
+									readonly disabled class="form-control" value="2023-01-01">
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">글 제목</label> <input type="text"
-									readonly disabled class="form-control" value="xx점 ~~  ~~">
+									class="form-control" value="글 제목 ~~~~~~~~~~~~~~~">
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">글 내용</label>
-								<textarea readonly disabled class="form-control"
-									style="height: 300px;">xx점 ~~ ~~~~~~~~~~~~~~~~~</textarea>
+								<textarea class="form-control" style="height: 300px;">글 내용 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            </textarea>
 							</div>
-
 
 
 							<div class="text-center">
@@ -149,8 +148,7 @@
 											onclick="location.href='member_community.do'">취소</button>
 									</div>
 									<div class="btn-group me-3">
-										<a href="member_community.do" class="btn btn-primary">
-											<i class="bi bi-pencil"></i> 글 등록
+										<a href="member_community.do" class="btn btn-primary"> 등록
 										</a>
 									</div>
 
@@ -162,8 +160,8 @@
 							<!-- End Multi Columns Form -->
 
 
-					
-							</form>
+
+						</form>
 					</div>
 				</div>
 

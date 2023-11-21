@@ -276,7 +276,6 @@
 				</table>
 				<!-- 리스트 끝 -->
 
-
 				<div class="d-flex justify-content-between">
 					<!-- 페이징 처리 -->
 					<div class="blog-pagination me-3">

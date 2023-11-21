@@ -105,7 +105,7 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">글 수정</h5>
+						<h5 class="card-title">게시글 수정</h5>
 						<p>개인 정보가 포함되지 않도록 유의하시고, 아래와 같은 규정에 따라 삭제될 수 있습니다.</p>
 
 						<form class="row g-3">
@@ -130,8 +130,6 @@
 								<textarea class="form-control" style="height: 300px;">글 내용 수정~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             </textarea>
 							</div>
-
-
 
 
 							<div class="text-center">
