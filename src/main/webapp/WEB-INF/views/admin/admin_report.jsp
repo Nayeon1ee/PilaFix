@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/style_admin_baned_comment.css">
 <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -89,9 +90,10 @@
 								<thead>
 									<tr>
 										<th scope="col">번호</th>
-										<th scope="col">제목번호</th>
+										<!-- <th scope="col">제목번호</th> -->
+										<th scope="col">제목</th>
 										<th scope="col">유형</th>
-										<th scope="col">작성일</th>
+										<th scope="col">신고일자</th>
 										<th scope="col">신고건수</th>
 										<th scope="col">처리상태</th>
 										<th scope="col">IP</th>
@@ -99,18 +101,28 @@
 								</thead>
 								<c:if test="${ComplaintsInfoList == null }">
 									<tr>
-										<td colspan="7">등록된 글이 없습니다.</td>
+										<td colspan="8">등록된 글이 없습니다.</td>
 									</tr>
 								</c:if>
 								<tbody>
 									<c:forEach var="ComplaintsInfo" items="${ComplaintsInfoList }">
 										<tr>
-											<td><a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cpCode }</a></td>
-											<td>${ComplaintsInfo.cpTargetPostNumber }</td>
-											<td>${ComplaintsInfo.cpTargetPostType }</td>
+											<td><%-- <a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cpCode }</a> --%>${ComplaintsInfo.cpCode }</td>
+											<%--<td> <a href="getComplaintsInfo.do?cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber }">${ComplaintsInfo.cpTargetPostNumber }</td> --%>
+											<td><a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cmTitle }</td>
+											<c:if test="${ComplaintsInfo.cpTargetPostType eq 'CM' }">
+												<td>커뮤니티</td>
+											</c:if>
 											<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${ComplaintsInfo.cpDate }"/></td>
-											<td>${ComplaintsInfo.targetWriterMemberCode}</td>
-											<td>${ComplaintsInfo.blamerMemberCode }</td>
+											<td><span class="tooltip-baned-reason">${ComplaintsInfo.cmBlameCount}
+											 <span class="tooltip-baned-text">${ComplaintsInfo.blameReasonName}</span></td>
+											</td>
+											<c:if test="${ComplaintsInfo.cpOpenYn eq 'true' }">
+												<td>처리대기</td>
+											</c:if>
+											<c:if test="${ComplaintsInfo.cpOpenYn eq 'false' }">
+												<td>처리완료</td>
+											</c:if>
 											<td>${ComplaintsInfo.blamerIp }</td>
 											<%-- <td><a href="updateCpInfo.do?cp_code=${cpInfo.cp_code }">수정</a> | <a href="deleteCpInfo.do?cp_code=${cpInfo.cp_code }">삭제</a></td> --%>
 										</tr>
