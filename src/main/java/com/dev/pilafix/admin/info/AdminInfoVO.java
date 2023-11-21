@@ -1,7 +1,7 @@
 package com.dev.pilafix.admin.info;
 
 public class AdminInfoVO {
-	private int seq;
+	private int iwNumber;
 	private String title;
 	private String content;
 	private String writerMemberCode;
@@ -12,12 +12,13 @@ public class AdminInfoVO {
 	private String writerMemberCodeAd;
 	private String writerMemberName;
 
-	public int getSeq() {
-		return seq;
+	
+	public int getIwNumber() {
+		return iwNumber;
 	}
 
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void setIwNumber(int iwNumber) {
+		this.iwNumber = iwNumber;
 	}
 
 	public String getTitle() {
@@ -86,9 +87,11 @@ public class AdminInfoVO {
 
 	@Override
 	public String toString() {
-		return "AdminInfoVO [seq=" + seq + ", title=" + title + ", content=" + content + ", writerMemberCode="
+		return "AdminInfoVO [iwNumber=" + iwNumber + ", title=" + title + ", content=" + content + ", writerMemberCode="
 				+ writerMemberCode + ", regDate=" + regDate + ", cnt=" + cnt + ", openYN=" + openYN
-				+ ", writerMemberCodeAd=" + writerMemberCodeAd + ", writerMemberName=" + writerMemberName;
+				+ ", writerMemberCodeAd=" + writerMemberCodeAd + ", writerMemberName=" + writerMemberName + "]";
 	}
+
+	
 
 }

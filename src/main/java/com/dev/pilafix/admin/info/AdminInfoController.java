@@ -21,17 +21,17 @@ public class AdminInfoController {
 	}
 
 	@GetMapping("/getAdminInfo.do")
-	public String getAdminInfo(@RequestParam("seq") Integer seq, Model model) {
+	public String getAdminInfo(@RequestParam("iwNumber") Integer iwNumber, Model model) {
 		// 게시글 조회
-	    AdminInfoVO adminInfo = service.getInfo(seq);
+	    AdminInfoVO adminInfo = service.getInfo(iwNumber);
 	    
 	    // 조회수 증가
-	    service.updateAdminInfoViewCnt(seq);
+	    service.updateAdminInfoViewCnt(iwNumber);
 	    
 	    // 리스트 업데이트
 	    int updatedList = service.updateAdminInfoViewCnt(adminInfo.getCnt());
 	    
-	    model.addAttribute("adminInfo", service.getInfo(seq));
+	    model.addAttribute("adminInfo", service.getInfo(iwNumber));
 	    model.addAttribute("updatedList", updatedList);
 		return "admin/admin_info_board_detail";
 	}

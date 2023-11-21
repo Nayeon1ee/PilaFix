@@ -99,8 +99,8 @@
 									</c:if>
 									<c:forEach var="centerInfo" items="${infoList }">
 										<tr>
-											<td>${centerInfo.seq }</td>
-											<td><a href="getCenterInfo.do?seq=${centerInfo.seq }">${centerInfo.title }</a></td>
+											<td>${centerInfo.icNumber }</td>
+											<td><a href="getCenterInfo.do?icNumber=${centerInfo.icNumber}">${centerInfo.title }</a></td>
 											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${centerInfo.regDate }"/></td>
 											<td>${centerInfo.cnt }</td>
 											<c:choose>

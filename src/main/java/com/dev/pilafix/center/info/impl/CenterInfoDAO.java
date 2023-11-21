@@ -18,21 +18,12 @@ public class CenterInfoDAO {
 		return sqlSessionTemplate.selectList("CenterInfoDAO.getCenterInfoList", ctCode);
 	}
 	
-	public CenterInfoVO getCenterInfo(int seq) {
-	    return sqlSessionTemplate.selectOne("CenterInfoDAO.getCenterInfo",seq);
+	public CenterInfoVO getCenterInfo(int icNumber) {
+	    return sqlSessionTemplate.selectOne("CenterInfoDAO.getCenterInfo",icNumber);
 	}
 	
-	@Transactional
 	public int insertCenterInfo(CenterInfoVO vo) {
-		int result = 0;
-		try {
-			result = sqlSessionTemplate.insert("CenterInfoDAO.insertCenterInfo", vo);
-//			sqlSessionTemplate.insert("", noticeVo );
-		}catch (Exception e) {
-			throw new RuntimeException("데이터베이스 업데이트 오류", e);
-		}
-		
-		return result;
+		return sqlSessionTemplate.insert("CenterInfoDAO.insertCenterInfo", vo);
 	}
 
 	
@@ -40,19 +31,12 @@ public class CenterInfoDAO {
 		return sqlSessionTemplate.update("CenterInfoDAO.updateCenterInfo", vo);
 	}
 	
-	public int deleteCenterInfo(int seq) {
-		return sqlSessionTemplate.delete("CenterInfoDAO.deleteCenterInfo", seq);
+	public int deleteCenterInfo(int icNumber) {
+		return sqlSessionTemplate.delete("CenterInfoDAO.deleteCenterInfo", icNumber);
 	}
 	
 	public int updateCenterInfoViewCnt(int cnt) {
 		return sqlSessionTemplate.update("CenterInfoDAO.updateCenterInfoViewCnt", cnt);
 	}
-	
-	/**
-	 * 알림 발송을 위한 회원 목록 조회 
-	 * @param ctCode
-	 */
-	public List<String> getMemberCodeList(int ctCode) {
-		return sqlSessionTemplate.selectList("CenterInfoDAO.getMemberCodeList", ctCode);
-	}
+
 }

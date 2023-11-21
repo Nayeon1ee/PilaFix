@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="NoticeDAO">
+	<resultMap type="Integer" id="codeResult"> 
+	     <result property="" column="CS_MEMBER_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
+	</resultMap>
+
+	<!-- 알림 발송을 위한 회원 코드 목록 조회 -->
+	<select id="getMemberCodeList" resultMap="codeResult">
+		SELECT CS_MEMBER_CODE FROM TBL_CST
+		WHERE (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
+	</select>
+	
+	<!-- 알림 테이블 적재 -->
+	<insert id="insertNotice" parameterType="com.dev.pilafix.common.notice.NoticeVO">
+		INSERT INTO TBL_NOTICE(NC_ID, MEMBER_CODE, RECIPIENT_CODE, EVENT_TYPE, UNIQUE_IDENTIFIER_CODE, NC_NOTICE_CONTENT,NC_SEND_YN, NC_READ_YN )
+		VALUES(CONCAT('NC',NEXTVAL('seq_notice')), #{memberCode},#{recipientCode},#{eventType},#{uniqueIdentifierCode},#{ncNoticeContent},false,false)
+	</insert>
+</mapper>

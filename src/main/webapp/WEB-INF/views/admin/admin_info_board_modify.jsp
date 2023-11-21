@@ -22,7 +22,7 @@
    	 
 				<!-- Multi Columns Form -->
 				<form class="row g-3" id="registrationForm000" action="updateAdminInfo.do" method="post">
-				<input type="hidden" name="seq" value="${adminInfo.seq}">
+				<input type="hidden" name="iwNumber" value="${adminInfo.iwNumber}">
 				    <div class="col-md-5">
 				        <label class="form-label">작성자</label>
 				        <input type="text" class="form-control" value="${adminInfo.writerMemberName }" disabled>

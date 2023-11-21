@@ -5,6 +5,7 @@ import java.util.List;
 public interface CenterInfoService {
 	List<CenterInfoVO> getCenterInfoList(int ctCode);
 	CenterInfoVO getCenterInfo(int seq);
+	void insertCenterInfoAndLoadNotices(CenterInfoVO vo);
 	int insertCenterInfo(CenterInfoVO vo);
 	int updateCenterInfo(CenterInfoVO vo);
 	int deleteCenterInfo(int seq);

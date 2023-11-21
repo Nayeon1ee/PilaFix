@@ -91,8 +91,8 @@
 			</c:if>
 			<c:forEach var="adminInfo" items="${InfoList}">
 				<tr>
-					<td>${adminInfo.seq }</td>
-					<td><a href="getAdminInfo.do?seq=${adminInfo.seq }">${adminInfo.title }</a></td>
+					<td>${adminInfo.iwNumber }</td>
+					<td><a href="getAdminInfo.do?iwNumber=${adminInfo.iwNumber }">${adminInfo.title }</a></td>
 					<td>${adminInfo.writerMemberName }</td>
 					<td>${adminInfo.regDate }</td>
 					<td>${adminInfo.cnt }</td>

@@ -23,7 +23,7 @@
 
 				<!-- Multi Columns Form -->
 				<form class="row g-3" id="registrationForm000">
-					 <input type="hidden" class="form-control" value="${adminInfo.seq }" disabled>
+					 <input type="hidden" class="form-control" value="${adminInfo.iwNumber }" disabled>
 				    <div class="col-md-5">
 				        <label class="form-label">작성자</label>
 				        <input type="text" class="form-control" value="${adminInfo.writerMemberName }" disabled>
@@ -49,7 +49,7 @@
 				        <input type="text" class="form-control" id="titleInput000" value="${adminInfo.openYN ? '공개' : '비공개'}" disabled>
 				    </div>
 					<div class="text-center">
-	                  <button type="button" class="btn btn-primary" onclick="location.href='updateAdminInfo.do?seq=${adminInfo.seq }'">수정</button>
+	                  <button type="button" class="btn btn-primary" onclick="location.href='updateAdminInfo.do?iwNumber=${adminInfo.iwNumber }'">수정</button>
 	                  <button type="button" class="btn btn-danger" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
 	                  <button type="button" class="btn btn-secondary" onclick="location.href='getAdminInfoList.do'">목록</button>
 	                </div>
@@ -71,7 +71,7 @@
 			<div class="modal-body">삭제 버튼을 누르시면 다시 복구시킬 수 없습니다.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='deleteAdminInfo.do?seq=${adminInfo.seq }'">삭제</button>
+				<button type="button" class="btn btn-primary" onclick="location.href='deleteAdminInfo.do?iwNumber=${adminInfo.iwNumber }'">삭제</button>
 			</div>
 		</div>
 	</div>
@@ -79,7 +79,7 @@
 <!-- 모달의 확인 누르면 삭제 진행-->
 <script>
 function deleteCommunity(cmNumber) {
-		fetch('/pilafix/deleteAdminInfo.do?seq=' + seq, {
+		fetch('/pilafix/deleteAdminInfo.do?iwNumber=' + iwNumber, {
 			method: 'GET'
 		})
 			.then(response => {

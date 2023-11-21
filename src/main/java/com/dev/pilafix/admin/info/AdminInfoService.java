@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface AdminInfoService {
 	List<AdminInfoVO> getAdminInfoList();
-	AdminInfoVO getInfo(int seq);
+	AdminInfoVO getInfo(int iwNumber);
 	int insertAdminInfo(AdminInfoVO vo);
 	int updateAdminInfo(AdminInfoVO vo);
-	int deleteAdminInfo(int seq);
+	int deleteAdminInfo(int iwNumber);
 	int updateAdminInfoViewCnt(int cnt);
 }
