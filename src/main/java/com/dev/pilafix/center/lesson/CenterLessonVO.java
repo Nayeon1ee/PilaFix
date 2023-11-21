@@ -23,9 +23,46 @@ public class CenterLessonVO {
 
 	private int csMemberCode;
 	private String csName;
+	
+	private int groupCount;
+	private int personalCount;
+	private int closedGroupCount;
+	private int closedPersonalCount;
 
 	
 	
+	public int getClosedGroupCount() {
+		return closedGroupCount;
+	}
+
+	public void setClosedGroupCount(int closedGroupCount) {
+		this.closedGroupCount = closedGroupCount;
+	}
+
+	public int getClosedPersonalCount() {
+		return closedPersonalCount;
+	}
+
+	public void setClosedPersonalCount(int closedPersonalCount) {
+		this.closedPersonalCount = closedPersonalCount;
+	}
+
+	public int getGroupCount() {
+		return groupCount;
+	}
+
+	public void setGroupCount(int groupCount) {
+		this.groupCount = groupCount;
+	}
+
+	public int getPersonalCount() {
+		return personalCount;
+	}
+
+	public void setPersonalCount(int personalCount) {
+		this.personalCount = personalCount;
+	}
+
 	public Timestamp getLsTimeDB() {
 		return lsTimeDB;
 	}
@@ -161,8 +198,14 @@ public class CenterLessonVO {
 				+ ", trainerMemberCode=" + trainerMemberCode + ", lsContent=" + lsContent + ", centerCode=" + centerCode
 				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsColseYN=" + lsColseYN
 				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB
-				+ ", csMemberCode=" + csMemberCode + ", csName=" + csName + "]";
+				+ ", csMemberCode=" + csMemberCode + ", csName=" + csName + ", groupCount=" + groupCount
+				+ ", personalCount=" + personalCount + ", closedGroupCount=" + closedGroupCount
+				+ ", closedPersonalCount=" + closedPersonalCount + "]";
 	}
+
+	
+
+	
 
 	
 

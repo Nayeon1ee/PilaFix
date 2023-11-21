@@ -99,6 +99,10 @@
 		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>
 		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE"/>
+		<result property="groupCount" column="GROUP_COUNT"/>
+		<result property="personalCount" column="PERSONAL_COUNT"/>
+		<result property="closedGroupCount" column="CLOSED_GROUP_COUNT"/>
+		<result property="closedPersonalCount" column="CLOSED_PERSONAL_COUNT"/>
 	</resultMap>
 	
 	<resultMap type="com.dev.pilafix.center.member_trainer_manage.TicketInfoVO" id="ticketInfo">
@@ -214,19 +218,40 @@
 	
 	<!-- 강사의 그룹수업 조회 -->
 	<select id="getGroupLesson" resultMap="centerLessonResult" >
+		  <!--SELECT ls_name,ls_type,ls_date,EXTRACT(HOUR FROM ls_time) || ':' || EXTRACT(MINUTE FROM ls_time)AS ls_time ,LS_REGISTRATION_DATE FROM TBL_LESSON WHERE trainer_member_code=#{csMemberCode} AND ls_type='그룹'
+	-->	
 		SELECT *  FROM TBL_LESSON WHERE trainer_member_code=#{csMemberCode} AND ls_type='그룹'
-		
-		<!--  SELECT ls_name,ls_type,ls_date,EXTRACT(HOUR FROM ls_time) || ':' || EXTRACT(MINUTE FROM ls_time)AS ls_time ,LS_REGISTRATION_DATE FROM TBL_LESSON WHERE trainer_member_code=#{csMemberCode} AND ls_type='그룹'
-		-->
-SELECT ls_code, ls_name, ls_type, ls_date, TO_CHAR(ls_time, 'YYYY-MM-DD HH24:MI:ss AM') AS ls_time, ls_capacity, ls_current_applicants, trainer_member_code, ls_content, center_code, ls_registration_date, ls_close_yn
-FROM TBL_LESSON
-WHERE trainer_member_code = #{csMemberCode} AND ls_type = '그룹';
+		ORDER BY ls_date DESC, ls_time DESC
+	<!--  SELECT ls_code, ls_name, ls_type, ls_date, TO_CHAR(ls_time, '
+	HH24:MI:ss AM') AS ls_time, ls_registration_date, ls_close_yn
+	FROM TBL_LESSON
+	WHERE trainer_member_code = #{csMemberCode} AND ls_type = '그룹'
+	ORDER BY ls_date DESC, ls_time DESC;-->
 
 	</select>
 	
 	<!-- 강사의 개인수업 조회 -->
 	<select id="getPersonalLesson" resultMap="centerLessonResult" >
-		SELECT *  FROM TBL_LESSON WHERE trainer_member_code=#{csMemberCode} AND ls_type='개인'
+		  SELECT *  FROM TBL_LESSON WHERE trainer_member_code=#{csMemberCode} AND ls_type='개인' 
+		  ORDER BY ls_date DESC, ls_time DESC
+	<!--	SELECT ls_code, ls_name, ls_type, ls_date, TO_CHAR(ls_time, '
+	HH24:MI:ss AM') AS ls_time, ls_registration_date, ls_close_yn
+	FROM TBL_LESSON
+	WHERE trainer_member_code = #{csMemberCode} AND ls_type = '개인'
+	ORDER BY ls_date DESC, ls_time DESC; -->
 	</select>
 	
+	<!-- 개인수업/그룹수업 갯수 반환 (현재 날짜를 기준으로 전월 한달에 해당하는 것만) & 그룹 개인수업 각각 폐강된 갯수 반환-->
+	<select id="getLessonCount" resultMap="centerLessonResult" >
+	SELECT
+  COUNT(CASE WHEN ls_type = '그룹' THEN 1 END) AS GROUP_COUNT,
+  COUNT(CASE WHEN ls_type = '개인' THEN 1 END) AS PERSONAL_COUNT,
+  COUNT(CASE WHEN ls_type = '그룹' AND ls_close_yn = true THEN 1 END) AS CLOSED_GROUP_COUNT,
+  COUNT(CASE WHEN ls_type = '개인' AND ls_close_yn = true THEN 1 END) AS CLOSED_PERSONAL_COUNT
+FROM
+  tbl_lesson
+WHERE
+  DATE_TRUNC('month', ls_date) = DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 month'
+  AND trainer_member_code = #{csMemberCode}
+	</select>
 </mapper>

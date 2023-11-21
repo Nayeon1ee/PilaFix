@@ -136,11 +136,10 @@ public class MemberManageController {
 		model.addAttribute("member", service.getMember(csMemberCode));
 
 		//그룹 수업내용
-		
-		
 		model.addAttribute("groupLesson", service.getGroupLesson(csMemberCode));
 		//개인 수업내용
 		model.addAttribute("personalLesson", service.getPersonalLesson(csMemberCode));
+		model.addAttribute("lessonCount", service.getLessonCount(csMemberCode));
 		//전체 수업내용
 		
 		

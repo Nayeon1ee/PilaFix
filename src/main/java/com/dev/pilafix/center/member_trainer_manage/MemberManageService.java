@@ -39,6 +39,8 @@ public interface MemberManageService {
 
 	List<CenterLessonVO> getPersonalLesson(int csMemberCode);
 
+	CenterLessonVO getLessonCount(int csMemberCode);
+
 
 
 }
