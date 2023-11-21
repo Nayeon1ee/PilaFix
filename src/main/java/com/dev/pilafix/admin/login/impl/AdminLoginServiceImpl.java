@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.login.AdminLoginService;
 import com.dev.pilafix.common.member.AdminVO;
-import com.dev.pilafix.common.member.CenterVO;
 
 
 
@@ -20,105 +19,98 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	private static final Logger logger = LoggerFactory.getLogger(AdminLoginServiceImpl.class);
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
+	
 	@Override
-	public AdminVO adminLogin(String adId, String adPassword) {
-		AdminVO admin = dao.getAdminLoginInfo(adId);
-
-		if (admin != null) {
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			if (encoder.matches(adPassword, admin.getAdPassword())) {
-				return admin;
-			}else {
-	            // 로그인 실패
-	            logger.warn("Password does not match for user: {}", adId);
-	        }
-	    } else {
-	        logger.warn("No member found with email: {}", adId);
-	    }
-		return null;
+	public AdminVO getAdminLoginInfo(String adId) {
+		return dao.getAdminLoginInfo(adId);
 	}
 	
-//		if (admin != null) {
-//		    // 여기서 admin은 사용자 객체일 것으로 가정합니다.
-//		    String hashedAdPassword = admin.getAdPassword(); // admin 객체로부터 해싱된 비밀번호를 가져옵니다.
-//
-//		    if (adPassword.equals(hashedAdPassword)) {
-//		        // adPassword와 해싱된 비밀번호가 일치한다면, 인증이 성공한 것으로 가정합니다.
-//		        return admin;
-//		    }
-//		}
+	@Override
+    public boolean adminLogin(String adId, String adPassword) {
+        String storedPassword = dao.getPasswordByAdId(adId);
+        return storedPassword != null && encoder.matches(adPassword, storedPassword);
+    }
+	
+	@Override
+	public AdminVO loginAndGetAdmin(String adId, String adPassword) {
+		String storedPassword = dao.getPasswordByAdId(adId);
+		if (storedPassword != null && encoder.matches(adPassword, storedPassword)) {
+	        // 로그인 성공, adminVO 객체 반환
+	    	System.out.println("비밀번호일치회원: " + adId);
+	    	//로그인 시 필요한 기본 정보 조회 mapper
+	    	return dao.getLoginInfoA(adId);
+	    } else {
+	        // 로그인 실패, null 반환
+	        return null;
+	    }
+	}
+	
+	
+	@Override
+    public boolean checkPassword(String adCode, String currentPassword) {
+        AdminVO admin = dao.getAdminLoginInfo(adCode);
+        if (admin != null && admin.getAdPassword() != null) {
+            return encoder.matches(currentPassword, admin.getAdPassword());
+        }
+        return false;
+    }
+	
+	
+	@Override
+	public void updatePassword(String adCode, String newPassword) {
+		String encodedNewPassword = encoder.encode(newPassword);
+		dao.updatePasswordAdmin(adCode, encodedNewPassword);
+
+	}
+	
+	
+	
+	
+	
+	
+
+//	@Override
+//	public AdminVO adminLogin(String adId, String adPassword) {
+//		// TODO Auto-generated method stub
 //		return null;
 //	}
+
 	@Override
 	public int insertAdminRegister(AdminVO vo) {
-		String adPassword = vo.getAdPassword();
-		System.out.println("가입 시 입력한 비밀번호 : " + adPassword);
-		
-		// 암호화 한 후에
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encodedPwd = encoder.encode(adPassword);
-		
-		System.out.println("암호화 비밀번호   : "+encodedPwd);
-		
-		// vo에 다시 넣어준다.
-		vo.setAdPassword(encodedPwd);
-		return dao.insertAdminRegister(vo);
+		// TODO Auto-generated method stub
+		return 0;
 	}
-	
-	
+
 	@Override
 	public int adIdCheck(String adId) {
-		return dao.adIdCheck(adId);
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 	@Override
 	public void adminupdatePassword(String adCode, String newPassword) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encodedNewPassword = encoder.encode(newPassword);
-		dao.adminupdatePassword(adCode, encodedNewPassword);
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean admincheckPassword(String adCode, String currentPassword) {
-		AdminVO admin = dao.getAdminInfo(adCode);
-        if (admin != null && admin.getAdPassword() != null) {
-            return encoder.matches(currentPassword, admin.getAdPassword());
-        }
-        return false;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public int adPasswordCheck(String adPassword) {
-		return dao.adPasswordCheck(adPassword);
+		// TODO Auto-generated method stub
+		return 0;
 	}
-
-//	@Override
-//	public int updateAdminInfo(AdminVO vo) {
-//		return dao.updateAdminInfo(vo);
-//	}
-
-
 
 
 	
-//	//로그찍어보기
-//	@Override
-//	public CenterLoginVO centerLogin(String ctId, String ctPassword) {
-//	    CenterLoginVO center = dao.getCenterLoginInfo(ctId);
-//	    
-//	    System.out.println("memberLogin - Member info from DB: " + center);
-//	    if (center != null) {
-//	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//	        if (encoder.matches(ctPassword, center.getCtPassword())) {
-//                logger.info("Password matches for user: {}", ctId);
-//                return center;
-//            } else {
-//                logger.warn("Password does not match for user: {}", ctId);
-//            }
-//        } else {
-//            logger.warn("No member found with email: {}", ctId);
-//        }
-//	    return null;
-//	}
+	
+	
+
+
+
 	
 }
