@@ -4,6 +4,8 @@
 <%@ taglib  prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 	<main id="main" class="main">
 
 		<div class="pagetitle">
@@ -85,25 +87,53 @@
 														data-bs-target="#profile-overview" aria-selected="true"
 														role="tab">수업 진행 현황</button>
 												</li>
-
 											</ul>
+
+<!-- 현재날짜 불러와서 전월에 해당하는 기간을 출력해줌 (전월 수업현황의 기준일자에 사용) -->										
+<%
+    // 현재 날짜 가져오기
+    LocalDate currentDate = LocalDate.now();
+
+    // 전월 날짜 계산
+    LocalDate lastMonthStartDate = currentDate.minusMonths(1).withDayOfMonth(1);
+    LocalDate lastMonthEndDate = currentDate.minusMonths(1).withDayOfMonth(currentDate.minusMonths(1).lengthOfMonth());
+
+    // 날짜 포맷 지정
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    // 출력
+    String formattedStartDate = lastMonthStartDate.format(formatter);
+    String formattedEndDate = lastMonthEndDate.format(formatter);
+%>
 
 											<div class="tab-pane fade show active profile-overview"
 												id="profile-overview" role="tabpanel">
 												<h5 class="card-title st_session_pass_p">전월 개인 수업 현황</h5>
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">기준일자</div>
-													<div class="col-lg-9 col-md-8">2023.10.01~2023.10.31</div>
+													<div class="col-lg-9 col-md-8"><%= formattedStartDate %> ~ <%= formattedEndDate %></div>
 												</div>
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">수업건수</div>
-													<div class="col-lg-9 col-md-8">8건</div>
+													<div class="col-lg-9 col-md-8">${lessonCount.personalCount }건</div>
 												</div>
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">비고</div>
-													<div class="col-lg-9 col-md-8">폐강 1건</div>
+													<div class="col-lg-9 col-md-8">
+													<!-- 폐강된 count가 0보다 크면 폐강된 수업의 건수 보여주고 아니면 -보여줌 -->
+													<c:choose>
+														<c:when test="${lessonCount.closedPersonalCount>0}">
+															폐강 : ${lessonCount.closedPersonalCount }건
+														</c:when>
+														<c:otherwise>
+															-
+														</c:otherwise>
+													</c:choose>
+													
+
+													</div>
 												</div>
 
 
@@ -115,16 +145,26 @@
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">기준일자</div>
-													<div class="col-lg-9 col-md-8">2023.10.01~2023.10.31</div>
+													<div class="col-lg-9 col-md-8"><%= formattedStartDate %> ~ <%= formattedEndDate %></div>
 												</div>
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">수업건수</div>
-													<div class="col-lg-9 col-md-8">8건</div>
+													<div class="col-lg-9 col-md-8">${lessonCount.groupCount }건</div>
 												</div>
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">비고</div>
-													<div class="col-lg-9 col-md-8">-</div>
+													<div class="col-lg-9 col-md-8">
+														<c:choose>
+														<c:when test="${lessonCount.closedPersonalCount>0}">
+															폐강 : ${lessonCount.closedGroupCount }건
+														</c:when>
+														<c:otherwise>
+															-
+														</c:otherwise>
+													</c:choose>
+													
+													</div>
 												</div>
 
 
@@ -164,52 +204,50 @@
 										</thead>
 
 										<tbody>
+											<c:if test="${empty groupLesson}">
 											<tr>
-												<td>2023.04.18(금)</td>
-												<td>오후 07:00</td>
-												<td>오후 08:00</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
+												<td colspan="5" >등록된 개인 수업이 없습니다.</td>
 											</tr>
-
+										</c:if>
+										<c:forEach var="personal" items="${personalLesson}">
 											<tr>
-												<td>2023.04.18(금)</td>
-												<td>오후 06:00</td>
-												<td>오후 07:00</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
+											<!-- 요일 구하기 -->
+											<c:set var="formattedDate">
+											    <fmt:formatDate value="${personal.lsDate}" pattern="yyyy-MM-dd"/>
+											</c:set>
+											<fmt:parseDate value="${formattedDate}" pattern="yyyy-MM-dd" var="parsedDate" />
+											<fmt:formatDate value="${parsedDate}" pattern="E" var="dayOfWeek" />
+											
+											<!-- 날짜 구하기 
+											<c:set var="formattedDateTime">
+									            <fmt:parseDate value="${personal.lsTime}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDateTime"/>
+									        </c:set>
+									
+									        <c:set var="formattedTime">
+									            <fmt:formatDate value="${formattedDateTime}" pattern="a hh:mm"/>
+									        </c:set>
+											-->
+								
+												<td>${personal.lsDate}&nbsp; (${dayOfWeek})</td>
+												<td>${personal.lsTime}</td>
+												<td>${personal.lsTime}</td>
+												<td class="truncate-text">${personal.lsName}</td>
+												<td>
+												<c:choose>
+													<c:when test="${ personal.lsColseYN == 't'}">폐강</c:when>
+													<c:otherwise>
+														<!-- 현재 시간이 수업 시작시간보다 늦으면 수업종료 / 수업전, 진행중 , 수업완료, 폐강? -->
+														<c:if test="group.lsTime"></c:if>
+													
+													</c:otherwise>
+												</c:choose>
+												</td>
 											</tr>
-
-											<tr>
-												<td>2023.04.18(금)</td>
-												<td>오후 05:00</td>
-												<td>오후 06:00</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
-											</tr>
-
-											<tr>
-												<td>2023.04.18(금)</td>
-												<td>오후 04:00</td>
-												<td>오후 05:00</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
-											</tr>
-
-											<tr>
-												<td>2023.04.18(금)</td>
-												<td>오후 03:00</td>
-												<td>오후 04:00</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
-											</tr>
+										</c:forEach>
 										</tbody>
 									</table>
 									<!-- End Table with stripped rows -->
-									
-
-
-
+	
 								</div>
 							</div>
 
@@ -246,7 +284,7 @@
 											<fmt:parseDate value="${formattedDate}" pattern="yyyy-MM-dd" var="parsedDate" />
 											<fmt:formatDate value="${parsedDate}" pattern="E" var="dayOfWeek" />
 											
-											<!-- 날짜 구하기 -->
+											<!-- 날짜 구하기 
 											<c:set var="formattedDateTime">
 									            <fmt:parseDate value="${group.lsTime}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDateTime"/>
 									        </c:set>
@@ -254,13 +292,13 @@
 									        <c:set var="formattedTime">
 									            <fmt:formatDate value="${formattedDateTime}" pattern="a hh:mm"/>
 									        </c:set>
-											
+											-->
 											
 											
 											
 												<td>${group.lsDate}&nbsp; (${dayOfWeek})</td>
-												<td><script>document.write(formattedTime);</script></td>
-												<td>${formattedTime}</td>
+												<td>${group.lsTime}</td>
+												<td>${group.lsTime}</td>
 												<td class="truncate-text">${group.lsName}</td>
 												<td>
 												<c:choose>
@@ -339,6 +377,8 @@
 										</tbody>
 									</table>
 									
+									<c:set var="currentDate" value="<%= LocalDate.now() %>" />
+
 									<!-- End Table with stripped rows -->
 								</div>
 							</div>
@@ -349,7 +389,9 @@
 				</div>
 			</div>
 		</section>
- <!-- JavaScript를 사용하여 timestamp로 변환 및 오전/오후 표시 -->
+
+
+ <!-- JavaScript를 사용하여 timestamp로 변환 및 오전/오후 표시 
         <script>
             var formattedDateTime = "${formattedDateTime}";
             var timestamp = new Date(formattedDateTime).getTime();
@@ -361,6 +403,7 @@
             hours = hours ? hours : 12; // 0 시간을 12로 설정
             var formattedTime = ampm + ' ' + hours + ':' + (minutes < 10 ? '0' + minutes : minutes);
         </script>
+  -->
 	</main>
 	<!-- End #main -->
 <%@ include file="center_footer_common.jsp"%>

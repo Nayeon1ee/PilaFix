@@ -137,5 +137,9 @@ public class MemberManageDAO {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getPersonalLesson",csMemberCode);
 	}
 
+	public CenterLessonVO getLessonCount(int csMemberCode) {
+		return sqlSessionTemplate.selectOne("MemberManageDAO.getLessonCount",csMemberCode);
+	}
+
 
 }

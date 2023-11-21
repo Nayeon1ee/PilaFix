@@ -112,6 +112,12 @@ public class MemberManageServiceImpl implements MemberManageService {
 		return dao.getPersonalLesson(csMemberCode);
 	}
 	
+	// 그룹/개인레슨 갯수 세오기
+	@Override
+	public CenterLessonVO getLessonCount(int csMemberCode) {
+		return dao.getLessonCount(csMemberCode);
+	}
+	
 	
 	/**
 	 * 연동 요청 수락
@@ -128,6 +134,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 	public void rejectRequest(String crCode) {
 		dao.updateRejectDate(crCode);
 	}
+
+	
 
 
 }
