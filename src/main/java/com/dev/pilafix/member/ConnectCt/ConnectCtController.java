@@ -1,6 +1,7 @@
 package com.dev.pilafix.member.ConnectCt;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +27,7 @@ public class ConnectCtController {
 	//로그인후 센터연동화면 나옴 이 url은 기능 테스트위한 url이고 나중에 로그인이랑 연결하면 지워야함
 	@GetMapping("/ct.do")
 	public String ct(){
+//		return "member/ctConnect";
 		return "member/ctConnect";
 	}
 
@@ -45,8 +47,10 @@ public class ConnectCtController {
 	@PostMapping("connectRequest.do")
 	@ResponseBody
 	public int connectRequest(HttpSession session,@RequestParam int ctCode){
-		MemberVO member =   (MemberVO) session.getAttribute("member");
-		int result = service.connectRequest(member,ctCode);
+		//MemberVO member =   (MemberVO) session.getAttribute("member");
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		user.put("ctCode", ctCode);
+		int result = service.connectRequest(user);
 		System.out.println("#######쿼리문의 결과값"+result);
 		return result;
 	}

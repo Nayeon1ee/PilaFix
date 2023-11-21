@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -45,6 +46,8 @@
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
+<!-- 내가 추가한 js -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <!-- 내 css -->
 <link rel="stylesheet"
@@ -101,7 +104,6 @@
 				</div>
 				<form class="row g-3">
 					<div class="col-auto" style="width: 100px;">
-						<label for="staticEmail2" class="visually-hidden">이메일 아이디</label>
 						<input type="text" readonly class="form-control-plaintext"
 							id="staticEmail2" value="이메일 아이디"
 							style="width: 130%; padding: revert-layer;">
@@ -109,35 +111,37 @@
 
 					<div class="col-auto" style="width: 21%;">
 						<label for="inputPassword2" class="visually-hidden">Password</label>
-						<input type="email" class="form-control" id="inputEmail"
+						<input type="email" class="form-control" id="csEmailId" name="csEmailId"
 							placeholder="이메일 입력"
 							style="width: 220%; margin-left: 28%; border: 0px;">
 					</div>
 					<div class="col-auto">
-						<button type="submit" class="btn btn-primary mb-3"
+						<button type="button" id="idCheck" class="btn btn-primary mb-3"
 							style="width: 90px; margin-left: 230px; font-size: 14px;">중복
 							확인</button>
 					</div>
 
 					<div class="col-auto">
-						<button type="submit" class="btn btn-primary mb-3"
+						<button type="button" id="sendEmailButton" class="btn btn-primary mb-3"
 							style="width: 90px; font-size: 14px;">인증 요청</button>
 					</div>
 					<!--  영역 -->
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">영역</label> <input type="text"
-							class="form-control" id="inputAddress"
-							placeholder="--------영역--------"
+							style="float: left; width: 20%;">인증요청</label> <input type="text"
+							class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" 
+							disabled="disabled" maxlength="6"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
+							
 					</div>
+					<span id="mail-check-warn"></span>
 					<!-- 영역 -->
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">비밀번호</label> <input type="text"
-							class="form-control" id="inputAddress"
+							style="float: left; width: 20%;">비밀번호</label> <input type="password"
+							class="form-control" name="csPassword" id="csPassword"
 							placeholder="영문, 숫자 포함 8글자 이상 입력"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
@@ -145,31 +149,38 @@
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
 							style="float: left; width: 20%;">비밀번호 확인</label> <input
-							type="text" class="form-control" id="inputAddress"
+							type="password" class="form-control" 
+							name="passwordConfirm" id="passwordConfirm" onkeyup="passConfirm()"
 							placeholder="영문, 숫자 포함 8글자 이상 입력"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
+					<span id ="confirmMsg"></span>
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
-						<label for="inputAddress" class="form-label"
+						<label for="inputAddress" class="form-label" 
 							style="float: left; width: 20%;">이름</label> <input type="text"
-							class="form-control" id="inputAddress" placeholder="이름 입력"
+							class="form-control" name="csName" placeholder="이름을 입력해주세요"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
 							style="float: left; width: 20%;">휴대전화 번호</label> <input
-							type="text" class="form-control" id="inputAddress"
-							placeholder="휴대전화 번호 입력"
-							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
+							type="text" class="form-control" name="csPhoneNumber1" 
+							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
+							<input
+							type="text" class="form-control" name="csPhoneNumber2"
+							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
+							<input
+							type="text" class="form-control" name="csPhoneNumber3"
+							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
 					</div>
 					
 						<div class="col-12"
 							style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 							<label for="inputAddress" class="form-label"
-								style="float: left; width: 20%;">생년월일</label> <input type="text"
-								class="form-control" id="inputAddress" placeholder="4자리 입력"
+								style="float: left; width: 20%;">생년월일</label> <input type="date"
+								class="form-control" name="csBirth"
 								style="float: left; width: 30%; border: 0px; padding-top: 0px;">
 						</div>
 
@@ -177,11 +188,9 @@
 							style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 							<label for="inputAddress" class="form-label"
 								style="float: left; width: 21%;">성별</label> <input
-								class="form-check-input" type="radio" name="flexRadioDefault"
-								id="flexRadioDefault1"> <label class="form-check-label"
+								class="form-check-input" type="radio" name="csGenderMw" value="남자"> <label class="form-check-label"
 								for="flexRadioDefault1">남자</label> <input
-								class="form-check-input" type="radio" name="flexRadioDefault"
-								id="flexRadioDefault2" checked="checked"> <label
+								class="form-check-input" type="radio" name="csGenderMw" value="여자" > <label
 								class="form-check-labe2" for="flexRadioDefault2">여자</label>
 						</div>
 					
@@ -191,15 +200,27 @@
 							id="flexCheckDefault"> <label class="form-check-label"
 							for="flexCheckDefault">전체 동의합니다.</label>
 					</div>
+					<c:forEach var="termsList" items="${termsList}" varStatus="num">
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""
-							id="flexCheckChecked" checked> <label
-							class="form-check-label" for="flexCheckChecked">[필수] 개인정보
-							수집 및 이용동의</label>
-						<textarea class="form-control" rows="4" placeholder="이용약관 내용"></textarea>
+						<input class="form-check-input" type="checkbox" name="csAgreementYn${num.count}" id="csAgreementYn${num.count}" value="true"> 
+						
+						
+						<label class="form-check-label" for="flexCheckChecked">
+							<c:choose>
+								<c:when test="${termsList.tmRequiredYn eq true }">
+								[필수]
+								</c:when>
+								<c:otherwise>
+								[선택]
+								</c:otherwise>
+							</c:choose>	
+							${termsList.tmName }
+						</label>
+						<textarea class="form-control" rows="4">${termsList.tmDetail }</textarea>
 					</div>
+					</c:forEach>
 					<div class="col-12">
-						<button type="submit" class="btn btn-primary"
+						<button type="submit" class="btn btn-primary" onclick="moveToLogin()" value="회원 가입"
 							style="width: 100%; margin-top: 3%;">회원가입</button>
 					</div>
 				</form>
@@ -244,6 +265,111 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+
+<!-- 아이디 중복확인 alert -->
+<script type="text/javascript">
+$(function(){
+    $("#idCheck").click(function(){
+    
+        let csEmailId = $("#csEmailId").val();
+         
+        $.ajax({
+            type:'post', //post 형식으로 controller 에 보내기위함!!
+            url:"idCheck.do", // 컨트롤러로 가는 mapping 입력
+            data: {"csEmailId":csEmailId}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
+            success: function(data){ 
+                if(data == "N"){ // 만약 성공할시
+                    alert("사용 가능한 아이디 입니다.");
+                 
+             }else{ // 만약 실패할시
+            	 alert("중복된 아이디 입니다. 아이디를 다시 입력해주세요")
+             }
+                 
+         },
+            error : function(error){alert(error);}
+        });
+        
+    });
+    
+});
+
+</script>
+
+<!-- 이메일 인증요청 버튼 클릭시 /mailCheck.do에 맵핑된 컨트롤러 실행 -->
+<script>
+	var authNumber; //인증번호
+
+	$(document).ready(function() {
+		$("#sendEmailButton").on("click", function() {
+			//alert(" 버튼 클릭했습니다")
+			const csEmailId = $('#csEmailId').val(); // 이메일 주소값 얻어오기!
+			console.log('완성된 이메일 : ' + csEmailId); // 이메일 오는지 확인
+			const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+
+			$.ajax({
+				type : "GET",
+				url : "mailCheck.do?csEmailId=" + csEmailId,
+				success : function(data) {
+					console.log("data : " + data);
+					checkInput.attr('disabled', false);
+					alert('인증번호가 전송되었습니다.')
+					
+					// 컨트롤러에서 생성한 난수 data에 담겨옴 그래서 변수에 넣어줌
+					authNumber = data;
+					console.log("받은 데이터 변수에 저장 : " + authNumber);
+					
+					// 60초 지나면 인증번호 초기화 시킴
+					setTimeout(function() {
+						authNumber = null;
+						console.log("authNumber가 초기화되었습니다.");
+					}, 60000); // 60초(1분) 설정
+				}
+			});
+		});
+	});
+	
+	//인증번호 비교
+	$('.mail-check-input').blur(function() {
+		const inputCode = $(this).val();
+		const $resultMsg = $('#mail-check-warn');
+
+		if (inputCode === authNumber) {
+			$resultMsg.html('인증번호가 일치합니다.');
+			$resultMsg.css('color', 'green');
+			$('#mail-Check-Btn').attr('disabled', true);
+			$('#csEmailId').attr('readonly', true);
+
+		} else {
+			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+			$resultMsg.css('color', 'red');
+		}
+	}); //인증번호 비교
+</script>
+<script>
+/* 비밀번호, 비밀번호 확인 입력창에 입력된 값을 비교해서 같다면 비밀번호 일치, 그렇지 않으면 불일치 라는 텍스트 출력.*/
+function passConfirm() {
+	/* document : 현재 문서를 의미함. 작성되고 있는 문서를 뜻함. */
+	/* getElementByID('아이디') : 아이디에 적힌 값을 가진 id의 value를 get을 해서 csPassword 변수 넣기 */
+		var csPassword = document.getElementById('csPassword');					//비밀번호 
+		var passwordConfirm = document.getElementById('passwordConfirm');	//비밀번호 확인 값
+		var confirmMsg = document.getElementById('confirmMsg');				//확인 메세지
+		var correctColor = "#00ff00";	//맞았을 때 출력되는 색깔.
+		var wrongColor ="#ff0000";	//틀렸을 때 출력되는 색깔
+		
+		if(csPassword.value == passwordConfirm.value){//password 변수의 값과 passwordConfirm 변수의 값과 동일하다.
+			confirmMsg.style.color = correctColor;/* span 태그의 ID(confirmMsg) 사용  */
+			confirmMsg.innerHTML ="비밀번호 일치";/* insertMember.jsp의 confirmMsg라는 아이디를 가진 영역에 들어감,innerHTML : HTML 내부에 추가적인 내용을 넣을 때 사용하는 것. */
+		}else{
+			confirmMsg.style.color = wrongColor;
+			confirmMsg.innerHTML ="비밀번호 불일치";
+		}
+	}
+
+function moveToLogin(){
+	alert ("회원가입이 완료되었습니다. 로그인페이지로 이동합니다.")
+}
+</script>
+
 
 </body>
 

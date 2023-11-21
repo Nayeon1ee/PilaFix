@@ -35,7 +35,7 @@
 	<insert id="connectRequest" parameterType="java.util.Map">
 		INSERT INTO TBL_center_request
 		VALUES
-		(concat('CC',nextval('seq_center_connect')),#{ctCode},#{member.csMemberCode},#{member.csName},concat(#{member.csPhoneNumber1},#{member.csPhoneNumber2},#{member.csPhoneNumber3}),CURRENT_TIMESTAMP,'N')
+		(concat('CC',nextval('seq_center_connect')),#{ctCode},#{csMemberCode},#{csName},#{csPhoneNumber},CURRENT_TIMESTAMP,'N')
 	</insert>
 
 
