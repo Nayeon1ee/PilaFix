@@ -98,24 +98,19 @@
 		<!-- End Breadcrumbs -->
 
 		<!-- ======= Services Section ======= -->
-		<section id="services" class="services">
+		<section id="services" class="services py-4">
 			<div class="container" style="max-width: 1000px">
 
 
 				<div id="myPage" class="text-center">
 
 					<div id="userInfo"
-						class="d-flex align-items-center justify-content-center mb-2">
-						<div id="myInfoLink" class="mr-2"
-							style="font-size: 18px; color: #9b56e9; font-weight: bold;">
-							<i class="fas fa-cog mr-1"></i>내 정보 관리
-						</div>
-						<div class="col-6"></div>
-						<div id="userName"
-							style="font-size: 18px; color: #9b56e9; font-weight: bold;">
-							<i class="fas fa-user mr-1"></i>*** 회원님
-						</div>
+					class="d-flex align-items-center mb-2">
+					<div id="myInfoLink" class="ms-4 mr-2"
+						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
+						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
+				</div>
 
 					<section
 						class="my-passes container mt-5 d-flex justify-content-center"
@@ -157,39 +152,39 @@
 					</section>
 
 
-					<section class="icon-list text-center mx-auto"
+					<section class="icon-list text-center py-3 mx-auto"
 						style="max-width: 700px;">
 						<div class="icon-grid">
 							<div class="icon-row row">
 								<div class="icon-item col-md-4">
-									<a href="memberNotice.jsp"> <i class="bi bi-megaphone"></i>
+									<a href="member_notice.do"> <i class="bi bi-megaphone"></i>
 										<p>공지사항</p>
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="paymentHistory.jsp"> <i class="bi bi-cash-coin"></i>
+									<a href="paymentHistory.do"> <i class="bi bi-cash-coin"></i>
 										<p>결제내역</p>
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="#"> <i class="bi bi-gear"></i>
+									<a href="center_linkmanagement.do"> <i class="bi bi-gear"></i>
 										<p>연동센터관리</p>
 									</a>
 								</div>
 							</div>
 							<div class="icon-row row">
 								<div class="icon-item col-md-4">
-									<a href="FAQpage.jsp"> <i class="bi bi-question"></i>
+									<a href="FAQ.do"> <i class="bi bi-question"></i>
 										<p>FAQ</p>
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="inquiry.jsp"> <i class="bi bi-chat"></i>
+									<a href="inquiry.do"> <i class="bi bi-chat"></i>
 										<p>문의사항</p>
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="#"> <i class="bi bi-file-earmark-text"></i>
+									<a href="member_terms.do"> <i class="bi bi-file-earmark-text"></i>
 										<p>약관 및 정책</p>
 									</a>
 								</div>

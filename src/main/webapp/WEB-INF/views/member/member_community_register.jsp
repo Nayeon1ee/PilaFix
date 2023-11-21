@@ -1,19 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="kor">
+<html lang="en">
 
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Services - PILAFIX Bootstrap Template</title>
+<title>Blog - Eterna Bootstrap Template</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/img/favicon.png"
+	rel="icon">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/img/apple-touch-icon.png"
+	rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link
@@ -45,10 +49,14 @@
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
+<!-- =======================================================
+  * Template Name: Eterna
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
-<!-- 내 css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_paymentHistory.css">
 
 <body>
 
@@ -66,7 +74,7 @@
 				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
 					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
 					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
 			</div>
 		</div>
 	</section>
@@ -79,85 +87,91 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
-					<li>payment History</li>
+					<li><a href="index.html">Home</a></li>
+					<li>Community</li>
 				</ol>
-				<h2>결제내역</h2>
+				<h2>커뮤니티</h2>
 
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
 
-		<!-- ======= Services Section ======= -->
-		<section id="services" class="services">
-			<div class="container mx-auto" style="max-width: 700px;">
+		<!-- ======= Blog Section ======= -->
+		<section id="blog" class="blog pt-2">
+			<div class="container mx-auto" style="max-width: 1000px;">
 
-				<div id="userInfo"
-					class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">글 작성</h5>
+						<p>개인 정보가 포함되지 않도록 유의하시고, 아래와 같은 규정에 따라 삭제될 수 있습니다.</p>
+
+
+						<!-- Multi Columns Form -->
+						<form class="row g-3">
+							<div class="col-md-2">
+								<label class="form-label">글 번호</label> <input type="text"
+									readonly disabled class="form-control" value="1">
+							</div>
+							<div class="col-md-5">
+								<label class="form-label">작성자</label> <input type="text"
+									readonly disabled class="form-control" value="홍길동">
+							</div>
+							<div class="col-md-5">
+								<label class="form-label">작성일</label> <input type="text"
+									readonly disabled class="form-control" value="2023-11-21">
+							</div>
+							<div class="col-md-12">
+								<label class="form-label">글 제목</label> <input type="text"
+									readonly disabled class="form-control" value="xx점 ~~  ~~">
+							</div>
+							<div class="col-md-12">
+								<label class="form-label">글 내용</label>
+								<textarea readonly disabled class="form-control"
+									style="height: 300px;">xx점 ~~ ~~~~~~~~~~~~~~~~~</textarea>
+							</div>
+
+
+
+							<div class="text-center">
+
+								<div class="btn-toolbar justify-content-end d-flex"
+									role="toolbar">
+									<div class="me-auto ms-3">
+										<button type="button" class="btn btn-secondary"
+											onclick="location.href='member_community.do'">목록</button>
+									</div>
+
+									<div class="btn-group me-2">
+										<button type="button" class="btn btn-secondary"
+											onclick="location.href='member_community.do'">취소</button>
+									</div>
+									<div class="btn-group me-3">
+										<a href="member_community.do" class="btn btn-primary">
+											<i class="bi bi-pencil"></i> 글 등록
+										</a>
+									</div>
+
+								</div>
+							</div>
+
+
+
+							<!-- End Multi Columns Form -->
+
+
+					
+							</form>
 					</div>
 				</div>
 
-				<div class="payment-history">
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-				</div>
-
-
-
-
-				<!-- End Our Skills Section -->
 			</div>
 		</section>
-	</main>
+		<!-- End Blog Section -->
 
+	</main>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
@@ -167,10 +181,6 @@
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
-
-	<!-- 내 js -->
-
-
 
 	<!-- Vendor JS Files -->
 	<script
@@ -191,7 +201,6 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
-
 </body>
 
 </html>
