@@ -23,7 +23,8 @@ public class MemberController {
 
 	@GetMapping("/selectMeOrTr.do")
 	public String selectForm() {
-		return "member_signup/selectMeOrTr.jsp";
+//		return "member_signup/selectMeOrTr.jsp";
+		return "member/select_trainer_member";
 	}
 	
 	
@@ -35,20 +36,22 @@ public class MemberController {
 	// selectMeOrTr.jsp에서 넘어온 값(csRoleCode)받아서 회원 가입 폼에 파라미터로 넘겨줌
 	@GetMapping("/getUserRole.do")
 	public String getUserRole(@RequestParam("csRoleCode") String csRoleCode,Model model ) {
-		//테스트용 System.out.println(csRoleCode);
-		String code = "";
-		if (csRoleCode.equals("ME")) {
-			code = "ME";
-		} else if (csRoleCode.equals("TR")) {
-			code = "TR";
-		}
+		//테스트용 
+		System.out.println(csRoleCode);
+//		String code = "";
+//		if (csRoleCode.equals("ME")) {
+//			code = "ME";
+//		} else if (csRoleCode.equals("TR")) {
+//			code = "TR";
+//		}
 		
 		List<TermsVO> terms = service.getTermsList();
 	
 		model.addAttribute("termsList",terms);
+		model.addAttribute("csRoleCode", csRoleCode);
 		
-		
-		return "member_signup/insertMember.jsp?csRoleCode=" + code;
+//		return "member_signup/insertMember.jsp?csRoleCode=" + code;
+		return "member/register";
 
 	}
 	
@@ -89,7 +92,7 @@ public class MemberController {
 @PostMapping("/insertMember.do")
 public String insertMember(MemberVO vo) {
 	service.insertMember(vo);
-	return "member_signup/loginEx.jsp";
+	return "member/login";
 }
 
 //이메일 전송

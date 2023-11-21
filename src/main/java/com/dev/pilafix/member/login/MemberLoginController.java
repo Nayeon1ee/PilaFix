@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -164,17 +165,7 @@ public class MemberLoginController {
 	public String passwordChange() {
 		return "member/password_change";
 	}
-//	@PostMapping("/verifyCurrentPassword.do")
-//	@ResponseBody
-//	public String verifyCurrentPassword(@RequestParam("currentPassword") String currentPassword,
-//	                                    HttpSession session) {
-//		MemberVO member = (MemberVO) session.getAttribute("member");
-//	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//	    
-////	    boolean passwordMatch = encoder.matches(currentPassword, member.getCsPassword());
-//	    boolean passwordMatch = BCrypt.checkpw(currentPassword, member.getCsPassword());
-//	    return "{\"passwordMatch\": " + passwordMatch + "}";
-//	}
+
 
 	/**
 	 * 현재 비밀번호가 일치하고 새 비밀번호 = 비밀번호확인 일 경우에 비밀번호 변경
@@ -189,51 +180,106 @@ public class MemberLoginController {
 		return "member/passwordchangeform";
 	}
 
-	@PostMapping("/checkCurrentPassword.do")
-	public String checkCurrentPassword(@RequestParam("currentPassword") String currentPassword, HttpSession session,
-			Model model) {
+	/**
+	 * 비밀번호 변경 모달에서 현재 비밀번호 확인
+	 * 
+	 * @param payload
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/checkPassword.do")
+	@ResponseBody
+	public ResponseEntity<?> checkCurrentPassword(@RequestBody Map<String, String> payload, HttpSession session) {
+		String currentPassword = payload.get("currentPassword");
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
-//	    MemberVO currentMember = (MemberVO) session.getAttribute("member");
 
 		if (loginUser != null) {
 			int csMemberCode = (int) loginUser.get("csMemberCode");
-			if (service.checkPassword(csMemberCode, currentPassword)) {
-				// 현재 비밀번호가 일치하면 비밀번호 변경 페이지로 이동
-				return "redirect:/updatePassword.do";
+			boolean isPasswordCorrect = service.checkPassword(csMemberCode, currentPassword);
+
+			if (isPasswordCorrect) {
+				return ResponseEntity.ok().body(Map.of("message", "Password is correct"));
 			} else {
-				model.addAttribute("message", "현재 비밀번호가 일치하지 않습니다.");
-				return "member/passwordcheck";
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Incorrect password"));
 			}
 		} else {
-			// 로그인한 정보가 없으면 로그인페이지로 이동
-			return "memer/login";
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
 		}
 	}
 
+	/**
+	 * 비밀번호 변경 모달에서 새 비밀번호,새비밀번호 확인 후 변경
+	 * @param payload
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/updatePassword.do")
-	public String updatePassword(HttpServletRequest request, HttpSession session, Model model) {
-		String newPassword = request.getParameter("newPassword");
-		String confirmPassword = request.getParameter("confirmPassword");
-
-		if (!newPassword.equals(confirmPassword)) {
-			model.addAttribute("message", "새 비밀번호가 일치하지 않습니다.");
-			return "member/passwordchangeform";
-		}
-
+	@ResponseBody
+	public ResponseEntity<?> updatePassword(@RequestBody Map<String, String> payload, HttpSession session) {
+		String newPassword = payload.get("newPassword");
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+
 		if (loginUser != null) {
 			int csMemberCode = (int) loginUser.get("csMemberCode");
 			service.updatePassword(csMemberCode, newPassword);
-
-			session.removeAttribute("loginUser");
-			model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해 주세요.");
-			return "redirect:/memberLogin.do";
+			return ResponseEntity.ok().body(Map.of("message", "Password updated successfully"));
 		} else {
-
-			return "memer/login";
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
 		}
-	}
+	}	
 
+	
+	
+	// 11.21 모달 사용 위한 주석처리
+//	@PostMapping("/checkCurrentPassword.do")
+//	public String checkCurrentPassword(@RequestParam("currentPassword") String currentPassword, HttpSession session,
+//			Model model) {
+//		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+////	    MemberVO currentMember = (MemberVO) session.getAttribute("member");
+//
+//		if (loginUser != null) {
+//			int csMemberCode = (int) loginUser.get("csMemberCode");
+//			if (service.checkPassword(csMemberCode, currentPassword)) {
+//				// 현재 비밀번호가 일치하면 비밀번호 변경 페이지로 이동
+//				return "redirect:/updatePassword.do";
+//			} else {
+//				model.addAttribute("message", "현재 비밀번호가 일치하지 않습니다.");
+//				return "member/passwordcheck";
+//			}
+//		} else {
+//			// 로그인한 정보가 없으면 로그인페이지로 이동
+//			return "memer/login";
+//		}
+//	}
+//
+//	@PostMapping("/updatePassword.do")
+//	public String updatePassword(HttpServletRequest request, HttpSession session, Model model) {
+//		String newPassword = request.getParameter("newPassword");
+//		String confirmPassword = request.getParameter("confirmPassword");
+//
+//		if (!newPassword.equals(confirmPassword)) {
+//			model.addAttribute("message", "새 비밀번호가 일치하지 않습니다.");
+//			return "member/passwordchangeform";
+//		}
+//
+//		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+//		if (loginUser != null) {
+//			int csMemberCode = (int) loginUser.get("csMemberCode");
+//			service.updatePassword(csMemberCode, newPassword);
+//
+//			session.removeAttribute("loginUser");
+//			model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다. 다시 로그인해 주세요.");
+//			return "redirect:/memberLogin.do";
+//		} else {
+//
+//			return "memer/login";
+//		}
+//	}
+
+	
+	
+	
+	
 // 11.16 기존코드 주석처리	
 //	@PostMapping("/updatePassword.do")
 //	public String updatePassword(@RequestParam("currentPassword") String currentPassword,

@@ -22,11 +22,9 @@ public class ConnectCtDAO {
 	}
 
 
-	public int connectRequest(MemberVO member, int ctCode) {
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("member", member);
-	    parameters.put("ctCode", ctCode);
-		return sqlSessionTemplate.insert("ConnectCtDAO.connectRequest", parameters);
+
+	public int connectRequest(Map<String, Object> user) {
+		return sqlSessionTemplate.insert("ConnectCtDAO.connectRequest", user);
 	}
 
 	
