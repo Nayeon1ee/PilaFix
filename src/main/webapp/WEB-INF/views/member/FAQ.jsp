@@ -49,7 +49,7 @@
 </head>
 <!-- 내 css -->
 <link
-	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common.css"
+	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common_0.css"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style_FAQ.css">
@@ -100,171 +100,166 @@
 			<div class="container" style="max-width: 700px">
 
 				<div id="userInfo"
-					class="d-flex align-items-center justify-content-center mb-2">
-					<div id="myInfoLink" class="mr-2"
+					class="d-flex align-items-center mb-2">
+					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
-					<div class="col-9"></div>
-					<div id="userName"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold;">
-						<i class="fas fa-user mr-1"></i>*** 회원님
-					</div>
 				</div>
 
-				<section class="section002 py-3 my-3">
-					<nav class="navbar navbar-expand-lg py-1 my-1">
-						<div class="container-fluid">
-							<button class="navbar-toggler" type="button"
-								data-bs-toggle="collapse"
-								data-bs-target="#navbarSupportedContent"
-								aria-controls="navbarSupportedContent" aria-expanded="false"
-								aria-label="Toggle navigation">
-								<span class="navbar-toggler-icon"></span>
-							</button>
-							<div class="collapse navbar-collapse" id="navbarSupportedContent">
-								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-									<li class="nav-item dropdown"><a
-										class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-										role="button" data-bs-toggle="dropdown" aria-expanded="false"
-										style="font-size: 16px";>검색 </a>
-										<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-											<li><a class="dropdown-item" href="#">제목</a></li>
-											<hr class="dropdown-divider">
-											<li><a class="dropdown-item" href="#">글내용</a></li>
-											<hr class="dropdown-divider">
-											<li><a class="dropdown-item" href="#">제목+글내용</a></li>
-										</ul></li>
-								</ul>
-								<form action="search" method="post" class="d-flex">
-									<div class="input-group">
-										<input type="search" name="search" class="form-control"
-											placeholder="검색" aria-label="검색">
-										<button type="submit" class="btn btn-outline-primary">검색</button>
+					<section class="section002 py-3 my-3">
+						<nav class="navbar navbar-expand-lg py-1 my-1">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#navbarSupportedContent"
+									aria-controls="navbarSupportedContent" aria-expanded="false"
+									aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+								<div class="collapse navbar-collapse"
+									id="navbarSupportedContent">
+									<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+										<li class="nav-item dropdown"><a
+											class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+											role="button" data-bs-toggle="dropdown" aria-expanded="false"
+											style="font-size: 16px";>검색 </a>
+											<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+												<li><a class="dropdown-item" href="#">제목</a></li>
+												<hr class="dropdown-divider">
+												<li><a class="dropdown-item" href="#">글내용</a></li>
+												<hr class="dropdown-divider">
+												<li><a class="dropdown-item" href="#">제목+글내용</a></li>
+											</ul></li>
+									</ul>
+									<form action="search" method="post" class="d-flex">
+										<div class="input-group">
+											<input type="search" name="search" class="form-control"
+												placeholder="검색" aria-label="검색">
+											<button type="submit" class="btn btn-outline-primary">검색</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</nav>
+					</section>
+
+					<div id="searchResults" style="display: none;">
+
+						<!-- 여기에 검색 결과가 표시 -->
+
+					</div>
+
+					<div>
+						<p class="total-faq-count">전체 00건</p>
+						<hr>
+					</div>
+
+
+
+					<div class="accordion" id="accordionExample">
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button" type="button"
+									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
+									aria-expanded="true" aria-controls="inquiryCollapse">
+									<div class="inquiry-item">
+										<div class="inquiry-details">
+											<div class="inquiry-title">
+												<strong>Q</strong> 질문입니다.
+											</div>
+										</div>
 									</div>
-								</form>
+								</button>
+							</h2>
+							<div id="inquiryCollapse"
+								class="accordion-collapse collapse show"
+								data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<strong>A</strong> <br> 답변입니다.
+								</div>
 							</div>
 						</div>
-					</nav>
-				</section>
 
-				<div id="searchResults" style="display: none;">
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button" type="button"
+									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse2"
+									aria-expanded="true" aria-controls="inquiryCollapse2">
+									<div class="inquiry-item">
+										<div class="inquiry-details">
+											<div class="inquiry-title">
+												<strong>Q</strong> 질문입니다.
+											</div>
+										</div>
+									</div>
+								</button>
+							</h2>
+							<div id="inquiryCollapse2"
+								class="accordion-collapse collapse show"
+								data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<strong>A</strong> <br> 답변입니다.
+								</div>
+							</div>
+						</div>
 
-					<!-- 여기에 검색 결과가 표시 -->
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button" type="button"
+									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse3"
+									aria-expanded="true" aria-controls="inquiryCollapse3">
+									<div class="inquiry-item">
+										<div class="inquiry-details">
+											<div class="inquiry-title">
+												<strong>Q</strong> 질문입니다.
+											</div>
+										</div>
+									</div>
+								</button>
+							</h2>
+							<div id="inquiryCollapse3"
+								class="accordion-collapse collapse show"
+								data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<strong>A</strong> <br> 답변입니다.
+								</div>
+							</div>
+						</div>
+
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button" type="button"
+									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse4"
+									aria-expanded="true" aria-controls="inquiryCollapse4">
+									<div class="inquiry-item">
+										<div class="inquiry-details">
+											<div class="inquiry-title">
+												<strong>Q</strong> 질문입니다.
+											</div>
+										</div>
+									</div>
+								</button>
+							</h2>
+							<div id="inquiryCollapse4"
+								class="accordion-collapse collapse show"
+								data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<strong>A</strong> <br> 답변입니다.
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
 
 				</div>
 
-				<div>
-					<p class="total-faq-count">전체 00건</p>
-					<hr>
-				</div>
 
-
-
-				<div class="accordion" id="accordionExample">
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-								aria-expanded="true" aria-controls="inquiryCollapse">
-								<div class="inquiry-item">
-									<div class="inquiry-details">
-										<div class="inquiry-title">
-											<strong>Q</strong> 질문입니다.
-										</div>
-									</div>
-								</div>
-							</button>
-						</h2>
-						<div id="inquiryCollapse" class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<strong>A</strong> <br> 답변입니다.
-							</div>
-						</div>
-					</div>
-
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#inquiryCollapse2"
-								aria-expanded="true" aria-controls="inquiryCollapse2">
-								<div class="inquiry-item">
-									<div class="inquiry-details">
-										<div class="inquiry-title">
-											<strong>Q</strong> 질문입니다.
-										</div>
-									</div>
-								</div>
-							</button>
-						</h2>
-						<div id="inquiryCollapse2"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<strong>A</strong> <br> 답변입니다.
-							</div>
-						</div>
-					</div>
-
-
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#inquiryCollapse3"
-								aria-expanded="true" aria-controls="inquiryCollapse3">
-								<div class="inquiry-item">
-									<div class="inquiry-details">
-										<div class="inquiry-title">
-											<strong>Q</strong> 질문입니다.
-										</div>
-									</div>
-								</div>
-							</button>
-						</h2>
-						<div id="inquiryCollapse3"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<strong>A</strong> <br> 답변입니다.
-							</div>
-						</div>
-					</div>
-
-
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#inquiryCollapse4"
-								aria-expanded="true" aria-controls="inquiryCollapse4">
-								<div class="inquiry-item">
-									<div class="inquiry-details">
-										<div class="inquiry-title">
-											<strong>Q</strong> 질문입니다.
-										</div>
-									</div>
-								</div>
-							</button>
-						</h2>
-						<div id="inquiryCollapse4"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<strong>A</strong> <br> 답변입니다.
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-
-
-			</div>
-
-
-			<!-- End Our Skills Section -->
-
-
+				<!-- End Our Skills Section -->
 		</section>
 
 	</main>

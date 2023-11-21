@@ -13,7 +13,7 @@
 
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="assets/img/apple-touchf-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link
@@ -47,8 +47,7 @@
 
 </head>
 <!-- 내 css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_paymentHistory.css">
+
 
 <body>
 
@@ -79,13 +78,13 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container" style="max-width: 700px">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>payment History</li>
+					<li>Link Center Management</li>
 				</ol>
-				<h2>결제내역</h2>
+				<h2>연동 센터 관리</h2>
 
 			</div>
 		</section>
@@ -95,62 +94,43 @@
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
 
-				<div id="userInfo"
-					class="d-flex align-items-center mb-2">
+				<div id="userInfo" class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
 				</div>
 
-				<div class="payment-history">
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
+
+				<div class="container">
+					<div class="card mt-3">
+						<div class="card-body">
+							<h5 class="card-title">그룹수업</h5>
+
+							<p class="card-text mt-3">
+								<strong>센터 정보:</strong> 그룹수업-상봉점
+							</p>
+							<div class="d-flex justify-content-end">
+								<button class="btn btn-danger">해제</button>
 							</div>
-						</a>
+						</div>
 					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
+
+
+
+					<div class="container py-3 my-2">
+						<div class="row">
+							<div class="col-12">
+								<div class="d-flex justify-content-end">
+									<a href="center_findlink.do" class="btn btn-success btn-lg"
+										style="background-color: #9b56e9; border-color: #9b56e9; font-size: 16px;">
+										센터 연동 추가하기 </a>
+								</div>
 							</div>
-						</a>
+						</div>
 					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
+
 				</div>
-
-
 
 
 				<!-- End Our Skills Section -->

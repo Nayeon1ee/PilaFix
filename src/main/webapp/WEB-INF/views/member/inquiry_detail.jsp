@@ -97,25 +97,13 @@
 			<div class="container mx-auto" style="max-width: 700px;">
 
 
-				<div id="userInfo"
-					class="d-flex align-items-center justify-content-center mb-2">
-					<div id="myInfoLink" class="mr-2"
+				<div id="userInfo" class="d-flex align-items-center mb-2">
+					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
-					<div class="col-7"></div>
-					<div id="userName"
-						style="font-size: 18px; margin-right: 10px; color: #9b56e9; font-weight: bold;">
-						<i class="fas fa-user mr-1"></i>*** 회원님
-					</div>
-					<div id="userlogout"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold;">
-						<a href="#" style="text-decoration: none; color: inherit;"> <i
-							class="fas fa-user mr-1"></i>로그아웃
-						</a>
-					</div>
 				</div>
-
+				
 				<div class="inquiry-form mt-5">
 					<h2>문의사항</h2>
 					<hr>

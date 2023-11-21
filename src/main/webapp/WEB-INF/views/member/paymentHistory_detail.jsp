@@ -48,10 +48,7 @@
 </head>
 <!-- 내 css -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_manager_inquiry.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common_0.css">
-
+	href="${pageContext.request.contextPath}/resources/css/style_paymentHistorydetail.css">
 
 <body>
 
@@ -86,9 +83,9 @@
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>inquiry</li>
+					<li>payment History</li>
 				</ol>
-				<h2>문의사항</h2>
+				<h2>결제내역</h2>
 
 			</div>
 		</section>
@@ -99,7 +96,6 @@
 			<div class="container mx-auto" style="max-width: 700px;">
 
 
-
 				<div id="userInfo"
 					class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
@@ -107,117 +103,37 @@
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
 				</div>
+				
 
-					<div class="inquiry">
-						<div class="inquiry-header mb-3">
-							<button class="inquiry-button my-2" style="font-size: 18px;">센터문의하기</button>
+				<div class="payment-detail mt-4">
 
-						</div>
-
-						<div class="inquiry-history">
-							<h2>나의 문의 내역</h2>
-							<hr>
-
-							<div class="accordion mt-4" id="accordionExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button" type="button"
-											data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-											aria-expanded="true" aria-controls="inquiryCollapse">
-											<div class="inquiry-item">
-												<div class="inquiry-details">
-													<div class="inquiry-title">페이지를 탈퇴하고 싶습니다.</div>
-													<div class="inquiry-date">2023.10.17 오후 4:34</div>
-												</div>
-												<div class="inquiry-location">
-													<p>답변완료</p>
-												</div>
-
-											</div>
-										</button>
-									</h2>
-									<div id="inquiryCollapse"
-										class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>문의내역</strong> <br> 페이지를 탈퇴하고 싶습니다.
-										</div>
-										<hr>
-										<div class="accordion-body">
-											<strong>답변내역</strong> <br> 아래 안내된 경로를 통해 서비스를 탈퇴할 수
-											있습니다. 단, 7일 안에 동일한 카카오계정으로 카카오페이지 서비스에 재가입 할 수 없으며, 탈퇴시 구매한
-											모든 콘텐츠에 대한 권리를 잃게 되므로 유의하시기 바랍니다. <br>- 앱 메인 홈> 우상단 메뉴>
-											닉네임> 서비스 탈퇴
-										</div>
-									</div>
-
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button" type="button"
-											data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-											aria-expanded="true" aria-controls="inquiryCollapse">
-											<div class="inquiry-item">
-												<div class="inquiry-details">
-													<div class="inquiry-title">알림은 어떻게 해제할 수 있나요?</div>
-													<div class="inquiry-date">2023.10.17 오후 4:34</div>
-												</div>
-												<div class="inquiry-location">
-													<p>답변완료</p>
-												</div>
-
-											</div>
-										</button>
-									</h2>
-									<div id="inquiryCollapse"
-										class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>문의내역</strong> <br> 차단한 댓글을 다시 보고싶어요.
-
-										</div>
-										<hr>
-										<div class="accordion-body">
-											<strong>답변내역</strong> <br> 검토중
-										</div>
-									</div>
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button" type="button"
-											data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-											aria-expanded="true" aria-controls="inquiryCollapse">
-											<div class="inquiry-item">
-												<div class="inquiry-details">
-													<div class="inquiry-title">알림은 어떻게 해제할 수 있나요?</div>
-													<div class="inquiry-date">2023.10.17 오후 4:34</div>
-												</div>
-												<div class="inquiry-location">
-													<p>검토중</p>
-												</div>
-											</div>
-										</button>
-									</h2>
-									<div id="inquiryCollapse"
-										class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>문의내역</strong> <br> 알림은 어떻게 해제할 수 있나요?
-										</div>
-										<hr>
-										<div class="accordion-body">
-											<strong>답변내역</strong> <br> 아래 안내된 경로의 화면에서 알림 설정을 변경할 수
-											있습니다. - ​앱 메인 홈> 우상단 메뉴> 설정> 알람 설정
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="payment-details">
+						<div class="payment-status">결제완료</div>
+						<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
+						<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
+						<div class="payment-date">2023.10.17 오전 11:08</div>
+						<div class="payment-amount">533,500원</div>
 					</div>
 
-
-					<!-- End Our Skills Section -->
+					<hr class="line">
+					<div class="order-info">
+						<div class="order-title">주문정보</div>
+						<div class="order-detail">
+							주문번호<span class="order-value">417770</span>
+						</div>
+					</div>
+					<hr class="line">
+					<div class="payment-info">
+						<div class="payment-title">결제정보</div>
+						<div class="payment-option">
+							결제방식<span class="payment-value">00카드 / 3개월</span>
+						</div>
+					</div>
 				</div>
+
+
+				<!-- End Our Skills Section -->
+			</div>
 		</section>
 	</main>
 
@@ -232,10 +148,9 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/quiry_inquiry.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+
+
+
 	<!-- Vendor JS Files -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/purecounter/purecounter_vanilla.js"></script>
