@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="center_header_common.jsp" %>
 	<main id="main" class="main">
 		
@@ -100,11 +101,11 @@
 										<tr>
 											<td>${centerInfo.seq }</td>
 											<td><a href="getCenterInfo.do?seq=${centerInfo.seq }">${centerInfo.title }</a></td>
-											<td>${centerInfo.regDate }</td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${centerInfo.regDate }"/></td>
 											<td>${centerInfo.cnt }</td>
 											<c:choose>
-												<c:when test="${centerInfo.openYN}"><td>Y</td></c:when>
-												<c:otherwise><td>N</td></c:otherwise>
+												<c:when test="${centerInfo.openYN}"><td>공개</td></c:when>
+												<c:otherwise><td>비공개</td></c:otherwise>
 											</c:choose>
 										</tr>
 									</c:forEach>

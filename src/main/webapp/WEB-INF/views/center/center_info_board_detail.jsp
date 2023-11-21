@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="center_header_common.jsp" %>
 	<main id="main" class="main">
 		<div class="pagetitle">
@@ -35,7 +36,7 @@
 							    </div>
 							    <div class="col-md-5">
 									<label class="form-label">작성일자</label>
-									<input type="text" class="form-control" value="${centerInfo.regDate }" disabled>
+									<input type="text" readonly disabled class="form-control" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${centerInfo.regDate }'/>" >
 								</div>
 								<div class="col-md-12">
 							        <label class="form-label">공개 여부</label>

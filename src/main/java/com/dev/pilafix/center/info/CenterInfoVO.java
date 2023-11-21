@@ -1,11 +1,13 @@
 package com.dev.pilafix.center.info;
 
+import java.sql.Date;
+
 public class CenterInfoVO {
 	private int seq;
 	private String title;
 	private String content;
 	private int writerMemberCode;
-	private String regDate;
+	private Date regDate;
 	private int cnt;
 	private boolean openYN;
 
@@ -43,11 +45,11 @@ public class CenterInfoVO {
 		this.writerMemberCode = writerMemberCode;
 	}
 
-	public String getRegDate() {
+	public Date getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(String regDate) {
+	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 
