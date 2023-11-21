@@ -6,11 +6,15 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dev.pilafix.common.member.CenterVO;
 
@@ -29,32 +33,105 @@ public class CenterLoginController {
 	public String center_login() {
 		return "center/center_login";
 	}
-	/**
-	 * 로그인할때 암호화된 비밀번호와 비교하여 로그인
-	 * member.getCsRoleCode 가 "ME"이면 회원의 메인페이지, 아니면 강사의 메인페이지로 이동
-	 * 로그인 실패시 실패 메시지
-	 */
 	
 	@PostMapping("/centerLogin.do")
-	public String centerLogin(@RequestParam("ctId") String ctId,
-	                          @RequestParam("ctPassword") String ctPassword,
-	                          HttpSession session, RedirectAttributes redirectAttrs) {
-	    
-	    CenterVO center = service.centerLogin(ctId, ctPassword);
-	    
-	    if (center != null) {
-	        Map<String, Object> loginCenter = new HashMap<>();
+	public String centerLogin(@ModelAttribute CenterVO centerVO, HttpSession session, Model model) {
+		CenterVO center = service.loginAndGetCenter(centerVO.getCtId(), centerVO.getCtPassword());
+		if (center != null) {
+			//로그인 성공, 세션에 사용자 정보 저장
+			System.out.println("로그인성공: " + centerVO.getCtId());
+			
+			//세션에 담을 Map 생성
+			Map<String, Object> loginCenter = new HashMap<>();
 	        loginCenter.put("ctCode", center.getCtCode());
 	        loginCenter.put("ctName", center.getCtName());
 	        
 	        // 세션에 Map 저장 
 	        session.setAttribute("loginCenter", loginCenter);
-	        //가입 완료되면 
-	        
-	        return "center/center_index";  
-	    } else {
-	        redirectAttrs.addFlashAttribute("loginError", "존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
-	        return "redirect:centerLogin.do"; 
-	    }
+	        return "redirect:/centerInfo.do"; // 테스트화면
+		}else {
+			//로그인 실패
+			return "center/center_login";
+		}
 	}
+	
+	
+	/**
+	 * 로그인 이후 우선 이동할페이지 (비밀번호변경테스트)
+	 */
+	
+	@GetMapping("/centerInfo.do")
+	public String centerInfo(HttpSession session, Model model) {
+		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+		if (loginCenter != null) {
+			String ctId = (String) loginCenter.get("ctId");
+			CenterVO centerInfo = service.getLoginCenterCodeName(ctId);
+			model.addAttribute("centerInfo",centerInfo);
+		}
+		return "center/center_login_info_test"; //테스트
+	}
+	
+	
+	/**
+	 * 비밀번호 변경 모달에서 현재 비밀번호 확인
+	 * 
+	 * @param payload
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/checkPasswordCT.do")
+	@ResponseBody
+	public ResponseEntity<?> checkCurrentPassword(@RequestBody Map<String, String> payload, HttpSession session) {
+		String currentPassword = payload.get("currentPassword");
+		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+
+		if (loginCenter != null) {
+			int ctCode = (int) loginCenter.get("ctCode");
+			boolean isPasswordCorrect = service.checkPassword(ctCode, currentPassword);
+
+			if (isPasswordCorrect) {
+				return ResponseEntity.ok().body(Map.of("message", "Password is correct"));
+			} else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Incorrect password"));
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
+		}
+	}
+
+	/**
+	 * 비밀번호 변경 모달에서 새 비밀번호,새비밀번호 확인 후 변경
+	 * @param payload
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/updatePasswordCT.do")
+	@ResponseBody
+	public ResponseEntity<?> updatePassword(@RequestBody Map<String, String> payload, HttpSession session) {
+		String newPassword = payload.get("newPassword");
+		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+
+		if (loginCenter != null) {
+			int ctCode = (int) loginCenter.get("ctCode");
+			service.updatePassword(ctCode, newPassword);
+			return ResponseEntity.ok().body(Map.of("message", "Password updated successfully"));
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
+		}
+	}	
+
+	
+	
+	/**
+     * 로그아웃
+     * @param session
+     * @return
+     */
+	@PostMapping("/centerLogout.do")
+	public String logout(HttpSession session) {
+	    session.removeAttribute("loginCenter");
+	    return "redirect:/centerLogin.do";
+	}
+	
+	
 }
