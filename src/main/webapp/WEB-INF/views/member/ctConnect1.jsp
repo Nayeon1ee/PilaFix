@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>센터 연동요청</h1>
-
+<!-- 기능만드려고 만든 화면 나중에 삭제해야함 -->
 <input type="text" id=searchKeyword name="searchKeyword" />
  <input type="button" id="searchCt" value="검색" />
  <br><br>

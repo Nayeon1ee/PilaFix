@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Services - PILAFIX Bootstrap Template</title>
+<title>강사/회원 선택화면</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -45,6 +45,8 @@
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
+<!-- 내가 넣은 js -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </head>
 <!-- 내 css -->
@@ -103,12 +105,12 @@
 				<div class="row">
 					<!-- 강사 선택 카드 -->
 					<div class="col-md-6">
-						<div class="icon-box">
+						<div class="icon-box" id="teacherCard">
 							<div class="icon">
 								<i class="bi bi-person-check"></i>
 							</div>
 							<h4>
-								<a href="#">강사</a>
+								<label> 강사 </label>
 							</h4>
 							<p style="font-size: 16px;">강사로 가입하시고 싶으시면 강사를 선택하세요.</p>
 						</div>
@@ -116,12 +118,12 @@
 
 					<!-- 회원 선택 카드 -->
 					<div class="col-md-6">
-						<div class="icon-box">
+						<div class="icon-box" id="memberCard">
 							<div class="icon">
 								<i class="bi bi-person"></i>
 							</div>
 							<h4>
-								<a href="#">회원</a>
+								<label> 회원</label>
 							</h4>
 							<p style="font-size: 16px;">회원으로 가입하고 싶으시면 회원을 선택하세요.</p>
 						</div>
@@ -168,6 +170,23 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+
+<!-- 강사/회원 클릭하면 각자 다른 파라미터값 물고 회원가입화면으로 넘어감 -->
+<script>
+    $(document).ready(function () {
+        // 강사 선택 카드 클릭 이벤트
+        $("#teacherCard").click(function () {
+            // 리다이렉션
+            window.location.href = "getUserRole.do?csRoleCode=TR";
+        });
+
+        // 회원 선택 카드 클릭 이벤트
+        $("#memberCard").click(function () {
+            // 리다이렉션
+            window.location.href = "getUserRole.do?csRoleCode=ME";
+        });
+    });
+</script>
 
 </body>
 

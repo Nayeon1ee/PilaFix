@@ -102,7 +102,11 @@
 					<label for="staticEmail" class="col-sm-2 col-form-label"
 						style="margin-left: 1%; border-left: 2px solid; border-color: #9B67FF;">회원가입</label>
 				</div>
-				<form class="row g-3">
+				<form class="row g-3" action="insertMember.do" method="post" onsubmit="return validateForm()">
+				
+				 <!-- 히든으로 앞에서 넘어온 csRoleCode값 저장함 -->
+     			<input type="hidden" id="csRoleCode" name="csRoleCode" value="${csRoleCode}">
+				
 					<div class="col-auto" style="width: 100px;">
 						<input type="text" readonly class="form-control-plaintext"
 							id="staticEmail2" value="이메일 아이디"
