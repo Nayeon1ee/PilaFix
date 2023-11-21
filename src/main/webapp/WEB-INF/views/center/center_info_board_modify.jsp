@@ -23,7 +23,7 @@
 
 							<!-- Multi Columns Form -->
 							<form class="row g-3" id="registrationForm000" action="updateCenterInfo.do" method="post">
-							<input type="hidden" name="seq" value="${centerInfo.seq}">
+							<input type="hidden" name="icNumber" value="${centerInfo.icNumber}">
 								<div class="col-md-12">
 									<label class="form-label">제목</label>
 									<input type="text" class="form-control" id="titleInput000" name="title" value="${centerInfo.title }" />

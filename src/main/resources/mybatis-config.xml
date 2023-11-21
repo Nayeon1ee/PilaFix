@@ -58,6 +58,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/member-kakaologin-mapper.xml" />
 		<mapper resource="mappings/admin-login-mapper.xml" />
 		<mapper resource="mappings/member-naverlogin-mapper.xml" />
+		<mapper resource="mappings/common-notice-mapper.xml" />
 	</mappers>
 
 </configuration>

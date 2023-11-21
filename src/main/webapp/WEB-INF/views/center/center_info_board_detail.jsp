@@ -43,7 +43,7 @@
 							        <input type="text" class="form-control" id="titleInput000" value="${centerInfo.openYN ? '공개' : '비공개'}" disabled>
 							    </div>
 								<div class="text-center">
-				                  <button type="button" class="btn btn-primary" onclick="location.href='updateCenterInfo.do?seq=${centerInfo.seq }'">수정</button>
+				                  <button type="button" class="btn btn-primary" onclick="location.href='updateCenterInfo.do?icNumber=${centerInfo.icNumber}'">수정</button>
 				                  <button type="button" class="btn btn-danger" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
 				                  <button type="button" class="btn btn-secondary" onclick="location.href='getCenterInfoList.do'">목록</button>
 				                </div>
@@ -66,7 +66,7 @@
 			<div class="modal-body">삭제 버튼을 누르시면 다시 복구시킬 수 없습니다.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='deleteCenterInfo.do?seq=${centerInfo.seq }'">삭제</button>
+				<button type="button" class="btn btn-primary" onclick="location.href='deleteCenterInfo.do?icNumber=${centerInfo.icNumber}'">삭제</button>
 			</div>
 		</div>
 	</div>
@@ -74,7 +74,7 @@
 <!-- 모달의 확인 누르면 삭제 진행-->
 <script>
 function deleteCommunity(cmNumber) {
-		fetch('/pilafix/deleteCenterInfo.do?seq=' + seq, {
+		fetch('/pilafix/deleteCenterInfo.do?icNumber=' + icNumber, {
 			method: 'GET'
 		})
 			.then(response => {

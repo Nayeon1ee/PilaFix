@@ -20,8 +20,8 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 	}
 
 	@Override
-	public AdminInfoVO getInfo(int seq) {
-		return dao.getAdminInfo(seq);
+	public AdminInfoVO getInfo(int iwNumber) {
+		return dao.getAdminInfo(iwNumber);
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 	}
 
 	@Override
-	public int deleteAdminInfo(int seq) {
-		return dao.deleteAdminInfo(seq);
+	public int deleteAdminInfo(int iwNumber) {
+		return dao.deleteAdminInfo(iwNumber);
 	}
 
 	@Override
