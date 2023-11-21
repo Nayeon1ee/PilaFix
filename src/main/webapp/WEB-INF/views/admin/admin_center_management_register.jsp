@@ -112,7 +112,7 @@
 									</div>
 									<div class="col-md-6">
 										<label for="inputEmail5" class="form-label">사업자등록증 업로드</label>
-										<input type="file" class="form-control" name="businessRegistrationFile" >
+										<input type="file" class="form-control" name="multipart" >
 										<!-- 기능 구현 후 주석 해제 
 										<input class="form-control" type="file" id="formFile" name="businessRegistrationFile"> -->
 									</div>

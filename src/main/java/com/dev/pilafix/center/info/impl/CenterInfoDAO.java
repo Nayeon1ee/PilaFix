@@ -14,8 +14,8 @@ public class CenterInfoDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<CenterInfoVO> getCenterInfoList(){
-		return sqlSessionTemplate.selectList("CenterInfoDAO.getCenterInfoList");
+	public List<CenterInfoVO> getCenterInfoList(int ctCode){
+		return sqlSessionTemplate.selectList("CenterInfoDAO.getCenterInfoList", ctCode);
 	}
 	
 	public CenterInfoVO getCenterInfo(int seq) {
@@ -34,6 +34,7 @@ public class CenterInfoDAO {
 		
 		return result;
 	}
+
 	
 	public int updateCenterInfo(CenterInfoVO vo) {
 		return sqlSessionTemplate.update("CenterInfoDAO.updateCenterInfo", vo);
@@ -45,5 +46,13 @@ public class CenterInfoDAO {
 	
 	public int updateCenterInfoViewCnt(int cnt) {
 		return sqlSessionTemplate.update("CenterInfoDAO.updateCenterInfoViewCnt", cnt);
+	}
+	
+	/**
+	 * 알림 발송을 위한 회원 목록 조회 
+	 * @param ctCode
+	 */
+	public List<String> getMemberCodeList(int ctCode) {
+		return sqlSessionTemplate.selectList("CenterInfoDAO.getMemberCodeList", ctCode);
 	}
 }

@@ -27,8 +27,10 @@ public class CenterVO {
 	private String ctId;
 	private String ctPassword;
 	private String roleCode;
-	private MultipartFile businessRegistrationFile;
+	private MultipartFile multipart;
 	private String businessRegistrationFilePath;
+	
+	
 	public int getCtCode() {
 		return ctCode;
 	}
@@ -161,11 +163,11 @@ public class CenterVO {
 	public void setRoleCode(String roleCode) {
 		this.roleCode = roleCode;
 	}
-	public MultipartFile getBusinessRegistrationFile() {
-		return businessRegistrationFile;
+	public MultipartFile getMultipart() {
+		return multipart;
 	}
-	public void setBusinessRegistrationFile(MultipartFile businessRegistrationFile) {
-		this.businessRegistrationFile = businessRegistrationFile;
+	public void setMultipart(MultipartFile multipart) {
+		this.multipart = multipart;
 	}
 	public String getBusinessRegistrationFilePath() {
 		return businessRegistrationFilePath;
@@ -183,8 +185,8 @@ public class CenterVO {
 				+ ownerPhoneNumber3 + ", ownerEmail=" + ownerEmail + ", contractStartDate=" + contractStartDate
 				+ ", contractEndDate=" + contractEndDate + ", contractExpiryYn=" + contractExpiryYn
 				+ ", contractRevokeYn=" + contractRevokeYn + ", ctRegistrationDate=" + ctRegistrationDate + ", ctId="
-				+ ctId + ", ctPassword=" + ctPassword + ", roleCode=" + roleCode + ", businessRegistrationFile="
-				+ businessRegistrationFile + ", businessRegistrationFilePath=" + businessRegistrationFilePath + "]";
+				+ ctId + ", ctPassword=" + ctPassword + ", roleCode=" + roleCode + ", multipart="
+				+ multipart + ", businessRegistrationFilePath=" + businessRegistrationFilePath + "]";
 	}
 	
 	

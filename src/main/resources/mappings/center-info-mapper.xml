@@ -11,18 +11,28 @@
 		<result property="regDate" column="IC_REGDATE" />
 		<result property="cnt" column="IC_VIEWS" />
 		<result property="openYN" column="IC_OPEN_YN" />
-		
 		<result property="ctName" column="CT_NAME" />
 	</resultMap>
-	<select id="getCenterInfoList" resultMap="centerInfoResult" parameterType="centerInfo">
-		SELECT IC_NUMBER, IC_TITLE, IC_CONTENT, TO_CHAR(IC_REGDATE, 'YYYY-MM-DD HH24:MI:SS') as IC_REGDATE, IC_VIEWS, IC_OPEN_YN, IC_WRITER_MEMBER_CODE, (SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=IC_WRITER_MEMBER_CODE) as CT_NAME FROM TBL_INFO_C
+
+	<!-- 회원 코드 조회를 위한 resultMap (property가 없는 이유는 List<String>이라 필드가 없기 때문) -->
+	<resultMap id="memberCode" type="String">
+		<result column="filename"></result> 
+	</resultMap>
+
+	<select id="getCenterInfoList" resultMap="centerInfoResult">
+		SELECT IC_NUMBER, IC_TITLE, IC_CONTENT, IC_REGDATE, IC_VIEWS, IC_OPEN_YN, IC_WRITER_MEMBER_CODE, 
+		(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=IC_WRITER_MEMBER_CODE) as CT_NAME 
+		FROM TBL_INFO_C
+		WHERE IC_WRITER_MEMBER_CODE=#{ctCode}
 	</select>
 	<select id="getCenterInfo" resultMap="centerInfoResult" parameterType="centerInfo">
-		SELECT IC_NUMBER, IC_TITLE, IC_CONTENT, TO_CHAR(IC_REGDATE, 'YYYY-MM-DD HH24:MI:SS') as IC_REGDATE, IC_VIEWS, IC_OPEN_YN, IC_WRITER_MEMBER_CODE, (SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=IC_WRITER_MEMBER_CODE) as CT_NAME FROM TBL_INFO_C WHERE IC_NUMBER=${seq}
+		SELECT IC_NUMBER, IC_TITLE, IC_CONTENT, IC_REGDATE, IC_VIEWS, IC_OPEN_YN, IC_WRITER_MEMBER_CODE, 
+		(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=IC_WRITER_MEMBER_CODE) as CT_NAME 
+		FROM TBL_INFO_C WHERE IC_NUMBER=${seq}
 	</select>
 	<insert id="insertCenterInfo" parameterType="centerInfo">
 		INSERT INTO TBL_INFO_C(IC_NUMBER, IC_TITLE, IC_CONTENT, IC_WRITER_MEMBER_CODE, IC_REGDATE, IC_OPEN_YN)
-		VALUES(nextval('seq_center_info'), #{title}, #{content}, 111, CURRENT_TIMESTAMP, #{openYN})
+		VALUES(nextval('seq_center_info'), #{title}, #{content}, #{writerMemberCode}, CURRENT_TIMESTAMP, #{openYN})
 	</insert>
 	<update id="updateCenterInfo" parameterType="centerInfo">
 		UPDATE TBL_INFO_C SET IC_TITLE=#{title}, IC_CONTENT=#{content}, IC_OPEN_YN=#{openYN} WHERE IC_NUMBER=#{seq}
@@ -30,8 +40,14 @@
 	<delete id="deleteCenterInfo" parameterType="Integer">
 		DELETE FROM TBL_INFO_C WHERE IC_NUMBER = #{seq}
 	</delete>
-	
 	<update id="updateCenterInfoViewCnt" parameterType="centerInfo">
 		UPDATE TBL_INFO_C SET IC_VIEWS = IC_VIEWS + 1 WHERE IC_NUMBER=#{seq}
 	</update>
+	
+	<!-- 알림 발송을 위한 회원 코드 목록 조회 -->
+	<select id="getMemberCodeList" resultMap="memberCode">
+		SELECT CS_MEMBER_CODE FROM TBL_CST
+		WHERE (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
+	
+	</select>
 </mapper>

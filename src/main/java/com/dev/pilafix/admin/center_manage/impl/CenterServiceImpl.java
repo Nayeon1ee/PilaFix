@@ -73,6 +73,8 @@ public class CenterServiceImpl implements CenterService {
     @Override
     public void sendEmailAndInsertSendEmailHistory(CenterVO center) {
     	
+    	System.out.println("service 호출");
+    	
     	int flag = 0;// 발송 성공 여부
     	String errorMessage=""; //에러 시 실패 사유 
     	

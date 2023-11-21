@@ -57,8 +57,16 @@ public class CenterController {
 	 */
     @PostMapping("/insertCenter.do")
     public String insert(@ModelAttribute("center") CenterVO center, MultipartFile multipart, HttpSession session) throws IOException {
-		
-    	// aws s3 파일 업로드 처리 */
+    	
+    	System.out.println("insertCenter.do 호출");
+
+    	System.out.println("파일명 세팅 ");
+    	System.out.println("파일명 : " + multipart.getOriginalFilename());
+    	// 파일 업로드 처리 때문에 막아둠 추후 업로드 열리면 삭제해야 함
+		center.setBusinessRegistrationFilePath("https://pilafixbuc.s3.ap-northeast-2.amazonaws.com/"+multipart.getOriginalFilename());
+    	
+
+    	/* aws s3 파일 업로드 처리 */
     	if (!multipart.getOriginalFilename().equals("")) {
 			InputStream is = multipart.getInputStream();
 			String key = multipart.getOriginalFilename();
