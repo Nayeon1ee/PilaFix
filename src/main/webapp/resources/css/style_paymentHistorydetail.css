@@ -1,35 +1,7 @@
 @charset "UTF-8";
 
 
-.container000 {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-}
 
-.container000>.content000 {
-	display: flex;
-	flex-direction: row;
-	flex-grow: 1;
-}
-
-.container000>.content000>area1 {
-	background-color: #e8f2fe;
-	flex-basis: 300px;
-	flex-shrink: 0;
-}
-
-.container000>.content000>main {
-	background-color: white;
-	flex-grow: 1;
-	flex-shrink: 1;
-}
-
-.container000>.content000>area2 {
-	background-color: #e8f2fe;
-	flex-basis: 300px;
-	flex-shrink: 0;
-}
 
 #myPage {
 	margin: 0 auto;
@@ -49,7 +21,7 @@
 }
 
 #myInfoLink {
-	text-decoration: underline;
+	text-decoration: none;
 	cursor: pointer;
 }
 
@@ -59,12 +31,10 @@
 }
 
 #logout {
-	text-decoration: underline;
+	text-decoration: none;
 	cursor: pointer;
 	margin-left: 10px;
 }
-
-
 
 
 .payment-detail {
@@ -106,7 +76,7 @@
     margin: 15px 0;
 }
 
-.order-info, .payment-info {
+.order-info, .payment-info, .payment-details {
     margin: 20px;
 }
 
