@@ -16,7 +16,7 @@
 		<result property="tkUsageNumMonth" column="TK_USAGE_NUM_MONTH"/>
 		<result property="tkUsageCount" column="TK_USAGE_COUNT"/>
 		<result property="tkDescription" column="TK_DESCRIPTION"/>
-		<result property="tkPrice" column="TK_PRICE"/>
+		<result property="tkPriceAddDot" column="TK_PRICE"/>
 		<result property="purchaseAvailableYN" column="PURCHASE_AVAILABLE_YN"/>
 		<result property="centerCode" column="CENTER_CODE"/>
 		<result property="RegistrationDate" column="REGISTRATION_DATE"/>
@@ -35,7 +35,8 @@
 </select>
 
 <select id="getCenterTicketInfo" parameterType="int" resultMap="centerTicketResult">
-	SELECT * FROM tbl_ticket
-	WHERE center_code = #{ctCode}
+	SELECT TK_CODE,TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price
+	FROM tbl_ticket
+	WHERE center_code = #{ctCode} AND PURCHASE_AVAILABLE_YN = 't'
 </select>
 </mapper>

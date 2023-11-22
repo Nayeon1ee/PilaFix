@@ -87,3 +87,10 @@ select::-ms-expand {
 	margin: 0px 20px 30px;
 	text-align: left;
 }
+
+/*수강권 리스트에서 가격 굵게 나타내기*/
+.tkPrice{
+font-weight: bold; 
+text-align: right; 
+display: block;
+}

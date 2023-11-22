@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dev.pilafix.center.ticket.CenterTicketVO;
 
@@ -41,7 +42,9 @@ public class MemberTicketController {
 	}
 	
 	@PostMapping("/getCenterTicketInfo.do")
+	@ResponseBody
 	public List<CenterTicketVO> getCenterTicketInfo(int ctCode,Model model){
+		System.out.println("컨트롤러로 넘어온 센터코드: " + ctCode);
 		List<CenterTicketVO> centerTicketInfo = service.getCenterTicketInfo(ctCode);
 		return centerTicketInfo;
 	}
