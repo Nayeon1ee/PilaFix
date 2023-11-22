@@ -14,6 +14,16 @@ public class CenterTicketVO {
 	private boolean purchaseAvailableYN;
 	private int centerCode;
 	private Date RegistrationDate;
+	private String tkPriceAddDot; //원화 표시시 사용하려고 만듬
+
+	
+	public String getTkPriceAddDot() {
+		return tkPriceAddDot;
+	}
+
+	public void setTkPriceAddDot(String tkPriceAddDot) {
+		this.tkPriceAddDot = tkPriceAddDot;
+	}
 
 	public String getTkCode() {
 		return tkCode;
@@ -108,7 +118,10 @@ public class CenterTicketVO {
 		return "CenterTicketVO [tkCode=" + tkCode + ", tkName=" + tkName + ", tkLessonType=" + tkLessonType
 				+ ", tkCapacity=" + tkCapacity + ", tkUsageNumMonth=" + tkUsageNumMonth + ", tkUsageCount="
 				+ tkUsageCount + ", tkDescription=" + tkDescription + ", tkPrice=" + tkPrice + ", purchaseAvailableYN="
-				+ purchaseAvailableYN + ", centerCode=" + centerCode + ", RegistrationDate=" + RegistrationDate + "]";
+				+ purchaseAvailableYN + ", centerCode=" + centerCode + ", RegistrationDate=" + RegistrationDate
+				+ ", tkPriceAddDot=" + tkPriceAddDot + "]";
 	}
+
+	
 
 }
