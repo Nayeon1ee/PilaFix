@@ -41,21 +41,14 @@
     </update>
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	<!-- 비밀번호 체크 -->
 	<select id="adPasswordCheck" resultType="int">
 		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_PASSWORD=#{adPassword}
 	</select>
 
 	<insert id="insertAdminRegister" parameterType="admin">
-		INSERT INTO TBL_ADMIN(AD_CODE, AD_NAME, AD_CONTACT1, AD_CONTACT2, AD_CONTACT3, AD_ID, AD_PASSWORD, ACCOUNT_USAGE_YN, ROLE_CODE) 
-		VALUES(CONCAT('AD',NEXTVAL('SEQ_ADMIN_LOGIN')), #{adName}, #{adContact1}, #{adContact2} , #{adContact3}, #{adId} , #{adPassword}, 't' , 'AD')
+		INSERT INTO TBL_ADMIN(AD_CODE, AD_NAME, AD_CONTACT1, AD_CONTACT2, AD_CONTACT3, AD_ID, AD_PASSWORD, ACCOUNT_USAGE_YN, ROLE_CODE)
+		VALUES(CONCAT('AD', NEXTVAL('SEQ_ADMIN_LOGIN')), #{adName}, #{adContact1}, #{adContact2}, #{adContact3}, #{adId}, #{adPassword} ,'t', 'AD')
 	</insert>
 	
 	<select id="adIdCheck" resultType="int">

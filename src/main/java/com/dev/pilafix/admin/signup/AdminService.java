@@ -8,11 +8,5 @@ public interface AdminService {
 
 	int adIdCheck(String adId);
 	
-	void adminupdatePassword(String adCode, String newPassword);
-
-	boolean admincheckPassword(String adCode, String currentPassword);
-
-	int adPasswordCheck(String adPassword);
-
 
 }
