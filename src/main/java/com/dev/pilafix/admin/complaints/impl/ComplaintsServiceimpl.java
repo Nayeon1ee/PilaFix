@@ -51,8 +51,8 @@ public class ComplaintsServiceimpl implements ComplaintsService {
 	}
 
 	@Override
-	public List<ComplaintsVO> getAllComplaints() {
-		return dao.getAllComplaints();
+	public List<ComplaintsVO> getAllComplaintsList() {
+		return dao.getAllComplaintsList();
 	}
 
 }
