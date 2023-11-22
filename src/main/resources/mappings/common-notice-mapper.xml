@@ -7,8 +7,13 @@
 	     <result property="" column="CS_MEMBER_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
 	</resultMap>
 
-	<!-- 알림 발송을 위한 회원 코드 목록 조회 -->
+	<!-- 알림 발송을 위한 회원 코드 목록 조회(관리자용) -->
 	<select id="getMemberCodeList" resultMap="codeResult">
+		SELECT CS_MEMBER_CODE FROM TBL_CST
+	</select>
+
+	<!-- 알림 발송을 위한 회원 코드 목록 조회(센터용) -->
+	<select id="getMemberCodeListByCtCode" resultMap="codeResult">
 		SELECT CS_MEMBER_CODE FROM TBL_CST
 		WHERE (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
 	</select>

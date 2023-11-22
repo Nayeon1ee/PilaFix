@@ -35,8 +35,8 @@ public class CenterInfoDAO {
 		return sqlSessionTemplate.delete("CenterInfoDAO.deleteCenterInfo", icNumber);
 	}
 	
-	public int updateCenterInfoViewCnt(int cnt) {
-		return sqlSessionTemplate.update("CenterInfoDAO.updateCenterInfoViewCnt", cnt);
+	public int updateCenterInfoViewCnt(int icNumber) {
+		return sqlSessionTemplate.update("CenterInfoDAO.updateCenterInfoViewCnt", icNumber);
 	}
 
 }
