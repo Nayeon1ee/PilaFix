@@ -48,6 +48,27 @@
 									<textarea readonly disabled class="form-control"
 										style="height: 300px;" placeholder="글 내용을 입력해주세요" name="cmContent">${ComplaintsInfo.cmTitle }</textarea>
 								</div>
+								
+						<h5 class="card-title"></h5>
+						<!-- Table with stripped rows -->
+						<table class="table datatable">
+							<thead>
+								<tr>
+									<th scope="col">신고사유.</th>
+									<th scope="col">신고자</th>
+									<th scope="col">신고자이메일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="ComplaintsInfo" items="${complaintsInfoList }">
+									<tr>
+										<td>${ComplaintsInfo.blameReasonName }</td>
+										<td>${ComplaintsInfo.csName }</td>
+										<td>${ComplaintsInfo.csEmailId }</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 								<div class="baned-info">신고 정보</div>
 								<div class="col-md-5">
 									<label class="form-label">신고사유</label> <input type="text"
