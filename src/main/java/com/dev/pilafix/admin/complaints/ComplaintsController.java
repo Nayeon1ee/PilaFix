@@ -1,5 +1,7 @@
 package com.dev.pilafix.admin.complaints;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class ComplaintsController {
 	}
 
 	@GetMapping("/updateComplaintsInfo.do")
-	public String updateComplaintsInfo(@RequestParam("cpCode") Integer cpCode, Model model) {
+	public String updateComplaintsInfo(@RequestParam("cpCode") int cpCode, Model model) {
 		model.addAttribute("list", service.getComplaintsInfo(cpCode));
 		return "admin_complaints/updateComplaintsInfo.jsp";
 	}
@@ -46,12 +48,27 @@ public class ComplaintsController {
 	@GetMapping("/getComplaintsInfoList.do")
 	public String getComplaintsInfoList(Model model) {
 		model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
-		return "admin/admin_report";
+		return "admin/admin_baned_comment";
 	}
 
 	@GetMapping("/getComplaintsInfo.do")
-	public String getComplaintsInfo(@RequestParam("cpTargetPostNumber") Integer cpTargetPostNumber, Model model) {
-		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpTargetPostNumber));
-		return "admin/admin_report_detail";
+	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode,@RequestParam("cpTargetPostNumber") int cpTargetPostNumber, Model model) {
+		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpCode));
+		model.addAttribute("complaintsInfoList", service.getAllComplaintsList());
+		return "admin/admin_baned_comment_detail";
 	}
+	
+	@GetMapping("/revokeComplaints.do")
+	public String revokeComplaints(int cpCode) {
+		service.revokeComplaints(cpCode);
+		return "redirect:getComplaintsInfo.do?cpCode="+cpCode;
+	}
+	
+	
+//	@GetMapping("/getAllComplaints.do")
+//    public String getAllComplaints(@RequestParam("cpCode") int cpCode,Model model) {
+//        List<ComplaintsVO> complaintsInfo = service.getAllComplaints(cpCode);
+//        model.addAttribute("complaintsInfoList", complaintsInfo);
+//        return "admin_baned_comment"; // complaintsPage는 complaintsInfoList를 사용하여 데이터를 표시하는 JSP 페이지입니다.
+//    }
 }

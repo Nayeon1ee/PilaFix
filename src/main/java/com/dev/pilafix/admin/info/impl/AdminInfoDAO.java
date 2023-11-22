@@ -17,8 +17,8 @@ public class AdminInfoDAO {
 		return sqlSessionTemplate.selectList("AdminInfoDAO.getAdminInfoList");
 	}
 	
-	public AdminInfoVO getAdminInfo(int seq) {
-	    return sqlSessionTemplate.selectOne("AdminInfoDAO.getAdminInfo",seq);
+	public AdminInfoVO getAdminInfo(int iwNumber) {
+	    return sqlSessionTemplate.selectOne("AdminInfoDAO.getAdminInfo",iwNumber);
 	}
 	
 	public int insertAdminInfo(AdminInfoVO vo) {
@@ -29,11 +29,11 @@ public class AdminInfoDAO {
 		return sqlSessionTemplate.update("AdminInfoDAO.updateAdminInfo", vo);
 	}
 	
-	public int deleteAdminInfo(int seq) {
-		return sqlSessionTemplate.delete("AdminInfoDAO.deleteAdminInfo", seq);
+	public int deleteAdminInfo(int iwNumber) {
+		return sqlSessionTemplate.delete("AdminInfoDAO.deleteAdminInfo", iwNumber);
 	}
 	
-	public int updateAdminInfoViewCnt(int cnt) {
-		return sqlSessionTemplate.update("AdminInfoDAO.updateAdminInfoViewCnt", cnt);
+	public void updateAdminInfoViewCnt(int iwNumber) {
+		sqlSessionTemplate.update("AdminInfoDAO.updateAdminInfoViewCnt", iwNumber);
 	}
 }

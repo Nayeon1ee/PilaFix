@@ -17,8 +17,8 @@ public class ComplaintsDAO {
 	public List<ComplaintsVO> getComplaintsInfoList(){
 		return sqlSessionTemplate.selectList("ComplaintsDAO.getComplaintsInfoList");
 	}
-	public ComplaintsVO getComplaintsInfo(int cpTargetPostNumber) {
-	    return sqlSessionTemplate.selectOne("ComplaintsDAO.getComplaintsInfo",cpTargetPostNumber);
+	public ComplaintsVO getComplaintsInfo(int cpCode) {
+	    return sqlSessionTemplate.selectOne("ComplaintsDAO.getComplaintsInfo",cpCode);
 	}
 	
 	public int insertComplaintsInfo(ComplaintsVO vo) {
@@ -31,6 +31,13 @@ public class ComplaintsDAO {
 	
 	public int deleteComplaintsInfo(int cp_code) {
 		return sqlSessionTemplate.delete("ComplaintsDAO.deleteComplaintsInfo", cp_code);
+	}
+	
+	public void revokeComplaints(int cpCode) {
+		sqlSessionTemplate.update("ComplaintsDAO.updateContractRevokeYN", cpCode);
+	}
+	public List<ComplaintsVO> getAllComplaintsList(){
+		return sqlSessionTemplate.selectList("ComplaintsDAO.getAllComplaintsList");
 	}
 	
 	

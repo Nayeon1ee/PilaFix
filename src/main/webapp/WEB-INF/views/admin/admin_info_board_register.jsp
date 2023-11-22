@@ -32,7 +32,7 @@
 				    </div>
 				    <div class="col-md-12">
 				        <label class="form-label">제목</label>
-				        <input type="text" class="form-control" name="title" id="titleInput000" value="" />
+				        <input type="text" class="form-control" name="title" id="titleInput000" />
 				    </div>
 				    <div class="col-md-12">
 				        <label class="form-label">내용</label>

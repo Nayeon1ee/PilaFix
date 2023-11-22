@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>수강권구매</title>
 <!-- css, js연결 -->
 <link
 	href="${pageContext.request.contextPath}/resources/css/templateC.css"
@@ -12,9 +13,12 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/ticket.css">
+	href="${pageContext.request.contextPath}/resources/css/style_ticket.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+	
+<!-- 내가 추가한 js -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 	<div class="container000">
@@ -28,11 +32,30 @@
 					<div class="slect-wrap">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/select-arr.png"
-							alt="arr Image"> <select>
-							<option>룩스 필라테스삼송점</option>
-							<option>이브 필라테스 종로점</option>
+							alt="arr Image"> 
+						<!-- 로그인한 회원코드의 연동된 센터가 없으면 수강권 구매할 수 없으므로 연동센터없으면 연동센터없다고 뿌려주고 있으면 그 센터의 이름 셀렉박스 옵션으로 넣어줌 -->
+						<select id="centerSelect" onchange="getCenterInfo()">
+							<c:choose>
+								<c:when test="${empty connCenterList}">
+									<option selected>연동센터 없음</option>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="center" items="${connCenterList}">
+										<option selected disabled hidden>센터를 선택해주세요</option>
+										<option value="${center.ctCode}">센터코드: ${center.ctCode}&센터이름: ${center.ctName}</option>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</select>
 					</div>
+					<!-- 셀렉트박스 끝 -->
+					
+					<!-- 셀렉트박스에서 선택한 센터의 수강권 정보를 업데이트할 부분 -->
+					<div id="centerInfoContainer">
+							
+					</div>
+					
+					
 					<hr>
 					<div>
 						<ul class="nav nav-tabs">
@@ -225,12 +248,79 @@
 		</section>
 
 	</div>
-	<!-- 클릭하면 우측 화면 디폴트에서 상세화면으로 바뀌게 하는 js -->
+	<!-- 셀렉트박스에서 센터 선택하면 해당 센터의 수강권정보 가져오는 js  -->
+	<script>
+    function getCenterInfo() {
+        var selectedCenterCode = document.getElementById("centerSelect").value;
+		console.log("선택한 지점 코드 : "+selectedCenterCode);
+        // Ajax 요청
+        $.ajax({
+            type: "Post",
+            url: "getCenterTicketInfo.do",  // 적절한 URL로 변경
+            data: { ctCode: selectedCenterCode },
+            success: function(data) {
+                // 성공 시 아래에 정보 업데이트
+                console.log("값 가져옴")
+               
+                var str = "";
+               
+          		 //  centerInfoContainer라는 아이디 가진 영역의 기존 내용을 지움
+               $('#centerInfoContainer').html('');
+               if (data.length < 1){
+               	str = '<p>센터에서 등록한 수강권이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
+               		$('#centerInfoContainer').append(str);
+               }else{
+               data.forEach(function(item){
+            	   
+                   /* 구매일로부터 사용기간 날짜 계산 */
+                   // 현재 날짜를 가져옴
+   				var currentDate = new Date();
+   				//tkUsageNumMonth 개월을 더한 날짜 계산
+   				var endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + parseInt(item.tkUsageNumMonth), currentDate.getDate());
+   				// 날짜를 "YYYY-MM-DD" 형식으로 포맷
+   				var nowDate = currentDate.toISOString().split('T')[0];   
+   				var ticketEndDate = endDate.toISOString().split('T')[0];   
+					str='<div class="list-group-ticket" id="list-item">'
+					str='<input type="hidden" name="tkCode" value="'+item.tkCode+'">'
+					str+='<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
+					str+='<div class="d-flex w-100 justify-content-between">'
+					str+='<h5 class="mb-1">'+item.tkCapacity+':1' +item.tkLessonType+' 레슨' +item.tkUsageCount+'회 ('+item.tkUsageNumMonth+'개월)</h5>'
+					str+='</div>'
+					str+='<p class="mb-1">'+item.tkName+'</p>'
+					str += "<div>"
+					str+="<table>"
+					str +='<td>'
+					str+="<tr>"+ nowDate+"~"+ticketEndDate +"</tr>"
+					str +='<tr>' 
+					str+='<span class="tkPrice">'+item.tkPriceAddDot+'원 </span>';
+					str+="</tr>"
+					str+="</td>"
+					str+="</table>"
+					str+="</div>"
+					str+="</a>"
+					str+="</div>"
+					// centerInfoContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
+					$('#centerInfoContainer').append(str);
+       		})	
+               }
+                
+            },
+            error: function() {
+                console.error("Ajax 요청 실패");
+            }
+        });
+    }
+</script>
+	
+	
+	<!-- 클릭하면 우측 화면 디폴트에서 상세화면으로 바뀌게 하는 js 
+		 왼쪽에 수강권 클릭하면 이 함수 실행
+	-->
 	<script>
 		// JavaScript를 사용하여 요소 클릭 시 내용 교체
 		const listGroupItem = document.getElementById('list-item');
-		const content1Replace = document.getElementById('content1-replace');
 		const content1img = document.getElementById('content1-disappear');
+		const content1Replace = document.getElementById('content1-replace');
 
 		listGroupItem.addEventListener('click', function() {
 			content1img.style.display = 'none'; // content1-img클래스 숨김

@@ -38,24 +38,34 @@ public class MemberCommunityDAO {
 	public int updateMemberCommunityViewCnt(int memberCmViews) {
 		return sqlSessionTemplate.update("MemberCommunityDAO.updateMemberCommunityViewCnt", memberCmViews);
 	}
+	
+	public int updateMemberCommunityBlameCnt(int memberCmBlameCount) {
+		return sqlSessionTemplate.update("MemberCommunityDAO.updateMemberCommunityBlameCnt", memberCmBlameCount);
+	}
 		
 	public List<MemberCommunityVO> getBlameList() {
 		return sqlSessionTemplate.selectList("MemberCommunityDAO.getBlameList");
 	}
 	
 	public int insertBlame(Map<String, Object> blame) {
-	    System.out.println("[DAO] "+blame.get("memberCmWriterMemberCode"));
-	    System.out.println("[DAO] "+blame.get("memberTargetWriterMemberCode"));
-	    System.out.println("[DAO] "+blame.get("memberCmNumber"));
-	    
 		return sqlSessionTemplate.insert("MemberCommunityDAO.insertBlame", blame);
 	}
 	
-	public MemberCommunityVO getMemberCommunityReply(int memberReNumber) {
-	    return sqlSessionTemplate.selectOne("MemberCommunityDAO.getMemberCommunityReply",memberReNumber);
+	public List<MemberCommunityVO> getMemberCommunityReply(int memberCmNumber) {
+		System.out.println("DAO" + memberCmNumber);
+	    return sqlSessionTemplate.selectList("MemberCommunityDAO.getMemberCommunityReply", memberCmNumber);
 	}
 	
-	public int insertMemberCommunityReply(int memberCmNumber) {
-		return sqlSessionTemplate.insert("MemberCommunityDAO.insertMemberCommunityReply", memberCmNumber);
+	public int insertMemberCommunityReply(MemberCommunityVO vo) {
+		return sqlSessionTemplate.insert("MemberCommunityDAO.insertMemberCommunityReply", vo);
 	}
+	
+	public int updateMemberCommunityReply(MemberCommunityVO vo) {
+		return sqlSessionTemplate.update("MemberCommunityDAO.updateMemberCommunityReply", vo);
+	}
+	
+	public int deleteMemberCommunityReply(MemberCommunityVO vo) {
+		return sqlSessionTemplate.delete("MemberCommunityDAO.deleteMemberCommunityReply", vo);
+	}
+
 }

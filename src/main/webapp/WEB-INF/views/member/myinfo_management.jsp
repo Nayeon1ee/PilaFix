@@ -130,9 +130,18 @@
 							onclick="sendCurrentPassword()">다음</button>
 
 					</div>
+
+					
+					<div class="info-box04" style="text-align: center;">
+						<a class="withdraw_button" href="ticketPage.do">수강권구매</a>
+					</div>
+					
+			</main>
+
 				</div>
 			</div>
 		</div>
+
 
 		<!-- 두 번째 모달: 새 비밀번호 설정 -->
 		<div class="modal fade" id="newPasswordModal" tabindex="-1"

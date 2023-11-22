@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberTicketDAO">
+	<resultMap type="com.dev.pilafix.common.member.CenterVO" id="centerResult">
+		<result property="ctName" column="CT_NAME" />
+		<result property="ctCode" column="CT_CODE" />
+	</resultMap>
+	
+<resultMap type="centerTicket" id="centerTicketResult">
+		<id property="tkCode" column="TK_CODE"/>
+		<result property="tkName" column="TK_NAME"/>
+		<result property="tkLessonType" column="TK_LESSON_TYPE"/>
+		<result property="tkCapacity" column="TK_CAPACITY"/>
+		<result property="tkUsageNumMonth" column="TK_USAGE_NUM_MONTH"/>
+		<result property="tkUsageCount" column="TK_USAGE_COUNT"/>
+		<result property="tkDescription" column="TK_DESCRIPTION"/>
+		<result property="tkPriceAddDot" column="TK_PRICE"/>
+		<result property="purchaseAvailableYN" column="PURCHASE_AVAILABLE_YN"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="RegistrationDate" column="REGISTRATION_DATE"/>
+	</resultMap>
+
+<!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
+<select id="getConnCenterList" resultMap="centerResult" parameterType="int">
+	SELECT CT_NAME,CT_CODE
+	FROM TBL_CENTER
+	WHERE CT_CODE IN (
+    		SELECT CONNECTED_CENTER_CODE1 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+  		    UNION
+    		SELECT CONNECTED_CENTER_CODE2 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+    		UNION SELECT CONNECTED_CENTER_CODE3 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+			)
+</select>
+
+<select id="getCenterTicketInfo" parameterType="int" resultMap="centerTicketResult">
+	SELECT TK_CODE,TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price
+	FROM tbl_ticket
+	WHERE center_code = #{ctCode} AND PURCHASE_AVAILABLE_YN = 't'
+</select>
+</mapper>

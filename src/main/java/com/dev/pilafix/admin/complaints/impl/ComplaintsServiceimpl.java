@@ -21,8 +21,8 @@ public class ComplaintsServiceimpl implements ComplaintsService {
 	}
 
 	@Override
-	public ComplaintsVO getComplaintsInfo(int cpTargetPostNumber) {
-		return dao.getComplaintsInfo(cpTargetPostNumber);
+	public ComplaintsVO getComplaintsInfo(int cpCode) {
+		return dao.getComplaintsInfo(cpCode);
 	}
 
 	@Override
@@ -40,8 +40,19 @@ public class ComplaintsServiceimpl implements ComplaintsService {
 		return dao.deleteComplaintsInfo(cp_code);
 	}
 
+	/**
+     * 상태 변경 메서드 
+     * 파라미터로 받은 cpCode에 해당하는 센터의 계약 해지 true 변경
+     */
+	@Override
+	public void revokeComplaints(int cpCode) {
+		dao.revokeComplaints(cpCode);
 
+	}
 
-	
+	@Override
+	public List<ComplaintsVO> getAllComplaintsList() {
+		return dao.getAllComplaintsList();
+	}
 
 }

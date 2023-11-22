@@ -1,16 +1,17 @@
 package com.dev.pilafix.member.community;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MemberCommunityVO {
 	private int memberCmNumber;
 	private String memberCmTitle;
 	private String memberCmContent;
-	private String memberCmWriterMemberCode;
+	private int memberCmWriterMemberCode;
 	private Date memberCmRegdate;
 	private int memberCmViews;
 	private int memberCmBlameCount;
 	private boolean memberCmOpenYN;
+	private String cmWriterIp;
 
 	private int memberCpCode;
 	private int memberCpTargetPostNumber;
@@ -56,11 +57,11 @@ public class MemberCommunityVO {
 		this.memberCmContent = memberCmContent;
 	}
 
-	public String getMemberCmWriterMemberCode() {
+	public int getMemberCmWriterMemberCode() {
 		return memberCmWriterMemberCode;
 	}
 
-	public void setMemberCmWriterMemberCode(String memberCmWriterMemberCode) {
+	public void setMemberCmWriterMemberCode(int memberCmWriterMemberCode) {
 		this.memberCmWriterMemberCode = memberCmWriterMemberCode;
 	}
 
@@ -94,6 +95,14 @@ public class MemberCommunityVO {
 
 	public void setMemberCmOpenYN(boolean memberCmOpenYN) {
 		this.memberCmOpenYN = memberCmOpenYN;
+	}
+
+	public String getCmWriterIp() {
+		return cmWriterIp;
+	}
+
+	public void setCmWriterIp(String cmWriterIp) {
+		this.cmWriterIp = cmWriterIp;
 	}
 
 	public int getMemberCpCode() {
@@ -237,13 +246,13 @@ public class MemberCommunityVO {
 		return "MemberCommunityVO [memberCmNumber=" + memberCmNumber + ", memberCmTitle=" + memberCmTitle
 				+ ", memberCmContent=" + memberCmContent + ", memberCmWriterMemberCode=" + memberCmWriterMemberCode
 				+ ", memberCmRegdate=" + memberCmRegdate + ", memberCmViews=" + memberCmViews + ", memberCmBlameCount="
-				+ memberCmBlameCount + ", memberCmOpenYN=" + memberCmOpenYN + ", memberCpCode=" + memberCpCode
-				+ ", memberCpTargetPostNumber=" + memberCpTargetPostNumber + ", memberCpTargetPostType="
-				+ memberCpTargetPostType + ", memberTargetWriterMemberCode=" + memberTargetWriterMemberCode
-				+ ", memberBlamerMemberCode=" + memberBlamerMemberCode + ", memberCpDate=" + memberCpDate
-				+ ", memberBlamerIp=" + memberBlamerIp + ", memberBlameReasonCode=" + memberBlameReasonCode
-				+ ", memberBlameReasonName=" + memberBlameReasonName + ", memberReNumber=" + memberReNumber
-				+ ", memberReTitle=" + memberReTitle + ", memberReContent=" + memberReContent
+				+ memberCmBlameCount + ", memberCmOpenYN=" + memberCmOpenYN + ", cmWriterIp=" + cmWriterIp
+				+ ", memberCpCode=" + memberCpCode + ", memberCpTargetPostNumber=" + memberCpTargetPostNumber
+				+ ", memberCpTargetPostType=" + memberCpTargetPostType + ", memberTargetWriterMemberCode="
+				+ memberTargetWriterMemberCode + ", memberBlamerMemberCode=" + memberBlamerMemberCode
+				+ ", memberCpDate=" + memberCpDate + ", memberBlamerIp=" + memberBlamerIp + ", memberBlameReasonCode="
+				+ memberBlameReasonCode + ", memberBlameReasonName=" + memberBlameReasonName + ", memberReNumber="
+				+ memberReNumber + ", memberReTitle=" + memberReTitle + ", memberReContent=" + memberReContent
 				+ ", memberWriterRoleCode=" + memberWriterRoleCode + ", memberWriterCode=" + memberWriterCode
 				+ ", memberReRegdate=" + memberReRegdate + ", memberReTargetPostType=" + memberReTargetPostType
 				+ ", memberReTargetPostNumber=" + memberReTargetPostNumber + "]";

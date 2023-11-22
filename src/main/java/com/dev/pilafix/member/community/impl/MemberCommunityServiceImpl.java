@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.member.community.MemberCommunityService;
 import com.dev.pilafix.member.community.MemberCommunityVO;
 
@@ -46,25 +47,39 @@ public class MemberCommunityServiceImpl implements MemberCommunityService {
 	}
 	
 	@Override
+	public int updateMemberCommunityBlameCnt(int memberCmBlameCount) {
+		return dao.updateMemberCommunityBlameCnt(memberCmBlameCount);
+	}
+	
+	@Override
 	public List<MemberCommunityVO> getBlameList() {
 		return dao.getBlameList();
 	}
 	
 	@Override
 	public int insertBlame(Map<String, Object> blame) {
-	    System.out.println("[Service] "+blame.get("memberCmWriterMemberCode"));
-	    System.out.println("[Service] "+blame.get("memberTargetWriterMemberCode"));
-	    System.out.println("[Service] "+blame.get("memberCmNumber"));
 		return dao.insertBlame(blame);
 	}
 
 	@Override
-	public MemberCommunityVO getMemberCommunityReply(int memberCmNumber) {
+	public List<MemberCommunityVO> getMemberCommunityReply(int memberCmNumber) {
+		System.out.println("서비스" + memberCmNumber);
 		return dao.getMemberCommunityReply(memberCmNumber);
 	}
 
 	@Override
-	public int insertMemberCommunityReply(int memberCmNumber) {
-		return dao.insertMemberCommunityReply(memberCmNumber);
+	public int insertMemberCommunityReply(MemberCommunityVO vo) {
+		return dao.insertMemberCommunityReply(vo);
 	}
+	
+	@Override
+	public int updateMemberCommunityReply(MemberCommunityVO vo) {
+		return dao.updateMemberCommunityReply(vo);
+	}
+
+	@Override
+	public int deleteMemberCommunityReply(MemberCommunityVO vo) {
+		return dao.deleteMemberCommunityReply(vo);
+	}
+	
 }

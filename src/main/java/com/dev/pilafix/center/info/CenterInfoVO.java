@@ -3,7 +3,7 @@ package com.dev.pilafix.center.info;
 import java.sql.Date;
 
 public class CenterInfoVO {
-	private int seq;
+	private int icNumber;
 	private String title;
 	private String content;
 	private int writerMemberCode;
@@ -13,12 +13,12 @@ public class CenterInfoVO {
 
 	private String ctName;
 
-	public int getSeq() {
-		return seq;
+	public int getIcNumber() {
+		return icNumber;
 	}
 
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void setIcNumber(int icNumber) {
+		this.icNumber = icNumber;
 	}
 
 	public String getTitle() {
@@ -79,7 +79,7 @@ public class CenterInfoVO {
 
 	@Override
 	public String toString() {
-		return "CenterInfoVO [seq=" + seq + ", title=" + title + ", content=" + content + ", writerMemberCode="
+		return "CenterInfoVO [icNumber=" + icNumber + ", title=" + title + ", content=" + content + ", writerMemberCode="
 				+ writerMemberCode + ", regDate=" + regDate + ", cnt=" + cnt + ", openYN=" + openYN + ", ctName="
 				+ ctName + "]";
 	}

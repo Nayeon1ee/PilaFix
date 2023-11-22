@@ -157,50 +157,10 @@ public class CenterServiceImpl implements CenterService {
      */
     @Override
     public void insertCenterAndSetSession(CenterVO center, HttpSession session) {
-    	  
     	//이메일 전송을 위해 세션에 center 객체 저장
     	session.setAttribute("pw", center.getCtPassword()); // 암호화 전 pw 저장 
     	session.setAttribute("center", center);
-    	
-    	//파일 저장 
-//    	MultipartFile file = center.getBusinessRegistrationFile();
-//    	String fileName = file.getOriginalFilename();
-//    	
-//        s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
-//                .withCannedAcl(CannedAccessControlList.PublicRead));
-//    	
-//    	//실제 파일명 
-//    	String fileRealName = file.getOriginalFilename();
-//		// 확장자 추출
-//    	String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-//		// 업로드 경로
-//    	String uploadFolder = "D:\\test\\upload"; //서버 주소로 변경해야 함 
-//		
-//		//고유번호 추출
-//		String[] uuids = UUID.randomUUID().toString().split("-");
-//		
-//		//업로드할 파일명 지정
-//		StringBuffer uniqueName = new StringBuffer();
-//		uniqueName.append("사업자등록증_");
-//		uniqueName.append(center.getCtName());
-//		uniqueName.append("_");
-//		uniqueName.append(uuids[0]); //고유번호
-//		
-//		File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  
-//		//서버 주소 변경 후에 db에 해당 path 저장될 수 있도록 함
-//		
-//		try {
-//			file.transferTo(saveFile); // 실제 파일 저장메서드
-//			
-//		} catch (IllegalStateException e) {
-//			System.out.println("파일 저장 실패");
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			System.out.println("파일 저장 실패");
-//			e.printStackTrace();
-//		}
-//		center.setBusinessRegistrationFilePath(s3Client.getUrl(bucket, fileName).toString());
-    	
+   
     	// 클라이언트에게 pw 전송(세션에 세팅 후 암호화)
     	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     	String encodedPwd = encoder.encode(center.getCtPassword());

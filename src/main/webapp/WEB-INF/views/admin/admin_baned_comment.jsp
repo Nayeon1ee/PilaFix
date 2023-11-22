@@ -1,34 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="admin_header_common.jsp" %>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/style_admin_baned_comment.css">
+<!-- =======================================================
+  * Template Name: PilaAdmin
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://PilaFixmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: PilaFixmade.com
+  * License: https://PilaFixmade.com/license/
+  ======================================================== -->
+</head>
+<body>
+	<%@ include file="admin_header_common.jsp" %>
+	<!-- ============================================================================================ -->
 	<main id="main" class="main">
-
 		<div class="pagetitle">
 			<h1>신고글 관리</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">필요 시 작성</li>
+					<!-- <li class="breadcrumb-item">필요 시 작성</li> -->
 					<!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
 				</ol>
 			</nav>
 		</div>
 		<!-- End Page Title -->
-
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
-
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">중제목 작성</h5>
-							<p>간략한 설명</p>
-
+							<h5 class="card-title">신고글 목록</h5>
+							<!-- <p>간략한 설명</p> -->
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
 								<div class="search-filter-inner">
-
 									<div class="serch-filter-content">
 										<div class="search-top">
 											<div class="col-md-3">
@@ -80,74 +89,62 @@
 							<table class="table datatable">
 								<thead>
 									<tr>
-										<th scope="col">NO.</th>
-										<th scope="col">글제목</th>
-										<th scope="col">작성자</th>
-										<th scope="col">작성일</th>
+										<th scope="col">번호</th>
+										<!-- <th scope="col">제목번호</th> -->
+										<th scope="col">제목</th>
+										<th scope="col">유형</th>
+										<th scope="col">신고일자</th>
 										<th scope="col">신고건수</th>
 										<th scope="col">처리상태</th>
+										<th scope="col">IP</th>
 									</tr>
 								</thead>
+								<c:if test="${ComplaintsInfoList == null }">
+									<tr>
+										<td colspan="8">등록된 글이 없습니다.</td>
+									</tr>
+								</c:if>
 								<tbody>
-									<tr>
-										<th scope="row">5</th>
-										<td><a href="#">xx점 후기</a></td>
-										<td>홍길동</td>
-										<td>2016-05-25</td>
-										<td><span class="tooltip-baned-reason">3건 <span
-												class="tooltip-baned-text"><p>신고사유</p>- 성희롱적 발언<br>-
-													스팸/홍보/도배글<br>- 개인정보 노출 게시물 </span></span></td>
-										<td>처리대기</td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td><a href="#" class="admin-alink-color">코인 어쩌구</a></td>
-										<td>김00</td>
-										<td>2013-03-23</td>
-										<td><span class="tooltip-baned-reason">2건 <span
-												class="tooltip-baned-text"><p>신고사유</p>- 성희롱적 발언<br>-
-													개인정보 노출 게시물 </span></span></td>
-										<td>처리완료</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td><a href="#" class="admin-alink-color">너모 힘들다</a></td>
-										<td>신00</td>
-										<td>2011-06-12</td>
-										<td><span class="tooltip-baned-reason">1건 <span
-												class="tooltip-baned-text"><p>신고사유</p>- 성희롱적 발언<br>
-											</span></span></td>
-										<td>처리완료</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td><a href="#" class="admin-alink-color">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</a></td>
-										<td>신00</td>
-										<td>2011-08-12</td>
-										<td><span class="tooltip-baned-reason">3건 <span
-												class="tooltip-baned-text"><p>신고사유</p>- 성희롱적 발언<br>-
-													스팸/홍보/도배글<br>- 개인정보 노출 게시물 </span></span></td>
-										<td>처리완료</td>
-									</tr>
-									<tr>
-										<th scope="row">1</th>
-										<td><a href="#" class="admin-alink-color">ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</a></td>
-										<td>신00</td>
-										<td>2011-08-12</td>
-										<td><span class="tooltip-baned-reason">1건 <span
-												class="tooltip-baned-text"><p>신고사유</p>- 스팸/홍보/도배글 </span></span></td>
-										<td>처리완료</td>
-									</tr>
+									<c:forEach var="ComplaintsInfo" items="${ComplaintsInfoList }">
+										<tr>
+											<td><%-- <a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cpCode }</a> --%>${ComplaintsInfo.cpCode }</td>
+											<%--<td> <a href="getComplaintsInfo.do?cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber }">${ComplaintsInfo.cpTargetPostNumber }</td> --%>
+											<td><a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cmTitle }</td>
+											<c:if test="${ComplaintsInfo.cpTargetPostType eq 'CM' }">
+												<td>커뮤니티</td>
+											</c:if>
+											<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${ComplaintsInfo.cpDate }"/></td>
+											<td><span class="tooltip-baned-reason">${ComplaintsInfo.cmBlameCount}
+											 <span class="tooltip-baned-text">${ComplaintsInfo.blameReasonName}</span></td>
+											</td>
+											<c:if test="${ComplaintsInfo.cpOpenYn eq 'true' }">
+												<td>처리대기</td>
+											</c:if>
+											<c:if test="${ComplaintsInfo.cpOpenYn eq 'false' }">
+												<td>처리완료</td>
+											</c:if>
+											<td>${ComplaintsInfo.blamerIp }</td>
+											<%-- <td><a href="updateCpInfo.do?cp_code=${cpInfo.cp_code }">수정</a> | <a href="deleteCpInfo.do?cp_code=${cpInfo.cp_code }">삭제</a></td> --%>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
+							<!-- 페이징 처리 시작 -->
+							<!-- 페이징 처리 끝 -->
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</section>
-
 	</main>
 	<!-- End #main -->
 
-<%@ include file="admin_footer_common.jsp"%>
+	<!-- ======= Footer ======= -->
+	<%@ include file="admin_footer_common.jsp" %>
+
+	<!--내가 만든 JS File -->
+	<script
+		src="${pageContext.request.contextPath }/resources/js/admin_common_1.js"></script>
+</body>
+
+</html>

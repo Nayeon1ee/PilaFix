@@ -87,7 +87,7 @@
 										<th scope="col">글제목</th>
 										<th scope="col">작성일자</th>
 										<th scope="col">조회수</th>
-										<th scope="col">공개</th>
+										<th scope="col">공개여부</th>
 									</tr>
 								</thead>
 
@@ -99,8 +99,8 @@
 									</c:if>
 									<c:forEach var="centerInfo" items="${infoList }">
 										<tr>
-											<td>${centerInfo.seq }</td>
-											<td><a href="getCenterInfo.do?seq=${centerInfo.seq }">${centerInfo.title }</a></td>
+											<td>${centerInfo.icNumber }</td>
+											<td><a href="getCenterInfo.do?icNumber=${centerInfo.icNumber}">${centerInfo.title }</a></td>
 											<td><fmt:formatDate pattern="yyyy-MM-dd" value="${centerInfo.regDate }"/></td>
 											<td>${centerInfo.cnt }</td>
 											<c:choose>
