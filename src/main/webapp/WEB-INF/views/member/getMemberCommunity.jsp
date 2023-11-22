@@ -7,24 +7,23 @@
 <meta charset="UTF-8">
 <title>커뮤니티 세부 내용</title>
 <style>
-            #my_modal {
-                display: none;
-                width: 350px;
-                padding: 20px 60px;
-                background-color: #fefefe;
-                border: 1px solid #888;
-                border-radius: 3px;
-            }
-
-            #my_modal .modal_close_btn {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-            }
+	#my_modal {
+	    display: none;
+	    width: 350px;
+	    padding: 20px 60px;
+	    background-color: #fefefe;
+	    border: 1px solid #888;
+	    border-radius: 3px;
+	}
+	
+	#my_modal .modal_close_btn {
+	    position: absolute;
+	    top: 10px;
+	    right: 10px;
+	}
 </style>
 </head>
 <body>
-
 	<div align="center">
 		<h1>글 목록</h1> 
 		<hr>
@@ -60,7 +59,8 @@
 			<p>신고 사유를 선택하여 주시기 바랍니다.</p>
             <form action="insertBlamer.do" method="post">
 			    <input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
-			    <input type="hidden" name="memberTargetWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
+			    <input type="hidden" name="memberCmWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
+			    <input type="hidden" name="memberBlamerIp" value="${memberCommunity.cmWriterIp}">
 			    <div class="radio-box">
 				    <c:forEach items="${blameList}" var="blameList">
 				        <input type="radio" name="memberBlameReasonCode" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br>
@@ -70,34 +70,56 @@
 			</form>
             <a class="modal_close_btn">닫기</a>
         </div>
-        <button id="popup_open_btn" >신고하기</button>
+        
+        <c:if test="${memberList == null }">
+        	<button id="popup_open_btn" >신고하기</button>
+		</c:if>
+		<c:forEach var="memberList" items="${memberList }">
+			<p>신고중</p>
+		</c:forEach>
 		</div>
 		<hr>
-			<!-- 답변 영역 -->
+		<!-- 답변 영역 -->
+		<c:if test="${empty memberCommunityReply}">
+			<p>총 0개의 댓글이 있습니다.</p>
+		</c:if>
+		<c:forEach var="CommunityReply" items="${memberCommunityReply }">
 			<table>
-					<tr>
-						<th>답변내용</th>
-						<td>${memberCommunityReply.reContent }</td>
-					</tr>
-					<tr>
-						<th>작성자회원코드</th>
-						<td>${memberCommunityReply.writerMemberCode }</td>
-					</tr>
-					<tr>
-						<th>작성일시</th>
-						<td>${memberCommunityReply.reRegdate }</td>
-					</tr>
-				</table>
-					
+				<tr>
+					<th>답변내용</th>
+					<td>${CommunityReply.memberReContent }</td>
+				</tr>
+				<tr>
+					<th>작성자회원코드</th>
+					<td>${CommunityReply.memberWriterCode }</td>
+				</tr>
+				<tr>
+					<th>작성일시</th>
+					<td>${CommunityReply.memberReRegdate }</td>
+				</tr>
+			</table>
+			<div class="formContainer${CommunityReply.memberReNumber}" style="display: none;">
+				<form action="updateMemberCommunityReply.do" method="post">
+					<input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
+					<input type="hidden" name="memberReNumber" value="${CommunityReply.memberReNumber}" />
+					<input type="text" name="memberReContent" value="${CommunityReply.memberReContent}" />
+					<input type="submit" value="수정" />
+				</form>
+			</div>
+			<button type="button" class='updatebtn' onclick='updateButton("${CommunityReply.memberReNumber}")'>수정</button> | <a href="deleteMemberCommunityReply.do?memberReNumber=${CommunityReply.memberReNumber}&&memberCmNumber=${memberCommunity.memberCmNumber}">삭제</a>
+		</c:forEach>
 			
 			<form action="insertMemberCommunityReply.do" method="post">
+				 <input type="hidden" name="memberReTitle" value='[답글]'>
+				 <input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
 				
            		<%--  
            		############### 센터 로그인 완료되면 ###########
-           		<input type="hidden" name="writerMemberCode" value="여기에 세션에서 센터코드 뽑기" >
+           		<input type="hidden" name="writerMemberCode" value="여기에 세션에서 맴버코드 뽑기" >
            		--> 회원의 문의사항에 답변이 보이게 
            		#######################################
            		--%>
+           		
 				답변내용 <input type="text" name="memberReContent">
 				<input type="submit" value="답변등록">
 			</form>
@@ -153,6 +175,19 @@
          // 모달창 띄우기
          modal('my_modal');
      });
+     
+     function updateButton(button) {
+   	  // 토글 할 태그 선택 (formContainer)
+   	 const formContainer = document.querySelector(`.formContainer${containerId}`);
+
+
+   	  if(formContainer.style.display !== 'none') {
+   		formContainer.style.display = 'none';
+   	  }
+   	  else {
+   		formContainer.style.display = 'block';
+   	  }
+   	}
 </script>
 </body>
 </html>
