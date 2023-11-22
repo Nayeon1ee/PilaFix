@@ -1,5 +1,7 @@
 package com.dev.pilafix.member.ticket;
 
+import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,5 +51,17 @@ public class MemberTicketController {
 		return centerTicketInfo;
 	}
 	
+	@GetMapping("/getTicketDetail.do")
+	@ResponseBody
+	public Map<String, Object> getTicketDetail (int centerCode,String tkCode) {
+		System.out.println("컨트롤러로 넘어온 센터코드 확인 : "+centerCode);
+		System.out.println("컨트롤러로 넘어온 티켓코드 확인 : "+tkCode);
+		Map<String, Object> ticket = new HashMap<>();
+		ticket.put("ticketDetail", service.getTicketDetail(tkCode));
+		ticket.put("ticketGuide", service.getCenterTicketGuide(centerCode));
+//		service.getTicketDetail(tkCode);
+//		service.getCenterTicketGuide(centerCode);
+		return ticket;
+	}
 
 }

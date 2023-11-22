@@ -94,3 +94,13 @@ font-weight: bold;
 text-align: right; 
 display: block;
 }
+
+/* 수강권 상세 <li>태그에 적용 */
+.ticket-list-li {
+    margin-bottom: 10px;
+}
+
+/* 수강권 상세에 리스트 앞에 보라색 bar이미지 */
+.bar-icon {
+    content: url("../images/purple_bar.png");
+  }
