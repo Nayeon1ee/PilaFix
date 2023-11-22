@@ -1,5 +1,7 @@
 package com.dev.pilafix.admin.complaints;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,4 +62,12 @@ public class ComplaintsController {
 		service.revokeComplaints(cpCode);
 		return "redirect:getComplaintsInfo.do?cpCode="+cpCode;
 	}
+	
+	
+	@GetMapping("/complaintsList.do")
+    public String getComplaints(Model model) {
+		model.addAttribute("ComplaintsBlameInfoList", service.getAllComplaints()); // 모든 불만사항 리스트 가져오기
+
+        return "redirect:getComplaintsInfoList.do"; // 불만사항 페이지로 이동
+    }
 }
