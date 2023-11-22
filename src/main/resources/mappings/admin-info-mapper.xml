@@ -4,35 +4,40 @@
 
 <mapper namespace="AdminInfoDAO">
 	<resultMap type="adminInfo" id="adminInfoResult">
-		<id property="seq" column="IW_NUMBER"/>
+		<id property="iwNumber" column="IW_NUMBER"/>
 		<result property="title" column="IW_TITLE" />
 		<result property="content" column="IW_CONTENT" />
 		<result property="writerMemberCode" column="IW_WRITER_MEMBER_CODE" />
+		<result property="writerMemberName" column="AD_NAME" />
 		<result property="regDate" column="IW_REGDATE" />
 		<result property="cnt" column="IW_VIEWS" />
 		<result property="openYN" column="IW_OPEN_YN" />
 		
-		<result property="writerMemberCodeAd" column="AD_CODE" />
-		<result property="writerMemberName" column="AD_NAME" />
 	</resultMap>
 	<select id="getAdminInfoList" resultMap="adminInfoResult" parameterType="adminInfo">
-		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, TO_CHAR(IW_REGDATE, 'YYYY-MM-DD HH24:MI:SS') as IW_REGDATE, IW_VIEWS, IW_OPEN_YN, IW_WRITER_MEMBER_CODE, (SELECT AD_NAME FROM TBL_ADMIN WHERE AD_CODE=IW_WRITER_MEMBER_CODE) as AD_NAME FROM TBL_INFO_W
+		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT,IW_REGDATE,IW_VIEWS, IW_OPEN_YN, IW_WRITER_MEMBER_CODE, 
+			(SELECT AD_NAME FROM TBL_ADMIN WHERE AD_CODE=IW_WRITER_MEMBER_CODE) as AD_NAME 
+		FROM TBL_INFO_W
 	</select>
 	<select id="getAdminInfo" resultMap="adminInfoResult" parameterType="adminInfo">
-		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, TO_CHAR(IW_REGDATE, 'YYYY-MM-DD HH24:MI:SS') as IW_REGDATE, IW_VIEWS, IW_OPEN_YN, (SELECT AD_NAME FROM TBL_ADMIN WHERE AD_CODE=IW_WRITER_MEMBER_CODE) as AD_NAME FROM TBL_INFO_W WHERE IW_NUMBER = ${seq}
+		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT, IW_REGDATE, IW_VIEWS, IW_OPEN_YN, 
+			(SELECT AD_NAME FROM TBL_ADMIN WHERE AD_CODE=IW_WRITER_MEMBER_CODE) as AD_NAME 
+		FROM TBL_INFO_W 
+		WHERE IW_NUMBER = ${iwNumber}
 	</select>
 	<insert id="insertAdminInfo" parameterType="adminInfo">
 		INSERT INTO TBL_INFO_W(IW_NUMBER, IW_TITLE, IW_CONTENT, IW_WRITER_MEMBER_CODE, IW_REGDATE,IW_OPEN_YN) 
-		VALUES(nextval('seq_admin_info'), #{title}, #{content}, 'ad1234', CURRENT_TIMESTAMP, #{openYN})
+		VALUES(nextval('seq_admin_info'), #{title}, #{content}, #{writerMemberCode}, CURRENT_TIMESTAMP, #{openYN})
 	</insert>
 	<update id="updateAdminInfo" parameterType="adminInfo">
-		UPDATE TBL_INFO_W SET IW_TITLE=#{title}, IW_CONTENT=#{content}, IW_OPEN_YN=#{openYN} WHERE IW_NUMBER=#{seq}
+		UPDATE TBL_INFO_W SET IW_TITLE=#{title}, IW_CONTENT=#{content}, IW_OPEN_YN=#{openYN} WHERE IW_NUMBER=#{iwNumber}
 	</update>
 	<delete id="deleteAdminInfo" parameterType="Integer">
-		DELETE FROM TBL_INFO_W WHERE IW_NUMBER = #{seq}
+		DELETE FROM TBL_INFO_W WHERE IW_NUMBER = #{iwNumber}
 	</delete>
 	
-	<update id="updateAdminInfoViewCnt" parameterType="adminInfo">
-		UPDATE TBL_INFO_W SET IW_VIEWS = IW_VIEWS + 1 WHERE IW_NUMBER=#{seq}
+	<!-- 조회수 증가  -->
+	<update id="updateAdminInfoViewCnt" >
+		UPDATE TBL_INFO_W SET IW_VIEWS = IW_VIEWS + 1 WHERE IW_NUMBER=#{iwNumber}
 	</update>
 </mapper>

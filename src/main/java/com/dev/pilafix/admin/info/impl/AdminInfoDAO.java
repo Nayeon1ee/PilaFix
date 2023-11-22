@@ -33,7 +33,7 @@ public class AdminInfoDAO {
 		return sqlSessionTemplate.delete("AdminInfoDAO.deleteAdminInfo", iwNumber);
 	}
 	
-	public int updateAdminInfoViewCnt(int cnt) {
-		return sqlSessionTemplate.update("AdminInfoDAO.updateAdminInfoViewCnt", cnt);
+	public void updateAdminInfoViewCnt(int iwNumber) {
+		sqlSessionTemplate.update("AdminInfoDAO.updateAdminInfoViewCnt", iwNumber);
 	}
 }

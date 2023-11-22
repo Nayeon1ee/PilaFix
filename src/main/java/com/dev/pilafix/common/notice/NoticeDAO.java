@@ -13,11 +13,19 @@ public class NoticeDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	/**
-	 * 알림 발송을 위한 회원 목록 조회 
+	 * 알림 발송을 위한 회원 목록 조회 (관리자용)
+	 * @param ctCode
+	 */
+	public List<Integer> getMemberCodeList() {
+		 return sqlSessionTemplate.selectList("NoticeDAO.getMemberCodeList");
+	}
+	
+	/**
+	 * 알림 발송을 위한 회원 목록 조회 (센터용)
 	 * @param ctCode
 	 */
 	public List<Integer> getMemberCodeList(int ctCode) {
-		 return sqlSessionTemplate.selectList("NoticeDAO.getMemberCodeList", ctCode);
+		 return sqlSessionTemplate.selectList("NoticeDAO.getMemberCodeListByCtCode", ctCode);
 	}
 	
 	/**

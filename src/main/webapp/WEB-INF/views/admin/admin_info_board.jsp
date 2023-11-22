@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="admin_header_common.jsp" %>
   <main id="main" class="main">
 
@@ -94,11 +95,11 @@
 					<td>${adminInfo.iwNumber }</td>
 					<td><a href="getAdminInfo.do?iwNumber=${adminInfo.iwNumber }">${adminInfo.title }</a></td>
 					<td>${adminInfo.writerMemberName }</td>
-					<td>${adminInfo.regDate }</td>
+					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${adminInfo.regDate }"/></td>
 					<td>${adminInfo.cnt }</td>
 					<c:choose>
-						<c:when test="${adminInfo.openYN}"><td>Y</td></c:when>
-						<c:otherwise><td>N</td></c:otherwise>
+						<c:when test="${adminInfo.openYN}"><td>공개</td></c:when>
+						<c:otherwise><td>비공개</td></c:otherwise>
 					</c:choose>
 				</tr>
 			</c:forEach>                                     

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="admin_header_common.jsp" %>
   <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>공지사항관리</h1>
       <nav>
@@ -30,7 +30,7 @@
 				    </div>
 				    <div class="col-md-5">
 				        <label class="form-label">작성일자</label>
-				        <input type="text" class="form-control" value="${adminInfo.regDate }" disabled >
+						<input type="text" readonly disabled class="form-control" value="<fmt:formatDate pattern='yyyy-MM-dd' value='${adminInfo.regDate }'/>" >
 				    </div>
 				    <div class="col-md-12">
 				        <label class="form-label">제목</label>

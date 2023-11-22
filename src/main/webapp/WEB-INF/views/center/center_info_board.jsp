@@ -87,7 +87,7 @@
 										<th scope="col">글제목</th>
 										<th scope="col">작성일자</th>
 										<th scope="col">조회수</th>
-										<th scope="col">공개</th>
+										<th scope="col">공개여부</th>
 									</tr>
 								</thead>
 
