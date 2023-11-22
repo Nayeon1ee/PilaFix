@@ -44,7 +44,7 @@
 								<div class="col-md-12">
 										<label for="inputAddress5" class="form-label">비밀번호</label>
 										<div class="input-group">
-											<input type="text" class="form-control" id="adPassword" name="adPassword" placeholder="비밀번호를 입력하세요">
+											<input type="password" class="form-control" id="adPassword" name="adPassword" placeholder="비밀번호를 입력하세요">
 											<button type="button" class="btn btn-primary" id="adPasswordCheck">중복확인</button>
 										</div>
 										<div id="adPasswordCheckMessage"></div>
@@ -69,7 +69,9 @@
 								</div> --%>
 								<div class="col-40">
 									<label for="inputAddress5" class="form-label">관리자번호</label>
+									
 									<div class="col-400" style="display: flex;" >
+										
 										<select class="project_title" name="adContact1" id="project_title" >
 											<option selected >전화번호</option>
 											<option value="010" >010</option>

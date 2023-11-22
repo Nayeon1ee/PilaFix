@@ -16,10 +16,43 @@
 		<result property="roleCode" column="ROLE_CODE" />
 	</resultMap>
 
-	<select id="getAdminLoginInfo" resultMap="adminloginResult">
-		SELECT * FROM TBL_ADMIN WHERE AD_ID=#{adId}
+
+	
+	<!-- 로그인 하기 위해 이메일로 비밀번호 가져오기 -->
+	<select id="getPasswordByAdId" resultType="java.lang.String">
+	    SELECT AD_PASSWORD FROM TBL_ADMIN WHERE AD_ID=#{adId}
 	</select>
 	
+	<!-- 관리자 필요한 기본 정보 조회 -->
+	<select id="getLoginInfoA" resultMap="adminloginResult">
+	    SELECT AD_CODE, AD_NAME
+	    FROM TBL_ADMIN 
+	    WHERE AD_ID = #{adId}
+	</select>
+	
+	<!-- 관리자 전체 정보 -->
+	<select id="getAdminLoginInfo" resultMap="adminloginResult">
+		SELECT * FROM TBL_ADMIN WHERE AD_CODE=#{adCode}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePasswordAdmin">
+        UPDATE TBL_ADMIN SET AD_PASSWORD = #{newPassword} WHERE AD_CODE = #{adCode}
+    </update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 비밀번호 체크 -->
+	<select id="adPasswordCheck" resultType="int">
+		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_PASSWORD=#{adPassword}
+	</select>
+
 	<insert id="insertAdminRegister" parameterType="admin">
 		INSERT INTO TBL_ADMIN(AD_CODE, AD_NAME, AD_CONTACT1, AD_CONTACT2, AD_CONTACT3, AD_ID, AD_PASSWORD, ACCOUNT_USAGE_YN, ROLE_CODE) 
 		VALUES(CONCAT('AD',NEXTVAL('SEQ_ADMIN_LOGIN')), #{adName}, #{adContact1}, #{adContact2} , #{adContact3}, #{adId} , #{adPassword}, 't' , 'AD')
@@ -29,18 +62,6 @@
 		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_ID=#{adId}
 	</select>
 	
-	<select id="adPasswordCheck" resultType="int">
-		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_PASSWORD=#{adPassword}
-	</select>
-	
-	<!-- 비밀번호 변경 -->
-	<update id="adminupdatePassword">
-        UPDATE TBL_ADMIN SET AD_PASSWORD = #{newPassword} WHERE AD_CODE = #{adCode}
-    </update>
-    
-	<!-- 
-	<select id="findMemberByNameAndEmail" parameterType="map" resultMap="memberloginResult">
-    SELECT * FROM TBL_CST WHERE CS_NAME = #{csName} AND CS_EMAIL_ID = #{csEmailId}
-	</select>  -->
-	
+
+
 </mapper>
