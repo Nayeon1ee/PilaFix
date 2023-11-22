@@ -36,8 +36,8 @@ public class ComplaintsDAO {
 	public void revokeComplaints(int cpCode) {
 		sqlSessionTemplate.update("ComplaintsDAO.updateContractRevokeYN", cpCode);
 	}
-	public List<ComplaintsVO> getAllComplaints(){
-		return sqlSessionTemplate.selectList("ComplaintsDAO.getAllComplaints");
+	public List<ComplaintsVO> getAllComplaintsList(){
+		return sqlSessionTemplate.selectList("ComplaintsDAO.getAllComplaintsList");
 	}
 	
 	

@@ -52,9 +52,9 @@ public class ComplaintsController {
 	}
 
 	@GetMapping("/getComplaintsInfo.do")
-	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode, Model model) {
+	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode,@RequestParam("cpTargetPostNumber") int cpTargetPostNumber, Model model) {
 		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpCode));
-		model.addAttribute("complaintsInfoList", service.getAllComplaints());
+		model.addAttribute("complaintsInfoList", service.getAllComplaintsList());
 		return "admin/admin_baned_comment_detail";
 	}
 	
@@ -65,10 +65,10 @@ public class ComplaintsController {
 	}
 	
 	
-	@GetMapping("/getAllComplaints.do")
-    public String getAllComplaints(Model model) {
-        List<ComplaintsVO> complaintsInfo = service.getAllComplaints();
-        model.addAttribute("complaintsInfoList", complaintsInfo);
-        return "admin_baned_comment"; // complaintsPage는 complaintsInfoList를 사용하여 데이터를 표시하는 JSP 페이지입니다.
-    }
+//	@GetMapping("/getAllComplaints.do")
+//    public String getAllComplaints(@RequestParam("cpCode") int cpCode,Model model) {
+//        List<ComplaintsVO> complaintsInfo = service.getAllComplaints(cpCode);
+//        model.addAttribute("complaintsInfoList", complaintsInfo);
+//        return "admin_baned_comment"; // complaintsPage는 complaintsInfoList를 사용하여 데이터를 표시하는 JSP 페이지입니다.
+//    }
 }
