@@ -99,13 +99,13 @@
 								    <tr>
 								        <td>${list['qsNumber']}</td>
 								        <td>${list['qsTitle']}</td>
-								        <td>${list['writerName']}</td> <!-- 작성자 이름 -->
-								        <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list['qsRegdate']}" /></td> <!-- 문의 일시 -->
-								        <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list['qsModifiedDate']}" /></td> <!-- 수정 일시 -->
+								        <td>${list['qstWriterName']}</td> <!-- 작성자 이름 -->
+								        <td>${list['qsRegdate']}</td> <!-- 문의 일시 -->
+								        <td>${list['qsModifiedDate']}</td> <!-- 수정 일시 -->
 								        <td>
 								            <button type="button" class="btn btn-primary mb-3" 
 								                onclick="handleQuestionReply(${list.qsNumber}, ${list.qsAnswerYn})">
-								                ${list.qsAnswerYn ? '답변대기' : '답변완료'}
+								                ${list.qsAnswerYn ? '답변완료' : '답변대기'}
 								            </button>
 								        </td>
 								    </tr>
@@ -137,11 +137,12 @@
 	<script>
 	function handleQuestionReply(qsNumber, qsAnswerYn) {
 	    if (qsAnswerYn) {
-	        // 답변 대기 상태인 경우, 답변 작성 페이지로 이동
-	        location.href = '/insertQuestionReply.do?qsNumber=' + qsNumber;
+	        // 답변 완료 상태인 경우
+	        
+	        location.href = 'getQuestionReplyCt.do?reTargetPostNumber=' + qsNumber;
 	    } else {
-	        // 답변 완료 상태인 경우, 답변 조회 페이지로 이동
-	        location.href = '/getQuestionReply.do?reTargetPostNumber=' + qsNumber;
+	        // 답변 대기 상태인 경우
+	    	location.href = 'insertQuestionReply.do?qsNumber=' + qsNumber;
 	    }
 	}	
 	</script>

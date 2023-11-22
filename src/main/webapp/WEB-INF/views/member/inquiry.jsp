@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -100,8 +101,7 @@
 
 
 
-				<div id="userInfo"
-					class="d-flex align-items-center mb-2">
+				<div id="userInfo" class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
@@ -110,8 +110,7 @@
 
 					<div class="inquiry">
 						<div class="inquiry-header mb-3">
-							<button class="inquiry-button my-2" style="font-size: 18px;">센터문의하기</button>
-
+							<button class="inquiry-button my-2" style="font-size: 18px;" onclick="location.href='insertQuestion.do'">센터문의하기</button>
 						</div>
 
 						<div class="inquiry-history">
@@ -119,99 +118,50 @@
 							<hr>
 
 							<div class="accordion mt-4" id="accordionExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button" type="button"
-											data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-											aria-expanded="true" aria-controls="inquiryCollapse">
-											<div class="inquiry-item">
-												<div class="inquiry-details">
-													<div class="inquiry-title">페이지를 탈퇴하고 싶습니다.</div>
-													<div class="inquiry-date">2023.10.17 오후 4:34</div>
-												</div>
-												<div class="inquiry-location">
-													<p>답변완료</p>
-												</div>
+							<c:forEach items="${questionList}" var="question" varStatus="status">
+						        <div class="accordion-item">
+						            <h2 class="accordion-header" id="heading${status.index}">
+						                <button class="accordion-button" type="button"
+						                        data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"
+						                        aria-expanded="true" aria-controls="collapse${status.index}">
+						                    <div class="inquiry-item">
+						                        <div class="inquiry-details">
+						                            <div class="inquiry-title">${question.qsTitle}</div>
+						                            <div class="inquiry-regdate">${question.qsRegdate}</div>
+						                            <div class="inquiry-modidate">${question.qsModifiedDate}</div>
+						                        </div>
+						                        <div class="inquiry-location">
+						                            <p>${question.qsAnswerYn ? '답변 완료' : '답변 대기중'}</p>
+						                        </div>
+						                    </div>
+						                </button>
+						            </h2>
+						            <div id="collapse${status.index}"
+						                 class="accordion-collapse collapse"
+						                 aria-labelledby="heading${status.index}"
+						                 data-bs-parent="#accordionExample">
+						                <div class="accordion-body">
+						                    <strong>문의내역</strong> <br> ${question.qsContent}
+						                    <!-- 답변 섹션 -->
+										    <div id="replySection${status.index}">
+										        <!-- Ajax로 답변내용이 여기 추가 -->
+										    </div>
+										    
+						                    <!-- 답변이 없는 경우에만 수정 버튼 표시 -->
+							                <c:if test="${!question.qsAnswerYn}">
+							                    <a href="updateQuestion.do?qsNumber=${question.qsNumber}" class="btn btn-primary">수정</a>
+							                </c:if>
 
-											</div>
-										</button>
-									</h2>
-									<div id="inquiryCollapse"
-										class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>문의내역</strong> <br> 페이지를 탈퇴하고 싶습니다.
-										</div>
-										<hr>
-										<div class="accordion-body">
-											<strong>답변내역</strong> <br> 아래 안내된 경로를 통해 서비스를 탈퇴할 수
-											있습니다. 단, 7일 안에 동일한 카카오계정으로 카카오페이지 서비스에 재가입 할 수 없으며, 탈퇴시 구매한
-											모든 콘텐츠에 대한 권리를 잃게 되므로 유의하시기 바랍니다. <br>- 앱 메인 홈> 우상단 메뉴>
-											닉네임> 서비스 탈퇴
-										</div>
-									</div>
-
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button" type="button"
-											data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-											aria-expanded="true" aria-controls="inquiryCollapse">
-											<div class="inquiry-item">
-												<div class="inquiry-details">
-													<div class="inquiry-title">알림은 어떻게 해제할 수 있나요?</div>
-													<div class="inquiry-date">2023.10.17 오후 4:34</div>
-												</div>
-												<div class="inquiry-location">
-													<p>답변완료</p>
-												</div>
-
-											</div>
-										</button>
-									</h2>
-									<div id="inquiryCollapse"
-										class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>문의내역</strong> <br> 차단한 댓글을 다시 보고싶어요.
-
-										</div>
-										<hr>
-										<div class="accordion-body">
-											<strong>답변내역</strong> <br> 검토중
-										</div>
-									</div>
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button" type="button"
-											data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-											aria-expanded="true" aria-controls="inquiryCollapse">
-											<div class="inquiry-item">
-												<div class="inquiry-details">
-													<div class="inquiry-title">알림은 어떻게 해제할 수 있나요?</div>
-													<div class="inquiry-date">2023.10.17 오후 4:34</div>
-												</div>
-												<div class="inquiry-location">
-													<p>검토중</p>
-												</div>
-											</div>
-										</button>
-									</h2>
-									<div id="inquiryCollapse"
-										class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>문의내역</strong> <br> 알림은 어떻게 해제할 수 있나요?
-										</div>
-										<hr>
-										<div class="accordion-body">
-											<strong>답변내역</strong> <br> 아래 안내된 경로의 화면에서 알림 설정을 변경할 수
-											있습니다. - ​앱 메인 홈> 우상단 메뉴> 설정> 알람 설정
-										</div>
-									</div>
-								</div>
-							</div>
+						                </div>
+						            </div>
+						        </div>
+							</c:forEach>
+						</div>
+							
+							
+							
+							
+							
 						</div>
 					</div>
 
@@ -232,6 +182,34 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
+	<!-- 답변내용을 가져오는 Ajax 스크립트 -->
+	<script>
+	$(document).ready(function() {
+	    $('.accordion-button').click(function() {
+	        var qsNumber = $(this).data('qsNumber'); // 문의사항 ID 가져오기
+	        var replySection = $('#replySection' + qsNumber); // 리플라이 섹션 선택
+	
+	        $.ajax({
+	            url: '/getQuestionReply.do', // 리플라이를 가져오는 서버의 URL
+	            type: 'GET',
+	            data: { qsNumber: qsNumber },
+	            success: function(response) {
+	                if(response) {
+	                    // 서버로부터 리플라이 데이터를 받아서 리플라이 섹션에 표시
+	                    var replyHtml = '<strong>답변 내역</strong><br>' + response.replyContent;
+	                    replySection.html(replyHtml);
+	                } else {
+	                    // 리플라이가 없는 경우
+	                    replySection.html('<strong>현재 등록된 답변이 없습니다.</strong>');
+	                }
+	            },
+	            error: function() {
+	                console.error('Ajax 요청 실패');
+	            }
+	        });
+	    });
+	});
+	</script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/quiry_inquiry.js"></script>
 	<script

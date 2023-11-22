@@ -10,16 +10,38 @@ public class QuestionVO {
 	private Date qsRegdate; //DEFAULT NOW()
 	private Date qsModifiedDate;
 	private boolean qsAnswerYn;//답변여부
-	private String qstWriterName; //문의사항 작성자 이름
-	private String qsCenterName; //문의사항 작성시 연동센터이름
+    private String qstWriterName; // 문의사항 작성자 이름
+    private String connectedCenterName1; // 연동된 센터1 이름
+    private String connectedCenterName2; // 연동된 센터2 이름
+    private String connectedCenterName3; // 연동된 센터3 이름
+    private String selectedCenterCode; // 사용자가 선택한 센터 코드
+	
+    
+    
 
-	
-	
-	public String getQsCenterName() {
-		return qsCenterName;
+	public String getSelectedCenterCode() {
+		return selectedCenterCode;
 	}
-	public void setQsCenterName(String qsCenterName) {
-		this.qsCenterName = qsCenterName;
+	public void setSelectedCenterCode(String selectedCenterCode) {
+		this.selectedCenterCode = selectedCenterCode;
+	}
+	public String getConnectedCenterName1() {
+		return connectedCenterName1;
+	}
+	public void setConnectedCenterName1(String connectedCenterName1) {
+		this.connectedCenterName1 = connectedCenterName1;
+	}
+	public String getConnectedCenterName2() {
+		return connectedCenterName2;
+	}
+	public void setConnectedCenterName2(String connectedCenterName2) {
+		this.connectedCenterName2 = connectedCenterName2;
+	}
+	public String getConnectedCenterName3() {
+		return connectedCenterName3;
+	}
+	public void setConnectedCenterName3(String connectedCenterName3) {
+		this.connectedCenterName3 = connectedCenterName3;
 	}
 	public String getQstWriterName() {
 		return qstWriterName;
@@ -69,14 +91,14 @@ public class QuestionVO {
 	public void setQsModifiedDate(Date qsModifiedDate) {
 		this.qsModifiedDate = qsModifiedDate;
 	}
+	
 	@Override
 	public String toString() {
 		return "QuestionVO [qsNumber=" + qsNumber + ", qsTitle=" + qsTitle + ", qsContent=" + qsContent
 				+ ", qsWriterMemberCode=" + qsWriterMemberCode + ", qsRegdate=" + qsRegdate + ", qsModifiedDate="
-				+ qsModifiedDate + ", qsAnswerYn=" + qsAnswerYn + ", qstWriterName=" + qstWriterName + ", qsCenterName="
-				+ qsCenterName + "]";
+				+ qsModifiedDate + ", qsAnswerYn=" + qsAnswerYn + ", qstWriterName=" + qstWriterName
+				+ ", connectedCenterName1=" + connectedCenterName1 + ", connectedCenterName2=" + connectedCenterName2
+				+ ", connectedCenterName3=" + connectedCenterName3 + ", selectedCenterCode=" + selectedCenterCode + "]";
 	}
-	
-	
-	
+
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -104,32 +105,27 @@
 					</div>
 				</div>
 				
-				<div class="inquiry-form mt-5">
-					<h2>문의사항</h2>
-					<hr>
-
-					<div class="center-selection">
-						<p>센터 선택</p>
-						<select>
-							<option>척추가 뽀개지는 필라테스 상봉점</option>
-							<!-- 다른 센터 옵션들 추가 -->
+				<form action="insertQuestion.do" method="POST">
+				    <div class="center-selection">
+				        <p>센터 선택</p>
+						<select name="selectedCenter">
+						    <c:forEach items="${connectedCenters}" var="center">
+							    <option>${center } </option>
+							</c:forEach>
 						</select>
-					</div>
-
-					<div class="input-section">
-						<p>문의하실 제목을 입력해주세요</p>
-						<input type="text">
-					</div>
-
-					<div class="input-section">
-						<p>문의하실 내용을 입력해주세요</p>
-						<textarea class="form-control" rows="6"></textarea>
-					</div>
-
-					<div style="display: flex; justify-content: flex-end;">
-						<button class="submit-button">문의하기</button>
-					</div>
-				</div>
+				    </div>
+				    <div class="input-section">
+				        <p>문의하실 제목을 입력해주세요</p>
+				        <input type="text" name="qsTitle">
+				    </div>
+				    <div class="input-section">
+				        <p>문의하실 내용을 입력해주세요</p>
+				        <textarea class="form-control" name="qsContent" rows="6"></textarea>
+				    </div>
+				    <div style="display: flex; justify-content: flex-end;">
+				        <button type="submit" class="submit-button">문의하기</button>
+				    </div>
+				</form>
 
 
 				<!-- End Our Skills Section -->
