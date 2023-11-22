@@ -48,13 +48,13 @@ public class ComplaintsController {
 	@GetMapping("/getComplaintsInfoList.do")
 	public String getComplaintsInfoList(Model model) {
 		model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
-		return "admin/admin_report";
+		return "admin/admin_baned_comment";
 	}
 
 	@GetMapping("/getComplaintsInfo.do")
 	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode, Model model) {
 		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpCode));
-		return "admin/admin_report_detail";
+		return "admin/admin_baned_comment_detail";
 	}
 	
 	@GetMapping("/revokeComplaints.do")
