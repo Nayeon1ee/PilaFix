@@ -3,6 +3,8 @@ package com.dev.pilafix.member.community;
 import java.util.List;
 import java.util.Map;
 
+import com.dev.pilafix.center.lesson.CenterLessonVO;
+
 public interface MemberCommunityService {
 	List<MemberCommunityVO> getMemberCommunityList();
 	MemberCommunityVO getMemberCommunity(int memberCmNumber);
@@ -11,10 +13,14 @@ public interface MemberCommunityService {
 	int deleteMemberCommunity(int memberCmNumber);
 	
 	int updateMemberCommunityViewCnt(int memberCmNumber);
+	int updateMemberCommunityBlameCnt(int memberCmNumber);
 	
 	List<MemberCommunityVO> getBlameList();
 	int insertBlame(Map<String, Object> blame);
 	
-	MemberCommunityVO getMemberCommunityReply(int memberCmNumber);
-	int insertMemberCommunityReply(int memberCmNumber);
+	List<MemberCommunityVO> getMemberCommunityReply(int memberCmNumber);
+	int insertMemberCommunityReply(MemberCommunityVO vo);
+	int updateMemberCommunityReply(MemberCommunityVO vo);
+	int deleteMemberCommunityReply(MemberCommunityVO vo);
+	
 }
