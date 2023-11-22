@@ -4,7 +4,6 @@ import java.util.List;
 
 public interface ComplaintsService {
 	
-	
 	List<ComplaintsVO> getComplaintsInfoList();
 	ComplaintsVO getComplaintsInfo(int cpCode);
 	int insertComplaintsInfo(ComplaintsVO vo);
