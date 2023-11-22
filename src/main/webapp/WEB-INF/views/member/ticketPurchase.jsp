@@ -13,7 +13,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_ticket.css">
+	href="${pageContext.request.contextPath}/resources/css/style_ticket2.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	
@@ -52,7 +52,7 @@
 					
 					<!-- 셀렉트박스에서 선택한 센터의 수강권 정보를 업데이트할 부분 -->
 					<div id="centerInfoContainer">
-							
+							<!-- 여기에 ajax내용 들어감 -->
 					</div>
 					
 					
@@ -175,32 +175,12 @@
 
 					<div class="card-content1-replace" id="content1-replace">
 						<div class="card text-center">
-							<div class="card-header-title">척추가 부서지는 필라테스</div>
-							<div class="card-body-detail">
-								<ul>
-									<li><img
-										src="${pageContext.request.contextPath}/resources/images/purple_bar.png"
-										alt="bar Image">&nbsp;수업 유형 : 6:1 그룹레슨</li>
-									<li><img
-										src="${pageContext.request.contextPath}/resources/images/purple_bar.png"
-										alt="bar Image">&nbsp;수업 횟수 : 24회</li>
-									<li><img
-										src="${pageContext.request.contextPath}/resources/images/purple_bar.png"
-										alt="bar Image">&nbsp;사용 기간 : 2023.10.10~2024.01.01</li>
-									<li><img
-										src="${pageContext.request.contextPath}/resources/images/purple_bar.png"
-										alt="bar Image">&nbsp;금액 : 533,000원</li>
-								</ul>
-							</div>
+						<div id="ticket-detail-info">
+							<!-- 여기에 ajax결과 들어옴 -->
+						</div>
 							<div class="card-footer text-muted">이용정책</div>
-							<div class="card-body">
-								<div class="card-body-title">환불 정책</div>
-								<div class="card-body-content">
-									무단 결석이나 기간내에 예약을 취소하지 못한 경우 <span style="color: red;">사용
-										횟수만큼 잔여 횟수가 자동 차감</span> 됩니다.
-									안녕안녕안ㄴ녕앙ㄴㄴ녕아안녕안녕안ㄴ녕앙ㄴㄴ녕아ㅣ느ㅏㄴ이ㅏ안녕안녕안ㄴ녕앙ㄴㄴ녕아ㅣ느ㅏㄴ이ㅏ안녕안녕안ㄴ녕앙ㄴㄴ녕아ㅣ느ㅏㄴ이ㅏ안녕안녕안ㄴ녕앙ㄴㄴ녕아ㅣ느ㅏㄴ이ㅏㅣ느ㅏㄴ이ㅏ루누라ㅜ눙ㄹ
-									rrkskdknfnjsnfrkskdknfnjsnfrkskdknfnjsnfrkskdknfnjsnfrkskdknfnjsnfrkskdknfnjsnfrkskdknfnjsnfrkskdknfnjsnfrkskdknfnjsnfrkskdskdknfnjsnf
-								</div>
+							<div class="card-body" id="ticketBuyGuide">
+								<!-- 여기에 ajax결과 들어옴 -->
 							</div>
 							<div class="policy-area">
 								<div class="form-check">
@@ -250,72 +230,141 @@
 	</div>
 	<!-- 셀렉트박스에서 센터 선택하면 해당 센터의 수강권정보 가져오는 js  -->
 	<script>
-    function getCenterInfo() {
-        var selectedCenterCode = document.getElementById("centerSelect").value;
-		console.log("선택한 지점 코드 : "+selectedCenterCode);
-        // Ajax 요청
-        $.ajax({
-            type: "Post",
-            url: "getCenterTicketInfo.do",  // 적절한 URL로 변경
-            data: { ctCode: selectedCenterCode },
-            success: function(data) {
-                // 성공 시 아래에 정보 업데이트
-                console.log("값 가져옴")
-               
-                var str = "";
-               
-          		 //  centerInfoContainer라는 아이디 가진 영역의 기존 내용을 지움
-               $('#centerInfoContainer').html('');
-               if (data.length < 1){
-               	str = '<p>센터에서 등록한 수강권이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
-               		$('#centerInfoContainer').append(str);
-               }else{
-               data.forEach(function(item){
-            	   
-                   /* 구매일로부터 사용기간 날짜 계산 */
-                   // 현재 날짜를 가져옴
-   				var currentDate = new Date();
-   				//tkUsageNumMonth 개월을 더한 날짜 계산
-   				var endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + parseInt(item.tkUsageNumMonth), currentDate.getDate());
-   				// 날짜를 "YYYY-MM-DD" 형식으로 포맷
-   				var nowDate = currentDate.toISOString().split('T')[0];   
-   				var ticketEndDate = endDate.toISOString().split('T')[0];   
-					str='<div class="list-group-ticket" id="list-item">'
-					str='<input type="hidden" name="tkCode" value="'+item.tkCode+'">'
-					str+='<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
-					str+='<div class="d-flex w-100 justify-content-between">'
-					str+='<h5 class="mb-1">'+item.tkCapacity+':1' +item.tkLessonType+' 레슨' +item.tkUsageCount+'회 ('+item.tkUsageNumMonth+'개월)</h5>'
-					str+='</div>'
-					str+='<p class="mb-1">'+item.tkName+'</p>'
-					str += "<div>"
-					str+="<table>"
-					str +='<td>'
-					str+="<tr>"+ nowDate+"~"+ticketEndDate +"</tr>"
-					str +='<tr>' 
-					str+='<span class="tkPrice">'+item.tkPriceAddDot+'원 </span>';
-					str+="</tr>"
-					str+="</td>"
-					str+="</table>"
-					str+="</div>"
-					str+="</a>"
-					str+="</div>"
-					// centerInfoContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
-					$('#centerInfoContainer').append(str);
-       		})	
-               }
-                
-            },
-            error: function() {
-                console.error("Ajax 요청 실패");
-            }
-        });
-    }
-</script>
-	
-	
+		function getCenterInfo() {
+			var selectedCenterCode = document.getElementById("centerSelect").value;
+			console.log("선택한 지점 코드 : " + selectedCenterCode);
+			// Ajax 요청
+			$.ajax({
+						type : "Post",
+						url : "getCenterTicketInfo.do", // 적절한 URL로 변경
+						data : {ctCode : selectedCenterCode},
+						success : function(centerTicketInfo) {
+							// 성공 시 아래에 정보 업데이트
+							console.log("값 가져옴")
+
+							var str = "";
+							//  centerInfoContainer라는 아이디 가진 영역의 기존 내용을 지움
+							$('#centerInfoContainer').html('');
+							if (centerTicketInfo.length < 1) {
+								str = '<p>센터에서 등록한 수강권이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
+								$('#centerInfoContainer').append(str);
+							} else {
+								centerTicketInfo.forEach(function(item) {
+
+											/* 구매일로부터 사용기간 계산 */
+											// 현재 날짜를 가져옴
+											var currentDate = new Date();
+											//tkUsageNumMonth 개월을 더한 날짜 계산
+											var endDate = new Date(currentDate.getFullYear(),currentDate.getMonth()+ parseInt(item.tkUsageNumMonth),currentDate.getDate());
+											// 날짜를 "YYYY-MM-DD" 형식으로 포맷
+											var nowDate = currentDate.toISOString().split('T')[0];
+											var ticketEndDate = endDate.toISOString().split('T')[0];
+
+											str = '<div class="list-group-ticket" id="'+item.tkCode+'">'
+											//str = '<input type="hidden" name="tkCode" value="'+item.tkCode+'">'
+											//str += '<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
+											str += '<div class="d-flex w-100 justify-content-between">'
+											str += '<h5 class="mb-1">'+ item.tkCapacity + ':1'+ item.tkLessonType + ' 레슨'+ item.tkUsageCount + '회 ('+ item.tkUsageNumMonth+ '개월)</h5>'
+											str += '</div>'
+											str += '<p class="mb-1">'+ item.tkName + '</p>'
+											str += "<div>"
+											str += "<table>"
+											str += '<td>'
+											str += "<tr>" + nowDate + "~"+ ticketEndDate + "</tr>"
+											str += '<tr>'
+											str += '<span class="tkPrice">'+ item.tkPriceAddDot+'원 </span>';
+											str += "</tr>"
+											str += "</td>"
+											str += "</table>"
+											str += "</div>"
+											//str += "</a>"
+											str += "</div>"
+											// centerInfoContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
+											$('#centerInfoContainer').append(str);
+											
+											// 수강권을 클릭하면 수강권 상세정보 가져오는 함수 실행
+											$('#'+item.tkCode).click(function() {
+												var tkCode = item.tkCode;
+												var centerCode = item.centerCode;
+												console.log("ajax요청으로 가져온 티켓코드: "+tkCode +" ajax요청으로 가져온 센터코드: "+centerCode)
+												
+												// Hide content1-img
+												$('.content1-img').css('display', 'none');
+										        // Show card-content1-replace
+										        $('.card-content1-replace').css('display', 'block');
+												showTicketDetails(tkCode,centerCode);
+										});
+								});
+
+							}
+						},
+						error : function() {
+							console.error("Ajax 요청 실패");
+						}
+					});
+		}
+		
+		// 선택한 티켓 코드(tkCode,centerCode)를 기반으로 상세 정보,수강권 이용정책 디비가서 가져온다음 뿌려줌
+		function showTicketDetails(tkCode,centerCode) {
+			console.log("함수로 넘어온 티켓코드: "+tkCode +" 함수로 넘어온  센터코드: " +centerCode )
+		    $.ajax({
+		        type: "GET",  
+		        url: "getTicketDetail.do",  
+		        data: { 
+		        		tkCode: tkCode,
+		        		centerCode: centerCode
+		        },
+		        success: function(ticket) {
+		            // 맵으로 받아온 상세 정보를 출력하거나 처리하는 코드(ticketGuide/ticketDetail)
+		            //console.log("티켓 상세 정보 확인용: ", ticket.ticketDetail.tkName);
+		        	var str = "";
+		        	var content = "";
+		        	
+		        	/* 구매일로부터 사용기간 계산 */
+					// 현재 날짜를 가져옴
+					var currentDate = new Date();
+					//tkUsageNumMonth 개월을 더한 날짜 계산
+					var endDate = new Date(currentDate.getFullYear(),currentDate.getMonth()+ parseInt(ticket.ticketDetail.tkUsageNumMonth),currentDate.getDate());
+					// 날짜를 "YYYY-MM-DD" 형식으로 포맷
+					var nowDate = currentDate.toISOString().split('T')[0];
+					var ticketEndDate = endDate.toISOString().split('T')[0];
+					
+		       		//  ticket-detail-info라는 아이디 가진 영역의 기존 내용을 지우고 ajax로 가져온 결과 뿌려줌
+					$('#ticket-detail-info').html('');
+					str = '<div class="card-header-title">'+ticket.ticketDetail.tkName+'</div>'
+					str += '<div class="card-body-detail ticket">'
+					str += '<ul>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수업 유형 :'+ ticket.ticketDetail.tkCapacity+':1'+ticket.ticketDetail.tkLessonType+'레슨</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수업 횟수 :'+ ticket.ticketDetail.tkUsageCount +'회</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 사용 기간 :'+ nowDate+'~'+ticketEndDate +'</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 금액 :'+ ticket.ticketDetail.tkPriceAddDot +'원</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수강권 설명 :'+ ticket.ticketDetail.tkDescription +'</li>'
+					str += "</ul>"
+					str += '</div>'
+					$('#ticket-detail-info').append(str);
+						
+					//수강권 상세의 이용정책부분 ajax결과로 뿌려줌	
+					$('#ticketBuyGuide').html('');
+					ticket.ticketGuide.forEach(function(ticketBuyGuide) {
+
+							content = '<div class="card-body-title">'+ticketBuyGuide.ugName+'</div>'
+							content += '<div class="card-body-content">'+ticketBuyGuide.ugContent+'</div>'
+							$('#ticketBuyGuide').append(content);
+											
+					})
+		        },
+		        error: function() {
+		            console.error("티켓 상세 정보를 가져오는데 실패했습니다.");
+		        }
+		    });
+		}	
+		
+	</script>
+
+
 	<!-- 클릭하면 우측 화면 디폴트에서 상세화면으로 바뀌게 하는 js 
-		 왼쪽에 수강권 클릭하면 이 함수 실행
-	-->
+		 왼쪽에 수강권 클릭하면 이 함수 실행 
+	
 	<script>
 		// JavaScript를 사용하여 요소 클릭 시 내용 교체
 		const listGroupItem = document.getElementById('list-item');
@@ -327,7 +376,7 @@
 			content1Replace.style.display = 'block'; // card-content1-replace클래스부분이 보임
 		});
 	</script>
-
+-->
 
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.center.ticket.CenterTicketVO;
+import com.dev.pilafix.center.userguide.UserguideVO;
 import com.dev.pilafix.common.member.CenterVO;
 
 @Repository
@@ -21,6 +22,14 @@ public class MemberTicketDAO {
 
 	public List<CenterTicketVO> getCenterTicketInfo(int ctCode) {
 		return sqlSessionTemplate.selectList("MemberTicketDAO.getCenterTicketInfo",ctCode );
+	}
+
+	public CenterTicketVO getTicketDetail(String tkCode) {
+		return sqlSessionTemplate.selectOne("MemberTicketDAO.getTicketDetail",tkCode);
+	}
+
+	public List<UserguideVO> getCenterTicketGuide(int centerCode) {
+		return sqlSessionTemplate.selectList("MemberTicketDAO.getCenterTicketGuide", centerCode);
 	}
 
 }

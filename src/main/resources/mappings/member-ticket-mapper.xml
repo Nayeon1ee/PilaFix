@@ -21,6 +21,17 @@
 		<result property="centerCode" column="CENTER_CODE"/>
 		<result property="RegistrationDate" column="REGISTRATION_DATE"/>
 	</resultMap>
+	
+<resultMap type="userguide" id="userguideResult">
+		<id property="ugCode" column="UG_CODE"/>
+		<result property="ugType" column="UG_TYPE" />
+		<result property="ugName" column="UG_NAME" />
+		<result property="ugContent" column="UG_CONTENT" />
+		<result property="ugRegistrationDate" column="UG_REGISTRATION_DATE" />
+		<result property="ugModifiedDate" column="UG_MODIFIED_DATE" />
+		<result property="ugOpenYN" column="UG_OPEN_YN" />
+		<result property="ugCenterCode" column="UG_CENTER_CODE" />
+	</resultMap>
 
 <!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
 <select id="getConnCenterList" resultMap="centerResult" parameterType="int">
@@ -34,9 +45,25 @@
 			)
 </select>
 
+<!-- 수강권구매시 연동된 센터 클릭시 해당 센터의 수강권정보 가져오기 -->
 <select id="getCenterTicketInfo" parameterType="int" resultMap="centerTicketResult">
-	SELECT TK_CODE,TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price
+	SELECT TK_CODE,CENTER_CODE,TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price
 	FROM tbl_ticket
 	WHERE center_code = #{ctCode} AND PURCHASE_AVAILABLE_YN = 't'
 </select>
+
+<!-- 해당 코드의 수강권 상세정보 가져옴 -->
+<select id="getTicketDetail" parameterType="String" resultMap="centerTicketResult">
+	SELECT TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price,TK_DESCRIPTION
+	FROM tbl_ticket WHERE tk_code=#{tkCode}
+</select>
+
+<!-- 해당 센터의 수강권 이용정책 가져오기 -->
+<select id="getCenterTicketGuide" resultMap="userguideResult">
+	SELECT UG_NAME,UG_CONTENT FROM tbl_user_guide 
+	WHERE UG_CENTER_CODE=#{centerCode}
+	AND UG_TYPE = '수강권'
+	AND UG_OPEN_YN = 't'
+</select>
+
 </mapper>
