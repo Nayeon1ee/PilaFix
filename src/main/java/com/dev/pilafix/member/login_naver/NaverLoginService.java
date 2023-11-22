@@ -10,6 +10,6 @@ public interface NaverLoginService {
 
 	MemberVO getMember(String email);
 
-	int insertNaverMember(Map<String, Object> naverMember);
+	int insertNaverMember(NaverVO naverMemberProfile);
 
 }
