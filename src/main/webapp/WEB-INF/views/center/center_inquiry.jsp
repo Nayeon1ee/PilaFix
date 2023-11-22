@@ -499,6 +499,24 @@
 										<td><button type="submit" class="btn btn-primary mb-3"
 												style="font-size: 10px; background: dimgray; border-color: dimgray;">답변완료</button></td>
 									</tr>
+								</c:if>
+
+								<c:forEach items="${questionList}" var="list">
+								    <tr>
+								        <td>${list['qsNumber']}</td>
+								        <td>${list['qsTitle']}</td>
+								        <td>${list['qstWriterName']}</td> <!-- 작성자 이름 -->
+								        <td>${list['qsRegdate']}</td> <!-- 문의 일시 -->
+								        <td>${list['qsModifiedDate']}</td> <!-- 수정 일시 -->
+								        <td>
+								            <button type="button" class="btn btn-primary mb-3" 
+								                onclick="handleQuestionReply(${list.qsNumber}, ${list.qsAnswerYn})">
+								                ${list.qsAnswerYn ? '답변완료' : '답변대기'}
+								            </button>
+								        </td>
+								    </tr>
+								</c:forEach>
+			                </tbody>
 									<tr>
 										<th scope="row">3</th>
 										<td><a href="#">Ashleigh Langosh</a></td>
@@ -546,6 +564,19 @@
 
 	</main>
 	<!-- End #main -->
+	<script>
+	function handleQuestionReply(qsNumber, qsAnswerYn) {
+	    if (qsAnswerYn) {
+	        // 답변 완료 상태인 경우
+	        
+	        location.href = 'getQuestionReplyCt.do?reTargetPostNumber=' + qsNumber;
+	    } else {
+	        // 답변 대기 상태인 경우
+	    	location.href = 'insertQuestionReply.do?qsNumber=' + qsNumber;
+	    }
+	}	
+	</script>
+
 	<script
 		src="${pageContext.request.contextPath }/resources/js/admin_common_2.js"></script>
 	<!-- ======= Footer ======= -->
