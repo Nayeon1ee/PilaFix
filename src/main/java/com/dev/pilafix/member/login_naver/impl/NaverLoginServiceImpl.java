@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.login_naver.NaverLoginService;
+import com.dev.pilafix.member.login_naver.NaverVO;
 
 @Service
 public class NaverLoginServiceImpl implements NaverLoginService {
@@ -30,8 +31,8 @@ public class NaverLoginServiceImpl implements NaverLoginService {
 
 
 	@Override
-	public int insertNaverMember(Map<String, Object> naverMember) {
-		return dao.insertNaverMember(naverMember);
+	public int insertNaverMember(NaverVO naverMemberProfile) {
+		return dao.insertNaverMember(naverMemberProfile);
 	}
 
 }
