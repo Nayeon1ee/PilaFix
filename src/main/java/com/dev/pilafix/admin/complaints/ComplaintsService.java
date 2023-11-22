@@ -11,4 +11,5 @@ public interface ComplaintsService {
 	int updateComplaintsInfo(ComplaintsVO vo);
 	int deleteComplaintsInfo(int cp_code);
 	void revokeComplaints(int cpCode);
+	List<ComplaintsVO> getAllComplaints();
 }
