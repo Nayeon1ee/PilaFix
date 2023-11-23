@@ -11,4 +11,6 @@ public interface ComplaintsService {
 	int deleteComplaintsInfo(int cp_code);
 	void revokeComplaints(int cpCode);
 	List<ComplaintsVO> getAllComplaintsList();
+	
+	
 }
