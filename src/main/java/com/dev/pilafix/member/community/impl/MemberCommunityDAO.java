@@ -52,7 +52,6 @@ public class MemberCommunityDAO {
 	}
 	
 	public List<MemberCommunityVO> getMemberCommunityReply(int memberCmNumber) {
-		System.out.println("DAO" + memberCmNumber);
 	    return sqlSessionTemplate.selectList("MemberCommunityDAO.getMemberCommunityReply", memberCmNumber);
 	}
 	

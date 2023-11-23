@@ -33,6 +33,8 @@ public class MemberCommunityVO {
 	private String memberReTargetPostType;
 	private int memberReTargetPostNumber;
 
+	private String memberCsName;
+
 	public int getMemberCmNumber() {
 		return memberCmNumber;
 	}
@@ -241,6 +243,14 @@ public class MemberCommunityVO {
 		this.memberReTargetPostNumber = memberReTargetPostNumber;
 	}
 
+	public String getMemberCsName() {
+		return memberCsName;
+	}
+
+	public void setMemberCsName(String memberCsName) {
+		this.memberCsName = memberCsName;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberCommunityVO [memberCmNumber=" + memberCmNumber + ", memberCmTitle=" + memberCmTitle
@@ -255,7 +265,7 @@ public class MemberCommunityVO {
 				+ memberReNumber + ", memberReTitle=" + memberReTitle + ", memberReContent=" + memberReContent
 				+ ", memberWriterRoleCode=" + memberWriterRoleCode + ", memberWriterCode=" + memberWriterCode
 				+ ", memberReRegdate=" + memberReRegdate + ", memberReTargetPostType=" + memberReTargetPostType
-				+ ", memberReTargetPostNumber=" + memberReTargetPostNumber + "]";
+				+ ", memberReTargetPostNumber=" + memberReTargetPostNumber + ", memberCsName=" + memberCsName + "]";
 	}
 
 }

@@ -110,68 +110,35 @@
 
 
 						<!-- Multi Columns Form -->
-						<form class="row g-3">
-							<div class="col-md-2">
-								<label class="form-label"> 번호</label> <input type="text"
-									readonly disabled class="form-control" value="1">
-							</div>
-							<div class="col-md-5">
-								<label class="form-label">작성자</label> <input type="text"
-									readonly disabled class="form-control" value="홍길동">
-							</div>
-							<div class="col-md-5">
-								<label class="form-label">작성일</label> <input type="text"
-									readonly disabled class="form-control" value="2023-01-01">
-							</div>
+						<form class="row g-3" action="insertMemberCommunity.do" method="post">
 							<div class="col-md-12">
-								<label class="form-label">글 제목</label> <input type="text"
-									class="form-control" value="글 제목 ~~~~~~~~~~~~~~~">
+								<label class="form-label">글 제목</label>
+								<input type="text" class="form-control" name="memberCmTitle" placeholder="글 제목을 작성하세요." >
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">글 내용</label>
-								<textarea class="form-control" style="height: 300px;">글 내용 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            </textarea>
+								<textarea class="form-control" style="height: 300px;" name="memberCmContent" placeholder="글 제목을 작성하세요." ></textarea>
 							</div>
-
-
 							<div class="text-center">
-
 								<div class="btn-toolbar justify-content-end d-flex"
 									role="toolbar">
 									<div class="me-auto ms-3">
-										<button type="button" class="btn btn-secondary"
-											onclick="location.href='member_community.do'">목록</button>
-									</div>
-
-									<div class="btn-group me-2">
-										<button type="button" class="btn btn-secondary"
-											onclick="location.href='member_community.do'">취소</button>
+										<button type="button" class="btn btn-secondary" onclick="location.href='getMemberCommunityList.do'">목록</button>
 									</div>
 									<div class="btn-group me-3">
-										<a href="member_community.do" class="btn btn-primary"> 등록
-										</a>
+										<input type="submit" class="btn btn-primary" value="등록">
 									</div>
-
 								</div>
 							</div>
-
-
-
 							<!-- End Multi Columns Form -->
-
-
-
 						</form>
 					</div>
 				</div>
-
 			</div>
 		</section>
 		<!-- End Blog Section -->
-
 	</main>
 	<!-- End #main -->
-
 	<!-- ======= Footer ======= -->
 	<%@ include file="member_footer_common.jsp"%>
 	<!-- End Footer -->
