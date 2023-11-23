@@ -107,7 +107,7 @@
 	
 	<!-- [회원] 문의사항 수정 -->
 	<update id="updateQuestion" parameterType="question">
-		UPDATE TBL_QUESTION SET QS_TITLE=#{qsTitle}, QS_CONTENT=#{qsContent}, QS_MODIFIED_DATE=CURRENT_TIMESTAMP WHERE QS_NUMBER=#{qsNumber}
+		UPDATE TBL_QUESTION SET QS_TITLE=#{qsTitle}, QS_CONTENT=#{qsContent}, QS_MODIFIED_DATE = CURRENT_TIMESTAMP WHERE QS_NUMBER=#{qsNumber}
 	</update>
 	
 	<!-- [회원] 문의사항 삭제 -->
@@ -130,13 +130,18 @@
 	</select>
 
 	<!-- [센터] 문의사항 상세 조회 -->
-	<select id="getQuestion" resultMap="questionResult" >
+	<select id="getQuestionCenter" resultMap="questionResult" >
 		<!--  SELECT * FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber} 센터 이름 추가-->
 		SELECT Q.*, M.CS_NAME AS QST_WRITER_NAME, C.CT_NAME AS QS_CENTER_NAME
 	    FROM TBL_QUESTION Q
 	    INNER JOIN TBL_CST M ON Q.QS_WRITER_MEMBER_CODE = M.CS_MEMBER_CODE
 	    INNER JOIN TBL_CENTER C ON C.CT_CODE IN (M.CONNECTED_CENTER_CODE1, M.CONNECTED_CENTER_CODE2, M.CONNECTED_CENTER_CODE3)
 	    WHERE Q.QS_NUMBER = #{qsNumber}
+	</select>
+	
+	<!-- [회원] 문의사항 상세 조회 -->
+	<select id="getQuestion" resultMap="questionResult" >
+		SELECT * FROM TBL_QUESTION WHERE QS_NUMBER=#{qsNumber}
 	</select>
 	
 	<!-- [회원] 등록한 문의사항 목록에 해당하는 답변 목록  -->

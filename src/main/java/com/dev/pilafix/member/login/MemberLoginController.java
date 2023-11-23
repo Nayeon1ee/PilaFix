@@ -36,19 +36,6 @@ public class MemberLoginController {
 		return "member/register";
 	}
 
-//	@PostMapping("/memberLogin.do")
-//	public String memberLogin(@RequestParam("csEmailId") String csEmailId,
-//							@RequestParam("csPassword") String csPassword,
-//								HttpSession session, Model model) {
-//		service.login(csEmailId, csPassword);
-//		
-//		
-//		
-//		return null;
-//		
-//	}
-
-
 
 	/**
 	 * 로그인할때 암호화된 비밀번호와 비교하여 로그인 member.getCsRoleCode 가 "ME"이면 회원의 메인페이지, 아니면 강사의
@@ -100,50 +87,7 @@ public class MemberLoginController {
 		}
 	}
 
-// 11.16 새로운 로그인test위한 주석처리	
-//	@PostMapping("/memberLogin.do")
-//	public String memberLogin(@RequestParam("csEmailId") String csEmailId,
-//	                          @RequestParam("csPassword") String csPassword,
-//	                          HttpSession session, Model model) {
-//	    
-//		MemberVO member = service.memberLogin(csEmailId, csPassword);
-//	    
-//	    if (member != null) {
-//	        // 로그인 성공, 세션에 사용자 정보 저장
-//	        session.setAttribute("member", member);
-//	        
-//	        // 연동된 센터가 있는지 확인하고, 역할에 따라 적절한 페이지로 리다이렉트
-//	        boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || 
-//	                                      member.getConnectedCenterCode2() != 0 ||
-//	                                      member.getConnectedCenterCode3() != 0;
-//
-//	        // 역할과 연동된 센터에 따라 리다이렉트
-//	        if ("ME".equals(member.getCsRoleCode())) {
-//	            // 회원인 경우
-//	            if (hasConnectedCenters) {
-//	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
-//	            } else {
-////	                return "member/ctConnect"; // 센터연동페이지
-//	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
-//	            }
-//	        } else {
-//	            // 강사인 경우
-//	            if (hasConnectedCenters) {
-//	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
-//	            } else {
-//	                return "member/ctConnect"; // 센터연동페이지
-////	            	System.out.println("로그인성공");
-////	            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
-//	            }
-//	        }
-//	    } else {
-//	        // 로그인 실패 메시지와 함께 로그인 페이지로 리다이렉트
-//	        model.addAttribute("message" ,"존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
-//	        return "redirect:memberLogin.do"; 
-//	    }
-//	}
-	
-	
+
 	/**
 	 * 로그인이후 우선 이동할 마이페이지(로그아웃,비밀번호변경 테스트)
 	 */
@@ -156,14 +100,6 @@ public class MemberLoginController {
 	        model.addAttribute("memberInfo", memberInfo);
 	    }
 	    return "member/myinfo_management";
-	}
-
-	/**
-	 * 비밀번호 변경할때 현재 비밀번호와 DB 비밀번호 비교
-	 */
-	@GetMapping("/passwordChange.do")
-	public String passwordChange() {
-		return "member/password_change";
 	}
 
 
@@ -228,6 +164,114 @@ public class MemberLoginController {
 		}
 	}	
 
+	/**
+	 * 비밀번호 찾기
+	 * 이름,이메일 입력받아서 이메일로 인증번호 전송 후, 
+	 * 올바른 인증번호 입력시 회원의 비밀번호 변경 페이지로 이동
+	 */
+
+	@GetMapping("/findpassword.do")
+	public String findpassword() {
+		return "member/findpassword";
+	}
+
+	// 인증번호 발송 요청 처리
+	@PostMapping("/sendAuthNumber.do")
+	@ResponseBody
+	public ResponseEntity<?> sendAuthNumber(MemberVO member, HttpSession session) {
+		try {
+			int authNumber = service.sendAuthEmail(member);
+			session.setAttribute("authNumber", authNumber);
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+		}
+	}
+
+	
+	
+	
+	// 인증번호 검증 요청 처리 및 사용자 로그인 처리
+		@PostMapping("/checkAuthNumber.do")
+		@ResponseBody
+		public Map<String, Object> checkAuthNumber(HttpServletRequest request, HttpSession session) {
+			int authNumber = Integer.parseInt(request.getParameter("authNumber"));
+			String csEmailId = request.getParameter("csEmailId");
+
+			Integer sessionAuthNumber = (Integer) session.getAttribute("authNumber");
+			boolean isValid = sessionAuthNumber != null && sessionAuthNumber.equals(authNumber);
+			Map<String, Object> response = new HashMap<>();
+
+		    if (isValid) {
+		        MemberVO member = service.getMemberByEmail(csEmailId);
+		        if (member != null) {
+		            // Map에 사용자 정보 저장
+					Map<String, Object> loginUser = new HashMap<>();
+					loginUser.put("csMemberCode", member.getCsMemberCode());
+					loginUser.put("csName", member.getCsName());
+					loginUser.put("csRoleCode", member.getCsRoleCode());
+					loginUser.put("csEmailId", member.getCsEmailId());
+					String userPhone = member.getCsPhoneNumber1() + member.getCsPhoneNumber2() + member.getCsPhoneNumber3();
+					loginUser.put("csPhoneNumber", userPhone);		
+					
+					session.setAttribute("loginUser", loginUser);
+					
+					response.put("valid", true);
+			        response.put("loginSuccess", true);
+					
+				} else {
+					response.put("valid", true);
+					response.put("loginSuccess", false);
+					response.put("message", "User not found");
+				}
+			} else {
+				response.put("valid", false);
+				response.put("message", "Invalid auth number");
+			}
+			return response;
+		}
+		
+	
+	// 11.23로그인 시키는 세션처리 동일하게 진행하기 위해서 주석처리
+//	// 인증번호 검증 요청 처리 및 사용자 로그인 처리
+//	@PostMapping("/checkAuthNumber.do")
+//	@ResponseBody
+//	public Map<String, Object> checkAuthNumber(HttpServletRequest request, HttpSession session) {
+//		int authNumber = Integer.parseInt(request.getParameter("authNumber"));
+//		String csEmailId = request.getParameter("csEmailId");
+//
+//		Integer sessionAuthNumber = (Integer) session.getAttribute("authNumber");
+//		boolean isValid = sessionAuthNumber != null && sessionAuthNumber.equals(authNumber);
+//		Map<String, Object> response = new HashMap<>();
+//
+//		if (isValid) {
+//			MemberVO member = service.getMemberByEmail(csEmailId);
+//			if (member != null) {
+//				session.setAttribute("member", member);
+//				response.put("valid", true);
+//				response.put("loginSuccess", true);
+//			} else {
+//				response.put("valid", true);
+//				response.put("loginSuccess", false);
+//				response.put("message", "User not found");
+//			}
+//		} else {
+//			response.put("valid", false);
+//			response.put("message", "Invalid auth number");
+//		}
+//		return response;
+//	}
+//	
+
+
+
+	@PostMapping("/logout.do")
+	public String logout(HttpSession session) {
+	    session.removeAttribute("loginUser");
+	    return "redirect:/memberLogin.do";
+	}
+	
 	
 	
 	// 11.21 모달 사용 위한 주석처리
@@ -323,63 +367,58 @@ public class MemberLoginController {
 //	        return "redirect:/passwordChange.do";
 //	    }
 //	}
-
+	// 11.16 새로운 로그인test위한 주석처리	
+//		@PostMapping("/memberLogin.do")
+//		public String memberLogin(@RequestParam("csEmailId") String csEmailId,
+//		                          @RequestParam("csPassword") String csPassword,
+//		                          HttpSession session, Model model) {
+//		    
+//			MemberVO member = service.memberLogin(csEmailId, csPassword);
+//		    
+//		    if (member != null) {
+//		        // 로그인 성공, 세션에 사용자 정보 저장
+//		        session.setAttribute("member", member);
+//		        
+//		        // 연동된 센터가 있는지 확인하고, 역할에 따라 적절한 페이지로 리다이렉트
+//		        boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || 
+//		                                      member.getConnectedCenterCode2() != 0 ||
+//		                                      member.getConnectedCenterCode3() != 0;
+	//
+//		        // 역할과 연동된 센터에 따라 리다이렉트
+//		        if ("ME".equals(member.getCsRoleCode())) {
+//		            // 회원인 경우
+//		            if (hasConnectedCenters) {
+//		            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
+//		            } else {
+////		                return "member/ctConnect"; // 센터연동페이지
+//		            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
+//		            }
+//		        } else {
+//		            // 강사인 경우
+//		            if (hasConnectedCenters) {
+//		            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
+//		            } else {
+//		                return "member/ctConnect"; // 센터연동페이지
+////		            	System.out.println("로그인성공");
+////		            	return "redirect:/memberMyinfo.do"; //비밀번호변경, 로그아웃테스트페이지
+//		            }
+//		        }
+//		    } else {
+//		        // 로그인 실패 메시지와 함께 로그인 페이지로 리다이렉트
+//		        model.addAttribute("message" ,"존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.");
+//		        return "redirect:memberLogin.do"; 
+//		    }
+//		}
+		
+		
+	
 	/**
-	 * 비밀번호 찾기 이름,이메일 입력받아서 이메일로 인증번호 전송 후, 올바른 인증번호 입력시 회원의 비밀번호 변경 페이지로 이동
+	 * 비밀번호 변경할때 현재 비밀번호와 DB 비밀번호 비교
 	 */
-
-	@GetMapping("/findpassword.do")
-	public String findpassword() {
-		return "member/findpassword";
+	@GetMapping("/passwordChange.do")
+	public String passwordChange() {
+		return "member/password_change";
 	}
 
-	// 인증번호 발송 요청 처리
-	@PostMapping("/sendAuthNumber.do")
-	@ResponseBody
-	public ResponseEntity<?> sendAuthNumber(MemberVO member, HttpSession session) {
-		try {
-			int authNumber = service.sendAuthEmail(member);
-			session.setAttribute("authNumber", authNumber);
-			return ResponseEntity.ok().build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
-		}
-	}
-
-	// 인증번호 검증 요청 처리 및 사용자 로그인 처리
-	@PostMapping("/checkAuthNumber.do")
-	@ResponseBody
-	public Map<String, Object> checkAuthNumber(HttpServletRequest request, HttpSession session) {
-		int authNumber = Integer.parseInt(request.getParameter("authNumber"));
-		String csEmailId = request.getParameter("csEmailId");
-
-		Integer sessionAuthNumber = (Integer) session.getAttribute("authNumber");
-		boolean isValid = sessionAuthNumber != null && sessionAuthNumber.equals(authNumber);
-		Map<String, Object> response = new HashMap<>();
-
-		if (isValid) {
-			MemberVO member = service.getMemberByEmail(csEmailId);
-			if (member != null) {
-				session.setAttribute("member", member);
-				response.put("valid", true);
-				response.put("loginSuccess", true);
-			} else {
-				response.put("valid", true);
-				response.put("loginSuccess", false);
-				response.put("message", "User not found");
-			}
-		} else {
-			response.put("valid", false);
-			response.put("message", "Invalid auth number");
-		}
-		return response;
-	}
-
-	@PostMapping("/logout.do")
-	public String logout(HttpSession session) {
-	    session.removeAttribute("loginUser");
-	    return "redirect:/memberLogin.do";
-	}
 
 }

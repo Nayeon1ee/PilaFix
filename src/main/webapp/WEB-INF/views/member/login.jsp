@@ -176,15 +176,18 @@
 						style="text-decoration: none; margin-left: 10px;"> 회원가입 </a>
 				</div>
 
-	<!-- 로그인 실패 메시지 표시 -->
-    <c:if test="${not empty message}">
-        <!-- <div class="alert alert-danger" role="alert"> -->
+
+
+
+<!-- 로그인 실패 메시지 표시 -->
+<c:if test="${not empty message}">
+	<!-- <div class="alert alert-danger" role="alert"> -->
             ${message}
-        <!-- </div> -->
-    </c:if>
+	<!-- </div> -->
+</c:if>
 
 
-				<script type="text/javascript">
+<script type="text/javascript">
     function validateLoginForm() {
         var email = document.getElementById('csEmailId').value;
         var password = document.getElementById('csPassword').value;
@@ -203,7 +206,7 @@
     	let email = document.getElementById(elementId: '');   	
     }
 
-    </script>
+</script>
 				<!-- End Our Skills Section -->
 			</div>
 		</section>

@@ -136,12 +136,12 @@ public class QuestionController {
 	 */
 	@GetMapping("/updateQuestion.do")
 	public String updateForm(@RequestParam("qsNumber") Integer qsNumber, HttpSession session, Model model) {
-	    Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
-	    if (loginUser == null) {
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+	    if (user == null) {
 	        return "member/login";
 	    }
 
-	    int loggedInMemberCode = (int) loginUser.get("csMemberCode");
+	    int loggedInMemberCode = (int) user.get("csMemberCode");
 	    QuestionVO question = service.getQuestion(qsNumber);
 	    if (question != null && question.getQsWriterMemberCode() == loggedInMemberCode) {
 	        model.addAttribute("question", question);
@@ -154,19 +154,25 @@ public class QuestionController {
 	}
 
 	@PostMapping("/updateQuestion.do")
-	public String update(@ModelAttribute QuestionVO questionVO, HttpSession session) {
-	    Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
-	    if (loginUser == null) {
+	public String update(@ModelAttribute QuestionVO questionVO, 
+	                     @RequestParam("selectedCenter") String selectedCenterCode, // 폼에서 선택한 센터 코드 받기
+	                     HttpSession session) {
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+	    if (user == null) {
 	        return "member/login";
 	    }
 
-	    int loggedInMemberCode = (int) loginUser.get("csMemberCode");
-	    if (questionVO.getQsWriterMemberCode() == loggedInMemberCode) {
+	    int csMemberCode = (int) user.get("csMemberCode");
+	    questionVO.setQsWriterMemberCode(csMemberCode);
+
+	    // 폼에서 선택한 센터 코드를 QuestionVO 객체에 설정
+	    questionVO.setSelectedCenterCode(selectedCenterCode);
+
+	    // 로그인한 사용자의 코드와 문의사항 작성자 코드가 일치할 경우에만 update 수행
+	    if (questionVO.getQsWriterMemberCode() == csMemberCode) {
 	        service.updateQuestion(questionVO);
-	        return "redirect:/getQuestionList.do";
-	    } else {
-	        return "redirect:/getQuestionList.do"; 
 	    }
+	    return "redirect:/getQuestionList.do";
 	}
 	
 		
@@ -212,9 +218,10 @@ public class QuestionController {
 
 	@GetMapping("/deleteQuestion.do")
 	public String delete(@RequestParam("qsNumber") int qsNumber, HttpSession session) {
-		if (session.getAttribute("loginUser") == null) {
-			return "member/login";
-		}
+		 Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		    if (user == null) {
+		        return "member/login";
+		    }
 		service.deleteQuestion(qsNumber);
 		return "redirect:getQuestionList.do";
 	}
@@ -227,7 +234,7 @@ public class QuestionController {
 		int totalQuestionCount = service.getTotalQuestionCount();
 		model.addAttribute("totalQuestionCount", totalQuestionCount);
 		model.addAttribute("questionList", service.getQuestionListWithWriterNames());
-		return "center/center_inquiry";
+		return "center/center_inquiry_test";
 	}
 
 	/**
