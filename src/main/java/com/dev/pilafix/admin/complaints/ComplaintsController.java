@@ -66,8 +66,8 @@ public class ComplaintsController {
 	}
 
 	@GetMapping("/getComplaintsInfo.do")
-	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode,@RequestParam("cpTargetPostNumber") int cpTargetPostNumber, Model model) {
-		System.err.println(cpTargetPostNumber);
+	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode, int cpTargetPostNumber, Model model) {
+		//System.err.println(cpTargetPostNumber);
 		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpCode));
 		model.addAttribute("complaintsInfoBlamerList", service.getAllComplaintsList(cpTargetPostNumber));
 		return "admin/admin_baned_comment_detail";
@@ -80,11 +80,12 @@ public class ComplaintsController {
 	}
 	
 	
-//	@GetMapping("/getBlameReasons")
-//    public List<String> getBlameReasons(@RequestParam("cmBlameCount") String cmBlameCount) {
-//        // cmBlameCount 값을 사용하여 해당하는 Blame Reasons를 가져오는 서비스 메서드 호출
-//        return service.getBlameReasonsByCount(cmBlameCount);
-//    }
+	@GetMapping("/getBlameReasons")
+    public List<ComplaintsVO> getBlameReasons(@RequestParam("cmBlameCount") String cmBlameCount) {
+        // cmBlameCount 값을 사용하여 해당하는 Blame Reasons를 가져오는 서비스 메서드 호출
+        return service.getBlameReasonsByCount(cmBlameCount);
+    }
+	
 	
 //	@GetMapping("/getAllComplaints.do")
 //    public String getAllComplaints(@RequestParam("cpCode") int cpCode,Model model) {

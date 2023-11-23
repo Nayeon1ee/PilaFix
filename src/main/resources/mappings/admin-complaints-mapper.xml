@@ -119,4 +119,27 @@
 			)
 			ORDER BY A.CP_TARGET_POST_NUMBER, A.CP_CODE DESC; -->
 	</select>
+	
+	<select id="getBlameReasonsByCount" resultMap="ComplaintsInfoResult" >
+		SELECT
+            A.TARGET_WRITER_MEMBER_CODE,
+            A.CP_TARGET_POST_NUMBER,
+            D.CS_NAME,
+            D.CS_EMAIL_ID,
+            C.BLAME_REASON_NAME,
+            A.TARGET_WRITER_MEMBER_CODE,
+            A.CP_OPEN_YN,
+            A.CP_CODE
+        FROM
+            TBL_COMPLAINTS AS A
+            INNER JOIN TBL_COMMUNITY AS B ON A.CP_TARGET_POST_NUMBER = B.CM_NUMBER
+            INNER JOIN TBL_CST AS D ON A.TARGET_WRITER_MEMBER_CODE = D.CS_MEMBER_CODE
+            INNER JOIN TBL_COMPLAINTS_REASON AS C ON A.BLAME_REASON_CODE = C.BLAME_REASON_CODE
+        WHERE
+            A.CP_TARGET_POST_NUMBER = #{cmBlameCount}
+        ORDER BY
+            A.TARGET_WRITER_MEMBER_CODE,
+            A.CP_CODE DESC
+    </select>
+	
 </mapper>
