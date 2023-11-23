@@ -91,12 +91,17 @@ public class QuestionDAO {
 		return sqlSessionTemplate.selectList("QuestionDAO.getQuestionList");
 	}
 	
-	
+	// 회원이 문의사항 수정하기 위해 가져오는 문의사항 상세
 	public QuestionVO getQuestion(int qsNumber) {
 		return sqlSessionTemplate.selectOne("QuestionDAO.getQuestion",qsNumber);
 	}
 
+	// 센터가 답변을 달기위해 가져오는 회원의 문의사항 상세
+	public QuestionVO getQuestionCenter(int qsNumber) {
+		return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionCenter",qsNumber);
+	}
 	
+	// 회원의 문의사항 수정
 	public int updateQuestion(QuestionVO vo) {
 		return sqlSessionTemplate.update("QuestionDAO.updateQuestion", vo);
 	}

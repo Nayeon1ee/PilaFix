@@ -46,7 +46,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <!-- 내 css -->
 
@@ -77,8 +77,7 @@
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
 	<!-- End Header -->
-
-
+<main>
 
 		<section class="info-box">
 			<div class="info-box04">
@@ -93,6 +92,13 @@
 			<div class="info-box04">
 				<p>휴대폰번호 : ${memberInfo.csPhoneNumber1 }-${memberInfo.csPhoneNumber2 }-${memberInfo.csPhoneNumber3 }</p>
 			</div>
+			<div class="info-box04" >
+				<a href="ticketPage.do">수강권구매</a>
+			</div>
+			<div class="info-box04">
+				<a href="getQuestionList.do">문의사항</a>
+			</div>
+			
 			<div class="info-box04">
 				<p>
 					<!-- <a class="password_Change" href="checkCurrentPassword.do">비밀번호변경▶</a> -->
@@ -102,75 +108,53 @@
 					</form>	
 				</p>
 			</div>
+
 		</section>
 
 		<div class="info-box04" style="text-align: center;">
 			<a class="withdraw_button" href="withdraw.jsp">회원탈퇴</a>
 		</div>
-
+		
 		<!-- 첫 번째 모달: 현재 비밀번호 확인 -->
-		<div class="modal fade" id="currentPasswordModal" tabindex="-1"
-			role="dialog" aria-labelledby="currentPasswordModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="currentPasswordModalLabel">현재
-							비밀번호 확인</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+		<div class="modal fade" id="currentPasswordModal" tabindex="-1">
+		    <div class="modal-dialog modal-dialog-centered">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		           		<h5 class="modal-title" id="currentPasswordModalLabel">현재 비밀번호 확인</h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body"> 
+						<input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="현재 비밀번호">
 					</div>
-					<div class="modal-body">
-
-						<input type="password" class="form-control" id="currentPassword"
-							name="currentPassword" placeholder="현재 비밀번호">
-						<button type="submit" class="btn btn-primary"
-							onclick="sendCurrentPassword()">다음</button>
-
-					</div>
-
-					
-					<div class="info-box04" style="text-align: center;">
-						<a class="withdraw_button" href="ticketPage.do">수강권구매</a>
-					</div>
-					
-			</main>
-
-				</div>
-			</div>
+		            <div class="modal-footer">
+		            	<button type="submit" class="btn btn-primary" onclick="sendCurrentPassword()">다음</button>
+		            </div>
+		        </div>
+		    </div>
 		</div>
-
+		
+		
 
 		<!-- 두 번째 모달: 새 비밀번호 설정 -->
-		<div class="modal fade" id="newPasswordModal" tabindex="-1"
-			role="dialog" aria-labelledby="newPasswordModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
+		<div class="modal fade" id="newPasswordModal" tabindex="-1">
+		    <div class="modal-dialog modal-dialog-centered">
+		        <div class="modal-content">
+		            <div class="modal-header">
 						<h5 class="modal-title" id="newPasswordModalLabel">새 비밀번호 설정</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body"> 
+		            	<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="새 비밀번호"> 
+		            	<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="새 비밀번호 확인">
 					</div>
-					<div class="modal-body">
+		            <div class="modal-footer">
+		            	<button type="submit" class="btn btn-success" onclick="updatePassword()">변경</button>
 
-						<input type="password" class="form-control" id="newPassword"
-							name="newPassword" placeholder="새 비밀번호"> <input
-							type="password" class="form-control" id="confirmPassword"
-							name="confirmPassword" placeholder="새 비밀번호 확인">
-						<button type="submit" class="btn btn-success"
-							onclick="updatePassword()">변경</button>
-
-					</div>
-				</div>
-			</div>
+		            </div>
+		        </div>
+		    </div>
 		</div>
-
-
+		
 </main>
 		<script>
 			function showCurrentPasswordModal() {
@@ -241,12 +225,8 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
-	<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 
-	
 	
 	<!-- Vendor JS Files -->
 	<script

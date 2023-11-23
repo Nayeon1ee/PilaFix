@@ -89,10 +89,25 @@ public class QuestionServiceImpl implements QuestionService {
 		return dao.updateQuestion(vo);
 	}
 	
+	/**
+	 * 회원의 문의사항 상세
+	 */
 	@Override
 	public QuestionVO getQuestion(int qsNumber) {
 		return dao.getQuestion(qsNumber);
 	}
+	
+	
+	/**
+	 * 센터가 조회하는 회원의 문의사항
+	 */
+	@Override
+	public QuestionVO getQuestionCenter(int qsNumber) {
+		return dao.getQuestionCenter(qsNumber);
+	}
+	
+	
+	
 
 	@Override
 	public int insertQuestion(QuestionVO vo) {

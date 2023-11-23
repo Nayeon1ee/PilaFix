@@ -8,6 +8,7 @@ public interface QuestionService {
 	
 	List<QuestionVO> getQuestionList();
 	QuestionVO getQuestion(int qsNumber);
+	QuestionVO getQuestionCenter(int qsNumber);
 	
 	int insertQuestion(QuestionVO vo); 
 	int updateQuestion(QuestionVO vo);

@@ -1,25 +1,109 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="kor">
+
 <head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Services - PILAFIX Bootstrap Template</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+<!-- Favicons -->
+<link href="assets/img/favicon.png" rel="icon">
+<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/animate.css/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/boxicons/css/boxicons.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/glightbox/css/glightbox.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.css"
+	rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
+	rel="stylesheet">
+
+</head>
+<!-- 내 css -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style_inquiryform.css">
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
+
 <body>
-	<div class="container000">
 
-		<section class="content000">
-			<area1>
-			<p>area1</p>
-			</area1>
+	<!-- ======= Top Bar ======= -->
+	<section id="topbar" class="d-flex align-items-center">
+		<div
+			class="container d-flex justify-content-center justify-content-md-between">
+			<div class="contact-info d-flex align-items-center">
+				<i class="bi bi-envelope d-flex align-items-center"><a
+					href="mailto:contact@example.com">contact@example.com</a></i> <i
+					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
+						5589 55488 55</span></i>
+			</div>
+			<div class="social-links d-none d-md-flex align-items-center">
+				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
+					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
+					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
+					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+			</div>
+		</div>
+	</section>
 
-			<main>
-                <div id="myPage">
+	<!-- ======= Header ======= -->
+	<%@ include file="member_header_common.jsp"%>
+	<!-- End Header -->
+
+	<main id="main">
+
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs">
+			<div class="container" style="max-width: 1000px">
+
+				<ol>
+					<li><a href="main.do">Home</a></li>
+					<li>inquiryForm</li>
+				</ol>
+				<h2>문의사항</h2>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= Services Section ======= -->
+		<section id="services" class="services">
+			<div class="container mx-auto" style="max-width: 700px;">
+
+
+				<div id="userInfo" class="d-flex align-items-center mb-2">
+					<div id="myInfoLink" class="ms-4 mr-2"
+						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
+						<i class="fas fa-cog mr-1"></i>내 정보 관리
+					</div>
+				</div>
                     <form action="updateQuestion.do" method="post">
                         <div class="inquiry-form">
                             <h2>문의사항 수정</h2>
@@ -27,14 +111,15 @@
 
                             <!-- 여기서 qsNumber는 수정하려는 문의사항의 고유 번호 -->
                             <input type="hidden" name="qsNumber" value="${question.qsNumber}">
-
+                            
                             <div class="center-selection">
-                                <p>센터 선택</p>
-                                <select id="centerSelect" name="ctCode" disabled>
-                                    <c:forEach items="${connectedCenters}" var="center">
-                                        <option value="${center.ctCode}" ${center.ctCode == question.ctCode ? 'selected' : ''}>${center.ctName}</option>
-                                    </c:forEach>
-                                </select>
+						        <p>센터 선택</p>
+								<select name="selectedCenter">
+								    <c:forEach items="${connectedCenters}" var="center">
+									    <option>${center } </option>
+									</c:forEach>
+								</select>
+						    </div>
                             </div>
                             <div class="input-section">
                                 <p>문의하실 제목을 입력해주세요</p>                              
@@ -42,20 +127,16 @@
                             </div>
                             <div class="input-section">
                                 <p>문의하실 내용을 입력해주세요</p>
-                                <textarea name="qsContent">${question.qsContent}</textarea>
+                                <textarea class="form-control" name="qsContent" rows="6">${question.qsContent}</textarea>
                             </div>
-
-                            <button class="submit-button">수정하기</button>
-                        </div>
-                    </form>
-                </div>
-            </main>
-			
-			<area2>
-			<p>area2</p>
-			</area2>
+						    <div style="display: flex; justify-content: flex-end;">
+						        <button type="submit" class="submit-button">수정하기</button>
+						    </div>
+                       
+                   <!-- End Our Skills Section -->
+			</div>
 		</section>
+	</main>
 
-	</div>
 </body>
 </html>
