@@ -1,5 +1,39 @@
 @charset "UTF-8";
 
+.text-center{
+	display: inline-box;
+}
+.text-center select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 0;
+    border-bottom: 1px solid #ced4da;
+    cursor: pointer;
+    font-size: 17px; /* 글자 크기 조절 */
+    color: #555; /* 글자 색상 조절 */
+    position: relative;
+     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23555"><path d="M7 10l5 5 5-5z" /></svg>') no-repeat right 12px center/30px 40px;
+}
+
+/* 활성화된 셀렉트 박스 스타일 */
+.text-center select:focus {
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid #946CEE; /* 선택 시 밑줄 색상 조절 */
+}
+
+
+/* 선택된 옵션 스타일 */
+.text-center select option[selected] {
+    background-color: #946CEE; /* 선택된 옵션 배경색 조절 */
+    color: #fff; /* 선택된 옵션 글자색 조절 */
+}
+
+
 #clickButton {
 	border: 2px solid #9b56e9;
 	border-radius: 10px;
@@ -26,7 +60,7 @@
 #coloredCanvas {
 	transition: filter 0.3s;
 	max-width: 100%;
-    height: auto; /* 이미지 비율 유지 */
+	height: auto; /* 이미지 비율 유지 */
 }
 
 #clickButton:hover #coloredCanvas {
@@ -61,11 +95,8 @@
 
 /* 수강권 결제쪽 */
 .ticket-item {
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-
-
-
