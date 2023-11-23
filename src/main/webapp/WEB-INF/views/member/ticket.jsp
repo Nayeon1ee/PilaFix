@@ -106,9 +106,9 @@
 
 				<!-- 7비율 잡기 위한 컨테이너 -->
 				<div class="container">
-				
+
 					<div class="row">
-						<div class="col-md-7 ticket h-100" style="height: 500px;">
+						<div class="col-md-7 ticket border" style="max-height: 700px; overflow-y: auto; border-radius: 10px; border-style: solid; border-color: #9259e1; padding: 10px;">
 							<!-- 7비율 잡기 위한 컨테이너 -->
 
 							<!-- 센터 셀렉트 박스 -->
@@ -119,8 +119,8 @@
 									<option value="group">xx점</option>
 								</select>
 							</div>
-							
-							
+
+
 
 							<!-- 버튼 부분 -->
 							<div class="tab-buttons">
@@ -150,8 +150,8 @@
 							<div class="tab-pane fade show active" id="pills-all"
 								role="tabpanel" aria-labelledby="pills-all-tab">
 								<!-- 예시 티켓 -->
-								<div class="list-group-ticket" id="list-item">
-									<a href="#" class="list-group-item list-group-item-action">
+								<ul class="list-group-ticket p-0">
+									<li class="list-group-item list-group-item-action">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
 										</div>
@@ -163,39 +163,15 @@
 												</tr>
 												<tr>
 													<span
-														style="font-weight: bold; text-align: right; display: block;">
-														650,000원 </span>
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
 												</tr>
 												</td>
 											</table>
 										</div>
-									</a>
-								</div>
+									</li>
 
-								<div class="list-group-ticket" id="list-item">
-									<a href="#" class="list-group-item list-group-item-action">
-										<div class="d-flex w-100 justify-content-between">
-											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
-										</div>
-										<p class="mb-1">척추가 맞춰지는 필라테스</p>
-										<div>
-											<table>
-												<td>
-												<tr>2023.10.10~2024.01.01
-												</tr>
-												<tr>
-													<span
-														style="font-weight: bold; text-align: right; display: block;">
-														650,000원 </span>
-												</tr>
-												</td>
-											</table>
-										</div>
-									</a>
-								</div>
 
-								<div class="list-group-ticket" id="list-item">
-									<a href="#" class="list-group-item list-group-item-action">
+									<li class="list-group-item list-group-item-action">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
 										</div>
@@ -207,15 +183,113 @@
 												</tr>
 												<tr>
 													<span
-														style="font-weight: bold; text-align: right; display: block;">
-														650,000원 </span>
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
 												</tr>
 												</td>
 											</table>
 										</div>
-									</a>
-								</div>
+									</li>
+
+									<li class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
+										</div>
+										<p class="mb-1">척추가 맞춰지는 필라테스</p>
+										<div>
+											<table>
+												<td>
+												<tr>2023.10.10~2024.01.01
+												</tr>
+												<tr>
+													<span
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
+												</tr>
+												</td>
+											</table>
+										</div>
+									</li>
+
+									<li class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
+										</div>
+										<p class="mb-1">척추가 맞춰지는 필라테스</p>
+										<div>
+											<table>
+												<td>
+												<tr>2023.10.10~2024.01.01
+												</tr>
+												<tr>
+													<span
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
+												</tr>
+												</td>
+											</table>
+										</div>
+									</li>
+
+									<li class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
+										</div>
+										<p class="mb-1">척추가 맞춰지는 필라테스</p>
+										<div>
+											<table>
+												<td>
+												<tr>2023.10.10~2024.01.01
+												</tr>
+												<tr>
+													<span
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
+												</tr>
+												</td>
+											</table>
+										</div>
+									</li>
+
+									<li class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
+										</div>
+										<p class="mb-1">척추가 맞춰지는 필라테스</p>
+										<div>
+											<table>
+												<td>
+												<tr>2023.10.10~2024.01.01
+												</tr>
+												<tr>
+													<span
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
+												</tr>
+												</td>
+											</table>
+										</div>
+									</li>
+
+									<li class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
+										</div>
+										<p class="mb-1">척추가 맞춰지는 필라테스</p>
+										<div>
+											<table>
+												<td>
+												<tr>2023.10.10~2024.01.01
+												</tr>
+												<tr>
+													<span
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
+												</tr>
+												</td>
+											</table>
+										</div>
+									</li>
+
+
+								</ul>
 							</div>
+
+
 
 							<!--  개인 티켓 목록 -->
 							<div class="tab-pane fade" id="pills-individual" role="tabpanel"
@@ -325,7 +399,7 @@
 		const canvas = document.getElementById('coloredCanvas');
 		const ctx = canvas.getContext('2d');
 		const image = new Image();
-		image.src = '${pageContext.request.contextPath}/resources/images/finger_click.png';
+		image.src = '${pageContext.request.contextPath}/resources/images/hand.png';
 
 		image.onload = function() {
 
