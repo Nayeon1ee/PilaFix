@@ -15,5 +15,11 @@
 	<button onclick="location.href='centerLogin.do'">센터 로그인</button>
 	<button onclick="location.href='adminLogin.do'">관리자 로그인</button>
 	<button onclick="location.href='memberLogin.do'">회원 로그인</button>
+	
+	<hr>
+	<br><br>
+	
+	<button onclick="location.href='selectMeOrTr.do'">회원가입</button>
+	
 </body>
 </html>

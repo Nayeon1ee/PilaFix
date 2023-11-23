@@ -195,7 +195,7 @@
     </div>
     
 		<!-- 셀렉트 박스 - 연동된 센터의 목록 -->
-		<select id="centerSelect" onchange="getCenterInfo()">
+		<select id="centerSelect" onchange="getLessongInfoByCenter()">
 			<c:choose>
 				<c:when test="${empty connCenterList}">
 					<option selected>연동센터 없음</option>
@@ -210,13 +210,13 @@
 		</select>
 		
 		<!-- 셀렉트박스에서 선택한 센터의 수강권 정보를 업데이트할 부분 -->
-		<div id="centerInfoContainer">
+		<div id="lessonListContainer">
 				<!-- 여기에 ajax내용 들어감 -->
 		</div>
 		
 <!-- 셀렉트박스에서 센터 선택하면 해당 센터의 수강권정보 가져오는 js  -->
 	<script>
-		function getCenterInfo() {
+		function getLessongInfoByCenter() {
 			var selectedCenterCode = document.getElementById("centerSelect").value;
 			console.log("선택한 지점 코드 : " + selectedCenterCode);
 			// Ajax 요청
@@ -233,11 +233,9 @@
 							$('#lessonListContainer').html('');
 							if (lessonList.length < 1) {
 								str = '<p>센터에서 등록한 수강권이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
-								$('#centerInfoContainer').append(str);
+								$('#lessonListContainer').append(str);
 							} else {
 								lessonList.forEach(function(item) {
-
-											
 
 											str = '<div class="list-group-ticket" id="'+item.lsCode+'">'
 											str += '<div class="d-flex w-100 justify-content-between">'

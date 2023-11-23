@@ -24,8 +24,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 	/* ======================== 회원 관리 ======================== */
 
 	@Override
-	public List<MemberVO> getMemberManageList() {
-		return dao.getMemberManageList();
+	public List<MemberVO> getMemberManageList(int ctCode) {
+		return dao.getMemberManageList(ctCode);
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
     @Override
-	public List<ConnectRequestVO> getConnectRequestForMe() {
-		return dao.getConnectRequestForMe();
+	public List<ConnectRequestVO> getConnectRequestForMe(int ctCode) {
+		return dao.getConnectRequestForMe(ctCode);
 
 	}
 
@@ -73,8 +73,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 	 * 
 	 */
 	@Override
-	public List<ConnectRequestVO> getConnectRequestForTr() {
-		return dao.getConnectRequestForTr();
+	public List<ConnectRequestVO> getConnectRequestForTr(int ctCode) {
+		return dao.getConnectRequestForTr(ctCode);
 	}
 
 	public Map<String, TicketInfoVO> getTicketInfo(String tkCodeP, String tkCodeG) {
@@ -97,8 +97,8 @@ public class MemberManageServiceImpl implements MemberManageService {
 
 	/* ======================== 강사 관리 ======================== */ 
 	@Override
-	public List<MemberVO> getTrainerManageList() {
-		return dao.getTrainerManageList();
+	public List<MemberVO> getTrainerManageList(int ctCode) {
+		return dao.getTrainerManageList(ctCode);
 	}
 
 	@Override
@@ -123,16 +123,16 @@ public class MemberManageServiceImpl implements MemberManageService {
 	 * 연동 요청 수락
 	 */
 	@Override
-	public void acceptRequest(String crCode, int memberCode, int centerCode) {
-		dao.updateConnectionYnAndInsertConnHistory(crCode, memberCode, centerCode);
+	public boolean acceptRequest(String crCode, int memberCode, int centerCode) {
+		return dao.updateConnectionYnAndInsertConnHistory(crCode, memberCode, centerCode);
 	}
 
 	/**
 	 * 연동 요청 거절
 	 */
 	@Override
-	public void rejectRequest(String crCode) {
-		dao.updateRejectDate(crCode);
+	public int rejectRequest(String crCode) {
+		return dao.updateRejectDate(crCode);
 	}
 
 	

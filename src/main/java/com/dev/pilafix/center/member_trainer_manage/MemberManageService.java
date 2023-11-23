@@ -10,22 +10,19 @@ import com.dev.pilafix.common.question.QuestionVO;
 
 public interface MemberManageService {
 
-	List<MemberVO> getMemberManageList();
+	List<MemberVO> getMemberManageList(int ctCode);
 
-	List<MemberVO> getTrainerManageList();
+	List<MemberVO> getTrainerManageList(int ctCode);
+	
+	List<ConnectRequestVO> getConnectRequestForMe(int ctCode);
+
+	List<ConnectRequestVO> getConnectRequestForTr(int ctCode);
+
 
 
 	MemberVO getMember(int csMemberCode);
-
-
-	List<ConnectRequestVO> getConnectRequestForMe();
-
-	List<ConnectRequestVO> getConnectRequestForTr();
-
-	void acceptRequest(String crCode, int memberCode, int centerCode);
-
-	void rejectRequest(String crCode);
-
+	
+	
 	List<QuestionVO> getQuestionForManage(int csMemberCode);
 
 	List<PaymentHistoryVO> getPaymentForManage(int csMemberCode);
@@ -41,6 +38,10 @@ public interface MemberManageService {
 
 	CenterLessonVO getLessonCount(int csMemberCode);
 
+
+	boolean acceptRequest(String crCode, int memberCode, int centerCode);
+
+	int rejectRequest(String crCode);
 
 
 }
