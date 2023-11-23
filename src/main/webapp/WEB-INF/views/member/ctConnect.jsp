@@ -226,14 +226,12 @@ $(function(){
                 		$('#insertCenterList').append(str);
                 }else{
                 data.forEach(function(item){
-                		str='<div class="row">'
-    					str+='<div class="col-lg-6">'
+    					str='<div class="col-lg-6">'
     					str+='<div class="info-box mb-4">'
     					str+='<i class="bx bx-map"></i>'
     					str += "<h3>"+item.ctName+"</h3>";
     					str+="<p>("+item.ctAddress+")</p><br>";
     					str+='<input type="button" class="btn btn-primary" value="연동 신청" onclick="connectRequest(\'' + item.ctName + '\', \'' + item.ctCode + '\')">';
-    					str+="</div>"
     					str+="</div>"
     					str+="</div>"
     					// insertCenterList라는 아이디를 가진 영역에 위의 내용 삽입해줌
