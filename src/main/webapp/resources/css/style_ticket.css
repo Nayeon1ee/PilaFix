@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+#clickButton {
+	border: 2px solid #9b56e9;
+	border-radius: 10px;
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+	cursor: pointer;
+	height: 500px;
+}
+
+#clickButton .card-body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#clickButton:hover {
+	background-color: #9b56e9;
+	color: #f8ecf3;
+	border-color: white;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+#coloredCanvas {
+	transition: filter 0.3s;
+	max-width: 100%;
+    height: auto; /* 이미지 비율 유지 */
+}
+
+#clickButton:hover #coloredCanvas {
+	filter: brightness(8);
+}
+
+.tab-buttons {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.nav-pills .nav-link {
+	padding: 12px 20px;
+	margin: 0 5px;
+	border-radius: 8px;
+	color: #fff; /* 텍스트 색상 */
+	background-color: #946CEE; /* 배경 색상 */
+	border: 1px solid #9b56e9; /* 테두리 색상 */
+}
+
+.nav-pills .nav-link.active, .nav-pills .nav-link:hover {
+	background-color: #9b56e9; /* 활성 및 호버 상태 배경 색상 */
+	border-color: #9b56e9; /* 활성 및 호버 상태 테두리 색상 */
+}
+
+.tab-content {
+	border: 1px solid #946CEE; /* 티켓 목록 테두리 색상 */
+	border-radius: 8px;
+	padding: 20px;
+}
+
+/* 수강권 결제쪽 */
+.ticket-item {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
