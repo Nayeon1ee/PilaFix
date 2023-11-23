@@ -13,5 +13,7 @@ public interface ComplaintsService {
 	void revokeComplaints(int cpCode);
 	List<ComplaintsVO> getAllComplaintsList(int cpTargetPostNumber);
 	
+	List<ComplaintsVO> getBlameReasonsByCount(String cmBlameCount);
+	
 	
 }

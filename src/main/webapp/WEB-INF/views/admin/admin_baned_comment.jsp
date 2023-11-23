@@ -143,11 +143,11 @@
 											</c:if>
 											<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${ComplaintsInfo.cpDate }"/></td>
 											 <td class="tooltip" colspan="2">
-									            <span>${ComplaintsInfo.cmBlameCount}</span>
-									            <div class="tooltip-text" title="${ComplaintsInfo.blameReasonName}">
-									                ${ComplaintsInfo.blameReasonName}
-									            </div>
-									        </td>
+									    <span>${ComplaintsInfo.cmBlameCount}</span>
+									    <div class="tooltip-text" title="${ComplaintsInfo.blameReasonName}">
+									        ${ComplaintsInfo.blameReasonName}
+									    </div>
+									</td>
 											<%-- <td><span class="tooltip-baned-reason">${ComplaintsInfo.cmBlameCount}
 											 <span class="tooltip-baned-text">${ComplaintsInfo.blameReasonName}</span></td>
 											</td> --%>
@@ -176,7 +176,7 @@
 	<!-- ======= Footer ======= -->
 	<%@ include file="admin_footer_common.jsp" %>
 	<script type="text/javascript">
-	document.addEventListener("DOMContentLoaded", function() {
+	/* document.addEventListener("DOMContentLoaded", function() {
 	    const tooltips = document.querySelectorAll('.tooltip-text');
 
 	    tooltips.forEach(tooltip => {
@@ -214,8 +214,37 @@
 	            }
 	        });
 	    });
-	});
+	}); */
+	
+	/* 두번째시도 */
+	document.addEventListener("DOMContentLoaded", function() {
+    const tooltips = document.querySelectorAll('.tooltip');
 
+    tooltips.forEach(tooltip => {
+        tooltip.addEventListener('mouseover', function(event) {
+            const cmBlameCount = this.querySelector('span').textContent; // cmBlameCount 가져오기
+
+            // Ajax 요청
+            fetch(`/getBlameReasons?cmBlameCount=${cmBlameCount}`)
+                .then(response => response.json())
+                .then(data => {
+                    // JSON 데이터를 툴팁에 표시
+                    const tooltipText = this.querySelector('.tooltip-text');
+                    tooltipText.textContent = JSON.stringify(data, null, 2);
+
+                    tooltipText.style.visibility = 'visible';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+        tooltip.addEventListener('mouseout', function() {
+            const tooltipText = this.querySelector('.tooltip-text');
+            tooltipText.style.visibility = 'hidden'; // 툴팁 숨기기
+        });
+    });
+});
 	</script>
 	<!--내가 만든 JS File -->
 	<script

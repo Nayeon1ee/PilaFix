@@ -56,4 +56,9 @@ public class ComplaintsServiceimpl implements ComplaintsService {
 		return dao.getAllComplaintsList(cpTargetPostNumber);
 	}
 
+	@Override
+	public List<ComplaintsVO> getBlameReasonsByCount(String cmBlameCount) {
+		return dao.getBlameReasonsByCount(cmBlameCount);
+	}
+
 }

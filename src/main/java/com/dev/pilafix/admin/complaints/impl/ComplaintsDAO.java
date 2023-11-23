@@ -38,7 +38,11 @@ public class ComplaintsDAO {
 		sqlSessionTemplate.update("ComplaintsDAO.updateContractRevokeYN", cpCode);
 	}
 	public List<ComplaintsVO> getAllComplaintsList(int cpTargetPostNumber){
-		return sqlSessionTemplate.selectList("ComplaintsDAO.getAllComplaintsList", cpTargetPostNumber);
+		return sqlSessionTemplate.selectList("ComplaintsDAO.getAllComplaintsList",cpTargetPostNumber);
+	}
+	
+	public List<ComplaintsVO> getBlameReasonsByCount(String cmBlameCount){
+		return sqlSessionTemplate.selectList("ComplaintsDAO.getBlameReasonsByCount", cmBlameCount);
 	}
 	
 	
