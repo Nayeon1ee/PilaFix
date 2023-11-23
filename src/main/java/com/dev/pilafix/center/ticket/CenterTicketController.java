@@ -1,5 +1,9 @@
 package com.dev.pilafix.center.ticket;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +18,15 @@ public class CenterTicketController {
 	private CenterTicketService service;
 	
 	@GetMapping("/getCenterTicketList.do")
-	public String getCenterTicketList(Model model) {
-		model.addAttribute("CenterTicketList", service.getCenterTicketList());
-		return "center/center_ticket_management";
+	public String getCenterTicketList(HttpSession session, Model model) {
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		
+		if(center != null && !center.isEmpty()) {
+			int centerCode = (int)center.get("ctCode");
+			model.addAttribute("CenterTicketList", service.getCenterTicketList(centerCode));
+			return "center/center_ticket_management";
+		}
+		return "redirect:centerLogin.do";
 	}
 	
 	@GetMapping("/getCenterTicket.do")
@@ -37,10 +47,16 @@ public class CenterTicketController {
 	}
 	
 	@PostMapping("/insertCenterTicket.do")
-	public String insert(CenterTicketVO vo) {
-		System.out.println(vo.toString());
-		service.insertCenterTicket(vo);
-		return "redirect:getCenterTicketList.do";
+	public String insert(CenterTicketVO vo, HttpSession session) {
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		
+		if(!center.isEmpty()) {
+			int centerCode = (int)center.get("ctCode");
+			vo.setCenterCode(centerCode);
+			service.insertCenterTicket(vo);
+			return "redirect:getCenterTicketList.do";
+		}
+		return "redirect:centerLogin.do";
 	}
 	
 	@GetMapping("/deleteCenterTicket.do")

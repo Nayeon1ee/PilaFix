@@ -1,6 +1,7 @@
 package com.dev.pilafix.center.lesson;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,9 +21,16 @@ public class CenterLessonController {
 	private CenterLessonService service;
 	
 	@GetMapping("/getCenterLessonList.do")
-	public String getCenterLessonList(Model model) {
-		model.addAttribute("CenterLessonList", service.getCenterLessonList());
-		return "center/center_class_management";
+	public String getCenterLessonList(HttpSession session, Model model) {
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		
+		if(center != null && !center.isEmpty()) {
+			int centerCode = (int)center.get("ctCode");
+			model.addAttribute("CenterLessonList", service.getCenterLessonList(centerCode));
+			return "center/center_class_management";
+			
+		}
+		return "redirect:centerLogin.do";
 	}
 	
 	@GetMapping("/getCenterLesson.do")
@@ -39,13 +47,11 @@ public class CenterLessonController {
 	
 	@GetMapping("/insertCenterLesson.do")
 	public String insertCenterLesson(HttpServletRequest request, Model model) {
-		//���ǿ��� �α��� ���� �̾ƿ;� �� (�Ʒ� �ڵ�� ����)
-//		int centerCode = session.getAttribute("user");
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("user", 111);
 
-		int centerCode = (int) session.getAttribute("user");
+		int centerCode = (Integer)session.getAttribute("user");
 		
 		model.addAttribute("trainerList", service.getTrainerCode(centerCode));
 		return "center/center_create_class";
@@ -53,7 +59,9 @@ public class CenterLessonController {
 	
 	@ResponseBody
 	@GetMapping("/getTrainerCode.do")
-	public List<CenterLessonVO> getTrainerCode(int centerCode) {
+	public List<CenterLessonVO> getTrainerCode(HttpSession session) {
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		int centerCode = (Integer)center.get("ctCode");
 		List<CenterLessonVO> trainerCode = service.getTrainerCode(centerCode);
 		return trainerCode;
 	}

@@ -15,8 +15,8 @@ public class CenterTicketServiceImpl implements CenterTicketService {
 	private CenterTicketDAO dao;
 
 	@Override
-	public List<CenterTicketVO> getCenterTicketList() {
-		return dao.getCenterTicketList();
+	public List<CenterTicketVO> getCenterTicketList(int ctCode) {
+		return dao.getCenterTicketList(ctCode);
 	}
 
 	@Override
