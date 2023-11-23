@@ -1,6 +1,7 @@
 package com.dev.pilafix.admin.complaints.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class ComplaintsDAO {
 	public void revokeComplaints(int cpCode) {
 		sqlSessionTemplate.update("ComplaintsDAO.updateContractRevokeYN", cpCode);
 	}
-	public List<ComplaintsVO> getAllComplaintsList(){
-		return sqlSessionTemplate.selectList("ComplaintsDAO.getAllComplaintsList");
+	public List<ComplaintsVO> getAllComplaintsList(int cpTargetPostNumber){
+		return sqlSessionTemplate.selectList("ComplaintsDAO.getAllComplaintsList", cpTargetPostNumber);
 	}
 	
 	
