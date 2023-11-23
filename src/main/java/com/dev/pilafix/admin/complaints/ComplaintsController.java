@@ -1,6 +1,9 @@
 package com.dev.pilafix.admin.complaints;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,13 +49,20 @@ public class ComplaintsController {
 	}
 
 	@GetMapping("/getComplaintsInfoList.do")
-	public String getComplaintsInfoList(Model model) {
-		model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
-		return "admin/admin_baned_comment";
+	public String getComplaintsInfoList(HttpSession session,Model model) {
+		
+		Map<String, Object> admin = (Map<String, Object>) session.getAttribute("loginAdmin");
+
+		if(!admin.isEmpty()) {
+			String adCode = (String)admin.get("adCode");
+			model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
+			return "admin/admin_baned_comment";
+		}
+		return "redirect:adminLogin.do";
 	}
 
 	@GetMapping("/getComplaintsInfo.do")
-	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode,@RequestParam("cpTargetPostNumber") int cpTargetPostNumber, Model model) {
+	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode, Model model) {
 		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpCode));
 		model.addAttribute("complaintsInfoBlamerList", service.getAllComplaintsList());
 		return "admin/admin_baned_comment_detail";

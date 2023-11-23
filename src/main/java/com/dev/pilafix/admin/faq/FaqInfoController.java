@@ -1,5 +1,9 @@
 package com.dev.pilafix.admin.faq;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,9 +53,15 @@ public class FaqInfoController {
 	}
 	
 	@GetMapping("/getFaqInfo.do")
-	public String getFaqInfo(@RequestParam("fqNumber") Integer fqNumber, Model model) {
-		model.addAttribute("faqInfo", service.getFaqInfo(fqNumber));
-		return "admin/admin_FAQ_detail";
+	public String getFaqInfo(@RequestParam("fqNumber") Integer fqNumber,HttpSession session, Model model) {
+		Map<String, Object> admin = (Map<String, Object>) session.getAttribute("loginAdmin");
+
+		if(!admin.isEmpty()) {
+			String adCode = (String)admin.get("adCode");
+			model.addAttribute("faqInfo", service.getFaqInfo(fqNumber));
+			return "admin/admin_FAQ_detail";
+		}
+		return "redirect:adminLogin.do";
 	}
 	
 }
