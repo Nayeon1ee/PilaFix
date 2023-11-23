@@ -81,14 +81,14 @@ public class MemberLoginController {
 			if ("ME".equals(member.getCsRoleCode())) {
 				// 회원인 경우
 				if (hasConnectedCenters) {
-					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
+					return "member/ctConnect"; // 비밀번호 변경, 로그아웃 테스트 페이지
 				} else {
-					return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
+					return "member/ctConnect"; // 센터 연동 페이지
 				}
 			} else {
 				// 강사인 경우
 				if (hasConnectedCenters) {
-					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
+					return "member/ctConnect"; // 비밀번호 변경, 로그아웃 테스트 페이지
 				} else {
 					return "member/ctConnect"; // 센터 연동 페이지
 				}
