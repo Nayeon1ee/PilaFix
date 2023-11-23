@@ -23,8 +23,8 @@
 			<nav id="navbar" class="navbar">
 				<ul>
 					<li><a class="active" href="index.html">Home</a></li>
-					<li><a href="about.html">수강권 결제</a></li>
-					<li><a href="services.html">예약하기</a></li>
+					<li><a href="ticketPage.do">수강권 결제</a></li>
+					<li><a href="reservPage.do">예약하기</a></li>
 					<li><a href="portfolio.html">커뮤니티</a></li>
 					<li><a href="team.html">공지사항</a></li>
 					<li><a href="pricing.html">마이페이지</a></li>

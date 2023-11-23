@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -499,7 +500,7 @@
 										<td><button type="submit" class="btn btn-primary mb-3"
 												style="font-size: 10px; background: dimgray; border-color: dimgray;">답변완료</button></td>
 									</tr>
-								</c:if>
+								
 
 								<c:forEach items="${questionList}" var="list">
 								    <tr>
