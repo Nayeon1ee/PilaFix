@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.common.member.MemberVO;
+import com.dev.pilafix.member.login_naver.NaverVO;
 @Repository
 public class NaverLoginDAO {
 	@Autowired
@@ -20,8 +21,8 @@ public class NaverLoginDAO {
 		return sqlSessionTemplate.selectOne("NaverDAO.getMember",email);
 	}
 
-	public int insertNaverMember(Map<String, Object> naverMember) {
-		return sqlSessionTemplate.insert("NaverDAO.insertNaverMember",naverMember);
+	public int insertNaverMember(NaverVO naverMemberProfile) {
+		return sqlSessionTemplate.insert("NaverDAO.insertNaverMember",naverMemberProfile);
 	}
 
 

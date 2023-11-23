@@ -20,61 +20,89 @@ public class MemberCommunityController {
 	
 	// 전체 리스트 확인
 	@GetMapping("getMemberCommunityList.do")
-	public String getMemberCommunityList(Model model) {
+	public String getMemberCommunityList(HttpSession session, Model model) {
+		
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		if(user != null && !user.isEmpty()) {
+			int memberCsNumberCode = (Integer)user.get("csMemberCode");
+			model.addAttribute("csNumberCode", memberCsNumberCode);
+		} else {
+			model.addAttribute("csNumberCode", 0);
+		}
+		
 		model.addAttribute("getMemberCommunityList", service.getMemberCommunityList());
-		return "member/getMemberCommunityList";
+		return "member/member_community";
 	}
 	
 	// 상세보기
 	@GetMapping("getMemberCommunity.do")
-	public String getMemberCommunity(@RequestParam("memberCmNumber") Integer memberCmNumber, Model model) {
+	public String getMemberCommunity(@RequestParam("memberCmNumber") Integer memberCmNumber, HttpSession session, Model model) {
 		MemberCommunityVO memberCommunity = service.getMemberCommunity(memberCmNumber);
+		
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		if(user != null && !user.isEmpty()) {
+			int memberCsNumberCode = (Integer)user.get("csMemberCode");
+			model.addAttribute("csNumberCode", memberCsNumberCode);
+			// 답글 불러오기
+			model.addAttribute("memberCommunityReply", service.getMemberCommunityReply(memberCmNumber));
+			model.addAttribute("blameList", service.getBlameList());
+		} else {
+			model.addAttribute("csNumberCode", 0);
+		}
 		
 		//조회수 증가
 		service.updateMemberCommunityViewCnt(memberCmNumber);
 		int updatedList = service.updateMemberCommunityViewCnt(memberCommunity.getMemberCmViews());
 		
-		// 답글 불러오기
-		model.addAttribute("memberCommunityReply", service.getMemberCommunityReply(memberCmNumber));
 		
 		model.addAttribute("memberCommunity", memberCommunity);
 		model.addAttribute("updatedList", updatedList);
-		model.addAttribute("blameList", service.getBlameList());
-		return "member/getMemberCommunity";
+		return "member/member_community_detail";
 	}
 	
 	// 신고하기
 	@PostMapping("insertBlamer.do") 
 	public String insertBlamer(@RequestParam("memberCmNumber") int memberCmNumber, int memberCmWriterMemberCode, String memberBlameReasonCode, String memberBlamerIp, HttpServletRequest request, Model model) {
-	    
+		
+		HttpSession session = request.getSession();
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		int memberBlamerMemberCode = (int)user.get("csMemberCode");
+		session.setAttribute("user", memberBlamerMemberCode);
+		
+		int memberCode = (int) session.getAttribute("user");
+		model.addAttribute("memberList",memberCode);
+		
 	    Map<String, Object> blame = new HashMap<String, Object>();
 	    blame.put("memberCmNumber", memberCmNumber);
 	    blame.put("memberCmWriterMemberCode", memberCmWriterMemberCode);
 	    blame.put("memberBlamerIp", memberBlamerIp);
 	    blame.put("memberBlameReasonCode", memberBlameReasonCode);
-	    System.out.println(memberCmWriterMemberCode);
+	    blame.put("memberBlamerMemberCode", memberBlamerMemberCode);
+	    System.out.println("확인 중" + memberCmWriterMemberCode);
 
 	    service.updateMemberCommunityBlameCnt(memberCmNumber);
 	    
-	    HttpSession session = request.getSession();
-		session.setAttribute("user", 2009);
-
-		int memberCode = (int) session.getAttribute("user");
-		model.addAttribute("memberList",memberCode);
 		
 	    service.insertBlame(blame);
 	    return "redirect:getMemberCommunity.do?memberCmNumber=" + memberCmNumber;
 	}
 	
+	
+	
 	// 글쓰기 페이지
 	@GetMapping("insertMemberCommunity.do")
 	public String insertMemberCommunity() {
-		return "member/insertMemberCommunity";
+		return "member/member_community_register";
 	}
 
-	// 글쓰기 페이지
+	// 글쓰기 기능
 	@PostMapping("/insertMemberCommunity.do")
-	public String insert(MemberCommunityVO vo, HttpServletRequest request) {
+	public String insert(MemberCommunityVO vo, HttpServletRequest request, HttpSession session) {
+		
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		int memberCmWriterMemberCode = (Integer)user.get("csMemberCode");
+		vo.setMemberCmWriterMemberCode(memberCmWriterMemberCode);
+		System.out.println("확인용" + user.get("csMemberCode"));
 		
 		//아이피 주소 가져오기
 		String cmWriterIp = request.getRemoteAddr();
@@ -88,7 +116,7 @@ public class MemberCommunityController {
 	@GetMapping("updateMemberCommunity.do")
 	public String updateMemberCommunity(@RequestParam("memberCmNumber") Integer memberCmNumber, Model model) {
 		model.addAttribute("memberCommunity", service.getMemberCommunity(memberCmNumber));
-		return "member/updateMemberCommunity";
+		return "member/member_community_edit";
 	}
 
 	// 수정 기능

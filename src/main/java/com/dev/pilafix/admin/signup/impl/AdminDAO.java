@@ -26,19 +26,4 @@ public class AdminDAO {
 		return sqlSessionTemplate.selectOne("AdminLoginDAO.adIdCheck",adId);
 	}
 	
-	public AdminVO getAdminInfo(String adCode) {
-        return sqlSessionTemplate.selectOne("AdminLoginDAO.getAdminInfo", adCode);
-    }
-
-	public void adminupdatePassword(String adId, String newPassword) {
-		Map<String, Object> params = new HashMap<>();
-        params.put("csMemberCode", adId);
-        params.put("newPassword", newPassword);
-        sqlSessionTemplate.update("AdminLoginDAO.adminupdatePassword", params);
-	}
-	
-	public int adPasswordCheck(String adPassword) {
-		return sqlSessionTemplate.selectOne("AdminLoginDAO.adPasswordCheck",adPassword);
-	}
-
 }

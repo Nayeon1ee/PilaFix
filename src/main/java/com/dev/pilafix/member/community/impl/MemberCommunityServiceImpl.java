@@ -63,7 +63,6 @@ public class MemberCommunityServiceImpl implements MemberCommunityService {
 
 	@Override
 	public List<MemberCommunityVO> getMemberCommunityReply(int memberCmNumber) {
-		System.out.println("서비스" + memberCmNumber);
 		return dao.getMemberCommunityReply(memberCmNumber);
 	}
 

@@ -32,7 +32,6 @@
 							</div>
 							-->
 							<form name="admin_info" action="insertAdminRegister.do" method="post">
-							<input type="hidden" name="adId" value="${admin.adId}">
 								<div class="col-md-12">
 										<label for="inputAddress5" class="form-label">아이디</label>
 										<div class="input-group">
@@ -45,7 +44,7 @@
 										<label for="inputAddress5" class="form-label">비밀번호</label>
 										<div class="input-group">
 											<input type="password" class="form-control" id="adPassword" name="adPassword" placeholder="비밀번호를 입력하세요">
-											<button type="button" class="btn btn-primary" id="adPasswordCheck">중복확인</button>
+											<!-- <button type="button" class="btn btn-primary" id="adPasswordCheck">중복확인</button> -->
 										</div>
 										<div id="adPasswordCheckMessage"></div>
 									</div>
@@ -79,51 +78,8 @@
 										</select> <input type="text" class="form-control" id="inputAddres5s" name="adContact2"> 
 										<input type="text" class="form-control" 
 											id="inputAddres5s" name="adContact3">
-										<!-- <div class="col-sm-10">
-										<button type="submit" class="btn btn-primary">중복확인</button>
-									</div> -->
 									</div>
 								</div>
-								<%-- <div class="col-30" style="margin-top: 1%;">
-									<label for="inputAddress2" class="form-label">센터명</label> <input
-										type="text" class="form-control" id="inputAddress2" value="${centerInfo.ctName }"
-										placeholder="센터명" disabled>
-								</div> --%>
-								<%-- <div class="col-40" >
-									<label for="inputAddress5" class="form-label">센터 번호</label>
-									<div class="col-400" style="display: flex;" >
-										<select disabled >
-											<option selected >${centerInfo.ctPhoneNumber1 }</option>
-											<option>010</option>
-											<option>011</option>
-										</select> <input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ctPhoneNumber2 }"
-											disabled> <input type="text" class="form-control" value="${centerInfo.ctPhoneNumber3 }"
-											id="inputAddres5s" disabled>
-										<!-- <div class="col-sm-10">
-										<button type="submit" class="btn btn-primary">중복확인</button>
-									</div> -->
-									</div>
-								</div>
-
-								<div class="col-6">
-									<label for="inputAddress5" class="form-label">센터주소</label>
-								</div>
-								<div class="col-120">
-									<input type="text" class="form-control" id="inputAddres5s"
-										placeholder="우편번호" style="width: 42%;" disabled value="${centerInfo.ctAddress1 }">
-
-									<div class="row mb-3"></div>
-								</div>
-								<div class="col-12">
-									<label for="inputAddress5" class="form-label">상세주소 1</label> <input
-										type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ctAddress2 }"
-										placeholder="1234 Main St" disabled>
-								</div>
-								<div class="col-12" style="margin-top: 1%;">
-									<label for="inputAddress2" class="form-label">상세주소 2</label> <input
-										type="text" class="form-control" id="inputAddress2" value="${centerInfo.ctAddress3 }"
-										placeholder="Apartment, studio, or floor" disabled>
-								</div> --%>
 								<div class="text-center">
 				                  <button type="submit" class="btn btn-primary">등록</button>
 				                   <%-- <button type="submit" class="btn btn-primary" onclick="location.href='updateAdmin.do?adCode=${amdin.adCode}'">수정</button> --%>
@@ -131,59 +87,6 @@
 				                </div>
 							</form>
 							<!-- End General Form Elements -->
-							<h5 class="card-title">비밀번호 변경</h5>
-							<p>비밀번호 변경을 원하면 아래 버튼을 클릭하세요.</p>
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">비밀번호 변경</button>
-							<div class="modal fade" id="basicModal" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title">비밀번호변경</h5>
-											<button type="button" class="btn-close"
-												data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">
-											<div class="tab-content pt-2">
-												<div class="tab-pane fade pt-3 active show"
-													id="profile-change-password" role="tabpanel"><form action="/adminUpdatePassword.do" method="post">
-														<div class="row mb-3">
-															<label for="currentPassword"
-																class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
-															<div class="col-md-8 col-lg-9">
-																<input name="currentPassword" type="password" class="form-control" id="currentPassword">
-																<button type="button" onclick="checkCurrentPasswordMatch()">확인</button>
-															</div>
-														</div>
-
-														<div class="row mb-3">
-															<label for="newPassword"
-																class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
-															<div class="col-md-8 col-lg-9">
-																<input name="newpassword" type="password"
-																	class="form-control" id="newPassword">
-															</div>
-														</div>
-
-														<div class="row mb-3">
-															<label for="newPassword"
-																class="col-md-4 col-lg-3 col-form-label">새 비밀번호
-																확인</label>
-															<div class="col-md-8 col-lg-9">
-																<input name="newPassword" type="password"
-																	class="form-control" id="newPassword">
-															</div>
-														</div>
-
-														<div class="text-center">
-															<button type="submit" class="btn btn-primary">비밀번호변경</button>
-														</div>
-													</form>
-												</div>
-											</div></div>
-										<!-- <div class="modal-footer">
-					                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					                      <button type="button" class="btn btn-primary">Save changes</button>
-					                    </div> -->
 									</div>
 								</div>
 							</div>
@@ -224,79 +127,6 @@ $(function(){
         });
     });
 });
-$(function(){
-    $("#adPasswordCheck").click(function(){
-        let adPassword = $("#adPassword").val();  //비밀번호
-        console.log("3333")
-        $.ajax({
-            type: 'post', 
-            url: "adPasswordCheck.do", 
-            data: {"adPassword": adPassword}, 
-            success: function(data){ 
-                let messageDiv = $("#adPasswordCheckMessage");
-                if(data < 1){ 
-                    // 사용 가능한 아이디인 경우 메시지 표시
-                    messageDiv.html("사용 가능한 비밀번호입니다.");
-                    messageDiv.css("color", "green"); 
-                } else { 
-                    // 중복된 아이디인 경우 메시지 표시
-                    messageDiv.html("중복된 아이디입니다. 다른 비밀번호를 입력해주세요.");
-                    messageDiv.css("color", "red");
-                }
-            },
-            error: function(error){ alert("error"); }
-        });
-    });
-});
-function checkCurrentPasswordMatch() {
-    var currentPasswordInput = document.getElementById('current-password');
-    var passwordMatchMessage = document.getElementById('current-password-match-message');
-    var currentPassword = currentPasswordInput.value;
-
-    // AJAX 요청을 준비합니다.
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "verifyCurrentLoginPassword.do", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.passwordMatch) {
-                    passwordMatchMessage.textContent = "비밀번호가 일치합니다.";
-                    passwordMatchMessage.style.color = "green";
-                } else {
-                    passwordMatchMessage.textContent = "비밀번호가 일치하지 않습니다.";
-                    passwordMatchMessage.style.color = "red";
-                }
-            } else {
-                passwordMatchMessage.textContent = "비밀번호 검증에 실패했습니다.";
-                passwordMatchMessage.style.color = "red";
-            }
-        }
-    };
-    var data = "currentPassword=" + encodeURIComponent(currentPassword);
-    xhr.send(data);
-}
-
-// 새 비밀번호 체크
-function checkNewPasswordMatch() {
-    var newPasswordInput = document.getElementById('new-password');
-    var confirmPasswordInput = document.getElementById('confirm-password');
-    var passwordMatchMessage = document.getElementById('confirm-password-match-message');
-
-    var newPassword = newPasswordInput.value;
-    var confirmPassword = confirmPasswordInput.value;
-
-    if (newPassword === confirmPassword) {
-        passwordMatchMessage.textContent = "비밀번호가 일치합니다.";
-        passwordMatchMessage.style.color = "green";
-        return true; // 폼 제출 계속
-    } else {
-        passwordMatchMessage.textContent = "비밀번호가 일치하지 않습니다.";
-        passwordMatchMessage.style.color = "red";
-        return false; // 폼 제출 중단
-    }
-}
 </script>
 	</script>
 	<!-- End #main -->

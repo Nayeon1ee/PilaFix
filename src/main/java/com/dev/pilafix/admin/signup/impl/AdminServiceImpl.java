@@ -16,7 +16,6 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminDAO dao;
-	private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	@Override
@@ -39,26 +38,5 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int adIdCheck(String adId) {
 		return dao.adIdCheck(adId);
-	}
-	@Override
-	public void adminupdatePassword(String adCode, String newPassword) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encodedNewPassword = encoder.encode(newPassword);
-		dao.adminupdatePassword(adCode, encodedNewPassword);
-		
-	}
-
-	@Override
-	public boolean admincheckPassword(String adCode, String currentPassword) {
-		AdminVO admin = dao.getAdminInfo(adCode);
-        if (admin != null && admin.getAdPassword() != null) {
-            return encoder.matches(currentPassword, admin.getAdPassword());
-        }
-        return false;
-	}
-
-	@Override
-	public int adPasswordCheck(String adPassword) {
-		return dao.adPasswordCheck(adPassword);
 	}
 }

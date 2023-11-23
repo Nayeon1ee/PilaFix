@@ -134,9 +134,8 @@ public class NaverLoginController {
 		naverMemberProfile.setChooseRole(role.get("role"));
 		System.out.println("확인용 회원강사 선택값 : " + naverMemberProfile.getChooseRole());
 
-		Map<String, Object> naverMember = new HashMap<>();
-		naverMember.put("member", naverMemberProfile);
-		service.insertNaverMember(naverMember);
+		// 네이버로그인한 사람 회원가입(=디비에 정보 저장)
+		service.insertNaverMember(naverMemberProfile);
 
 		String email = naverMemberProfile.getEmail();
 		MemberVO member = service.getMember(email);

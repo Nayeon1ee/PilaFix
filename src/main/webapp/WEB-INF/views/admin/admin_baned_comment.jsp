@@ -109,7 +109,7 @@
 										<tr>
 											<td><%-- <a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cpCode }</a> --%>${ComplaintsInfo.cpCode }</td>
 											<%--<td> <a href="getComplaintsInfo.do?cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber }">${ComplaintsInfo.cpTargetPostNumber }</td> --%>
-											<td><a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cmTitle }</td>
+											<td><a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }<%-- &cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber } --%>">${ComplaintsInfo.cmTitle }</td>
 											<c:if test="${ComplaintsInfo.cpTargetPostType eq 'CM' }">
 												<td>커뮤니티</td>
 											</c:if>

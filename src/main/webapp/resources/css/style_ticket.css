@@ -1,96 +1,71 @@
 @charset "UTF-8";
 
-/*알맹이 7:3비율로 영역 설정*/
-.ticket {
-	margin-top: 20px;
-	/*background-color: #f6f4f8;*/
-	float: left;
-	width: 60%;
-	padding-top: 20px;
-	/*padding-left: 20px;*/
-	padding-right: 20px;
-	height: 600px;
-	/*overflow-y: auto;*/
+#clickButton {
+	border: 2px solid #9b56e9;
+	border-radius: 10px;
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+	cursor: pointer;
+	height: 500px;
 }
 
-.ticket-list {
-	background-color: #f6f4f8;
-	height: 481.4px;
-	width: 542.65px;
-	overflow-y: auto;
-	/* 세로 스크롤바 추가,수강권 리스트 영역보다 수강권이 적으면 스크롤바 안생기고 넘치면 그때 스크롤바 생김 */
+#clickButton .card-body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
-.content1 {
-	margin-top: 20px;
-	height: 600px;
-	background-color: #f6f4f8;
-	/*color: black/*#f6f4f8*/;
-	float: left;
-	/*order-radius: 10px;*/
-	width: 40%;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+#clickButton:hover {
+	background-color: #9b56e9;
+	color: #f8ecf3;
+	border-color: white;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.content1-img {
+#coloredCanvas {
+	transition: filter 0.3s;
+	max-width: 100%;
+    height: auto; /* 이미지 비율 유지 */
+}
+
+#clickButton:hover #coloredCanvas {
+	filter: brightness(8);
+}
+
+.tab-buttons {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	height: 100%; /* 이미지를 content 영역의 높이에 맞춤 */
-	color: gray;
+	margin-bottom: 20px;
 }
 
-/*ticket구매 셀렉트 박스*/
-select {
-	width: 80%;
-	height: 100%;
-	padding: 0 28px 0 10px;
-	font-size: 15px;
-	border: 0; /*기본 스타일 제거*/
-	-webkit-appearance: none; /* for chrome */
-	-moz-appearance: none; /*for firefox*/
-	appearance: none;
-	box-sizing: content-box /*select 박스의 크기 방식 지정.*/ 
-	 background: transparent; /*배경색 투명 처리*/
+.nav-pills .nav-link {
+	padding: 12px 20px;
+	margin: 0 5px;
+	border-radius: 8px;
+	color: #fff; /* 텍스트 색상 */
+	background-color: #946CEE; /* 배경 색상 */
+	border: 1px solid #9b56e9; /* 테두리 색상 */
 }
 
-select::-ms-expand {
-	display: none; /*for IE10,11*/
+.nav-pills .nav-link.active, .nav-pills .nav-link:hover {
+	background-color: #9b56e9; /* 활성 및 호버 상태 배경 색상 */
+	border-color: #9b56e9; /* 활성 및 호버 상태 테두리 색상 */
 }
 
-.select-wrap {
-	width: 300px;
-	height: 28px;
-	border: 1px solid #ccc;
+.tab-content {
+	border: 1px solid #946CEE; /* 티켓 목록 테두리 색상 */
+	border-radius: 8px;
+	padding: 20px;
 }
 
-/* 수강권 클릭하기 전엔 수강권 상세 내용 숨김처리*/
-.card-content1-replace {
-	display: none;
+/* 수강권 결제쪽 */
+.ticket-item {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* 수강권 상세 정보 리스트*/
-.card-body-detail>ul>li {
-	list-style: none;
-	margin: 10px 2px;
-}
 
-.card-body-detail {
-	flex: 1 1 auto;
-	margin: 10px 0px;
-	background-color: white /*var(--bs-card-color)*/;
-	text-align: left; /*왼쪽 정렬 추가*/
-}
 
-/* 수강권 상세 화면 이용정책 부분*/
-.policy-area {
-	margin: 0px 20px 30px;
-	text-align: left;
-}
-
-/*수강권 리스트에서 가격 굵게 나타내기*/
-.tkPrice{
-font-weight: bold; 
-text-align: right; 
-display: block;
-}
