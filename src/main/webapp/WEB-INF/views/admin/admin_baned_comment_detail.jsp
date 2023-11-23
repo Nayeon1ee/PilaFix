@@ -49,8 +49,9 @@
 										style="height: 300px;" placeholder="글 내용을 입력해주세요" name="cmContent">${ComplaintsInfo.cmTitle }</textarea>
 								</div>
 								
-						<h5 class="card-title"></h5>
+						<!-- <h5 class="card-title"></h5> -->
 						<!-- Table with stripped rows -->
+						<div class="baned-info">신고 정보</div>
 						<table class="table datatable">
 							<thead>
 								<tr>
@@ -60,7 +61,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="ComplaintsInfo" items="${complaintsInfoList }">
+								<c:forEach var="ComplaintsInfo" items="${complaintsInfoBlamerList }">
 									<tr>
 										<td>${ComplaintsInfo.blameReasonName }</td>
 										<td>${ComplaintsInfo.csName }</td>
@@ -69,7 +70,7 @@
 								</c:forEach>
 							</tbody>
 						</table>
-								<div class="baned-info">신고 정보</div>
+								<%-- <div class="baned-info">신고 정보</div>
 								<div class="col-md-5">
 									<label class="form-label">신고사유</label> <input type="text"
 										readonly disabled class="form-control" value="${ComplaintsInfo.blameReasonName }">
@@ -81,7 +82,7 @@
 								<div class="col-md-4">
 									<label class="form-label">신고자 이메일</label> <input type="text"
 										readonly disabled class="form-control" value="${ComplaintsInfo.csEmailId }">
-								</div>
+								</div> --%>
 								<%-- <div class="col-40000" style="margin-top: 1%;">
 									<label class="form-label">상태</label>
 									<!-- 상태여부 처리 -->

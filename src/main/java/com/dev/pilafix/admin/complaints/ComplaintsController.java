@@ -54,7 +54,7 @@ public class ComplaintsController {
 	@GetMapping("/getComplaintsInfo.do")
 	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode,@RequestParam("cpTargetPostNumber") int cpTargetPostNumber, Model model) {
 		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpCode));
-		model.addAttribute("complaintsInfoList", service.getAllComplaintsList());
+		model.addAttribute("complaintsInfoBlamerList", service.getAllComplaintsList());
 		return "admin/admin_baned_comment_detail";
 	}
 	
