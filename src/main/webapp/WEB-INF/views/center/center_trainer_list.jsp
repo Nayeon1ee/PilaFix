@@ -184,7 +184,7 @@
 									<c:forEach var="member" items="${memberList }">
 										    <tr>
 											  <td>${member.csMemberCode }</td>
-										      <td><a href="getTrainerManage.do?csMemberCode=${member.csMemberCode }&csRoleCode=${member.csRoleCode}">${member.csName }</a></td>
+										      <td><a href="getTrainerManage.do?csMemberCode=${member.csMemberCode }">${member.csName }</a></td>
 										      <td>${member.csGenderMw }</td>
 										      <!-- 생년월일에 따라 나이 분기 필요 -->
 										      <c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
@@ -214,41 +214,54 @@
 	<!-- End #main -->
 	
 <script>
-function acceptRequest(crCode, memberCode, centerCode) {
-	console.log(crCode);
-	console.log(memberCode);
-	console.log(centerCode);
-	
-	fetch('/pilafix/acceptRequest.do?crCode='+crCode+'&memberCode='+memberCode+'&centerCode='+centerCode, {
-		method: 'GET',
-	})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('error');
-			}
-			window.location.href = 'getMemberManageList.do'; // 에러 시 목록 페이지로 리다이렉트
-		})
-		.catch(error => {
-			console.error(error);
-		});
+function acceptRequest(crCode, memberCode) {
+    console.log(crCode);
+    console.log(memberCode);
+
+    fetch('/pilafix/acceptRequest.do?crCode=' + crCode + '&memberCode=' + memberCode, {
+        method: 'GET',
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('error');
+            }
+            if (memberCode >= 8000) {
+                window.location.href = 'getTrainerManageList.do';
+            } else {
+                window.location.href = 'getMemberManageList.do';
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 };
 
+
 function rejectRequest(crCode) {
-	console.log(crCode);
-	
-	fetch('/pilafix/rejectRequest.do?crCode='+crCode, {
-		method: 'GET',
-	})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('error');
-			}
-			window.location.href = 'getMemberManageList.do'; // 에러 시 목록 페이지로 리다이렉트
-		})
-		.catch(error => {
-			console.error(error);
-		});
+    console.log(crCode);
+
+    fetch('/pilafix/rejectRequest.do?crCode=' + crCode, {
+        method: 'GET',
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('error');
+            }
+            return response.json(); // 서버로 보냄
+        })
+        .then(data => {
+            if (data.memberCode >= 8000) {
+                window.location.href = 'getTrainerManageList.do';
+            } else {
+                window.location.href = 'getMemberManageList.do';
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 };
+
+
 </script>
 
 <%@ include file="center_footer_common.jsp" %>

@@ -25,20 +25,20 @@ public class MemberManageDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public List<MemberVO> getMemberManageList() {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList");
+	public List<MemberVO> getMemberManageList(int ctCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList", ctCode);
 	}
 
-	public List<MemberVO> getTrainerManageList() {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList");
+	public List<MemberVO> getTrainerManageList(int ctCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList", ctCode);
 	}
 
-	public List<ConnectRequestVO> getConnectRequestForMe() {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getCenterRequestForMe");
+	public List<ConnectRequestVO> getConnectRequestForMe(int ctCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getCenterRequestForMe", ctCode);
 	}
 	
-	public List<ConnectRequestVO> getConnectRequestForTr() {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getCenterRequestForTr");
+	public List<ConnectRequestVO> getConnectRequestForTr(int ctCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getCenterRequestForTr", ctCode);
 	}
 	
 	/**
@@ -92,9 +92,11 @@ public class MemberManageDAO {
 	 * @param crCode
 	 * @param memberCode
 	 * @param centerCode
+	 * 
+	 * @return 실패 여부 
 	 */
 	@Transactional
-	public void updateConnectionYnAndInsertConnHistory(String crCode, int memberCode, int centerCode) {
+	public boolean updateConnectionYnAndInsertConnHistory(String crCode, int memberCode, int centerCode) {
 		try {
 			// 연동요청처리 STEP01 - TBL_CENTER_REQUEST 연동여부, 일자 업데이트
 			sqlSessionTemplate.update("MemberManageDAO.updateConn", crCode);
@@ -110,6 +112,8 @@ public class MemberManageDAO {
 			//여기서 맵 줘야 함 centercode랑 memberCode
 			sqlSessionTemplate.update("MemberManageDAO.updateCSTConn", params);
 			
+			return true;
+			
 		} catch (Exception e) {
 			// 예외 처리
 			throw new RuntimeException("데이터 베이스 업데이트 실패", e);
@@ -120,8 +124,10 @@ public class MemberManageDAO {
 	 * 연동 요청 거절
 	 * @param crCode
 	 */
-	public void updateRejectDate(String crCode) {
+	public int updateRejectDate(String crCode) {
 		sqlSessionTemplate.update("MemberManageDAO.updateRejectDate", crCode);
+		//거절한 멤버 코드를 넘김 (화면 이동에 필요)
+		return sqlSessionTemplate.selectOne("MemberManageDAO.getMemberCode", crCode);
 	}
 
 

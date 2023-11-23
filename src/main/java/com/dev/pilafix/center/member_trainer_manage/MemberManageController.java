@@ -2,24 +2,19 @@ package com.dev.pilafix.center.member_trainer_manage;
 
 
 
-import java.sql.Date;
-import java.util.List;
-
+import java.util.HashMap;
 import java.util.Map;
-
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
-import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
-import com.dev.pilafix.center.lesson.CenterLessonVO;
-import com.dev.pilafix.common.question.QuestionVO;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dev.pilafix.common.member.MemberVO;
 
@@ -41,13 +36,14 @@ public class MemberManageController {
 	 */
 	@GetMapping("/getMemberManageList.do")
 	public String getMemberManageList(HttpSession session, Model model) {
-
 		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
 
         if (center != null) {
             //세션에서 받아온 값 넣어야 함
-        	model.addAttribute("request", service.getConnectRequestForMe());
-    		model.addAttribute("memberList", service.getMemberManageList());
+        	int ctCode = (int)center.get("ctCode");
+        	
+        	model.addAttribute("request", service.getConnectRequestForMe(ctCode));
+    		model.addAttribute("memberList", service.getMemberManageList(ctCode));
     		return "center/center_member_list";
         } else {
             // 값이 없으면 로그인 페이지로 이동 
@@ -70,6 +66,7 @@ public class MemberManageController {
 
 	public String getMemberManage(HttpSession session, int csMemberCode, Model model) {
 		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		
 		MemberVO member = service.getMember(csMemberCode);
 		String tkCodeG = member.getTicketCodeGroup1();
 		String tkCodeP= member.getTicketCodePersonal1();
@@ -114,10 +111,20 @@ public class MemberManageController {
 	 * @return
 	 */
 	@GetMapping("/getTrainerManageList.do")
-	public String getTrainerManageList(Model model) {
-		model.addAttribute("request", service.getConnectRequestForTr());
-		model.addAttribute("memberList",service.getTrainerManageList());
-		return "center/center_trainer_list";
+	public String getTrainerManageList(HttpSession session, Model model) {
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		
+		if(!center.isEmpty()) {
+			 //세션에서 받아온 값 넣어야 함
+        	int ctCode = (int)center.get("ctCode");
+        	
+        	model.addAttribute("request", service.getConnectRequestForTr(ctCode));
+    		model.addAttribute("memberList",service.getTrainerManageList(ctCode));
+    		return "center/center_trainer_list";
+		} else {
+            return "redirect:centerLogin.do"; 
+        }
+		
 	}
 	
 	/**
@@ -130,21 +137,23 @@ public class MemberManageController {
 	 * @return
 	 */
 	@GetMapping("/getTrainerManage.do")
-	public String getTrainerManage(int csMemberCode, String csRoleCode,Model model) {
-		//회원 정보 
-
-		model.addAttribute("member", service.getMember(csMemberCode));
-
-		//그룹 수업내용
-		model.addAttribute("groupLesson", service.getGroupLesson(csMemberCode));
-		//개인 수업내용
-		model.addAttribute("personalLesson", service.getPersonalLesson(csMemberCode));
-		model.addAttribute("lessonCount", service.getLessonCount(csMemberCode));
-		//전체 수업내용
+	public String getTrainerManage(HttpSession session, int csMemberCode, Model model) {
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
 		
-		
+		if(!center.isEmpty()) {
+			//회원 정보 
+			model.addAttribute("member", service.getMember(csMemberCode));
+			//그룹 수업내용
+			model.addAttribute("groupLesson", service.getGroupLesson(csMemberCode));
+			//개인 수업내용
+			model.addAttribute("personalLesson", service.getPersonalLesson(csMemberCode));
+			model.addAttribute("lessonCount", service.getLessonCount(csMemberCode));
+			//전체 수업내용
 
-		return "center/center_trainer_detail";
+			return "center/center_trainer_detail";
+		}
+		return "redirect:centerLogin.do"; 
+
 	}
 	
 	
@@ -162,13 +171,35 @@ public class MemberManageController {
 	 * @param memberCode
 	 * @param centerCode
 	 * 
-	 * @return 수락 후 목록 재조회
 	 */
+//	@GetMapping("/acceptRequest.do")
+//	public void acceptRequest(HttpSession session, @RequestParam("crCode") String crCode, @RequestParam("memberCode") int memberCode) {
+//		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+//		
+//		if(!center.isEmpty()) {
+//			int ctCode = (int) center.get("ctCode");
+//			service.acceptRequest(crCode, memberCode, ctCode);
+//		}	
+//	}
 	@GetMapping("/acceptRequest.do")
-	public String acceptRequest(@RequestParam("crCode") String crCode, @RequestParam("memberCode") int memberCode, @RequestParam("centerCode") int centerCode) {
-		service.acceptRequest(crCode, memberCode, centerCode);
-		return "redirect:getMemberManageList.do";
+	@ResponseBody
+	public ResponseEntity<String> acceptRequest(HttpSession session, @RequestParam("crCode") String crCode, @RequestParam("memberCode") int memberCode) {
+	    Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+
+	    if (!center.isEmpty()) {
+	        int ctCode = (int) center.get("ctCode");
+	        boolean success = service.acceptRequest(crCode, memberCode, ctCode);
+
+	        if (success) {
+	            return ResponseEntity.ok("Acceptance successful");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Acceptance failed");
+	        }
+	    } else {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Not logged in with a center");
+	    }
 	}
+
 	
 	
 	/**
@@ -180,10 +211,18 @@ public class MemberManageController {
 	 * @return
 	 */
 	@GetMapping("/rejectRequest.do")
-	public String rejectRequest(@RequestParam("crCode") String crCode) {
-		service.rejectRequest(crCode);
-		return "redirect:getMemberManageList.do";
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> rejectRequest(@RequestParam("crCode") String crCode) {
+	    Map<String, Object> response = new HashMap<>();
+	    
+	    int memberCode = service.rejectRequest(crCode);
+	    
+	    response.put("memberCode", memberCode); //body에 멤버코드로 등록 
+	    System.out.println("컨트롤러에서 찍은 거절 요청 시 멤버 코드 " + memberCode);
+	    
+	    return ResponseEntity.ok(response);
 	}
+
 	
 
 }

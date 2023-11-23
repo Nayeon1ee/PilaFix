@@ -22,27 +22,26 @@ public class ReservController {
 	private ReservService service;
 	
 	@GetMapping("reservPage.do")
-	public String getLessionForReserve(HttpSession session, Model model) {
+	public String reservPage(HttpSession session, Model model) {
 		// 예약 메인 페이지 
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
 		
 	    if (loginUser != null) {
 	    	// 세션에서 회원번호 가져옴 
-//	    	int csMemberCode = (int) loginUser.get("csMemberCode");
-//
-//	    	// 꺼내온 회원번호로 ct_code, ct_name이 담긴 list 조회 
-//	    	List<CenterVO> connCenterList = service.getConnCenterList(csMemberCode);
-//	    	model.addAttribute("connCenterList",connCenterList);
-//	    	
-//	    	// 리스트에서 꺼내와서 첫 번째에 있는 센터 코드 꺼내서 그 센터가 가진 수업 내역 조회 
-//	    	int ctCode = connCenterList.get(0).getCtCode();
-//	    	
-//	    	if(ctCode != 0){ // 첫 번째로 연동된 센터코드가 있다면 
-//	    		model.addAttribute("lessonList", service.getLessonList(ctCode));
-//	    	}
+	    	int csMemberCode = (int) loginUser.get("csMemberCode");
+
+	    	// 꺼내온 회원번호로 ct_code, ct_name이 담긴 list 조회 
+	    	List<CenterVO> connCenterList = service.getConnCenterList(csMemberCode);
+	    	model.addAttribute("connCenterList",connCenterList);
+	    	
+	    	// 리스트에서 꺼내와서 첫 번째에 있는 센터 코드 꺼내서 그 센터가 가진 수업 내역 조회 
+	    	int ctCode = connCenterList.get(0).getCtCode();
+	    	
+	    	if(ctCode != 0){ // 첫 번째로 연동된 센터코드가 있다면 
+	    		model.addAttribute("lessonList", service.getLessonList(ctCode));
+	    	}
 	    	
 	    	return "member/reserv_test";
-	    	
 	        
 	    }else {
 	    	return "redirect:memberLogin.do";
