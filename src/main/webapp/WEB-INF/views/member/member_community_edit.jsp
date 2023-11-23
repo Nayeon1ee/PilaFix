@@ -108,91 +108,51 @@
 						<h5 class="card-title">게시글 수정</h5>
 						<p>개인 정보가 포함되지 않도록 유의하시고, 아래와 같은 규정에 따라 삭제될 수 있습니다.</p>
 
-						<form class="row g-3">
+						<form class="row g-3" action="updateMemberCommunity.do" method="post">
 							<div class="col-md-2">
-								<label class="form-label"> 번호</label> <input type="text"
-									readonly disabled class="form-control" value="1">
+								<label class="form-label"> 번호</label>
+								<input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmNumber }">
 							</div>
 							<div class="col-md-5">
-								<label class="form-label">작성자</label> <input type="text"
-									readonly disabled class="form-control" value="홍길동">
+								<label class="form-label">작성자</label>
+								<input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCsName }">
 							</div>
 							<div class="col-md-5">
-								<label class="form-label">작성일</label> <input type="text"
-									readonly disabled class="form-control" value="2023-01-01">
+								<label class="form-label">작성일</label>
+								<input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmRegdate }">
 							</div>
 							<div class="col-md-12">
-								<label class="form-label">글 제목</label> <input type="text"
-									class="form-control" value="글 제목 수정~~~~~~~~~~~~~~~">
+								<label class="form-label">글 제목</label>
+								<input type="text" class="form-control" value="${memberCommunity.memberCmTitle }">
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">글 내용</label>
-								<textarea class="form-control" style="height: 300px;">글 내용 수정~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            </textarea>
+								<textarea class="form-control" style="height: 300px;">${memberCommunity.memberCmContent }</textarea>
 							</div>
 
-
 							<div class="text-center">
-
-								<div class="btn-toolbar justify-content-end d-flex"
-									role="toolbar">
+								<div class="btn-toolbar justify-content-end d-flex" role="toolbar">
 									<div class="me-auto ms-3">
-										<button type="button" class="btn btn-secondary"
-											onclick="location.href='member_community.do'">목록</button>
+										<button type="button" class="btn btn-secondary" onclick="location.href='getMemberCommunityList.do'">목록</button>
 									</div>
-
 									<div class="btn-group me-2">
-										<button type="button" class="btn btn-primary"
-											onclick="location.href='#'">수정</button>
-									</div>
-									<div class="btn-group me-3">
-										<button type="button" class="btn btn-danger"
-											data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
+										<input type="submit" class="btn btn-primary" value="수정">
 									</div>
 								</div>
 							</div>
 						</form>
 						<!-- Multi Columns Form -->
-
-
-						<!--  삭제 버튼 모달 -->
-						<div class="modal fade" id="basicModal" tabindex="-1">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">확인 버튼을 누르시면 다시 복구시킬 수 없습니다.</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-primary"
-											onclick="location href='member_community.do'">확인</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 삭제 버튼 모달 끝 -->
 						<!-- End Multi Columns Form -->
-
-
-					
 					</div>
 				</div>
-
 			</div>
 		</section>
 		<!-- End Blog Section -->
-
 	</main>
 	<!-- End #main -->
-
 	<!-- ======= Footer ======= -->
 	<%@ include file="member_footer_common.jsp"%>
 	<!-- End Footer -->
-
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>

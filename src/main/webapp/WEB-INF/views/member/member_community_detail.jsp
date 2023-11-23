@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,63 +113,56 @@
 						<!-- Multi Columns Form -->
 						<form class="row g-3">
 							<div class="col-md-2">
-								<label class="form-label">글 번호</label> <input type="text"
-									readonly disabled class="form-control" value="1">
+								<label class="form-label">글 번호</label>
+								<input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmNumber }">
 							</div>
 							<div class="col-md-5">
-								<label class="form-label">작성자</label> <input type="text"
-									readonly disabled class="form-control" value="홍길동">
+								<label class="form-label">작성자</label>
+								<input type="text"readonly disabled class="form-control" value="${memberCommunity.memberCsName }">
 							</div>
 							<div class="col-md-5">
-								<label class="form-label">작성일</label> <input type="text"
-									readonly disabled class="form-control" value="2023-11-21">
+								<label class="form-label">작성일</label>
+								<input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmRegdate }">
 							</div>
 							<div class="col-md-12">
-								<label class="form-label">글 제목</label> <input type="text"
-									readonly disabled class="form-control" value="xx점 ~~  ~~">
+								<label class="form-label">글 제목</label>
+								<input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmTitle }">
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">글 내용</label>
 								<div class="position-relative">
-									<textarea readonly disabled class="form-control"
-										style="height: 300px;">xx점 ~~ ~~~~~~~~~~~~~~~~~</textarea>
+									<textarea readonly disabled class="form-control" style="height: 300px;">${memberCommunity.memberCmContent }</textarea>
 									<!-- 게시글 신고 버튼 -->
-									<div class="text-end position-absolute"
-										style="bottom: 8px; right: 8px;">
-										<button type="button" class="btn btn-light"
-											data-bs-toggle="modal" data-bs-target="#reportModal">
-											<i class="bi bi-exclamation-octagon"></i> 게시글 신고
-										</button>
-									</div>
-
+									<c:if test="${sessionScope.loginUser != null}">
+										<div class="text-end position-absolute" style="bottom: 8px; right: 8px;">
+											<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reportModal">
+												<i class="bi bi-exclamation-octagon"></i> 게시글 신고
+											</button>
+										</div>	
+									</c:if>
 								</div>
 							</div>
-
-
-
+							<div class="col-md-12">
+								<label class="form-label">조회수</label>
+								<input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmViews }">
+							</div>
+							
 							<div class="text-center">
-
-								<div class="btn-toolbar justify-content-end d-flex"
-									role="toolbar">
+								<div class="btn-toolbar justify-content-end d-flex" role="toolbar">
 									<div class="me-auto ms-3">
-										<button type="button" class="btn btn-secondary"
-											onclick="location.href='member_community.do'">목록</button>
+										<button type="button" class="btn btn-secondary" onclick="location.href='getMemberCommunityList.do'">목록</button>
 									</div>
-
-									<div class="btn-group me-2">
-										<button type="button" class="btn btn-primary"
-											onclick="location.href='member_community_edit.do'">수정</button>
-											
-									</div>
-									<div class="btn-group me-3">
-										<button type="button" class="btn btn-danger"
-											data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-									</div>
+									<c:if test="${sessionScope.loginUser['csMemberCode'] eq memberCommunity.memberCmWriterMemberCode}">
+										<div class="btn-group me-2">
+											<button type="button" class="btn btn-primary" onclick="location.href='updateMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber }'">수정</button>
+										</div>
+										<div class="btn-group me-3">
+											<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="deleteMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber}">삭제</button>
+										</div>
+									</c:if>
 								</div>
-								<p>수정 삭제 버튼은 작성자한테만 보여야 됨</p> <!-- 읽었으면 삭제 -->
 							</div>
-
-
+							
 						</form>
 
 						<!--  삭제 버튼 모달 -->
@@ -177,15 +171,12 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="modal" aria-label="Close"></button>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">확인 버튼을 누르시면 다시 복구시킬 수 없습니다.</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-primary"
-											onclick="location href='member_community.do'">확인</button>
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-primary" onclick="location.href='deleteMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber}'">확인</button>
 									</div>
 								</div>
 							</div>
@@ -194,46 +185,41 @@
 
 						<!-- End Multi Columns Form -->
 
-
 						<!-- 게시글 신고 모달 -->
 						<div class="modal fade" id="reportModal" tabindex="-1">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title">게시글 신고</h5>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="modal" aria-label="Close"></button>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<form>
+										<form action="insertBlamer.do" method="post">
 											<div class="mb-3">
 												<label for="reportReason" class="form-label">신고 내용</label>
-												<ul class="list-group"
-													style="max-height: 200px; overflow-y: auto;">
-													<li class="list-group-item" style="border: none;">신고
-														사유 1</li>
-													<li class="list-group-item" style="border: none;">신고
-														사유 2</li>
-													<li class="list-group-item" style="border: none;">신고
-														사유 3</li>
+												<input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
+											    <input type="hidden" name="memberCmWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
+												<input type="hidden" name="memberBlamerMemberCode" value="${user}">
+											    <input type="hidden" name="memberBlamerIp" value="${memberCommunity.cmWriterIp}">
+											    <div class="radio-box">
+												    <c:forEach items="${blameList}" var="blameList">
+												        <input type="radio" name="memberBlameReasonCode" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br>
+												    </c:forEach>
+											    </div>
 													<!-- 리스트 추가 -->
-												</ul>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+												<input type="submit" class="btn btn-primary" value="신고">
 											</div>
 										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-primary">확인</button>
 									</div>
 								</div>
 							</div>
 						</div>
 						<!-- 게시글 신고 모달 끝 -->
-
 					</div>
 				</div>
-
 			</div>
 		</section>
 		<!-- End Blog Section -->

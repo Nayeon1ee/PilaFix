@@ -98,7 +98,7 @@
 					<td>${CommunityReply.memberReRegdate }</td>
 				</tr>
 			</table>
-			<div class="formContainer${CommunityReply.memberReNumber}" style="display: none;">
+			<div id='form_${CommunityReply.memberReNumber}' style='display: none;'>
 				<form action="updateMemberCommunityReply.do" method="post">
 					<input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
 					<input type="hidden" name="memberReNumber" value="${CommunityReply.memberReNumber}" />
@@ -124,6 +124,7 @@
 				<input type="submit" value="답변등록">
 			</form>
 <script>
+	// 신고 모달
      function modal(id) {
          var zIndex = 9999;
          var modal = document.getElementById(id);
@@ -176,18 +177,14 @@
          modal('my_modal');
      });
      
-     function updateButton(button) {
-   	  // 토글 할 태그 선택 (formContainer)
-   	 const formContainer = document.querySelector(`.formContainer${containerId}`);
-
-
-   	  if(formContainer.style.display !== 'none') {
-   		formContainer.style.display = 'none';
-   	  }
-   	  else {
-   		formContainer.style.display = 'block';
-   	  }
-   	}
+     function updateButton(memberReNumber) {
+    	    var form = document.getElementById('form_' + memberReNumber);
+    	    if (form.style.display === 'none' || form.style.display === '') {
+    	        form.style.display = 'block';
+    	    } else {
+    	        form.style.display = 'none';
+    	    }
+    	}
 </script>
 </body>
 </html>

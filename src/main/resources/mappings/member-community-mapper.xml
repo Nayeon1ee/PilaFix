@@ -26,20 +26,23 @@
 		<result property="memberBlameReasonName" column="BLAME_REASON_NAME"/>
 		
 		<result property="memberReNumber" column="RE_NUMBER"/>
-		<result property="memberReTitle" column="RE_TITLE"/>
+		<result property="memberReTitle" column="RE_TImemberCsNameTLE"/>
 		<result property="memberReContent" column="RE_CONTENT"/>
 		<result property="memberWriterRoleCode" column="WRITER_ROLE_CODE"/>
 		<result property="memberWriterCode" column="WRITER_MEMBER_CODE"/>
 		<result property="memberReRegdate" column="RE_REGDATE"/>
 		<result property="memberReTargetPostType" column="RE_TARGET_POST_TYPE"/>
 		<result property="memberReTargetPostNumber" column="RE_TARGET_POST_NUMBER"/>
+		<result property="memberCsName" column="CS_NAME"/>
 	</resultMap>
 	
 	<select id="getMemberCommunityList" resultMap="memberCommunityResult">
-		SELECT * FROM TBL_COMMUNITY
+		SELECT CM_NUMBER, CM_TITLE, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=CM_WRITER_MEMBER_CODE) as CS_NAME, CM_REGDATE, CM_VIEWS
+		FROM TBL_COMMUNITY
 	</select>
 	<select id="getMemberCommunity" resultMap="memberCommunityResult">
-		SELECT * FROM TBL_COMMUNITY WHERE CM_NUMBER=#{memberCmNumber}
+		SELECT CM_NUMBER, CM_TITLE, CM_CONTENT, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=CM_WRITER_MEMBER_CODE) as CS_NAME, CM_REGDATE, CM_VIEWS, CM_WRITER_MEMBER_CODE, CM_WRITER_IP
+		FROM TBL_COMMUNITY WHERE CM_NUMBER=#{memberCmNumber}
 	</select>
 	<update id="updateMemberCommunityViewCnt" parameterType="memberCommunity">
 		UPDATE TBL_COMMUNITY SET CM_VIEWS = CM_VIEWS + 1 WHERE CM_NUMBER=#{memberReTargetPostNumber}
@@ -50,8 +53,8 @@
 
 	
 	<insert id="insertMemberCommunity" parameterType="memberCommunity">
-		INSERT INTO TBL_COMMUNITY(CM_NUMBER, CM_TITLE, CM_CONTENT, CM_WRITER_MEMBER_CODE, CM_REGDATE, CM_IP)
-		VALUES(nextval('seq_member_community'), #{memberCmTitle}, #{memberCmContent}, 123456, CURRENT_TIMESTAMP, #{cmIp}) <!-- CM_WRITER_MEMBER_CODE를 받아와야함 -->
+		INSERT INTO TBL_COMMUNITY(CM_NUMBER, CM_TITLE, CM_CONTENT, CM_WRITER_MEMBER_CODE, CM_REGDATE, CM_WRITER_IP)
+		VALUES(nextval('seq_member_community'), #{memberCmTitle}, #{memberCmContent}, #{memberCmWriterMemberCode}, CURRENT_TIMESTAMP, #{cmWriterIp})
 	</insert>
 	<update id="updateMemberCommunity" parameterType="memberCommunity">
 		UPDATE TBL_COMMUNITY SET CM_TITLE=#{memberCmTitle}, CM_CONTENT=#{memberCmContent} WHERE CM_NUMBER=#{memberCmNumber}
@@ -60,14 +63,16 @@
 		DELETE FROM TBL_COMMUNITY WHERE CM_NUMBER = #{memberCmNumber}
 	</delete>
 	
+	<!-- 신고 -->
 	<select id="getBlameList" resultMap="memberCommunityResult">
 		SELECT * FROM TBL_COMPLAINTS_REASON
 	</select>
 	<insert id="insertBlame" parameterType="java.util.Map">
 	   INSERT INTO TBL_COMPLAINTS (CP_CODE, CP_TARGET_POST_NUMBER, CP_TARGET_POST_TYPE, TARGET_WRITER_MEMBER_CODE, BLAMER_MEMBER_CODE, CP_DATE, BLAMER_IP, BLAME_REASON_CODE)
-	   VALUES (nextval('seq_complaints'), #{memberCmNumber}, 'CM', #{memberCmWriterMemberCode}, 2009, CURRENT_TIMESTAMP, #{memberBlamerIp}, #{memberBlameReasonCode})
+	   VALUES (nextval('seq_complaints'), #{memberCmNumber}, 'CM', #{memberCmWriterMemberCode}, #{memberBlamerMemberCode}, CURRENT_TIMESTAMP, #{memberBlamerIp}, #{memberBlameReasonCode})
 	</insert>
 	
+	<!-- 댓글 -->
 	<select id="getMemberCommunityReply" resultMap="memberCommunityResult">
 		SELECT *
 		FROM TBL_REPLY WHERE RE_TARGET_POST_NUMBER=#{memberCmNumber}
