@@ -64,18 +64,22 @@ public class MemberLoginController {
 			// 연동된 센터가 있는지 확인
 			boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || member.getConnectedCenterCode2() != 0
 					|| member.getConnectedCenterCode3() != 0;
+			
 			// 역할에 따라 적절한 페이지로 리다이렉트
 			if ("ME".equals(member.getCsRoleCode())) {
 				// 회원인 경우
 				if (hasConnectedCenters) {
-					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
+//					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
+					return "member/testMain";
 				} else {
-					return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
+//					return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
+					return "member/ctConnect";
 				}
 			} else {
 				// 강사인 경우
 				if (hasConnectedCenters) {
-					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
+//					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
+					return "member/testMain";
 				} else {
 					return "member/ctConnect"; // 센터 연동 페이지
 				}
@@ -419,6 +423,5 @@ public class MemberLoginController {
 	public String passwordChange() {
 		return "member/password_change";
 	}
-
 
 }

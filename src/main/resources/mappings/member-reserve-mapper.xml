@@ -7,6 +7,54 @@
 		<result property="ctName" column="CT_NAME" />
 		<result property="ctCode" column="CT_CODE" />
 	</resultMap>
+	
+	<resultMap type="centerLesson" id="centerLessonResult">
+		<id property="lsCode" column="LS_CODE"/>
+		<result property="lsName" column="LS_NAME"/>
+		<result property="lsType" column="LS_TYPE"/>
+		<result property="lsDate" column="LS_DATE"/>
+		<result property="lsTime" column="LS_TIME"/>
+		<result property="lsCapacity" column="LS_CAPACITY"/>
+		<result property="lsCurrentApplicants" column="LS_CURRENT_APPLICANTS"/>
+		<result property="trainerMemberCode" column="TRAINER_MEMBER_CODE"/>
+		<result property="trainerMemberName" column="TRAINER_MEMBER_NAME"/>
+		<result property="lsContent" column="LS_CONTENT"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="lsRegistrationDate" column="LS_REGISTRATION_DATE"/>
+		<result property="lsCloseYN" column="LS_CLOSE_YN"/>	
+		<result property="csName" column="CS_NAME"/>
+		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
+		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE_TO_STRING"/>
+		<result property="lsEndTime" column="LS_END_TIME"/>
+	</resultMap>
+	
+	<resultMap type="member" id="memberTicket">
+	    <id property="csMemberCode" column="CS_MEMBER_CODE"/>
+	    <result property="csName" column="CS_NAME" />
+	    <result property="ticketCodePersonal1" column="TICKET_CODE_PERSONAL1" />
+		<result property="ticketRemainingCountPersonal1" column="TICKET_REMAINING_COUNT_PERSONAL1" />
+		<result property="ticketStartDatePersonal1" column="TICKET_START_DATE_PERSONAL1" />
+		<result property="ticketExpiryDatePersonal1" column="TICKET_EXPIRY_DATE_PERSONAL1" />
+		<result property="ticketExpiryYnPersonal1" column="TICKET_EXPIRY_YN_PERSONAL1" />
+		<result property="ticketCodeGroup1" column="TICKET_CODE_GROUP1" />
+		<result property="ticketRemainingCountGroup1" column="TICKET_REMAINING_COUNT_GROUP1" />
+		<result property="ticketStartDateGroup1" column="TICKET_START_DATE_GROUP1" />
+		<result property="ticketExpiryDateGroup1" column="TICKET_EXPIRY_DATE_GROUP1" />
+		<result property="ticketExpiryYnGroup1" column="TICKET_EXPIRY_YN_GROUP1" />
+		<result property="ticketNameGroup1" column="TICKET_NAME_GROUP1" />
+		<result property="ticketNamePersonal1" column="TICKET_NAME_PERSONAL1" />
+	</resultMap>
+	
+	<resultMap type="userguide" id="userguideResult">
+		<id property="ugCode" column="UG_CODE"/>
+		<result property="ugType" column="UG_TYPE" />
+		<result property="ugName" column="UG_NAME" />
+		<result property="ugContent" column="UG_CONTENT" />
+		<result property="ugRegistrationDate" column="UG_REGISTRATION_DATE" />
+		<result property="ugModifiedDate" column="UG_MODIFIED_DATE" />
+		<result property="ugOpenYN" column="UG_OPEN_YN" />
+		<result property="ugCenterCode" column="UG_CENTER_CODE" />
+	</resultMap>
 
 
 	<!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
@@ -21,26 +69,47 @@
 	    		SELECT CONNECTED_CENTER_CODE3 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
 		)
 	</select>
-
-	<!-- 수강권구매시 연동된 센터 클릭시 해당 센터의 수강권정보 가져오기 -->
-	<select id="getCenterTicketInfo" parameterType="int" resultMap="centerTicketResult">
-		SELECT TK_CODE,CENTER_CODE,TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price
-		FROM tbl_ticket
-		WHERE center_code = #{ctCode} AND PURCHASE_AVAILABLE_YN = 't'
+	
+	<!-- 수업정보 조회 -->
+	<select id="getLessonList" parameterType="java.util.Map" resultMap="centerLessonResult">
+	    SELECT LS_CODE, LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE, LS_DATE,CENTER_CODE,
+	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
+	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME
+	    FROM TBL_LESSON
+	    WHERE 
+	        CENTER_CODE = #{ctCode} 
+	        AND 
+	        LS_DATE = #{selectedDate}
 	</select>
 	
-	<!-- 해당 코드의 수강권 상세정보 가져옴 -->
-	<select id="getTicketDetail" parameterType="String" resultMap="centerTicketResult">
-		SELECT TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price,TK_DESCRIPTION
-		FROM tbl_ticket WHERE tk_code=#{tkCode}
+	<!-- 하나의 수업 정보 조회 -->
+	<select id="getLessonDetail" resultMap="centerLessonResult">
+		SELECT LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE,LS_DATE,
+	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
+	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
+	        (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE ) AS TRAINER_MEMBER_NAME 
+	    FROM TBL_LESSON
+	    WHERE 
+	        LS_CODE = #{lsCode}
 	</select>
 	
-	<!-- 해당 센터의 수강권 이용정책 가져오기 -->
-	<select id="getCenterTicketGuide" resultMap="userguideResult">
-		SELECT UG_NAME,UG_CONTENT FROM tbl_user_guide 
+	<!-- 회원이 가진 수강권 정보 조회  -->
+	<select id="getMyTicketInfo" resultMap="memberTicket">
+		SELECT CS_MEMBER_CODE, CS_NAME, TICKET_CODE_PERSONAL1, TICKET_REMAINING_COUNT_PERSONAL1,
+				TICKET_START_DATE_PERSONAL1, TICKET_EXPIRY_DATE_PERSONAL1, TICKET_EXPIRY_YN_PERSONAL1, TICKET_CODE_GROUP1,
+				TICKET_REMAINING_COUNT_GROUP1, TICKET_START_DATE_GROUP1, TICKET_EXPIRY_DATE_GROUP1, TICKET_EXPIRY_YN_GROUP1,
+				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_PERSONAL1) as TICKET_NAME_GROUP1, 
+				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_GROUP1) as TICKET_NAME_PERSONAL1
+		FROM TBL_CST 
+		WHERE CS_MEMBER_CODE=#{csMemberCode}
+	</select>
+	
+	<!-- 센터의 예약 이용정책 조회  -->
+	<select id="getReservGuide" resultMap="userguideResult">
+		SELECT UG_NAME,UG_CONTENT 
+		FROM TBL_USER_GUIDE 
 		WHERE UG_CENTER_CODE=#{centerCode}
-		AND UG_TYPE = '수강권'
-		AND UG_OPEN_YN = 't'
+			AND UG_TYPE = '예약'
 	</select>
-
+	
 </mapper>

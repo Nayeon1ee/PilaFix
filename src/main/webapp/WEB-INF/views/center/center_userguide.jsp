@@ -28,7 +28,6 @@
 					<button type="button" class="btn btn-primary" onclick="location.href='insertUserguide.do'">이용정책 등록</button>
 				</span>
 				<span class="excel-down-btn">
-					<button type="button" class="btn btn-success">엑셀다운</button>
 				</span>
 				</div>
 <!-- 게시판 시작 -->
@@ -40,7 +39,7 @@
                     <th scope="col">구분</th>
                     <th scope="col">이용정책명</th>
                     <th scope="col">작성일자</th>
-                    <th scope="col">공개여부</th>
+                    <%--<th scope="col">공개여부</th> --%>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,6 +54,7 @@
 						<td>${list.ugType }</td>
 						<td><a href="getUserguide.do?ugCode=${list.ugCode }">${list.ugName }</a></td>
 						<td>${list.ugRegistrationDate }</td>
+						<%--
 						<c:choose>
 							<c:when test="${list.ugOpenYN }">
 								<td>공개</td>
@@ -63,6 +63,7 @@
 								<td>비공개</td>
 							</c:otherwise>
 						</c:choose>
+						 --%>
 					</tr>
 				 </c:forEach> 
                 </tbody>

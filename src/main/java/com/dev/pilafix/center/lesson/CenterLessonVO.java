@@ -12,14 +12,16 @@ public class CenterLessonVO {
 	private Date lsDate;
 	private String lsTime;
 	private int lsCapacity;
-	private int lsCurrentApplication;
+	private int lsCurrentApplicants;
 	private int trainerMemberCode;
+	private String trainerMemberName;
 	private String lsContent;
 	private int centerCode;
 	private Date lsRegistrationDate;
 	private boolean lsColseYN;
 	private String lsRegistrationDateToString;
 	private Timestamp lsTimeDB;
+	private String lsEndTime;
 
 	private int csMemberCode;
 	private String csName;
@@ -119,12 +121,14 @@ public class CenterLessonVO {
 		this.lsCapacity = lsCapacity;
 	}
 
-	public int getLsCurrentApplication() {
-		return lsCurrentApplication;
+	
+
+	public int getLsCurrentApplicants() {
+		return lsCurrentApplicants;
 	}
 
-	public void setLsCurrentApplication(int lsCurrentApplication) {
-		this.lsCurrentApplication = lsCurrentApplication;
+	public void setLsCurrentApplicants(int lsCurrentApplicants) {
+		this.lsCurrentApplicants = lsCurrentApplicants;
 	}
 
 	public int getTrainerMemberCode() {
@@ -191,19 +195,38 @@ public class CenterLessonVO {
 		this.csName = csName;
 	}
 
-	@Override
-	public String toString() {
-		return "CenterLessonVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsType=" + lsType + ", lsDate=" + lsDate
-				+ ", lsTime=" + lsTime + ", lsCapacity=" + lsCapacity + ", lsCurrentApplication=" + lsCurrentApplication
-				+ ", trainerMemberCode=" + trainerMemberCode + ", lsContent=" + lsContent + ", centerCode=" + centerCode
-				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsColseYN=" + lsColseYN
-				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB
-				+ ", csMemberCode=" + csMemberCode + ", csName=" + csName + ", groupCount=" + groupCount
-				+ ", personalCount=" + personalCount + ", closedGroupCount=" + closedGroupCount
-				+ ", closedPersonalCount=" + closedPersonalCount + "]";
+	
+	public String getLsEndTime() {
+		return lsEndTime;
+	}
+
+	public void setLsEndTime(String lsEndTime) {
+		this.lsEndTime = lsEndTime;
 	}
 
 	
+	public String getTrainerMemberName() {
+		return trainerMemberName;
+	}
+
+	public void setTrainerMemberName(String trainerMemberName) {
+		this.trainerMemberName = trainerMemberName;
+	}
+
+	@Override
+	public String toString() {
+		return "CenterLessonVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsType=" + lsType + ", lsDate=" + lsDate
+				+ ", lsTime=" + lsTime + ", lsCapacity=" + lsCapacity + ", lsCurrentApplicants=" + lsCurrentApplicants
+				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
+				+ ", lsContent=" + lsContent + ", centerCode=" + centerCode + ", lsRegistrationDate="
+				+ lsRegistrationDate + ", lsColseYN=" + lsColseYN + ", lsRegistrationDateToString="
+				+ lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB + ", lsEndTime=" + lsEndTime + ", csMemberCode="
+				+ csMemberCode + ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount="
+				+ personalCount + ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount="
+				+ closedPersonalCount + "]";
+	}
+
+
 
 	
 

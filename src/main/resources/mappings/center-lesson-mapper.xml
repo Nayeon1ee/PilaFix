@@ -10,7 +10,7 @@
 		<result property="lsDate" column="LS_DATE"/>
 		<result property="lsTime" column="LS_TIME"/>
 		<result property="lsCapacity" column="LS_CAPACITY"/>
-		<result property="lsCurrentApplication" column="LS_CURRENT_APPLICANTS"/>
+		<result property="lsCurrentApplicants" column="LS_CURRENT_APPLICANTS"/>
 		<result property="trainerMemberCode" column="TRAINER_MEMBER_CODE"/>
 		<result property="lsContent" column="LS_CONTENT"/>
 		<result property="centerCode" column="CENTER_CODE"/>
