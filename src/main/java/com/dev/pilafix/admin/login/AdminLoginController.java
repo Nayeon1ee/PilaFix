@@ -46,8 +46,9 @@ public class AdminLoginController {
 			loginAdmin.put("adName", admin.getAdName());
 			// 세션에 Map 저장
 			session.setAttribute("loginAdmin", loginAdmin);
-			return "redirect:/adminInfo.do"; // 테스트화면
+//			return "redirect:/adminInfo.do"; // 테스트화면
 //	        return "admin/admin_info"; //나와야할 화면 예상
+			return "admin/index";
 
 		} else {
 			// 로그인실패

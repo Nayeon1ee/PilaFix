@@ -23,11 +23,11 @@
 			<nav id="navbar" class="navbar">
 				<ul>
 					<li><a class="active" href="index.html">Home</a></li>
-					<li><a href="ticketPage.do">수강권 결제</a></li>
-					<li><a href="reservPage.do">예약하기</a></li>
-					<li><a href="portfolio.html">커뮤니티</a></li>
-					<li><a href="team.html">공지사항</a></li>
-					<li><a href="pricing.html">마이페이지</a></li>
+					<li><a href="ticket_.do">수강권 결제</a></li>
+					<li><a href="reserv_.do">예약하기</a></li>
+					<li><a href="getMemberCommunityList.do">커뮤니티</a></li>
+					<li><a href="member_notice.do">공지사항</a></li>
+					<li><a href="member_mypage.do">마이페이지</a></li>
 					<li class="dropdown"><a href="#"><span>Drop Down</span> <i
 							class="bi bi-chevron-down"></i></a>
 						<ul>

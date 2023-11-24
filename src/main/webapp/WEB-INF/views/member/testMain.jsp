@@ -66,7 +66,7 @@
 			class="container d-flex justify-content-center justify-content-md-between">
 			<div class="contact-info d-flex align-items-center">
 				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
+					href="mailto:contact@example.com">${loginUser}</a></i> <i
 					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
 						5589 55488 55</span></i>
 			</div>
@@ -86,29 +86,25 @@
 	<!-- ======= Hero Section ======= -->
 	<section id="hero">
 		<div class="hero-container">
-			<div id="heroCarousel" data-bs-interval="5000"
-				class="carousel slide carousel-fade" data-bs-ride="carousel">
+			<div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
 				<ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
 				<div class="carousel-inner" role="listbox">
 
-					<!-- Slide 1 -->
-					<div class="carousel-item active"
-						style="background-image: url(assets/img/slide/slide-1.jpg)">
+					<!-- Slide 1 --> 이미지 넣기 
+					<div class="carousel-item active" style="background-image: url(${pageContext.request.contextPath }/resources/member/assets/img/slide/slide_racticing-yoga.png)">
 						<div class="carousel-container">
 							<div class="carousel-content">
 								<h2 class="animate__animated animate__fadeInDown">
 									Welcome to <span>PILAFIX</span>
 								</h2>
-								<p class="animate__animated animate__fadeInUp">Ut velit est
-									quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat
-									sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut.
-									Similique ea voluptatem. Esse doloremque accusamus repellendus
-									deleniti vel. Minus et tempore modi architecto.</p>
-								<a href=""
-									class="btn-get-started animate__animated animate__fadeInUp">Read
-									More</a>
+								<p class="animate__animated animate__fadeInUp">
+								 <h4>필라테스 예약, 이제 더 간편하게! 언제 어디서나 내 손안의 필라테스</h4>
+								</p>
+								<a href="" class="btn-get-started animate__animated animate__fadeInUp">
+									더 알아보기
+								</a>
 							</div>
 						</div>
 					</div>
@@ -179,32 +175,29 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="icon-box">
-							<i class="bi bi-card-checklist"></i>
+							<i class="bi bi-calendar-check"></i>
 							<h3>
-								<a href="">Lorem Ipsum</a>
+								<a href="">수업 예약</a>
 							</h3>
-							<p>Voluptatum deleniti atque corrupti quos dolores et quas
-								molestias excepturi sint occaecati cupiditate non provident</p>
+							<p>원하는 시간, 내 스타일의 수업! 지금 예약하고, 새로운 나를 만나보세요.</p>
 						</div>
 					</div>
 					<div class="col-lg-4 mt-4 mt-lg-0">
 						<div class="icon-box">
-							<i class="bi bi-bar-chart"></i>
+							<i class="bi bi-ticket-perforated-fill"></i>
 							<h3>
-								<a href="">Dolor Sitema</a>
+								<a href="">수강권 구매</a>
 							</h3>
-							<p>Minim veniam, quis nostrud exercitation ullamco laboris
-								nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+							<p>내 건강에 투자하는 최고의 선택! 다양한 수강권으로 나만의 플랜을 만들어보세요.</p>
 						</div>
 					</div>
 					<div class="col-lg-4 mt-4 mt-lg-0">
 						<div class="icon-box">
-							<i class="bi bi-binoculars"></i>
+							<i class="bi bi-people"></i>
 							<h3>
-								<a href="">Sed ut perspiciatis</a>
+								<a href="">커뮤니티 바로가기</a>
 							</h3>
-							<p>Duis aute irure dolor in reprehenderit in voluptate velit
-								esse cillum dolore eu fugiat nulla pariatur</p>
+							<p>필라테스 세계에서 나만의 경험을 공유하세요. 다양한 리뷰와 정보가 당신을 기다리고 있어요!</p>
 						</div>
 					</div>
 				</div>
@@ -219,29 +212,20 @@
 
 				<div class="row">
 					<div class="col-lg-6">
-						<img src="assets/img/about.jpg" class="img-fluid" alt="">
+						<img src="${pageContext.request.contextPath }/resources/images/pilates-together.png"   class="img-fluid" alt="pilat">
+						
 					</div>
 					<div class="col-lg-6 pt-4 pt-lg-0 content">
-						<h3>Voluptatem dignissimos provident quasi corporis
-							voluptates sit assumenda.</h3>
-						<p class="fst-italic">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-							dolore magna aliqua.</p>
+						<%--기존 메인 코드--%>
+						<h3>필라테스, 몸과 마음을 조화롭게 이끌어가는 특별한 여정</h3>
 						<ul>
-							<li><i class="bi bi-check-circle"></i> Ullamco laboris nisi
-								ut aliquip ex ea commodo consequat.</li>
-							<li><i class="bi bi-check-circle"></i> Duis aute irure dolor
-								in reprehenderit in voluptate velit.</li>
-							<li><i class="bi bi-check-circle"></i> Ullamco laboris nisi
-								ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-								reprehenderit in voluptate trideta storacalaperda mastiro dolore
-								eu fugiat nulla pariatur.</li>
+							<li><i class="bi bi-check-circle"></i> 필라테스는 우리 몸의 균형을 맞추고, 근육을 강화하여 몸과 마음을 조화롭게 이끌어가는 특별한 운동입니다.</li>
+							<li><i class="bi bi-check-circle"></i> 우아한 동작과 균형 있는 운동으로 몸의 불균형을 개선하고, 근육을 강화하여 탄력 있고 건강한 몸을 만들어냅니다.</li>
+							<li><i class="bi bi-check-circle"></i> 우리의 수업 예약 시스템을 통해 언제든지 원하는 시간대에 예약을 할 수 있고, 다양한 수강권 옵션을 통해 자신에게 맞는 플랜을 세울 수 있습니다.</li>
 						</ul>
-						<p>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-							cupidatat non proident, sunt in culpa qui officia deserunt mollit
-							anim id est laborum</p>
+							<p> 또한, 커뮤니티에서는 필라테스를 즐기는 다양한 회원들의 리뷰와 경험을 공유하며 자신만의 동기부여를 얻을 수 있습니다.</p>
+							    <p class="fst-italic">지금 당장 필라테스의 매력을 느껴보세요. 탄탄한 몸과 건강한 마음이 당신을 기다리고 있습니다. 함께 새로운 삶의 시작을 찾아봐요!</p>
+							
 					</div>
 				</div>
 

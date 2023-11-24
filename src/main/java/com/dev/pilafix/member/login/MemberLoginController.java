@@ -70,17 +70,29 @@ public class MemberLoginController {
 				// 회원인 경우
 				if (hasConnectedCenters) {
 //					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
+					
+					/*메인테스트용임 추후 삭제*/ 
+					model.addAttribute("loginUser", member.getCsName() ); 
 					return "member/testMain";
 				} else {
 //					return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
+					
+					/*메인테스트용임 추후 삭제*/ 
+					model.addAttribute("loginUser", member.getCsName() ); 
 					return "member/ctConnect";
 				}
 			} else {
 				// 강사인 경우
 				if (hasConnectedCenters) {
 //					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
+					
+					/*메인테스트용임 추후 삭제*/ 
+					model.addAttribute("loginUser", member.getCsName() ); 
 					return "member/testMain";
 				} else {
+					
+					/*메인테스트용임 추후 삭제*/ 
+					model.addAttribute("loginUser", member.getCsName() ); 
 					return "member/ctConnect"; // 센터 연동 페이지
 				}
 			}
