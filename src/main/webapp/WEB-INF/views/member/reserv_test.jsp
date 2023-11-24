@@ -41,7 +41,7 @@
 		<!-- 셀렉트 박스 - 연동된 센터의 목록 -->
 		<select id="centerSelect" onchange="getLessonInfoByCenter()">
 			<c:choose>
-				<c:when test="${empty lessonList}">
+				<c:when test="${empty connCenterList}">
 					<option selected>연동센터 없음</option>
 				</c:when>
 				<c:otherwise>
@@ -65,7 +65,6 @@
 			<div class="list-group-ticket" id="item.lsCode'">
 		        <c:forEach var="item" items="${lessonList}">
 		        <h5 class="mb-1" style="font-weight: bold;">${ item.lsName }</h5>
-		         <div>
 			           <table>
 				           	<tr>
 				           		<td>${item.lsTime } ~ ${item.lsEndTime }</td>
@@ -78,6 +77,7 @@
                  </c:forEach>
 		    </div>
 		 </div>
+		 
 		
 		
 		<!-- Modal -->
@@ -148,91 +148,7 @@
 		
 		
 	<script>
-	 window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
 
-	    let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
-	    let today = new Date();     // 페이지를 로드한 날짜를 저장
-	   	let selectedDate = new Date(); // 선택한 날짜를 저장할 변수 (오늘 날짜로 초기화)
-		let selectedCenterCode = "";   // 빈 문자열로 초기화
-	    today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
-
-	    // 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
-	    function buildCalendar() {
-
-	        let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
-	        let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
-
-	        let tbody_Calendar = document.querySelector(".Calendar > tbody");
-	        document.getElementById("calYear").innerText = nowMonth.getFullYear();             // 연도 숫자 갱신
-	        document.getElementById("calMonth").innerText = leftPad(nowMonth.getMonth() + 1);  // 월 숫자 갱신
-
-	        while (tbody_Calendar.rows.length > 0) {                        // 이전 출력결과가 남아있는 경우 초기화
-	            tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);
-	        }
-
-	        let nowRow = tbody_Calendar.insertRow();        // 첫번째 행 추가           
-
-	        for (let j = 0; j < firstDate.getDay(); j++) {  // 이번달 1일의 요일만큼
-	            let nowColumn = nowRow.insertCell();        // 열 추가
-	        }
-
-	        for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay.getDate() + 1)) {   // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
-
-	            let nowColumn = nowRow.insertCell();        // 새 열을 추가하고
-
-
-	            let newDIV = document.createElement("p");
-	            newDIV.innerHTML = leftPad(nowDay.getDate());        // 추가한 열에 날짜 입력
-	            nowColumn.appendChild(newDIV);
-
-	            if (nowDay.getDay() == 6) {                 // 토요일인 경우
-	                nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
-	            }
-
-	            if (nowDay < today) {                       // 지난날인 경우
-	                newDIV.className = "pastDay";
-	            }
-	            else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
-	                newDIV.className = "today";
-	                newDIV.onclick = function () { choiceDate(this); }
-	            }
-	            else {                                      // 미래인 경우
-	                newDIV.className = "futureDay";
-	                newDIV.onclick = function () { choiceDate(this); }
-	            }
-	        }
-	    }
-
-	    // 날짜 선택
-	   	function choiceDate(newDIV) {
-	        if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
-	            document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
-	        }
-	        newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
-	        selectedDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), newDIV.innerHTML);
-		    getLessonInfoByCenter(); // 선택한 날짜와 센터에 기반하여 수업을 업데이트하기 위해 함수 호출
-	    }
-
-	    // 이전달 버튼 클릭
-	    function prevCalendar() {
-	        nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
-	        buildCalendar();    // 달력 다시 생성
-	    }
-	    // 다음달 버튼 클릭
-	    function nextCalendar() {
-	        nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
-	        buildCalendar();    // 달력 다시 생성
-	    }
-
-	    // input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
-	    function leftPad(value) {
-	        if (value < 10) {
-	            value = "0" + value;
-	            return value;
-	        }
-	        return value;
-	    }
-		
 	</script>
 	<!-- 센터 선택 시, 날짜 선택 시 해당 센터의 수업 목록 조회 -->
 	<script>
@@ -257,7 +173,7 @@
 						data : data,
 						success : function(lessonList) {
 							// 성공 시 아래에 정보 업데이트
-							console.log("값 가져옴")
+							console.log("getLessonInfoByCenter 값 가져옴")
 
 							var str = "";
 							//  lessonListContainer라는 아이디 가진 영역의 기존 내용을 지움
@@ -297,8 +213,10 @@
 		}
 		
 	<!-- 예약하기 버튼 클릭 시 수업 정보, 수강권 정보, 이용정책 Map으로 받아옴 -->
-	<!-- 요청시 파라미터로 센터코드, 수업코드 넘겨야 함 -->
+	<!-- 요청시 파라미터로 센터코드, 수업코드 넘겨야 함 -->	
 	function getReservationInfo(lsCode, ctCode) {
+
+	    // 예약 정보 다시 가져오기
 	    $.ajax({
 	        type: "GET",
 	        url: "getMyTicketInfo.do",
@@ -307,59 +225,19 @@
 	            ctCode: ctCode
 	        },
 	        success: function (data) {
-	            // Map에 담긴 각각의 객체 저장 
-	            var lessonDetail = data.lessonDetail;
-	            var myTicket = data.myTicket;
-	            var reservGuideList = data.reservGuide;
-
-	            // 수업 내용 조회 
-	            $('#centerName').text(lessonDetail.ctName);
-	            $('#lessonType').text(lessonDetail.lsType);
-	            $('#lessonName').text(lessonDetail.lsName);
-	            $('#trainerName').text(lessonDetail.trainerMemberName);
-	            $('#lsTime').text(lessonDetail.lsTime);
-	            $('#lsEndTime').text(lessonDetail.lsEndTime);
-
-	            // 수강권 내역 조회 // 개인 수업 시 해당 컬럼 변경 필요  
-	            $('#ticketName').text(myTicket.ticketNameGroup1);
-	            $('#remainingCount').text(myTicket.ticketRemainingCountGroup1);
-	            $('#expirationDate').text(myTicket.ticketExpiryDateGroup1);
-
-	            // 이용정책 조회 및 추가
-	            var userguideContainer = $('#userguideContainer'); // userguideContainer에 삽입됨 
-	            userguideContainer.empty(); // 기존 내용 초기화 
-
-	            reservGuideList.forEach(function (reservGuide) {
-	                // 이용정책의 개수만큼 생성 
-	                var listItem = $('<li class="list-group-item"></li>');
-	                listItem.append('<b>' + reservGuide.ugName + '</b>');
-	                listItem.append('<span>' + reservGuide.ugContent + '</span>');
-
-	                userguideContainer.append(listItem);
-	            });
-
-	            // 위 정보를 토대로 모달 띄워짐 
-	            $('#reservModal').modal('show');
-	        },
-	        error: function () {
-	            console.error("getMyTicketInfo.do 호출 시 Ajax 요청 실패 ");
-	        }
-	    });
-	}
-	
-	function getReservationInfo(lsCode, ctCode) {
-	    $.ajax({
-	        type: "GET",
-	        url: "getMyTicketInfo.do",
-	        data: {
-	            lsCode: lsCode,
-	            ctCode: ctCode
-	        },
-	        success: function (data) {
-	            if (data && data.lessonDetail && data.myTicket && data.reservGuideList) {
+	            // 성공 시 아래에 정보 업데이트
+	            console.log("getReservationInfo 값 가져옴");
+	            
+	            if (data && data.lessonDetail != undefined && data.myTicket != undefined) {
 	                var lessonDetail = data.lessonDetail;
 	                var myTicket = data.myTicket;
 	                var reservGuideList = data.reservGuideList;
+
+	                
+	                console.log("getReservationInfo.do 성공");
+	                console.log(lessonDetail);
+	                console.log(myTicket);
+	                console.log(reservGuideList.ugName);
 
 	                // 수업 내용 조회 
 	                $('#centerName').text(lessonDetail.ctName);
@@ -376,20 +254,19 @@
 
 	                // 이용정책 조회 및 추가
 	                var userguideContainer = $('#userguideContainer');
-	                userguideContainer.empty();
+					userguideContainer.empty();
 
-	                if (reservGuideList.length > 0) {
-	                    reservGuideList.forEach(function (reservGuide) {
-	                        var listItem = $('<li class="list-group-item"></li>');
-	                        listItem.append('<b>' + reservGuide.ugName + '</b>');
-	                        listItem.append('<span>' + reservGuide.ugContent + '</span>');
-	                        userguideContainer.append(listItem);
-	                    });
-	                } else {
-	                    userguideContainer.append('<li class="list-group-item">이용정책이 없습니다.</li>');
-	                }
+					if (data.reservGuideList.length > 0) {
+					    data.reservGuideList.forEach(function (reservGuide) {
+					        var listItem = $('<li class="list-group-item"></li>');
+					        listItem.append('<b>' + reservGuide.ugName + '</b>');
+					        listItem.append('<span>' + reservGuide.ugContent + '</span>');
+					        userguideContainer.append(listItem);
+					    });
+					} else {
+					    userguideContainer.append('<li class="list-group-item">이용정책이 없습니다.</li>');
+					}
 
-	                $('#reservModal').modal('show');
 	            } else {
 	                console.error("서버 응답 데이터가 비어있거나 유효하지 않습니다.");
 	            }
@@ -411,10 +288,9 @@
 		
 		
 	</script>
-	
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/test_calendar.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" ></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/test_calendar.js"></script> 	
 </body>
 
 </html>

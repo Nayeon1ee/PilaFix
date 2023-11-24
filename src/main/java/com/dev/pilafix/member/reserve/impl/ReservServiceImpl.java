@@ -52,7 +52,7 @@ public class ReservServiceImpl implements ReservService {
 		
 		detail.put("lessonDetail", dao.getLessonDetail(lsCode)); // 클릭한 수업 정보 
 		detail.put("myTicket", dao.getMyTicketInfo(csMemberCode)); // 수강권 정보
-    	detail.put("reservGuide", dao.getReservGuide(ctCode) ); //이용정책 
+    	detail.put("reservGuideList", dao.getReservGuide(ctCode) ); //이용정책 
     	
 		return detail;
     	

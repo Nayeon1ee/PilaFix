@@ -70,7 +70,7 @@ public class MemberTicketController {
 			int csMemberCode = (int) user.get("csMemberCode");
 			model.addAttribute("connCenterList", service.getConnCenterList(csMemberCode));
 			
-			return "member/ticketPurchase";
+			return "member/ticket";
 		}
 		return "member/login"; //로그인 페이지로 이동
 	
