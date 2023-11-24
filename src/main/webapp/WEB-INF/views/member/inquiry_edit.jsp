@@ -112,14 +112,22 @@
                             <!-- 여기서 qsNumber는 수정하려는 문의사항의 고유 번호 -->
                             <input type="hidden" name="qsNumber" value="${question.qsNumber}">
                             
-                            <div class="center-selection">
-						        <p>센터 선택</p>
-								<select name="selectedCenter">
-								    <c:forEach items="${connectedCenters}" var="center">
-									    <option>${center } </option>
-									</c:forEach>
-								</select>
-						    </div>
+				<!-- 로그인한 회원코드의 연동된 센터가 있으면 선택하게 -->
+<select name="selectedCenter">
+    <c:forEach var="center" items="${connectedCenters}">
+        <!-- 현재 선택된 센터와 비교 -->
+        <c:choose>
+            <c:when test="${center.ctCode == question.selectedCenterCode}">
+                <!-- 현재 선택된 센터 -->
+                <option value="${center.ctCode}" selected>센터코드: ${center.ctCode} | 센터이름: ${center.ctName}</option>
+            </c:when>
+            <c:otherwise>
+                <!-- 다른 옵션들 -->
+                <option value="${center.ctCode}">센터코드: ${center.ctCode} | 센터이름: ${center.ctName}</option>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</select>
                             </div>
                             <div class="input-section">
                                 <p>문의하실 제목을 입력해주세요</p>                              

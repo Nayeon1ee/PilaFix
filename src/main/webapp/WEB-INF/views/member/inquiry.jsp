@@ -127,8 +127,8 @@
 						                    <div class="inquiry-item">
 						                        <div class="inquiry-details">
 						                            <div class="inquiry-title">문의제목: ${question.qsTitle}</div>
-						                            <small>작성일: ${question.qsRegdate}</small>  
-						                            <small>수정일: ${question.qsModifiedDate}</small>
+						                            <small>작성일자: ${question.qsRegdate}</small>  
+						                            <small>수정일자: ${question.qsModifiedDate}</small>
 						                            <!-- <div class="inquiry-regdate">${question.qsRegdate}</div>
 						                            <div class="inquiry-modidate">${question.qsModifiedDate}</div> -->
 						                        </div>
@@ -144,133 +144,73 @@
 						                 data-bs-parent="#accordionExample">
 						                <div class="accordion-body">
 						                    <strong>문의내역</strong> <br> ${question.qsContent}
-						                    <!-- 답변 섹션 -->
+
+										    <div class="text-center">
+										   		<!-- 삭제 -->
+												<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
+							                    <!-- 답변이 없는 경우에만 수정 버튼 표시 -->
+								                <c:if test="${!question.qsAnswerYn}">
+								                <button type="button" class="btn btn-primary" onclick="location.href='updateQuestion.do?qsNumber=${question.qsNumber }'">수정</button>
+								                <!-- <a href="updateQuestion.do?qsNumber=${question.qsNumber}" class="btn btn-primary">수정</a> -->    
+								                </c:if>
+											</div>
+											
+											<!-- 답변 섹션 -->
 										    <div id="replySection${status.index}">
 										        <!-- Ajax로 답변내용이 여기 추가 -->
 										    </div>
-										    
-						                    <!-- 답변이 없는 경우에만 수정 버튼 표시 -->
-							                <c:if test="${!question.qsAnswerYn}">
-							                <button type="button" class="btn btn-primary" onclick="location.href='updateQuestion.do?qsNumber=${question.qsNumber }'">수정</button>
-							                <!-- <a href="updateQuestion.do?qsNumber=${question.qsNumber}" class="btn btn-primary">수정</a> -->    
-							                </c:if>
-											<!-- 삭제 확인 모달 -->
-											<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" >삭제</button>
 											
 						                </div>
 						            </div>
 						        </div>
 							</c:forEach>
-						</div>
-							
-							
-							
-							
-							
+
 						</div>
 					</div>
 					<!-- End Our Skills Section -->
 				</div>
-				
-				
-			<!-- 삭제 버튼 모달 -->
-			<div class="modal fade" id="basicModal" tabindex="-1">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">확인 버튼을 누르시면 다시 복구시킬 수 없습니다.</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">취소</button>
-							<button type="button" class="btn btn-primary"
-								onclick="deleteCommunity(${community.cmNumber})">확인</button>
-						</div>
-					</div>
-				</div>
-			</div>
+	</section>
 
+<!-- 삭제 버튼 모달 -->
+<div class="modal fade" id="basicModal" tabindex="-1">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+           확인 버튼을 누르시면 다시 복구시킬 수 없습니다.
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+           <button type="button" class="btn btn-primary" onclick="deleteQuestion(${question.qsNumber})">확인</button>
+         </div>
+       </div>
+     </div>
+   </div>
+</main><!-- End #main -->
+ 
 
-		</section>
-	
-	<script>
-	<!-- 답변내용을 가져오는 Ajax 스크립트 -->
-	$(document).on('click', '.accordion-button', function() {
-	    var qsNumber = $(this).data('qsNumber'); // 문의사항 ID 가져오기
-	    var replySection = $('#replySection' + qsNumber); // 답변 섹션 선택
-	
-	    $.ajax({
-	        url: '/getQuestionReply.do', // 답변 가져오는 서버의 URL
-	        type: 'GET',
-	        data: { qsNumber: qsNumber },
-	        success: function(response) {
-	            if(response) {
-	                // 서버로부터 답변 데이터를 받아서 답변 섹션에 표시
-	                var replyHtml = '<strong>답변 내역</strong><br>' + response.replyContent;
-	                replySection.html(replyHtml);
-	            } else {
-	                // 답변 없는 경우
-	                replySection.html('<strong>현재 등록된 답변이 없습니다.</strong>');
-	            }
-	        },
-	        error: function() {
-	            console.error('Ajax 요청 실패');
-	        }
-	    });
-	});
-	</script>		
-<!-- 모달의 확인 누르면 삭제 진행-->
+<!-- 모달의 확인 버튼 클릭 시 삭제를 진행하는 스크립트 -->
 <script>
 function deleteQuestion(qsNumber) {
-		fetch('/pilafix/deleteQuestion.do?qsNumber=' + qsNumber, {
-			method: 'GET'
-		})
-			.then(response => {
+    fetch('/pilafix/deleteQuestion.do?qsNumber=' + qsNumber, {
+        method: 'GET'
+    })
+    .then(response => {
 				if (!response.ok) {
 					throw new Error('error');
 				}
-				window.location.href = 'getQuestionList.do'; // 커뮤니티 목록 페이지로 리다이렉트
-			})
-			.catch(error => {
-				console.error(error);
-			});
-	
-};
-</script>		
-	<!-- 
-	<script>
-	$(document).ready(function() {
-	    $('.accordion-button').click(function() {
-	        var qsNumber = $(this).data('qsNumber'); // 문의사항 ID 가져오기
-	        var replySection = $('#replySection' + qsNumber); // 리플라이 섹션 선택
-	
-	        $.ajax({
-	            url: '/getQuestionReply.do', // 리플라이를 가져오는 서버의 URL
-	            type: 'GET',
-	            data: { qsNumber: qsNumber },
-	            success: function(response) {
-	                if(response) {
-	                    // 서버로부터 리플라이 데이터를 받아서 리플라이 섹션에 표시
-	                    var replyHtml = '<strong>답변 내역</strong><br>' + response.replyContent;
-	                    replySection.html(replyHtml);
-	                } else {
-	                    // 리플라이가 없는 경우
-	                    replySection.html('<strong>현재 등록된 답변이 없습니다.</strong>');
-	                }
-	            },
-	            error: function() {
-	                console.error('Ajax 요청 실패');
-	            }
-	        });
-	    });
+        window.location.href = 'deleteQuestion.do'; // 약관 목록 페이지로 리다이렉트
+    })
+    .catch(error => {
+		console.error(error);
 	});
-	</script>		
-	 -->	
-		
-	</main>
+};
+</script>	
+	
+
 
 	<!-- End #main -->
 

@@ -20,8 +20,8 @@
 							<form class="row g-3">
 
 								<div class="col-md-12">
-									<label class="form-label mt-3">글 제목</label> <input type="text"
-										class="form-control" value="xx점 토미 강사 추천">
+									<label class="form-label mt-3">글 제목</label> 
+									<input type="text" class="form-control" value="xx점 토미 강사 추천">
 								</div>
 								<div class="col-md-12">
 									<label class="form-label">글 내용</label>

@@ -45,7 +45,6 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
-
 </head>
 <!-- 내 css -->
 <link rel="stylesheet" type="text/css"
@@ -105,32 +104,71 @@
 					</div>
 				</div>
 				
-				<form action="insertQuestion.do" method="POST">
-				    <div class="center-selection">
-				        <p>센터 선택</p>
-						<select name="selectedCenter">
-						    <c:forEach items="${connectedCenters}" var="center">
-							    <option>${center } </option>
-							</c:forEach>
-						</select>
-				    </div>
-				    <div class="input-section">
-				        <p>문의하실 제목을 입력해주세요</p>
-				        <input type="text" name="qsTitle">
-				    </div>
-				    <div class="input-section">
-				        <p>문의하실 내용을 입력해주세요</p>
-				        <textarea class="form-control" name="qsContent" rows="6"></textarea>
-				    </div>
-				    <div style="display: flex; justify-content: flex-end;">
-				        <button type="submit" class="submit-button">문의하기</button>
-				    </div>
-				</form>
+		<!-- <form action="insertQuestion.do" method="POST"> -->		 
+
+				<!-- 로그인한 회원코드의 연동된 센터가 있으면 선택하게 -->
+<select id="selectedCenter">
+    
+    <c:choose>
+        <c:when test="${empty connectedCenters}">
+            <option>연동센터 없음</option>
+        </c:when>
+        <c:otherwise>
+            <option selected disabled hidden>센터를 선택해주세요</option>
+            <c:forEach var="center" items="${connectedCenters}">
+                <option value="${center.ctCode}">센터코드: ${center.ctCode} | 센터이름: ${center.ctName}</option>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+</select>			    
+   
+					<div class="input-section">
+					    <p>문의하실 제목을 입력해주세요</p>
+					    <input type="text" name="qsTitle">
+					</div>
+					<div class="input-section">
+					    <p>문의하실 내용을 입력해주세요</p>
+					    <textarea class="form-control" name="qsContent" rows="6"></textarea>
+					</div>
+<div style="display: flex; justify-content: flex-end;">
+    <button type="button" class="submit-button" onclick="getQuestionInfo()">문의하기</button>
+</div>
+				    
+			<!-- </form>  -->	
 
 
 				<!-- End Our Skills Section -->
 			</div>
 		</section>
+<script>
+function getQuestionInfo() {
+    var ctCode = document.getElementById("selectedCenter").value;
+    console.log()
+    console.log(ctCode); // 선택된 센터 코드 출력
+    var qsTitle = document.querySelector("input[name='qsTitle']").value;
+    var qsContent = document.querySelector("textarea[name='qsContent']").value;
+
+    // Ajax 요청
+    $.ajax({
+        type: "POST",
+        url: "insertQuestion.do",
+        data: {
+            ctCode: ctCode,
+            qsTitle: qsTitle,
+            qsContent: qsContent
+        },
+        success: function(response) {
+            // 성공 시 로직
+            console.log("성공: ", response);
+            window.location.href = "getQuestionList.do"; // 문의 목록 페이지로 이동
+        },
+        error: function(error) {
+            // 실패 시 로직
+            console.log("실패: ", error);
+        }
+    });
+}
+</script>
 	</main>
 
 	<!-- End #main -->
@@ -164,6 +202,7 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </body>
 
