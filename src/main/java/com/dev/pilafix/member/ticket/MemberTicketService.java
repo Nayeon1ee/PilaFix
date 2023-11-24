@@ -15,5 +15,9 @@ public interface MemberTicketService {
 	CenterTicketVO getTicketDetail(String tkCode);
 
 	List<UserguideVO> getCenterTicketGuide(int centerCode);
+	
+	String groupTicketCheck(int csCode);
+
+	String personalTicketCheck(int csCode);
 
 }

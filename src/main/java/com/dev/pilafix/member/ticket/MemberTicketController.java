@@ -37,6 +37,19 @@ public class MemberTicketController {
 			return "member/ticketPurchase";
 		}
 	
+	@PostMapping("/groupTicketCheck.do")
+	@ResponseBody
+	public String groupTicketCheck(int csCode) {
+		return service.groupTicketCheck(csCode);
+	}
+	
+	@PostMapping("/personalTicketCheck.do")
+	@ResponseBody
+	public String personalTicketCheck(int csCode) {
+		return service.personalTicketCheck(csCode);
+	}
+		
+		
 	@PostMapping("/payments.do")
 	@ResponseBody
 	public String payments(String imp_uid) {
@@ -51,6 +64,7 @@ public class MemberTicketController {
 //					vbank_number_assigned(payment_result) //가상계좌 발급성공
 //				ELSE
 //					fail_post_process(payment_result) //결제실패 처리
+		
 		System.out.println("컨트롤러 도달 /결제 고유번호 : "+imp_uid);
 		return "ajax성공 + 결제 성공";
 	}
@@ -70,7 +84,7 @@ public class MemberTicketController {
 			int csMemberCode = (int) user.get("csMemberCode");
 			model.addAttribute("connCenterList", service.getConnCenterList(csMemberCode));
 			
-			return "member/ticketPurchase";
+			return "member/ticket";
 		}
 		return "member/login"; //로그인 페이지로 이동
 	
