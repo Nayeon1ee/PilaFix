@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <typeAlias type="com.dev.pilafix.member.login_kakao.KakaoVO" alias="kakaologin" />
         <typeAlias type="com.dev.pilafix.member.login_naver.NaverVO" alias="naverlogin" />
         <typeAlias type="com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO" alias="connectRequest" />
+        <typeAlias type="com.dev.pilafix.member.ticket.MemberTicketVO" alias="memberTicket" />
 	</typeAliases>
 	
 
@@ -61,6 +62,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/common-notice-mapper.xml" />
 		<mapper resource="mappings/member-ticket-mapper.xml" />
 		<mapper resource="mappings/member-reserve-mapper.xml" />
+		<mapper resource="mappings/member-ticket-mapper.xml" />
 	</mappers>
 
 </configuration>

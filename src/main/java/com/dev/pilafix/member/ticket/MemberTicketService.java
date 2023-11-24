@@ -20,4 +20,6 @@ public interface MemberTicketService {
 
 	String personalTicketCheck(int csCode);
 
+	int insertPaymentinfo(MemberTicketVO vo);
+
 }

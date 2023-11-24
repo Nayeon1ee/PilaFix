@@ -138,6 +138,14 @@
 	text-align: left; /*왼쪽 정렬 추가*/
 }
 
+/*수강권 리스트에서 가격 굵게 나타내기*/
+.tkPrice{
+font-weight: bold; 
+text-align: right; 
+display: block;
+
+}
+
 /* 수강권 상세 화면 이용정책 부분*/
 .policy-area {
 	margin: 0px 20px 30px;
