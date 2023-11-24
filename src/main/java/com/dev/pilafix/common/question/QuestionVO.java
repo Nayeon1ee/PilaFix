@@ -14,15 +14,22 @@ public class QuestionVO {
     private String connectedCenterName1; // 연동된 센터1 이름
     private String connectedCenterName2; // 연동된 센터2 이름
     private String connectedCenterName3; // 연동된 센터3 이름
-    private String selectedCenterCode; // 사용자가 선택한 센터 코드
+    private int selectedCenterCode; // 사용자가 선택한 센터 코드
+	private int centerCode; //tbl_question에 추가된 컬럼
 	
     
     
 
-	public String getSelectedCenterCode() {
+	public int getCenterCode() {
+		return centerCode;
+	}
+	public void setCenterCode(int centerCode) {
+		this.centerCode = centerCode;
+	}
+	public int getSelectedCenterCode() {
 		return selectedCenterCode;
 	}
-	public void setSelectedCenterCode(String selectedCenterCode) {
+	public void setSelectedCenterCode(int selectedCenterCode) {
 		this.selectedCenterCode = selectedCenterCode;
 	}
 	public String getConnectedCenterName1() {
@@ -91,14 +98,14 @@ public class QuestionVO {
 	public void setQsModifiedDate(Date qsModifiedDate) {
 		this.qsModifiedDate = qsModifiedDate;
 	}
-	
 	@Override
 	public String toString() {
 		return "QuestionVO [qsNumber=" + qsNumber + ", qsTitle=" + qsTitle + ", qsContent=" + qsContent
 				+ ", qsWriterMemberCode=" + qsWriterMemberCode + ", qsRegdate=" + qsRegdate + ", qsModifiedDate="
 				+ qsModifiedDate + ", qsAnswerYn=" + qsAnswerYn + ", qstWriterName=" + qstWriterName
 				+ ", connectedCenterName1=" + connectedCenterName1 + ", connectedCenterName2=" + connectedCenterName2
-				+ ", connectedCenterName3=" + connectedCenterName3 + ", selectedCenterCode=" + selectedCenterCode + "]";
+				+ ", connectedCenterName3=" + connectedCenterName3 + ", selectedCenterCode=" + selectedCenterCode
+				+ ", centerCode=" + centerCode + "]";
 	}
-
+	
 }

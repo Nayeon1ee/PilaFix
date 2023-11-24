@@ -1,7 +1,5 @@
 package com.dev.pilafix.center.login.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,8 +15,8 @@ public class CenterLoginServiceImpl implements CenterLoginService {
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	@Override
-	public CenterVO getLoginCenterCodeName(String cdId) {
-		return dao.getLoginCenterCodeName(cdId);
+	public CenterVO getLoginCenterCodeName(String ctId) {
+		return dao.getLoginCenterCodeName(ctId);
 	}
 
 	@Override

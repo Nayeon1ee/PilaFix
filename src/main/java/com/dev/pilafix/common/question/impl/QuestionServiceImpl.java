@@ -1,11 +1,16 @@
 package com.dev.pilafix.common.question.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.dev.pilafix.center.info.CenterInfoVO;
 import com.dev.pilafix.common.member.CenterVO;
+import com.dev.pilafix.common.notice.NoticeDAO;
+import com.dev.pilafix.common.notice.NoticeVO;
 import com.dev.pilafix.common.question.QuestionReplyVO;
 import com.dev.pilafix.common.question.QuestionService;
 import com.dev.pilafix.common.question.QuestionVO;
@@ -14,35 +19,29 @@ import com.dev.pilafix.common.question.QuestionVO;
 public class QuestionServiceImpl implements QuestionService {
 	@Autowired
     private QuestionDAO dao;
-
-	@Override
-	public List<QuestionVO> getQuestionList() {
-		return dao.getQuestionList();
-	}
 	
+	@Autowired
+	private NoticeDAO noticeDAO;
+
+	
+	
+
 	
 	/**
 	 * 회원이 작성한 문의사항에 센터의 답변이 등록되면 해당 답변을 가져와서 Ajax처리
 	 */
 	@Override
-	public QuestionReplyVO getQuestionReply(int qsNumber) {
-		return dao.getQuestionReply(qsNumber);
+	public QuestionReplyVO getReplyForQuestion(int qsNumber) {
+		return dao.getReplyForQuestion(qsNumber);
 	}
 	
-	
-	/**
-	 * 센터의 답변 목록
-	 */
-	@Override
-	public List<QuestionReplyVO> getQuestionReplyCt(int reTargetPostNumber) {
-		return dao.getQuestionReplyCt(reTargetPostNumber);
-	}
+
 	
 	/**
 	 * 회원의 연동된 센터이름
 	 */
 	@Override
-	public List<String> getConnectedCenters(int csMemberCode) {
+	public List<CenterVO> getConnectedCenters(int csMemberCode) {
 		return dao.getConnectedCenters(csMemberCode);
 	}
 	
@@ -51,26 +50,67 @@ public class QuestionServiceImpl implements QuestionService {
 	 * 문의사항 전체 건수 가져오기
 	 */
 	@Override
-	public int getTotalQuestionCount() {
-		return dao.getTotalQuestionCount();
+	public int getTotalQuestionCount(int ctCode) {
+		return dao.getTotalQuestionCount(ctCode);
 	}
 
 	/**
-	 * 센터가 조회하는 회원의 문의사항리스트
+	 * 센터가 조회하는 회원의 문의사항리스트 (+회원이름)
 	 */
 	@Override
-	public List<QuestionVO> getQuestionListWithWriterNames() {
-		return dao.getQuestionListWithWriterNames();
+	public List<QuestionVO> getQuestionListWithWriterNames(int ctCode) {
+		return dao.getQuestionListWithWriterNames(ctCode);
 	}
 	
+	/**
+	 * 센터가 조회한 회원의 문의사항상세 (+회원이름,센터이름)
+	 */
+	@Override	
+	public QuestionVO getQuestionCenterWithNames(int qsNumber){
+		return dao.getQuestionCenterWithNames(qsNumber);
+	}
 	
 	/**
 	 * 답변이 등록될때 회원문의사항 답변여부 컬럼 true로 업데이트 (insert + update)
+
+	 * 문의사항 답변등록 /  회원의 답변여부 업데이트 /  및 알림발송이력 추가
+	 * 
+	 * STEP1. 문의사항 답변 등록
+	 * STEP2. 회원의 답변여부 업데이트
+	 * STEP3. 회원의 문의사항과 등록된 답변정보 저장
+	 * STEP4. 알림 발송이력 추가 : '답변등록'
 	 */
-	@Override
-    public void insertQuestionReplyAndUpdateAnswerYn(QuestionReplyVO replyvo, int questionNumber) {
-        dao.insertReplyAndUpdateQuestion(replyvo, questionNumber);
-    }
+	@Transactional
+	public void insertQstReplyUpdateYnAndNotice(QuestionReplyVO replyVO, QuestionVO vo) {
+		
+		// 1. 회원의 문의사항에 답변 등록
+		dao.insertQReply(replyVO);
+
+		// 2. 회원의 답변여부 업데이트
+		dao.updateQAnswerYn(vo);
+		
+		// 3.
+		int qsNumber = vo.getQsNumber();
+//		int qsNumber = replyVO.getReTargetPostNumber();
+		String title = replyVO.getReTitle();
+		int ctCode = replyVO.getWriterMemberCode();//세션에 있는 센터 코드
+	
+		
+		// 4. 
+		List<NoticeVO> noticeList = new ArrayList<>();
+			NoticeVO notice = new NoticeVO();
+			 notice.setRecipientCode(String.valueOf(ctCode)); // 원래는 int형이나 recipientCode에는 관리자 코드도 같이 쓰이므로 string으로 받음 
+			 notice.setEventType("답변등록");
+			 notice.setUniqueIdentifierCode(String.valueOf(qsNumber));
+			 notice.setNcNoticeContent("[문의답변] "+title);
+			 notice.setNcSendYn(false);
+			 notice.setNcReadYn(false);
+			 noticeList.add(notice);
+	
+		System.out.println(noticeList.toString());
+		noticeDAO.insertNotice(noticeList);
+		
+	}
 	
 	
 	/**
@@ -97,25 +137,11 @@ public class QuestionServiceImpl implements QuestionService {
 		return dao.getQuestion(qsNumber);
 	}
 	
-	
-	/**
-	 * 센터가 조회하는 회원의 문의사항
-	 */
-	@Override
-	public QuestionVO getQuestionCenter(int qsNumber) {
-		return dao.getQuestionCenter(qsNumber);
-	}
-	
-	
-	
-
 	@Override
 	public int insertQuestion(QuestionVO vo) {
 		return dao.insertQuestion(vo);
 	}
-
 	
-
 	@Override
 	public int deleteQuestion(int qsNumber) {
 		return dao.deleteQuestion(qsNumber);
@@ -123,37 +149,9 @@ public class QuestionServiceImpl implements QuestionService {
 	
 
 	@Override
-	public List<QuestionVO> getQuestionReplyList() {
-		return dao.getQReplyList();
-	}
-
-	@Override
-	public QuestionVO getTargetQuestion(Integer reTargetPostNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-
-	
-	
-	
-	
-	@Override
 	public int deleteQuestionReply(int reNumber) {
 		return dao.deleteQuestionReply(reNumber);
 	}
+	
 
-	@Override
-	public void updateAnswerYn(int qsNumber) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
-
-
-   
 }

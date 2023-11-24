@@ -19,21 +19,27 @@ public class QuestionDAO {
 	
 	
 	
-	// 연동된 센터 이름과 함께 문의사항 정보를 가져오는 쿼리 호출 메서드
-    public QuestionVO getQuestionWithCenterNames(int qsNumber) {
-        return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionWithCenterNames", qsNumber);
-    }
+		// 연동된 센터 이름과 함께 문의사항 정보를 가져오는 쿼리 호출 메서드
+	    public QuestionVO getQuestionWithSelectedCenterName(int qsNumber) {
+	        return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionWithSelectedCenterName", qsNumber);
+	    }
 
     // 연동된 회원들의 문의사항 목록을 가져오는 쿼리 호출 메서드
-    public List<QuestionVO> getQuestionListWithWriterNames() {
-        return sqlSessionTemplate.selectList("QuestionDAO.getQuestionListWithWriterNames");
+    public List<QuestionVO> getQuestionListWithWriterNames(int ctCode) {
+        return sqlSessionTemplate.selectList("QuestionDAO.getQuestionListWithWriterNames",ctCode );
     }
+    
+    // 연동된 회원들의 문의사항 상세를 가져오는 쿼리 호출
+    public QuestionVO getQuestionCenterWithNames(int qsNumber){
+    	return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionCenterWithNames",qsNumber );
+    }
+    
     
     // 문의사항에 대한 답변을 가져오는 쿼리 호출 메서드
-    public QuestionReplyVO getQuestionReply(int qsNumber) {
-        return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionReply", qsNumber);
+    public QuestionReplyVO getReplyForQuestion(int qsNumber) {
+        return sqlSessionTemplate.selectOne("QuestionDAO.getReplyForQuestion", qsNumber);
     }
-    
+
     
     // 회원의 문의사항 등록
     public int insertQuestion(QuestionVO vo) {
@@ -44,63 +50,22 @@ public class QuestionDAO {
     public List<QuestionVO> getQuestionsByMemberCode(int csMemberCode) {
         return sqlSessionTemplate.selectList("QuestionDAO.getQuestionsByMemberCode", csMemberCode);
     }
-    
-    
-    // 센터가 작성한 답변 리스트
-	public List<QuestionReplyVO> getQuestionReplyCt(int reTargetPostNumber) {
-		return null;
-	}
-    
-	
-	// 로그인한 회원의 연동된 센터 이름 가져오려고 추가
-	public List<String> getConnectedCenters(int csMemberCode) {
+
+	// 로그인한 회원이 문의사항 작성할때 연동된 센터 이름 SELECT 하려고 추가
+	public List<CenterVO> getConnectedCenters(int csMemberCode) {
 		return sqlSessionTemplate.selectList("QuestionDAO.getConnectedCenters", csMemberCode);
 	}
-	
-	
+
 	// 회원코드로 가져오는 문의사항 리스트
 	public List<QuestionVO> getQuestionListByMember(int csMemberCode) {
 	    return sqlSessionTemplate.selectList("QuestionDAO.getQuestionListByMember", csMemberCode);
 	}
 
-	/**
-	 * 센터가 답변을 등록하면 회원의 답변여부 true로 업데이트  
-	 * ===========================================
-	 * *******+ 알림발송도 추가해야함!!!! *******
-	 * ===========================================
-	 * @param replyvo
-	 * @param questionNumber
-	 */
-	@Transactional
-    public void insertReplyAndUpdateQuestion(QuestionReplyVO replyvo, int questionNumber) {
-        try {
-            sqlSessionTemplate.insert("QuestionMapper.insertReply", replyvo);
-           
-            sqlSessionTemplate.update("QuestionMapper.updateAnswerYn", questionNumber);
-        } catch (Exception e) {
-            
-            throw new RuntimeException("RuntimeException: ", e);
-        }
-    }
-	
-	
-	
-
-    
-	public List<QuestionVO> getQuestionList() {
-		return sqlSessionTemplate.selectList("QuestionDAO.getQuestionList");
-	}
-	
-	// 회원이 문의사항 수정하기 위해 가져오는 문의사항 상세
+	// 회원 문의사항 상세
 	public QuestionVO getQuestion(int qsNumber) {
 		return sqlSessionTemplate.selectOne("QuestionDAO.getQuestion",qsNumber);
 	}
 
-	// 센터가 답변을 달기위해 가져오는 회원의 문의사항 상세
-	public QuestionVO getQuestionCenter(int qsNumber) {
-		return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionCenter",qsNumber);
-	}
-	
 	// 회원의 문의사항 수정
 	public int updateQuestion(QuestionVO vo) {
 		return sqlSessionTemplate.update("QuestionDAO.updateQuestion", vo);
@@ -110,38 +75,41 @@ public class QuestionDAO {
 		return sqlSessionTemplate.delete("QuestionDAO.deleteQuestion", qsNumber);
 	}
 	
+	
 
-
-	public int getTotalQuestionCount() {
-		return sqlSessionTemplate.selectOne("QuestionDAO.getTotalQuestionCount");
+	/**
+	 * 센터가 답변을 등록 / 회원의 답변여부 true로 업데이트 / 알림발송이력추가 '답변등록'
+	 * @param replyvo
+	 * @param questionNumber
+	 */
+//	@Transactional
+//    public void insertReplyAndUpdateQuestion(QuestionReplyVO replyvo, int questionNumber) {
+//        try {
+//            sqlSessionTemplate.insert("QuestionMapper.insertReply", replyvo);
+//            sqlSessionTemplate.update("QuestionMapper.updateAnswerYn", questionNumber);
+//        } catch (Exception e) {
+//            
+//            throw new RuntimeException("RuntimeException: ", e);
+//        }
+//    }
+	// 1.답변등록
+	public int insertQReply(QuestionReplyVO replyVO) {
+		return sqlSessionTemplate.insert("QuestionDAO.insertQReply",replyVO);
 	}
-
-	public List<QuestionVO> getQReplyList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public int insertQuestionReply(QuestionReplyVO replyvo) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	// 2.회원의 답변여부 = 'true'
+	public int updateQAnswerYn(QuestionVO vo) {
+		return sqlSessionTemplate.update("QuestionDAO.updateQAnswerYn",vo);
 	}
 
 	public int deleteQuestionReply(int reNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSessionTemplate.delete("QuestionDAO.deleteQuestionReply",reNumber);
 	}
-	
-	
-	
-	
-	
-	
-	
-
 
 	
-	
-
+	public int getTotalQuestionCount(int ctCode) {
+		return sqlSessionTemplate.selectOne("QuestionDAO.getTotalQuestionCount", ctCode);
+	}
 
 
 }

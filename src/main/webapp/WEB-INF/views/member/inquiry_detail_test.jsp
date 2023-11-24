@@ -106,14 +106,29 @@
 				</div>
 				
 				<form action="insertQuestion.do" method="POST">
-				    <div class="center-selection">
+				<!--    <div class="center-selection">
 				        <p>센터 선택</p>
 						<select name="selectedCenter">
 						    <c:forEach items="${connectedCenters}" var="center">
-							    <option>${center } </option>
+	 							 <option value="${center}">${center}</option>
 							</c:forEach>
 						</select>
-				    </div>
+				    </div> --> 
+				<!-- 로그인한 회원코드의 연동된 센터가 있으면 선택하게 -->
+				<select name="selectedCenter">
+					<c:choose>
+						<c:when test="${empty connectedCenters}">
+							<option selected>연동센터 없음</option>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="center" items="${connectedCenters}">
+								<option selected disabled hidden>센터를 선택해주세요</option>
+								<option value="${center.ctCode}">센터코드: ${center.ctCode}&센터이름: ${center.ctName}</option>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</select>				    
+   
 				    <div class="input-section">
 				        <p>문의하실 제목을 입력해주세요</p>
 				        <input type="text" name="qsTitle">
