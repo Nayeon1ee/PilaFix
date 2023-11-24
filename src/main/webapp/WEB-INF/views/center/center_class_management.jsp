@@ -97,7 +97,7 @@
 											<td><a href="getCenterLesson.do?seq=${centerLesson.lsCode }">${centerLesson.lsName }</a></td>
 											<td>${centerLesson.csName }</td>
 											<td>${centerLesson.lsType}</td>
-											<td>${centerLesson.lsCurrentApplication } / ${centerLesson.lsCapacity }</td>
+											<td>${centerLesson.lsCurrentApplicants } / ${centerLesson.lsCapacity }</td>
 											<td>${centerLesson.lsDate }</td>
 											<td>${centerLesson.lsTime }:00</td>
 											<c:choose>

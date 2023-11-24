@@ -78,6 +78,7 @@
 	                	 <textarea class="form-control" style="height: 300px;" name="ugContent" >${userguide.ugContent }</textarea>
 	                </div>
 	              
+	              <%--
 	              <label class="form-label">공개여부</label>
 	               <fieldset class="row mb-3">
 	                  <div class="col-sm-10">
@@ -95,7 +96,7 @@
 	                    </div>
 	                  </div>
 	                </fieldset>
-	                    
+	                --%>
 	             
 	                <div class="text-center">
 	                  <button type="submit" class="btn btn-primary">수정</button>

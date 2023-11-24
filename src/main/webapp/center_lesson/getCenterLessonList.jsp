@@ -38,7 +38,7 @@
 					<c:if test="${centerLesson.lsTypYN == false}">
 						<td>그룹</td>
 					</c:if>
-					<td>${centerLesson.lsCurrentApplication } / ${centerLesson.lsCapacity }</td>
+					<td>${centerLesson.lsCurrentApplicants } / ${centerLesson.lsCapacity }</td>
 					<td>${centerLesson.lsDate }</td>
 					<td>${centerLesson.lsTime }:00</td>
 					<c:if test="${centerLesson.lsColseYN == true}">
