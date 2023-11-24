@@ -32,4 +32,12 @@ public class MemberTicketDAO {
 		return sqlSessionTemplate.selectList("MemberTicketDAO.getCenterTicketGuide", centerCode);
 	}
 
+	public String groupTicketCheck(int csCode) {
+		return sqlSessionTemplate.selectOne("MemberTicketDAO.groupTicketCheck",csCode);
+	}
+
+	public String personalTicketCheck(int csCode) {
+		return sqlSessionTemplate.selectOne("MemberTicketDAO.personalTicketCheck",csCode);
+	}
+
 }

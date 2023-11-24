@@ -116,3 +116,38 @@
 	flex-direction: column;
 	align-items: center;
 }
+
+/* 수강권 상세 정보 리스트*/
+.card-body-detail>ul>li {
+	list-style: none;
+	margin: 10px 2px;
+}
+
+.card-body-detail {
+	flex: 1 1 auto;
+	margin: 10px 0px;
+	background-color: white /*var(--bs-card-color)*/;
+	text-align: left; /*왼쪽 정렬 추가*/
+}
+
+/* 수강권 상세 화면 이용정책 부분*/
+.policy-area {
+	margin: 0px 20px 30px;
+	text-align: left;
+}
+
+
+/* 수강권 상세 <li>태그에 적용 */
+.ticket-list-li {
+    margin-bottom: 10px;
+}
+
+/* 수강권 상세에 리스트 앞에 보라색 bar이미지 */
+.bar-icon {
+    content: url("../images/purple_bar.png");
+  }
+  
+/* 수강권 클릭하기 전엔 수강권 상세 내용 숨김처리*/
+.card-content1-replace {
+	display: none;
+}

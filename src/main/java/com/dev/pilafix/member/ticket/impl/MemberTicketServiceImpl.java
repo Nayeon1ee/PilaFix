@@ -39,5 +39,16 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 	public List<UserguideVO> getCenterTicketGuide(int centerCode) {
 		return dao.getCenterTicketGuide(centerCode);
 	}
+	
+	// 그룹수강권 결제시 그룹수강권 이미 보유중인지 확인하는 것 
+	@Override
+	public String groupTicketCheck(int csCode) {
+		return dao.groupTicketCheck(csCode);
+	}
+	// 개인수강권 결제시 개인수강권 이미 보유중인지 확인하는 것 
+	@Override
+	public String personalTicketCheck(int csCode) {
+		return dao.personalTicketCheck(csCode);
+	}
 
 }
