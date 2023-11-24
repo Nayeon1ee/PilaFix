@@ -73,7 +73,7 @@ public class MemberLoginController {
 					
 					/*메인테스트용임 추후 삭제*/ 
 					model.addAttribute("loginUser", member.getCsName() ); 
-					return "member/testMain";
+					return "member/test_main";
 				} else {
 //					return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
 					
@@ -88,7 +88,7 @@ public class MemberLoginController {
 					
 					/*메인테스트용임 추후 삭제*/ 
 					model.addAttribute("loginUser", member.getCsName() ); 
-					return "member/testMain";
+					return "member/test_main";
 				} else {
 					
 					/*메인테스트용임 추후 삭제*/ 

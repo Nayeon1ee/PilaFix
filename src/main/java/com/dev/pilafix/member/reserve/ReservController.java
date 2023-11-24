@@ -46,9 +46,11 @@ public class ReservController {
 	    	// 꺼내온 회원번호로 ct_code, ct_name이 담긴 list 조회 
 	    	List<CenterVO> connCenterList = service.getConnCenterList(csMemberCode);
 	    	model.addAttribute("connCenterList",connCenterList);
+	    	System.out.println("컨트롤러에서 센터 조회 완료 ");
 	    	
 	    	// 리스트에서 꺼내와서 첫 번째에 있는 센터 코드 꺼내서 그 센터가 가진 수업 내역 조회 
 	    	int ctCode = connCenterList.get(0).getCtCode();
+	    	System.out.println("첫 번째 코드"+ctCode);
 	    	
 			if (ctCode != 0) { // 첫 번째로 연동된 센터코드가 있다면
 				// 서비스에 오늘 날짜를 전달하여 수업 내역 조회
@@ -105,10 +107,14 @@ public class ReservController {
 		 if (loginUser != null) {
 	    	int csMemberCode = (int) loginUser.get("csMemberCode");
 	    	detail = service.getReservDetail(lsCode, csMemberCode, ctCode);
+	    	System.out.println("Detail Map: " + detail.toString());
+
 		}
 		return detail;
 		
 	}
 	
-
+	
+	
+	
 }
