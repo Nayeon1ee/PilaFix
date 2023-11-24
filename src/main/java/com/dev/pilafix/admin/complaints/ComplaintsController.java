@@ -1,5 +1,6 @@
 package com.dev.pilafix.admin.complaints;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,22 +50,26 @@ public class ComplaintsController {
 	}
 
 	@GetMapping("/getComplaintsInfoList.do")
-	public String getComplaintsInfoList(HttpSession session,Model model) {
+	public String getComplaintsInfoList(/* HttpSession session, */ Model model) {
 		
-		Map<String, Object> admin = (Map<String, Object>) session.getAttribute("loginAdmin");
-
-		if(!admin.isEmpty()) {
-			String adCode = (String)admin.get("adCode");
-			model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
-			return "admin/admin_baned_comment";
-		}
-		return "redirect:adminLogin.do";
+//		Map<String, Object> admin = (Map<String, Object>) session.getAttribute("loginAdmin");
+//
+//		if(!admin.isEmpty()) {
+//			String adCode = (String)admin.get("adCode");
+//			model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
+//			return "admin/admin_baned_comment";
+//		}
+//		return "redirect:adminLogin.do";
+		
+		model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
+		return "admin/admin_baned_comment";
 	}
 
 	@GetMapping("/getComplaintsInfo.do")
-	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode, Model model) {
+	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode, int cpTargetPostNumber, Model model) {
+		//System.err.println(cpTargetPostNumber);
 		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpCode));
-		model.addAttribute("complaintsInfoBlamerList", service.getAllComplaintsList());
+		model.addAttribute("complaintsInfoBlamerList", service.getAllComplaintsList(cpTargetPostNumber));
 		return "admin/admin_baned_comment_detail";
 	}
 	
@@ -73,6 +78,13 @@ public class ComplaintsController {
 		service.revokeComplaints(cpCode);
 		return "redirect:getComplaintsInfo.do?cpCode="+cpCode;
 	}
+	
+	
+	@GetMapping("/getBlameReasons")
+    public List<ComplaintsVO> getBlameReasons(@RequestParam("cmBlameCount") String cmBlameCount) {
+        // cmBlameCount 값을 사용하여 해당하는 Blame Reasons를 가져오는 서비스 메서드 호출
+        return service.getBlameReasonsByCount(cmBlameCount);
+    }
 	
 	
 //	@GetMapping("/getAllComplaints.do")

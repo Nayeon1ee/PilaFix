@@ -63,7 +63,6 @@
 	SELECT UG_NAME,UG_CONTENT FROM tbl_user_guide 
 	WHERE UG_CENTER_CODE=#{centerCode}
 	AND UG_TYPE = '수강권'
-	AND UG_OPEN_YN = 't'
 </select>
 
 </mapper>

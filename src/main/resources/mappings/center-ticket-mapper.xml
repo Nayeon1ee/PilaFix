@@ -18,14 +18,14 @@
 	</resultMap>
 	
 	<select id="getCenterTicketList" resultMap="centerTicketResult" >
-		SELECT tk_CODE, tk_NAME, TK_LESSON_TYPE, tk_CAPACITY, TK_USAGE_NUM_MONTH, TK_USAGE_COUNT, TK_PRICE, PURCHASE_AVAILABLE_YN FROM TBL_TICKET
+		SELECT tk_CODE, tk_NAME, TK_LESSON_TYPE, tk_CAPACITY, TK_USAGE_NUM_MONTH, TK_USAGE_COUNT, TK_PRICE, PURCHASE_AVAILABLE_YN FROM TBL_TICKET WHERE CENTER_CODE = #{centerCode}
 	</select>
 	<select id="getCenterTicket" resultMap="centerTicketResult">
 		SELECT tk_CODE, tk_NAME, TK_LESSON_TYPE, tk_CAPACITY, TK_USAGE_NUM_MONTH, TK_USAGE_COUNT, TK_DESCRIPTION, TK_PRICE, PURCHASE_AVAILABLE_YN FROM TBL_TICKET WHERE TK_CODE=#{tkCode}
 	</select>
 	<insert id="insertCenterTicket" parameterType="centerTicket">
 	    INSERT INTO TBL_TICKET(TK_CODE, TK_LESSON_TYPE, tk_NAME, tk_CAPACITY, TK_USAGE_COUNT, TK_USAGE_NUM_MONTH, TK_DESCRIPTION, TK_PRICE, PURCHASE_AVAILABLE_YN, CENTER_CODE, REGISTRATION_DATE)
-	    VALUES (CONCAT('TK', NEXTVAL('SEQ_TICKET')), '${tkLessonType}', '${tkName}', ${tkCapacity}, ${tkUsageCount}, ${tkUsageNumMonth}, '${tkDescription}', ${tkPrice}, ${purchaseAvailableYN}, 111, CURRENT_TIMESTAMP)<!-- 들어간 센터 코드 변경 -->
+	    VALUES (CONCAT('TK', NEXTVAL('SEQ_TICKET')), '${tkLessonType}', '${tkName}', ${tkCapacity}, ${tkUsageCount}, ${tkUsageNumMonth}, '${tkDescription}', ${tkPrice}, ${purchaseAvailableYN}, #{centerCode}, CURRENT_TIMESTAMP)
 	</insert>
 	<delete id="deleteCenterTicket" parameterType="centerTicket">
 		DELETE FROM TBL_TICKET WHERE TK_CODE = #{tkCode}

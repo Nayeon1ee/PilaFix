@@ -14,8 +14,8 @@ public class CenterTicketDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<CenterTicketVO> getCenterTicketList() {
-		return sqlSessionTemplate.selectList("CenterTicketDAO.getCenterTicketList");
+	public List<CenterTicketVO> getCenterTicketList(int ctCode) {
+		return sqlSessionTemplate.selectList("CenterTicketDAO.getCenterTicketList", ctCode);
 	}
 	
 	public CenterTicketVO getCenterTicket(String tkCode) {

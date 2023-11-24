@@ -1,6 +1,7 @@
 package com.dev.pilafix.admin.complaints.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,8 +52,13 @@ public class ComplaintsServiceimpl implements ComplaintsService {
 	}
 
 	@Override
-	public List<ComplaintsVO> getAllComplaintsList() {
-		return dao.getAllComplaintsList();
+	public List<ComplaintsVO> getAllComplaintsList(int cpTargetPostNumber) {
+		return dao.getAllComplaintsList(cpTargetPostNumber);
+	}
+
+	@Override
+	public List<ComplaintsVO> getBlameReasonsByCount(String cmBlameCount) {
+		return dao.getBlameReasonsByCount(cmBlameCount);
 	}
 
 }

@@ -13,8 +13,36 @@
   * Author: PilaFixmade.com
   * License: https://PilaFixmade.com/license/
   ======================================================== -->
+<style>
+        .tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
 </head>
 <body>
+
 	<%@ include file="admin_header_common.jsp" %>
 	<!-- ============================================================================================ -->
 	<main id="main" class="main">
@@ -109,14 +137,20 @@
 										<tr>
 											<td><%-- <a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cpCode }</a> --%>${ComplaintsInfo.cpCode }</td>
 											<%--<td> <a href="getComplaintsInfo.do?cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber }">${ComplaintsInfo.cpTargetPostNumber }</td> --%>
-											<td><a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }<%-- &cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber } --%>">${ComplaintsInfo.cmTitle }</td>
+											<td><a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }&cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber }">${ComplaintsInfo.cmTitle }</td>
 											<c:if test="${ComplaintsInfo.cpTargetPostType eq 'CM' }">
 												<td>커뮤니티</td>
 											</c:if>
 											<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${ComplaintsInfo.cpDate }"/></td>
-											<td><span class="tooltip-baned-reason">${ComplaintsInfo.cmBlameCount}
+											 <td class="tooltip" colspan="2">
+									    <span>${ComplaintsInfo.cmBlameCount}</span>
+									    <div class="tooltip-text" title="${ComplaintsInfo.blameReasonName}">
+									        ${ComplaintsInfo.blameReasonName}
+									    </div>
+									</td>
+											<%-- <td><span class="tooltip-baned-reason">${ComplaintsInfo.cmBlameCount}
 											 <span class="tooltip-baned-text">${ComplaintsInfo.blameReasonName}</span></td>
-											</td>
+											</td> --%>
 											<c:if test="${ComplaintsInfo.cpOpenYn eq 'true' }">
 												<td>처리대기</td>
 											</c:if>
@@ -141,7 +175,77 @@
 
 	<!-- ======= Footer ======= -->
 	<%@ include file="admin_footer_common.jsp" %>
+	<script type="text/javascript">
+	/* document.addEventListener("DOMContentLoaded", function() {
+	    const tooltips = document.querySelectorAll('.tooltip-text');
 
+	    tooltips.forEach(tooltip => {
+	        tooltip.addEventListener('mouseover', function(event) {
+	            // 툴팁에 표시될 모든 정보 가져오기
+	            const cmBlameCount = this.getAttribute('data-cm-blame-count');
+	            const blameReasonName = this.getAttribute('data-blame-reason-name');
+	            const csName = this.getAttribute('data-cs-name');
+	            const csEmailId = this.getAttribute('data-cs-email-id');
+	            // ... 다른 필요한 정보들도 추가로 가져올 수 있음
+
+	            // 툴팁을 표시하는 코드
+	            const tooltipContainer = document.createElement('div');
+	            tooltipContainer.classList.add('custom-tooltip');
+
+	            const tooltipContent = `
+	            	<p>${ComplaintsInfo.blameReasonName}</p>
+	            	<p>${blameReasonName}</p>
+	                <p>CM Blame Count: ${cmBlameCount}</p>
+	                <p>Blame Reason Name: ${blameReasonName}</p>
+	                <p>CS Name: ${csName}</p>
+	                <p>CS Email ID: ${csEmailId}</p>
+	            `;
+	            tooltipContainer.innerHTML = tooltipContent;
+
+	            // 툴팁을 화면에 추가
+	            this.appendChild(tooltipContainer);
+	        });
+
+	        tooltip.addEventListener('mouseout', function() {
+	            // 마우스 아웃 이벤트 처리 (툴팁을 숨기는 등)
+	            const tooltipContainer = this.querySelector('.custom-tooltip');
+	            if (tooltipContainer) {
+	                tooltipContainer.remove();
+	            }
+	        });
+	    });
+	}); */
+	
+	/* 두번째시도 */
+	document.addEventListener("DOMContentLoaded", function() {
+    const tooltips = document.querySelectorAll('.tooltip');
+
+    tooltips.forEach(tooltip => {
+        tooltip.addEventListener('mouseover', function(event) {
+            const cmBlameCount = this.querySelector('span').textContent; // cmBlameCount 가져오기
+
+            // Ajax 요청
+            fetch(`/getBlameReasons?cmBlameCount=${cmBlameCount}`)
+                .then(response => response.json())
+                .then(data => {
+                    // JSON 데이터를 툴팁에 표시
+                    const tooltipText = this.querySelector('.tooltip-text');
+                    tooltipText.textContent = JSON.stringify(data, null, 2);
+
+                    tooltipText.style.visibility = 'visible';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+        tooltip.addEventListener('mouseout', function() {
+            const tooltipText = this.querySelector('.tooltip-text');
+            tooltipText.style.visibility = 'hidden'; // 툴팁 숨기기
+        });
+    });
+});
+	</script>
 	<!--내가 만든 JS File -->
 	<script
 		src="${pageContext.request.contextPath }/resources/js/admin_common_1.js"></script>

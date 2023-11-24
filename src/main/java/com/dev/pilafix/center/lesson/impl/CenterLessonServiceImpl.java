@@ -15,8 +15,8 @@ public class CenterLessonServiceImpl implements CenterLessonService {
 	private CenterLessonDAO dao;
 	
 	@Override
-	public List<CenterLessonVO> getCenterLessonList() {
-		return dao.getCenterLessonList();
+	public List<CenterLessonVO> getCenterLessonList(int ctCode) {
+		return dao.getCenterLessonList(ctCode);
 	}
 
 	@Override

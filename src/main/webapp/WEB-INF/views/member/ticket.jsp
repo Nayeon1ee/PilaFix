@@ -52,7 +52,9 @@
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common_0.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_ticket.css">
-
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+	rel="stylesheet">
 
 
 
@@ -104,15 +106,26 @@
 
 				<!-- 7비율 잡기 위한 컨테이너 -->
 				<div class="container">
+
 					<div class="row">
-						<div class="col-md-7 ticket">
+						<div class="col-md-7 ticket border" style="max-height: 700px; overflow-y: auto; border-radius: 10px; border-style: solid; border-color: #9259e1; padding: 10px;">
 							<!-- 7비율 잡기 위한 컨테이너 -->
+
+							<!-- 센터 셀렉트 박스 -->
+							<div class="text-center mt-3">
+								<select class="form-select p-1" id="categorySelect">
+									<option value="all" selected>센터 선택</option>
+									<option value="individual">xx점</option>
+									<option value="group">xx점</option>
+								</select>
+							</div>
 
 
 
 							<!-- 버튼 부분 -->
 							<div class="tab-buttons">
-								<ul class="nav nav-pills" id="pills-tab" role="tablist">
+								<ul class="nav nav-pills justify-content-center mt-3"
+									id="pills-tab" role="tablist">
 									<li class="nav-item" role="presentation">
 										<button class="nav-link active" id="pills-all-tab"
 											data-bs-toggle="pill" href="#pills-all" role="tab"
@@ -137,8 +150,8 @@
 							<div class="tab-pane fade show active" id="pills-all"
 								role="tabpanel" aria-labelledby="pills-all-tab">
 								<!-- 예시 티켓 -->
-								<div class="list-group-ticket" id="list-item">
-									<a href="#" class="list-group-item list-group-item-action">
+								<ul class="list-group-ticket p-0">
+									<li class="list-group-item list-group-item-action">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
 										</div>
@@ -150,17 +163,15 @@
 												</tr>
 												<tr>
 													<span
-														style="font-weight: bold; text-align: right; display: block;">
-														650,000원 </span>
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
 												</tr>
 												</td>
 											</table>
 										</div>
-									</a>
-								</div>
+									</li>
 
-								<div class="list-group-ticket" id="list-item">
-									<a href="#" class="list-group-item list-group-item-action">
+
+									<li class="list-group-item list-group-item-action">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
 										</div>
@@ -172,16 +183,14 @@
 												</tr>
 												<tr>
 													<span
-														style="font-weight: bold; text-align: right; display: block;">
-														650,000원 </span>
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
 												</tr>
 												</td>
 											</table>
 										</div>
-									</a>
-								</div>
-								<div class="list-group-ticket" id="list-item">
-									<a href="#" class="list-group-item list-group-item-action">
+									</li>
+
+									<li class="list-group-item list-group-item-action">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
 										</div>
@@ -193,16 +202,14 @@
 												</tr>
 												<tr>
 													<span
-														style="font-weight: bold; text-align: right; display: block;">
-														650,000원 </span>
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
 												</tr>
 												</td>
 											</table>
 										</div>
-									</a>
-								</div>
-								<div class="list-group-ticket" id="list-item">
-									<a href="#" class="list-group-item list-group-item-action">
+									</li>
+
+									<li class="list-group-item list-group-item-action">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
 										</div>
@@ -214,15 +221,75 @@
 												</tr>
 												<tr>
 													<span
-														style="font-weight: bold; text-align: right; display: block;">
-														650,000원 </span>
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
 												</tr>
 												</td>
 											</table>
 										</div>
-									</a>
-								</div>
+									</li>
+
+									<li class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
+										</div>
+										<p class="mb-1">척추가 맞춰지는 필라테스</p>
+										<div>
+											<table>
+												<td>
+												<tr>2023.10.10~2024.01.01
+												</tr>
+												<tr>
+													<span
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
+												</tr>
+												</td>
+											</table>
+										</div>
+									</li>
+
+									<li class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
+										</div>
+										<p class="mb-1">척추가 맞춰지는 필라테스</p>
+										<div>
+											<table>
+												<td>
+												<tr>2023.10.10~2024.01.01
+												</tr>
+												<tr>
+													<span
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
+												</tr>
+												</td>
+											</table>
+										</div>
+									</li>
+
+									<li class="list-group-item list-group-item-action">
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="mb-1">6:1 그룹 레슨 24회 (3개월)</h5>
+										</div>
+										<p class="mb-1">척추가 맞춰지는 필라테스</p>
+										<div>
+											<table>
+												<td>
+												<tr>2023.10.10~2024.01.01
+												</tr>
+												<tr>
+													<span
+														style="font-weight: bold; text-align: right; display: block;">650,000원</span>
+												</tr>
+												</td>
+											</table>
+										</div>
+									</li>
+
+
+								</ul>
 							</div>
+
+
 
 							<!--  개인 티켓 목록 -->
 							<div class="tab-pane fade" id="pills-individual" role="tabpanel"
@@ -242,8 +309,8 @@
 
 						<div class="col-md-5 content1 h-100">
 							<button type="button" id="clickButton"
-								class="btn btn-lg btn-block">
-								<div class="card-body text-center">
+								class="btn btn-lg btn-block px-5">
+								<div class="card-body text-center mx-auto">
 									<h5 class="card-title mb-4">관심 가는 수강권을 클릭해보세요!</h5>
 									<canvas id="coloredCanvas" width="100" height="100"></canvas>
 									<span class="ms-2">클릭!</span>
@@ -309,7 +376,7 @@
 					</div>
 				</div>
 				<!--  아래 컨테이너 영역 -->
-				
+
 				<!-- End Our Skills Section -->
 			</div>
 		</section>
@@ -332,7 +399,7 @@
 		const canvas = document.getElementById('coloredCanvas');
 		const ctx = canvas.getContext('2d');
 		const image = new Image();
-		image.src = '${pageContext.request.contextPath}/resources/images/finger_click.png';
+		image.src = '${pageContext.request.contextPath}/resources/images/hand.png';
 
 		image.onload = function() {
 

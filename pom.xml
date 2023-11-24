@@ -14,7 +14,22 @@
 		<org.aspectj-version>1.9.19</org.aspectj-version>
 		<org.slf4j-version>2.0.7</org.slf4j-version>
 	</properties>
+	<!-- 아임포트 -->
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	
 	<dependencies>
+	
+		<!-- 아임포트 -->
+	<dependency>
+		<groupId>com.github.iamport</groupId>
+		<artifactId>iamport-rest-client-java</artifactId>
+		<version>0.2.23</version>
+	</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

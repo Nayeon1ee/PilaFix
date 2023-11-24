@@ -15,8 +15,8 @@ public class CenterLessonDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<CenterLessonVO> getCenterLessonList() {
-		return sqlSessionTemplate.selectList("CenterLessonDAO.getCenterLessonList");
+	public List<CenterLessonVO> getCenterLessonList(int ctCode) {
+		return sqlSessionTemplate.selectList("CenterLessonDAO.getCenterLessonList", ctCode);
 	}
 	
 	public CenterLessonVO getCenterLesson(String lsCode) {

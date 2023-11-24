@@ -145,13 +145,15 @@
 
 							 <!--  검색 누르기 전까지는 이 화면이었다가 검색 누르면 바껴야함 -->
 							<div class="form-group mt-3">
-								<div class="text-center" id="insertCenterList">
-									<p>이렇게 검색해 보세요!</p>
-									<p>센터명</p>
-									<p>바디코디 필라테스</p>
-									<br>
-									<p>센터 주소</p>
-									<p>부산 부산진구 중앙대로 650</p>
+								<div class="text-center" >
+									<div class="row" id="insertCenterList">
+										<p>이렇게 검색해 보세요!</p>
+										<p>센터명</p>
+										<p>바디코디 필라테스</p>
+										<br>
+										<p>센터 주소</p>
+										<p>부산 부산진구 중앙대로 650</p>
+									</div>
 								</div>
 							</div>
 
@@ -226,7 +228,7 @@ $(function(){
                 		$('#insertCenterList').append(str);
                 }else{
                 data.forEach(function(item){
-    					str='<div class="col-lg-6">'
+    					str+='<div class="col-lg-6">'
     					str+='<div class="info-box mb-4">'
     					str+='<i class="bx bx-map"></i>'
     					str += "<h3>"+item.ctName+"</h3>";
