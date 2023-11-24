@@ -1,55 +1,57 @@
 @charset "UTF-8";
 
-.text-center{
+.text-center {
 	display: inline-box;
 }
+
 .text-center select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: transparent;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 0;
-    border-bottom: 1px solid #ced4da;
-    cursor: pointer;
-    font-size: 17px; /* 글자 크기 조절 */
-    color: #555; /* 글자 색상 조절 */
-    position: relative;
-     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23555"><path d="M7 10l5 5 5-5z" /></svg>') no-repeat right 12px center/30px 40px;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: transparent;
+	border: none;
+	padding: 6px 12px;
+	border-radius: 0;
+	border-bottom: 1px solid #ced4da;
+	cursor: pointer;
+	font-size: 17px; /* 글자 크기 조절 */
+	color: #555; /* 글자 색상 조절 */
+	position: relative;
+	background:
+		url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23555"><path d="M7 10l5 5 5-5z" /></svg>')
+		no-repeat right 12px center/30px 40px;
 }
 
 /* 활성화된 셀렉트 박스 스타일 */
 .text-center select:focus {
-    outline: none;
-    box-shadow: none;
-    border-bottom: 2px solid #946CEE; /* 선택 시 밑줄 색상 조절 */
+	outline: none;
+	box-shadow: none;
+	border-bottom: 2px solid #946CEE; /* 선택 시 밑줄 색상 조절 */
 }
-
 
 /* 선택된 옵션 스타일 */
 .text-center select option[selected] {
-    background-color: #946CEE; /* 선택된 옵션 배경색 조절 */
-    color: #fff; /* 선택된 옵션 글자색 조절 */
+	background-color: #946CEE; /* 선택된 옵션 배경색 조절 */
+	color: #fff; /* 선택된 옵션 글자색 조절 */
 }
 
 /* 리스트 간 구분선 스타일 지정 */
 .list-group-ticket li {
-  border-bottom: 1px solid #c1acdd; /* 구분선 스타일 지정 */
+	border-bottom: 1px solid #c1acdd; /* 구분선 스타일 지정 */
 }
 
 /* 호버 시 배경색 변환 스타일 지정 */
 .list-group-ticket li:hover {
-  background-color: #a885db; /* 호버 시 배경색 지정 */
-  color: #ffffff;
+	background-color: #a885db; /* 호버 시 배경색 지정 */
+	color: #ffffff;
 }
 
 .list-group-ticket-container {
-    border: 1px solid #ddd; /* 원하는 테두리 스타일 및 색상을 지정하세요 */
-    border-radius: 8px; /* 테두리의 모서리를 둥글게 만들기 위해 추가 */
-    overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 처리 */
+	border: 1px solid #ddd; /* 원하는 테두리 스타일 및 색상을 지정하세요 */
+	border-radius: 8px; /* 테두리의 모서리를 둥글게 만들기 위해 추가 */
+	overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 처리 */
 }
-  
+
 #clickButton {
 	border: 2px solid #9b56e9;
 	border-radius: 10px;
@@ -89,24 +91,24 @@
 	margin-bottom: 20px;
 }
 
-.nav-pills .nav-link {
-	padding: 12px 20px;
-	margin: 0 5px;
-	border-radius: 8px;
-	color: #fff; /* 텍스트 색상 */
-	background-color: #946CEE; /* 배경 색상 */
-	border: 1px solid #9b56e9; /* 테두리 색상 */
-}
-
-.nav-pills .nav-link.active, .nav-pills .nav-link:hover {
-	background-color: #9b56e9; /* 활성 및 호버 상태 배경 색상 */
-	border-color: #9b56e9; /* 활성 및 호버 상태 테두리 색상 */
-}
-
 .tab-content {
 	border: 1px solid #bdb7e1; /* 티켓 목록 테두리 색상 */
 	border-radius: 8px;
 	padding: 20px;
+}
+
+/* 버튼 */
+.nav-tabs {
+	width: 100%; /* Adjust this value as needed */
+}
+
+.nav-tabs .nav-item {
+	flex-grow: 1;
+	text-align: center;
+}
+
+.nav-tabs .nav-link {
+	width: 100%; /* Adjust this value as needed */
 }
 
 /* 수강권 결제쪽 */
@@ -115,4 +117,9 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.list-group-item-action:hover {
+	background-color: #9b56e9;
+	color: white;
 }
