@@ -32,6 +32,24 @@
 		<result property="ugOpenYN" column="UG_OPEN_YN" />
 		<result property="ugCenterCode" column="UG_CENTER_CODE" />
 	</resultMap>
+	
+<resultMap type="member" id="memberloginResult">
+		<id property="csMemberCode" column="CS_MEMBER_CODE"/>
+		<result property="csName" column="CS_NAME" />
+		<result property="connectedCenterCode1" column="CONNECTED_CENTER_CODE1" />
+		<result property="connectedCenterCode2" column="CONNECTED_CENTER_CODE2" />
+		<result property="connectedCenterCode3" column="CONNECTED_CENTER_CODE3" />
+		<result property="ticketCodePersonal1" column="TICKET_CODE_PERSONAL1" />
+		<result property="ticketRemainingCountPersonal1" column="TICKET_REMAINING_COUNT_PERSONAL1" />
+		<result property="ticketStartDatePersonal1" column="TICKET_START_DATE_PERSONAL1" />
+		<result property="ticketExpiryDatePersonal1" column="TICKET_EXPIRY_DATE_PERSONAL1" />
+		<result property="ticketExpiryYnPersonal1" column="TICKET_EXPIRY_YN_PERSONAL1" />
+		<result property="ticketCodeGroup1" column="TICKET_CODE_GROUP1" />
+		<result property="ticketRemainingCountGroup1" column="TICKET_REMAINING_COUNT_GROUP1" />
+		<result property="ticketStartDateGroup1" column="TICKET_START_DATE_GROUP1" />
+		<result property="ticketExpiryDateGroup1" column="TICKET_EXPIRY_DATE_GROUP1" />
+		<result property="ticketExpiryYnGroup1" column="TICKET_EXPIRY_YN_GROUP1" />
+	</resultMap>
 
 <!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
 <select id="getConnCenterList" resultMap="centerResult" parameterType="int">
@@ -54,7 +72,7 @@
 
 <!-- 해당 코드의 수강권 상세정보 가져옴 -->
 <select id="getTicketDetail" parameterType="String" resultMap="centerTicketResult">
-	SELECT TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price,TK_DESCRIPTION
+	SELECT TK_NAME,TK_CODE,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price,TK_DESCRIPTION
 	FROM tbl_ticket WHERE tk_code=#{tkCode}
 </select>
 
@@ -63,6 +81,16 @@
 	SELECT UG_NAME,UG_CONTENT FROM tbl_user_guide 
 	WHERE UG_CENTER_CODE=#{centerCode}
 	AND UG_TYPE = '수강권'
+</select>
+
+<!-- 해당회원이 그룹 수강권 가지고 있는지 확인 -->
+<select id="groupTicketCheck" resultType="String">
+	select ticket_code_group1 from tbl_cst where cs_member_code=#{csCode} ;
+</select>
+
+<!-- 해당회원이 개인 수강권 가지고 있는지 확인 -->
+<select id="personalTicketCheck" resultType="String">
+		select ticket_code_personal1 from tbl_cst where cs_member_code=#{csCode} ;
 </select>
 
 </mapper>
