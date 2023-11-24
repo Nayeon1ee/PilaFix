@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.dev.pilafix.center.ticket.CenterTicketVO;
 import com.dev.pilafix.center.userguide.UserguideVO;
 import com.dev.pilafix.common.member.CenterVO;
+import com.dev.pilafix.member.ticket.MemberTicketVO;
 
 @Repository
 public class MemberTicketDAO {
@@ -38,6 +39,10 @@ public class MemberTicketDAO {
 
 	public String personalTicketCheck(int csCode) {
 		return sqlSessionTemplate.selectOne("MemberTicketDAO.personalTicketCheck",csCode);
+	}
+
+	public int insertPaymentinfo(MemberTicketVO vo) {
+		return sqlSessionTemplate.insert("MemberTicketDAO.insertPaymentinfo", vo);
 	}
 
 }

@@ -50,6 +50,15 @@
 		<result property="ticketExpiryDateGroup1" column="TICKET_EXPIRY_DATE_GROUP1" />
 		<result property="ticketExpiryYnGroup1" column="TICKET_EXPIRY_YN_GROUP1" />
 	</resultMap>
+	
+<resultMap type="memberTicket" id="memberTicketResult">
+	<id property="paId" column="PA_ID"/>
+	<result property="ticketCode" column="TICKET_CODE" />
+	<result property="paAmount" column="PA_AMOUNT" />
+	<result property="memberCode" column="MEMBER_CODE" />
+	<result property="paMethod" column="PA_METHOD" />
+	<result property="paDateTime" column="PA_DATETIME" />
+</resultMap>
 
 <!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
 <select id="getConnCenterList" resultMap="centerResult" parameterType="int">
@@ -85,12 +94,17 @@
 
 <!-- 해당회원이 그룹 수강권 가지고 있는지 확인 -->
 <select id="groupTicketCheck" resultType="String">
-	select ticket_code_group1 from tbl_cst where cs_member_code=#{csCode} ;
+	select ticket_code_group1 from tbl_cst where cs_member_code=#{csCode} 
 </select>
 
 <!-- 해당회원이 개인 수강권 가지고 있는지 확인 -->
 <select id="personalTicketCheck" resultType="String">
-		select ticket_code_personal1 from tbl_cst where cs_member_code=#{csCode} ;
+		select ticket_code_personal1 from tbl_cst where cs_member_code=#{csCode} 
 </select>
+
+<!-- 결제 테이블에 결제정보 저장 -->
+<insert id="insertPaymentinfo" parameterType="memberTicketResult">
+	INSERT INTO tbl_payment VALUES (#{paId},#{ticketCode},#{paAmount},#{memberCode},#{paMethod},#{paDateTime})
+</insert>
 
 </mapper>

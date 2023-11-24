@@ -142,37 +142,33 @@
 
 
 							<!-- 버튼 부분 -->
-							<div class="tab-buttons">
-								<ul class="nav nav-pills justify-content-center mt-3"
+							<div class="tab-buttons text-center">
+								<ul class="nav nav-tabs justify-content-center mt-3"
 									id="pills-tab" role="tablist">
-									<li class="nav-item" role="presentation">
-										<button class="nav-link active" id="pills-all-tab"
-											data-bs-toggle="pill" href="#pills-all" role="tab"
-											aria-controls="pills-all" aria-selected="true">전체</button>
+									<li class="nav-item flex-grow-1" role="presentation"><a
+										class="nav-link active" id="pills-all-tab"
+										data-toggle="pill" href="#pills-all" role="tab"
+										aria-controls="pills-group" aria-selected="true">전체</a></li>
+									<li class="nav-item flex-grow-1" role="presentation"><a
+										class="nav-link px-auto" id="pills-individual-tab"
+										data-toggle="pill" href="#pills-individual" role="tab"
+										aria-controls="pills-individual" aria-selected="false">개인</a>
 									</li>
-									<li class="nav-item" role="presentation">
-										<button class="nav-link" id="pills-individual-tab"
-											data-bs-toggle="pill" href="#pills-individual" role="tab"
-											aria-controls="pills-individual" aria-selected="false">개인</button>
-									</li>
-									<li class="nav-item" role="presentation">
-										<button class="nav-link" id="pills-group-tab"
-											data-bs-toggle="pill" href="#pills-group" role="tab"
-											aria-controls="pills-group" aria-selected="false">그룹</button>
-									</li>
+									<li class="nav-item flex-grow-1" role="presentation"><a
+										class="nav-link px-auto" id="pills-group-tab"
+										data-toggle="pill" href="#pills-group" role="tab"
+										aria-controls="pills-group" aria-selected="false">그룹</a></li>
 								</ul>
 							</div>
-
 
 
 							<!-- 수강권 시작 -->
 							<div class="tab-pane fade show active" id="pills-all"
 								role="tabpanel" aria-labelledby="pills-all-tab">
-								<!-- 예시 티켓 -->
 								<!-- 셀렉트박스에서 선택한 센터의 수강권 정보를 업데이트할 부분 -->
-								<ul class="list-group-ticket p-0" id="centerInfoContainer">
-										<!-- 여기에 ajax내용 들어감 -->
-								</ul>
+								<div class="list-group" id="centerInfoContainer">
+										<!-- 여기에 수강권 리스트 ajax내용 들어감 -->
+								</div>
 							</div>
 
 
@@ -306,25 +302,15 @@
 											var nowDate = currentDate.toISOString().split('T')[0];
 											var ticketEndDate = endDate.toISOString().split('T')[0];
 
-											str = '<div class="list-group-ticket" id="'+item.tkCode+'">'
-											//str = '<input type="hidden" name="tkCode" value="'+item.tkCode+'">'
-											//str += '<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
+											str = '<a href="#" class="list-group-item list-group-item-action" id="'+item.tkCode+'">'
 											str += '<div class="d-flex w-100 justify-content-between">'
 											str += '<h5 class="mb-1">'+ item.tkCapacity + ':1'+ item.tkLessonType + ' 레슨'+ item.tkUsageCount + '회 ('+ item.tkUsageNumMonth+ '개월)</h5>'
 											str += '</div>'
 											str += '<p class="mb-1">'+ item.tkName + '</p>'
-											str += "<div>"
-											str += "<table>"
-											str += '<td>'
-											str += "<tr>" + nowDate + "~"+ ticketEndDate + "</tr>"
-											str += '<tr>'
+											str += '<p class="mb-1">' + nowDate + "~"+ ticketEndDate + "</p>"
 											str += '<span class="tkPrice">'+ item.tkPriceAddDot+'원 </span>';
-											str += "</tr>"
-											str += "</td>"
-											str += "</table>"
-											str += "</div>"
-											//str += "</a>"
-											str += "</div>"
+											str += "</a>"
+									
 											// centerInfoContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
 											$('#centerInfoContainer').append(str);
 											
@@ -480,11 +466,11 @@
     		type: 'POST',
     		dataType: 'json',
     		data: {
-	    		imp_uid : rsp.imp_uid, // 결제 고유번호
-	    		tkPrice : tkPrice,
-	    		tkCode : tkCode,
-	    		payMethod : rsp.pay_method,
-	    		payTime : rsp.paid_at //결제 승인시간
+    			paId : rsp.imp_uid, // 결제 고유번호
+    			paAmount : tkPrice,
+	    		ticketCode : tkCode,
+	    		paMethod : rsp.pay_method,
+	    		paDateTime : rsp.paid_at //결제 승인시간
 	    		//기타 필요한 데이터가 있으면 추가 전달
     		},
     		 success: function (data) {

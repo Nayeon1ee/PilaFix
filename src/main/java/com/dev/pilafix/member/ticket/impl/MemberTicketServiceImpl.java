@@ -9,6 +9,7 @@ import com.dev.pilafix.center.ticket.CenterTicketVO;
 import com.dev.pilafix.center.userguide.UserguideVO;
 import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.member.ticket.MemberTicketService;
+import com.dev.pilafix.member.ticket.MemberTicketVO;
 
 @Service
 public class MemberTicketServiceImpl implements MemberTicketService {
@@ -49,6 +50,11 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 		@Override
 		public String personalTicketCheck(int csCode) {
 			return dao.personalTicketCheck(csCode);
+		}
+
+		@Override
+		public int insertPaymentinfo(MemberTicketVO vo) {
+			return dao.insertPaymentinfo(vo);
 		}
 
 }
