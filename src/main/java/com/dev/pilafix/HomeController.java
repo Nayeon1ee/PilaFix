@@ -427,5 +427,27 @@ public class HomeController {
 	public String center_detail_ticket() {
 		return "center_detail_ticket";
 	}
+	
+	// 화면 테스트용으로 추후 삭제 예정 
+	@RequestMapping("/member_notice.do")
+	public String mn() {
+		return "member/member_notice";
+	}
+	
+	@RequestMapping("/member_mypage.do")
+	public String mm() {
+		return "member/member_mypage";
+	}
+	
+	@RequestMapping("/ticket_.do")
+	public String t() {
+		return "member/ticket";
+	}
+	
+	@RequestMapping("/reserv_.do")
+	public String r() {
+		return "member/reservation_group";
+	}
+	
 
 }

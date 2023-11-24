@@ -48,7 +48,8 @@ public class CenterLoginController {
 	        
 	        // 세션에 Map 저장 
 	        session.setAttribute("loginCenter", loginCenter);
-	        return "redirect:/centerInfo.do"; // 테스트화면
+//	        return "redirect:/centerInfo.do"; // 테스트화면
+	        return "center/center_index";
 		}else {
 			//로그인 실패
 			return "center/center_login";

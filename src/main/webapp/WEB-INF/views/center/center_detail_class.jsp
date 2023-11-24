@@ -38,7 +38,7 @@
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">정원</label>
-								<input type="text" readonly class="form-control" value="${centerLesson.lsCurrentApplication }/${centerLesson.lsCapacity }">
+								<input type="text" readonly class="form-control" value="${centerLesson.lsCurrentApplicants }/${centerLesson.lsCapacity }">
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">수업 설명</label>
