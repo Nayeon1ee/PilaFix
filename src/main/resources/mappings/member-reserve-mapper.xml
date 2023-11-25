@@ -73,13 +73,14 @@
 	<!-- 수업정보 조회 -->
 	<select id="getLessonList" parameterType="java.util.Map" resultMap="centerLessonResult">
 	    SELECT LS_CODE, LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE, LS_DATE,CENTER_CODE,
+	    	(SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) AS TRAINER_MEMBER_NAME,
 	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
 	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME
 	    FROM TBL_LESSON
 	    WHERE 
 	        CENTER_CODE = #{ctCode} 
 	        AND 
-	        LS_DATE = #{selectedDate}
+	      	LS_DATE = TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
 	</select>
 	
 	<!-- 하나의 수업 정보 조회 -->

@@ -54,28 +54,25 @@
 		
 		<!-- 셀렉트박스에서 선택한 센터의 수강권 정보를 업데이트할 부분 -->
 		<div id="lessonListContainer">
-				<!-- 페이지 첫 로딩 시에 띄워주고 ajax 요청 시 초기화하여 내용 재생성 -->
+			<!-- 페이지 첫 로딩 시에 띄워주고 ajax 요청 시 초기화하여 내용 재생성 -->
 			<c:if test="${empty lessonList }">
 				<p>개설된 수업이 없습니다.<br> 센터에 문의하시기 바랍니다</p>
 			</c:if>
-			<c:forEach var="item" items="${lessonList}">
-			
-			
-			</c:forEach>
-			<div class="list-group-ticket" id="item.lsCode'">
-		        <c:forEach var="item" items="${lessonList}">
-		        <h5 class="mb-1" style="font-weight: bold;">${ item.lsName }</h5>
-			           <table>
-				           	<tr>
-				           		<td>${item.lsTime } ~ ${item.lsEndTime }</td>
-				           		<td>${item.trainerMemberCode } 강사 | 신청인원 ${item.lsCurrentApplicants } | 정원 ${item.lsCapacity }명</td>
-				           	</tr>
-	                  </table>
-	               	   <div class="mymodal">
-	                  		<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo('${item.lsCode}', '${item.centerCode }')">예약하기</button>
-	                   </div>
-                 </c:forEach>
-		    </div>
+	        <c:forEach var="item" items="${lessonList}">
+				<div class="list-group-ticket" id="'item.lsCode'">
+			        <h5 class="mb-1" style="font-weight: bold;">${ item.lsName }</h5>
+				           <table>
+					           	<tr>
+					           		<td>${item.lsTime } ~ ${item.lsEndTime }</td>
+					           		<td>${item.trainerMemberCode } 강사 | 신청인원 ${item.lsCurrentApplicants } | 정원 ${item.lsCapacity }명</td>
+					           	</tr>
+		                  </table>
+		                  <!-- 버튼 상태 달라져야 함 -->
+		               	   <div class="mymodal">
+		                  		<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo('${item.lsCode}', '${item.centerCode }')">예약하기</button>
+		                   </div>
+			    </div>
+            </c:forEach>
 		 </div>
 		 
 		
@@ -150,8 +147,8 @@
 	<script>
 
 	</script>
-	<!-- 센터 선택 시, 날짜 선택 시 해당 센터의 수업 목록 조회 -->
 	<script>
+		<!-- 센터 선택 시, 날짜 선택 시 해당 센터의 수업 목록 조회 -->
 		function getLessonInfoByCenter() {
 			var selectedCenterCode = document.getElementById("centerSelect").value;
 			console.log("선택한 지점 코드 : " + selectedCenterCode);
