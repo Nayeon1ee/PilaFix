@@ -30,6 +30,11 @@ public class CenterServiceImpl implements CenterService {
 	public List<CenterVO> getCenterList() {
 		return dao.getCenterList();
 	}
+	
+	@Override
+	public List<CenterVO> getExcelCenterList() {
+		return dao.getExcelCenterList();
+	}
 
 	@Override
 	public CenterVO getCenter(int ctCode) {

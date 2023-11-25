@@ -79,7 +79,7 @@
 					<button type="button" class="btn btn-primary" onclick="location.href='insertCenter.do'">센터 등록</button>
 				</span>
 				<span class="excel-down-btn">
-					<button type="button" class="btn btn-success">엑셀다운</button>
+					<button onclick="window.open('<c:url value='/excelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
 				</span>
 			</div>
 
@@ -154,14 +154,18 @@
 	                </ul>
 	             </div>
 	      <!-- 페이징 처리 끝 -->
-	
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
+<script>
+	//excelDown click
+	$("#excelDown").click( function(e){
+		var $form=$("form[name='search']");
+		$(this).attr("href","<c:url value='/excelDown.do' />"+"?"+$form.serialize() );
+	}); 
+</script>
   </main><!-- End #main -->
 <script src="${pageContext.request.contextPath }/resources/js/admin_common_1.js"></script>
 

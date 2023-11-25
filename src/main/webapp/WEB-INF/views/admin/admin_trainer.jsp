@@ -84,10 +84,10 @@
 
 
 
-              <div class="table-summary">
-              	  <!-- 엑셀다운 -->
- 				  <button type="button" class="btn btn-success btn_excel_00 me-3">엑셀다운</button>
-				 </div>
+             <div class="table-summary">
+             	  <!-- 엑셀다운 -->
+				  <button onclick="window.open('<c:url value='/trainerExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
+			 </div>
              	 
              	 <table class="table datatable">
 				  <thead>
@@ -133,14 +133,18 @@
 			</c:forEach>
 				  </tbody>
 				</table>
-
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
+<script>
+	//excelDown click
+	$("#excelDown").click( function(e){
+		var $form=$("form[name='search']");
+		$(this).attr("href","<c:url value='/trainerExcelDown.do' />"+"?"+$form.serialize() );
+	});
+</script>
   </main><!-- End #main -->
  
 <%@ include file="admin_footer_common.jsp"%>

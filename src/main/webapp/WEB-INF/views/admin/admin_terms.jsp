@@ -32,7 +32,7 @@
 <button type="button" class="btn btn-primary" onclick="location.href='insertTerms.do'">약관등록</button>
 </span>
 <span class="excel-down-btn">
-<button type="button" class="btn btn-success">엑셀다운</button>
+<button onclick="window.open('<c:url value='/termsExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
 </span>
 </div>
 <!-- 게시판 시작 -->
@@ -88,6 +88,13 @@
         </div>
       </div>
     </section>
+<script>
+	//excelDown click
+	$("#excelDown").click( function(e){
+		var $form=$("form[name='search']");
+		$(this).attr("href","<c:url value='//termsExcelDown.do' />"+"?"+$form.serialize() );
+	});
+</script>
   </main><!-- End #main -->
  
  

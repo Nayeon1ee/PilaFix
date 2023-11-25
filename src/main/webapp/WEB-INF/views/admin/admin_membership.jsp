@@ -85,8 +85,7 @@
 
               	<div class="table-summary">
               	  <!-- 엑셀다운 -->
-				  <button type="button" class="btn btn-success btn_excel_00">엑셀다운</button>
-
+				  <button onclick="window.open('<c:url value='/memberExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
 				 </div>
              	 
              	 <table class="table datatable">
@@ -140,7 +139,13 @@
         </div>
       </div>
     </section>
-
+<script>
+	//excelDown click
+	$("#excelDown").click( function(e){
+		var $form=$("form[name='search']");
+		$(this).attr("href","<c:url value='/memberExcelDown.do' />"+"?"+$form.serialize() );
+	});
+</script>
   </main><!-- End #main -->
  
     

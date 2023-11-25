@@ -18,7 +18,10 @@ public class TermsDAO {
 	public List<TermsVO> getTermsList() {
 		return sqlSessionTemplate.selectList("TermsDAO.getTermsList");
 	}
-
+	
+	public List<TermsVO> getTermsExcelList() {
+		return sqlSessionTemplate.selectList("TermsDAO.getTermsExcelList");
+	}
 	
 	public TermsVO getTerms(int tmCode) {
 		return sqlSessionTemplate.selectOne("TermsDAO.getTerms",tmCode);

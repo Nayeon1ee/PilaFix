@@ -7,6 +7,7 @@ import com.dev.pilafix.common.member.CenterVO;
 
 public interface TermsService {
 	List<TermsVO> getTermsList();
+	List<TermsVO> getTermsExcelList();
 
 	TermsVO getTerms(int tmCode);
 

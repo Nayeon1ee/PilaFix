@@ -19,7 +19,12 @@
     </select>
     
 	<select id="getTermsList" resultMap="termsResult">
-        SELECT TM_CODE, TM_NAME, TM_REGDATE, TM_MODIFIED_DATE, TM_REQUIRED_YN, TM_OPEN_YN FROM TBL_TERMS ORDER BY TM_REGDATE DESC;
+        SELECT TM_CODE, TM_NAME, TM_REGDATE, TM_MODIFIED_DATE, TM_REQUIRED_YN, TM_OPEN_YN FROM TBL_TERMS ORDER BY TM_REGDATE DESC
+    </select>
+    
+    <!-- 약관 목록 엑셀 다운 -->
+    <select id="getTermsExcelList" resultMap="termsResult">
+		SELECT TM_CODE, TM_NAME, TM_DETAIL, TM_REGDATE, TM_MODIFIED_DATE, TM_REQUIRED_YN, TM_OPEN_YN FROM TBL_TERMS ORDER BY TM_REGDATE DESC
     </select>
 	
 	<insert id="insertTerms" parameterType="terms">
