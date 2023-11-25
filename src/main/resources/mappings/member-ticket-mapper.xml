@@ -103,8 +103,8 @@
 </select>
 
 <!-- 결제 테이블에 결제정보 저장 -->
-<insert id="insertPaymentinfo" parameterType="memberTicketResult">
-	INSERT INTO tbl_payment VALUES (#{paId},#{ticketCode},#{paAmount},#{memberCode},#{paMethod},#{paDateTime})
+<insert id="insertPaymentinfo" parameterType="memberTicket" >
+	INSERT INTO tbl_payment VALUES (#{paId},#{ticketCode},#{paAmount},#{memberCode},#{paMethod}, TO_TIMESTAMP(#{paDateTime}, 'YYYY-MM-DD HH24:MI:SS'))
 </insert>
 
 </mapper>

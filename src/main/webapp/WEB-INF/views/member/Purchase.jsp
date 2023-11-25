@@ -462,7 +462,7 @@
     	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
     	console.log("rsp.imp_uid :"+rsp.imp_uid +"tkPrice:"+tkPrice+"tkCode"+tkCode+"rsp.pay_method"+rsp.pay_method+"rsp.paid_at: "+rsp.paid_at);
     	jQuery.ajax({
-    		url: "payments.do", //cross-domain error가 발생하지 않도록 주의해주세요
+    		url: "payments.do", 
     		type: 'POST',
     		dataType: 'json',
     		data: {
@@ -470,19 +470,19 @@
     			paAmount : tkPrice,
 	    		ticketCode : tkCode,
 	    		paMethod : rsp.pay_method,
-	    		paDateTime : rsp.paid_at //결제 승인시간
-	    		//기타 필요한 데이터가 있으면 추가 전달
+	    		paymentDateTime : rsp.paid_at, //결제 승인시간
+	    		memberCode : csCode
     		},
     		 success: function (data) {
     			 console.log(data)
                  //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
                  var msg = '결제가 완료되었습니다.';
                  msg += '\n고유ID : ' + rsp.imp_uid;
-                 // msg += '\n상점 거래ID : ' + rsp.merchant_uid;
                  msg += '\결제 금액 : ' + rsp.paid_amount;
                  msg += '카드 승인번호 : ' + rsp.apply_num;
-
-                 alert(data+msg);
+				 
+                 console.log(msg);
+                 alert("결제가 성공적으로 완료되었습니다.");
     
              },
              error: function (data,jqXHR, textStatus, errorThrown) {

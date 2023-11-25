@@ -56,7 +56,7 @@ public class MemberTicketController {
 		
 	@PostMapping("/payments.do")
 	@ResponseBody
-	public String payments(MemberTicketVO vo) throws ParseException {
+	public int payments(MemberTicketVO vo) throws ParseException {
 //		imp_uid = extract_POST_value_from_url('imp_uid') //post ajax request로부터 imp_uid확인
 //
 //				payment_result = rest_api_to_find_payment(imp_uid) //imp_uid로 아임포트로부터 결제정보 조회
@@ -70,21 +70,22 @@ public class MemberTicketController {
 //					fail_post_process(payment_result) //결제실패 처리
 		
 		// Unix timestamp로 들어온 결제 일시를 java.sql.Timestamp로 변환
-        String date = vo.getPaymentDateTime();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date parsedDate;
+        long date = vo.getPaymentDateTime()*1000L;
+     // Unix 타임스탬프를 Date 객체로 변환하기
+        Date parseDate = new Date(date);
+     // SimpleDateFormat을 사용하여 날짜와 시간 형식 지정하기
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = formatter.format(parseDate);
+        vo.setPaDateTime(formattedDate);
+            System.out.println("변환된 시간: " + formattedDate);
+            System.out.println("컨트롤러 도달 /결제 고유번호 : "+vo.getPaId());
         
-            parsedDate = dateFormat.parse(date);
-            Timestamp timestamp = new Timestamp(parsedDate.getTime());
-            System.out.println("변환된 시간: " + timestamp);
-            vo.setPaDateTime(timestamp);
-            // 이후 로직 수행
         
-		//service.insertPaymentinfo(vo);
+            
+		int result = service.insertPaymentinfo(vo);
 		
-		System.out.println("컨트롤러 도달 /결제 고유번호 : "+vo.getPaId());
 		
-		return " ";
+		return result;
 	}
 	
 	/**
