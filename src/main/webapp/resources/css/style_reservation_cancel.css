@@ -1,86 +1,68 @@
 @charset "UTF-8";
 
-.time {
-	height: 100px;
-	background-color: white;
-	color: black;
-	text-align: center;
-	float: center;
-	/*order-radius: 10px;*/
-	width: 100%;
-	padding-top: 20px;
-	padding-left: 20px;
-	padding-right: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-	float: center;
-}
-
 .reserv_cancel_list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.section_0 {
+	background-color: #fb625f;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.input-group {
+	width: 90%; 
+}
+
+
+.section {
 	width: 100%;
-	background-color: red;
+	max-width: 700px;
 }
 
-.con1 {
-	display: flex;
-	justify-content: center;
-	height: 250px;
-	background-color: white;
-	color: #f6f4f8;
-	float: center;
-	/*order-radius: 10px;*/
-	width: 70%;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.time {
+	background-color: #f8f9fa;
+	border-radius: 10px;
+	padding: 20px;
 }
 
-.con2, .con3 {
-	display: flex;
-	justify-content: center;
-	height: 200px;
-	background-color: white;
-	color: #f6f4f8;
-	float: center;
-	/*order-radius: 10px;*/
-	width: 70%;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+p.lead {
+	text-align: center;
+	font-size: 1.5em; /* 원하는 크기로 조절 (예: 1.5em) */
+	font-weight: lighter; /* 굵기를 얇게 설정 */
 }
 
-/*영역설정*/
-.container000 {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
+.card-header {
+	background-color: #9b56e9; /* 보라색 */
+	color: #fff;
 }
 
-.container000>.content000 {
-	display: flex;
-	flex-direction: row;
-	flex-grow: 1;
+.list-group-item {
+	border: none;
 }
 
-.container000>.content000>area1 {
-	background-color: #e8f2fe;
-	flex-basis: 300px;
-	flex-shrink: 0;
+.btn-primary {
+	background-color: #6c757d;
+	border: none;
+	margin-top: 20px;
 }
 
-.container000>.content000>main {
-	background-color: white;
-	flex-grow: 1;
-	flex-shrink: 1;
+.btn-primary:hover {
+	background-color: #495057;
 }
 
-.container000>.content000>area2 {
-	background-color: #e8f2fe;
-	flex-basis: 300px;
-	flex-shrink: 0;
+/* 다른 스타일은 그대로 두고 취소하기 버튼만 변경 */
+.btn-primary {
+	background-color: #9b56e9 !important;
+	border: none;
+	margin-top: 20px;
 }
 
-.highlight_r {
-	font-weight: bold;
-	color: red;
-}
-
-.highlight_p {
-	font-weight: bold;
-	color: #8a0ff8;
+.btn-primary:hover {
+	background-color: #7d3aa6 !important; /* Hover 시 변하는 색상 */
 }

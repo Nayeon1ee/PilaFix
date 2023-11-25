@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+@import
+	url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+.Calendar {
+	text-align: center;
+}
+
+.Calendar>thead>tr:first-child>td {
+	font-family: 'Questrial', sans-serif;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.Calendar>thead>tr:last-child>td {
+	font-family: 'Questrial', sans-serif;
+	font-weight: 600;
+}
+
+.Calendar>tbody>tr>td>p {
+	font-family: 'Montserrat', sans-serif;
+	height: 70px;
+	width: 70px;
+	border-radius: 70px;
+	transition-duration: .2s;
+	line-height: 70px;
+	margin: 2.5px;
+	display: block;
+	text-align: center;
+}
+
+.pastDay {
+	color: lightgray;
+}
+
+.today {
+	background-color: #b582ee;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.futureDay {
+	background-color: #FFFFFF;
+	cursor: pointer;
+}
+
+.futureDay:hover {
+	background: #eee;
+}
+
+.futureDay.choiceDay, .today.choiceDay {
+	background: #818bff;
+	color: #fff;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.Calendar {
+	border-collapse: collapse;
+	width: 100%;
+	border: 2px solid #ddd; /* 기본 테두리 색상 및 굵기 지정 */
+	margin: 20px 0; /* 테이블과 주변 간격 조절 */
+	border-radius: 30px; /* 모서리 둥글기 지정 */
+	
+}
+
+.Calendar th, .Calendar td {
+	border: 1px solid #ddd; /* 각 셀의 테두리 색상 및 굵기 지정 */
+	padding: 8px; /* 각 셀의 안팎 여백 조절 */
+	text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.Calendar th {
+	background-color: #f2f2f2; /* 헤더 셀 배경색 지정 */
+}
+
+.Calendar td:hover {
+	background-color: #f5f5f5; /* 마우스 오버시 배경색 지정 */
+}
+
+/* 선택된 날짜 스타일 */
+.Calendar td.selected {
+	background-color: #007bff; /* 선택된 셀 배경색 지정 */
+	color: #fff; /* 선택된 셀 텍스트 색상 지정 */
+}
