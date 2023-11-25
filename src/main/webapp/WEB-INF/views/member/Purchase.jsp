@@ -389,6 +389,9 @@
 					const tkName = ticket.ticketDetail.tkName;
 					const tkCode = ticket.ticketDetail.tkCode;
 					const tkLessonType = ticket.ticketDetail.tkLessonType;
+					const tkCount = ticket.ticketDetail.tkUsageCount;
+					const tkStartDate = nowDate;
+					const tkEndDate = ticketEndDate;
 					const csName = ticket.member.csName;
 					const csEmail = ticket.member.csEmailId;
 					const csNumber = ticket.member.csPhoneNumber;
@@ -396,7 +399,7 @@
 					
 					// 버튼 클릭 시 requestPay 함수 호출
 		             $('#ticketBuy').off('click').on('click', function () {
-		            	ticketCheck(tkPrice, tkName,tkCode,tkLessonType, csName, csEmail, csNumber, csCode);
+		            	ticketCheck(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode);
 		                //requestPay(tkPrice, tkName,tkCode,tkLessonType, csName, csEmail, csNumber, csCode);
 		            });
 					
@@ -407,7 +410,7 @@
 		    });
 		}	
 	<!-- 수강권 보유중인지 확인하고 오는 메서드-->
-	function ticketCheck(tkPrice, tkName,tkCode,tkLessonType, csName, csEmail, csNumber, csCode){
+	function ticketCheck(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode){
 		var ajaxUrl;
 		console.log("수강권 보유중인지 확인하고 오는 스크립트: "+csCode);
 	    // 조건에 따라 다른 URL 선택
@@ -426,11 +429,11 @@
 	            console.log('서버 응답:', data);
 	         // 문자열 "null" 체크
 	            if (data === "null" || data=="") {
-	                alert('이미 보유중인 수강권이 있습니다. 수강권을 다 사용하신 뒤 구매하시기 바랍니다.');
+	            	requestPay(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode);
 	            } else {
+	                alert('이미 보유중인 수강권이 있습니다. 수강권을 다 사용하신 뒤 구매하시기 바랍니다.');
 	            	//alert("수강권 구매가능")
 	                // repay 함수 호출
-	            	requestPay(tkPrice, tkName,tkCode, csName, csEmail, csNumber, csCode);
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
@@ -444,7 +447,7 @@
 	
     IMP.init('imp80610750') //가맹점 식별코드 입력
     
-    function requestPay(tkPrice, tkName,tkCode, csName, csEmail, csNumber,csCode) {
+    function requestPay(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode) {
         IMP.request_pay({
           pg: "kcp", // 사용할 pg사의 요청 키워드
           pay_method: "card",
@@ -471,7 +474,11 @@
 	    		ticketCode : tkCode,
 	    		paMethod : rsp.pay_method,
 	    		paymentDateTime : rsp.paid_at, //결제 승인시간
-	    		memberCode : csCode
+	    		memberCode : csCode,
+	    		tkLessonType:tkLessonType,
+	    		ticketRemainingCount: tkCount,
+	    		ticketStartDate: tkStartDate,
+	    		ticketExpiryDate : tkEndDate
     		},
     		 success: function (data) {
     			 console.log(data)
@@ -486,10 +493,11 @@
     
              },
              error: function (data,jqXHR, textStatus, errorThrown) {
-            	 console.log(data)
+            	 //console.log(data)
                  //[3] 아직 제대로 결제가 되지 않았습니다.
                  //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
                  alert("ajax실패 + 결제 실패");
+                 cancelPay(rsp.imp_uid,rsp.paid_amount)
              }
     	});
     } else {
@@ -502,6 +510,26 @@
         
         });
       }
+	
+    function cancelPay(imp_uid,amount) {
+        jQuery.ajax({
+          // 예: http://www.myservice.com/payments/cancel
+          url: "cancel.do", 
+          type: "POST",
+          data: {
+        	  imp_uid : imp_uid, // 
+           	  reason : "내부 서버 오류", // 환불사유
+          },success: function (data) {
+        	  console.log("취소처리 완료하고 ajax응답성공 : "+data)
+ 			 alert("서버 오류로 결제가 자동 취소처리 되었습니다.")
+
+         },
+         error: function (data,jqXHR, textStatus, errorThrown) {
+        	 
+         }
+        });
+      }
+	
     </script>	
 	<!-- 클릭하면 우측 화면 디폴트에서 상세화면으로 바뀌게 하는 js 
 		 왼쪽에 수강권 클릭하면 이 함수 실행
