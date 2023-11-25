@@ -1,65 +1,25 @@
 @charset "UTF-8";
 
-.con1, .con2, .con3, .con4 {
-	height: 300px;
-	background-color: #f6f4f8;
-	color: black;
-	float: left;
-	/*order-radius: 10px;*/
-	width: 80%;
-	padding-top: 20px;
-	padding-left: 20px;
-	padding-right: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.list-group-item {
+    transition: background-color 0.3s, color 0.3s; /* 호버 효과 부드럽게 적용 */
 }
 
-.filter {
-	
+/* 호버 시 스타일 변경 */
+.list-group-item:hover,
+.list-group-item-action:hover {
+    background-color: #ad8cd9; /* 보라색 배경 */
+    color: #fff; /* 흰색 글씨 */
 }
 
-.highlight_r {
-	font-weight: bold;
-	color: red;
+
+/* 체크되었을 때의 스타일 */
+input[type="checkbox"].btn-check:checked + .btn {
+    border-color: #8a2be2; /* 보라색으로 변경 */
+    color: #8a2be2; /* 텍스트 색상도 보라색으로 변경 */
 }
 
-.highlight_p {
-	font-weight: bold;
-	color: #8a0ff8;
+/* 체크되지 않았을 때의 스타일 (선택적으로 추가) */
+input[type="checkbox"].btn-check:not(:checked) + .btn {
+    border-color: #ced4da; /* 기본 보더 색상 (선택적으로 변경) */
+    color: #495057; /* 기본 텍스트 색상 (선택적으로 변경) */
 }
-
-.refresh {
-	background-color: #f6f4f8;
-	border: 2px;
-	float: right;
-	border-color: none;
-	active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-	gradient: none;
-	border: 2px;
-}
-
-.list-group-title {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	text-align: center;
-	color: black;
-	width: 100%;
-	height: 80px;
-	border-top: 1px solid #808080;
-	border-bottom: 1px solid #808080;
-}
-
-.list-group-time1, .list-group-time2 {
-	color: black;
-	width: 100%;
-	height: 150px;
-	padding-top: 0px;
-	padding-bottom: 20px;
-	padding-right: 20px;
-	padding-left: 20px;
-}
-
-.content-filter {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
