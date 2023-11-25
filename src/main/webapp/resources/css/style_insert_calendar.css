@@ -5,24 +5,35 @@
 
 .Calendar {
 	text-align: center;
+	border-collapse: collapse;
+	width: 100%;
+	margin: 20px 0;
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+	background-color: #e0c7f4; /* 그림자 안의 배경 색상 설정 */
 }
 
 .Calendar>thead>tr:first-child>td {
 	font-family: 'Questrial', sans-serif;
-	font-size: 1.1em;
+	font-size: 1.2em;
 	font-weight: bold;
+	padding: 15px;
+	background-color: #b582ee;
+	color: #fff;
 }
 
 .Calendar>thead>tr:last-child>td {
 	font-family: 'Questrial', sans-serif;
 	font-weight: 600;
+	padding: 10px;
 }
 
 .Calendar>tbody>tr>td>p {
 	font-family: 'Montserrat', sans-serif;
 	height: 70px;
 	width: 70px;
-	border-radius: 70px;
+	border-radius: 50%;
 	transition-duration: .2s;
 	line-height: 70px;
 	margin: 2.5px;
@@ -30,8 +41,34 @@
 	text-align: center;
 }
 
+.Calendar th, .Calendar td {
+	border: none;
+	padding: 8px;
+	background-color: #e0c7f4;
+	color: #6f6f6f;
+}
+
+.Calendar th:nth-child(1), .Calendar td:nth-child(1) { /* 일요일 */
+	color: #ff5858; /* 일요일 빨간색으로 변경 */
+}
+
+.Calendar th:nth-child(7), .Calendar td:nth-child(7) { /* 토요일 */
+	color: #3a67b4; /* 토요일 파란색으로 변경 */
+}
+
+.Calendar td:hover {
+	background-color: #d8b5f7;
+	border-radius: 15px;
+}
+
+/* 선택된 날짜 스타일 */
+.Calendar td.selected {
+	background-color: #8a61cf;
+	color: #fff;
+}
+
 .pastDay {
-	color: lightgray;
+	color: #fff; /* 지난 날짜 */
 }
 
 .today {
@@ -41,47 +78,18 @@
 	cursor: pointer;
 }
 
-.futureDay {
-	background-color: #FFFFFF;
-	cursor: pointer;
+.Calendar .futureDay {
+    background: linear-gradient(135deg, #f5f5f5, #eae9f0, #f5f5f5); /* 그라데이션 변경 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
 }
 
-.futureDay:hover {
-	background: #eee;
+.Calendar .futureDay:hover {
+    background: linear-gradient(135deg, #eae9f0, #d8b5f7, #eae9f0); /* 호버 시 그라데이션 변경 */
 }
 
 .futureDay.choiceDay, .today.choiceDay {
-	background: #818bff;
+	background: #fe86dcfc;
 	color: #fff;
 	font-weight: 600;
 	cursor: pointer;
-}
-
-.Calendar {
-	border-collapse: collapse;
-	width: 100%;
-	border: 2px solid #ddd; /* 기본 테두리 색상 및 굵기 지정 */
-	margin: 20px 0; /* 테이블과 주변 간격 조절 */
-	border-radius: 30px; /* 모서리 둥글기 지정 */
-	
-}
-
-.Calendar th, .Calendar td {
-	border: 1px solid #ddd; /* 각 셀의 테두리 색상 및 굵기 지정 */
-	padding: 8px; /* 각 셀의 안팎 여백 조절 */
-	text-align: center; /* 텍스트 가운데 정렬 */
-}
-
-.Calendar th {
-	background-color: #f2f2f2; /* 헤더 셀 배경색 지정 */
-}
-
-.Calendar td:hover {
-	background-color: #f5f5f5; /* 마우스 오버시 배경색 지정 */
-}
-
-/* 선택된 날짜 스타일 */
-.Calendar td.selected {
-	background-color: #007bff; /* 선택된 셀 배경색 지정 */
-	color: #fff; /* 선택된 셀 텍스트 색상 지정 */
 }
