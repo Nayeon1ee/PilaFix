@@ -16,6 +16,7 @@ import com.dev.pilafix.admin.center_manage.impl.CenterDAO;
 import com.dev.pilafix.admin.terms.TermsService;
 import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.common.member.CenterVO;
+import com.dev.pilafix.common.member.MemberVO;
 
 @Service
 public class TermsServiceImpl implements TermsService {
@@ -33,11 +34,15 @@ public class TermsServiceImpl implements TermsService {
 	public List<CenterVO> getCenterList() {
 		return centerDAO.getCenterList();
 	}
-	
 
 	@Override
 	public List<TermsVO> getTermsList() {
 		return dao.getTermsList();
+	}
+	
+	@Override
+	public List<TermsVO> getTermsExcelList() {
+		return dao.getTermsExcelList();
 	}
 
 	@Override

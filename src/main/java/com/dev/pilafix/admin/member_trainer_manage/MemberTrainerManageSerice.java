@@ -8,7 +8,10 @@ import com.dev.pilafix.common.member.MemberVO;
 public interface MemberTrainerManageSerice {
 	
 	List<MemberVO> getMemberList();
+	List<MemberVO> getExcelMemberList();
+	
 	List<MemberVO> getTrainerList();
+	List<MemberVO> getExcelTrainerList();
 	
 	MemberVO getMember(int csMemberCode);
 	

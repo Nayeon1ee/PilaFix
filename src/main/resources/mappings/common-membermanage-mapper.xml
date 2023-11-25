@@ -11,6 +11,7 @@
 	    <result property="csPhoneNumber1" column="CS_PHONE_NUMBER1" />
 	    <result property="csPhoneNumber2" column="CS_PHONE_NUMBER2" />
 	    <result property="csPhoneNumber3" column="CS_PHONE_NUMBER3" />
+	    <result property="csRegistrationDate" column="CS_REGISTRATION_DATE" />
 	    <result property="csBirth" column="CS_BIRTH" />
 	    <result property="csGenderMw" column="CS_GENDER_MW" />
 	    <result property="csDeleteYn" column="CS_DELETE_YN" />
@@ -112,12 +113,21 @@
 
 	</resultMap>
 	
-	<!-- 회원 목록 조회 -->
+	<!-- 센터 회원 목록 조회 -->
 	<select id="getMemberList" resultMap="memberResult">
 		SELECT * FROM TBL_CST
 		WHERE CS_ROLE_CODE = 'ME'
 		AND (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
 	</select>
+	
+	<!-- 관리자 회원 목록 조회 -->
+	<select id="adminGetMemberList" resultMap="memberResult">
+		SELECT * FROM TBL_CST
+		WHERE CS_ROLE_CODE = 'ME'
+	</select>
+	
+	
+	
 	<!-- 상세 조회 -->
 	<select id="getMemberManage" resultMap="memberResult" >
 		SELECT *  FROM TBL_CST WHERE CS_MEMBER_CODE=#{csMemberCode}
@@ -147,13 +157,38 @@
 		FROM TBL_CENTER_CONN WHERE MEMBER_CODE=#{csMemberCode}
 	</select>
 	
-	
+	<select id="getExelMember" resultMap="memberResult">
+		SELECT T1.CS_MEMBER_CODE, T1.CS_EMAIL_ID, T1.CS_NAME, T1.CS_PHONE_NUMBER1, T1.CS_PHONE_NUMBER2, T1.CS_PHONE_NUMBER3, T1.CS_REGISTRATION_DATE, T1.CS_BIRTH, T1.CS_GENDER_MW, T1.CS_DELETE_YN, T1.CS_REGISTRATION_TYPE,
+		(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE = T1.CONNECTED_CENTER_CODE1) AS CONNECTED_CENTER_NAME1,
+		(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE = T1.CONNECTED_CENTER_CODE2) AS CONNECTED_CENTER_NAME2,
+		(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE = T1.CONNECTED_CENTER_CODE3) AS CONNECTED_CENTER_NAME3
+		FROM TBL_CST T1
+		WHERE T1.CS_ROLE_CODE = 'ME'
+		ORDER BY T1.CS_MEMBER_CODE DESC
+	</select>
 
-	<!-- 강사 목록 조회 -->
+	<!-- 센터 강사 목록 조회 -->
 	<select id="getTrainerList" resultMap="memberResult">
 		SELECT * FROM TBL_CST 
 		WHERE CS_ROLE_CODE = 'TR'
 		AND (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
+	</select>
+	
+	<!-- 웹관리자의 강사 목록 조회 -->
+	<select id="adminGetTrainerList" resultMap="memberResult">
+		SELECT * FROM TBL_CST 
+		WHERE CS_ROLE_CODE = 'TR'
+	</select>
+	
+	<!-- 트레이너 엑셀 출력 -->
+	<select id="getExelTrainer" resultMap="memberResult">
+	SELECT T1.CS_MEMBER_CODE, T1.CS_EMAIL_ID, T1.CS_NAME, T1.CS_PHONE_NUMBER1, T1.CS_PHONE_NUMBER2, T1.CS_PHONE_NUMBER3, T1.CS_REGISTRATION_DATE, T1.CS_BIRTH, T1.CS_GENDER_MW, T1.CS_DELETE_YN, T1.CS_REGISTRATION_TYPE,
+	(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE = T1.CONNECTED_CENTER_CODE1) AS CONNECTED_CENTER_NAME1,
+	(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE = T1.CONNECTED_CENTER_CODE2) AS CONNECTED_CENTER_NAME2,
+	(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE = T1.CONNECTED_CENTER_CODE3) AS CONNECTED_CENTER_NAME3
+	FROM TBL_CST T1
+	WHERE T1.CS_ROLE_CODE = 'TR'
+	ORDER BY T1.CS_MEMBER_CODE DESC
 	</select>
 
 	

@@ -19,10 +19,13 @@ public class CenterDAO {
 		return sqlSessionTemplate.selectList("CenterDAO.getCenterList");
 	}
 	
+	public List<CenterVO> getExcelCenterList() {
+		return sqlSessionTemplate.selectList("CenterDAO.getExelCenter");
+	}
+	
 	public CenterVO getCenter(int ctCode) {
 	    return sqlSessionTemplate.selectOne("CenterDAO.getCenter",ctCode);
 	}
-	
 	
 	public int insertCenter(CenterVO vo) {
 		return sqlSessionTemplate.insert("CenterDAO.insertCenter", vo);
