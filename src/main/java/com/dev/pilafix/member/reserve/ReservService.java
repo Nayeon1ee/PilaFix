@@ -18,4 +18,6 @@ public interface ReservService {
 
 	Map<String, Object> getReservDetail(String lsCode, int csMemberCode, int ctCode);
 
+	void makeReservation(int csMemberCode, int ctCode, String ticketCode, String lsCode);
+
 }

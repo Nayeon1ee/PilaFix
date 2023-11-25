@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
-import com.dev.pilafix.center.userguide.UserguideVO;
 import com.dev.pilafix.common.member.CenterVO;
-import com.dev.pilafix.common.member.MemberVO;
+import com.dev.pilafix.common.notice.NoticeDAO;
+import com.dev.pilafix.common.notice.NoticeVO;
 import com.dev.pilafix.member.reserve.ReservService;
 
 @Service
@@ -20,6 +20,7 @@ public class ReservServiceImpl implements ReservService {
 	
 	@Autowired
 	private ReservDAO dao;
+	private NoticeDAO noticeDAO;
 
 	/**
 	 * 연동된 센터 목록 조회
@@ -56,6 +57,42 @@ public class ReservServiceImpl implements ReservService {
     	
 		return detail;
     	
+	}
+
+	@Override
+	@Transactional
+	public void makeReservation(int csMemberCode, int ctCode, String ticketCode, String lsCode) {
+		 /*
+		  * 1. insert 예약 테이블에 쌓이고 
+		  * 2. update 회원테이블에서 수강권 매수 -1
+		  * 3. update 수업 테이블에 현재 신청 인원 + 1
+		  * 4. insert 알림 테이블에 쌓기 		
+		  */
+		
+		/* STEP01. 예약 테이블 등록 */
+//		dao.insertReservationInfo(csMemberCode, ctCode, ticketCode, lsCode);
+		//여기서 반환값으로 예약 번호 받아야 함 
+		
+		/* STEP02. 회원 테이블의 잔여 수강권 매수 -1 */
+//		dao.updateRemainingTicketCount(ticketCode, csMemberCode);
+		
+		/* STEP03. 수업 테이블의 현재 신청 인원 +1 */
+//		dao.updateCurrentApplicants(lsCode);
+		
+		/* STEP04. 알림 테이블의 등록 */
+		NoticeVO notice = new NoticeVO();
+		 notice.setMemberCode(csMemberCode);
+		 notice.setRecipientCode(String.valueOf(ctCode)); 
+		 notice.setEventType("예약");
+		 notice.setUniqueIdentifierCode(""); //위에서 받아온 예약번호 반환값 넣어야 함
+		 notice.setNcNoticeContent("[공지] "); //여기서 내용을 수업 테이블의 정보 가져와서 내용 넣기
+		 notice.setNcSendYn(false);
+		 notice.setNcReadYn(false);
+		 
+		noticeDAO.insertNotice(notice);
+
+	
+	
 	}
 
 
