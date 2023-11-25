@@ -10,8 +10,8 @@
 	margin: 20px 0;
 	border-radius: 20px;
 	overflow: hidden;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
-	background-color: #e0c7f4; /* 그림자 안의 배경 색상 설정 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	background-color: #e0c7f4;
 }
 
 .Calendar>thead>tr:first-child>td {
@@ -19,7 +19,7 @@
 	font-size: 1.2em;
 	font-weight: bold;
 	padding: 15px;
-	background-color: #b582ee;
+	background-color: #c4b0e4;
 	color: #fff;
 }
 
@@ -27,18 +27,19 @@
 	font-family: 'Questrial', sans-serif;
 	font-weight: 600;
 	padding: 10px;
+	background-color: #d2bfe8;
 }
 
 .Calendar>tbody>tr>td>p {
 	font-family: 'Montserrat', sans-serif;
 	height: 70px;
 	width: 70px;
-	border-radius: 50%;
 	transition-duration: .2s;
 	line-height: 70px;
 	margin: 2.5px;
 	display: block;
 	text-align: center;
+	border-radius: 20px;
 }
 
 .Calendar th, .Calendar td {
@@ -46,14 +47,15 @@
 	padding: 8px;
 	background-color: #e0c7f4;
 	color: #6f6f6f;
+	border-radius: 0;
 }
 
-.Calendar th:nth-child(1), .Calendar td:nth-child(1) { /* 일요일 */
-	color: #ff5858; /* 일요일 빨간색으로 변경 */
+.Calendar th:nth-child(1), .Calendar td:nth-child(1) {
+	color: #ff5858;
 }
 
-.Calendar th:nth-child(7), .Calendar td:nth-child(7) { /* 토요일 */
-	color: #3a67b4; /* 토요일 파란색으로 변경 */
+.Calendar th:nth-child(7), .Calendar td:nth-child(7) {
+	color: #3a67b4;
 }
 
 .Calendar td:hover {
@@ -61,14 +63,13 @@
 	border-radius: 15px;
 }
 
-/* 선택된 날짜 스타일 */
 .Calendar td.selected {
 	background-color: #8a61cf;
 	color: #fff;
 }
 
 .pastDay {
-	color: #fff; /* 지난 날짜 */
+	color: #fff;
 }
 
 .today {
@@ -79,16 +80,18 @@
 }
 
 .Calendar .futureDay {
-    background: linear-gradient(135deg, #f5f5f5, #eae9f0, #f5f5f5); /* 그라데이션 변경 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+	background: linear-gradient(135deg, #f5f5f5, #eae9f0, #f5f5f5);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
 }
 
 .Calendar .futureDay:hover {
-    background: linear-gradient(135deg, #eae9f0, #d8b5f7, #eae9f0); /* 호버 시 그라데이션 변경 */
+	background: linear-gradient(135deg, #eae9f0, #d8b5f7, #eae9f0);
+	border-radius: 10px;
 }
 
 .futureDay.choiceDay, .today.choiceDay {
-	background: #fe86dcfc;
+	background: #887dff;
 	color: #fff;
 	font-weight: 600;
 	cursor: pointer;
