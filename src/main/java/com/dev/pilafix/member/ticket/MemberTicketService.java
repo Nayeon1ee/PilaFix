@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.ticket;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.dev.pilafix.center.ticket.CenterTicketVO;
@@ -20,6 +21,11 @@ public interface MemberTicketService {
 
 	String personalTicketCheck(int csCode);
 
-	int insertPaymentinfo(MemberTicketVO vo);
+
+	boolean insertPaymentAndUpdateMemberTicketInfo(MemberTicketVO vo);
+
+	String getToken(String apiKey, String secretKey) throws IOException;
+
+	void refundRequest(String token, String imp_uid, String reason) throws IOException;
 
 }
