@@ -16,14 +16,14 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 
 	@Autowired
 	private MemberTicketDAO dao;
-	
+
 	@Override
 	public List<CenterVO> getConnCenterList(int csMemberCode) {
 		return dao.getConnCenterList(csMemberCode);
-		
+
 	}
-	
-	//해당 센터의 수강권정보 가져옴
+
+	// 해당 센터의 수강권정보 가져옴
 	@Override
 	public List<CenterTicketVO> getCenterTicketInfo(int ctCode) {
 		return dao.getCenterTicketInfo(ctCode);
@@ -34,27 +34,29 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 	public CenterTicketVO getTicketDetail(String tkCode) {
 		return dao.getTicketDetail(tkCode);
 	}
-	
-	//센터코드로 해당 센터 이용정책 가져옴
+
+	// 센터코드로 해당 센터 이용정책 가져옴
 	@Override
 	public List<UserguideVO> getCenterTicketGuide(int centerCode) {
 		return dao.getCenterTicketGuide(centerCode);
 	}
-	
-	// 그룹수강권 결제시 그룹수강권 이미 보유중인지 확인하는 것 
-		@Override
-		public String groupTicketCheck(int csCode) {
-			return dao.groupTicketCheck(csCode);
-		}
-		// 개인수강권 결제시 개인수강권 이미 보유중인지 확인하는 것 
-		@Override
-		public String personalTicketCheck(int csCode) {
-			return dao.personalTicketCheck(csCode);
-		}
 
-		@Override
-		public int insertPaymentinfo(MemberTicketVO vo) {
-			return dao.insertPaymentinfo(vo);
-		}
+	// 그룹수강권 결제시 그룹수강권 이미 보유중인지 확인하는 것
+	@Override
+	public String groupTicketCheck(int csCode) {
+		return dao.groupTicketCheck(csCode);
+	}
+
+	// 개인수강권 결제시 개인수강권 이미 보유중인지 확인하는 것
+	@Override
+	public String personalTicketCheck(int csCode) {
+		return dao.personalTicketCheck(csCode);
+	}
+	
+	//결제 테이블에 결제정보 삽입
+	@Override
+	public int insertPaymentinfo(MemberTicketVO vo) {
+		return dao.insertPaymentinfo(vo);
+	}
 
 }
