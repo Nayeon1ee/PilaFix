@@ -56,6 +56,18 @@
 		<result property="ugCenterCode" column="UG_CENTER_CODE" />
 	</resultMap>
 
+	<resultMap type="sendSmsHistory" id="SendSmsHistoryResult">
+		<id property="shSendCode" column="SH_SEND_CODE"/>
+		<result property="shSendDatetime" column="SH_SEND_DATETIME" />
+		<result property="shSendCenterCode" column="SH_SEND_CENTER_CODE" />
+		<result property="shRecipientName" column="SH_RECIPIENT_NAME" />
+		<result property="shRecipientPhone" column="SH_RECIPIENT_PHONE" />
+		<result property="shRecipientContent" column="SH_RECIPIENT_CONTENT" />
+		<result property="shSuccessYn" column="SH_SUCCESS_YN" />
+		<result property="shSuccessDatetime" column="SH_SUCCESS_DATETIME" />
+		<result property="shFailReason" column="SH_FAIL_REASON" />
+		<result property="shSendCenterName" column="SH_SEND_CENTER_NAME" />
+	</resultMap>
 
 	<!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
 	<select id="getConnCenterList" resultMap="centerResult" parameterType="int">
@@ -81,11 +93,13 @@
 	        CENTER_CODE = #{ctCode} 
 	        AND 
 	      	LS_DATE = TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
+            AND LS_TYPE = #{lessonType}
+	    ORDER BY LS_TIME
 	</select>
 	
 	<!-- 하나의 수업 정보 조회 -->
 	<select id="getLessonDetail" resultMap="centerLessonResult">
-		SELECT LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE,LS_DATE,
+		SELECT LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE,LS_DATE, CENTER_CODE,
 	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
 	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
 	        (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE ) AS TRAINER_MEMBER_NAME 
@@ -112,5 +126,50 @@
 		WHERE UG_CENTER_CODE=#{centerCode}
 			AND UG_TYPE = '예약'
 	</select>
+	
+	
+	<!-- 예약하기 -->
+	<!-- STEP01. 예약테이블 등록 -->
+	<insert id="insertReservationInfo" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="rsCode">
+		INSERT INTO TBL_RESERV(RS_CODE, MEMBER_CODE, USED_TICKET_CODE, CENTER_CODE, LESSON_CODE, RS_DATETIME, RS_CANCEL_YN)
+		VALUES(CONCAT('RS',NEXTVAL('SEQ_RESERV')), #{csMemberCode},#{ticketCode} ,#{ctCode}, #{lsCode}, CURRENT_TIMESTAMP, false)
+	</insert>
+	
+	<!-- STEP02. 회원테이블 수강권 매수 업데이트 -->
+	<update id="updateRemainingTicketCount"  >
+		<!-- 그룹 개인 받으면 여기서 DYNAMIC SQL 사용 -->
+		UPDATE TBL_CST
+		SET TICKET_REMAINING_COUNT_GROUP1=(TICKET_REMAINING_COUNT_GROUP1-1)
+		WHERE CS_MEMBER_CODE=#{csMemberCode}
+	</update>
+	
+	<!-- STEP03. 수업테이블 현재신청인원 업데이트 -->
+	<update id="updateCurrentApplicants" >
+		<!-- 그룹 개인 받으면 여기서 DYNAMIC SQL 사용 -->
+		UPDATE TBL_LESSON
+		SET LS_CURRENT_APPLICANTS=(LS_CURRENT_APPLICANTS+1)
+		WHERE LS_CODE=#{lsCode}
+	</update>
+
+	<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+	<!-- STEP05. 문자발송 -->
+	
+	<!-- STEP06. 문자발송 이력 등록  -->
+	<!-- 성공 시간에서 성공이면 현재 시간이 들어가고, 실패했다면 null-->
+	<insert id="saveSMSHistory" parameterType="sendSmsHistory" >
+		INSERT INTO TBL_SEND_SMS_HISTORY(sh_send_code, sh_send_datetime, sh_send_center_code, sh_recipient_name, sh_recipient_phone, sh_recipient_content, sh_success_yn, sh_success_datetime, sh_fail_reason)
+		VALUES(#{shSendCode}, CURRENT_TIMESTAMP, #{shSendCenterCode}, #{shRecipientName}, #{shRecipientPhone}, #{shRecipientContent}, #{shSuccessYn},
+		<choose>
+            <when test="shSuccessYn">
+                CURRENT_TIMESTAMP
+            </when>
+            <otherwise>
+                NULL
+            </otherwise>
+        </choose>
+        ,#{shFailReason})
+	</insert>
+	
+	
 	
 </mapper>

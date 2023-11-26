@@ -18,17 +18,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.common.member.CenterVO;
+import com.dev.pilafix.common.member.MemberVO;
+
 
 @Controller
 public class ReservController {
-	
+
 	@Autowired
 	private ReservService service;
 	
+	@Autowired
+	private SMSService smsService;
+
+
 	/**
-	 * 예약 메인 페이지 
+	 * 예약 메인 페이지
 	 * 
-	 * 센터 정보 저장 
+	 * 센터 정보 저장
 	 * 
 	 * @param session
 	 * @param model
@@ -36,45 +42,59 @@ public class ReservController {
 	 */
 	@GetMapping("reservPage.do")
 	public String reservPage(HttpSession session, Model model) {
-		// 예약 메인 페이지 
+		// 예약 메인 페이지
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
-		
-	    if (loginUser != null) {
-	    	// 세션에서 회원번호 가져옴 
-	    	int csMemberCode = (int) loginUser.get("csMemberCode");
 
-	    	// 꺼내온 회원번호로 ct_code, ct_name이 담긴 list 조회 
-	    	List<CenterVO> connCenterList = service.getConnCenterList(csMemberCode);
-	    	model.addAttribute("connCenterList",connCenterList);
-	    	System.out.println("컨트롤러에서 센터 조회 완료 ");
-	    	
-	    	//테스트 후 지우기 (jsp 페이지 호출될 때 나오므로)
-	    	
-	    	// 리스트에서 꺼내와서 첫 번째에 있는 센터 코드 꺼내서 그 센터가 가진 수업 내역 조회 
-	    	int ctCode = connCenterList.get(0).getCtCode();
-	    	System.out.println("첫 번째 코드"+ctCode);
-	    	
+		if (loginUser != null) {
+			// 세션에서 회원번호 가져옴
+			int csMemberCode = (int) loginUser.get("csMemberCode");
+
+			// 꺼내온 회원번호로 ct_code, ct_name이 담긴 list 조회
+			List<CenterVO> connCenterList = service.getConnCenterList(csMemberCode);
+			model.addAttribute("connCenterList", connCenterList);
+			System.out.println("컨트롤러에서 센터 조회 완료 ");
+
+			// 테스트 후 지우기 (jsp 페이지 호출될 때 나오므로)
+
+			// 리스트에서 꺼내와서 첫 번째에 있는 센터 코드 꺼내서 그 센터가 가진 수업 내역 조회
+			int ctCode = connCenterList.get(0).getCtCode();
+			System.out.println("첫 번째 코드" + ctCode);
+
 			if (ctCode != 0) { // 첫 번째로 연동된 센터코드가 있다면
-				// 서비스에 오늘 날짜를 전달하여 수업 내역 조회
-				List<CenterLessonVO> lessonList = service.getLessonList(ctCode, new Date());
+				// 처음 예약 화면 호출 시 내가 가진 수강권의 정보에 따라 화면에 보여져야 하므로 
+				MemberVO vo = service.getMyTicketInfo(csMemberCode);
+				List<CenterLessonVO> lessonList = null;
+				int selectedTab = 0;
 				
-				//수업 목록이 비었다면 빈 목록 전달 
-				if(!lessonList.isEmpty()) {
-					model.addAttribute("lessonList", lessonList);
+				if(vo.getTicketCodeGroup1() == null && vo.getTicketCodePersonal1() != null) { //개인 수강권만 있는 경우 
+					selectedTab = 1;
+					lessonList = service.getLessonList(ctCode, new Date(), "개인");
 				}else {
-				    model.addAttribute("lessonList", Collections.emptyList()); 
+					lessonList = service.getLessonList(ctCode, new Date(), "그룹");
 				}
+				System.out.println(selectedTab);
+				
+				// 수업 목록이 비었다면 빈 목록 전달
+				if (!lessonList.isEmpty()) {
+					model.addAttribute("lessonList", lessonList);
+				} else {
+					model.addAttribute("lessonList", Collections.emptyList());
+				}
+				
+			    // selectedTab 초기화 - 개인 수강권만 있다면 1
+	            model.addAttribute("selectedTab", selectedTab);
+	            
 			}
-	    	
+
 			return "member/reservation_ny";
-	        
-	    }else {
-	    	return "redirect:memberLogin.do";
-	    }
+
+		} else {
+			return "redirect:memberLogin.do";
+		}
 	}
-	
+
 	/**
-	 * 센터 선택 시마다 요청되는 수업 조회 
+	 * 센터 선택 시, 날짜 선택 시, 그룹/개인 선택 시 마다 요청되는 수업 조회
 	 * 
 	 * @param ctCode
 	 * @param model
@@ -82,26 +102,25 @@ public class ReservController {
 	 */
 	@PostMapping("/getLessonList.do")
 	@ResponseBody
-	public List<CenterLessonVO> getLessonList(int ctCode, Date selectedDate, String lessonType, Model model){ // 파라미터로 날짜 받아야 함 
+	public List<CenterLessonVO> getLessonList(int ctCode, Date selectedDate, String lessonType, Model model) { 
 		System.out.println("센터코드: " + ctCode);
-		System.out.println("선택날짜: "+selectedDate);
-		System.out.println("수업 유형 : "+lessonType);
-		
-		List<CenterLessonVO> lessonList = service.getLessonList(ctCode, selectedDate); //여기에 타입줘야 함
-		
-		//수업 목록이 비었다면 빈 목록 전달 
-		if(lessonList.isEmpty()) {
-		    lessonList=Collections.emptyList();
+		System.out.println("선택날짜: " + selectedDate);
+		System.out.println("수업 유형 : " + lessonType);
+
+		List<CenterLessonVO> lessonList = service.getLessonList(ctCode, selectedDate,lessonType); // 여기에 타입줘야 함
+
+		// 수업 목록이 비었다면 빈 목록 전달
+		if (lessonList.isEmpty()) {
+			lessonList = Collections.emptyList();
 		}
-		
+
 		return lessonList;
 	}
-	
-	
+
 	/**
-	 * 예약하기 버튼 클릭 시 상세 정보 조회 
+	 * 예약하기 버튼 클릭 시 상세 정보 조회
 	 * 
-	 * 1. 클릭한 수업 정보 (param : lsCode)
+	 * 1. 클릭한 수업 정보 (param : lsCode) 
 	 * 2. 내가 가진 수강권 정보 (param: csMemberCode) 
 	 * 3. 센터의 예약 이용정책 정보 (param: ctCode)
 	 * 
@@ -110,25 +129,34 @@ public class ReservController {
 	 * @param ctCode
 	 * @param session
 	 * 
-	 * @return 
+	 * @return
 	 */
 	@GetMapping("/getMyTicketInfo.do")
 	@ResponseBody
-	public Map<String, Object> getMyTicketInfo(@RequestParam("lsCode")String lsCode, @RequestParam("ctCode") int ctCode, HttpSession session) {
+	public Map<String, Object> getMyTicketInfo(@RequestParam("lsCode") String lsCode,
+		@RequestParam("ctCode") int ctCode, HttpSession session) {
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
 		Map<String, Object> detail = new HashMap<>();
 
-		 if (loginUser != null) {
-	    	int csMemberCode = (int) loginUser.get("csMemberCode");
-	    	detail = service.getReservDetail(lsCode, csMemberCode, ctCode);
-	    	System.out.println("Detail Map: " + detail.toString());
+		if (loginUser != null) {
+			int csMemberCode = (int) loginUser.get("csMemberCode");
+			detail = service.getReservDetail(lsCode, csMemberCode, ctCode);
+			System.out.println("Detail Map: " + detail.toString());
 
 		}
 		return detail;
-		
+
 	}
-	
+
 	/**
+	 * 예약하기 버튼 클릭 시 예약
+	 * 
+	 * STEP01. 예약테이블 등록 
+	 * STEP02. 회원테이블 수강권매수 -1 
+	 * STEP03. 수업테이블 현재신청인원 +1 
+	 * STEP04. 알림테이블 적재 
+	 * STEP05. 문자발송 
+	 * STEP05-1. 문자발송 이력 등록
 	 * 
 	 * 
 	 * @param session
@@ -138,32 +166,73 @@ public class ReservController {
 	 * @return
 	 */
 	@PostMapping("/makeReservation.do")
-	public String makeReservation(int ctCode, String ticketCode,String lsCode,HttpSession session) {
+	@ResponseBody
+	public Map<String, Object> makeReservation(int ctCode, String ticketCode, String lsCode, HttpSession session) {
+		Map<String, Object> response = new HashMap<>();
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
-		
+
 		int csMemberCode = (int) loginUser.get("csMemberCode");
-		
-		
-		/* 모달에서 예약하기 누르면 
-		 * 로그인한 멤버 코드, 선택한 수업 코드, 수강권 코드, 센터코드
-		 * 
-		 * 1. insert 예약 테이블에 쌓이고 
-		 * 2. update 회원테이블에서 수강권 매수 -1
-		 * 3. update 수업 테이블에 현재 신청 인원 + 1
-		 * 4. insert 알림 테이블에 쌓기 
-		 * 5. 문자 발송 로직 추가
-		 * 6. 문자발송이력 쌓기 
-		 */
-		
-		
-		service.makeReservation(csMemberCode, ctCode, ticketCode, lsCode);
-		
-		
-		
-		return null;
+
+	    try {
+	        String rsCode = service.makeReservation(csMemberCode, ctCode, ticketCode, lsCode); //예약 정보 반환
+	        response.put("success", true);
+	        response.put("rsCode", rsCode); // 성공 시 예약정보 반환 
+	    } catch (Exception e) {
+	        response.put("success", false); //실패
+	    }
+
+	    return response;
 	}
 	
+	/**
+	 * 문자발송 
+	 * 파라미터로 받은 수업코드로 정보 가져와서 문자 내용에 추가
+	 * 
+	 * @param lsCode
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/sendSms.do")
+	@ResponseBody
+	public Map<String, Object> sendSms(String lsCode, HttpSession session) {
+		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+		String memberName = (String) loginUser.get("csName");
+		String memberPhone = (String) loginUser.get("csPhoneNumber");
+		
+		System.out.println("sendSMS.do 호출됨");
+
+		// 예약된 수업 정보 조회 
+		CenterLessonVO reservLesson = service.getLessonDetail(lsCode);
+		
+		smsService.sendReservationConfirmation(lsCode, session);
+
+		return response;
+	}
 	
-	
-	
+	/**
+	 * 예약 취소 
+	 * 
+	 * 취소 호출 시 예약번호 가져와야 함 잊지말고 파라미터로 예약번호 받기!
+	 * 
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/cancelPage.do")
+	public String cancelReservation(HttpSession session, Model model) {
+		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+		Map<String, Object> cancelInfo =  new HashMap<>();
+		
+		String rsCode="RS300"; // 파라미터로 받아야 함 화면이 없으므로 임시 세팅 
+		
+		if (loginUser != null) {
+			service.getReservationInfoAndTicketInfo(rsCode);
+			
+			
+
+		}
+		return null;
+	}
+
 }

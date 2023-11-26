@@ -14,10 +14,16 @@ public interface ReservService {
 
 	List<CenterVO> getConnCenterList(int csMemberCode);
 
-	List<CenterLessonVO> getLessonList(int ctCode, Date today);
+	List<CenterLessonVO> getLessonList(int ctCode, Date selectedDate, String lessonType);
 
 	Map<String, Object> getReservDetail(String lsCode, int csMemberCode, int ctCode);
 
-	void makeReservation(int csMemberCode, int ctCode, String ticketCode, String lsCode);
+	String makeReservation(int csMemberCode, int ctCode, String ticketCode, String lsCode);
+
+	CenterLessonVO getLessonDetail(String lsCode);
+
+	MemberVO getMyTicketInfo(int csMemberCode);
+
+	Map<String, Object> getReservationInfoAndTicketInfo(String rsCode);
 
 }
