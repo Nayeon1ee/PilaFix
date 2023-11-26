@@ -17,52 +17,27 @@
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link
-	href="${pageContext.request.contextPath}/resources/member/assets/vendor/animate.css/animate.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/member/assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/member/assets/vendor/glightbox/css/glightbox.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link
-	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/member/assets/css/style.css" rel="stylesheet">
 
 </head>
 
 <!-- 내 css -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common_0.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common_0.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_reservation_details.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_reservation_details.css">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
-
-<!-- 달력 -->
-
-
-
-<!--  달력 -->
 
 <body>
 
@@ -206,7 +181,7 @@
 									</div>
 
 									<!-- 셀렉트박스에서 선택한 센터의 수강권 정보를 업데이트할 부분 -->
-									<div id="lessonListContainer">
+									<div id="lessonListContainerForGroup">
 										<!-- 페이지 첫 로딩 시에 띄워주고 ajax 요청 시 초기화하여 내용 재생성 -->
 										<c:if test="${empty lessonList }">
 											<p>
@@ -244,15 +219,11 @@
 									<div class="content-filter mt-1">
 										<div class="form-check form-switch d-flex justify-content-between align-items-center">
 											<div>
-												<input class="form-check-input" type="checkbox"
-													id="flexSwitchCheckDefault"> <label
-													class="form-check-label" for="flexSwitchCheckDefault"
-													style="color: black;"> 예약 가능 </label>
+												<input class="form-check-input" type="checkbox"	id="flexSwitchCheckDefault"> 
+												<label class="form-check-label" for="flexSwitchCheckDefault" style="color: black;"> 예약 가능 </label>
 											</div>
 											<div>
-												<button class="btn btn-secondary refresh"
-													onclick="window.location.reload()"
-													style="background-color: white; color: #333; border: 1px solid white;">
+												<button class="btn btn-secondary refresh" onclick="window.location.reload()" style="background-color: white; color: #333; border: 1px solid white;">
 													<i class="bi bi-arrow-clockwise"></i> 새로고침
 												</button>
 											</div>
@@ -260,8 +231,7 @@
 									</div>
 
 									<div class="content-filter py-2 my-4">
-										<div
-											class="time-slot d-flex justify-content-around align-items-center">
+										<div class="time-slot d-flex justify-content-around align-items-center">
 											<div class="time-info">
 												<label class="form-check-label time-label"
 													for="flexSwitchCheckDefault2">
@@ -284,7 +254,8 @@
 														<p class="mt-2">11:00 - 11:50</p>
 													</label>
 												</div>
-											</label> <label class="form-check-label time-label"
+											</label> 
+											<label class="form-check-label time-label"
 												for="flexSwitchCheckDefault4">
 												<div class="time-check text-center">
 													<input type="checkbox" class="btn-check" id="btn-check-4"
@@ -348,9 +319,6 @@
 
 								</div>
 
-								<!-- 개인 탭은 아직 미작업  -->
-
-								
 
 							</div>
 
@@ -452,6 +420,28 @@
 						</div>
 					</div>
 				</div>
+				<!-- 예약 완료 Modal -->
+				<div class="modal fade" id="reservationSuccessModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered">
+						<!-- model-lg는 모달 크기 조절 -->
+						<div class="modal-dialog">
+			        		<div class="modal-content">
+			            		<div class="modal-header">
+				                	<h5 class="modal-title" id="exampleModalLabel">예약 완료</h5>
+				                	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			            		</div>
+					            <div class="modal-body">
+					            	<img src="${pageContext.request.contextPath}/resources/images/success.png">
+					                <p> 예약이 성공적으로 완료되었습니다. </p>
+					                <p> <a>내 스케줄 확인하러 가기</a> </p>
+					            </div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					            </div>
+			       			</div>
+			    		</div>
+					</div>
+				</div>
 				<!-- 모달 끝 -->
 
 				<!-- 내용 -->
@@ -505,18 +495,24 @@
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
 
 	<script>
-	var reservationData = {};
-
+		var selectedTab = "pills-group-tab"; // 기본 선택 탭
+		var reservationData = {};
+		
 		<!-- 페이지 로딩 시 -->
+
 		$(document).ready(function() {
-			//탭 설정 기본 group으로 설정 (추후 회원이 가진 수강권이 그룹이면 그룹 먼저, 개인이면 개인 먼저 뜰 수 있도록 )
-		    $('#pills-individual-tab').removeClass('active show');
+		    selectedTab = "${selectedTab}";
+		    if (selectedTab === "1") {
+		        $('#pills-individual-tab').addClass('active show');
+		    }
 		});
 		
 		<!-- 탭 전환될 때마다 호출  -->
 		$('#pills-individual-tab, #pills-group-tab').on('click', function() {
-	        getLessonInfoByCenter();
-	    });
+		    selectedTab = $(this).attr('id');
+		    getLessonInfoByCenter();
+		});
+		
 
 		<!-- 센터 선택 시, 날짜 선택 시, 그룹/개인 선택 시 해당 센터의 수업 목록 조회 -->
 		function getLessonInfoByCenter() {
@@ -534,8 +530,7 @@
 		    }
 		    
 			// 그룹/개인 탭 여부 확인 및 추가
-			var selectedTab = $('#pills-tab .nav-link.active').attr('id');
-		    var lessonType = (selectedTab === 'pills-group-tab') ? 'G' : 'P';
+			var lessonType = (selectedTab === 'pills-group-tab') ? '그룹' : '개인';
 		    console.log(lessonType);
 
 		    data.lessonType = lessonType;
@@ -544,7 +539,7 @@
 			// Ajax 요청
 			$.ajax({
 						type : "Post",
-						url : "getLessonList.do", // 적절한 URL로 변경
+						url : "getLessonList.do",
 						data : data,
 						success : function(lessonList) {
 							// 성공 시 아래에 정보 업데이트
@@ -555,32 +550,42 @@
 							
 					        var str = "";
 					        // lessonListContainer라는 아이디 가진 영역의 기존 내용을 지움
-					        $('#lessonListContainer').html('');
+					        $('#lessonListContainerForGroup').html('');
+					        $('#lessonListContainerForPersonal').html('');
+					        
 							
 							if (lessonList.length < 1) {
 								str = '<p>개설된 수업이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
-								$('#lessonListContainer').append(str);
+								$('#lessonListContainerForGroup').append(str);
+								$('#lessonListContainerForPersonal').append(str);
+								
 							} else {
-								lessonList.forEach(function (item) {
-								    str = '<div class="list-group-item" id="' + item.lsCode + '">';
-								    str += '<h5 class="mb-1" style="font-weight: bold;">' + item.lsName + '</h5>';
-								    str += '<div>';
-								    str += '<table>';
-								    str += '<td>';
-								    str += '<tr>' + item.lsTime + '~' + item.lsEndTime+ '</tr>';
-								    str += '<tr>';
-								    str += item.trainerMemberCode + ' 강사 | 신청인원 ' + item.lsCurrentApplicants + '명 | 정원 ' + item.lsCapacity + '명';
-								    str += '</tr>';
-								    str += '</td>';
-								    str += '</table>';
-								    str += '<div class="mymodal">'
-								    str += '<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
-								    str += '</div>'
-								    str += '</div>';
-								    str += '</div>';
-								    // lessonListContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
-								     $('#lessonListContainer').append(str);
-								});
+								 // 여기에서 lessonType이 G라면 그룹탭에 for문 돌면서 이거 띄워야 하고 
+				                // lessonType이 P라면 개인탭공간에 생긴것에 맞게 넣어야 함 
+				                if (lessonType === '그룹') {
+				                    lessonList.forEach(function (item) {
+				                    	str = '<div class="list-group">';
+									    str += '<a class="list-group-item list-group-item-action">';
+									    str += '<p class="mb-1">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
+									    str += '<div class="d-flex w-100 justify-content-between">';
+									    str += '<h5 class="mb-1">'+ item.lsName +'</h5>';
+									    str += '</div>';
+									    str += '<p class="mb-1">' + item.trainerMemberName +'</p>';
+									    str += '<small class="text-muted">'+ (item.lsCapacity - item.lsCurrentApplicants)+'명 남음</small> | ';
+									    str += '<small class="text-muted"> 정원 '+ item.lsCapacity +'명</small>';
+									    str += '<div class="mymodal">'
+									    str += '<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+									    str += '</div>'
+									    str += '</a>';
+									    str += '</div>';
+									    							
+									    // lessonListContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
+									     $('#lessonListContainerForGroup').append(str);
+				                    });
+				                } else if (lessonType === '개인') {
+				                    // 개인 탭에 대한 처리 추가
+				                    // 예시로 개인 탭에 대한 로직을 추가하고, 필요에 따라 수정하세요.
+				                }
 
 							}
 						},
@@ -662,9 +667,8 @@
 	        }
 	    });
 	}
-
-	
-	<!-- 동의 체크박스에 체크 하면 버튼 색상 바뀌는 것으로 (동의 체크 안 한채로 버튼 누르면 동의 하라고 떠야 함)-->
+ 
+	<!-- 예약 -->
 	function makeReservation() {
 	    console.log("makeReservation 호출 ");
 
@@ -685,12 +689,15 @@
 	     	
 	        $.ajax({
 	            type : "Post",
-	            url : "makeReservation.do", // 적절한 URL로 변경
+	            url : "makeReservation.do", 
 	            data : data,
-	            success : function(lessonList) {
-	                // 성공 시 아래에 정보 업데이트
-	                console.log("makeReservation 값 가져옴");
-	                console.log("Ajax 요청 성공");
+	            success : function(response) {
+	                console.log("makeReservation() 호출 성공");
+	                sendReservationSMS(response, reservationData); //문자 발송 호출 
+	             	// 예약 성공 시 기존 모달을 닫고 성공 모달 창 띄우기
+	             	$('#reservModal').modal('hide');
+	                $('#reservationSuccessModal').modal('show');
+	                
 	            },
 	            error : function (xhr, status, error) {
 	                console.error("Ajax 요청 실패");
@@ -700,15 +707,56 @@
 	        });
 
 	    } else {
-	        // 동의하지 않은 경우 알림 메시지 표시
+	   		// 동의하지 않았을 때 체크박스에 포커스를 줌
 	        console.log("체크박스 동의하지 않음");
+	        agreementCheckbox.focus();
 	    }
 	}
+	
+	<!-- 문자 발송  -->
+	function sendReservationSMS(response, reservationData) {
+	    // 여기서 문자발송 호출 후 성공 여부 확인
+	    console.log(response.rsCode);
+
+	    // 수업에 대한 정보 활용 가능
+	    console.log(reservationData.lsCode);
+
+        
+	    // 성공 여부에 따라 처리
+	    if (response.success) {
+	        console.log("문자발송 성공");
+	        // 성공 화면으로 이동 또는 다른 작업 수행
+	        
+	        $.ajax({
+	            type : "Post",
+	            url : "sendSms.do", 
+	            data : {
+	    			lsCode: reservationData.lsCode,
+	    			rsCode: response.rsCode
+	    		},
+	            success : function(response) {
+	                console.log("메시지 전송 성공");
+	                //여기서 성공 화면으로 보내기 
+	            },
+	            error : function (xhr, status, error) {
+	                console.error("Ajax 요청 실패");
+	                console.error("상태 코드: ", xhr.status);
+	                console.error("에러 메시지: ", error);
+	            }
+	        }); 
+	        
+	        
+	    } else {
+	        console.error("문자발송 실패");
+	        alert(response.message); // 실패 메시지
+	    }
+	}
+	
+	
 	
 </script>
 		
 		
-	</script>
 </body>
 
 </html>

@@ -34,6 +34,7 @@ public class NoticeDAO {
 	 * @param notice
 	 */
 	public void insertNotice(NoticeVO notice) {
+		System.out.println("NoticeDAO까지 옴 "+notice.getUniqueIdentifierCode());
 		sqlSessionTemplate.insert("NoticeDAO.insertNotice", notice);
 		System.out.println(notice.getNcNoticeContent()+" ==== 알림 등록 완료");
 	}

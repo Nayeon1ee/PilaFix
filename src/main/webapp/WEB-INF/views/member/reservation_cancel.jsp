@@ -256,7 +256,7 @@
 	<!--  취소 가능한 시간 js -->
 	<script>
 		// 취소 가능한 날짜 설정 (예: 2023년 12월 31일 23시 59분 59초)
-		var cancelDate = new Date('2023-12-31T23:59:59');
+		var cancelDate = new Date('2023-12-31T23:59:59'); // 예약시간 +3시간 해서 시간 건내줘야 함
 
 		// 시간 간격 계산 함수
 		function calculateTimeRemaining() {
