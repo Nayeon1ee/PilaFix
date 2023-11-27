@@ -12,6 +12,9 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <!-- Favicons -->
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -45,7 +48,29 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
+ <!-- 기존의 메타 태그, 스크립트, 링크 등 -->
 
+    <style>
+        .reply-content {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .reply-title, .reply-body {
+            margin-bottom: 10px;
+        }
+
+        .reply-title p, .reply-body p {
+            margin-left: 10px;
+            color: #333;
+        }
+
+        hr {
+            border-top: 1px solid #ccc;
+        }
+    </style>
 </head>
 <!-- 내 css -->
 <link rel="stylesheet" type="text/css"
@@ -55,7 +80,17 @@
 
 
 <body>
+    <script>
+        var qsNumberToIndexMap = {};
 
+        <c:forEach items="${questionList}" var="question" varStatus="status">
+            // 각 문의사항 번호와 아코디언 인덱스를 매핑
+            qsNumberToIndexMap['${question.qsNumber}'] = ${status.index};
+        </c:forEach>
+    </script>
+    
+    
+    
 	<!-- ======= Top Bar ======= -->
 	<section id="topbar" class="d-flex align-items-center">
 		<div
@@ -118,53 +153,61 @@
 							<hr>
 
 							<div class="accordion mt-4" id="accordionExample">
-							<c:forEach items="${questionList}" var="question" varStatus="status">
-						        <div class="accordion-item">
-						            <h2 class="accordion-header" id="heading${status.index}">
-						                <button class="accordion-button" type="button"
-						                        data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"
-						                        aria-expanded="true" aria-controls="collapse${status.index}">
-						                    <div class="inquiry-item">
-						                        <div class="inquiry-details">
-						                            <div class="inquiry-title">문의제목: ${question.qsTitle}</div>
-						                            <small>작성일자: ${question.qsRegdate}</small>  
-						                            <small>수정일자: ${question.qsModifiedDate}</small>
-						                            <!-- <div class="inquiry-regdate">${question.qsRegdate}</div>
-						                            <div class="inquiry-modidate">${question.qsModifiedDate}</div> -->
-						                        </div>
-						                        <div class="inquiry-location">
-						                            <p>${question.qsAnswerYn ? '답변완료' : '답변대기'}</p>
-						                        </div>
-						                    </div>
-						                </button>
-						            </h2>
-						            <div id="collapse${status.index}"
-						                 class="accordion-collapse collapse"
-						                 aria-labelledby="heading${status.index}"
-						                 data-bs-parent="#accordionExample">
-						                <div class="accordion-body">
-						                    <strong>문의내역</strong> <br> ${question.qsContent}
 
-										    <div class="text-center">
-										   		<!-- 삭제 -->
-												<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-							                    <!-- 답변이 없는 경우에만 수정 버튼 표시 -->
-								                <c:if test="${!question.qsAnswerYn}">
-								                <button type="button" class="btn btn-primary" onclick="location.href='updateQuestion.do?qsNumber=${question.qsNumber }'">수정</button>
-								                <!-- <a href="updateQuestion.do?qsNumber=${question.qsNumber}" class="btn btn-primary">수정</a> -->    
-								                </c:if>
-											</div>
-											
-											<!-- 답변 섹션 -->
-										    <div id="replySection${status.index}">
-										        <!-- Ajax로 답변내용이 여기 추가 -->
-										    </div>
-											
-						                </div>
-						            </div>
-						        </div>
-							</c:forEach>
+<c:forEach items="${questionList}" var="question" varStatus="status">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading${status.index}">
+            <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapse${status.index}"
+                    aria-expanded="true" aria-controls="collapse${status.index}"
+                    data-qsNumber="${question.qsNumber}"
+                    onclick="loadReply(${question.qsNumber})">
+                <div class="inquiry-item">
+                    <div class="inquiry-details">
+                        <div class="inquiry-title">문의제목: ${question.qsTitle}</div>
+                        <small>작성일자: ${question.qsRegdate}</small>
+                        <small>수정일자: ${question.qsModifiedDate}</small>
+                    </div>
+                    <div class="inquiry-location">
+                        <p>${question.qsAnswerYn ? '답변완료' : '답변대기'}</p>
+                    </div>
+                </div>
+            </button>
+        </h2>
+        <div id="collapse${status.index}" class="accordion-collapse collapse"
+             aria-labelledby="heading${status.index}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>문의내역</strong><br> ${question.qsContent}
 
+                <div class="text-center">
+                    <!-- 삭제 -->
+                    <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button> -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="openDeleteModal(${question.qsNumber})">삭제</button>
+
+                    <!-- 답변이 없는 경우에만 수정 버튼 표시 -->
+                    <c:if test="${!question.qsAnswerYn}">
+                        <button type="button" class="btn btn-primary" onclick="location.href='updateQuestion.do?qsNumber=${question.qsNumber}'">수정</button>
+                    </c:if>
+                </div>
+
+                <!-- 답변 섹션 -->
+                <div class="reply-content" id="replySection${status.index}">
+                    <c:if test="${question.qsAnswerYn}">
+                        <strong>답변 제목:</strong>
+                        <p>${questionReply.reTitle}</p>
+                        <hr>
+                        <strong>답변 내용:</strong>
+                        <p>${questionReply.reContent}</p>
+                    </c:if>
+                    <c:if test="${!question.qsAnswerYn}">
+                        <p>등록된 답변이 없습니다.</p>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+    </div>
+     <input type="hidden" id="qsNumberHidden" value="${question.qsNumber}">
+</c:forEach>
 						</div>
 					</div>
 					<!-- End Our Skills Section -->
@@ -182,10 +225,13 @@
          <div class="modal-body">
            확인 버튼을 누르시면 다시 복구시킬 수 없습니다.
          </div>
-         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-           <button type="button" class="btn btn-primary" onclick="deleteQuestion(${question.qsNumber})">확인</button>
-         </div>
+         
+     <input type="hidden" id="currentQsNumber" value="">    
+         
+     <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+       <button type="button" class="btn btn-primary" onclick="deleteQuestion()">확인</button>
+     </div>
        </div>
      </div>
    </div>
@@ -194,22 +240,63 @@
 
 <!-- 모달의 확인 버튼 클릭 시 삭제를 진행하는 스크립트 -->
 <script>
-function deleteQuestion(qsNumber) {
+//현재 문의사항 번호를 모달에 설정하고 모달을 표시하는 함수
+function openDeleteModal(qsNumber) {
+    $("#currentQsNumber").val(qsNumber);
+    $("#basicModal").modal('show');
+}
+
+// 모달에서 '확인' 버튼을 클릭할 때 호출되는 함수
+function deleteQuestion() {
+    var qsNumber = $("#currentQsNumber").val();
     fetch('/pilafix/deleteQuestion.do?qsNumber=' + qsNumber, {
         method: 'GET'
     })
     .then(response => {
-				if (!response.ok) {
-					throw new Error('error');
-				}
-        window.location.href = 'deleteQuestion.do'; // 약관 목록 페이지로 리다이렉트
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        window.location.href = 'getQuestionList.do';
     })
     .catch(error => {
-		console.error(error);
-	});
-};
+        console.error('There has been a problem with your fetch operation:', error);
+    });
+}
 </script>	
 	
+	
+<script>
+// 답변 내용 불러오는 함수
+// loadReply 함수 내에서 Ajax 요청을 수행하도록 수정
+function loadReply(qsNumber) {
+    qsNumber = qsNumber.toString();
+    const accordionIndex = qsNumberToIndexMap[qsNumber];
+    const replyContent = document.querySelector('#replySection' + accordionIndex);
+
+    const url = 'getQuestionReplyOnJS.do?qsNumber=' + qsNumber;
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // JSON 데이터로 변환
+        })
+        .then(data => {
+            // 여기서 답변 내용을 업데이트
+            replyContent.innerHTML = '<strong>답변 제목:</strong> ' + data.replyTitle + '<br><strong>답변 내용:</strong> ' + data.replyContent;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+const accordionButtons = document.querySelectorAll('.accordion-button');
+accordionButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        const qsNumber = this.getAttribute('data-qsNumber');
+        loadReply(qsNumber);
+    });
+});
+</script>	
 
 
 	<!-- End #main -->

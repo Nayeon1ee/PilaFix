@@ -16,7 +16,12 @@ public class QuestionDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	
+
+
+//작성자 회원 코드가져오기
+public int getQuestionWriterMemberCode(int qsNumber) {
+	return sqlSessionTemplate.selectOne("QuestionDAO.getQuestionWriterMemberCode", qsNumber);
+}
 	
 	
 		// 연동된 센터 이름과 함께 문의사항 정보를 가져오는 쿼리 호출 메서드
@@ -98,8 +103,13 @@ public class QuestionDAO {
 	}
 	
 	// 2.회원의 답변여부 = 'true'
-	public int updateQAnswerYn(QuestionVO vo) {
-		return sqlSessionTemplate.update("QuestionDAO.updateQAnswerYn",vo);
+	public int updateQAnswerYnToTrue(QuestionVO vo) {
+		return sqlSessionTemplate.update("QuestionDAO.updateQAnswerYnToTrue",vo);
+	}
+	
+	// -- 회원의 답변여부 false
+	public int updateQAnswerYnToFalse(QuestionVO vo) {
+		return sqlSessionTemplate.update("QuestionDAO.updateQAnswerYnToFalse",vo);
 	}
 
 	public int deleteQuestionReply(int reNumber) {

@@ -16,11 +16,13 @@ public interface QuestionService {
 	List<QuestionVO> getQuestionListWithWriterNames(int ctCode);
 	QuestionVO getQuestionCenterWithNames(int qsNumber);
 	void insertQstReplyUpdateYnAndNotice(QuestionReplyVO replyVO, QuestionVO vo);
+	void deleteQuestionReplyAndUpdateYn(int reNumber ,QuestionVO vo);
+	
 	List<CenterVO> getConnectedCenters(int csMemberCode);
 
 	
 	QuestionReplyVO getReplyForQuestion(int qsNumber);
-	List<QuestionVO> getQuestionListByMember(int csMemberCode);
+	List<QuestionVO> getQuestionsByMemberCode(int csMemberCode);
 
 
 	int deleteQuestionReply(int reNumber);

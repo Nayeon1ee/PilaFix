@@ -40,13 +40,15 @@ public class KakaoLoginController {
 	
 	}
 	
+
+	
 	// 로그인 후 리디렉션 처리를 위한 매핑
     @GetMapping("/kakaoLoginTest.do")
     public String kakaoLoginRedirect(HttpSession session) {
         KakaoVO userinfo = (KakaoVO) session.getAttribute("user");
         if (userinfo != null) {
             // 사용자 정보가 있으면, 원하는 페이지로 리디렉션
-            return "redirect:/memberMyinfo.do";
+            return "member/inquiry";
         } else {
             // 사용자 정보가 없으면, 로그인 페이지나 에러 페이지로 리디렉션
             return "redirect:/memberLogin.do"; 
