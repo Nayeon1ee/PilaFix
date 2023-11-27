@@ -31,10 +31,6 @@ public class CenterLessonDAO {
 		return sqlSessionTemplate.delete("CenterLessonDAO.deleteCenterLesson", lsCode);
 	}
 	
-	public int updateCenterLesson(CenterLessonVO vo) {
-		return sqlSessionTemplate.update("CenterLessonDAO.updateCenterLesson", vo);
-	}
-	
 	public List<CenterLessonVO> getTrainerCode(int centerCode) {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("centerCode", centerCode);
