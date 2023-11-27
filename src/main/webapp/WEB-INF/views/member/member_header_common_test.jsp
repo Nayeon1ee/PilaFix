@@ -48,7 +48,7 @@
 									<li><a href="#">Deep Drop Down 5</a></li>
 								</ul>  -->	
 							</li>
-							<li><a href="member_notice.do">공지사항</a></li>	
+							<li><a href="#">공지사항</a></li>	
 							<li><a href="#">결제내역</a></li>
 							<li><a href="#">연동센터관리</a></li>
 							<li><a href="#">FAQ</a></li>
