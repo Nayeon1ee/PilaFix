@@ -28,8 +28,16 @@ public class MemberManageDAO {
 	public List<MemberVO> getMemberManageList(int ctCode) {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList", ctCode);
 	}
+	
+	public List<MemberVO> getMemberExcelManageList(int ctCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList", ctCode);
+	}
 
 	public List<MemberVO> getTrainerManageList(int ctCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList", ctCode);
+	}
+	
+	public List<MemberVO> getTrainerExcelManageList(int ctCode) {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList", ctCode);
 	}
 

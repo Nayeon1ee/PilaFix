@@ -5,9 +5,7 @@
 <%@ taglib  prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="center_header_common.jsp" %>
 
-
 	<main id="main" class="main">
-
 		<div class="pagetitle">
 			<h1>강사관리</h1>
 			<nav>
@@ -18,11 +16,9 @@
 			</nav>
 		</div>
 		<!-- End Page Title -->
-
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
-
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">강사 연동 요청</h5>
@@ -62,7 +58,6 @@
 												</div>
 											</td>
 										</tr>
-										
 										<!-- 연동 요청 수락 모달 - 회원 이름 출력 위해 for문 안에  -->
 										<div class="modal fade" id="acceptModal-${loop.index}" tabindex="-1">
 										    <div class="modal-dialog modal-dialog-centered">
@@ -79,7 +74,6 @@
 										        </div>
 										    </div>
 										</div>
-										
 										<!-- 연동 요청 거절 모달 - 회원 이름 출력 위해 for문 안에  -->
 										<div class="modal fade" id="rejectModal-${loop.index}" tabindex="-1">
 										    <div class="modal-dialog modal-dialog-centered">
@@ -99,26 +93,18 @@
 										        </div>
 										    </div>
 										</div>
-										
 									</c:forEach>
 								</tbody>
 							</table>
-
 						</div>
 					</div>
-
-
-
-
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">전체 강사 목록</h5>
 							<p>연동완료된 전체 강사 리스트입니다.</p>
-
 							<!-- 검색필터 시작 -->
 							<div class="search-filter">
 								<div class="search-filter-inner">
-
 									<div class="serch-filter-content">
 										<div class="search-top">
 											<div class="col-md-3">
@@ -153,17 +139,18 @@
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</div>
 							<!-- 검색필터 끝 -->
 
-
-
 							<!-- Table with stripped rows -->
+							<!-- 엑셀다운 -->
+							<div class="table-summary">
+								<button onclick="window.open('<c:url value='/centerTrainerExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
+							</div>
+							
 							<table class="table datatable">
-
 								<thead>
 									<tr>
 										<th scope="col">강사번호</th>
@@ -194,25 +181,18 @@
 										      <td>${member.csEmailId }</td>
 										      <td>${member.csPhoneNumber1 }${member.csPhoneNumber2 }${member.csPhoneNumber3}</td>
 										      <td>${member.csRegistrationDate }</td>
-										      
 										</tr>
 									</c:forEach>
-
 								</tbody>
 							</table>
 							<!-- End Table with stripped rows -->
-
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</section>
-
 	</main>
 	<!-- End #main -->
-	
 <script>
 function acceptRequest(crCode, memberCode) {
     console.log(crCode);
@@ -261,7 +241,11 @@ function rejectRequest(crCode) {
         });
 };
 
-
+//excelDown click
+$("#excelDown").click( function(e){
+	var $form=$("form[name='search']");
+	$(this).attr("href","<c:url value='/centerTrainerExcelDown.do' />"+"?"+$form.serialize() );
+});
 </script>
 
 <%@ include file="center_footer_common.jsp" %>

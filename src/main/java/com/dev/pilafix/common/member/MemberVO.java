@@ -36,9 +36,6 @@ public class MemberVO {
 	private String connectedCenterName1; //연동 센터 명 (센터 코드랑 조인해서 가져옴)
 	private String connectedCenterName2; //연동 센터 명 (센터 코드랑 조인해서 가져옴)
 	private String connectedCenterName3; //연동 센터 명 (센터 코드랑 조인해서 가져옴)
-	private String ticketNameGroup1; //보유 그룹 수강권명
-	private String ticketNamePersonal1; //보유 개인 수강권명
-	
 	
 	public int getCsMemberCode() {
 		return csMemberCode;
@@ -231,20 +228,6 @@ public class MemberVO {
 	}
 	public void setConnectedCenterName3(String connectedCenterName3) {
 		this.connectedCenterName3 = connectedCenterName3;
-	}
-	
-	
-	public String getTicketNameGroup1() {
-		return ticketNameGroup1;
-	}
-	public void setTicketNameGroup1(String ticketNameGroup1) {
-		this.ticketNameGroup1 = ticketNameGroup1;
-	}
-	public String getTicketNamePersonal1() {
-		return ticketNamePersonal1;
-	}
-	public void setTicketNamePersonal1(String ticketNamePersonal1) {
-		this.ticketNamePersonal1 = ticketNamePersonal1;
 	}
 	@Override
 	public String toString() {
