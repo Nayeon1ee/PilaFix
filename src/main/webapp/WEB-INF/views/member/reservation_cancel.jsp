@@ -1,132 +1,307 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="kor">
+
 <head>
-<meta charset='utf-8' />
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Services - PILAFIX Bootstrap Template</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+<!-- Favicons -->
+<link href="assets/img/favicon.png" rel="icon">
+<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/animate.css/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/boxicons/css/boxicons.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/glightbox/css/glightbox.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.css"
+	rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
+	rel="stylesheet">
+
 </head>
+
+<!-- 내 css -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_reservation_cancel.css"
-	type="text/css">
-<!-- bootstrap -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common_0.css">
+
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_Nayeon.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+	href="${pageContext.request.contextPath}/resources/css/style_reservation_cancel.css">
+
 <body>
 
-	<div class="container000">
+	<!-- ======= Top Bar ======= -->
+	<section id="topbar" class="d-flex align-items-center">
+		<div
+			class="container d-flex justify-content-center justify-content-md-between">
+			<div class="contact-info d-flex align-items-center">
+				<i class="bi bi-envelope d-flex align-items-center"><a
+					href="mailto:contact@example.com">contact@example.com</a></i> <i
+					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
+						5589 55488 55</span></i>
+			</div>
+			<div class="social-links d-none d-md-flex align-items-center">
+				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
+					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
+					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
+					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+			</div>
+		</div>
+	</section>
 
-		<section class="content000">
-			<area1>
-			<p>area1</p>
-			</area1>
-			<main>
-				<strong>제목</strong>
-				<h1>예약 취소</h1>
-				<p>설명</p>
-				<hr>
+	<!-- ======= Header ======= -->
+	<%@ include file="member_header_common.jsp"%>
+	<!-- End Header -->
 
-				<div class="reserv_cancel_list">
-					<div class="time">
-						<h3>
-							취소 가능한 시간까지
-							<%=new java.util.Date()%>남았어요!
-						</h3>
-					</div>
+	<main id="main">
 
-					<!-- 센터 맞춰야 함 -->
-					<div class="con1">
-						<div class="card" style="width: 100%;">
-							<div class="card-header">
-								<b>내 예약 정보</b>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item">XX필라테스 xx점 | 그룹수업</li>
-								<li class="list-group-item"><h5>체어&바렐(B) : 다이어트, 체력강화</h5></li>
-								<li class="list-group-item"><img alt="bar"
-									src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-									예약날짜 :</li>
-								<li class="list-group-item"><img alt="bar"
-									src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-									예약시간 :</li>
-							</ul>
+		<!-- ======= Breadcrumbs ======= -->
+		<section id="breadcrumbs" class="breadcrumbs">
+			<div class="container" style="max-width: 1000px">
+
+				<ol>
+					<li><a href="main.do">Home</a></li>
+					<li>Reserved list</li>
+				</ol>
+				<h2>예약 목록</h2>
+
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
+
+		<!-- ======= Services Section ======= -->
+		<section id="services" class="services">
+			<div class="container mx-auto" style="max-width: 1000px;">
+
+
+				<div class="reserv_cancel_list d-flex justify-content-center">
+					<div class="section"
+						style="background-color: #ddc8ff; border: 1px solid #a37cff; padding: 15px; border-radius: 5px; margin-bottom: 20px; position: relative;">
+						<div class="time" id="cancelTime">
+							<p class="lead mb-0">
+								취소 가능한 시간까지 <span id="timeRemaining" style="color: #e44d26;"></span>
+								남았어요!
+							</p>
 						</div>
 					</div>
 
-					<div class="con2">
-						<div class="card" style="width: 100%;">
-							<div class="card-header">
-								<b>내 수강권 정보 확인</b>
+
+
+				<div class="container" style="max-width: 700px">
+    <div class="row">
+        <div class="col-md-6 p-0">
+            <div class="section1">
+                <div class="card" style="height: 230px; max-width: 340px;">
+										<div class="card-header">
+											<b>내 수강권 정보 확인</b>
+										</div>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item mb-2">XX필라테스 xx점 | 그룹수업</li>
+											<li class="list-group-item">
+												<div class="input-group">
+													<label class="input-group-text" for="remainingSessions">잔여횟수</label>
+													<input type="text" class="form-control"
+														id="remainingSessions" name="remainingSessions" readonly>
+												</div>
+											</li>
+											<li class="list-group-item">
+												<div class="input-group">
+													<label class="input-group-text" for="expirationDate">만료일</label>
+													<input type="text" class="form-control" id="expirationDate"
+														name="expirationDate" readonly>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item">XX필라테스 xx점 | 그룹수업</li>
-								<li class="list-group-item"><img alt="bar"
-									src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-									잔여횟수 :</li>
-								<li class="list-group-item"><img alt="bar"
-									src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-									만료일 :</li>
-							</ul>
+							<div class="col-md-6 p-0">
+            <div class="section2">
+                <div class="card" style="height: 230px; max-width: 350px;">
+										<div class="card-header">
+											<b>내 수강권 정보 확인</b>
+										</div>
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item mb-2">XX필라테스 xx점 | 그룹수업</li>
+											<li class="list-group-item">
+												<div class="input-group">
+													<label class="input-group-text" for="remainingSessions">잔여횟수</label>
+													<input type="text" class="form-control"
+														id="remainingSessions" name="remainingSessions" readonly>
+												</div>
+											</li>
+											<li class="list-group-item">
+												<div class="input-group">
+													<label class="input-group-text" for="expirationDate">만료일</label>
+													<input type="text" class="form-control" id="expirationDate"
+														name="expirationDate" readonly>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+
 						</div>
 					</div>
-					<div class="con3">
-						<div class="card" style="width: 100%;">
+					<div class="section">
+						<div class="card">
 							<div class="card-header">
 								<b>이용정책</b>
 							</div>
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item"><b>예약 취소 정책</b></li>
-								<li class="list-group-item">수업 예약의 취소나 변경은 0일 3시간 0분 전 까지
-									가능합니다.</li>
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between align-items-center">
+										<span class="fw-bold">예약 취소 정책</span>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="policy-form">
+										<textarea class="form-control" rows="4" readonly>
+                        수업 예약의 취소나 변경은 0일 3시간 0분 전까지 가능합니다.
+                    </textarea>
+									</div>
+								</li>
 							</ul>
 						</div>
 					</div>
 
-					<div class="con3">
-						<div class="card" style="width: 100%;">
-							<div class="d-grid gap-2">
-								<button class="btn btn-primary" type="button"
-									data-bs-toggle="modal" data-bs-target="#exampleModal">취소하기</button>
-							</div>
+					<div class="section">
+
+						<div class="d-grid gap-2 justify-content-end me-2">
+							<button class="btn btn-primary my-auto" type="button"
+								data-bs-toggle="modal" data-bs-target="#exampleModal"
+								style="width: 100px;">취소하기</button>
 						</div>
+
 					</div>
 				</div>
 
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div
-							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="highlight-text">
+										<span class="highlight-date">10월 21일 오전 10:00에 진행하는</span>
+									</p>
+									<p class="lead custom-lead" style="font-size: 18px;">
+										체어&바렐(B) : 다이어트, 체력강화 수업을 취소하시겠습니까?</p>
 								</div>
-								<div class="modal-body">
-									<br> <font class="highlight_p">10월 21일 오전 10:00</font>에
-									진행하는 <br> 체어&바렐(B) : 다이어트, 체력강화 수업을 취소하시겠습니까? &nbsp;<br>
-									<br>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-bs-dismiss="modal">닫기</button>
-									<button type="button" class="btn btn-primary">예약 취소</button>
-								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">닫기</button>
+								<button type="button" class="btn btn-primary my-auto">예약
+									취소</button>
 							</div>
 						</div>
 					</div>
 				</div>
 
-			</main>
-			<area2>
-			<p>area2</p>
-			</area2>
-		</section>
 
-	</div>
+
+				<!-- End #main -->
+			</div>
+		</section>
+	</main>
+	<!-- ======= Footer ======= -->
+	<%@ include file="member_footer_common.jsp"%>
+	<!-- End Footer -->
+
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<!-- 내 js -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+	<!--  취소 가능한 시간 js -->
+	<script>
+		// 취소 가능한 날짜 설정 (예: 2023년 12월 31일 23시 59분 59초)
+		var cancelDate = new Date('2023-12-31T23:59:59'); // 예약시간 +3시간 해서 시간 건내줘야 함
+
+		// 시간 간격 계산 함수
+		function calculateTimeRemaining() {
+			var now = new Date();
+			var timeDifference = cancelDate - now;
+
+			// 시간, 분, 초 계산
+			var hours = Math.floor(timeDifference / (1000 * 60 * 60));
+			var minutes = Math.floor((timeDifference % (1000 * 60 * 60))
+					/ (1000 * 60));
+			var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+			// 결과를 페이지에 반영
+			document.getElementById('timeRemaining').innerHTML = hours + '시간 '
+					+ minutes + '분 ' + seconds + '초';
+		}
+
+		// 페이지 로드 시 초기화
+		calculateTimeRemaining();
+
+		// 1초마다 갱신
+		setInterval(calculateTimeRemaining, 1000);
+	</script>
+	<!--  취소 가능한 시간 스크립트 -->
+
+	<!-- Vendor JS Files -->
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
+
+	<!-- Template Main JS File -->
+	<script
+		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
 
 </body>
+
 </html>

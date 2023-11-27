@@ -142,37 +142,33 @@
 
 
 							<!-- 버튼 부분 -->
-							<div class="tab-buttons">
-								<ul class="nav nav-pills justify-content-center mt-3"
+							<div class="tab-buttons text-center">
+								<ul class="nav nav-tabs justify-content-center mt-3"
 									id="pills-tab" role="tablist">
-									<li class="nav-item" role="presentation">
-										<button class="nav-link active" id="pills-all-tab"
-											data-bs-toggle="pill" href="#pills-all" role="tab"
-											aria-controls="pills-all" aria-selected="true">전체</button>
+									<li class="nav-item flex-grow-1" role="presentation"><a
+										class="nav-link active" id="pills-all-tab"
+										data-toggle="pill" href="#pills-all" role="tab"
+										aria-controls="pills-group" aria-selected="true">전체</a></li>
+									<li class="nav-item flex-grow-1" role="presentation"><a
+										class="nav-link px-auto" id="pills-individual-tab"
+										data-toggle="pill" href="#pills-individual" role="tab"
+										aria-controls="pills-individual" aria-selected="false">개인</a>
 									</li>
-									<li class="nav-item" role="presentation">
-										<button class="nav-link" id="pills-individual-tab"
-											data-bs-toggle="pill" href="#pills-individual" role="tab"
-											aria-controls="pills-individual" aria-selected="false">개인</button>
-									</li>
-									<li class="nav-item" role="presentation">
-										<button class="nav-link" id="pills-group-tab"
-											data-bs-toggle="pill" href="#pills-group" role="tab"
-											aria-controls="pills-group" aria-selected="false">그룹</button>
-									</li>
+									<li class="nav-item flex-grow-1" role="presentation"><a
+										class="nav-link px-auto" id="pills-group-tab"
+										data-toggle="pill" href="#pills-group" role="tab"
+										aria-controls="pills-group" aria-selected="false">그룹</a></li>
 								</ul>
 							</div>
-
 
 
 							<!-- 수강권 시작 -->
 							<div class="tab-pane fade show active" id="pills-all"
 								role="tabpanel" aria-labelledby="pills-all-tab">
-								<!-- 예시 티켓 -->
 								<!-- 셀렉트박스에서 선택한 센터의 수강권 정보를 업데이트할 부분 -->
-								<ul class="list-group-ticket p-0" id="centerInfoContainer">
-										<!-- 여기에 ajax내용 들어감 -->
-								</ul>
+								<div class="list-group" id="centerInfoContainer">
+										<!-- 여기에 수강권 리스트 ajax내용 들어감 -->
+								</div>
 							</div>
 
 
@@ -306,25 +302,15 @@
 											var nowDate = currentDate.toISOString().split('T')[0];
 											var ticketEndDate = endDate.toISOString().split('T')[0];
 
-											str = '<div class="list-group-ticket" id="'+item.tkCode+'">'
-											//str = '<input type="hidden" name="tkCode" value="'+item.tkCode+'">'
-											//str += '<a href="#" class="list-group-item list-group-item-action active" aria-current="true">'
+											str = '<a href="#" class="list-group-item list-group-item-action" id="'+item.tkCode+'">'
 											str += '<div class="d-flex w-100 justify-content-between">'
 											str += '<h5 class="mb-1">'+ item.tkCapacity + ':1'+ item.tkLessonType + ' 레슨'+ item.tkUsageCount + '회 ('+ item.tkUsageNumMonth+ '개월)</h5>'
 											str += '</div>'
 											str += '<p class="mb-1">'+ item.tkName + '</p>'
-											str += "<div>"
-											str += "<table>"
-											str += '<td>'
-											str += "<tr>" + nowDate + "~"+ ticketEndDate + "</tr>"
-											str += '<tr>'
+											str += '<p class="mb-1">' + nowDate + "~"+ ticketEndDate + "</p>"
 											str += '<span class="tkPrice">'+ item.tkPriceAddDot+'원 </span>';
-											str += "</tr>"
-											str += "</td>"
-											str += "</table>"
-											str += "</div>"
-											//str += "</a>"
-											str += "</div>"
+											str += "</a>"
+									
 											// centerInfoContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
 											$('#centerInfoContainer').append(str);
 											
@@ -403,6 +389,9 @@
 					const tkName = ticket.ticketDetail.tkName;
 					const tkCode = ticket.ticketDetail.tkCode;
 					const tkLessonType = ticket.ticketDetail.tkLessonType;
+					const tkCount = ticket.ticketDetail.tkUsageCount;
+					const tkStartDate = nowDate;
+					const tkEndDate = ticketEndDate;
 					const csName = ticket.member.csName;
 					const csEmail = ticket.member.csEmailId;
 					const csNumber = ticket.member.csPhoneNumber;
@@ -410,7 +399,7 @@
 					
 					// 버튼 클릭 시 requestPay 함수 호출
 		             $('#ticketBuy').off('click').on('click', function () {
-		            	ticketCheck(tkPrice, tkName,tkCode,tkLessonType, csName, csEmail, csNumber, csCode);
+		            	ticketCheck(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode);
 		                //requestPay(tkPrice, tkName,tkCode,tkLessonType, csName, csEmail, csNumber, csCode);
 		            });
 					
@@ -421,7 +410,7 @@
 		    });
 		}	
 	<!-- 수강권 보유중인지 확인하고 오는 메서드-->
-	function ticketCheck(tkPrice, tkName,tkCode,tkLessonType, csName, csEmail, csNumber, csCode){
+	function ticketCheck(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode){
 		var ajaxUrl;
 		console.log("수강권 보유중인지 확인하고 오는 스크립트: "+csCode);
 	    // 조건에 따라 다른 URL 선택
@@ -440,11 +429,11 @@
 	            console.log('서버 응답:', data);
 	         // 문자열 "null" 체크
 	            if (data === "null" || data=="") {
-	                alert('이미 보유중인 수강권이 있습니다. 수강권을 다 사용하신 뒤 구매하시기 바랍니다.');
+	            	requestPay(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode);
 	            } else {
+	                alert('이미 보유중인 수강권이 있습니다. 수강권을 다 사용하신 뒤 구매하시기 바랍니다.');
 	            	//alert("수강권 구매가능")
 	                // repay 함수 호출
-	            	requestPay(tkPrice, tkName,tkCode, csName, csEmail, csNumber, csCode);
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
@@ -458,7 +447,7 @@
 	
     IMP.init('imp80610750') //가맹점 식별코드 입력
     
-    function requestPay(tkPrice, tkName,tkCode, csName, csEmail, csNumber,csCode) {
+    function requestPay(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode) {
         IMP.request_pay({
           pg: "kcp", // 사용할 pg사의 요청 키워드
           pay_method: "card",
@@ -476,34 +465,39 @@
     	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
     	console.log("rsp.imp_uid :"+rsp.imp_uid +"tkPrice:"+tkPrice+"tkCode"+tkCode+"rsp.pay_method"+rsp.pay_method+"rsp.paid_at: "+rsp.paid_at);
     	jQuery.ajax({
-    		url: "payments.do", //cross-domain error가 발생하지 않도록 주의해주세요
+    		url: "payments.do", 
     		type: 'POST',
     		dataType: 'json',
     		data: {
-	    		imp_uid : rsp.imp_uid, // 결제 고유번호
-	    		tkPrice : tkPrice,
-	    		tkCode : tkCode,
-	    		payMethod : rsp.pay_method,
-	    		payTime : rsp.paid_at //결제 승인시간
-	    		//기타 필요한 데이터가 있으면 추가 전달
+    			paId : rsp.imp_uid, // 결제 고유번호
+    			paAmount : tkPrice,
+	    		ticketCode : tkCode,
+	    		paMethod : rsp.pay_method,
+	    		paymentDateTime : rsp.paid_at, //결제 승인시간
+	    		memberCode : csCode,
+	    		tkLessonType:tkLessonType,
+	    		ticketRemainingCount: tkCount,
+	    		ticketStartDate: tkStartDate,
+	    		ticketExpiryDate : tkEndDate
     		},
     		 success: function (data) {
     			 console.log(data)
                  //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
                  var msg = '결제가 완료되었습니다.';
                  msg += '\n고유ID : ' + rsp.imp_uid;
-                 // msg += '\n상점 거래ID : ' + rsp.merchant_uid;
                  msg += '\결제 금액 : ' + rsp.paid_amount;
                  msg += '카드 승인번호 : ' + rsp.apply_num;
-
-                 alert(data+msg);
+				 
+                 console.log(msg);
+                 alert("결제가 성공적으로 완료되었습니다.");
     
              },
              error: function (data,jqXHR, textStatus, errorThrown) {
-            	 console.log(data)
+            	 //console.log(data)
                  //[3] 아직 제대로 결제가 되지 않았습니다.
                  //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
                  alert("ajax실패 + 결제 실패");
+                 cancelPay(rsp.imp_uid,rsp.paid_amount)
              }
     	});
     } else {
@@ -516,6 +510,26 @@
         
         });
       }
+	
+    function cancelPay(imp_uid,amount) {
+        jQuery.ajax({
+          // 예: http://www.myservice.com/payments/cancel
+          url: "cancel.do", 
+          type: "POST",
+          data: {
+        	  imp_uid : imp_uid, // 
+           	  reason : "내부 서버 오류", // 환불사유
+          },success: function (data) {
+        	  console.log("취소처리 완료하고 ajax응답성공 : "+data)
+ 			 alert("서버 오류로 결제가 자동 취소처리 되었습니다.")
+
+         },
+         error: function (data,jqXHR, textStatus, errorThrown) {
+        	 
+         }
+        });
+      }
+	
     </script>	
 	<!-- 클릭하면 우측 화면 디폴트에서 상세화면으로 바뀌게 하는 js 
 		 왼쪽에 수강권 클릭하면 이 함수 실행

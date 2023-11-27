@@ -51,7 +51,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common_0.css">
 
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style_reservation_details.css">
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
@@ -95,9 +96,9 @@
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>Reserved list group</li>
+					<li>Reserved list</li>
 				</ol>
-				<h2>예약 목록 그룹</h2>
+				<h2>예약 목록</h2>
 
 			</div>
 		</section>
@@ -114,7 +115,7 @@
 
 						<!-- 첫 번째 컬럼 (7:3) -->
 
-						<table class="Calendar">
+						<table class="Calendar py-0 my-0">
 							<thead>
 								<tr>
 									<td onClick="prevCalendar();" style="cursor: pointer;">&#60;</td>
@@ -145,7 +146,10 @@
 
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-4">
-						<div class='content' style="max-height: 500px; overflow-y: auto;">
+						<div class="content border rounded p-3"
+							style="min-height: 600px; max-height: 600px; overflow-y: auto;">
+
+
 
 							<!-- 센터 셀렉트 박스 -->
 							<div class="custom-select-wrapper text-center mt-3">
@@ -178,8 +182,10 @@
 								<div class="tab-pane fade" id="pills-individual" role="tabpanel"
 									aria-labelledby="pills-individual-tab">
 
+
+
 									<!-- 개인 탭에 대한 내용 -->
-									<div class="content-filter">
+									<div class="content-filter mt-1">
 										<div
 											class="form-check form-switch d-flex justify-content-between align-items-center">
 											<div>
@@ -198,25 +204,96 @@
 										</div>
 									</div>
 
-									<div class="content-filter">
+									<div class="content-filter py-2 my-4">
 										<div
-											class="form-check form-switch d-flex justify-content-between align-items-center">
-											<div>
+											class="time-slot d-flex justify-content-around align-items-center">
+											<div class="time-info">
 												<label class="form-check-label time-label"
-													for="flexSwitchCheckDefault2"> <span
-													class="badge bg-primary">10:00 - 10:50</span>
-
+													for="flexSwitchCheckDefault2">
+													<div class="time-check text-center">
+														<input type="checkbox" class="btn-check" id="btn-check-2"
+															autocomplete="off"> <label class="btn"
+															for="btn-check-2"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
+															<p class="mt-2">10:00 - 10:50</p>
+														</label>
+													</div>
 												</label>
 											</div>
-											<div>
-												<button class="btn btn-primary reserve-btn">
-													<i class="bi bi-calendar-plus"></i> 예약하기
-												</button>
-											</div>
+											<!--여기다가 복사 -->
+											<label class="form-check-label time-label"
+												for="flexSwitchCheckDefault3">
+												<div class="time-check text-center">
+													<input type="checkbox" class="btn-check" id="btn-check-3"
+														autocomplete="off"> <label class="btn"
+														for="btn-check-3"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
+														<p class="mt-2">11:00 - 11:50</p>
+													</label>
+												</div>
+											</label> <label class="form-check-label time-label"
+												for="flexSwitchCheckDefault4">
+												<div class="time-check text-center">
+													<input type="checkbox" class="btn-check" id="btn-check-4"
+														autocomplete="off"> <label class="btn"
+														for="btn-check-4"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
+														<p class="mt-2">12:00 - 12:50</p>
+													</label>
+												</div>
+											</label>
+
+
 										</div>
 									</div>
 
+									<div class="content-filter py-2 my-4">
+										<div
+											class="time-slot d-flex justify-content-around align-items-center">
+											<div class="time-info">
+												<label class="form-check-label time-label"
+													for="flexSwitchCheckDefault5">
+													<div class="time-check text-center">
+														<input type="checkbox" class="btn-check" id="btn-check-5"
+															autocomplete="off"> <label class="btn"
+															for="btn-check-5"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
+															<p class="mt-2">10:00 - 10:50</p>
+														</label>
+													</div>
+												</label>
+											</div>
+
+											<label class="form-check-label time-label"
+												for="flexSwitchCheckDefault6">
+												<div class="time-check text-center">
+													<input type="checkbox" class="btn-check" id="btn-check-6"
+														autocomplete="off"> <label class="btn"
+														for="btn-check-6"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
+														<p class="mt-2">11:00 - 11:50</p>
+													</label>
+												</div>
+											</label> <label class="form-check-label time-label"
+												for="flexSwitchCheckDefault7">
+												<div class="time-check text-center">
+													<input type="checkbox" class="btn-check" id="btn-check-7"
+														autocomplete="off"> <label class="btn"
+														for="btn-check-7"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
+														<p class="mt-2">12:00 - 12:50</p>
+													</label>
+												</div>
+											</label>
+
+
+
+										</div>
+									</div>
+									<!-- 예약 버튼 -->
+									<div class="reservation-btn d-flex justify-content-end">
+										<button class="btn btn-primary" onclick="reserveTime()">
+											<i class="bi bi-calendar-plus"></i> 예약하기
+										</button>
+									</div>
+
 								</div>
+
+								<!--  그룹 탭  -->
 								<div class="tab-pane fade" id="pills-group" role="tabpanel"
 									aria-labelledby="pills-group-tab">
 
@@ -239,26 +316,21 @@
 												</button>
 											</div>
 										</div>
+
+
 									</div>
 
 									<div class="list-group">
-										<a href="#"
-											class="list-group-item list-group-item-action active">
-											<div class="d-flex w-100 justify-content-between">
-												<h5 class="mb-1">오전 09:00 ~ 09:50</h5>
-												<small></small>
-											</div>
-											<p class="mb-1">콤비리포머(A): 재활, 스트레칭</p>
-											<p class="mb-1">###강사</p> <small class="text-muted">#명
-												남음</small><small class="text-muted">정원 #명</small>
-										</a> <a href="#" class="list-group-item list-group-item-action">
+										<div class="list-group-item list-group-item-action"
+											id="noTicketsMessage" style="display: none;"></div>
+										<a href="#" class="list-group-item list-group-item-action">
 											<div class="d-flex w-100 justify-content-between">
 												<h5 class="mb-1">오전 10:00 ~ 10:50</h5>
-												<small></small>
+
 											</div>
 											<p class="mb-1">체어&바렐(A): 체형교정</p>
 											<p class="mb-1">###강사</p> <small class="text-muted">#명
-												남음</small><small class="text-muted">정원 #명</small>
+												남음</small> <small class="text-muted">정원 #명</small>
 										</a> <a href="#" class="list-group-item list-group-item-action">
 											<div class="d-flex w-100 justify-content-between">
 												<h5 class="mb-1">오전 11:00 ~ 11:50</h5>
@@ -267,7 +339,7 @@
 											</div>
 											<p class="mb-1">체어&바렐(A): 체형교정</p>
 											<p class="mb-1">###강사</p> <small class="text-muted">#명
-												남음</small><small class="text-muted">정원 #명</small>
+												남음</small> <small class="text-muted">정원 #명</small>
 										</a> <a href="#" class="list-group-item list-group-item-action">
 											<div class="d-flex w-100 justify-content-between">
 												<h5 class="mb-1">오전 12:00 ~ 12:50</h5>
@@ -276,18 +348,55 @@
 											</div>
 											<p class="mb-1">체어&바렐(A): 체형교정</p>
 											<p class="mb-1">###강사</p> <small class="text-muted">#명
-												남음</small><small class="text-muted">정원 #명</small>
+												남음</small> <small class="text-muted">정원 #명</small>
 										</a>
 									</div>
+
+									<div class="list-group">
+										<a href="#" class="list-group-item list-group-item-action">
+											<div class="d-flex w-100 justify-content-between">
+												<h5 class="mb-1">오전 10:00 ~ 10:50</h5>
+
+											</div>
+											<p class="mb-1">체어&바렐(A): 체형교정</p>
+											<p class="mb-1">###강사</p> <small class="text-muted">#명
+												남음</small> <small class="text-muted">정원 #명</small>
+										</a> <a href="#" class="list-group-item list-group-item-action">
+											<div class="d-flex w-100 justify-content-between">
+												<h5 class="mb-1">오전 11:00 ~ 11:50</h5>
+												<button type="button" class="btn btn-outline-primary"
+													data-bs-toggle="modal" data-bs-target="#staticBackdrop">예약하기</button>
+											</div>
+											<p class="mb-1">체어&바렐(A): 체형교정</p>
+											<p class="mb-1">###강사</p> <small class="text-muted">#명
+												남음</small> <small class="text-muted">정원 #명</small>
+										</a> <a href="#" class="list-group-item list-group-item-action">
+											<div class="d-flex w-100 justify-content-between">
+												<h5 class="mb-1">오전 12:00 ~ 12:50</h5>
+												<button type="button" class="btn btn-outline-primary"
+													disabled="disabled">● 예약완료</button>
+											</div>
+											<p class="mb-1">체어&바렐(A): 체형교정</p>
+											<p class="mb-1">###강사</p> <small class="text-muted">#명
+												남음</small> <small class="text-muted">정원 #명</small>
+										</a>
+									</div>
+									
+									
+									<!--  수강권 없을 때 표시될 메세지 -->
+									<!-- 이용가능한 수강권이 없을 때의 메시지 -->
+									<!--  	<div class="alert alert-danger border border-2 border-purple"
+										role="alert"
+										style="font-size: 1.3rem; text-align: center; background-color: #fff;">
+										이용 가능한 수강권이 없습니다. <a href="#" class="btn btn-primary"
+											style="margin-left: 10px;"> 수강권 구매하기 </a>
+									</div> -->
+									<!--  수강권 없을 때 표시될 메세지 -->
 
 								</div>
 							</div>
 
 						</div>
-
-
-
-
 
 
 
@@ -385,7 +494,6 @@
 				</div>
 			</div>
 			<!-- 모달  -->
-
 
 			<!-- 내용 -->
 

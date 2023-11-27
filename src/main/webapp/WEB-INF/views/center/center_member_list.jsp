@@ -159,7 +159,10 @@
 							</div>
 							<!-- 검색필터 끝 -->
 
-
+							<!-- 엑셀다운 -->
+							<div class="table-summary">
+								<button onclick="window.open('<c:url value='/centerMemberExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
+							</div>
 
 							<!-- Table with stripped rows -->
 							<table class="table datatable">
@@ -266,6 +269,12 @@ function rejectRequest(crCode) {
 			console.error(error);
 		});
 };
+
+//excelDown click
+$("#excelDown").click( function(e){
+	var $form=$("form[name='search']");
+	$(this).attr("href","<c:url value='/centerMemberExcelDown.do' />"+"?"+$form.serialize() );
+});
 </script>
 
 <%@ include file="center_footer_common.jsp" %>

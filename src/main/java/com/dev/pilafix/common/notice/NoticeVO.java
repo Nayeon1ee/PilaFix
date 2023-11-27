@@ -14,6 +14,23 @@ public class NoticeVO {
 	private Date ncSentDatetime;
 	private boolean ncReadYn;
 	
+	public NoticeVO() { }
+	
+	
+	public NoticeVO(String ncId, int memberCode, String recipientCode, String eventType, String uniqueIdentifierCode,
+			String ncNoticeContent, boolean ncSendYn, Date ncSentDatetime, boolean ncReadYn) {
+		this.ncId = ncId;
+		this.memberCode = memberCode;
+		this.recipientCode = recipientCode;
+		this.eventType = eventType;
+		this.uniqueIdentifierCode = uniqueIdentifierCode;
+		this.ncNoticeContent = ncNoticeContent;
+		this.ncSendYn = ncSendYn;
+		this.ncSentDatetime = ncSentDatetime;
+		this.ncReadYn = ncReadYn;
+	}
+
+
 	public String getNcId() {
 		return ncId;
 	}

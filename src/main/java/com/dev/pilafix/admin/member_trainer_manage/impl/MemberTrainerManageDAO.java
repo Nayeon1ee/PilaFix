@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.admin.member_trainer_manage.CenterConnectHistoryVO;
 import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
+import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.member.MemberVO;
 
 @Repository
@@ -16,11 +17,19 @@ public class MemberTrainerManageDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<MemberVO> getMemberList() {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList");
+		return sqlSessionTemplate.selectList("MemberManageDAO.adminGetMemberList");
+	}
+	
+	public List<MemberVO> getExcelMemberList() {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getExelMember");
 	}
 	
 	public List<MemberVO> getTrainerList() {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList");
+		return sqlSessionTemplate.selectList("MemberManageDAO.adminGetTrainerList");
+	}
+	
+	public List<MemberVO> getExcelTrainerList() {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getExelTrainer");
 	}
 	
 	public MemberVO getMember(int csMemberCode) {

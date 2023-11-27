@@ -156,8 +156,10 @@
 
 										</div>
 										<p class="mb-1">체어&바렐(A): 체형교정</p>
-										<p class="mb-1">###강사</p> <span style="float: right;">600,000원</span>
-									</a> <a href="#" class="list-group-item list-group-item-action">
+										<p class="mb-1">###강사</p> 
+										<span style="float: right;">600,000원</span>
+									</a> 
+									<a href="#" class="list-group-item list-group-item-action">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">오전 12:00 ~ 12:50</h5>
 

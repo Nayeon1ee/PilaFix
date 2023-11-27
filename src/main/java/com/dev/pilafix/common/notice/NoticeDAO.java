@@ -29,7 +29,18 @@ public class NoticeDAO {
 	}
 	
 	/**
-	 * 알림 테이블 등록 
+	 * 알림 등록 
+	 * 
+	 * @param notice
+	 */
+	public void insertNotice(NoticeVO notice) {
+		System.out.println("NoticeDAO까지 옴 "+notice.getUniqueIdentifierCode());
+		sqlSessionTemplate.insert("NoticeDAO.insertNotice", notice);
+		System.out.println(notice.getNcNoticeContent()+" ==== 알림 등록 완료");
+	}
+	
+	/**
+	 * 알림 등록  
 	 * 
 	 * @param noticeList
 	 */

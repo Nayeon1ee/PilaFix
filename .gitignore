@@ -189,3 +189,4 @@ $RECYCLE.BIN/
 **/application.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,linux,eclipse,maven,macos
+src/main/webapp/resources/images/pilates-together.png

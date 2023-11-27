@@ -1,6 +1,9 @@
 package com.dev.pilafix.member.ticket;
 
-import java.util.HashMap;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +11,13 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +28,24 @@ import com.dev.pilafix.center.ticket.CenterTicketVO;
 import com.siot.IamportRestClient.IamportClient;
 
 @Controller
+@PropertySource("classpath:config/application.properties")
 public class MemberTicketController {
 	
 	@Autowired
 	private MemberTicketService service;
 	
-	private IamportClient api;
+	private IamportClient iamportClient;
+	
+	// 프로퍼티에 설정한 api key정보 가져옴
+	@Value("${imp.api.key}")
+    private String apiKey;
+ 
+    @Value("${imp.api.secret}")
+    private String secretKey;
+    
+    public MemberTicketController() {
+        this.iamportClient = new IamportClient(apiKey, secretKey);
+    }
 	
 	//결제 api테스트위한 요청 나중에 지울거임
 	@GetMapping("/buy.do")
@@ -52,23 +74,38 @@ public class MemberTicketController {
 		
 	@PostMapping("/payments.do")
 	@ResponseBody
-	public String payments(String imp_uid) {
-//		imp_uid = extract_POST_value_from_url('imp_uid') //post ajax request로부터 imp_uid확인
-//
-//				payment_result = rest_api_to_find_payment(imp_uid) //imp_uid로 아임포트로부터 결제정보 조회
-//				amount_to_be_paid = query_amount_to_be_paid(payment_result.merchant_uid) //결제되었어야 하는 금액 조회. 가맹점에서는 merchant_uid기준으로 관리
-//
-//				IF payment_result.status == 'paid' AND payment_result.amount == amount_to_be_paid
-//					success_post_process(payment_result) //결제까지 성공적으로 완료
-//				ELSE IF payment_result.status == 'ready' AND payment.pay_method == 'vbank'
-//					vbank_number_assigned(payment_result) //가상계좌 발급성공
-//				ELSE
-//					fail_post_process(payment_result) //결제실패 처리
+	public int payments(MemberTicketVO vo) throws ParseException {
+		// Unix timestamp로 들어온 결제 일시를 java.sql.Timestamp로 변환
+        long date = vo.getPaymentDateTime()*1000L;
+     // Unix 타임스탬프를 Date 객체로 변환하기
+        Date parseDate = new Date(date);
+     // SimpleDateFormat을 사용하여 날짜와 시간 형식 지정하기
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = formatter.format(parseDate);
+        vo.setPaDateTime(formattedDate);
+            System.out.println("변환된 시간: " + formattedDate);
+            System.out.println("컨트롤러 도달 /결제 고유번호 : "+vo.getPaId());
+        
+        
+        boolean success = service.insertPaymentAndUpdateMemberTicketInfo(vo);  
+        if (success) {
+        	System.out.println("트랜잭션 성공하고 컨트롤러까지 옴 => 맞음");
+            return 0;
+        } else {
+        	System.out.println("이거 찍히면 DAO에서 오류나고 컨트롤러까지 옴");
+            return 1;
+        }
+		// 둘중 하나라도 수행 못하면 
+//		if (insertResult+updateResult < 2) {
+//			
+//		}else {
+//			
+//		}
 		
-		System.out.println("컨트롤러 도달 /결제 고유번호 : "+imp_uid);
-		return "ajax성공 + 결제 성공";
+		//return "success";
 	}
 	
+
 	/**
 	 * 수강권 구매시 해당회원의 연동된 센터 코드로 센터 이름 가져와 화면의 셀렉트박스에 넣어줌
 	 * @param session
@@ -84,12 +121,13 @@ public class MemberTicketController {
 			int csMemberCode = (int) user.get("csMemberCode");
 			model.addAttribute("connCenterList", service.getConnCenterList(csMemberCode));
 			
-			return "member/ticket";
+			return "member/Purchase";
 		}
 		return "member/login"; //로그인 페이지로 이동
 	
 	}
 	
+	//수강권 상세조회
 	@PostMapping("/getCenterTicketInfo.do")
 	@ResponseBody
 	public List<CenterTicketVO> getCenterTicketInfo(int ctCode,Model model){
@@ -105,14 +143,22 @@ public class MemberTicketController {
 		System.out.println("컨트롤러로 넘어온 센터코드 확인 : "+centerCode);
 		System.out.println("컨트롤러로 넘어온 티켓코드 확인 : "+tkCode);
 		
-		
-		
 		Map<String, Object> ticket = new HashMap<>();
 		ticket.put("ticketDetail", service.getTicketDetail(tkCode));
 		ticket.put("ticketGuide", service.getCenterTicketGuide(centerCode));
 		//수강권 결제시 로그인 회원의 이름,연락처,이메일 필요해서 넣음
 		ticket.put("member", session.getAttribute("loginUser"));
 		return ticket;
+	}
+	
+	//구매취소 
+	@PostMapping("/cancel.do")
+	@ResponseBody
+	public int cancel(String imp_uid,String reason ) throws IOException {
+		System.out.println("프로퍼티스에 있는 인증키 출력 : "+apiKey+"/"+secretKey);
+		String token = service.getToken(apiKey, secretKey);
+		service.refundRequest(token,imp_uid,reason);
+        return 0;
 	}
 
 }
