@@ -90,25 +90,8 @@
 										<option value="21">21시</option>
 										<option value="22">22시</option>
 									</select>
-									<!-- <button type="button" class="btn btn-primary" onclick="displaySelectedDateTime()">선택</button> -->
-									<div id="outputDateTime"></div>
-								</div>
-								<div class="col-md-12">
-									<label class="form-label">예약 가능 여부</label>
-									<div class="radio-box">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="lsColseYN" id="flexRadioDefault1" value=true>
-											<label class="form-check-label" for="flexRadioDefault1">Y</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="lsColseYN" id="flexRadioDefault1" value=false>
-											<label class="form-check-label" for="flexRadioDefault1">N</label>
-										</div>
-										<div class="p-check">
-											<p>(Y를 선택하면 회원이 바로 구매가 가능합니다.)</p>
-											<p>(N을 선택하면 수강권을 생성만 합니다.)</p>
-										</div>
-									</div>
+									<div id="dateTimeContainer"></div>
+									<button type="button" class="btn btn-primary" id="addButton" onclick="addDateTimeInput()">날짜 및 시간 추가</button>
 								</div>
 								<div class="text-center">
 									<button type="submit" class="btn btn-primary">등록</button>
@@ -154,6 +137,35 @@ function removeForm(formElement) {
     formElement.parentNode.removeChild(formElement);
 }
 
+function addDateTimeInput() {
+    // 기존의 폼 요소를 가져옵니다.
+    var originalForm = document.querySelector('form[name="myForm"]');
+    
+    // 기존 폼을 복제합니다.
+    var clonedForm = originalForm.cloneNode(true);
+    
+    // 복제된 폼 내의 버튼 요소를 제거합니다.
+    var buttons = clonedForm.querySelectorAll('button');
+    buttons.forEach(function(button) {
+        button.remove();
+    });
+
+    // 특정 input 요소의 type을 hidden으로 변경합니다.
+    var dateInput = clonedForm.querySelector('input[name="lsDate"]');
+    dateInput.type = 'hidden';
+
+    var timeSelect = clonedForm.querySelector('select[name="lsTime"]');
+    timeSelect.type = 'hidden';
+    
+    // 특정 부분을 제외하고 숨깁니다.
+    var elementsToHide = clonedForm.querySelectorAll('.col-md-12:not(:nth-child(7)):not(:nth-child(8))');
+    elementsToHide.forEach(function(element) {
+        element.style.display = 'none';
+    });
+    
+    // 새로운 폼을 추가합니다.
+    document.querySelector('main').appendChild(clonedForm);
+}
 </script>
 
 <%@ include file="center_footer_common.jsp" %>

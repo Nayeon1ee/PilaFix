@@ -23,22 +23,19 @@
 	</resultMap>
 	
 	<select id="getCenterLessonList" resultMap="centerLessonResult" >
-		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN FROM TBL_LESSON WHERE CENTER_CODE=#{centerCode}
+		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN FROM TBL_LESSON WHERE CENTER_CODE=#{centerCode} ORDER BY LS_CODE DESC
 	</select>
 	<select id="getCenterLesson" resultMap="centerLessonResult">
 		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, LS_DATE, LS_CLOSE_YN FROM TBL_LESSON WHERE LS_CODE=#{lsCode}
 	</select>
 	<insert id="insertCenterLesson" parameterType="centerLesson">
-		INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE, LS_DATE, LS_TIME, LS_CAPACITY, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN)
-		VALUES (CONCAT('LS', NEXTVAL('SEQ_LESSON')), #{lsName}, #{lsType}, #{lsDate}, to_timestamp('${lsTime}', 'HH24:00'), #{lsCapacity}, #{trainerMemberCode}, #{lsContent}, #{centerCode}, CURRENT_TIMESTAMP, ${lsColseYN})
+		INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE, LS_DATE, LS_TIME, LS_CAPACITY, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE)
+		VALUES (CONCAT('LS', NEXTVAL('SEQ_LESSON')), #{lsName}, #{lsType}, #{lsDate}, to_timestamp('${lsTime}', 'HH24:00'), #{lsCapacity}, #{trainerMemberCode}, #{lsContent}, #{centerCode}, CURRENT_TIMESTAMP)
 	</insert>
 	<delete id="deleteCenterLesson" parameterType="centerLesson">
 		DELETE FROM TBL_LESSON WHERE LS_CODE = #{lsCode}
 	</delete>
-	<update id="updateCenterLesson"  parameterType="centerLesson">
-		UPDATE TBL_LESSON SET LS_CLOSE_YN=${lsColseYN} WHERE LS_CODE=#{lsCode}
-	</update>
-	
+
 	<select id="getTrainerCode" resultMap="centerLessonResult">
 		SELECT DISTINCT CS_MEMBER_CODE, CS_NAME
 		FROM TBL_CST

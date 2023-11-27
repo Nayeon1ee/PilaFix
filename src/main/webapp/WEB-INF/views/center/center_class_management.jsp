@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ include file="center_header_common.jsp" %>
 	<main id="main" class="main">
-
 		<div class="pagetitle">
 			<h1>수업관리</h1>
 			<nav>
@@ -64,7 +62,6 @@
 								</div>
 							</div>
 							<!-- 검색필터 끝 -->
-
 							<hr />
 							<div class="terms-btn">
 					              <span class="terms-reg-btn">
@@ -101,8 +98,10 @@
 											<td>${centerLesson.lsDate }</td>
 											<td>${centerLesson.lsTime }:00</td>
 											<c:choose>
+
 												<c:when test="${centerLesson.lsColseYN=='f'}"><td>N</td></c:when>
 												<c:otherwise><td>Y</td></c:otherwise>
+
 											</c:choose>
 										</tr>
 									</c:forEach>
@@ -114,8 +113,6 @@
 				</div>
 			</div>
 		</section>
-
 	</main>
 	<!-- End #main -->
-
 <%@ include file="center_footer_common.jsp" %>
