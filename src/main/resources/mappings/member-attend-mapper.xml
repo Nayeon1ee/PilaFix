@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="AttendDAO">
+	<resultMap type="attend" id="attendResult">
+		<id property="atCode" column="AT_CODE"/>
+		<result property="lessonCode" column="LESSON_CODE" />
+		<result property="atMember1Code" column="AT_MEMBER1_CODE" />
+		<result property="atAttendance1Yn" column="AT_ATTENDANCE1_YN" />
+		<result property="atMember2Code" column="AT_MEMBER2_CODE" />
+		<result property="atAttendance2Yn" column="AT_ATTENDANCE2_YN" />	
+		<result property="atMember3Code" column="AT_MEMBER3_CODE" />
+		<result property="atAttendance3Yn" column="AT_ATTENDANCE3_YN" />	
+		<result property="atMember4Code" column="AT_MEMBER4_CODE" />
+		<result property="atAttendance4Yn" column="AT_ATTENDANCE4_YN" />	
+		<result property="atMember5Code" column="AT_MEMBER5_CODE" />
+		<result property="atAttendance5Yn" column="AT_ATTENDANCE5_YN" />	
+		<result property="atMember6Code" column="AT_MEMBER6_CODE" />
+		<result property="atAttendance6Yn" column="AT_ATTENDANCE6_YN" />															
+	</resultMap>
+	
+
+
+
+
+<!-- 로그인한 강사의 수업 내역 가져오기 (테스트용 하드코딩) -->
+<select id="getAttendListByMemberCode" parameterType="int" resultMap="CenterLessonDAO.centerLessonResult">
+   SELECT * FROM TBL_LESSON WHERE LS_CLOSE_YN = TRUE AND TRAINER_MEMBER_CODE = 8016
+   <!--AND TRAINER_MEMBER_CODE =  #{csMemberCode}  -->
+</select>
+
+<!-- 수업 상세 조회 -->
+
+
+<!-- 수업에 예약한 회원 이름 가져오기 
+<select id="selectMemberNamesForLesson">
+SELECT r.MEMBER_CODE, c.CS_NAME 
+FROM TBL_RESERV r
+JOIN TBL_CST c ON r.MEMBER_CODE = c.CS_MEMBER_CODE
+WHERE r.LESSON_CODE = 'LS123' AND r.RS_CANCEL_YN = 'N';-->
+<!--  #{lessonCode}로 변경?
+</select>-->
+
+<!-- 
+<insert id="insertAttend" parameterType="attend">
+	INSERT INTO TBL_ATTEND
+	VALUES (CONCAT('AT', NEXTVAL('SEQ_ATTEND')), #{atCode}, #{lessonCode}, #{atMember1Code}, #{atAttendance1Yn}, #{atMember2Code}, #{atAttendance2Yn}, #{atMember3Code}, #{atAttendance3Yn}, #{atMember4Code}, #{atAttendance4Yn}, #{atMember5Code}, #{atAttendance5Yn}, #{atMember6Code}, #{atAttendance6Yn}
+</insert>
+ -->
+ 
+ 
+ 
+<update id="updateAttendance" parameterType="attend">
+	UPDATE TBL_ATTEND SET
+	AT_ATTENDANCE1_YN= #{atAttendance1Yn}, AT_ATTENDANCE2_YN= #{atAttendance2Yn}, AT_ATTENDANCE3_YN= #{atAttendance3Yn}, 
+	AT_ATTENDANCE4_YN= #{atAttendance4Yn}, AT_ATTENDANCE5_YN= #{atAttendance5Yn}, AT_ATTENDANCE6_YN= #{atAttendance6Yn}
+</update>
+
+
+
+</mapper>

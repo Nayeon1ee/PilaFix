@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 	
 <%@ include file="center_header_common.jsp" %>
 
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<main id="main" class="main">
 

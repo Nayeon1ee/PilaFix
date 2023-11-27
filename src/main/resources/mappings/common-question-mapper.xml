@@ -35,6 +35,23 @@
 		<result property="ctCode" column="CT_CODE" />
 	</resultMap>
 	
+	
+	
+<!-- 회원의 문의사항 리스트 + 답변 리스트
+<select id ="getQuestionAndCenterReply" parameterType type="int" resultMap="">
+SELECT q.*, r.*
+FROM TBL_QUESTION q
+LEFT JOIN TBL_REPLY r ON q.QS_NUMBER = r.RE_TARGET_POST_NUMBER
+WHERE q.CS_MEMBER_CODE = #{csMemberCode}
+</select> -->
+
+<!-- 알림발송 위한 해당 문의사항의 작성자 회원코드 가져오기 -->
+<select id="getQuestionWriterMemberCode" parameterType="int" resultType="int">
+    SELECT QS_WRITER_MEMBER_CODE FROM TBL_QUESTION
+    WHERE QS_NUMBER = #{qsNumber}
+</select>
+
+
 	<!-- 회원의 문의사항 작성 시 선택하는 센터 이름 조회 -->
 	<select id="getConnectedCenters" resultMap="connectedCenter" parameterType="int">
 		SELECT CT_NAME,CT_CODE
@@ -44,7 +61,7 @@
 	  		    UNION
 	    		SELECT CONNECTED_CENTER_CODE2 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
 	    		UNION SELECT CONNECTED_CENTER_CODE3 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
-				)`
+				)
 	</select>
 
 
@@ -83,20 +100,12 @@ WHERE
 
 <!-- 회원의 특정 문의사항에 대한 답변을 조회하는 쿼리 -->
 <select id="getReplyForQuestion" parameterType="int" resultMap="questionReplyResult">
-    SELECT R.*
-    FROM TBL_REPLY R
-    WHERE R.RE_TARGET_POST_NUMBER = #{qsNumber}
-    ORDER BY R.RE_REGDATE DESC
+    SELECT * FROM TBL_REPLY
+    WHERE RE_TARGET_POST_NUMBER = #{qsNumber}
 </select>
 
 	
-<!-- 센터가 작성한 답변만 조회하는 쿼리 
-<select id="getRepliesByCenter" parameterType="int" resultMap="questionReplyResult">
-    SELECT R.*
-    FROM TBL_REPLY R
-    WHERE R.WRITER_MEMBER_CODE = #{ctCode}
-    ORDER BY R.RE_REGDATE DESC
-</select> -->
+
 
 		
 	<!-- [회원] 자신이 작성한 문의사항의 리스트 QS_WRITER_MEMBER_CODE = #{csMemberCode}-->
@@ -106,11 +115,11 @@ WHERE
 	    ORDER BY QS_REGDATE DESC
 	</select>
 	
-	<!-- [회원] 문의사항 등록 -->
-	<insert id="insertQuestion" parameterType="question">
-		INSERT INTO	TBL_QUESTION
-		VALUES(nextval('seq_question'), #{qsTitle}, #{qsContent},#{qsWriterMemberCode}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,false)
-	</insert>
+<!-- [회원] 문의사항 등록 -->
+<insert id="insertQuestion" parameterType="question">
+	INSERT INTO	TBL_QUESTION
+	VALUES(nextval('seq_question'), #{qsTitle}, #{qsContent},#{qsWriterMemberCode}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,false, #{selectedCenterCode})
+</insert>
 	
 	<!-- [회원] 문의사항 상세 조회 -->
 	<select id="getQuestion" resultMap="questionResult" >
@@ -149,14 +158,19 @@ WHERE
 </select>	
 	
 	
-	<!-- [센터] 문의사항 상세 조회 -->
-	<select id="getQuestionCenterWithNames" resultMap="questionResult" >
-		SELECT Q.*, M.CS_NAME AS QST_WRITER_NAME, C.CT_NAME AS QS_CENTER_NAME
-	    FROM TBL_QUESTION Q
-	    INNER JOIN TBL_CST M ON Q.QS_WRITER_MEMBER_CODE = M.CS_MEMBER_CODE
-	    INNER JOIN TBL_CENTER C ON C.CT_CODE IN (M.CONNECTED_CENTER_CODE1, M.CONNECTED_CENTER_CODE2, M.CONNECTED_CENTER_CODE3)
-	    WHERE Q.QS_NUMBER = #{qsNumber}
-	</select>
+<!-- [센터] 문의사항 상세 조회 -->
+<select id="getQuestionCenterWithNames" resultMap="questionResult" >
+	SELECT Q.*, M.CS_NAME AS QST_WRITER_NAME
+    FROM TBL_QUESTION Q
+    INNER JOIN TBL_CST M ON Q.QS_WRITER_MEMBER_CODE = M.CS_MEMBER_CODE
+    WHERE Q.QS_NUMBER = #{qsNumber}
+</select>
+ <!--  SELECT Q.*, M.CS_NAME AS QST_WRITER_NAME, C.CT_NAME AS QS_CENTER_NAME
+   FROM TBL_QUESTION Q
+   INNER JOIN TBL_CST M ON Q.QS_WRITER_MEMBER_CODE = M.CS_MEMBER_CODE
+   INNER JOIN TBL_CENTER C ON Q.CENTER_CODE = C.CT_CODE
+   WHERE Q.QS_NUMBER = #{qsNumber} AND C.CT_CODE = #{ctCode}
+  -->   
 		
 		
 <!-- [센터] 문의사항 전체 건수 -->
@@ -165,7 +179,11 @@ WHERE
     FROM TBL_QUESTION Q
     WHERE Q.CENTER_CODE = #{ctCode}
 </select>
-
+<!-- [센터] 하나의 상세 문의사항에 대한 답변 조회 -->
+<select id="getQReply" resultMap="questionReplyResult" >
+	SELECT * FROM TBL_REPLY WHERE RE_TARGET_POST_NUMBER=#{reTargetPostNumber}
+</select>	
+	
 	
 	<!-- 답변 등록 reTargetPostNumber == qsNumber, writerMemberCode == 센터로그인세션의 ctCode -->
 	<insert id="insertQReply" parameterType="questionReply">
@@ -174,17 +192,19 @@ WHERE
 	    VALUES(nextval('seq_reply'), #{reTitle}, #{reContent}, 'CE', #{writerMemberCode}, CURRENT_TIMESTAMP, 'QST', #{reTargetPostNumber})
 	</insert>
 	
-	<!-- [센터] 하나의 상세 문의사항에 대한 답변 조회 -->
-	<select id="getQReply" resultMap="questionReplyResult" >
-		SELECT * FROM TBL_REPLY WHERE RE_TARGET_POST_NUMBER=#{reTargetPostNumber}
-	</select>	
-	
 	<!-- 답변 등록 시 원글의 답변여부 true -->
-	<update id="updateQAnswerYn" parameterType="question">
+	<update id="updateQAnswerYnToTrue" parameterType="question">
 		UPDATE TBL_QUESTION SET QS_ANSWER_YN = true WHERE QS_NUMBER = #{qsNumber}	
 	</update>
 	
-	<delete id="deleteQReply" >
+	<!-- 답변 삭제 시 원글의 답변여부 false -->
+	<update id="updateQAnswerYnToFalse" parameterType="question">	
+    	UPDATE TBL_QUESTION SET QS_ANSWER_YN = false WHERE QS_NUMBER = #{qsNumber}
+	</update>
+	
+
+	<!-- 답변삭제 -->
+	<delete id="deleteQuestionReply" >
 		DELETE FROM TBL_REPLY WHERE RE_NUMBER=#{reNumber}
 	</delete>
 	

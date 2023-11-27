@@ -78,14 +78,14 @@
             <label class="form-label">원글 번호</label>
             <input type="text" readonly disabled class="form-control" value=${questionReply.reTargetPostNumber}>
         </div>         
-        <div class="col-md-12">
-            <label class="form-label">답변 제목</label>
-            <input type="text" readonly disabled class="form-control" value=${questionReply.reTitle}>
-        </div>          
-        <div class="col-md-12">
-            <label class="form-label">답변 내용</label>
-            <input type="text" readonly disabled class="form-control" value=${questionReply.reContent}>
-        </div>        
+<div class="col-md-12">
+    <label class="form-label">답변 제목</label>
+    <input type="text" readonly disabled class="form-control" value="${questionReply.reTitle}">
+</div>
+<div class="col-md-12">
+    <label class="form-label">답변 내용</label>
+    <input type="text" readonly disabled class="form-control" value="${questionReply.reContent}">
+</div>       
 			<div class="text-center">
 			<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
 			</div>
@@ -96,6 +96,7 @@
         <!-- 답변이 없는 경우, 답변 등록 폼 표시 -->
         <form action="insertQuestionReply.do" method="post">
         	<!-- 회원의 문의사항번호 == reTargetPostNumber hidden으로 넘겨주기 -->
+        	<input type="hidden" name="qsNumber" value="${question.qsNumber}">
             <input type="hidden" name="reTargetPostNumber" value="${question.qsNumber}">
             
             <!-- 센터 로그인하면 세션에서 가져오는 ctCode
@@ -140,7 +141,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary" onclick="deleteQuestionReply(${questionReply.reNumber})">확인</button>
+                      <button type="button" class="btn btn-primary" onclick="deleteQuestionReply(${questionReply.reNumber}, ${question.qsNumber})">확인</button>
                     </div>
                   </div>
                 </div>
@@ -149,19 +150,20 @@
 	<!-- End #main -->
 <!-- 모달의 확인 버튼 클릭 시 삭제를 진행하는 스크립트 -->
 <script>
-function deleteQuestionReply(reNumber) {
-    fetch('/pilafix/deleteQuestionReply.do?reNumber=' + reNumber, {
+
+function deleteQuestionReply(reNumber, qsNumber) {
+    fetch('/pilafix/deleteQuestionReply.do?reNumber=' + reNumber + '&qsNumber=' + qsNumber, {
         method: 'GET'
     })
     .then(response => {
-				if (!response.ok) {
-					throw new Error('error');
-				}
-        window.location.href = 'getQuestionReplyList.do'; //목록 페이지로 리다이렉트
+        if (!response.ok) {
+            throw new Error('error');
+        }
+        window.location.href = 'getCTQuestionList.do'; //목록 페이지로 리다이렉트
     })
     .catch(error => {
-		console.error(error);
-	});
+        console.error(error);
+    });
 };
 </script>	
 	

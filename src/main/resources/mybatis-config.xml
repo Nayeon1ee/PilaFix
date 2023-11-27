@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.dev.pilafix.common.member.CenterVO" alias="center" />
 		<typeAlias type="com.dev.pilafix.common.member.AdminVO" alias="admin" />
 		<typeAlias type="com.dev.pilafix.common.question.QuestionVO" alias="question" />
-		<typeAlias type="com.dev.pilafix.center.question_reply.QuestionReplyVO" alias="questionReply" />
+		<typeAlias type="com.dev.pilafix.common.question.QuestionReplyVO" alias="questionReply" />
 		<typeAlias type="com.dev.pilafix.admin.faq.FaqVO" alias="faqInfo" />
 		<typeAlias type="com.dev.pilafix.admin.complaints.ComplaintsVO" alias="complaintsInfo" />
 		<typeAlias type="com.dev.pilafix.admin.sendemailhistory.SendEmailHistoryVO" alias="sendEmailHistoryInfo" />
@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <typeAlias type="com.dev.pilafix.member.login_kakao.KakaoVO" alias="kakaologin" />
         <typeAlias type="com.dev.pilafix.member.login_naver.NaverVO" alias="naverlogin" />
         <typeAlias type="com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO" alias="connectRequest" />
+        <typeAlias type="com.dev.pilafix.member.attend.AttendVO" alias="attend" />
         <typeAlias type="com.dev.pilafix.member.ticket.MemberTicketVO" alias="memberTicket" />
 	</typeAliases>
 	
@@ -62,6 +63,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/common-notice-mapper.xml" />
 		<mapper resource="mappings/member-ticket-mapper.xml" />
 		<mapper resource="mappings/member-reserve-mapper.xml" />
+		<mapper resource="mappings/member-attend-mapper.xml" />
 		<mapper resource="mappings/member-ticket-mapper.xml" />
 	</mappers>
 

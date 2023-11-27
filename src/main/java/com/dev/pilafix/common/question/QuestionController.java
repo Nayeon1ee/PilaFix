@@ -1,5 +1,6 @@
 package com.dev.pilafix.common.question;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +47,7 @@ public class QuestionController {
 
 		if (user != null) {
 			int csMemberCode = (int) user.get("csMemberCode");
-			model.addAttribute("questionList", service.getQuestionListByMember(csMemberCode));
+			model.addAttribute("questionList", service.getQuestionsByMemberCode(csMemberCode));
 	        return "member/inquiry";
 
 		} else {
@@ -63,6 +64,29 @@ public class QuestionController {
 	@GetMapping("/getQuestionReply.do")
 	public QuestionReplyVO getQuestionReply(@RequestParam int qsNumber) {
 		return service.getReplyForQuestion(qsNumber);
+	}
+	
+	/**
+	 * 문의사항에 대한 답변 조회
+	 * @param qsNumber 문의사항의 QS_NUMBER
+	 * @return 문의사항에 대한 답변을 JSON 형식으로 반환
+	 */
+	@GetMapping("/getQuestionReplyOnJS.do")
+	@ResponseBody
+	public Map<String, Object> getQuestionReplyOnJS(@RequestParam("qsNumber") int qsNumber) {
+	    Map<String, Object> resultMap = new HashMap<>();
+
+	    QuestionReplyVO questionReply = service.getReplyForQuestion(qsNumber);
+
+	    if (questionReply != null) {
+	        resultMap.put("replyTitle", questionReply.getReTitle());
+	        resultMap.put("replyContent", questionReply.getReContent());
+	    } else {
+	        resultMap.put("replyTitle", "답변 없음");
+	        resultMap.put("replyContent", "등록된 답변이 없습니다.");
+	    }
+
+	    return resultMap;
 	}
 
 	
@@ -239,7 +263,7 @@ public class QuestionController {
 //	        model.addAttribute("questionReply", service.getQuestionReplyCt(reTargetPostNumber));
 	        model.addAttribute("question", service.getQuestion(reTargetPostNumber)); //qsNumber
 	        model.addAttribute("questionReply", service.getReplyForQuestion(reTargetPostNumber)); //qsNumber
-	        return "center/center_inquiry_response";
+	        return "center/center_inquiry_response_test";
 	    }
 	    return "redirect:centerLogin.do";
 	}
@@ -255,7 +279,10 @@ public class QuestionController {
 
 	    if (loginCenter != null && !loginCenter.isEmpty()) {
 	        QuestionVO questionWithNames = service.getQuestionCenterWithNames(qsNumber);
+	        QuestionReplyVO questionReply = service.getReplyForQuestion(qsNumber);
+	        
 	        model.addAttribute("question", questionWithNames);
+	        model.addAttribute("questionReply", questionReply);
 	        return "center/center_inquiry_response_test";
 	    }
 	    return "redirect:centerLogin.do";
@@ -264,7 +291,7 @@ public class QuestionController {
 	@PostMapping("/insertQuestionReply.do")
     public String insertQuestionReply(@ModelAttribute QuestionReplyVO replyVO, 
                                       @RequestParam("qsNumber") Integer qsNumber, 
-                                      HttpSession session) {
+                                      HttpSession session, Model model) {
   
         Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
         if (loginCenter == null || loginCenter.isEmpty()) {
@@ -273,14 +300,18 @@ public class QuestionController {
 
         int ctCode = (int) loginCenter.get("ctCode");
         replyVO.setWriterMemberCode(ctCode); // 센터코드설정
-
-        QuestionVO vo = new QuestionVO();
-        vo.setQsNumber(qsNumber);
+        replyVO.setReTargetPostNumber(qsNumber);    
+//        QuestionVO vo = new QuestionVO();
+//        vo.setQsNumber(qsNumber);
 
         // 답변등록, 답변여부업데이트, 알림이력 메서드
-        service.insertQstReplyUpdateYnAndNotice(replyVO, vo);
+        service.insertQstReplyUpdateYnAndNotice(replyVO, new QuestionVO(qsNumber));
+        
+        // 답변 상세 정보 조회 후 모델에 추가
+        QuestionReplyVO replyDetail = service.getReplyForQuestion(qsNumber); 
+        model.addAttribute("questionReply", replyDetail);
 
-        return "redirect:getCTQuestionList.";
+        return "redirect:getCTQuestionList.do";
     }
 	
 	
@@ -293,17 +324,17 @@ public class QuestionController {
 	 * 답변 삭제
 	 */
 	@GetMapping("/deleteQuestionReply.do")
-	public String deleteQuestionReply(int reNumber, HttpSession session) {
+	public String deleteQuestionReply(int reNumber, QuestionVO vo, HttpSession session) {
 	    Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
 
 	    if (loginCenter != null && !loginCenter.isEmpty()) {
-	        service.deleteQuestionReply(reNumber);
-	        return "redirect:getQuestionReplyList.do";
+	        service.deleteQuestionReplyAndUpdateYn(reNumber, vo);
+	        return "redirect:getCTQuestionList.do";
 	    }
 	    return "redirect:centerLogin.do";
 	}
-
 	
+
 	
 	
 	
