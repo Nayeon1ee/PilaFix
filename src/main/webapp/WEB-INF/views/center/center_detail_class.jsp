@@ -42,60 +42,28 @@
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">수업 설명</label>
-								<textarea class="form-control" readonly style="height: 300px;" disabled>${centerTicket.tkDescription }</textarea>
+								<textarea class="form-control" readonly style="height: 300px;" disabled>${centerLesson.lsContent }</textarea>
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">수업 시간</label>
-								<input type="text" readonly class="form-control" value="${centerLesson.lsDate}  ${centerLesson.lsTime}시">	
+								<input type="text" readonly class="form-control" value="${centerLesson.lsDate} / ${centerLesson.lsTime}시">	
 							</div>	
-								<div class="col-sm-10">
-									<label class="form-label">예약 가능 여부</label>
-									<c:choose>
-									    <c:when test="${centerLesson.lsColseYN}">
-									        <fieldset class="row mb-3">
-									            <div class="col-sm-10">
-									                <div class="form-check form-check-inline">
-									                    <input class="form-check-input" type="radio" name="lsColseYN" id="gridRadios1" value="true" checked>
-									                    <label class="form-check-label" for="gridRadios1">공개</label>
-									                </div>
-									                <div class="form-check form-check-inline">
-									                    <input class="form-check-input" type="radio" name="lsColseYN" id="gridRadios2" value="false">
-									                    <label class="form-check-label" for="gridRadios2">비공개</label>
-									                </div>
-									            </div>
-									        </fieldset>
-									    </c:when>
-									    <c:otherwise>
-									        <fieldset class="row mb-3">
-									            <div class="col-sm-10">
-									                <div class="form-check form-check-inline">
-									                    <input class="form-check-input" type="radio" name="lsColseYN" id="gridRadios1" value="true">
-									                    <label class="form-check-label" for="gridRadios1">공개</label>
-									                </div>
-									                <div class="form-check form-check-inline">
-									                    <input class="form-check-input" type="radio" name="lsColseYN" id="gridRadios2" value="false" checked>
-									                    <label class="form-check-label" for="gridRadios2">비공개</label>
-									                </div>
-									            </div>
-									        </fieldset>
-									    </c:otherwise>
-									</c:choose>
-
-									<div class="p-check">
-										<p>(Y를 선택하면 회원이 바로 구매가 가능합니다.)</p>
-										<p>(N을 선택하면 수강권을 생성만 합니다.)</p>
-									</div>
-									<button type="submit" class="btn btn-primary">수정</button>
-									<div class="text-center">
-										<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-			                 			<button type="button" class="btn btn-secondary" onclick="location.href='getCenterLessonList.do'">목록</button>
-									</div>
-								</div>
-							</form>
-						</div><!-- End Multi Columns Form -->
-					</div>
+							<div class="col-sm-10">
+								<label class="form-label">폐강 여부</label>
+								<c:choose>
+									<c:when test="${centerLesson.lsColseYN}"><input type="text" readonly class="form-control" value="폐강"></c:when>
+									<c:otherwise><input type="text" readonly class="form-control" value="개강"></c:otherwise>
+								</c:choose>
+							</div>
+							<div class="text-center">
+								<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
+	                 			<button type="button" class="btn btn-secondary" onclick="location.href='getCenterLessonList.do'">목록</button>
+							</div>
+						</form>
+					</div><!-- End Multi Columns Form -->
 				</div>
 			</div>
+		</div>
 	</section>
 </main>
 	<!-- End #main -->

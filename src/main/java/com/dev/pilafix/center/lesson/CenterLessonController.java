@@ -28,7 +28,6 @@ public class CenterLessonController {
 			int centerCode = (int)center.get("ctCode");
 			model.addAttribute("CenterLessonList", service.getCenterLessonList(centerCode));
 			return "center/center_class_management";
-			
 		}
 		return "redirect:centerLogin.do";
 	}
@@ -39,19 +38,11 @@ public class CenterLessonController {
 		return "center/center_detail_class";
 	}
 	
-	@PostMapping("/updateCenterLesson.do")
-	public String updateCenterLesson(CenterLessonVO vo) {
-		service.updateCenterLesson(vo);
-		return "redirect:getCenterLessonList.do";
-	}
-	
 	@GetMapping("/insertCenterLesson.do")
-	public String insertCenterLesson(HttpServletRequest request, Model model) {
+	public String insertCenterLesson(HttpSession session, Model model) {
 		
-		HttpSession session = request.getSession();
-		session.setAttribute("user", 111);
-
-		int centerCode = (Integer)session.getAttribute("user");
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		int centerCode = (Integer)center.get("ctCode");
 		
 		model.addAttribute("trainerList", service.getTrainerCode(centerCode));
 		return "center/center_create_class";
@@ -67,10 +58,16 @@ public class CenterLessonController {
 	}
 	
 	@PostMapping("/insertCenterLesson.do")
-	public String insert(CenterLessonVO vo) {
-		System.out.println(vo.toString());
-		service.insertCenterLesson(vo);
-		return "redirect:getCenterLessonList.do";
+	public String insert(HttpSession session, CenterLessonVO vo) {
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		
+		if(!center.isEmpty()) {
+			int centerCode = (int)center.get("ctCode");
+			vo.setCenterCode(centerCode);
+			service.insertCenterLesson(vo);
+			return "redirect:getCenterLessonList.do";
+		}
+		return "redirect:centerLogin.do";
 	}
 	
 	@GetMapping("/deleteCenterLesson.do")
@@ -78,5 +75,4 @@ public class CenterLessonController {
 		service.deleteCenterLesson(lsCode);
 		return "redirect:getCenterLessonList.do";
 	}
-	
 }
