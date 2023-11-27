@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyScheduleDAO">
+
+
+
+
+
+<select id="getLessonCode">
+	SELECT lesson_code from tbl_reserv 
+	WHERE member_code = #{csMemberCode}
+</select>
+<select id="getLessonInfo">
+	SELECT * FROM tbl_lesson 
+</select>
+
+</mapper>
