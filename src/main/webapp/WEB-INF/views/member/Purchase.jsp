@@ -231,6 +231,110 @@
 				
 
 			</div> <!-- 전체 영역 -->
+			
+		<!-- Modal 보유 수강권 있으면 구매 못하게 하는  -->
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div
+							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>이미 보유중인 수강권이 있습니다</p>
+									<p>수강권을 다 사용하신 뒤 구매하시기 바랍니다.</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary"
+										data-bs-dismiss="modal">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		<!-- 결제 완료시 보이는 모달  -->
+				<div class="modal fade" id="purchaseModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div
+							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>결제가 성공적으로 완료되었습니다!<br>
+									<strong>마이페이지</strong>에서 내 수강권을 확인하실 수 있습니다.
+									</p>
+									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">닫기</button>
+										<button type="button" class="btn btn-primary" onclick="location.href='/pilafix/ct.do'" >마이페이지 이동</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		<!-- 결제 실패시 보이는 모달  -->
+				<div class="modal fade" id="failModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div
+							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>결제에 실패하였습니다.<br>
+									다시 결제해주시기 바랍니다.
+									</p>
+									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary"
+										data-bs-dismiss="modal">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		<!-- 서버 로직처리실패시(디비에 정보저장 트랜잭션처리시 오류로 롤백되었을 때)보이는 모달  -->
+				<div class="modal fade" id="failModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div
+							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>서버 오류로 결제가 자동 취소처리 되었습니다.<br>
+									결제를 원하시면 다시 시도해주시기 바랍니다.
+									</p>
+									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary"
+										data-bs-dismiss="modal">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 		</section>
 	</main>
 	<!-- End #main -->
@@ -420,8 +524,8 @@
 	        ajaxUrl = "personalTicketCheck.do";
 	    }
 		$.ajax({
-	        url: ajaxUrl,  // 실제 컨트롤러의 URL로 변경해야 합니다.
-	        type: 'POST',  // 또는 'GET' 등 HTTP 요청 메서드 선택
+	        url: ajaxUrl, 
+	        type: 'POST',  
 	        data: {
 	            csCode: csCode
 	        },
@@ -431,9 +535,9 @@
 	            if (data === "null" || data=="") {
 	            	requestPay(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode);
 	            } else {
-	                alert('이미 보유중인 수강권이 있습니다. 수강권을 다 사용하신 뒤 구매하시기 바랍니다.');
-	            	//alert("수강권 구매가능")
-	                // repay 함수 호출
+	                //alert('이미 보유중인 수강권이 있습니다. 수강권을 다 사용하신 뒤 구매하시기 바랍니다.');
+	            	$('#exampleModal').modal('show');
+	            	
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
@@ -489,39 +593,42 @@
                  msg += '카드 승인번호 : ' + rsp.apply_num;
 				 
                  console.log(msg);
-                 alert("결제가 성공적으로 완료되었습니다.");
+                 //alert("결제가 성공적으로 완료되었습니다.");
+                 $('#purchaseModal').modal('show');
     
              },
              error: function (data,jqXHR, textStatus, errorThrown) {
             	 //console.log(data)
                  //[3] 아직 제대로 결제가 되지 않았습니다.
                  //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-                 alert("ajax실패 + 결제 실패");
+                 //alert("ajax실패 + 결제 실패");
                  cancelPay(rsp.imp_uid,rsp.paid_amount)
              }
     	});
     } else {
         var msg = '결제에 실패하였습니다.';
         msg += '에러내용 : ' + rsp.error_msg;
-        
-        alert(msg);
+        console.log(msg);
+        //alert(msg);
+        $('#failModal').modal('show');
     }
         
         
         });
       }
 	
+	//결제 취소 스크립트
     function cancelPay(imp_uid,amount) {
         jQuery.ajax({
-          // 예: http://www.myservice.com/payments/cancel
           url: "cancel.do", 
           type: "POST",
           data: {
-        	  imp_uid : imp_uid, // 
+        	  imp_uid : imp_uid, // 고유번호
            	  reason : "내부 서버 오류", // 환불사유
           },success: function (data) {
         	  console.log("취소처리 완료하고 ajax응답성공 : "+data)
- 			 alert("서버 오류로 결제가 자동 취소처리 되었습니다.")
+ 			 //alert("서버 오류로 결제가 자동 취소처리 되었습니다.")
+ 			$('#cancelModal').modal('show');
 
          },
          error: function (data,jqXHR, textStatus, errorThrown) {
