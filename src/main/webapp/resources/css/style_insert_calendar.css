@@ -1,98 +1,115 @@
 @charset "UTF-8";
 
-@import
-	url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
 
 .Calendar {
-	text-align: center;
-	border-collapse: collapse;
-	width: 100%;
-	margin: 20px 0;
-	border-radius: 20px;
-	overflow: hidden;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	background-color: #e0c7f4;
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .Calendar>thead>tr:first-child>td {
-	font-family: 'Questrial', sans-serif;
-	font-size: 1.2em;
-	font-weight: bold;
-	padding: 15px;
-	background-color: #c4b0e4;
-	color: #fff;
+    font-family: 'Questrial', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px;
+    color: #575757;
 }
 
 .Calendar>thead>tr:last-child>td {
-	font-family: 'Questrial', sans-serif;
-	font-weight: 600;
-	padding: 10px;
-	background-color: #d2bfe8;
+    font-family: 'Questrial', sans-serif;
+    font-weight: 600;
+    padding: 10px;
 }
 
 .Calendar>tbody>tr>td>p {
-	font-family: 'Montserrat', sans-serif;
-	height: 70px;
-	width: 70px;
-	transition-duration: .2s;
-	line-height: 70px;
-	margin: 2.5px;
-	display: block;
-	text-align: center;
-	border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    height: 70px;
+    width: 70px;
+    transition-duration: .2s;
+    line-height: 70px;
+    margin: 2.5px;
+    display: block;
+    text-align: center;
+    border-radius: 50px;
 }
 
-.Calendar th, .Calendar td {
-	border: none;
-	padding: 8px;
-	background-color: #e0c7f4;
-	color: #6f6f6f;
-	border-radius: 0;
+.Calendar th,
+.Calendar td,
+.Calendar td.past,
+.pastDay {
+    border: none;
+    padding: 8px;
 }
 
-.Calendar th:nth-child(1), .Calendar td:nth-child(1) {
-	color: #ff5858;
-}
-
-.Calendar th:nth-child(7), .Calendar td:nth-child(7) {
-	color: #3a67b4;
-}
-
-.Calendar td:hover {
-	background-color: #d8b5f7;
-	border-radius: 15px;
+.Calendar td:hover,
+.Calendar td.selected {
+    border-radius: 15px;
 }
 
 .Calendar td.selected {
-	background-color: #8a61cf;
-	color: #fff;
+    color: #fff;
 }
 
-.pastDay {
-	color: #fff;
+.Calendar th:nth-child(1),
+.Calendar td:nth-child(1) {
+    color: #ff5858;
 }
+
+.Calendar th:nth-child(7),
+.Calendar td:nth-child(7) {
+    color: #3a67b4;
+}
+
 
 .today {
-	background-color: #b582ee;
-	color: #fff;
-	font-weight: 600;
-	cursor: pointer;
+    background-color: #b582ee;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.Calendar .futureDay {
-	background: linear-gradient(135deg, #f5f5f5, #eae9f0, #f5f5f5);
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	border-radius: 20px;
+.Calendar .futureDay,
+.Calendar .futureDay:hover,
+.Calendar .futureDay.choiceDay,
+.Calendar .today.choiceDay {
+    cursor: pointer;
 }
+
+
 
 .Calendar .futureDay:hover {
-	background: linear-gradient(135deg, #eae9f0, #d8b5f7, #eae9f0);
-	border-radius: 10px;
+    background-color: #eae9f0;
+    border-radius: 60px; 
+    transform: scale(1.1); 
+}
+.Calendar .futureDay.choiceDay,
+.Calendar .today.choiceDay {
+    background: #887dff;
+    color: #fff;
+    font-weight: 600;
 }
 
-.futureDay.choiceDay, .today.choiceDay {
-	background: #887dff;
-	color: #fff;
-	font-weight: 600;
-	cursor: pointer;
+
+.Calendar td.futureDay {
+    color: #333;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+}
+
+.Calendar td.futureDay:hover {
+    background: linear-gradient(135deg, #eae9f0, #d8b5f7, #eae9f0);
+    border-radius: 10px;
+}
+
+.Calendar td.past,
+.pastDay {
+    color: #212529;
+    opacity: 0.7;
+    filter: blur(1px);
 }
