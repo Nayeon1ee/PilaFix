@@ -57,7 +57,31 @@
 	<update id="updatePasswordCenter">
         UPDATE TBL_CENTER SET CT_PASSWORD = #{newPassword} WHERE CT_CODE = #{ctCode}
     </update>
+    
+    <!-- 연동요청 온 회원수 세옴 -->
+	<select id="countConnRequestMember">
+		SELECT COUNT(*) FROM tbl_center_request 
+		WHERE member_code BETWEEN 2000 AND 8000
+		AND center_code = #{ctCode}
+		AND cr_reject_date IS NULL
+		AND cr_connection_yn = 'f'
+	</select>
 	
-
+	<!-- 연동요청 온 강사수 세옴 -->
+	<select id="countConnRequestTrainer">
+		SELECT COUNT(*) FROM tbl_center_request 
+		WHERE member_code >= 8000
+		AND center_code = #{ctCode}
+		AND cr_reject_date IS NULL
+		AND cr_connection_yn = 'f'
+	</select>
+	
+	<!-- 문의사항 중 답변 달리지 않은 글의 수 세옴 -->
+	<select id="countNoAnswerInquiry">
+		SELECT COUNT(*) FROM tbl_question
+		WHERE center_code = #{ctCode}
+		AND qs_answer_yn = 'f'
+	</select>
+	
 	
 </mapper>
