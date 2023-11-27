@@ -31,10 +31,6 @@ public class CenterServiceImpl implements CenterService {
 		return dao.getCenterList();
 	}
 	
-	@Override
-	public List<CenterVO> getExcelCenterList() {
-		return dao.getExcelCenterList();
-	}
 
 	@Override
 	public CenterVO getCenter(int ctCode) {
@@ -193,5 +189,12 @@ public class CenterServiceImpl implements CenterService {
 		dao.resetPassword(ctCode);
 	}	
 	
+	/**
+	 * 센터 엑셀 다운로드 
+	 */
+	@Override
+	public List<CenterVO> getExcelCenterList() {
+		return dao.getExcelCenterList();
+	}
 
 }

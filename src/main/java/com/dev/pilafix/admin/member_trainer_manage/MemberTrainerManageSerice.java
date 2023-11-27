@@ -6,12 +6,8 @@ import com.dev.pilafix.common.member.MemberVO;
 
 
 public interface MemberTrainerManageSerice {
-	
 	List<MemberVO> getMemberList();
-	List<MemberVO> getExcelMemberList();
-	
 	List<MemberVO> getTrainerList();
-	List<MemberVO> getExcelTrainerList();
 	
 	MemberVO getMember(int csMemberCode);
 	
@@ -21,5 +17,6 @@ public interface MemberTrainerManageSerice {
 //	연동 센터 이력 조회 추가
 	List<CenterConnectHistoryVO> getCenterConnectHistory(int csMemberCode);
 	
-
+	List<MemberVO> getExcelMemberList();
+	List<MemberVO> getExcelTrainerList();
 }

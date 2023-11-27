@@ -27,11 +27,6 @@ public class MemberManageServiceImpl implements MemberManageService {
 	public List<MemberVO> getMemberManageList(int ctCode) {
 		return dao.getMemberManageList(ctCode);
 	}
-	
-	@Override
-	public List<MemberVO> getMemberExcelManageList(int ctCode) {
-		return dao.getMemberExcelManageList(ctCode);
-	}
 
 	@Override
 	public MemberVO getMember(int csMemberCode) {
@@ -104,11 +99,6 @@ public class MemberManageServiceImpl implements MemberManageService {
 	public List<MemberVO> getTrainerManageList(int ctCode) {
 		return dao.getTrainerManageList(ctCode);
 	}
-	
-	@Override
-	public List<MemberVO> getTrainerExcelManageList(int ctCode) {
-		return dao.getTrainerExcelManageList(ctCode);
-	}
 
 	@Override
 	
@@ -144,7 +134,20 @@ public class MemberManageServiceImpl implements MemberManageService {
 		return dao.updateRejectDate(crCode);
 	}
 
-	
+	/**
+	 * 회원 목록 엑셀 출력
+	 */
+	@Override
+	public List<MemberVO> getMemberExcelManageList(int ctCode) {
+		return dao.getMemberExcelManageList(ctCode);
+	}
 
+	/**
+	 * 강사 목록 엑셀 출력
+	 */
+	@Override
+	public List<MemberVO> getTrainerExcelManageList(int ctCode) {
+		return dao.getTrainerExcelManageList(ctCode);
+	}
 
 }

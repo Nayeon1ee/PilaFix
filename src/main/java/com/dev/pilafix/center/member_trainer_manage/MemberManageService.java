@@ -11,10 +11,8 @@ import com.dev.pilafix.common.question.QuestionVO;
 public interface MemberManageService {
 
 	List<MemberVO> getMemberManageList(int ctCode);
-	List<MemberVO> getMemberExcelManageList(int ctCode);
 
 	List<MemberVO> getTrainerManageList(int ctCode);
-	List<MemberVO> getTrainerExcelManageList(int ctCode);
 	
 	List<ConnectRequestVO> getConnectRequestForMe(int ctCode);
 
@@ -45,5 +43,7 @@ public interface MemberManageService {
 
 	int rejectRequest(String crCode);
 
+	List<MemberVO> getMemberExcelManageList(int ctCode);
+	List<MemberVO> getTrainerExcelManageList(int ctCode);
 
 }
