@@ -45,6 +45,21 @@
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
+<!-- fullcalender -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+<script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+</script>
+
+
 </head>
 
 <!-- 내 css -->
@@ -114,9 +129,10 @@
 				<!-- 7:3 비율 잡기 위한 컨테이너 -->
 				<div class="container d-flex justify-content-center p-0 m-0">
 					<div class="row">
+					<div id='calendar'></div>
 
-						<!-- 첫 번째 컬럼 (7:3) -->
-
+<!--  
+						<!-- 첫 번째 컬럼 (7:3) 
 						<table class="Calendar py-0 my-0">
 							<thead>
 								<tr>
@@ -136,10 +152,10 @@
 								</tr>
 							</thead>
 							<tbody>
-								<!-- 달력 내용 -->
+								<!-- 달력 내용 
 							</tbody>
 						</table>
-
+-->
 
 
 					</div>
@@ -191,32 +207,51 @@
 
 
 
-
+							<!-- 카드1 -->
 							<div class="card" style="border-radius: 0;">
 								<div class="card-header bg-white">10.23 월요일</div>
 								<div class="card-body">
+									<!--  
 									<div class="d-flex">
 										<div class="card-img mb-2">
 											<img id="color-changing-bar" alt="bar"
 												src="${pageContext.request.contextPath }/resources/images/gray_bar.png">
 										</div>
 										<div class="card-body-in pt-0">
-											<!-- 데이터 입력 폼 -->
+											<!-- 데이터 입력 폼 
 											<form>
-												<!-- 예약 정보 입력 폼 -->
+												<!-- 예약 정보 입력 폼 
 												<div class="mb-3">
 													<label for="reservationInfo" class="form-label text-muted">예약
 														정보</label> <input type="text" class="form-control"
 														id="reservationInfo" style="width: 240px; height: 90px;">
 												</div>
 
-												<!-- 기타 데이터 입력 폼들 추가 -->
+												<!-- 기타 데이터 입력 폼들 추가
 											</form>
 										</div>
 									</div>
-
+									-->
 									<!-- 취소 정보 표시 -->
-									<div class="mt-3">
+									<div class="mt-3" style="margin:0">
+										<small class="text-muted">예약 &nbsp; 오전 12:00 ~ 12:50 </small>
+										<div class="d-flex w-100 justify-content-between">
+											<h5 class="my-auto" style="color: black;">체어&바렐(A): 체형교정</h5>
+											<button type="button"
+												class="btn btn-outline-primary btn-reservation">예약하기</button>
+										</div>
+										<small class="text-muted">홍길동 강사</small><br> <small
+											class="text-muted">이브 필라테스 xx점</small>
+									</div>
+								</div>
+							</div>
+							<!-- 카드 2 -->
+							<div class="card" style="border-radius: 0;">
+								<div class="card-header bg-white">10.23 월요일</div>
+								<div class="card-body">
+								
+									<!-- 취소 정보 표시 -->
+									<div class="mt-3" style="margin:0">
 										<small class="text-muted">예약 &nbsp; 오전 12:00 ~ 12:50 </small>
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="my-auto" style="color: black;">체어&바렐(A): 체형교정</h5>
