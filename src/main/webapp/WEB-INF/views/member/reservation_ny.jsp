@@ -235,93 +235,11 @@
 											</div>
 										</div>
 									</div>
-
-									<div class="content-filter py-2 my-4">
-										<div class="time-slot d-flex justify-content-around align-items-center">
-											<div class="time-info">
-												<label class="form-check-label time-label"
-													for="flexSwitchCheckDefault2">
-													<div class="time-check text-center">
-														<input type="checkbox" class="btn-check" id="btn-check-2"
-															autocomplete="off"> <label class="btn"
-															for="btn-check-2"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
-															<p class="mt-2">10:00 - 10:50</p>
-														</label>
-													</div>
-												</label>
-											</div>
-											<!--여기다가 복사 -->
-											<label class="form-check-label time-label"
-												for="flexSwitchCheckDefault3">
-												<div class="time-check text-center">
-													<input type="checkbox" class="btn-check" id="btn-check-3"
-														autocomplete="off"> <label class="btn"
-														for="btn-check-3"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
-														<p class="mt-2">11:00 - 11:50</p>
-													</label>
-												</div>
-											</label> 
-											<label class="form-check-label time-label"
-												for="flexSwitchCheckDefault4">
-												<div class="time-check text-center">
-													<input type="checkbox" class="btn-check" id="btn-check-4"
-														autocomplete="off"> <label class="btn"
-														for="btn-check-4"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
-														<p class="mt-2">12:00 - 12:50</p>
-													</label>
-												</div>
-											</label>
-
-
-										</div>
+									
+									<div id="lessonListContainerForPersonal">
+									
 									</div>
 
-									<div class="content-filter py-2 my-4">
-										<div
-											class="time-slot d-flex justify-content-around align-items-center">
-											<div class="time-info">
-												<label class="form-check-label time-label"
-													for="flexSwitchCheckDefault5">
-													<div class="time-check text-center">
-														<input type="checkbox" class="btn-check" id="btn-check-5"
-															autocomplete="off"> <label class="btn"
-															for="btn-check-5"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
-															<p class="mt-2">10:00 - 10:50</p>
-														</label>
-													</div>
-												</label>
-											</div>
-
-											<label class="form-check-label time-label"
-												for="flexSwitchCheckDefault6">
-												<div class="time-check text-center">
-													<input type="checkbox" class="btn-check" id="btn-check-6"
-														autocomplete="off"> <label class="btn"
-														for="btn-check-6"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
-														<p class="mt-2">11:00 - 11:50</p>
-													</label>
-												</div>
-											</label> <label class="form-check-label time-label"
-												for="flexSwitchCheckDefault7">
-												<div class="time-check text-center">
-													<input type="checkbox" class="btn-check" id="btn-check-7"
-														autocomplete="off"> <label class="btn"
-														for="btn-check-7"> <i class="bi bi-clock"></i> <!-- Bootstrap clock icon -->
-														<p class="mt-2">12:00 - 12:50</p>
-													</label>
-												</div>
-											</label>
-
-
-
-										</div>
-									</div>
-									<!-- 예약 버튼 -->
-									<div class="reservation-btn d-flex justify-content-end">
-										<button class="btn btn-primary" onclick="reserveTime()">
-											<i class="bi bi-calendar-plus"></i> 예약하기
-										</button>
-									</div>
 
 								</div>
 
@@ -555,10 +473,9 @@
 					        
 							
 					        var str = "";
-					        // lessonListContainer라는 아이디 가진 영역의 기존 내용을 지움
+					        // 아래 아이디 가진 영역의 기존 내용을 지움
 					        $('#lessonListContainerForGroup').html('');
 					        $('#lessonListContainerForPersonal').html('');
-					        
 							
 							if (lessonList.length < 1) {
 								str = '<p>개설된 수업이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
@@ -589,8 +506,45 @@
 									     $('#lessonListContainerForGroup').append(str);
 				                    });
 				                } else if (lessonType === '개인') {
-				                    // 개인 탭에 대한 처리 추가
-				                    // 예시로 개인 탭에 대한 로직을 추가하고, 필요에 따라 수정하세요.
+				                    console.log("개인for문으로들어옴");
+
+				                    // 개인 탭에 대한 내용 생성
+				                    str ="";
+				                    str += '<div class="content-filter py-2 my-4">';
+				                    str += '<div class="time-slot d-flex justify-content-around align-items-center">';
+
+				                    var timeLabels = [
+				                        "10:00 - 10:50",
+				                        "11:00 - 11:50",
+				                        "12:00 - 12:50",
+				                        "13:00 - 13:50",
+				                        "14:00 - 14:50",
+				                        "15:00 - 15:50"
+				                    ];
+
+				                    for (var i = 2; i <= 7; i++) {
+				                    	str += '<div class="time-info">';
+				                    	str += '<label class="form-check-label time-label" for="flexSwitchCheckDefault' + i + '">';
+				                    	str += '<div class="time-check text-center">';
+				                    	str += '<input type="checkbox" class="btn-check" id="btn-check-' + i + '" autocomplete="off">';
+				                        str += '<label class="btn" for="btn-check-' + i + '"> <i class="bi bi-clock"></i>';
+				                        str += '<p class="mt-2">' + timeLabels[i - 2] + '</p>';
+				                        str += '</label>';
+				                        str += '</div>';
+				                        str += '</label>';
+				                        str += '</div>';
+				                    }
+
+				                    str += '</div>';
+				                    str += '</div>';
+
+				                    str += '<div class="reservation-btn d-flex justify-content-end">';
+				                    str += '<button class="btn btn-primary" onclick="reserveTime()">';
+				                    str += '<i class="bi bi-calendar-plus"></i> 예약하기';
+				                    str += '</button>';
+				                    str += '</div>';
+
+				                    $('#lessonListContainerForPersonal').append(str);
 				                }
 
 							}

@@ -105,7 +105,7 @@ public class ReservController {
 		System.out.println("선택날짜: " + selectedDate);
 		System.out.println("수업 유형 : " + lessonType);
 
-		List<CenterLessonVO> lessonList = service.getLessonList(ctCode, selectedDate,lessonType); // 여기에 타입줘야 함
+		List<CenterLessonVO> lessonList = service.getLessonList(ctCode, selectedDate,lessonType); 
 
 		// 수업 목록이 비었다면 빈 목록 전달
 		if (lessonList.isEmpty()) {
