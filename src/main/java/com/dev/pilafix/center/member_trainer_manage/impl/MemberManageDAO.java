@@ -28,16 +28,8 @@ public class MemberManageDAO {
 	public List<MemberVO> getMemberManageList(int ctCode) {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList", ctCode);
 	}
-	
-	public List<MemberVO> getMemberExcelManageList(int ctCode) {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList", ctCode);
-	}
 
 	public List<MemberVO> getTrainerManageList(int ctCode) {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList", ctCode);
-	}
-	
-	public List<MemberVO> getTrainerExcelManageList(int ctCode) {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList", ctCode);
 	}
 
@@ -154,6 +146,23 @@ public class MemberManageDAO {
 	public CenterLessonVO getLessonCount(int csMemberCode) {
 		return sqlSessionTemplate.selectOne("MemberManageDAO.getLessonCount",csMemberCode);
 	}
-
+	
+	/**
+	 * 회원 목록 엑셀 출력
+	 * @param ctCode
+	 * @return
+	 */
+	public List<MemberVO> getMemberExcelManageList(int ctCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getMemberList", ctCode);
+	}
+	
+	/**
+	 * 강사 목록 엑셀 출력
+	 * @param ctCode
+	 * @return
+	 */
+	public List<MemberVO> getTrainerExcelManageList(int ctCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList", ctCode);
+	}
 
 }

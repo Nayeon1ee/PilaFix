@@ -9,7 +9,6 @@ import com.dev.pilafix.common.member.CenterVO;
 public interface CenterService {
 	
 	List<CenterVO> getCenterList();
-	List<CenterVO> getExcelCenterList();
 	CenterVO getCenter(int ctCode);
 //	List<SendEmailHistoryVO> getSendEmailHistory(int ctCode);
 	int insertCenter(CenterVO vo);
@@ -21,4 +20,5 @@ public interface CenterService {
     void insertCenterAndSetSession(CenterVO center, HttpSession session);
     void revokeCenter(int ctCode);
     void resetPassword(int ctCode);
+    List<CenterVO> getExcelCenterList();
 }

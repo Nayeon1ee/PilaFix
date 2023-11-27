@@ -23,18 +23,8 @@ public class MemberTrainerManageServiceImpl implements MemberTrainerManageSerice
 	}
 	
 	@Override
-	public List<MemberVO> getExcelMemberList() {
-		return dao.getExcelMemberList();
-	}
-	
-	@Override
 	public List<MemberVO> getTrainerList() {
 		return dao.getTrainerList();
-	}
-	
-	@Override
-	public List<MemberVO> getExcelTrainerList() {
-		return dao.getExcelTrainerList();
 	}
 
 	@Override
@@ -50,6 +40,16 @@ public class MemberTrainerManageServiceImpl implements MemberTrainerManageSerice
 	@Override
 	public List<CenterConnectHistoryVO> getCenterConnectHistory(int csMemberCode) {
 		return dao.getConnectCenterList(csMemberCode);
+	}
+	
+	@Override
+	public List<MemberVO> getExcelMemberList() {
+		return dao.getExcelMemberList();
+	}
+	
+	@Override
+	public List<MemberVO> getExcelTrainerList() {
+		return dao.getExcelTrainerList();
 	}
 
 }

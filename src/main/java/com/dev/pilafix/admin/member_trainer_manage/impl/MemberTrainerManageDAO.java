@@ -20,16 +20,8 @@ public class MemberTrainerManageDAO {
 		return sqlSessionTemplate.selectList("MemberManageDAO.adminGetMemberList");
 	}
 	
-	public List<MemberVO> getExcelMemberList() {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getExelMember");
-	}
-	
 	public List<MemberVO> getTrainerList() {
 		return sqlSessionTemplate.selectList("MemberManageDAO.adminGetTrainerList");
-	}
-	
-	public List<MemberVO> getExcelTrainerList() {
-		return sqlSessionTemplate.selectList("MemberManageDAO.getExelTrainer");
 	}
 	
 	public MemberVO getMember(int csMemberCode) {
@@ -44,4 +36,12 @@ public class MemberTrainerManageDAO {
         return sqlSessionTemplate.selectList("MemberManageDAO.getCenterConnectHistory", csMemberCode);
     }
 
+    public List<MemberVO> getExcelMemberList() {
+    	return sqlSessionTemplate.selectList("MemberManageDAO.getExelMember");
+    }
+    
+    public List<MemberVO> getExcelTrainerList() {
+    	return sqlSessionTemplate.selectList("MemberManageDAO.getExelTrainer");
+    }
+    
 }
