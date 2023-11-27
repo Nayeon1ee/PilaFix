@@ -27,11 +27,15 @@ public class MemberManageServiceImpl implements MemberManageService {
 	public List<MemberVO> getMemberManageList(int ctCode) {
 		return dao.getMemberManageList(ctCode);
 	}
+	
+	@Override
+	public List<MemberVO> getMemberExcelManageList(int ctCode) {
+		return dao.getMemberExcelManageList(ctCode);
+	}
 
 	@Override
 	public MemberVO getMember(int csMemberCode) {
 		return dao.getMember(csMemberCode);
-		
 	}
 
     @Override
@@ -99,6 +103,11 @@ public class MemberManageServiceImpl implements MemberManageService {
 	@Override
 	public List<MemberVO> getTrainerManageList(int ctCode) {
 		return dao.getTrainerManageList(ctCode);
+	}
+	
+	@Override
+	public List<MemberVO> getTrainerExcelManageList(int ctCode) {
+		return dao.getTrainerExcelManageList(ctCode);
 	}
 
 	@Override
