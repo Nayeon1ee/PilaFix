@@ -24,11 +24,13 @@ public class MemberVO {
 	private int connectedCenterCode2; // 현재연동센터코드2 : 미연동 상태일 수 있음
 	private int connectedCenterCode3; // 현재연동센터코드3 : 미연동 상태일 수 있음
 	private String ticketCodePersonal1; // 보유수강권코드_개인 : 보유한 수강권이 없을 수 있음/수강권 결제 완료 시 해당 컬럼 업데이트  
+	private String ticketNamePersonal1; // 보유수강권코드_개인 : 보유한 수강권이 없을 수 있음/수강권 결제 완료 시 해당 컬럼 업데이트  
 	private int ticketRemainingCountPersonal1; // 보유수강권잔여횟수_개인 : 수강권 결제 완료 시 해당 컬럼 업데이트  
 	private Date ticketStartDatePersonal1; // 보유수강권시작일자_개인
 	private Date ticketExpiryDatePersonal1; // 보유수강권만료일자_개인 : 수강권 결제 완료 시 해당 컬럼 업데이트 / 결제된 날로부터 해당 수강권의 기간 계산해서 넣어야 함 
 	private boolean ticketExpiryYnPersonal1; // 보유수강권만료여부_개인 : 사용중일 때는 N, 만료 시에 Y (즉, 기존 수강권 구매 후 만료-> 재구매하지 않은 고객)
 	private String ticketCodeGroup1; // 보유수강권코드_그룹
+	private String ticketNameGroup1; // 보유수강권코드_그룹
 	private int ticketRemainingCountGroup1; // 보유수강권잔여횟수_그룹
 	private Date ticketStartDateGroup1; // 보유수강권시작일자_그룹
 	private Date ticketExpiryDateGroup1; // 보유수강권만료일자_그룹
@@ -228,6 +230,20 @@ public class MemberVO {
 	}
 	public void setConnectedCenterName3(String connectedCenterName3) {
 		this.connectedCenterName3 = connectedCenterName3;
+	}
+	
+	
+	public String getTicketNamePersonal1() {
+		return ticketNamePersonal1;
+	}
+	public void setTicketNamePersonal1(String ticketNamePersonal1) {
+		this.ticketNamePersonal1 = ticketNamePersonal1;
+	}
+	public String getTicketNameGroup1() {
+		return ticketNameGroup1;
+	}
+	public void setTicketNameGroup1(String ticketNameGroup1) {
+		this.ticketNameGroup1 = ticketNameGroup1;
 	}
 	@Override
 	public String toString() {

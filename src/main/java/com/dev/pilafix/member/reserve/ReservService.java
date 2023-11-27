@@ -26,4 +26,6 @@ public interface ReservService {
 
 	Map<String, Object> getReservationInfoAndTicketInfo(String rsCode);
 
+	void cancelReservation(int csMemberCode, String rsCode, String lsCode, int centerCode);
+
 }
