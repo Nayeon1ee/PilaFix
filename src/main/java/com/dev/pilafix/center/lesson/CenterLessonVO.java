@@ -17,11 +17,13 @@ public class CenterLessonVO {
 	private String trainerMemberName;
 	private String lsContent;
 	private int centerCode;
+	private String centerName;
 	private Date lsRegistrationDate;
 	private boolean lsColseYN;
 	private String lsRegistrationDateToString;
 	private Timestamp lsTimeDB;
 	private String lsEndTime;
+	private Timestamp lessonDatetime;
 
 	private int csMemberCode;
 	private String csName;
@@ -211,6 +213,23 @@ public class CenterLessonVO {
 
 	public void setTrainerMemberName(String trainerMemberName) {
 		this.trainerMemberName = trainerMemberName;
+	}
+
+	public String getCenterName() {
+		return centerName;
+	}
+
+	public void setCenterName(String centerName) {
+		this.centerName = centerName;
+	}
+
+	
+	public Timestamp getLessonDatetime() {
+		return lessonDatetime;
+	}
+
+	public void setLessonDatetime(Timestamp lessonDatetime) {
+		this.lessonDatetime = lessonDatetime;
 	}
 
 	@Override

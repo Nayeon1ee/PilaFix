@@ -75,7 +75,13 @@
 					<li>Reserved list</li>
 				</ol>
 				<h2>예약 목록</h2>
-
+				<%--
+				추후 내스케줄 화면 생기면 삭제해야 함 
+				예약 취소 테스트를 위한 버튼 
+				<button onclick="location.href='cancelPage.do?rsCode=RS321'">RS321 - 오늘 날짜 예약 취소</button>
+				<button onclick="location.href='cancelPage.do?rsCode=RS325'">RS325 - 내일 날짜 예약 취소</button>
+				 --%>
+				
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
@@ -433,10 +439,10 @@
 					            <div class="modal-body">
 					            	<img src="${pageContext.request.contextPath}/resources/images/success.png">
 					                <p> 예약이 성공적으로 완료되었습니다. </p>
-					                <p> <a>내 스케줄 확인하러 가기</a> </p>
+					                <p> <a href="#">내 스케줄 확인하러 가기</a> </p>
 					            </div>
 					            <div class="modal-footer">
-					                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					                <button type="button" class="btn-close" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 					            </div>
 			       			</div>
 			    		</div>
