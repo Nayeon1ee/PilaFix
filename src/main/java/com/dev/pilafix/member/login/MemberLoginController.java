@@ -74,6 +74,8 @@ public class MemberLoginController {
 					/*메인테스트용임 추후 삭제*/ 
 					model.addAttribute("loginUser", member.getCsName() ); 
 					return "member/test_main";
+//					return "member/test_main_test";
+					
 				} else {
 //					return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
 					
@@ -280,6 +282,11 @@ public class MemberLoginController {
 //	}
 //	
 
+//	@GetMapping("/logout.do")
+//	public String memberLogout(HttpSession session) {
+//	    session.removeAttribute("loginUser");
+//	    return "redirect:/memberLogin.do";
+//	}
 
 
 	@PostMapping("/logout.do")
