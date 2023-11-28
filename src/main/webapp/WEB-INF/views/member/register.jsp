@@ -190,30 +190,28 @@
 						</div>
 					
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> <label class="form-check-label" for="flexCheckDefault">전체 동의합니다.</label>
+					    <input class="form-check-input overall-agreement" type="checkbox" value="" id="flexCheckDefault">
+					    <label class="form-check-label" for="flexCheckDefault">전체 동의합니다.</label>
 					</div>
 					<c:forEach var="termsList" items="${termsList}" varStatus="num">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="csAgreementYn${num.count}" id="csAgreementYn${num.count}" value="true"> 
-						
-						
-						<label class="form-check-label" for="flexCheckChecked">
-							<c:choose>
-								<c:when test="${termsList.tmRequiredYn eq true }">
-								[필수]
-								</c:when>
-								<c:otherwise>
-								[선택]
-								</c:otherwise>
-							</c:choose>	
-							${termsList.tmName }
-						</label>
-						<textarea class="form-control" rows="4">${termsList.tmDetail }</textarea>
-					</div>
+					    <div class="form-check">
+					        <input class="form-check-input individual-agreement" type="checkbox" name="csAgreementYn${num.count}" id="csAgreementYn${num.count}" value="true">
+					        <label class="form-check-label" for="csAgreementYn${num.count}">
+					            <c:choose>
+					                <c:when test="${termsList.tmRequiredYn eq true}">
+					                    [필수]
+					                </c:when>
+					                <c:otherwise>
+					                    [선택]
+					                </c:otherwise>
+					            </c:choose>
+					            ${termsList.tmName}
+					        </label>
+					        <textarea class="form-control" rows="4">${termsList.tmDetail}</textarea>
+					    </div>
 					</c:forEach>
 					<div class="col-12">
-						<button type="submit" class="btn btn-primary" value="회원 가입"
-							style="width: 100%; margin-top: 3%;">회원가입</button>
+					    <button type="submit" class="btn btn-primary" value="회원 가입" style="width: 100%; margin-top: 3%;">회원가입</button>
 					</div>
 				</form>
 				<!-- End Our Skills Section -->
@@ -263,6 +261,15 @@ $(function(){
     $("#idCheck").click(function(){
     
         let csEmailId = $("#csEmailId").val();
+        
+     	// 이메일 형식을 확인하기 위한 정규식
+        let emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+     	
+    	// 입력된 값이 이메일 형식과 일치하는지 확인합니다.
+        if (!emailFormat.test(csEmailId)) {
+            alert("올바른 이메일 형식으로 입력해주세요.");
+            return; // 형식이 맞지 않으면 중복 확인 요청을 보내지 않음
+        }
          
         $.ajax({
             type:'post', //post 형식으로 controller 에 보내기위함!!
@@ -335,8 +342,7 @@ $(function(){
 			$resultMsg.css('color', 'red');
 		}
 	}); //인증번호 비교
-</script>
-<script>
+
 /* 비밀번호, 비밀번호 확인 입력창에 입력된 값을 비교해서 같다면 비밀번호 일치, 그렇지 않으면 불일치 라는 텍스트 출력.*/
 function passConfirm() {
 	/* document : 현재 문서를 의미함. 작성되고 있는 문서를 뜻함. */
@@ -356,6 +362,96 @@ function passConfirm() {
 		}
 	}
 
+// 입력하지 않은 값이 있다면 해당 태그로 focus
+function validateForm() {
+    var csEmailId = document.getElementById('csEmailId').value;
+    var csPassword = document.getElementById('csPassword').value;
+    var passwordConfirm = document.getElementById('passwordConfirm').value;
+    var csName = document.getElementsByName('csName')[0].value;
+    var csPhoneNumber1 = document.getElementsByName('csPhoneNumber1')[0].value;
+    var csPhoneNumber2 = document.getElementsByName('csPhoneNumber2')[0].value;
+    var csPhoneNumber3 = document.getElementsByName('csPhoneNumber3')[0].value;
+    var csBirth = document.getElementsByName('csBirth')[0].value;
+    var csGenderOptions = document.getElementsByName('csGenderMw');
+    var genderSelected = false;
+    var overallAgreement = document.getElementById('flexCheckDefault');
+    var agreementCheckboxes = document.querySelectorAll('[id^="csAgreementYn"]');
+    
+    for (var i = 0; i < csGenderOptions.length; i++) {
+        if (csGenderOptions[i].checked) {
+            genderSelected = true;
+            break;
+        }
+    }
+    
+	// 전체 동의 체크박스가 체크되었는지 확인
+    if (!overallAgreement.checked) {
+        overallAgreement.focus();
+        return false;
+    }
+    
+	// 각 동의 항목 체크박스들의 체크 상태 확인
+    var atLeastOneUnchecked = false;
+    for (var i = 0; i < agreementCheckboxes.length; i++) {
+        if (!agreementCheckboxes[i].checked) {
+            atLeastOneUnchecked = true;
+            break;
+        }
+    }
+
+    if (csEmailId === '') {
+        document.getElementById('csEmailId').focus();
+        return false;
+    }
+    
+    if (csPassword === '') {
+        document.getElementById('csPassword').focus();
+        return false;
+    }
+    
+    if (passwordConfirm === '') {
+        document.getElementById('passwordConfirm').focus();
+        return false;
+    }
+
+    if (csName === '') {
+        document.getElementsByName('csName')[0].focus();
+        return false;
+    }
+
+    if (csPhoneNumber1 === '' || csPhoneNumber2 === '' || csPhoneNumber3 === '') {
+        document.getElementsByName('csPhoneNumber1')[0].focus();
+        return false;
+    }
+
+    if (csBirth === '') {
+        document.getElementsByName('csBirth')[0].focus();
+        return false;
+    }
+    
+    if (!genderSelected) {
+        csGenderOptions[0].focus();
+        return false;
+    }
+    
+    if (atLeastOneUnchecked) {
+        agreementCheckboxes[0].focus();
+        return false;
+    }
+
+    return true;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var overallAgreement = document.querySelector('.overall-agreement');
+    var individualAgreements = document.querySelectorAll('.individual-agreement');
+
+    overallAgreement.addEventListener('change', function() {
+        individualAgreements.forEach(function(checkbox) {
+            checkbox.checked = overallAgreement.checked;
+        });
+    });
+});
 
 </script>
 
