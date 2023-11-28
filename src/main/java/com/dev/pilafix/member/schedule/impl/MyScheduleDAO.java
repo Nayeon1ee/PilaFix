@@ -20,4 +20,16 @@ public class MyScheduleDAO {
 		return sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode);
 	}
 
+	public List<MyScheduleVO> getAttendList(int csMemberCode) {
+		//출석여부가 true인 것에 대해 데이터 가져옴
+		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendLessonCode",csMemberCode );
+		return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonInfo", lessonCode);
+	}
+
+	public List<MyScheduleVO> getAbsentList(int csMemberCode) {
+		//출석여부가 false인 것에 대해 데이터 가져옴
+		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAbsentLessonCode",csMemberCode );
+		return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonInfo",lessonCode);
+	}
+
 }

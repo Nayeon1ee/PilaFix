@@ -108,7 +108,7 @@
      			<input type="hidden" id="csRoleCode" name="csRoleCode" value="${csRoleCode}">
 				
 					<div class="col-auto" style="width: 100px;">
-						<input type="text" readonly class="form-control-plaintext"
+						<input type="email" readonly class="form-control-plaintext"
 							id="staticEmail2" value="이메일 아이디"
 							style="width: 130%; padding: revert-layer;">
 					</div>
@@ -224,7 +224,7 @@
 					</div>
 					</c:forEach>
 					<div class="col-12">
-						<button type="submit" class="btn btn-primary" onclick="moveToLogin()" value="회원 가입"
+						<button type="submit" class="btn btn-primary" value="회원 가입"
 							style="width: 100%; margin-top: 3%;">회원가입</button>
 					</div>
 				</form>
@@ -369,9 +369,7 @@ function passConfirm() {
 		}
 	}
 
-function moveToLogin(){
-	alert ("회원가입이 완료되었습니다. 로그인페이지로 이동합니다.")
-}
+
 </script>
 
 
