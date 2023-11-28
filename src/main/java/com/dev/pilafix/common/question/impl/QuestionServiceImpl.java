@@ -83,7 +83,7 @@ public class QuestionServiceImpl implements QuestionService {
 		// 3.
 		int qsNumber = vo.getQsNumber();
 //		int qsNumber = replyVO.getReTargetPostNumber();
-		String title = replyVO.getReTitle();
+//		String title = replyVO.getReTitle();
 		int writerMemberCode = dao.getQuestionWriterMemberCode(vo.getQsNumber());
 
 		
@@ -98,7 +98,7 @@ public class QuestionServiceImpl implements QuestionService {
 		notice.setRecipientCode(String.valueOf(ctCode)); // 원래는 int형이나 recipientCode에는 관리자 코드도 같이 쓰이므로 string으로 받음
 		notice.setEventType("답변등록");
 		notice.setUniqueIdentifierCode(String.valueOf(qsNumber));
-		notice.setNcNoticeContent("[문의답변] " + title);
+		notice.setNcNoticeContent("[알림] 문의사항에 대한 답변이 등록되었습니다.");
 		notice.setNcSendYn(false);
 		notice.setNcReadYn(false);
 		noticeList.add(notice);
