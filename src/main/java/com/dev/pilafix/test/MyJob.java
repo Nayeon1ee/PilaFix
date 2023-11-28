@@ -8,7 +8,7 @@ public class MyJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		System.out.println("쿼츠 사용!");
+		System.out.println("Hello Quertz!!");
 	}
 
 }

@@ -18,9 +18,25 @@
 		WHERE (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
 	</select>
 	
-	<!-- 알림 테이블 적재 -->
+	<!-- 알림 테이블 등록 -->
 	<insert id="insertNotice" parameterType="com.dev.pilafix.common.notice.NoticeVO">
 		INSERT INTO TBL_NOTICE(NC_ID, MEMBER_CODE, RECIPIENT_CODE, EVENT_TYPE, UNIQUE_IDENTIFIER_CODE, NC_NOTICE_CONTENT,NC_SEND_YN, NC_READ_YN )
 		VALUES(CONCAT('NC',NEXTVAL('seq_notice')), #{memberCode},#{recipientCode},#{eventType},#{uniqueIdentifierCode},#{ncNoticeContent},false,false)
 	</insert>
+	
+	<!-- 알림 발송  -->
+	<select id="getNoticesForSend">
+		SELECT * FROM TBL_NOTICE
+		WHERE MEMBER_CODE=#{memberCode}
+			AND NC_SEND_YN=FALSE
+	</select>
+	
+	<!-- 알림 발송 후 상태 업데이트  -->
+	<update id="updateNoticeStatus">
+		UPDATE TBL_NOTICE
+		SET NC_SEND_YN=TRUE, NC_SENT_DATETIME=CURRENT_TIMESTAMP
+		WHERE NC_ID=#{ncId}
+	</update>
+	
+	
 </mapper>

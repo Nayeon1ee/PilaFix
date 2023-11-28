@@ -1,5 +1,6 @@
 package com.dev.pilafix.common.notice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -64,5 +65,14 @@ public class NoticeDAO {
 
 	}
 
+	// 알림 발송을을 위한 대상 알림 조회 
+	public List<NoticeVO> getNoticesForSend(int csMemberCode){
+		return sqlSessionTemplate.selectList("NoticeDAO.getNoticesForSend",csMemberCode);
+	}
+	
+	// 알림 발송 업데이트 
+	public void updateNoticeStatus(String ncId) {
+		sqlSessionTemplate.update("NoticeDAO.updateNoticeStatus", ncId);
+	}
 	
 }
