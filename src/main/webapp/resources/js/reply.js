@@ -1,9 +1,8 @@
-
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
         var commentForm = document.getElementById('comment-form');
         var commentList = document.getElementById('comment-list');
 
-        commentForm.addEventListener('submit', function(event) {
+        commentForm.addEventListener('submit', function (event) {
             event.preventDefault();
 
             var commentContent = commentForm.querySelector('#comment').value;
@@ -34,6 +33,7 @@
             var replyTextarea = document.createElement('textarea');
             replyTextarea.className = 'form-control flex-grow-1';
             replyTextarea.rows = '2';
+            replyTextarea.placeholder = '대댓글을 작성하세요...';
             replyForm.appendChild(replyTextarea);
 
             var replyButtonSubmit = document.createElement('button');
@@ -42,7 +42,7 @@
             replyButtonSubmit.textContent = '대댓글 등록';
             replyForm.appendChild(replyButtonSubmit);
 
-            replyForm.addEventListener('submit', function(event) {
+            replyForm.addEventListener('submit', function (event) {
                 event.preventDefault();
 
                 var replyContent = replyTextarea.value;
@@ -53,6 +53,16 @@
                 replyForm.style.display = 'none';
             });
 
+            // 대댓글 토글 버튼
+            var toggleReplyButton = document.createElement('button');
+            toggleReplyButton.type = 'button';
+            toggleReplyButton.className = 'btn btn-sm btn-light me-2';
+            toggleReplyButton.textContent = '대댓글 작성';
+            toggleReplyButton.addEventListener('click', function () {
+                toggleReplyForm(replyForm);
+            });
+            commentHeader.appendChild(toggleReplyButton);
+
             return commentContainer;
         }
 
@@ -61,5 +71,14 @@
             replyContainer.className = 'ml-4 reply-comment';
             replyContainer.innerHTML = '<strong>' + username + ':</strong> ' + content + '<br><small>등록일자: ' + date + '</small>';
             return replyContainer;
+        }
+
+        function toggleReplyForm(replyForm) {
+            if (replyForm.style.display === 'none' || replyForm.style.display === '') {
+                replyForm.style.display = 'block';
+                replyForm.querySelector('textarea').focus();
+            } else {
+                replyForm.style.display = 'none';
+            }
         }
     });
