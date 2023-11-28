@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -39,7 +39,10 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.css"
 	rel="stylesheet">
-
+<!-- fullcalender -->
+<link rel='stylesheet'
+	href="${pageContext.request.contextPath}/resources/temparycss/main.css">
+	
 <!-- Template Main CSS File -->
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
@@ -47,19 +50,10 @@
 
 <!-- fullcalender -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
-<script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/temparyjs/main.js"></script>
 
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
-
-</script>
-
-
+<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/locales/ko.js"></script>	
 </head>
 
 <!-- 내 css -->
@@ -264,10 +258,10 @@
 	<!-- 내 js -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/js/calendar.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
+
+<!-- 캘린더 js -->
 
 	<script>
 		function changeColor(colorClass) {
@@ -278,6 +272,70 @@
 			colorChangingBar.classList.add(colorClass);
 		}
 	</script>
+	
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+         initialView: 'dayGridMonth',
+         contentHeight: '500', // 캘린더 세로 크기 설정
+         locale: 'ko',
+         editable: true, // 수정 여부
+         headerToolbar: {
+            left: 'prev',
+            center: 'title',
+            right: 'next'
+         },
+         selectable: true,
+         themeSystem: 'bootstrap', // 부트스트랩 테마 사용
+         bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함
+         customButtons: {
+            prev: {
+               text: '이전',
+               click: function() {
+                  calendar.prev();
+               }
+            },
+            next: {
+               text: '다음',
+               click: function() {
+                  calendar.next();
+               }
+            }
+         },
+         buttonText: {
+            today: '오늘',
+            month: '월',
+            week: '주',
+            day: '일',
+            list: '목록'
+         },
+         eventContent: function(arg) {
+            return {
+               html: '<div style="background-color: #9b56e9; color: white; padding: 5px;">' + arg.event.title + '</div>'
+            };
+         },
+         events: [
+            {
+               title: '체어&바렐(B)',
+               start: '2023-11-25'
+            },
+            {
+               title: '콤비리포머(C)',
+               start: '2023-11-10'
+            }
+         ],
+         eventClick: function(info) {
+            window.location.href(info.event.url);
+         }
+      });
+
+      // 전체 텍스트 색상 변경
+      calendarEl.style.color = '#9b56e9';
+
+      calendar.render();
+   });
+</script>
 	
 	<script type="text/javascript">
 	 $("#reservation").click(function() {
