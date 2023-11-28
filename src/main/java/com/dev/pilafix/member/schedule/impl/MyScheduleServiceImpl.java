@@ -1,6 +1,7 @@
 package com.dev.pilafix.member.schedule.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class MyScheduleServiceImpl implements MyScheduleService{
 	@Override
 	public List<MyScheduleVO> getAbsentList(int csMemberCode) {
 		return dao.getAbsentList(csMemberCode);
+	}
+
+	@Override
+	public Map<String, Integer> getCount(int csMemberCode) {
+		return dao.getCount(csMemberCode);
 	}
 
 }
