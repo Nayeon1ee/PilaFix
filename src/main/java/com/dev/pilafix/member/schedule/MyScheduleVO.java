@@ -9,6 +9,8 @@ public class MyScheduleVO {
 	private String lsType;
 	private Date lsDate;
 	private String lsTime;
+	private String lsEndTime;
+	private Timestamp lessonDatetime;
 	private int trainerMemberCode;
 	private String trainerMemberName;
 	private int centerCode;
@@ -16,6 +18,18 @@ public class MyScheduleVO {
 	private boolean lsColseYN;
 	
 	
+	public Timestamp getLessonDatetime() {
+		return lessonDatetime;
+	}
+	public void setLessonDatetime(Timestamp lessonDatetime) {
+		this.lessonDatetime = lessonDatetime;
+	}
+	public String getLsEndTime() {
+		return lsEndTime;
+	}
+	public void setLsEndTime(String lsEndTime) {
+		this.lsEndTime = lsEndTime;
+	}
 	public String getLsCode() {
 		return lsCode;
 	}
@@ -79,10 +93,12 @@ public class MyScheduleVO {
 	@Override
 	public String toString() {
 		return "MyScheduleVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsType=" + lsType + ", lsDate=" + lsDate
-				+ ", lsTime=" + lsTime + ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName="
-				+ trainerMemberName + ", centerCode=" + centerCode + ", centerName=" + centerName + ", lsColseYN="
-				+ lsColseYN + "]";
+				+ ", lsTime=" + lsTime + ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime
+				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
+				+ ", centerCode=" + centerCode + ", centerName=" + centerName + ", lsColseYN=" + lsColseYN + "]";
 	}
+	
+	
 
 
 	

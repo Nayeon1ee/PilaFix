@@ -123,44 +123,12 @@
 				<div class="container d-flex justify-content-center p-0 m-0">
 					<div class="row">
 					<div id='calendar'></div>
-
-<!--  
-						<!-- 첫 번째 컬럼 (7:3) 
-						<table class="Calendar py-0 my-0">
-							<thead>
-								<tr>
-									<td onClick="prevCalendar();" style="cursor: pointer;">&#60;</td>
-									<td colspan="5"><span id="calYear"></span>년 <span
-										id="calMonth"></span>월</td>
-									<td onClick="nextCalendar();" style="cursor: pointer;">&#62;</td>
-								</tr>
-								<tr>
-									<td>일</td>
-									<td>월</td>
-									<td>화</td>
-									<td>수</td>
-									<td>목</td>
-									<td>금</td>
-									<td>토</td>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- 달력 내용 
-							</tbody>
-						</table>
--->
-
-
 					</div>
 					<!-- 7:3 비율 컨테이너 닫기 -->
 
 
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-4">
-						<div class="content border rounded p-3"
-							style="min-height: 600px; max-height: 600px; overflow-y: auto;">
-
-
 							<div class="card rounded">
 								<div class="card-header bg-white" style="height: 100px;">
 									<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
@@ -174,60 +142,41 @@
 									</ul>
 								</div>
 							</div>
+						<div class="content border rounded p-3"
+							style="min-height: 500px; max-height: 500px; ">
+
+
 
 							<div class="card-header-con py-1 mt-1 custom-rounded">
 								<div class="btn-group d-flex py-1" role="group"
 									aria-label="Basic radio toggle button group">
 									<input type="button" class="btn-check" name="options" id="option1" autocomplete="off" checked> 
-									<labelclass="btn btn-outline-primary1" for="option1" onclick="changeColor('gray-bar')">전체</label> 
-										<input type="button" class="btn-check" name="options" id="reservation" autocomplete="off"> 
-										<label class="btn btn-outline-primary2" for="option2" onclick="changeColor('blue-bar')">예약</label> 
+									<labelclass="btn btn-outline-primary1" for="option1" >전체</label> 
+										<input type="button" class="btn-check" name="options"  autocomplete="off"> 
+										<label class="btn btn-outline-primary2" for="option2" id="reservation">예약</label> 
 										<input type="button" class="btn-check" name="options" id="option3" autocomplete="off"> 
-										<label class="btn btn-outline-primary3" for="option3" onclick="changeColor('green-bar')">출석</label> 
+										<label class="btn btn-outline-primary3" for="option3"id="attend" >출석</label> 
 										<input type="button" class="btn-check" name="options" id="option4" autocomplete="off"> 
-										<label class="btn btn-outline-primary4" for="option4" onclick="changeColor('orange-bar')">결석</label>
+										<label class="btn btn-outline-primary4" for="option4" id="absent">결석</label>
 								</div>
 							</div>
+							
+							<!-- 카드영역 -->
+							<div class="schedule-card" style="overflow-y: auto; max-height: 400px;">
 
-
-
-
-							<!-- 카드1 -->
-							<div class="card" style="border-radius: 0;">
-								<div class="card-header bg-white">10.23 월요일</div>
-								<div class="card-body">
-									<!-- 취소 정보 표시 -->
-									<div class="mt-3" style="margin:0">
-										<small class="text-muted">예약 &nbsp; 오전 12:00 ~ 12:50 </small>
-										<div class="d-flex w-100 justify-content-between">
-											<h5 class="my-auto" style="color: black;">체어&바렐(A): 체형교정</h5>
-											<button type="button"
-												class="btn btn-outline-primary btn-reservation">예약하기</button>
-										</div>
-										<small class="text-muted">홍길동 강사</small><br> <small
-											class="text-muted">이브 필라테스 xx점</small>
-									</div>
+								<!-- 예약 수업정보 가져오는 곳 -->
+								<div id="reservInfo">
+									<!-- 여기에 예약수업 리스트 나올거임-->
 								</div>
-							</div>
-							<!-- 카드 2 -->
-							<div class="card" style="border-radius: 0;">
-								<div class="card-header bg-white">10.23 월요일</div>
-								<div class="card-body">
-								
-									<!-- 취소 정보 표시 -->
-									<div class="mt-3" style="margin:0">
-										<small class="text-muted">예약 &nbsp; 오전 12:00 ~ 12:50 </small>
-										<div class="d-flex w-100 justify-content-between">
-											<h5 class="my-auto" style="color: black;">체어&바렐(A): 체형교정</h5>
-											<button type="button"
-												class="btn btn-outline-primary btn-reservation">예약하기</button>
-										</div>
-										<small class="text-muted">홍길동 강사</small><br> <small
-											class="text-muted">이브 필라테스 xx점</small>
-									</div>
+								<div id="attendInfo">
+									<!-- 여기에 당월 출석한 수업 리스트가 나올거임-->
 								</div>
-							</div>
-
+								<div id="absentInfo">
+									<!-- 여기에 당월 결석한 수업 리스트가 나올거임-->
+								</div>
+							</div> 
+							<!-- 카드영역 끝 -->
+						
 
 
 						</div>
@@ -256,23 +205,11 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
+	
 
 <!-- 캘린더 js -->
-
-	<script>
-		function changeColor(colorClass) {
-			var colorChangingBar = document
-					.getElementById('color-changing-bar');
-			colorChangingBar.classList.remove('gray-bar', 'blue-bar',
-					'green-bar', 'orange-bar');
-			colorChangingBar.classList.add(colorClass);
-		}
-	</script>
-	
 <script>
    document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
@@ -337,18 +274,158 @@
    });
 </script>
 	
+<!-- 예약정보 가져오는 js -->
 	<script type="text/javascript">
 	 $("#reservation").click(function() {
          // AJAX 요청
          $.ajax({
              type: "POST",
              url: "getReservList.do",
-             success: function(response) {
-                 // 요청이 성공할 경우 실행할 코드
-                 console.log("AJAX 요청 성공", response);
-             },
+             success: function(reservInfoList) {
+                 console.log("AJAX 요청 성공");
+                 
+                 $('#reservInfo').html('');
+                 $('#attendInfo').html('');
+                 $('#absentInfo').html('');
+                 if (reservInfoList.length < 1) {
+						$('#reservInfo').append('<p>예약된 수업이 없습니다.</p>');
+					} else {
+						reservInfoList.forEach(function(item) {
+							// lsDate를 월-일(요일) 형태로 포맷팅
+		                    var date = new Date(item.lsDate);
+		                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
+		                        month: 'short',
+		                        day: 'numeric',
+		                        weekday: 'short'
+		                    }).format(date);
+		                    
+		                    /// lessonDatetime을 Timestamp로 파싱
+		                    var lessonDatetime = new Date(item.lessonDatetime);
+		                    var threeHoursBefore = new Date(lessonDatetime);
+		                    var currentDatetime = new Date();
+		                    threeHoursBefore.setHours(lessonDatetime.getHours() - 3); // 수업시작시간에서 3시간 을 뺀 시간이 저장됌
+
+									var str = '<div class="card" style="border-radius: 0;">';
+									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-body">'
+									str += '<div class="mt-3" style="margin-top:0px!important">'
+									str += '<small class="text-muted"><strong>예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<div class="d-flex w-100 justify-content-between">'
+									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
+									// 수업시간 3시간 전까지는 취소하기 버튼 표시 (그 이후는 취소 불가라서 취소하기 버튼 없음)
+				                    if (currentDatetime < threeHoursBefore) {
+				                        str += '<button type="button" class="btn btn-outline-primary btn-reservation">취소하기</button>';
+				                    }
+									str += '</div>'
+									str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
+									str += '<small class="text-muted">'+item.centerName+' - '+item.lsType+'수업</small>'
+									str += '</div>'
+									str += '</div>'
+									str += '</div>'
+									$('#reservInfo').append(str);
+						});
+
+					}
+			},
              error: function(error) {
-                 // 요청이 실패할 경우 실행할 코드
+                 console.error("AJAX 요청 실패", error);
+             }
+         });
+     });
+	</script>
+	
+	<!-- 출석정보 가져오는 js -->
+	<script type="text/javascript">
+	 $("#attend").click(function() {
+         // AJAX 요청
+         $.ajax({
+             type: "POST",
+             url: "getAttendList.do",
+             success: function(reservInfoList) {
+                 console.log("AJAX 요청 성공");
+                 $('#reservInfo').html('');
+                 $('#attendInfo').html('');
+                 $('#absentInfo').html('');
+                 if (reservInfoList.length < 1) {
+						$('#attendInfo').append('<p>이번달에 출석한 수업이 없습니다.</p>');
+					} else {
+						reservInfoList.forEach(function(item) {
+							// lsDate를 월-일(요일) 형태로 포맷팅
+		                    var date = new Date(item.lsDate);
+		                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
+		                        month: 'short',
+		                        day: 'numeric',
+		                        weekday: 'short'
+		                    }).format(date);
+		                    
+									var str = '<div class="card" style="border-radius: 0;">';
+									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-body">'
+									str += '<div class="mt-3" style="margin-top:0px!important">'
+									str += '<small class="text-muted"><strong>출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<div class="d-flex w-100 justify-content-between">'
+									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
+									str += '</div>'
+									str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
+									str += '<small class="text-muted">'+item.centerName+' - '+item.lsType+'수업</small>'
+									str += '</div>'
+									str += '</div>'
+									str += '</div>'
+									$('#attendInfo').append(str);
+						});
+
+					}
+			},
+             error: function(error) {
+                 console.error("AJAX 요청 실패", error);
+             }
+         });
+     });
+	</script>
+	
+	<!-- 결석정보 가져오는 js -->
+	<script type="text/javascript">
+	 $("#absent").click(function() {
+         // AJAX 요청
+         $.ajax({
+             type: "POST",
+             url: "getAbsentList.do",
+             success: function(reservInfoList) {
+                 console.log("AJAX 요청 성공");
+                 $('#reservInfo').html('');
+                 $('#attendInfo').html('');
+                 $('#absentInfo').html('');
+                 if (reservInfoList.length < 1) {
+						$('#absentInfo').append('<p>이번달에 결석한 수업이 없습니다.</p>');
+					} else {
+						reservInfoList.forEach(function(item) {
+							// lsDate를 월-일(요일) 형태로 포맷팅
+		                    var date = new Date(item.lsDate);
+		                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
+		                        month: 'short',
+		                        day: 'numeric',
+		                        weekday: 'short'
+		                    }).format(date);
+		                    
+									var str = '<div class="card" style="border-radius: 0;">';
+									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-body">'
+									str += '<div class="mt-3" style="margin-top:0px!important">'
+									str += '<small class="text-muted"><strong>결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<div class="d-flex w-100 justify-content-between">'
+									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
+									str += '</div>'
+									str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
+									str += '<small class="text-muted">'+item.centerName+' - '+item.lsType+'수업</small>'
+									str += '</div>'
+									str += '</div>'
+									str += '</div>'
+									$('#absentInfo').append(str);
+						});
+
+					}
+			},
+             error: function(error) {
                  console.error("AJAX 요청 실패", error);
              }
          });

@@ -6,4 +6,8 @@ public interface MyScheduleService {
 
 	List<MyScheduleVO> getReservList(int csMemberCode);
 
+	List<MyScheduleVO> getAttendList(int csMemberCode);
+
+	List<MyScheduleVO> getAbsentList(int csMemberCode);
+
 }
