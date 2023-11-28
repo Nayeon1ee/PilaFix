@@ -52,7 +52,7 @@
 <!--  내 css -->
 
 <link
-	href="${pageContext.request.contextPath}/resources/css/style_member_reply.css"
+	href="${pageContext.request.contextPath}/resources/css/style_member_community_reply.css"
 	rel="stylesheet">
 
 </head>
@@ -154,15 +154,6 @@
 											onclick="location.href='member_community.do'">목록</button>
 									</div>
 
-									<div class="btn-group me-2">
-										<button type="button" class="btn btn-primary"
-											onclick="location.href='member_community_edit.do'">수정</button>
-
-									</div>
-									<div class="btn-group me-3">
-										<button type="button" class="btn btn-danger"
-											data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-									</div>
 								</div>
 							</div>
 
