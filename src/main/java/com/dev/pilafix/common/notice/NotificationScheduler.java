@@ -9,7 +9,8 @@ public class NotificationScheduler {
 	@Autowired
 	private NotificationService service;
 
-//	// 매 시간마다 실행
+
+// 매 시간마다 실행
 //	@Scheduled(cron = "* * * * * *") //초마다 실행 
 //	public void sendNotifications() {
 //		// 스케줄러 동작 중 
