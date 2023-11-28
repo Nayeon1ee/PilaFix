@@ -34,7 +34,7 @@
 </head>
 
 <!-- 내 css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_common_0.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common_0.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_reservation_details.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
 
@@ -237,7 +237,7 @@
 									</div>
 									
 									<div id="lessonListContainerForPersonal">
-									
+										<!-- 생성된 개인탭 내용 -->
 									</div>
 
 
@@ -360,7 +360,7 @@
 					                <p> <a href="#">내 스케줄 확인하러 가기</a> </p>
 					            </div>
 					            <div class="modal-footer">
-					                <button type="button" class="btn-close" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 					            </div>
 			       			</div>
 			    		</div>
@@ -425,10 +425,17 @@
 		<!-- 페이지 로딩 시 -->
 
 		$(document).ready(function() {
-		    selectedTab = "${selectedTab}";
-		    if (selectedTab === "1") {
+			
+		    selectedTab = ${selectedTab};
+		    console.log(selectedTab);
+		    if (selectedTab === 1) {
 		        $('#pills-individual-tab').addClass('active show');
+		        selectedTab = "pills-individual-tab";
+		    }else{
+			    $('#pills-group-tab').addClass('active show');
+			    selectedTab = "pills-group-tab"; 
 		    }
+		    getLessonInfoByCenter();
 		});
 		
 		<!-- 탭 전환될 때마다 호출  -->
@@ -437,6 +444,10 @@
 		    getLessonInfoByCenter();
 		});
 		
+		<!-- 센터 선택 때마다 호출  -->
+		$('#centerSelect').on('change', function() {
+		    getLessonInfoByCenter();
+		});
 
 		<!-- 센터 선택 시, 날짜 선택 시, 그룹/개인 선택 시 해당 센터의 수업 목록 조회 -->
 		function getLessonInfoByCenter() {
@@ -472,46 +483,62 @@
 					        console.log("수업 목록: ", lessonList);
 					        
 							
-					        var str = "";
+					        var gstr = ""; //그룹 탭 내용
+					        var pstr ="";  //개인 탭 내용
+					        
 					        // 아래 아이디 가진 영역의 기존 내용을 지움
 					        $('#lessonListContainerForGroup').html('');
 					        $('#lessonListContainerForPersonal').html('');
-							
+					        
 							if (lessonList.length < 1) {
 								str = '<p>개설된 수업이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
 								$('#lessonListContainerForGroup').append(str);
 								$('#lessonListContainerForPersonal').append(str);
 								
 							} else {
-								 // 여기에서 lessonType이 G라면 그룹탭에 for문 돌면서 이거 띄워야 하고 
-				                // lessonType이 P라면 개인탭공간에 생긴것에 맞게 넣어야 함 
 				                if (lessonType === '그룹') {
 				                    lessonList.forEach(function (item) {
-				                    	str = '<div class="list-group">';
-									    str += '<a class="list-group-item list-group-item-action">';
-									    str += '<p class="mb-1">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
-									    str += '<div class="d-flex w-100 justify-content-between">';
-									    str += '<h5 class="mb-1">'+ item.lsName +'</h5>';
-									    str += '</div>';
-									    str += '<p class="mb-1">' + item.trainerMemberName +'</p>';
-									    str += '<small class="text-muted">'+ (item.lsCapacity - item.lsCurrentApplicants)+'명 남음</small> | ';
-									    str += '<small class="text-muted"> 정원 '+ item.lsCapacity +'명</small>';
-									    str += '<div class="mymodal">'
-									    str += '<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
-									    str += '</div>'
-									    str += '</a>';
-									    str += '</div>';
-									    							
-									    // lessonListContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
-									     $('#lessonListContainerForGroup').append(str);
+				                    	gstr = '<div class="list-group">';
+				                    	gstr += '<a class="list-group-item list-group-item-action">';
+				                    	gstr += '<p class="mb-1">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
+				                    	gstr += '<div class="d-flex w-100 justify-content-between">';
+									    gstr += '<h5 class="mb-1">'+ item.lsName +'</h5>';
+									    gstr += '</div>';
+									    gstr += '<p class="mb-1">' + item.trainerMemberName +'</p>';
+									    gstr += '<small class="text-muted">'+ (item.lsCapacity - item.lsCurrentApplicants)+'명 남음</small> | ';
+									    gstr += '<small class="text-muted"> 정원 '+ item.lsCapacity +'명</small>';
+									    
+
+							            // 예약 시간 item.lessonDatetime과 현재 날짜 비교해서 시간이 지났다면 버튼 안 보여야 함
+							            var lessonDatetime = new Date(item.lessonDatetime); // 예약 시간을 Date 객체로 변환
+							            var currentDate = new Date(); // 현재 시간을 Date 객체로 얻기
+
+							            // 현재 신청 인원이 정원과 같으면 버튼이 보이지 않아야 함
+							            if (item.lsCurrentApplicants === item.lsCapacity) {
+							                gstr += '<div class="mymodal" style="display: none;">';
+							            } else if (lessonDatetime < currentDate) {
+							                // 시간이 지났으면 버튼을 보이지 않도록 스타일 적용
+							                gstr += '<div class="mymodal" style="display: none;">';
+							            } else {
+							                // 시간이 지나지 않았으면 예약하기 버튼 표시
+							                gstr += '<div class="mymodal">';
+							                gstr += '<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+							            }
+
+							            gstr += '</div>';
+							            gstr += '</a>';
+							            gstr += '</div>';
+
+							            // lessonListContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
+							            $('#lessonListContainerForGroup').append(gstr);
 				                    });
 				                } else if (lessonType === '개인') {
 				                    console.log("개인for문으로들어옴");
 
 				                    // 개인 탭에 대한 내용 생성
-				                    str ="";
-				                    str += '<div class="content-filter py-2 my-4">';
-				                    str += '<div class="time-slot d-flex justify-content-around align-items-center">';
+				                    pstr += '<div class="content-filter py-2 my-4">';
+				                    pstr += '<div class="time-slot d-flex justify-content-around align-items-center">';
+				                    
 
 				                    var timeLabels = [
 				                        "10:00 - 10:50",
@@ -523,28 +550,28 @@
 				                    ];
 
 				                    for (var i = 2; i <= 7; i++) {
-				                    	str += '<div class="time-info">';
-				                    	str += '<label class="form-check-label time-label" for="flexSwitchCheckDefault' + i + '">';
-				                    	str += '<div class="time-check text-center">';
-				                    	str += '<input type="checkbox" class="btn-check" id="btn-check-' + i + '" autocomplete="off">';
-				                        str += '<label class="btn" for="btn-check-' + i + '"> <i class="bi bi-clock"></i>';
-				                        str += '<p class="mt-2">' + timeLabels[i - 2] + '</p>';
-				                        str += '</label>';
-				                        str += '</div>';
-				                        str += '</label>';
-				                        str += '</div>';
+				                    	pstr += '<div class="time-info">';
+				                    	pstr += '<label class="form-check-label time-label" for="flexSwitchCheckDefault' + i + '">';
+				                    	pstr += '<div class="time-check text-center">';
+				                    	pstr += '<input type="checkbox" class="btn-check" id="btn-check-' + i + '" autocomplete="off">';
+				                    	pstr += '<label class="btn" for="btn-check-' + i + '"> <i class="bi bi-clock"></i>';
+				                        pstr += '<p class="mt-2">' + timeLabels[i - 2] + '</p>';
+				                        pstr += '</label>';
+				                        pstr += '</div>';
+				                        pstr += '</label>';
+				                        pstr += '</div>';
 				                    }
 
-				                    str += '</div>';
-				                    str += '</div>';
+				                    pstr += '</div>';
+				                    pstr += '</div>';
 
-				                    str += '<div class="reservation-btn d-flex justify-content-end">';
-				                    str += '<button class="btn btn-primary" onclick="reserveTime()">';
-				                    str += '<i class="bi bi-calendar-plus"></i> 예약하기';
-				                    str += '</button>';
-				                    str += '</div>';
-
-				                    $('#lessonListContainerForPersonal').append(str);
+				                    pstr += '<div class="reservation-btn d-flex justify-content-end">';
+				                    pstr += '<button class="btn btn-primary" onclick="reserveTime()">';
+				                    pstr += '<i class="bi bi-calendar-plus"></i> 예약하기';
+				                    pstr += '</button>';
+				                    pstr += '</div>';
+				                    
+				                    $('#lessonListContainerForPersonal').append(pstr);
 				                }
 
 							}
@@ -604,7 +631,7 @@
 					if (data.reservGuideList.length > 0) {
 					    data.reservGuideList.forEach(function (reservGuide) {
 					        var listItem = $('<li class="list-group-item"></li>');
-					        listItem.append('<b>' + reservGuide.ugName + '</b>');
+					        listItem.append('<b>' + reservGuide.ugName + '</b><br>');
 					        listItem.append('<span>' + reservGuide.ugContent + '</span>');
 					        userguideContainer.append(listItem);
 					    });
@@ -712,7 +739,37 @@
 	    }
 	}
 	
-	
+
+    <!-- 버튼 처리를 위한 함수 -->
+    function calculateTimeRemaining(lessonDateTime) {
+        var lessonDate = new Date(); // 파라미터로 받기 
+        console.log(lessonDate);
+        var now = new Date();
+
+        // 당일 취소 불가인 경우
+        if (lessonDate.getDate() === now.getDate() && lessonDate.getMonth() === now.getMonth() && lessonDate.getFullYear() === now.getFullYear()) {
+            document.getElementById('timeRemaining').innerHTML = '당일 취소는 불가능합니다.';
+            return;
+        }
+
+        var cancelDate = calculateCancellationDate(lessonDate);
+
+        // 당일 취소가 아닌 경우에만 남은 시간 계산
+        if (now < cancelDate) {
+            var timeDifference = cancelDate - now;
+
+            // 시간, 분, 초 계산
+            var hours = Math.floor(timeDifference / (1000 * 60 * 60));
+            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            // 결과를 페이지에 반영
+            document.getElementById('timeRemaining').innerHTML = hours + '시간 ' + minutes + '분 ' + seconds + '초';
+        } else {
+            document.getElementById('timeRemaining').innerHTML = '취소 가능한 시간이 지났습니다.';
+        }
+    }
+    
 	
 </script>
 		
