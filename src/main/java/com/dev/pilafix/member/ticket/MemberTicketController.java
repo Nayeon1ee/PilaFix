@@ -151,14 +151,23 @@ public class MemberTicketController {
 		return ticket;
 	}
 	
-	//구매취소 
+	//구매취소 (시스템 오류)
 	@PostMapping("/cancel.do")
 	@ResponseBody
-	public int cancel(String imp_uid,String reason ) throws IOException {
+	public int cancel(String imp_uid ) throws IOException {
 		System.out.println("프로퍼티스에 있는 인증키 출력 : "+apiKey+"/"+secretKey);
 		String token = service.getToken(apiKey, secretKey);
-		service.refundRequest(token,imp_uid,reason);
+		service.refundRequest(token,imp_uid);
         return 0;
 	}
+	
+	// 사용자 요구 구매취소 
+		@PostMapping("/memberCancel.do")
+		@ResponseBody
+		public int memberCancel(String imp_uid,String reason ) throws IOException {
+			String token = service.getToken(apiKey, secretKey);
+			service.refundRequest(token,imp_uid);
+	        return 0;
+		}
 
 }

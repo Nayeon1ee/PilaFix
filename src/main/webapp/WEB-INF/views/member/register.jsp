@@ -108,6 +108,7 @@
      			<input type="hidden" id="csRoleCode" name="csRoleCode" value="${csRoleCode}">
 				
 					<div class="col-auto" style="width: 100px;">
+
 						<input type="email" readonly class="form-control-plaintext"
 							id="staticEmail2" value="이메일 아이디"
 							style="width: 130%; padding: revert-layer;">
@@ -115,14 +116,12 @@
 
 					<div class="col-auto" style="width: 21%;">
 						<label for="inputPassword2" class="visually-hidden">Password</label>
-						<input type="email" class="form-control" id="csEmailId" name="csEmailId"
-							placeholder="이메일 입력"
+						<input type="email" class="form-control" id="csEmailId" name="csEmailId" placeholder="이메일 입력"
 							style="width: 220%; margin-left: 28%; border: 0px;">
 					</div>
 					<div class="col-auto">
 						<button type="button" id="idCheck" class="btn btn-primary mb-3"
-							style="width: 90px; margin-left: 230px; font-size: 14px;">중복
-							확인</button>
+							style="width: 90px; margin-left: 230px; font-size: 14px;">중복 확인</button>
 					</div>
 
 					<div class="col-auto">
@@ -133,9 +132,8 @@
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">인증요청</label> <input type="text"
-							class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" 
-							disabled="disabled" maxlength="6"
+							style="float: left; width: 20%;">인증요청</label>
+						<input type="text" class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 							
 					</div>
@@ -144,65 +142,55 @@
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">비밀번호</label> <input type="password"
-							class="form-control" name="csPassword" id="csPassword"
-							placeholder="영문, 숫자 포함 8글자 이상 입력"
+							style="float: left; width: 20%;">비밀번호</label>
+						<input type="password" class="form-control" name="csPassword" id="csPassword" placeholder="영문, 숫자 포함 8글자 이상 입력"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
-					<div class="col-12"
-						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
+					<div class="col-12" style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">비밀번호 확인</label> <input
-							type="password" class="form-control" 
-							name="passwordConfirm" id="passwordConfirm" onkeyup="passConfirm()"
-							placeholder="영문, 숫자 포함 8글자 이상 입력"
+							style="float: left; width: 20%;">비밀번호 확인</label>
+						<input type="password" class="form-control" name="passwordConfirm" id="passwordConfirm" onkeyup="passConfirm()" placeholder="영문, 숫자 포함 8글자 이상 입력"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
 					<span id ="confirmMsg"></span>
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label" 
-							style="float: left; width: 20%;">이름</label> <input type="text"
-							class="form-control" name="csName" placeholder="이름을 입력해주세요"
+							style="float: left; width: 20%;">이름</label>
+						<input type="text" class="form-control" name="csName" placeholder="이름을 입력해주세요"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">휴대전화 번호</label> <input
-							type="text" class="form-control" name="csPhoneNumber1" placeholder="3자리"
+							style="float: left; width: 20%;">휴대전화 번호</label>
+						<input type="text" class="form-control" name="csPhoneNumber1" placeholder="3자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
-							<input
-							type="text" class="form-control" name="csPhoneNumber2" placeholder="4자리"
+						<input type="text" class="form-control" name="csPhoneNumber2" placeholder="4자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
-							<input
-							type="text" class="form-control" name="csPhoneNumber3" placeholder="4자리"
+						<input type="text" class="form-control" name="csPhoneNumber3" placeholder="4자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
 					</div>
 					
-						<div class="col-12"
-							style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
+						<div class="col-12" style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 							<label for="inputAddress" class="form-label"
-								style="float: left; width: 20%;">생년월일</label> <input type="date"
-								class="form-control" name="csBirth"
+								style="float: left; width: 20%;">생년월일</label>
+							<input type="date" class="form-control" name="csBirth"
 								style="float: left; width: 30%; border: 0px; padding-top: 0px;">
 						</div>
 
 						<div class="col-12"
 							style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
-							<label for="inputAddress" class="form-label"
-								style="float: left; width: 21%;">성별</label> <input
-								class="form-check-input" type="radio" name="csGenderMw" value="남자"> <label class="form-check-label"
-								for="flexRadioDefault1">남자</label> <input
-								class="form-check-input" type="radio" name="csGenderMw" value="여자" > <label
-								class="form-check-labe2" for="flexRadioDefault2">여자</label>
+							<label for="inputAddress" class="form-label" style="float: left; width: 21%;">성별</label>
+							<input class="form-check-input" type="radio" name="csGenderMw" value="남자">
+							<label class="form-check-label" for="flexRadioDefault1">남자</label>
+							
+							<input class="form-check-input" type="radio" name="csGenderMw" value="여자" >
+							<label class="form-check-labe2" for="flexRadioDefault2">여자</label>
 						</div>
 					
-
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""
-							id="flexCheckDefault"> <label class="form-check-label"
-							for="flexCheckDefault">전체 동의합니다.</label>
+						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> <label class="form-check-label" for="flexCheckDefault">전체 동의합니다.</label>
 					</div>
 					<c:forEach var="termsList" items="${termsList}" varStatus="num">
 					<div class="form-check">
@@ -228,7 +216,6 @@
 							style="width: 100%; margin-top: 3%;">회원가입</button>
 					</div>
 				</form>
-
 				<!-- End Our Skills Section -->
 			</div>
 		</section>

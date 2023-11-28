@@ -121,7 +121,7 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 	    }
 		
 		//결제 취소 메서드
-		public void refundRequest(String access_token, String imp_uid, String reason) throws IOException {
+		public void refundRequest(String access_token, String imp_uid) throws IOException {
 	        URL url = new URL("https://api.iamport.kr/payments/cancel");
 	        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 	 
@@ -139,7 +139,6 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 	        // JSON 객체에 해당 API가 필요로하는 데이터 추가.
 	        JsonObject json = new JsonObject();
 	        json.addProperty("imp_uid", imp_uid);
-	        json.addProperty("reason", reason);
 	 
 	        // 출력 스트림으로 해당 conn에 요청
 	        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
