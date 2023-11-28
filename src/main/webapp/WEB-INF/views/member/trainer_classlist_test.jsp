@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -48,8 +47,10 @@
 
 </head>
 <!-- 내 css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_inquiryform.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style_classlist.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common_0.css">
 
 
 <body>
@@ -68,7 +69,7 @@
 				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
 					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
 					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
 			</div>
 		</div>
 	</section>
@@ -85,9 +86,9 @@
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>inquiryForm</li>
+					<li>trainer class list</li>
 				</ol>
-				<h2>문의사항</h2>
+				<h2>강사 수업 관리</h2>
 
 			</div>
 		</section>
@@ -95,59 +96,135 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container mx-auto" style="max-width: 700px;">
+			<div class="container" style="max-width: 1000px">
 
 
-				<div id="userInfo" class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
+
+
+				<!-- 검색창 -->
+				<div class="container" style="max-width: 900px; margin-right: 0px;">
+					<div class="search-filter mx-auto">
+						<div class="search-filter-inner">
+							<div class="serch-filter-content">
+								<div class="row py-2 my-4">
+									<div class="col-md-3 me-1">
+										<label for="inputState" class="form-label">검색</label> <select
+											id="inputState" class="form-select" style="width: 100%;">
+											<option selected disabled>전체</option>
+											<option>그룹수업</option>
+											<option>개인수업</option>
+										</select>
+									</div>
+									<div class="col-md-6 pt-2 mt-4">
+										<div class="input-group">
+											<input type="text" class="form-control me-2" id="inputCity"
+												placeholder="검색어를 입력해주세요">
+											<div class="input-group-append">
+												<button type="submit" class="btn btn-primary search">검색</button>
+												<button type="reset" class="btn btn-primary search"
+													id="resetButton">초기화</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="row mb-3">
+									<div class="col-md-3 me-2">
+										<label for="inputState2" class="form-label">처리상태</label> <select
+											id="inputState2" class="form-select">
+											<option selected disabled>회원상태</option>
+											<option>계약회원</option>
+											<option>해지회원</option>
+											<option>만료회원</option>
+										</select>
+									</div>
+									<div class="col-md-5">
+										<div class="input-group mb-3">
+											<label for="inputState" class="form-label mb-2">기간검색</label>
+											<div class="row">
+												<div class="col-sm-6 px-0">
+													<div class="input-group">
+														<input type="date" class="form-control rounded-start"
+															id="startDate">
+
+													</div>
+												</div>
+												<div class="col-sm-6 pe-2 pr-2">
+													<div class="input-group">
+														<input type="date" class="form-control rounded-end"
+															id="endDate">
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+
+
+
+							</div>
+						</div>
 					</div>
 				</div>
+
+
+
+
+
+
+
+
+
+
+				<!-- 리스트 시작-->
 				
-				<form action="insertQuestion.do" method="POST">
-				<!--    <div class="center-selection">
-				        <p>센터 선택</p>
-						<select name="selectedCenter">
-						    <c:forEach items="${connectedCenters}" var="center">
-	 							 <option value="${center}">${center}</option>
-							</c:forEach>
-						</select>
-				    </div> --> 
-				<!-- 로그인한 회원코드의 연동된 센터가 있으면 선택하게 -->
-				<select name="selectedCenter">
-					<c:choose>
-						<c:when test="${empty connectedCenters}">
-							<option selected>연동센터 없음</option>
-						</c:when>
-						<c:otherwise>
-							<c:forEach var="center" items="${connectedCenters}">
-								<option selected disabled hidden>센터를 선택해주세요</option>
-								<option value="${center.ctCode}">센터코드: ${center.ctCode}&센터이름: ${center.ctName}</option>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</select>				    
-   
-				    <div class="input-section">
-				        <p>문의하실 제목을 입력해주세요</p>
-				        <input type="text" name="qsTitle">
-				    </div>
-				    <div class="input-section">
-				        <p>문의하실 내용을 입력해주세요</p>
-				        <textarea class="form-control" name="qsContent" rows="6"></textarea>
-				    </div>
-				    <div style="display: flex; justify-content: flex-end;">
-				        <button type="submit" class="submit-button">문의하기</button>
-				    </div>
-				</form>
+				<!-- 그룹수업일 경우/ 개인수업일 경우로 나누고 각각에 따라 <table>다르게 분기 -->
+				<!-- 그룹수업 = "getLessonByTrainerG.do" 개인수업 = "getLessonByTrainerP.do" -->
+				<table class="table datatable">
+					<thead>
+						<tr>
+							<th scope="col">수업코드</th>
+							<th scope="col">수업명</th>
+							<th scope="col">수업일자</th>
+							<th scope="col">수업시간</th>
+							<th scope="col">진행인원</th>
+							<th scope="col">상태</th>
+							<th scope="col">센터명</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>{lessonList.lsCode}</th>
+							<td><a href="member_community_detail.do"class="admin-alink-color">그룹수업 ~~</a></td>
+							<td>2023.11.21 ~ 2024.02.21</td>
+							<td>폐강</td>
+							<td>1/6</td>
+							<td>폐강</td>
+							<td>xx점 xx테스</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<!-- 리스트 끝 -->
+
+
+
+
+
+
+
+
 
 
 				<!-- End Our Skills Section -->
 			</div>
 		</section>
 	</main>
-
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
@@ -159,6 +236,8 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 
 	<!-- Vendor JS Files -->
 	<script
@@ -177,8 +256,7 @@
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script
-		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+	<script src="assets/js/main.js"></script>
 
 </body>
 

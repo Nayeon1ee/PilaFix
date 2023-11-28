@@ -31,8 +31,19 @@ public class CenterLessonVO {
 	private int closedGroupCount;
 	private int closedPersonalCount;
 
+	private String lsCenterName;
 	
 	
+	
+	
+	public String getLsCenterName() {
+		return lsCenterName;
+	}
+
+	public void setLsCenterName(String lsCenterName) {
+		this.lsCenterName = lsCenterName;
+	}
+
 	public int getClosedGroupCount() {
 		return closedGroupCount;
 	}
@@ -223,13 +234,8 @@ public class CenterLessonVO {
 				+ lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB + ", lsEndTime=" + lsEndTime + ", csMemberCode="
 				+ csMemberCode + ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount="
 				+ personalCount + ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount="
-				+ closedPersonalCount + "]";
+				+ closedPersonalCount + ", lsCenterName=" + lsCenterName + "]";
 	}
 
-
-
-	
-
-	
 
 }
