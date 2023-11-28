@@ -6,44 +6,48 @@
 	gap: 20px;
 }
 
-.section_0 {
-	background-color: #fb625f;
-	border: none;
-	padding: 10px;
-	border-radius: 5px;
-	margin-bottom: 20px;
-	position: relative;
-}
-
-.input-group {
-	width: 90%; 
-}
-
-
 .section {
 	width: 100%;
 	max-width: 700px;
 }
 
-.time {
-	background-color: #f8f9fa;
-	border-radius: 10px;
+.section_0 {
+	border: 1px solid #f0f0f0; /* 연한 회색 테두리 */
+	border-radius: 15px;
+	margin-bottom: 20px;
+	position: relative;
+	overflow: hidden;
+	max-width: 800px;
+	width: 100%;
 	padding: 20px;
+	background-color: #f8f9fa;
 }
 
-p.lead {
+.time {
+	padding: 10px;
+}
+
+p.fw-bold {
+	color: #e44d26;
 	text-align: center;
-	font-size: 1.5em; /* 원하는 크기로 조절 (예: 1.5em) */
-	font-weight: lighter; /* 굵기를 얇게 설정 */
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-bottom: 0;
 }
 
 .card-header {
-	background-color: #9b56e9; /* 보라색 */
+	background-color: #a377e1; /* 보라색 */
 	color: #fff;
 }
 
 .list-group-item {
 	border: none;
+}
+
+.title-text {
+	font-weight: bold;
+	font-size: 1.2em; /* 원하는 크기로 조절할 수 있습니다. */
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .btn-primary {
@@ -56,7 +60,6 @@ p.lead {
 	background-color: #495057;
 }
 
-/* 다른 스타일은 그대로 두고 취소하기 버튼만 변경 */
 .btn-primary {
 	background-color: #9b56e9 !important;
 	border: none;
