@@ -139,4 +139,23 @@ UPDATE tbl_cst
 WHERE CS_MEMBER_CODE = #{memberCode}
 </update>
 
+<update id="canclMemberTicketInfo" parameterType="memberTicket">
+	UPDATE TBL_CST  
+	<if test="tkLessonType=='그룹'">
+		SET TICKET_CODE_GROUP1 = null,
+			TICKET_REMAINING_COUNT_GROUP1 = null,
+			TICKET_START_DATE_GROUP1 = null,
+			TICKET_EXPIRY_DATE_GROUP1 = NULL,
+			TICKET_EXPIRY_YN_GROUP1 = NULL
+	</if>
+	<if test="tkLessonType=='개인'">
+		SET TICKET_CODE_PERSONAL1 = null,
+			TICKET_REMAINING_COUNT_PERSONAL1 = null,
+			TICKET_START_DATE_PERSONAL1 = null,
+			TICKET_EXPIRY_DATE_PERSONAL1 = null,
+			TICKET_EXPIRY_YN_PERSONAL1 = null,
+	</if>
+	WHERE CS_MEMBER_CODE = #{memberCode}
+</update>
+	
 </mapper>

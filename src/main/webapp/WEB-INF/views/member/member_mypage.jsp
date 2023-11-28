@@ -101,7 +101,6 @@
 		<section id="services" class="services py-4">
 			<div class="container" style="max-width: 1000px">
 
-
 				<div id="myPage" class="text-center">
 
 					<div id="userInfo"
@@ -118,8 +117,7 @@
 						<div class="text-center">
 							<h3>나의 수강권 현황</h3>
 							<div class="pass-box row">
-								<div
-									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
+								<div class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
 									<div class="icon-box mx-auto">
 										<div class="icon">
 											<i class="bx bx-file"></i>
@@ -133,8 +131,7 @@
 									</div>
 								</div>
 
-								<div
-									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
+								<div class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
 									<div class="icon-box mx-auto">
 										<div class="icon">
 											<i class="bx bx-file"></i>
@@ -151,9 +148,7 @@
 						</div>
 					</section>
 
-
-					<section class="icon-list text-center py-3 mx-auto"
-						style="max-width: 700px;">
+					<section class="icon-list text-center py-3 mx-auto" style="max-width: 700px;">
 						<div class="icon-grid">
 							<div class="icon-row row">
 								<div class="icon-item col-md-4">
@@ -191,17 +186,10 @@
 							</div>
 						</div>
 					</section>
-
-
-
 				</div>
-
-
 				<!-- End Our Skills Section -->
-
 			</div>
 		</section>
-
 	</main>
 
 	<!-- End #main -->

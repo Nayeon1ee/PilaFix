@@ -73,7 +73,7 @@ public class MemberLoginController {
 					
 					/*메인테스트용임 추후 삭제*/ 
 					model.addAttribute("loginUser", member.getCsName() ); 
-					return "member/test_main";
+					return "redirect:ticketPage.do";
 //					return "member/test_main_test";
 					
 				} else {
