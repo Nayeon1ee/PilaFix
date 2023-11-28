@@ -2,17 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MyScheduleDAO">
+<resultMap type="mySchedule" id="myScheduleResult">
+		<id property="lsCode" column="LS_CODE"/>
+		<result property="lsName" column="LS_NAME"/>
+		<result property="lsType" column="LS_TYPE"/>
+		<result property="lsDate" column="LS_DATE"/>
+		<result property="lsTime" column="LS_TIME"/>
+		<result property="trainerMemberCode" column="TRAINER_MEMBER_CODE"/>
+		<result property="trainerMemberName" column="TRAINER_MEMBER_NAME"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="centerName" column="CENTER_NAME"/>
+		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
+	</resultMap>
 
 
 
-
-
-<select id="getLessonCode">
+<!-- 당월의 예약 스케줄 불러오기 -->
+<!-- step01 예약테이블에서 해당 회원의 수업코드만 가져옴 -->
+<select id="getLessonCode" >
 	SELECT lesson_code from tbl_reserv 
 	WHERE member_code = #{csMemberCode}
+	<!--  AND rs_datetime >= CURRENT_DATE - INTERVAL '2 months'-->
 </select>
-<select id="getLessonInfo">
-	SELECT * FROM tbl_lesson 
+
+<!-- step02 위에서 가져온 예약코드로 당월에 해당하는 데이터만 뽑음 -->
+<select id="getLessonInfo" parameterType="java.util.List" resultMap="myScheduleResult">
+	 SELECT 
+        L.LS_NAME,
+        L.LS_TYPE,
+        L.LS_DATE,
+        L.LS_TIME,
+        L.TRAINER_MEMBER_CODE,
+        M.CS_NAME AS TRAINER_MEMBER_NAME,  
+        L.CENTER_CODE,
+        C.ct_name AS CENTER_NAME
+    FROM TBL_LESSON L
+    LEFT JOIN TBL_cst M ON L.TRAINER_MEMBER_CODE = M.CS_MEMBER_CODE
+    LEFT JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
+    WHERE L.LS_CODE IN
+    <foreach collection="list" item="lsCode" open="(" separator="," close=")">
+        #{lsCode}
+    </foreach>
+    AND EXTRACT(MONTH FROM L.LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+    AND EXTRACT(YEAR FROM L.LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
 </select>
 
 </mapper>

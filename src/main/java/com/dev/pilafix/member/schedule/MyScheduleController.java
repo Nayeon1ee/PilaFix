@@ -27,6 +27,7 @@ public class MyScheduleController {
 			//세션에서 가져온 값으로 서비스 호출
 			int csMemberCode = (int) user.get("csMemberCode");
 			service.getReservList(csMemberCode);
+			
 			return "";
 		}
 		return "center/login"; //로그인 페이지로 이동

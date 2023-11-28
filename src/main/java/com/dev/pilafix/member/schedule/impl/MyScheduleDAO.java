@@ -12,12 +12,12 @@ import com.dev.pilafix.member.schedule.MyScheduleVO;
 public class MyScheduleDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-
+	
+	//당월의 예약정보 가져옴
 	public List<MyScheduleVO> getReservList(int csMemberCode) {
 		// 예약테이블에서 수업코드 가져옴
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
-		sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode);
-		return null;
+		return sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode);
 	}
 
 }
