@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +19,10 @@ public class MyScheduleController {
 	private MyScheduleService service;
 	
 	@GetMapping("schedule.do")
-	public String schedule() {
+	public String schedule(HttpSession session,Model model) {
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		int csMemberCode = (int) user.get("csMemberCode");
+		model.addAttribute("count",service.getCount(csMemberCode));
 		return "member/schedule_ing";
 	}
 	
@@ -38,7 +42,6 @@ public class MyScheduleController {
 	@ResponseBody
 	public List<MyScheduleVO> getAttendList(HttpSession session) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-		System.out.println(user.get("csMemberCode"));
 		//세션에서 가져온 값으로 서비스 호출
 		int csMemberCode = (int) user.get("csMemberCode");
 		List<MyScheduleVO> attendList = service.getAttendList(csMemberCode);
@@ -49,7 +52,6 @@ public class MyScheduleController {
 	@ResponseBody
 	public List<MyScheduleVO> getAbsentList(HttpSession session) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-		System.out.println(user.get("csMemberCode"));
 		//세션에서 가져온 값으로 서비스 호출
 		int csMemberCode = (int) user.get("csMemberCode");
 		List<MyScheduleVO> AbsentList = service.getAbsentList(csMemberCode);

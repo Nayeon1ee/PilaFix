@@ -50,6 +50,7 @@
     AND EXTRACT(MONTH FROM L.LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
     AND EXTRACT(YEAR FROM L.LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
     AND (L.LS_DATE::TIMESTAMP + L.LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE > CURRENT_TIMESTAMP
+    ORDER BY COMBINED_DATETIME ASC
 </select>
 
 <!-- 당월에 출결 리스트불러오기 -->
@@ -105,5 +106,32 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
     </foreach>
     AND EXTRACT(MONTH FROM L.LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
     AND EXTRACT(YEAR FROM L.LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+   	ORDER BY COMBINED_DATETIME DESC
+</select>
+
+
+<!-- 당월의 예약 수 세오는 쿼리-->
+<select id="countReserv" resultType="int">
+	SELECT COUNT(*)
+    FROM TBL_LESSON 
+    WHERE LS_CODE IN
+	<foreach collection="list" item="reservCode" open="(" separator="," close=")">
+        #{reservCode}
+    </foreach>
+    AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+    AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+    AND (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE > CURRENT_TIMESTAMP
+</select>
+
+<!-- 당월의 출석,결석 수 세오는 쿼리-->
+<select id="countAttendance" resultType="int">
+	SELECT COUNT(*)
+    FROM TBL_LESSON 
+    WHERE LS_CODE IN
+	<foreach collection="list" item="AttendanceCode" open="(" separator="," close=")">
+        #{AttendanceCode}
+    </foreach>
+    AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+    AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
 </select>
 </mapper>

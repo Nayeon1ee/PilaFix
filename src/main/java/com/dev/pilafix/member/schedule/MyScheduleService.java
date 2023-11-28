@@ -1,6 +1,7 @@
 package com.dev.pilafix.member.schedule;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MyScheduleService {
 
@@ -9,5 +10,7 @@ public interface MyScheduleService {
 	List<MyScheduleVO> getAttendList(int csMemberCode);
 
 	List<MyScheduleVO> getAbsentList(int csMemberCode);
+
+	Map<String, Integer> getCount(int csMemberCode);
 
 }

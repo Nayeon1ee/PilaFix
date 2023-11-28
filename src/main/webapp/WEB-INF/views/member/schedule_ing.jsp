@@ -134,11 +134,11 @@
 									<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
 									<ul id="nav5" class="nav justify-content-around">
 										<li class="nav-item"><a class="nav-link active"
-											style="color: #0070c0; text-weight: bold; text-decoration: none;">예약</a></li>
+											style="color: #0070c0; text-weight: bold; text-decoration: none;">예약&nbsp;${count.reservCount }건</a></li>
 										<li class="nav-item"><a class="nav-link"
-											style="color: #14761d; text-weight: bold; text-decoration: none;">출석</a></li>
+											style="color: #14761d; text-weight: bold; text-decoration: none;">출석&nbsp;${count.attendCount }건</a></li>
 										<li class="nav-item"><a class="nav-link"
-											style="color: #ff6600; text-weight: bold; text-decoration: none;">결석</a></li>
+											style="color: #ff6600; text-weight: bold; text-decoration: none;">결석&nbsp;${count.absentCount }건</a></li>
 									</ul>
 								</div>
 							</div>
@@ -162,7 +162,7 @@
 							</div>
 							
 							<!-- 카드영역 -->
-							<div class="schedule-card" style="overflow-y: auto; max-height: 400px;">
+							<div class="schedule-card" style=" max-height: 400px;">
 
 								<!-- 예약 수업정보 가져오는 곳 -->
 								<div id="reservInfo">
