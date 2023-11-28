@@ -115,3 +115,9 @@
     filter: invert(43%) sepia(73%) saturate(570%) hue-rotate(7deg)
         brightness(91%) contrast(94%);
 }
+
+#calendar {
+	width: 600px; /* 캘린더 가로 크기 조절 */
+	max-width: 100%; /* 최대 넓이 지정 */
+	margin: 0 auto; /* 중앙 정렬을 위해 사용 */
+}

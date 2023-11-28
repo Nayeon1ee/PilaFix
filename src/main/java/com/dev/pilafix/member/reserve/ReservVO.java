@@ -11,6 +11,7 @@ public class ReservVO {
 	private String lessonCode;
 	private Date rsDatetime;
 	private boolean rsCancelYn;
+	
 	public String getRsCode() {
 		return rsCode;
 	}

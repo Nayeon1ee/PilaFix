@@ -247,7 +247,7 @@ public class QuestionController {
 	        
 	        model.addAttribute("totalQuestionCount", totalQuestionCount);
 	        model.addAttribute("questionList", questionList);
-	        return "center/center_inquiry_test";
+	        return "center/center_inquiry";
 	    }
 	    return "redirect:centerLogin.do";
 	}
@@ -263,7 +263,7 @@ public class QuestionController {
 //	        model.addAttribute("questionReply", service.getQuestionReplyCt(reTargetPostNumber));
 	        model.addAttribute("question", service.getQuestion(reTargetPostNumber)); //qsNumber
 	        model.addAttribute("questionReply", service.getReplyForQuestion(reTargetPostNumber)); //qsNumber
-	        return "center/center_inquiry_response_test";
+	        return "center/center_inquiry_response";
 	    }
 	    return "redirect:centerLogin.do";
 	}
@@ -283,7 +283,7 @@ public class QuestionController {
 	        
 	        model.addAttribute("question", questionWithNames);
 	        model.addAttribute("questionReply", questionReply);
-	        return "center/center_inquiry_response_test";
+	        return "center/center_inquiry_response";
 	    }
 	    return "redirect:centerLogin.do";
 	}

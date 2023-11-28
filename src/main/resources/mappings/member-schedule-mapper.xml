@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyScheduleDAO">
+<resultMap type="mySchedule" id="myScheduleResult">
+		<id property="lsCode" column="LESSON_CODE"/>
+		<result property="lsName" column="LS_NAME"/>
+		<result property="lsType" column="LS_TYPE"/>
+		<result property="lsDate" column="LS_DATE"/>
+		<result property="lsTime" column="LS_TIME"/>
+		<result property="lsEndTime" column="LS_END_TIME"/>
+		<result property="lessonDatetime" column="COMBINED_DATETIME"/>
+		<result property="trainerMemberCode" column="TRAINER_MEMBER_CODE"/>
+		<result property="trainerMemberName" column="TRAINER_MEMBER_NAME"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="centerName" column="CENTER_NAME"/>
+		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
+	</resultMap>
+
+
+
+<!-- 당월의 예약 스케줄 불러오기 -->
+<!-- step01 예약테이블에서 해당 회원의 수업코드만 가져옴 -->
+<select id="getLessonCode" resultType="String">
+	SELECT lesson_code from tbl_reserv 
+	WHERE member_code = #{csMemberCode}
+	<!--  AND rs_datetime >= CURRENT_DATE - INTERVAL '2 months'-->
+</select>
+
+<!-- step02 위에서 가져온 예약코드로 수업시간이 현재시간보다 늦은데이터만 뽑음 -->
+<select id="getLessonInfo" parameterType="java.util.List" resultMap="myScheduleResult">
+	 SELECT 
+        L.LS_NAME,
+        L.LS_TYPE,
+        L.LS_DATE,
+        TO_CHAR(L.ls_time, 'AM HH:MI') AS LS_TIME,
+        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
+        (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME,
+        L.TRAINER_MEMBER_CODE,
+        M.CS_NAME AS TRAINER_MEMBER_NAME,  
+        L.CENTER_CODE,
+        C.ct_name AS CENTER_NAME 
+    FROM TBL_LESSON L
+    LEFT JOIN TBL_cst M ON L.TRAINER_MEMBER_CODE = M.CS_MEMBER_CODE
+    LEFT JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
+    WHERE L.LS_CODE IN
+    <foreach collection="list" item="lsCode" open="(" separator="," close=")">
+        #{lsCode}
+    </foreach>
+    AND EXTRACT(MONTH FROM L.LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+    AND EXTRACT(YEAR FROM L.LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+    AND (L.LS_DATE::TIMESTAMP + L.LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE > CURRENT_TIMESTAMP
+</select>
+
+<!-- 당월에 출결 리스트불러오기 -->
+<!-- 출석 : step01 출석여부가 true인 값에 대해서 수업코드 가져옴 -->
+<select id="getAttendLessonCode" resultType="String">
+	SELECT
+    LESSON_CODE
+FROM TBL_ATTEND
+WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_MEMBER4_CODE, AT_MEMBER5_CODE, AT_MEMBER6_CODE)
+    AND (
+        (AT_MEMBER1_CODE = #{csMemberCode} AND AT_ATTENDANCE1_YN = true)
+        OR (AT_MEMBER2_CODE = #{csMemberCode} AND AT_ATTENDANCE2_YN = true)
+        OR (AT_MEMBER3_CODE = #{csMemberCode} AND AT_ATTENDANCE3_YN = true)
+        OR (AT_MEMBER4_CODE = #{csMemberCode} AND AT_ATTENDANCE4_YN = true)
+        OR (AT_MEMBER5_CODE = #{csMemberCode} AND AT_ATTENDANCE5_YN = true)
+        OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = true)
+    );
+</select>
+<!-- 결석 : step01 출석여부가 false인 값에 대해서 수업코드 가져옴 -->
+<select id="getAbsentLessonCode" resultType="String">
+	SELECT
+    LESSON_CODE
+FROM TBL_ATTEND
+WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_MEMBER4_CODE, AT_MEMBER5_CODE, AT_MEMBER6_CODE)
+    AND (
+        (AT_MEMBER1_CODE = #{csMemberCode} AND AT_ATTENDANCE1_YN = false)
+        OR (AT_MEMBER2_CODE = #{csMemberCode} AND AT_ATTENDANCE2_YN = false)
+        OR (AT_MEMBER3_CODE = #{csMemberCode} AND AT_ATTENDANCE3_YN = false)
+        OR (AT_MEMBER4_CODE = #{csMemberCode} AND AT_ATTENDANCE4_YN = false)
+        OR (AT_MEMBER5_CODE = #{csMemberCode} AND AT_ATTENDANCE5_YN = false)
+        OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = false)
+    );
+</select>
+<!-- step02 위에서 가져온 수업코드로 해당수업정보 뽑음 (출석결석 모두 이거 사용)-->
+<select id="getAttendanceLessonInfo" parameterType="java.util.List" resultMap="myScheduleResult">
+	 SELECT 
+        L.LS_NAME,
+        L.LS_TYPE,
+        L.LS_DATE,
+        TO_CHAR(L.ls_time, 'AM HH:MI') AS LS_TIME,
+        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
+        (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME,
+        L.TRAINER_MEMBER_CODE,
+        M.CS_NAME AS TRAINER_MEMBER_NAME,  
+        L.CENTER_CODE,
+        C.ct_name AS CENTER_NAME 
+    FROM TBL_LESSON L
+    LEFT JOIN TBL_cst M ON L.TRAINER_MEMBER_CODE = M.CS_MEMBER_CODE
+    LEFT JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
+    WHERE L.LS_CODE IN
+    <foreach collection="list" item="attendancelsCode" open="(" separator="," close=")">
+        #{attendancelsCode}
+    </foreach>
+    AND EXTRACT(MONTH FROM L.LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+    AND EXTRACT(YEAR FROM L.LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+</select>
+</mapper>

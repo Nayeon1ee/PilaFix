@@ -95,8 +95,7 @@
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
 
-				<div id="userInfo"
-					class="d-flex align-items-center mb-2">
+				<div id="userInfo" class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
@@ -105,45 +104,67 @@
 
 				<div class="payment-history">
 					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
+						<a href="paymentHistorydetail.jsp"> <!-- 변경된 위치에 결제 취소 버튼 추가 -->
+							<form action="paymentCancellation.jsp" method="post"
+								class="pt-2 float-end">
+								<input type="hidden" name="paymentId" value="12345">
+								<button type="submit" class="btn btn-sm btn-danger mt-1">결제취소</button>
+							</form>
 							<div class="payment-status">결제완료</div>
 							<div class="payment-details">
 								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
 								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
+								<div class="payment-date pt-1">2023.11.17 오전 11:08</div>
+								<div class="payment-amount">533,500원</div>
+							</div>
+						</a>
+					</div>
+
+
+					<div class="payment-item">
+						<a href="paymentHistorydetail.jsp"> <!-- 변경된 위치에 결제 취소 버튼 추가 -->
+							<form action="paymentCancellation.jsp" method="post"
+								class="pt-2 float-end">
+								<input type="hidden" name="paymentId" value="12345">
+								<button type="submit" class="btn btn-sm btn-danger mt-1">결제취소</button>
+							</form>
+							<div class="payment-status">결제완료</div>
+							<div class="payment-details">
+								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
+								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
+								<div class="payment-date pt-1">2023.11.17 오전 11:08</div>
 								<div class="payment-amount">533,500원</div>
 							</div>
 						</a>
 					</div>
 					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
+						<a href="paymentHistorydetail.jsp"> <!-- 변경된 위치에 결제 취소 버튼 추가 -->
+							<form action="paymentCancellation.jsp" method="post"
+								class="pt-2 float-end">
+								<input type="hidden" name="paymentId" value="12345">
+								<button type="submit" class="btn btn-sm btn-danger mt-1">결제취소</button>
+							</form>
 							<div class="payment-status">결제완료</div>
 							<div class="payment-details">
 								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
 								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
+								<div class="payment-date pt-1">2023.11.17 오전 11:08</div>
 								<div class="payment-amount">533,500원</div>
 							</div>
 						</a>
 					</div>
 					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
+						<a href="paymentHistorydetail.jsp"> <!-- 변경된 위치에 결제 취소 버튼 추가 -->
+							<form action="paymentCancellation.jsp" method="post"
+								class="pt-2 float-end">
+								<input type="hidden" name="paymentId" value="12345">
+								<button type="submit" class="btn btn-sm btn-danger mt-1">결제취소</button>
+							</form>
 							<div class="payment-status">결제완료</div>
 							<div class="payment-details">
 								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
 								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp">
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date">2023.11.17 오전 11:08</div>
+								<div class="payment-date pt-1">2023.11.17 오전 11:08</div>
 								<div class="payment-amount">533,500원</div>
 							</div>
 						</a>
@@ -169,8 +190,21 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
+	
+	<!-- 1시간 뒤에 결제취소 버튼 사라짐 -->
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	 
+	    var cancelButton = document.querySelector('.payment-item form');
 
 
+	    setTimeout(function() {
+	      if (cancelButton) {
+	        cancelButton.style.display = 'none';
+	      }
+	    }, 3600000); 
+	  });
+	</script>
 
 	<!-- Vendor JS Files -->
 	<script

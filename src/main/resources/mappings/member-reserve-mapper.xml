@@ -14,6 +14,7 @@
 		<result property="lsType" column="LS_TYPE"/>
 		<result property="lsDate" column="LS_DATE"/>
 		<result property="lsTime" column="LS_TIME"/>
+		<result property="lessonDatetime" column="COMBINED_DATETIME"/>
 		<result property="lsCapacity" column="LS_CAPACITY"/>
 		<result property="lsCurrentApplicants" column="LS_CURRENT_APPLICANTS"/>
 		<result property="trainerMemberCode" column="TRAINER_MEMBER_CODE"/>
@@ -26,6 +27,7 @@
 		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
 		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE_TO_STRING"/>
 		<result property="lsEndTime" column="LS_END_TIME"/>
+		<result property="centerName" column="CENTER_NAME"/>
 	</resultMap>
 	
 	<resultMap type="member" id="memberTicket">
@@ -43,6 +45,18 @@
 		<result property="ticketExpiryYnGroup1" column="TICKET_EXPIRY_YN_GROUP1" />
 		<result property="ticketNameGroup1" column="TICKET_NAME_GROUP1" />
 		<result property="ticketNamePersonal1" column="TICKET_NAME_PERSONAL1" />
+	</resultMap>
+	
+		
+	<resultMap type="com.dev.pilafix.member.reserve.UsingTicketVO" id="usingTicket">
+	    <id property="csMemberCode" column="CS_MEMBER_CODE"/>
+	    <result property="csName" column="CS_NAME" />
+	    <result property="ticketCode" column="TICKET_CODE" />
+	    <result property="ticketName" column="TICKET_NAME" />
+		<result property="ticketRemainingCount" column="TICKET_REMAINING_COUNT" />
+		<result property="ticketStartDate" column="TICKET_START_DATE" />
+		<result property="ticketExpiryDate" column="TICKET_EXPIRY_DATE" />
+		<result property="ticketExpiryYn" column="TICKET_EXPIRY_YN" />
 	</resultMap>
 	
 	<resultMap type="userguide" id="userguideResult">
@@ -69,6 +83,16 @@
 		<result property="shSendCenterName" column="SH_SEND_CENTER_NAME" />
 	</resultMap>
 
+	<resultMap type="com.dev.pilafix.member.reserve.ReservVO" id="reserveInfo">
+		<id property="rsCode" column="RS_CODE" />
+		<result property="memberCode" column="MEMBER_CODE"/>
+		<result property="usedTicketCode" column="USED_TICKET_CODE"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="lessonCode" column="LESSON_CODE"/>
+		<result property="rsDatetime" column="RS_DATETIME"/>
+		<result property="rsCancelYn" column="RS_CANCEL_YN"/>
+	</resultMap>
+	
 	<!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
 	<select id="getConnCenterList" resultMap="centerResult" parameterType="int">
 		SELECT CT_NAME,CT_CODE
@@ -85,23 +109,27 @@
 	<!-- 수업정보 조회 -->
 	<select id="getLessonList" parameterType="java.util.Map" resultMap="centerLessonResult">
 	    SELECT LS_CODE, LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE, LS_DATE,CENTER_CODE,
+	    	(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)AS CENTER_NAME,
 	    	(SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) AS TRAINER_MEMBER_NAME,
 	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
-	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME
+	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
+	        (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME
 	    FROM TBL_LESSON
 	    WHERE 
 	        CENTER_CODE = #{ctCode} 
 	        AND 
 	      	LS_DATE = TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
             AND LS_TYPE = #{lessonType}
-	    ORDER BY LS_TIME
+	    ORDER BY LS_TIME ASC
 	</select>
 	
 	<!-- 하나의 수업 정보 조회 -->
 	<select id="getLessonDetail" resultMap="centerLessonResult">
-		SELECT LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE,LS_DATE, CENTER_CODE,
+		SELECT LS_CODE, LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE,LS_DATE, CENTER_CODE,
+	        (SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)AS CENTER_NAME,
 	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
 	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
+	        (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME,
 	        (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE ) AS TRAINER_MEMBER_NAME 
 	    FROM TBL_LESSON
 	    WHERE 
@@ -113,11 +141,33 @@
 		SELECT CS_MEMBER_CODE, CS_NAME, TICKET_CODE_PERSONAL1, TICKET_REMAINING_COUNT_PERSONAL1,
 				TICKET_START_DATE_PERSONAL1, TICKET_EXPIRY_DATE_PERSONAL1, TICKET_EXPIRY_YN_PERSONAL1, TICKET_CODE_GROUP1,
 				TICKET_REMAINING_COUNT_GROUP1, TICKET_START_DATE_GROUP1, TICKET_EXPIRY_DATE_GROUP1, TICKET_EXPIRY_YN_GROUP1,
-				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_PERSONAL1) as TICKET_NAME_GROUP1, 
-				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_GROUP1) as TICKET_NAME_PERSONAL1
+				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_PERSONAL1) as TICKET_NAME_PERSONAL1, 
+				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_GROUP1) as TICKET_NAME_GROUP1
 		FROM TBL_CST 
 		WHERE CS_MEMBER_CODE=#{csMemberCode}
 	</select>
+	
+	<!-- 회원이 가진 수강권 정보 조회 (그룹) 화면에서 한 번에 보이기 위함  -->
+	<select id="getMyTicketInfoByG" resultMap="usingTicket">
+		SELECT CS_MEMBER_CODE, CS_NAME, TICKET_CODE_GROUP1 as TICKET_CODE,
+				TICKET_REMAINING_COUNT_GROUP1 as TICKET_REMAINING_COUNT, TICKET_START_DATE_GROUP1 as TICKET_START_DATE, TICKET_EXPIRY_DATE_GROUP1 as TICKET_EXPIRY_DATE,
+				TICKET_EXPIRY_YN_GROUP1 as TICKET_EXPIRY_YN ,
+				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_GROUP1) as TICKET_NAME
+		FROM TBL_CST 
+		WHERE CS_MEMBER_CODE=#{csMemberCode}
+	</select>
+	
+	<!-- 회원이 가진 수강권 정보 조회 (개인) 화면에서 한 번에 보이기 위함 -->
+	<select id="getMyTicketInfoByP" resultMap="usingTicket">
+		SELECT CS_MEMBER_CODE, CS_NAME, TICKET_CODE_PERSONAL1  as TICKET_CODE,
+			 TICKET_REMAINING_COUNT_PERSONAL1 as TICKET_REMAINING_COUNT,
+				TICKET_START_DATE_PERSONAL1 as as TICKET_START_DATE, TICKET_EXPIRY_DATE_PERSONAL1 as TICKET_EXPIRY_DATE, 
+				TICKET_EXPIRY_YN_PERSONAL1 as TICKET_EXPIRY_YN, 
+				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_PERSONAL1) as TICKET_NAME
+		FROM TBL_CST 
+		WHERE CS_MEMBER_CODE=#{csMemberCode}
+	</select>
+	
 	
 	<!-- 센터의 예약 이용정책 조회  -->
 	<select id="getReservGuide" resultMap="userguideResult">
@@ -128,32 +178,49 @@
 	</select>
 	
 	
-	<!-- 예약하기 -->
+	<!-- 수업 정보 조회 -->
+	<select id="getReservationInfo" resultMap="reserveInfo">
+		SELECT * FROM 
+		TBL_RESERV
+		WHERE RS_CODE=#{rsCode}
+	</select>
+	
+	
+	<!-- ========================= 예약 하기 ========================= -->
 	<!-- STEP01. 예약테이블 등록 -->
 	<insert id="insertReservationInfo" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="rsCode">
 		INSERT INTO TBL_RESERV(RS_CODE, MEMBER_CODE, USED_TICKET_CODE, CENTER_CODE, LESSON_CODE, RS_DATETIME, RS_CANCEL_YN)
 		VALUES(CONCAT('RS',NEXTVAL('SEQ_RESERV')), #{csMemberCode},#{ticketCode} ,#{ctCode}, #{lsCode}, CURRENT_TIMESTAMP, false)
 	</insert>
 	
-	<!-- STEP02. 회원테이블 수강권 매수 업데이트 -->
-	<update id="updateRemainingTicketCount"  >
-		<!-- 그룹 개인 받으면 여기서 DYNAMIC SQL 사용 -->
+	<!-- 그룹 수업의 예약  -->
+	<update id="makeReservationGroup" parameterType="java.util.Map"  >
+		<!-- STEP02. 회원테이블 수강권 매수 -1 -->
 		UPDATE TBL_CST
 		SET TICKET_REMAINING_COUNT_GROUP1=(TICKET_REMAINING_COUNT_GROUP1-1)
-		WHERE CS_MEMBER_CODE=#{csMemberCode}
-	</update>
-	
-	<!-- STEP03. 수업테이블 현재신청인원 업데이트 -->
-	<update id="updateCurrentApplicants" >
-		<!-- 그룹 개인 받으면 여기서 DYNAMIC SQL 사용 -->
+		WHERE CS_MEMBER_CODE=#{csMemberCode};
+		
+		<!-- STEP03. 수업테이블 현재신청인원 +1 -->
 		UPDATE TBL_LESSON
 		SET LS_CURRENT_APPLICANTS=(LS_CURRENT_APPLICANTS+1)
-		WHERE LS_CODE=#{lsCode}
+		WHERE LS_CODE=#{lsCode};
 	</update>
-
+	
+	<!-- 개인 수업의 예약  -->
+	<update id="makeReservationPersonal" parameterType="java.util.Map"  >
+		<!-- STEP02. 회원테이블 수강권 매수 -1 -->
+		UPDATE TBL_CST
+		SET TICKET_REMAINING_COUNT_PERSONAL1=(TICKET_REMAINING_COUNT_PERSONAL1-1)
+		WHERE CS_MEMBER_CODE=#{csMemberCode};
+		
+		<!-- STEP03. 수업테이블 현재신청인원 +1 -->
+		UPDATE TBL_LESSON
+		SET LS_CURRENT_APPLICANTS=(LS_CURRENT_APPLICANTS+1)
+		WHERE LS_CODE=#{lsCode};
+	</update>	
+	
 	<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
 	<!-- STEP05. 문자발송 -->
-	
 	<!-- STEP06. 문자발송 이력 등록  -->
 	<!-- 성공 시간에서 성공이면 현재 시간이 들어가고, 실패했다면 null-->
 	<insert id="saveSMSHistory" parameterType="sendSmsHistory" >
@@ -169,6 +236,54 @@
         </choose>
         ,#{shFailReason})
 	</insert>
+	<!-- =========================================================== -->
+	
+	
+	<!-- ========================= 예약 취소 ========================= -->
+	<!-- 그룹 수업의 예약 취소  -->
+	<update id="cancelReservationGroup" parameterType="java.util.Map"  >
+		<!-- 01. 회원테이블 수강권 매수 +1 -->
+		UPDATE TBL_CST
+		SET TICKET_REMAINING_COUNT_GROUP1=(TICKET_REMAINING_COUNT_GROUP1+1)
+		WHERE CS_MEMBER_CODE=#{csMemberCode};
+		
+		<!-- 02. 수업테이블 현재신청인원 -1 -->
+		UPDATE TBL_LESSON
+		SET LS_CURRENT_APPLICANTS=(LS_CURRENT_APPLICANTS-1)
+		WHERE LS_CODE=#{lsCode};
+		
+		<!-- 03. 예약 테이블 취소여부 true -->
+		UPDATE TBL_RESERV
+		SET RS_CANCEL_YN=TRUE
+		WHERE RS_CODE=#{rsCode};
+		
+		<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+	</update>
+	
+	<!-- 개인 수업의 예약 취소  -->
+	<update id="cancelReservationPersonal" parameterType="java.util.Map"  >
+		<!-- 01. 회원테이블 수강권 매수 +1 -->
+		UPDATE TBL_CST
+		SET TICKET_REMAINING_COUNT_PERSONAL1=(TICKET_REMAINING_COUNT_PERSONAL1+1)
+		WHERE CS_MEMBER_CODE=#{csMemberCode};
+		
+		<!-- 02. 수업테이블 현재신청인원 -1 -->
+		UPDATE TBL_LESSON
+		SET LS_CURRENT_APPLICANTS=(LS_CURRENT_APPLICANTS-1)
+		WHERE LS_CODE=#{lsCode};
+		
+		<!-- 03. 예약 테이블 취소여부 true -->
+		UPDATE TBL_RESERV
+		SET RS_CANCEL_YN=TRUE
+		WHERE RS_CODE=#{rsCode};
+		
+		<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+	</update>
+
+	<!-- =========================================================== -->
+	
+
+	
 	
 	
 	

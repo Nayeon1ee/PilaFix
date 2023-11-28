@@ -17,11 +17,13 @@ public class CenterLessonVO {
 	private String trainerMemberName;
 	private String lsContent;
 	private int centerCode;
+	private String centerName;
 	private Date lsRegistrationDate;
 	private boolean lsColseYN;
 	private String lsRegistrationDateToString;
 	private Timestamp lsTimeDB;
 	private String lsEndTime;
+	private Timestamp lessonDatetime;
 
 	private int csMemberCode;
 	private String csName;
@@ -31,8 +33,19 @@ public class CenterLessonVO {
 	private int closedGroupCount;
 	private int closedPersonalCount;
 
+	private String lsCenterName;
 	
 	
+	
+	
+	public String getLsCenterName() {
+		return lsCenterName;
+	}
+
+	public void setLsCenterName(String lsCenterName) {
+		this.lsCenterName = lsCenterName;
+	}
+
 	public int getClosedGroupCount() {
 		return closedGroupCount;
 	}
@@ -213,6 +226,23 @@ public class CenterLessonVO {
 		this.trainerMemberName = trainerMemberName;
 	}
 
+	public String getCenterName() {
+		return centerName;
+	}
+
+	public void setCenterName(String centerName) {
+		this.centerName = centerName;
+	}
+
+	
+	public Timestamp getLessonDatetime() {
+		return lessonDatetime;
+	}
+
+	public void setLessonDatetime(Timestamp lessonDatetime) {
+		this.lessonDatetime = lessonDatetime;
+	}
+
 	@Override
 	public String toString() {
 		return "CenterLessonVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsType=" + lsType + ", lsDate=" + lsDate
@@ -223,13 +253,8 @@ public class CenterLessonVO {
 				+ lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB + ", lsEndTime=" + lsEndTime + ", csMemberCode="
 				+ csMemberCode + ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount="
 				+ personalCount + ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount="
-				+ closedPersonalCount + "]";
+				+ closedPersonalCount + ", lsCenterName=" + lsCenterName + "]";
 	}
 
-
-
-	
-
-	
 
 }

@@ -101,28 +101,29 @@
 
 
 				<div class="reserv_cancel_list d-flex justify-content-center">
-					<div class="section"
-						style="background-color: #ddc8ff; border: 1px solid #a37cff; padding: 15px; border-radius: 5px; margin-bottom: 20px; position: relative;">
-						<div class="time" id="cancelTime">
-							<p class="lead mb-0">
-								취소 가능한 시간까지 <span id="timeRemaining" style="color: #e44d26;"></span>
-								남았어요!
-							</p>
+					<div class="reserv_cancel_list d-flex justify-content-center">
+						<div class="section_0"
+							style="border: border-radius: 5px; margin-bottom: 20px; position: relative; overflow: hidden; width: 700px;">
+							<div class="time" id="cancelTime">
+								<p class="fw-bold mb-0" style="color: #e44d26;">
+									취소 가능한 시간까지 <span id="timeRemaining"></span> 남았어요!
+								</p>
+							</div>
 						</div>
 					</div>
 
 
 
-				<div class="container" style="max-width: 700px">
-    <div class="row">
-        <div class="col-md-6 p-0">
-            <div class="section1">
-                <div class="card" style="height: 230px; max-width: 340px;">
+					<div class="container" style="max-width: 700px">
+						<div class="row">
+							<div class="col-md-6 p-0">
+								<div class="section1">
+									 <div class="card h-100" style="max-width: 347.5px;">
 										<div class="card-header">
 											<b>내 수강권 정보 확인</b>
 										</div>
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item mb-2">XX필라테스 xx점 | 그룹수업</li>
+								<li class="list-group-item mb-1 title-text">XX필라테스 xx점 | 그룹수업</li>
 											<li class="list-group-item">
 												<div class="input-group">
 													<label class="input-group-text" for="remainingSessions">잔여횟수</label>
@@ -142,13 +143,13 @@
 								</div>
 							</div>
 							<div class="col-md-6 p-0">
-            <div class="section2">
-                <div class="card" style="height: 230px; max-width: 350px;">
+								<div class="section2">
+									 <div class="card h-100" style="max-width: 347.5px;">
 										<div class="card-header">
 											<b>내 수강권 정보 확인</b>
 										</div>
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item mb-2">XX필라테스 xx점 | 그룹수업</li>
+										<li class="list-group-item mb-1 title-text">XX필라테스 xx점 | 그룹수업</li>
 											<li class="list-group-item">
 												<div class="input-group">
 													<label class="input-group-text" for="remainingSessions">잔여횟수</label>
@@ -220,7 +221,7 @@
 									<p class="highlight-text">
 										<span class="highlight-date">10월 21일 오전 10:00에 진행하는</span>
 									</p>
-									<p class="lead custom-lead" style="font-size: 18px;">
+									<p class="hightlight-text" style="font-size: 18px;">
 										체어&바렐(B) : 다이어트, 체력강화 수업을 취소하시겠습니까?</p>
 								</div>
 							</div>
@@ -256,7 +257,7 @@
 	<!--  취소 가능한 시간 js -->
 	<script>
 		// 취소 가능한 날짜 설정 (예: 2023년 12월 31일 23시 59분 59초)
-		var cancelDate = new Date('2023-12-31T23:59:59'); // 예약시간 +3시간 해서 시간 건내줘야 함
+		var cancelDate = new Date('2023-12-31T23:59:59');
 
 		// 시간 간격 계산 함수
 		function calculateTimeRemaining() {
@@ -281,6 +282,8 @@
 		setInterval(calculateTimeRemaining, 1000);
 	</script>
 	<!--  취소 가능한 시간 스크립트 -->
+
+
 
 	<!-- Vendor JS Files -->
 	<script

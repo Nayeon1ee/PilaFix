@@ -98,8 +98,10 @@
 											<td>${centerLesson.lsDate }</td>
 											<td>${centerLesson.lsTime }:00</td>
 											<c:choose>
-												<c:when test="${centerLesson.lsColseYN}"><td>폐강</td></c:when>
-												<c:otherwise><td>개강</td></c:otherwise>
+
+												<c:when test="${centerLesson.lsColseYN=='f'}"><td>N</td></c:when>
+												<c:otherwise><td>Y</td></c:otherwise>
+
 											</c:choose>
 										</tr>
 									</c:forEach>

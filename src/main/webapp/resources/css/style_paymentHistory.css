@@ -1,23 +1,19 @@
 @charset "UTF-8";
 
-
-
-
 #myPage {
 	margin: 0 auto;
 	padding: 20px;
 }
 
 #myPage a {
-    color: black; 
-    text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
-
 
 #userInfo {
 	display: flex;
-	justify-content: space-between; 
-	align-items: center; 
+	justify-content: space-between;
+	align-items: center;
 }
 
 #myInfoLink {
@@ -26,8 +22,8 @@
 }
 
 #userInfoText {
-	flex: 1; 
-	text-align: right; 
+	flex: 1;
+	text-align: right;
 }
 
 #logout {
@@ -36,57 +32,64 @@
 	margin-left: 10px;
 }
 
-
-
-
 /* paymentHistoryStyles.css */
 .payment-history {
-    max-width: 600px; 
-    margin: 0 auto;
+	max-width: 600px;
+	margin: 0 auto;
+}
+.payment-status {
+    font-weight: bold;
+    font-size: 16px; /* 폰트 크기 조정 (선택적으로 사용) */
+    max-width: 80px; /* 길이 조절 (적절한 값으로 조절) */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .payment-item {
-    border: 1px solid #ddd; 
-    margin: 10px 0;
-    padding: 20px;
-    background-color: transparent; 
-    border-radius: 30px; 
-
+	border: 1px solid #ddd;
+	margin: 10px 0;
+	padding: 20px;
+	background-color: transparent;
+	border-radius: 30px;
 }
 
-.payment-item:hover .payment-status,
-.payment-item:hover .payment-description,
-.payment-item:hover .payment-date,
-.payment-item:hover .payment-amount {
-    color: #9b56e9;
+.payment-item:hover .payment-status, .payment-item:hover .payment-description,
+	.payment-item:hover .payment-date, .payment-item:hover .payment-amount
+	{
+	color: #9b56e9;
 }
+
 
 .payment-status {
-    font-weight: bold;
-    float: right; 
+	font-weight: bold;
+	font-size: 16px; /* 폰트 크기 조정 (선택적으로 사용) */
 }
 
 .payment-details {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 .payment-description {
-    margin: 5px 0;
+	margin: 5px 0;
+}
+
+.payment-item form {
+	margin-top: -10px; /* 적절한 값으로 조절 (음수 값으로 위로 이동) */
 }
 
 .payment-date {
-    color: #555;
-    float: right; 
+	color: #555;
+	float: right;
 }
 
 .payment-amount {
-    font-weight: bold;
-    color: #333;
-    margin-top: 10px; 
+	font-weight: bold;
+	color: #333;
+	margin-top: 10px;
 }
 
-
 a {
-    text-decoration: none;
-    color: inherit;
+	text-decoration: none;
+	color: inherit;
 }

@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+/* Add your custom styles here */
+#comment-list {
+	list-style: none;
+	padding: 0;
+}
+
+.comment {
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin-bottom: 15px;
+	background-color: #f9f9f9;
+	border-radius: 5px;
+}
+
+.reply-comment {
+	border: 1px solid #eee;
+	padding: 8px;
+	margin-top: 8px;
+	background-color: #f5f5f5;
+	border-radius: 3px;
+}
+
+.reply-form {
+	display: none;
+}
+
+
+small {
+	color: #777;
+	font-size: 12px;
+}

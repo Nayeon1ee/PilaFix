@@ -54,8 +54,6 @@ public class ReservController {
 			model.addAttribute("connCenterList", connCenterList);
 			System.out.println("컨트롤러에서 센터 조회 완료 ");
 
-			// 테스트 후 지우기 (jsp 페이지 호출될 때 나오므로)
-
 			// 리스트에서 꺼내와서 첫 번째에 있는 센터 코드 꺼내서 그 센터가 가진 수업 내역 조회
 			int ctCode = connCenterList.get(0).getCtCode();
 			System.out.println("첫 번째 코드" + ctCode);
@@ -107,7 +105,7 @@ public class ReservController {
 		System.out.println("선택날짜: " + selectedDate);
 		System.out.println("수업 유형 : " + lessonType);
 
-		List<CenterLessonVO> lessonList = service.getLessonList(ctCode, selectedDate,lessonType); // 여기에 타입줘야 함
+		List<CenterLessonVO> lessonList = service.getLessonList(ctCode, selectedDate,lessonType); 
 
 		// 수업 목록이 비었다면 빈 목록 전달
 		if (lessonList.isEmpty()) {
@@ -142,7 +140,6 @@ public class ReservController {
 			int csMemberCode = (int) loginUser.get("csMemberCode");
 			detail = service.getReservDetail(lsCode, csMemberCode, ctCode);
 			System.out.println("Detail Map: " + detail.toString());
-
 		}
 		return detail;
 
@@ -170,18 +167,20 @@ public class ReservController {
 	public Map<String, Object> makeReservation(int ctCode, String ticketCode, String lsCode, HttpSession session) {
 		Map<String, Object> response = new HashMap<>();
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
-
-		int csMemberCode = (int) loginUser.get("csMemberCode");
-
-	    try {
-	        String rsCode = service.makeReservation(csMemberCode, ctCode, ticketCode, lsCode); //예약 정보 반환
-	        response.put("success", true);
-	        response.put("rsCode", rsCode); // 성공 시 예약정보 반환 
-	    } catch (Exception e) {
-	        response.put("success", false); //실패
-	    }
-
-	    return response;
+		
+		if(loginUser != null) {
+			int csMemberCode = (int) loginUser.get("csMemberCode");
+			
+			try {
+				String rsCode = service.makeReservation(csMemberCode, ctCode, ticketCode, lsCode); //예약 정보 반환
+				response.put("success", true);
+				response.put("rsCode", rsCode); // 성공 시 예약정보 반환 
+			} catch (Exception e) {
+				response.put("success", false); //실패
+			}
+			
+		}
+		return response;
 	}
 	
 	/**
@@ -197,8 +196,6 @@ public class ReservController {
 	public Map<String, Object> sendSms(String lsCode, HttpSession session) {
 		Map<String, Object> response = new HashMap<>();
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
-		String memberName = (String) loginUser.get("csName");
-		String memberPhone = (String) loginUser.get("csPhoneNumber");
 		
 		System.out.println("sendSMS.do 호출됨");
 
@@ -211,28 +208,61 @@ public class ReservController {
 	}
 	
 	/**
-	 * 예약 취소 
+	 * 예약 취소 페이지 
 	 * 
 	 * 취소 호출 시 예약번호 가져와야 함 잊지말고 파라미터로 예약번호 받기!
+	 * STEP1. 예약 번호로 예약 정보 조회
+	 * STEP2. 예약정보-수업코드로 수업테이블 조회
+	 * STEP3. memberCode로 수강권 조회 
+	 * STEP4. 위에서 받은 수업vo의 lsType이 그룹이면 map에 ~ticketCodeGroup만 저장 / 개인이면 ~ticketCodePersonal만 저장 
+	 * STEP5. 위에서 받은 center_code로 이용정책 조회 
 	 * 
 	 * @param session
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/cancelPage.do")
-	public String cancelReservation(HttpSession session, Model model) {
+	public String cancelPage(String rsCode, HttpSession session, Model model) {
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
 		Map<String, Object> cancelInfo =  new HashMap<>();
 		
-		String rsCode="RS300"; // 파라미터로 받아야 함 화면이 없으므로 임시 세팅 
-		
 		if (loginUser != null) {
-			service.getReservationInfoAndTicketInfo(rsCode);
-			
-			
-
+			cancelInfo = service.getReservationInfoAndTicketInfo(rsCode);
+			model.addAttribute("cancelInfo",cancelInfo);
 		}
-		return null;
+		return "member/reservation_cancel";
+	}
+	
+	/**
+	 * 예약 취소 진행 
+	 * 
+	 * @param rsCode
+	 * @param lsCode
+	 * @param centerCode
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/cancelReservation.do")
+	@ResponseBody
+	public Map<String, Object> cancelReservation(String rsCode,String lsCode, int centerCode, HttpSession session, Model model) {
+		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			System.out.println("컨트롤러 - cancelReservation 호출됨 ");
+			int csMemberCode = (int) loginUser.get("csMemberCode");
+
+			try {
+				service.cancelReservation(csMemberCode, rsCode, lsCode, centerCode); 
+				response.put("success", true);
+			} catch (Exception e) {
+				response.put("success", false); //실패
+			}
+			
+		}
+		return response;
+		
 	}
 
 }
