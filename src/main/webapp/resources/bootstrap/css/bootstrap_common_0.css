@@ -69,7 +69,7 @@
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
   --bs-link-color: #9b56e9;
-  --bs-link-hover-color: #0a58ca;
+  --bs-link-hover-color: #5708e5;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
@@ -6797,7 +6797,7 @@ textarea.form-control-lg {
   color: #9b56e9 !important;
 }
 .link-primary:hover, .link-primary:focus {
-  color: #0a58ca !important;
+  color: #5708e5 !important;
 }
 
 .link-secondary {
