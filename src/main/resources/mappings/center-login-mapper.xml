@@ -27,6 +27,9 @@
 		<result property="ctId" column="CT_ID" />
 		<result property="ctPassword" column="CT_PASSWORD" />
 		<result property="roleCode" column="ROLE_CODE" />
+		<result property="memberCount" column="MEMBER_REQUEST_COUNT" />
+		<result property="trainerCount" column="TRAINER_REQUEST_COUNT" />
+		<result property="questionCount" column="UNANSWERED_QUESTION_COUNT" />
 	</resultMap>
 	
 
@@ -58,29 +61,24 @@
         UPDATE TBL_CENTER SET CT_PASSWORD = #{newPassword} WHERE CT_CODE = #{ctCode}
     </update>
     
-    <!-- 연동요청 온 회원수 세옴 -->
-	<select id="countConnRequestMember">
-		SELECT COUNT(*) FROM tbl_center_request 
-		WHERE member_code BETWEEN 2000 AND 8000
-		AND center_code = #{ctCode}
-		AND cr_reject_date IS NULL
-		AND cr_connection_yn = 'f'
-	</select>
-	
-	<!-- 연동요청 온 강사수 세옴 -->
-	<select id="countConnRequestTrainer">
-		SELECT COUNT(*) FROM tbl_center_request 
-		WHERE member_code >= 8000
-		AND center_code = #{ctCode}
-		AND cr_reject_date IS NULL
-		AND cr_connection_yn = 'f'
-	</select>
-	
-	<!-- 문의사항 중 답변 달리지 않은 글의 수 세옴 -->
-	<select id="countNoAnswerInquiry">
-		SELECT COUNT(*) FROM tbl_question
-		WHERE center_code = #{ctCode}
-		AND qs_answer_yn = 'f'
+    <!-- 연동요청 온 회원&강사 수/답변 안달린 문의사항 수 세옴(연동거절 안되어있으면서 연동여부가 false인 회원 가져옴) -->
+	<select id="countForBadge" resultMap="centerloginResult">
+		SELECT
+		    (SELECT COUNT(*) FROM tbl_center_request 
+		        WHERE member_code BETWEEN 2000 AND 8000
+		        AND center_code = 186
+		        AND cr_reject_date IS NULL
+		        AND cr_connection_yn = 'f') AS MEMBER_REQUEST_COUNT,
+        
+		    (SELECT COUNT(*) FROM tbl_center_request 
+		        WHERE member_code >= 8000
+		        AND center_code = 186
+		        AND cr_reject_date IS NULL
+		        AND cr_connection_yn = 'f') AS TRAINER_REQUEST_COUNT,
+		        
+		    (SELECT COUNT(*) FROM tbl_question
+		        WHERE center_code = 186
+		        AND qs_answer_yn = 'f') AS UNANSWERED_QUESTION_COUNT;
 	</select>
 	
 	

@@ -3,6 +3,9 @@ package com.dev.pilafix.center.lesson;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
+
+import com.dev.pilafix.common.member.MemberVO;
 
 
 public class CenterLessonVO {
@@ -19,7 +22,9 @@ public class CenterLessonVO {
 	private int centerCode;
 	private String centerName;
 	private Date lsRegistrationDate;
-	private boolean lsColseYN;
+	private boolean lsCloseYN;
+
+
 	private String lsRegistrationDateToString;
 	private Timestamp lsTimeDB;
 	private String lsEndTime;
@@ -34,10 +39,51 @@ public class CenterLessonVO {
 	private int closedPersonalCount;
 
 	private String lsCenterName;
+	private int reservedCount;
+	private int attendedCount;
+	private int absentCount;
+	private List<MemberVO> reservedMembers;
 	
+	public boolean isLsCloseYN() {
+		return lsCloseYN;
+	}
+
+	public void setLsCloseYN(boolean lsCloseYN) {
+		this.lsCloseYN = lsCloseYN;
+	}
 	
-	
-	
+	public int getAttendedCount() {
+		return attendedCount;
+	}
+
+	public void setAttendedCount(int attendedCount) {
+		this.attendedCount = attendedCount;
+	}
+
+	public int getAbsentCount() {
+		return absentCount;
+	}
+
+	public void setAbsentCount(int absentCount) {
+		this.absentCount = absentCount;
+	}
+
+	public List<MemberVO> getReservedMembers() {
+		return reservedMembers;
+	}
+
+	public void setReservedMembers(List<MemberVO> reservedMembers) {
+		this.reservedMembers = reservedMembers;
+	}
+
+	public int getReservedCount() {
+		return reservedCount;
+	}
+
+	public void setReservedCount(int reservedCount) {
+		this.reservedCount = reservedCount;
+	}
+
 	public String getLsCenterName() {
 		return lsCenterName;
 	}
@@ -176,13 +222,7 @@ public class CenterLessonVO {
 		this.lsRegistrationDate = lsRegistrationDate;
 	}
 
-	public boolean isLsColseYN() {
-		return lsColseYN;
-	}
 
-	public void setLsColseYN(boolean lsColseYN) {
-		this.lsColseYN = lsColseYN;
-	}
 
 	public String getLsRegistrationDateToString() {
 		return lsRegistrationDateToString;
@@ -248,13 +288,16 @@ public class CenterLessonVO {
 		return "CenterLessonVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsType=" + lsType + ", lsDate=" + lsDate
 				+ ", lsTime=" + lsTime + ", lsCapacity=" + lsCapacity + ", lsCurrentApplicants=" + lsCurrentApplicants
 				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
-				+ ", lsContent=" + lsContent + ", centerCode=" + centerCode + ", lsRegistrationDate="
-				+ lsRegistrationDate + ", lsColseYN=" + lsColseYN + ", lsRegistrationDateToString="
-				+ lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB + ", lsEndTime=" + lsEndTime + ", csMemberCode="
-				+ csMemberCode + ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount="
-				+ personalCount + ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount="
-				+ closedPersonalCount + ", lsCenterName=" + lsCenterName + "]";
+				+ ", lsContent=" + lsContent + ", centerCode=" + centerCode + ", centerName=" + centerName
+				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsCloseYN=" + lsCloseYN
+				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB
+				+ ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime + ", csMemberCode=" + csMemberCode
+				+ ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount=" + personalCount
+				+ ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount=" + closedPersonalCount
+				+ ", lsCenterName=" + lsCenterName + ", reservedCount=" + reservedCount + ", attendedCount="
+				+ attendedCount + ", absentCount=" + absentCount + ", reservedMembers=" + reservedMembers + "]";
 	}
+
 
 
 }

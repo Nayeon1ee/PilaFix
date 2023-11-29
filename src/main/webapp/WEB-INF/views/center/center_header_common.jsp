@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_centerReg.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
   
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <!-- =======================================================
   * Template Name: PilaAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -295,6 +296,7 @@
 				<a class="nav-link collapsed" href="getMemberManageList.do"> 
 					<i class="bi bi-person"></i>
 						<span>회원 관리</span>
+						<span class="badge bg-primary" id="memberCount"></span> 
 				</a>
 			</li>
 			<!-- End 회원관리 Nav -->
@@ -303,6 +305,7 @@
 				<a class="nav-link collapsed" href="getTrainerManageList.do"> 
 					<i class="bi bi-journal-text"></i>
 						<span>강사 관리</span>
+						<span class="badge bg-primary" id="trainerCount"></span>
 				</a>
 			</li>
 			<!-- End 강사관리 Nav -->
@@ -352,6 +355,7 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="getCTQuestionList.do"> 
 					<i class="bi bi-envelope"></i><span>문의사항 관리</span>
+					<span class="badge bg-primary" id="questionCount"></span>
 				</a>
 			</li>
 			<!-- End [센터]문의사항 Nav -->
@@ -436,5 +440,32 @@
 
 	</aside>
 	<!-- End Sidebar-->
+	
+	<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "getCount.do",
+            type: "POST",
+            success: function(response) {
+                $('#memberCount').html('');
+                if (response.memberCount>0){
+					$('#memberCount').append(response.memberCount);
+                }
+                $('#trainerCount').html('');
+                if (response.trainerCount>0){
+					$('#trainerCount').append(response.trainerCount);
+                }
+                $('#questionCount').html('');
+                if (response.questionCount>0){
+					$('#questionCount').append(response.questionCount);
+                }
+                
+            },
+            error: function(error) {
+                console.error("Error:", error);
+            }
+        });
+    });
+</script>
       <!-- ============================================================================================ -->
  

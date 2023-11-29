@@ -22,12 +22,12 @@
 								<div class="area1">
 									<p>센터 정보 등록</p>
 								</div>
-								<form class="row g-3" name="admin_info" action="insertCenter.do" method="post" enctype="multipart/form-data">
+								<form class="row g-3" name="admin_info" action="insertCenter.do" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
 									
 									<div class="col-md-6">
 										<label for="inputAddress5" class="form-label">센터명</label>
 										<div class="input-group">
-											<input type="text" class="form-control" name="ctName" placeholder="센터명을 입력하세요">
+											<input type="text" class="form-control" name="ctName" placeholder="센터명을 입력하세요" required>
 										</div>
 									</div>
 
@@ -35,7 +35,7 @@
 									<div class="col-md-6">
 										<label for="inputState" class="form-label">센터 번호</label>
 										<div class="d-flex">
-											<select id="inputState" class="form-select me-2" name="ctPhoneNumber1">
+											<select id="inputState" class="form-select me-2" name="ctPhoneNumber1" >
 												<option value="02" selected="selected" >02</option>
 												<option value="070">070</option>
 												<option value="031">031</option>
@@ -55,23 +55,23 @@
 												<option value="063">063</option>
 												<option value="064">064</option>
 											</select> 
-											<input type="text" class="form-control me-2" id="inputPassword5" name="ctPhoneNumber2"> <input type="text" class="form-control" id="inputPassword5" name="ctPhoneNumber3">
+											<input type="text" class="form-control me-2" id="inputPassword5" name="ctPhoneNumber2" required> <input type="text" class="form-control" id="inputPassword5" name="ctPhoneNumber3" required>
 										</div>
 									</div>
 									
 								
 									<div class="col-md-6">
 										<label for="inputEmail5" class="form-label">대표자명</label> 
-										<input type="text" class="form-control" id="inputEmail5" name="ownerName" placeholder="대표자명을 입력하세요">
+										<input type="text" class="form-control" id="inputEmail5" name="ownerName" placeholder="대표자명을 입력하세요" required>
 									</div>
 									<div class="col-md-6">
 										<label for="inputPassword5" class="form-label">사업자 등록번호</label> 
-											<input type="text" class="form-control" id="inputPassword5" name="businessRegistrationNumber" placeholder="10자리를 입력하세요.">
+											<input type="text" class="form-control" id="inputPassword5" name="businessRegistrationNumber" placeholder="10자리를 입력하세요." required>
 									</div>
 									<div class="col-md-6">
 										<label for="ownerEmail" class="form-label">대표자 이메일</label>
 										<div class="input-group">
-											<input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="이메일을 입력하세요">
+											<input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="이메일을 입력하세요" required>
 											<button type="button" class="btn btn-primary" id="ctEmailCheck">중복확인</button>
 										</div>
 										<div id="ctEmailCheckMessage"></div>
@@ -82,37 +82,36 @@
 										<label for="inputState" class="form-label">대표자 연락처</label>
 										<div class="d-flex">
 											
-											 <input type="text" class="form-control me-2" id="inputPassword5" name="ownerPhoneNumber1"><input type="text" class="form-control me-2" id="inputPassword5" name="ownerPhoneNumber2"> <input type="text" class="form-control" id="inputPassword5" name="ownerPhoneNumber3">
+											 <input type="text" class="form-control me-2" id="inputPassword5" name="ownerPhoneNumber1" required><input type="text" class="form-control me-2" id="inputPassword5" name="ownerPhoneNumber2" required> <input type="text" class="form-control" id="inputPassword5" name="ownerPhoneNumber3" required>
 										</div>
 									</div>
 
 									<div class="col-md-3">
-										<label for="inputAddress5" class="form-label">센터주소</label>
-										<div class="input-group">
-											<input type="text" readonly class="form-control" placeholder="우편번호" id="ctAddress1" name="ctAddress1" >
-											<button type="button" class="btn btn-outline-primary" onclick="address()">주소 찾기</button>
-										</div>
+									    <label for="inputAddress5" class="form-label">센터주소</label>
+									    <div class="input-group">
+									        <input type="text" class="form-control" placeholder="우편번호" id="ctAddress1" name="ctAddress1" style="pointer-events: none;" data-readonly required>
+									        <button type="button" class="btn btn-outline-primary" onclick="address()">주소 찾기</button>
+									    </div>
 									</div>
 									<div class="col-md-3 address">
-										<label for="inputEmail5" class="form-label">도로명</label> 
-										<input type="text" readonly class="form-control" id="ctAddress2" placeholder="도로명주소" name="ctAddress2">
+									    <label for="inputEmail5" class="form-label">도로명</label> 
+									    <input type="text" class="form-control" id="ctAddress2" placeholder="도로명주소" name="ctAddress2" style="pointer-events: none;" data-readonly required>
 									</div>
-
 
 									<div class=" col-md-6 date-filter">
 										<label for="inputState" class="form-label">계약기간</label>
 										<div class="col-sm-12">
-											<input type="date" class="form-control-date2" id="startDate" name="contractStartDate" >
-											<span>~</span> <input type="date" class="form-control-date2" id="endDate" name="contractEndDate">
+											<input type="date" class="form-control-date2" id="startDate" name="contractStartDate" required>
+											<span>~</span> <input type="date" class="form-control-date2" id="endDate" name="contractEndDate" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label for="inputEmail5" class="form-label"></label> 
-										<input type="text" class="form-control" id="inputEmail5" placeholder="상세주소를 입력하세요" name="ctAddress3">
+										<input type="text" class="form-control" id="inputEmail5" placeholder="상세주소를 입력하세요" name="ctAddress3" required>
 									</div>
 									<div class="col-md-6">
 										<label for="inputEmail5" class="form-label">사업자등록증 업로드</label>
-										<input type="file" class="form-control" name="multipart" >
+										<input type="file" class="form-control" name="multipart" required>
 										<!-- 기능 구현 후 주석 해제 
 										<input class="form-control" type="file" id="formFile" name="businessRegistrationFile"> -->
 									</div>
@@ -126,7 +125,7 @@
 									<div class="col-md-12">
 										<label for="inputAddress5" class="form-label">아이디</label>
 										<div class="input-group">
-											<input type="text" class="form-control" id="ctId" name="ctId" placeholder="아이디를 입력하세요">
+											<input type="text" class="form-control" id="ctId" name="ctId" placeholder="아이디를 입력하세요" required>
 											<button type="button" class="btn btn-primary" id="ctIdCheck">중복확인</button>
 										</div>
 										<div id="ctIdCheckMessage"></div>
@@ -134,8 +133,8 @@
 									<div class="col-md-12">
 										<label for="inputAddress5" class="form-label">비밀번호</label>
 										<div class="input-group">
-											<input type="text" class="form-control" id="ctPassword" name="ctPassword" readonly placeholder="우측 버튼을 클릭하여 임시 비밀번호를 발급 받으세요">
-											<button type="button" class="btn btn-primary" onclick="generatePIN()">PIN 발급</button>
+											<input type="text" class="form-control" id="ctPassword" name="ctPassword" style="pointer-events: none;" data-readonly placeholder="우측 버튼을 클릭하여 임시 비밀번호를 발급 받으세요" required>
+											<button type="button" class="btn btn-primary" id="ctPasswordBt" onclick="generatePIN()">PIN 발급</button>
 										</div>
 									</div>
 
@@ -162,11 +161,17 @@
 function generatePIN() {
 	  var pin = Math.floor(10000 + Math.random() * 90000);
 	  document.getElementById("ctPassword").value = pin;
+	  
+	  if (String(newPIN).length !== 6) {
+	        alert('우측 버튼을 클릭하여 암호를 발급받으세요!');
+	        return;
+	    }
 }
 
 <!-- 아이디 중복확인 -->
 $(function(){
     $("#ctIdCheck").click(function(){
+    	let emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         let ctId = $("#ctId").val();  //아이디
         $.ajax({
             type: 'post', 
@@ -174,11 +179,15 @@ $(function(){
             data: {"ctId": ctId}, 
             success: function(data){ 
                 let messageDiv = $("#ctIdCheckMessage");
-                if(data < 1){ 
+                if(emailFormat.test(ctId)){ 
                     // 사용 가능한 아이디인 경우 메시지 표시
                     messageDiv.html("사용 가능한 아이디입니다.");
-                    messageDiv.css("color", "green"); 
-                } else { 
+                    messageDiv.css("color", "green");
+                    $("#uploadFile").prop("disabled", false);
+                } else if(!emailFormat.test(ctId) || emailFormat.test(ctId) == 0) {
+	               	 messageDiv.html("옳바르지 않은 이메일 형식입니다. 다시 입력해주세요.");
+	                 messageDiv.css("color", "red");
+          		} else { 
                     // 중복된 아이디인 경우 메시지 표시
                     messageDiv.html("중복된 아이디입니다. 다른 아이디를 입력해주세요.");
                     messageDiv.css("color", "red");
@@ -192,6 +201,7 @@ $(function(){
 <!-- 이메일 중복확인 -->
 $(function(){
     $("#ctEmailCheck").click(function(){
+    	let emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         let ownerEmail = $("#ownerEmail").val();  //아이디
         $.ajax({
             type: 'post', 
@@ -199,10 +209,13 @@ $(function(){
             data: {"ownerEmail": ownerEmail}, 
             success: function(data){ 
                 let messageDiv = $("#ctEmailCheckMessage");
-                if(data < 1){ 
+                if(emailFormat.test(ownerEmail)){ 
                     // 사용 가능한 아이디인 경우 메시지 표시
                     messageDiv.html("사용 가능한 이메일입니다.");
                     messageDiv.css("color", "green"); 
+                } else if(!emailFormat.test(ownerEmail) || emailFormat.test(ownerEmail) == 0) {
+                	 messageDiv.html("옳바르지 않은 이메일 형식입니다. 다시 입력해주세요.");
+                     messageDiv.css("color", "red");
                 } else { 
                     // 중복된 아이디인 경우 메시지 표시
                     messageDiv.html("중복된 이메일입니다. 다른 이메일을 입력해주세요.");
@@ -224,6 +237,107 @@ function address() {
             document.getElementById("ctAddress2").value = roadAddr;
         }
     }).open();
+    
+    if (data && data.zonecode && data.zonecode.length === 6) {
+        alert('주소를 입력하세요');
+        return;
+    }
+}
+
+//입력하지 않은 값이 있다면 해당 태그로 focus
+function validateForm() {
+    var ctName = document.getElementById('ctName').value.trim();
+    var ctPhoneNumber1 = document.getElementById('ctPhoneNumber1');
+    var ctPhoneNumber2 = document.getElementById('ctPhoneNumber2').value.trim();
+    var ctPhoneNumber3 = document.getElementById('ctPhoneNumber3').value.trim();
+    var ownerName = document.getElementById('ownerName').value.trim();
+    var businessRegistrationNumber = document.getElementsByName('businessRegistrationNumber')[0].value.trim();
+    var ownerEmail = document.getElementsByName('ownerEmail')[0].value.trim();
+    var ownerPhoneNumber1 = document.getElementsByName('ownerPhoneNumber1')[0].value.trim();
+    var ownerPhoneNumber2 = document.getElementsByName('ownerPhoneNumber2')[0].value.trim();
+    var ownerPhoneNumber3 = document.getElementsByName('ownerPhoneNumber3')[0].value.trim();
+    var ctAddress1 = document.getElementsByName('ctAddress1');
+    var ctAddress2 = document.getElementById('ctAddress2').value.trim();
+    var ctAddress3 = document.getElementById('ctAddress3').value.trim();
+    var startDate = document.getElementById('startDate').value;
+    var endDate = document.getElementById('endDate').value;
+    var multipart = document.getElementsByName('multipart');
+    var ctId = document.getElementById('ctId').value.trim();
+    var ctPassword = document.getElementsById('ctPassword');
+
+    if (ctName === '') {
+        document.getElementById('ctName').focus();
+        return false;
+    }
+
+    if (ctPhoneNumber1 === '' || ctPhoneNumber2 === '' || ctPhoneNumber3 === '') {
+        document.getElementById('ctPhoneNumber1').focus();
+        return false;
+    }
+
+    if (ownerName === '') {
+        document.getElementById('ownerName').focus();
+        return false;
+    }
+
+    if (businessRegistrationNumber === '') {
+        document.getElementsByName('businessRegistrationNumber')[0].focus();
+        return false;
+    }
+
+    if (ownerEmail === '') {
+        document.getElementsByName('ownerEmail')[0].focus();
+        return false;
+    }
+
+    if (ownerPhoneNumber1 === '' || ownerPhoneNumber2 === '' || ownerPhoneNumber3 === '') {
+        document.getElementsByName('ownerPhoneNumber1');
+        return false;
+    }
+
+    if (ctAddress1 === ' ') {
+        document.getElementsByName('ctAddress1')[0].focus();
+        alter('주소를 입력하세요!');
+        return false;
+    }
+
+    if (ctAddress2 === ' ') {
+        document.getElementById('ctAddress2').focus();
+        alter('주소를 입력하세요!');
+        return false;
+    }
+
+    if (ctAddress3 === '') {
+        document.getElementById('ctAddress3').focus();
+        return false;
+    }
+    
+    if (startDate === '') {
+        document.getElementById('startDate').focus();
+        return false;
+    }
+    
+    if (endDate === '') {
+        document.getElementById('endDate').focus();
+        return false;
+    }
+
+    if (multipart === '') {
+        document.getElementsByName('multipart')[0].focus();
+        return false;
+    }
+
+    if (ctId === '') {
+        document.getElementById('ctId').focus();
+        return false;
+    }
+    
+    if (validateForm.idDuplication.value!="ctEmailCheck") {
+    	alter('중복 확인을 체크하세요');
+    	return false;
+    }
+
+    return true; 
 }
 
 </script>

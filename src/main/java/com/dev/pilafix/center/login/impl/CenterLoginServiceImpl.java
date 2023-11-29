@@ -67,4 +67,9 @@ public class CenterLoginServiceImpl implements CenterLoginService {
 
 	}
 
+	@Override
+	public CenterVO countForBadge(int ctCode) {
+		return dao.countForBadge(ctCode);
+	}
+
 }

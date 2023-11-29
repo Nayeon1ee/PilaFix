@@ -94,7 +94,7 @@
 									<button type="button" class="btn btn-primary" id="addButton">날짜 및 시간 추가</button>
 								</div>
 								<div class="text-center">
-								    <button type="submit" class="btn btn-primary">제출</button>
+								    <button type="submit" class="btn btn-primary">등록</button>
 								    <button type="reset" class="btn btn-secondary" onclick="location.href='getCenterLessonList.do'">취소</button>
 								</div>
 							</form>
@@ -163,7 +163,7 @@ document.getElementById('addButton').addEventListener('click', function() {
 });
 
 document.querySelector('form').addEventListener('submit', async function(e) {
-    e.preventDefault(); // 기본 제출 동작 막기
+    e.preventDefault();
 
     if (dateTimeArray.length > 0) {
         try {
@@ -190,9 +190,7 @@ document.querySelector('form').addEventListener('submit', async function(e) {
                     throw new Error('전송 중 오류가 발생했습니다.');
                 }
             }
-
             alert('모든 날짜와 시간이 성공적으로 등록되었습니다.');
-            // 원하는 작업 수행 - 페이지 리로드 등
         } catch (error) {
             console.error('Error:', error);
             alert('전송 중 오류가 발생했습니다.');
@@ -202,13 +200,14 @@ document.querySelector('form').addEventListener('submit', async function(e) {
     }
 });
 
-// 표에서 행 제거 함수
+// 배열 행 제거 함수
 function removeRow(button) {
     var row = button.parentNode;
     var index = Array.from(row.parentNode.children).indexOf(row);
     row.remove();
     dateTimeArray.splice(index, 1);
 }
+
 
 </script>
 

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -45,7 +48,7 @@
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
-</head>
+
 <!-- 내 css -->
 
 <link rel="stylesheet"
@@ -55,27 +58,9 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
-	<%@ include file="member_header_common.jsp"%>
+	<%@ include file="member_header_common_tr.jsp"%>
 	<!-- End Header -->
 
 	<main id="main">
@@ -89,7 +74,25 @@
 					<li>personal class schedule</li>
 				</ol>
 				<h2>개인 수업 스케줄</h2>
-
+				<!-- ############################################################# -->
+				<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음--> 
+				<!-- ############################################################# -->		
+				    <!-- 수업시간 --> 
+					<span  style="display: inline-block;">
+                        ${lessonDetail.lsDate} 
+                    </span>
+                    <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
+                    <c:choose>
+                        <c:when test="${hour lt 12}"> <!-- 오전 확인 -->
+                            오전
+                        </c:when>
+                        <c:otherwise>
+                            오후
+                        </c:otherwise>
+                    </c:choose>
+                    <span  style="display: inline-block;">
+                        ${fn:substring(lessonDetail.lsTime, 11, 16)}
+                    </span>
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
@@ -102,13 +105,15 @@
 
 
 				<!-- Top Bar Section -->
+
 <section class="top_bar py-4">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <p class="mb-0 h5">
-                    <strong class="text-primary" style="display: inline-block; margin-right: 10px;">11. 22  오늘</strong>
-                    <span class="text-muted" style="display: inline-block;">오후 16:00 ~ 오후 16:50</span>
+                    <!-- 날짜와 시간 표시 -->
+                    <strong class="text-primary" style="display: inline-block; margin-right: 10px;">${lesson.lsDate}</strong>
+                    <span class="text-muted" style="display: inline-block;">${fn:substring(lesson.lsTime, 11, 16)}</span>
                 </p>
             </div>
         </div>
@@ -117,11 +122,35 @@
 
 <!-- Explanation Section -->
 
-<section class="explanation text-center py-5">
-					<div class="container">
-						<p class="h3 mb-0">개인수업</p>
-						<p class="lead">척추가 뽀개지는 필라테스 / 예약</p>
-					</div>
+				<!-- 수업 상세 정보 -->
+				<section class="explanation text-center py-5">
+				    <div class="container">
+				        <p class="h3 mb-0">${lessonDetail.lsName}</p> <!-- 수업 제목 -->
+				        <p class="lead">${lessonDetail.lsContent}</p> <!-- 수업 설명 -->
+				        
+				        
+				<!-- ############################################################# -->
+				<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음--> 
+				<!-- ############################################################# -->		
+				    <!-- 수업시간 --> 
+					<span  style="display: inline-block;">
+                        ${lessonDetail.lsDate} 
+                    </span>
+                    <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
+                    <c:choose>
+                        <c:when test="${hour lt 12}"> <!-- 오전 확인 -->
+                            오전
+                        </c:when>
+                        <c:otherwise>
+                            오후
+                        </c:otherwise>
+                    </c:choose>
+                    <span  style="display: inline-block;">
+                        ${fn:substring(lessonDetail.lsTime, 11, 16)}
+                    </span>
+                    
+                    
+				    </div>
 				</section>
 				
 				
@@ -131,14 +160,41 @@
         <div class="row align-items-center">
             <div class="col-md-4">
                 <div class="image text-center">
-                    <i class="bi bi-person fs-1"></i>
+               <!--     <i class="bi bi-person fs-1"></i> --> 
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="private_status text-center">
+        <div class="col-md-4">
+
+<div class="private_status text-center">
+<c:choose>
+<c:when test="${not empty lessonDetail.reservedMembers}">
+	<c:forEach var="member" items="${lessonDetail.reservedMembers}" varStatus="status">
+		<div class="col-md-2">
+			<div class="member-check text-center">
+				<input type="checkbox" class="btn-check"
+					id="btn-check-${status.index}" name="selectedMemberCodes" value="${member.csMemberCode}" autocomplete="off">
+				<label class="btn" for="btn-check-${status.index}">
+					<i class="bi bi-person-circle"></i>
+					<p class="h6 mb-0">${member.csName}</p>
+				</label>
+			</div>
+		</div>
+	</c:forEach>
+</c:when>
+<c:otherwise>
+	<div class="col-md-12 text-center">
+		<p>현재 예약한 회원이 없습니다.</p>
+	</div>
+</c:otherwise>
+</c:choose>
+</div>
+<!-- 
+				<div class="private_status text-center">
                     <p class="h6 mb-0">회원 이름: 홍길동</p>
                     <p class="h6 mb-0">전화번호: 010-1234-5678</p>
                 </div>
+                
+ -->                
             </div>
             <div class="col-md-4">
                 <div class="button2 text-center">
@@ -155,7 +211,7 @@
 
 
 
-<!-- Previous Class Section -->
+<!-- Previous Class Section 
 <section class="board_list pb-3 mt-4">
     <div class="container">
         <h3 class="mb-3">이전 수업</h3>
@@ -190,16 +246,16 @@
             </tbody>
         </table>
     </div>
-</section>
+</section>-->
 
-<!-- Buttons Section -->
+				<!-- Buttons Section -->
 
-    <div class="container">
-      <div class="d-flex justify-content-start">
-					<button type="button" class="btn btn-primary ms-3"
-						onclick="location.href='#'">목록</button>
+				<div class="container">
+					<div class="d-flex justify-content-center">
+						<button type="button" class="btn btn-primary ms-3"
+							onclick="location.href='getTrainerLessonList.do'">목록</button>
+					</div>
 				</div>
-    </div>
 
 
 
@@ -222,7 +278,7 @@
 
 	<!-- 내 js -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap)common.js"></script>
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 
 
 	<!-- Vendor JS Files -->

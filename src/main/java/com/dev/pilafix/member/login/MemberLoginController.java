@@ -36,6 +36,27 @@ public class MemberLoginController {
 		return "member/register";
 	}
 
+	@GetMapping("/mainPage.do")
+	public String testmainpage(@ModelAttribute MemberVO memberVO, HttpSession session, Model model) {
+		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+
+		if (loginUser != null) {
+			int csMemberCode = (int) loginUser.get("csMemberCode");
+
+			if ("ME".equals(loginUser.get("csRoleCode"))) {
+				// 회원인 경우
+				model.addAttribute("loginUser", loginUser.get("csName"));
+				return "member/test_main";
+			} else {
+				// 강사인 경우
+				model.addAttribute("loginUser", loginUser.get("csName"));
+				return "member/test_main_tr";
+			}
+
+		} else {
+			return "member/login";
+		}
+	}
 
 	/**
 	 * 로그인할때 암호화된 비밀번호와 비교하여 로그인 member.getCsRoleCode 가 "ME"이면 회원의 메인페이지, 아니면 강사의
@@ -67,40 +88,37 @@ public class MemberLoginController {
 			// 연동된 센터가 있는지 확인
 			boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || member.getConnectedCenterCode2() != 0
 					|| member.getConnectedCenterCode3() != 0;
-			
+
 			// 역할에 따라 적절한 페이지로 리다이렉트
 			if ("ME".equals(member.getCsRoleCode())) {
 				// 회원인 경우
 				if (hasConnectedCenters) {
 //					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
-					
-					/*메인테스트용임 추후 삭제*/ 
-					model.addAttribute("loginUser", member.getCsName() ); 
+
+					/* 메인테스트용임 추후 삭제 */
+					model.addAttribute("loginUser", member.getCsName());
 //					return "redirect:ticketPage.do";
-//					return "member/test_main_test";
-//					return "test/notice_test";
 					return "member/test_main";
 
-					
 				} else {
 //					return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
-					
-					/*메인테스트용임 추후 삭제*/ 
-					model.addAttribute("loginUser", member.getCsName() ); 
+
+					/* 메인테스트용임 추후 삭제 */
+					model.addAttribute("loginUser", member.getCsName());
 					return "member/ctConnect";
 				}
 			} else {
 				// 강사인 경우
 				if (hasConnectedCenters) {
 //					return "redirect:/memberMyinfo.do"; // 비밀번호 변경, 로그아웃 테스트 페이지
-					
-					/*메인테스트용임 추후 삭제*/ 
-					model.addAttribute("loginUser", member.getCsName() ); 
-					return "member/test_main";
+
+					/* 메인테스트용임 추후 삭제 */
+					model.addAttribute("loginUser", member.getCsName());
+					return "member/test_main_tr";
 				} else {
-					
-					/*메인테스트용임 추후 삭제*/ 
-					model.addAttribute("loginUser", member.getCsName() ); 
+
+					/* 메인테스트용임 추후 삭제 */
+					model.addAttribute("loginUser", member.getCsName());
 					return "member/ctConnect"; // 센터 연동 페이지
 				}
 			}
@@ -111,21 +129,19 @@ public class MemberLoginController {
 		}
 	}
 
-
 	/**
 	 * 로그인이후 우선 이동할 마이페이지(로그아웃,비밀번호변경 테스트)
 	 */
 	@GetMapping("/memberMyinfo.do")
 	public String memberMyinfo(HttpSession session, Model model) {
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
-	    if (loginUser != null) {
-	        String csEmailId = (String) loginUser.get("csEmailId");
-	        MemberVO memberInfo = service.getMemberByEmail(csEmailId);
-	        model.addAttribute("memberInfo", memberInfo);
-	    }
-	    return "member/myinfo_management";
+		if (loginUser != null) {
+			String csEmailId = (String) loginUser.get("csEmailId");
+			MemberVO memberInfo = service.getMemberByEmail(csEmailId);
+			model.addAttribute("memberInfo", memberInfo);
+		}
+		return "member/myinfo_management";
 	}
-
 
 	/**
 	 * 현재 비밀번호가 일치하고 새 비밀번호 = 비밀번호확인 일 경우에 비밀번호 변경
@@ -169,6 +185,7 @@ public class MemberLoginController {
 
 	/**
 	 * 비밀번호 변경 모달에서 새 비밀번호,새비밀번호 확인 후 변경
+	 * 
 	 * @param payload
 	 * @param session
 	 * @return
@@ -186,12 +203,10 @@ public class MemberLoginController {
 		} else {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
 		}
-	}	
+	}
 
 	/**
-	 * 비밀번호 찾기
-	 * 이름,이메일 입력받아서 이메일로 인증번호 전송 후, 
-	 * 올바른 인증번호 입력시 회원의 비밀번호 변경 페이지로 이동
+	 * 비밀번호 찾기 이름,이메일 입력받아서 이메일로 인증번호 전송 후, 올바른 인증번호 입력시 회원의 비밀번호 변경 페이지로 이동
 	 */
 
 	@GetMapping("/findpassword.do")
@@ -213,50 +228,46 @@ public class MemberLoginController {
 		}
 	}
 
-	
-	
-	
 	// 인증번호 검증 요청 처리 및 사용자 로그인 처리
-		@PostMapping("/checkAuthNumber.do")
-		@ResponseBody
-		public Map<String, Object> checkAuthNumber(HttpServletRequest request, HttpSession session) {
-			int authNumber = Integer.parseInt(request.getParameter("authNumber"));
-			String csEmailId = request.getParameter("csEmailId");
+	@PostMapping("/checkAuthNumber.do")
+	@ResponseBody
+	public Map<String, Object> checkAuthNumber(HttpServletRequest request, HttpSession session) {
+		int authNumber = Integer.parseInt(request.getParameter("authNumber"));
+		String csEmailId = request.getParameter("csEmailId");
 
-			Integer sessionAuthNumber = (Integer) session.getAttribute("authNumber");
-			boolean isValid = sessionAuthNumber != null && sessionAuthNumber.equals(authNumber);
-			Map<String, Object> response = new HashMap<>();
+		Integer sessionAuthNumber = (Integer) session.getAttribute("authNumber");
+		boolean isValid = sessionAuthNumber != null && sessionAuthNumber.equals(authNumber);
+		Map<String, Object> response = new HashMap<>();
 
-		    if (isValid) {
-		        MemberVO member = service.getMemberByEmail(csEmailId);
-		        if (member != null) {
-		            // Map에 사용자 정보 저장
-					Map<String, Object> loginUser = new HashMap<>();
-					loginUser.put("csMemberCode", member.getCsMemberCode());
-					loginUser.put("csName", member.getCsName());
-					loginUser.put("csRoleCode", member.getCsRoleCode());
-					loginUser.put("csEmailId", member.getCsEmailId());
-					String userPhone = member.getCsPhoneNumber1() + member.getCsPhoneNumber2() + member.getCsPhoneNumber3();
-					loginUser.put("csPhoneNumber", userPhone);		
-					
-					session.setAttribute("loginUser", loginUser);
-					
-					response.put("valid", true);
-			        response.put("loginSuccess", true);
-					
-				} else {
-					response.put("valid", true);
-					response.put("loginSuccess", false);
-					response.put("message", "User not found");
-				}
+		if (isValid) {
+			MemberVO member = service.getMemberByEmail(csEmailId);
+			if (member != null) {
+				// Map에 사용자 정보 저장
+				Map<String, Object> loginUser = new HashMap<>();
+				loginUser.put("csMemberCode", member.getCsMemberCode());
+				loginUser.put("csName", member.getCsName());
+				loginUser.put("csRoleCode", member.getCsRoleCode());
+				loginUser.put("csEmailId", member.getCsEmailId());
+				String userPhone = member.getCsPhoneNumber1() + member.getCsPhoneNumber2() + member.getCsPhoneNumber3();
+				loginUser.put("csPhoneNumber", userPhone);
+
+				session.setAttribute("loginUser", loginUser);
+
+				response.put("valid", true);
+				response.put("loginSuccess", true);
+
 			} else {
-				response.put("valid", false);
-				response.put("message", "Invalid auth number");
+				response.put("valid", true);
+				response.put("loginSuccess", false);
+				response.put("message", "User not found");
 			}
-			return response;
+		} else {
+			response.put("valid", false);
+			response.put("message", "Invalid auth number");
 		}
-		
-	
+		return response;
+	}
+
 	// 11.23로그인 시키는 세션처리 동일하게 진행하기 위해서 주석처리
 //	// 인증번호 검증 요청 처리 및 사용자 로그인 처리
 //	@PostMapping("/checkAuthNumber.do")
@@ -294,15 +305,12 @@ public class MemberLoginController {
 //	    return "redirect:/memberLogin.do";
 //	}
 
-
 	@PostMapping("/logout.do")
 	public String logout(HttpSession session) {
-	    session.removeAttribute("loginUser");
-	    return "redirect:/memberLogin.do";
+		session.removeAttribute("loginUser");
+		return "redirect:/memberLogin.do";
 	}
-	
-	
-	
+
 	// 11.21 모달 사용 위한 주석처리
 //	@PostMapping("/checkCurrentPassword.do")
 //	public String checkCurrentPassword(@RequestParam("currentPassword") String currentPassword, HttpSession session,
@@ -349,10 +357,6 @@ public class MemberLoginController {
 //		}
 //	}
 
-	
-	
-	
-	
 // 11.16 기존코드 주석처리	
 //	@PostMapping("/updatePassword.do")
 //	public String updatePassword(@RequestParam("currentPassword") String currentPassword,
@@ -396,7 +400,7 @@ public class MemberLoginController {
 //	        return "redirect:/passwordChange.do";
 //	    }
 //	}
-	// 11.16 새로운 로그인test위한 주석처리	
+	// 11.16 새로운 로그인test위한 주석처리
 //		@PostMapping("/memberLogin.do")
 //		public String memberLogin(@RequestParam("csEmailId") String csEmailId,
 //		                          @RequestParam("csPassword") String csPassword,
@@ -438,9 +442,7 @@ public class MemberLoginController {
 //		        return "redirect:memberLogin.do"; 
 //		    }
 //		}
-		
-		
-	
+
 	/**
 	 * 비밀번호 변경할때 현재 비밀번호와 DB 비밀번호 비교
 	 */

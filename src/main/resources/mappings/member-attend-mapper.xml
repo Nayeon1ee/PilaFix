@@ -26,18 +26,39 @@
 	</resultMap>
 
 	<resultMap type="com.dev.pilafix.common.member.MemberVO" id="reservedMember">
+		<result property="csMemberCode" column="CS_MEMBER_CODE" />
 		<result property="csName" column="CS_NAME" />
 	</resultMap>
 
-	<!-- 수업 상세에서 예약된 회원 이름만 따로 SELECT-->
-	<!-- resultType="string" -->
-	<select id="getReservedMembersNamesForLesson" parameterType="int" resultMap="reservedMember">
-	  SELECT  CST.CS_NAME
-	  FROM TBL_RESERV RSV
-	  JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
-	  WHERE RSV.LESSON_CODE = #{lessonCode}
+<!-- 수업 상세에서 출결 처리 위한 수업예약한 회원이름, 회원코드 -->
+<!-- 회원이름 , 회원코드 둘다-->
+<select id="getReservedMembersNamesForLesson" parameterType="String" resultMap="reservedMember">
+	SELECT CST.CS_NAME AS csName
+			,CST.CS_MEMBER_CODE AS csMemberCode
+	FROM TBL_RESERV RSV
+	JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+	WHERE RSV.LESSON_CODE = #{lessonCode}
 			AND RSV.RS_CANCEL_YN = FALSE;
-	</select>
+</select>
+<!-- 회원코드 -->
+<select id="getReservedMemberCodeForLesson" parameterType="String" resultType="Integer">
+    SELECT CST.CS_MEMBER_CODE
+    FROM TBL_RESERV RSV
+    JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+    WHERE RSV.LESSON_CODE = #{lessonCode}
+    AND RSV.RS_CANCEL_YN = FALSE;
+</select>
+
+<!-- 회원이름 -->
+<select id="getReservedNameForLesson" parameterType="String" resultType="String">
+    SELECT CST.CS_NAME
+    FROM TBL_RESERV RSV
+    JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+    WHERE RSV.LESSON_CODE = #{lessonCode}
+    AND RSV.RS_CANCEL_YN = FALSE;
+</select>
+
+
 	
 	<!-- 예약된 회원 수 -->
 	<select id="getReservedCountForLesson" parameterType="String" resultType="int">
@@ -84,23 +105,31 @@
 	<update id="updateAttendancePersonalLesson" parameterType="map">
 		UPDATE TBL_ATTEND
 		SET 
-		    AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{selectedMemberCode} THEN TRUE ELSE FALSE END
+		AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{selectedMemberCode} THEN TRUE ELSE FALSE END
 		WHERE LESSON_CODE = #{lessonCode};
 	</update>
-	
 	
 
 
 	<!-- 출결 레코드 자동 생성될 예정 주석처리
 	<insert id="insertAttend" parameterType="attend"> 
 		INSERT INTO TBL_ATTEND 
-		VALUES (CONCAT('AT', NEXTVAL('SEQ_ATTEND')), #{atCode}, #{lessonCode}, #{atMember1Code}, 
+		VALUES (CONCAT('AT', NEXTVAL('SEQ_ATTEND')), #{lessonCode}, #{atMember1Code}, 
 		#{atAttendance1Yn}, #{atMember2Code}, #{atAttendance2Yn}, #{atMember3Code}, 
 		#{atAttendance3Yn}, #{atMember4Code}, #{atAttendance4Yn}, #{atMember5Code}, 
 		#{atAttendance5Yn}, #{atMember6Code}, #{atAttendance6Yn}
 	</insert> 
 	 -->
 
+	<!-- 수업 상세에서 예약된 회원 이름만 따로 SELECT-->
+	<!-- resultType="string"
+	<select id="getReservedMembersNamesForLesson" parameterType="int" resultMap="reservedMember">
+	  SELECT  CST.CS_NAME
+	  FROM TBL_RESERV RSV
+	  JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+	  WHERE RSV.LESSON_CODE = #{lessonCode}
+			AND RSV.RS_CANCEL_YN = FALSE;
+	</select> -->
 
 
 </mapper>
