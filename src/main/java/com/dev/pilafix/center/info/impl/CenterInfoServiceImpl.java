@@ -78,7 +78,6 @@ public class CenterInfoServiceImpl implements CenterInfoService {
 			 notice.setEventType("공지사항");
 			 notice.setUniqueIdentifierCode(String.valueOf(icNumber));
 			 notice.setNcNoticeContent("[공지] "+title);
-			 notice.setNcSendYn(false);
 			 notice.setNcReadYn(false);
 			noticeList.add(notice);
 		}
@@ -134,7 +133,6 @@ public class CenterInfoServiceImpl implements CenterInfoService {
 			 notice.setEventType("공지사항");
 			 notice.setUniqueIdentifierCode(String.valueOf(icNumber));
 			 notice.setNcNoticeContent("[공지] "+title);
-			 notice.setNcSendYn(false);
 			 notice.setNcReadYn(false);
 			noticeList.add(notice);
 		}

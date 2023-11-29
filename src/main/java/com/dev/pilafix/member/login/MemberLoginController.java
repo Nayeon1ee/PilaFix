@@ -81,6 +81,9 @@ public class MemberLoginController {
 
 			// 세션에 Map 저장
 			session.setAttribute("loginUser", loginUser);
+			
+			// 배치 - 세션 테스트용 위한 임시저장
+			session.setAttribute("csMemberCode", member.getCsMemberCode());
 
 			// 연동된 센터가 있는지 확인
 			boolean hasConnectedCenters = member.getConnectedCenterCode1() != 0 || member.getConnectedCenterCode2() != 0
