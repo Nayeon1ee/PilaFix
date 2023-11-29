@@ -83,10 +83,7 @@
 
 			<div class="logo">
 				<h1>
-
-					<a href="mainPage.do">PILAFIX</a>
-
-
+					<a href="main_2.do">PILAFIX</a>
 				</h1>
 				<!-- Uncomment below if you prefer to use an image logo -->
 				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -95,37 +92,12 @@
 			<!--  start nav -->
 			<nav id="navbar" class="navbar">
 				<ul>
-
-					<!-- <li><a class="active" href="index.html">Home</a></li> -->
-					<li><a class="active" href="mainPage.do">Home</a></li>
-					<li><a href="ticketPage.do">수강권 결제</a></li>
-					<li><a href="reservPage.do">예약하기</a></li>
-					<li><a href="getMemberCommunityList.do">커뮤니티</a></li>
-					<li><a href="member_notice.do">공지사항</a></li>
-					<!-- <li><a href="member_mypage.do">마이페이지</a></li>  -->
-					<li class="dropdown"><a href="member_mypage.do"><span>마이페이지</span> <i
-							class="bi bi-chevron-down"></i></a>
-						<ul>
-							
-							<li class="dropdown"><a href="#"><span>내정보관리</span><i class="bi bi-chevron-right"></i></a>
-							<!-- <ul>
-									<li><a href="#">Deep Drop Down 1</a></li>
-									<li><a href="#">Deep Drop Down 2</a></li>
-									<li><a href="#">Deep Drop Down 3</a></li>
-									<li><a href="#">Deep Drop Down 4</a></li>
-									<li><a href="#">Deep Drop Down 5</a></li>
-								</ul>  -->	
-							</li>
-							<li><a href="member_notice.do">공지사항</a></li>	
-							<li><a href="#">결제내역</a></li>
-							<li><a href="#">연동센터관리</a></li>
-							<li><a href="#">FAQ</a></li>
-							<li><a href="getQuestionList.do">문의사항</a></li>
-							<li><a href="#">약관및정책</a></li>
-						</ul></li>
-
-				
-
+					<li><a class="active" href="index.html">Home</a></li>
+					<li><a href="about.html">수강권 결제</a></li>
+					<li><a href="services.html">예약하기</a></li>
+					<li><a href="portfolio.html">커뮤니티</a></li>
+					<li><a href="team.html">공지사항</a></li>
+					<li><a href="member_mypage.do">마이페이지</a></li>
 
 
 					<!--  알림 부분 -->
