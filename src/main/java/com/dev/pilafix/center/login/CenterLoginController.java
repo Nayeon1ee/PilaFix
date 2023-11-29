@@ -26,6 +26,22 @@ public class CenterLoginController {
 	private CenterLoginService service;
 	
 	/**
+	 * 사이드 네비바 뱃지에 숫자출력
+	 * (연동요청 온 회원,강사 수 / 답변안달린 문의사항 수)
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/getCount.do")
+	@ResponseBody
+	public CenterVO countForBadge(HttpSession session) {
+		Map<String,Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+		int ctCode = (int) center.get("ctCode");
+		System.out.println("컨트롤러에서 센터코드 잘 가져오는지 테스트"+ctCode);
+		return service.countForBadge(ctCode);
+		
+	}
+	
+	/**
 	 * 로그인 테스트
 	 * @return
 	 */
@@ -50,6 +66,7 @@ public class CenterLoginController {
 	        session.setAttribute("loginCenter", loginCenter);
 //	        return "redirect:/centerInfo.do"; // 테스트화면
 	        return "center/center_index";
+	        
 		}else {
 			//로그인 실패
 			return "center/center_login";

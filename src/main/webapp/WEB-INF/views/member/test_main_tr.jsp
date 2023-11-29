@@ -60,28 +60,10 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">${loginUser}</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-			<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>	
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
 
-	<%@ include file="member_header_common.jsp"%>
+	<%@ include file="member_header_common_tr.jsp"%>
 	
 	<!-- End Header -->
 
@@ -179,7 +161,7 @@
 						<div class="icon-box">
 							<i class="bi bi-calendar-check"></i>
 							<h3>
-								<a href="reservPage.do">수업 예약</a>
+								<a href="getTrainerLesson.do">수업관리</a>
 							</h3>
 							<p>원하는 시간, 내 스타일의 수업! 지금 예약하고, 새로운 나를 만나보세요.</p>
 						</div>
@@ -188,7 +170,7 @@
 						<div class="icon-box">
 							<i class="bi bi-ticket-perforated-fill"></i>
 							<h3>
-								<a href="ticketPage.do">수강권 구매</a>
+								<a href="member_mypage.do">마이페이지</a>
 							</h3>
 							<p>내 건강에 투자하는 최고의 선택! 다양한 수강권으로 나만의 플랜을 만들어보세요.</p>
 						</div>

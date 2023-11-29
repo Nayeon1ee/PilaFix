@@ -108,21 +108,20 @@
      			<input type="hidden" id="csRoleCode" name="csRoleCode" value="${csRoleCode}">
 				
 					<div class="col-auto" style="width: 100px;">
-						<input type="text" readonly class="form-control-plaintext"
+
+						<input type="email" readonly class="form-control-plaintext"
 							id="staticEmail2" value="이메일 아이디"
 							style="width: 130%; padding: revert-layer;">
 					</div>
 
 					<div class="col-auto" style="width: 21%;">
 						<label for="inputPassword2" class="visually-hidden">Password</label>
-						<input type="email" class="form-control" id="csEmailId" name="csEmailId"
-							placeholder="이메일 입력"
+						<input type="email" class="form-control" id="csEmailId" name="csEmailId" placeholder="이메일 입력"
 							style="width: 220%; margin-left: 28%; border: 0px;">
 					</div>
 					<div class="col-auto">
 						<button type="button" id="idCheck" class="btn btn-primary mb-3"
-							style="width: 90px; margin-left: 230px; font-size: 14px;">중복
-							확인</button>
+							style="width: 90px; margin-left: 230px; font-size: 14px;">중복 확인</button>
 					</div>
 
 					<div class="col-auto">
@@ -133,9 +132,8 @@
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">인증요청</label> <input type="text"
-							class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" 
-							disabled="disabled" maxlength="6"
+							style="float: left; width: 20%;">인증요청</label>
+						<input type="text" class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 							
 					</div>
@@ -144,91 +142,78 @@
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">비밀번호</label> <input type="password"
-							class="form-control" name="csPassword" id="csPassword"
-							placeholder="영문, 숫자 포함 8글자 이상 입력"
+							style="float: left; width: 20%;">비밀번호</label>
+						<input type="password" class="form-control" name="csPassword" id="csPassword" placeholder="영문, 숫자 포함 8글자 이상 입력"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
-					<div class="col-12"
-						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
+					<div class="col-12" style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">비밀번호 확인</label> <input
-							type="password" class="form-control" 
-							name="passwordConfirm" id="passwordConfirm" onkeyup="passConfirm()"
-							placeholder="영문, 숫자 포함 8글자 이상 입력"
+							style="float: left; width: 20%;">비밀번호 확인</label>
+						<input type="password" class="form-control" name="passwordConfirm" id="passwordConfirm" onkeyup="passConfirm()" placeholder="영문, 숫자 포함 8글자 이상 입력"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
 					<span id ="confirmMsg"></span>
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label" 
-							style="float: left; width: 20%;">이름</label> <input type="text"
-							class="form-control" name="csName" placeholder="이름을 입력해주세요"
+							style="float: left; width: 20%;">이름</label>
+						<input type="text" class="form-control" name="csName" placeholder="이름을 입력해주세요"
 							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
 					</div>
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
-							style="float: left; width: 20%;">휴대전화 번호</label> <input
-							type="text" class="form-control" name="csPhoneNumber1" placeholder="3자리"
+							style="float: left; width: 20%;">휴대전화 번호</label>
+						<input type="text" class="form-control" name="csPhoneNumber1" placeholder="3자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
-							<input
-							type="text" class="form-control" name="csPhoneNumber2" placeholder="4자리"
+						<input type="text" class="form-control" name="csPhoneNumber2" placeholder="4자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
-							<input
-							type="text" class="form-control" name="csPhoneNumber3" placeholder="4자리"
+						<input type="text" class="form-control" name="csPhoneNumber3" placeholder="4자리"
 							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
 					</div>
 					
-						<div class="col-12"
-							style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
+						<div class="col-12" style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 							<label for="inputAddress" class="form-label"
-								style="float: left; width: 20%;">생년월일</label> <input type="date"
-								class="form-control" name="csBirth"
+								style="float: left; width: 20%;">생년월일</label>
+							<input type="date" class="form-control" name="csBirth"
 								style="float: left; width: 30%; border: 0px; padding-top: 0px;">
 						</div>
 
 						<div class="col-12"
 							style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
-							<label for="inputAddress" class="form-label"
-								style="float: left; width: 21%;">성별</label> <input
-								class="form-check-input" type="radio" name="csGenderMw" value="남자"> <label class="form-check-label"
-								for="flexRadioDefault1">남자</label> <input
-								class="form-check-input" type="radio" name="csGenderMw" value="여자" > <label
-								class="form-check-labe2" for="flexRadioDefault2">여자</label>
+							<label for="inputAddress" class="form-label" style="float: left; width: 21%;">성별</label>
+							<input class="form-check-input" type="radio" name="csGenderMw" value="남자">
+							<label class="form-check-label" for="flexRadioDefault1">남자</label>
+							
+							<input class="form-check-input" type="radio" name="csGenderMw" value="여자" >
+							<label class="form-check-labe2" for="flexRadioDefault2">여자</label>
 						</div>
 					
-
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""
-							id="flexCheckDefault"> <label class="form-check-label"
-							for="flexCheckDefault">전체 동의합니다.</label>
+					    <input class="form-check-input overall-agreement" type="checkbox" value="" id="flexCheckDefault">
+					    <label class="form-check-label" for="flexCheckDefault">전체 동의합니다.</label>
 					</div>
 					<c:forEach var="termsList" items="${termsList}" varStatus="num">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="csAgreementYn${num.count}" id="csAgreementYn${num.count}" value="true"> 
-						
-						
-						<label class="form-check-label" for="flexCheckChecked">
-							<c:choose>
-								<c:when test="${termsList.tmRequiredYn eq true }">
-								[필수]
-								</c:when>
-								<c:otherwise>
-								[선택]
-								</c:otherwise>
-							</c:choose>	
-							${termsList.tmName }
-						</label>
-						<textarea class="form-control" rows="4">${termsList.tmDetail }</textarea>
-					</div>
+					    <div class="form-check">
+					        <input class="form-check-input individual-agreement" type="checkbox" name="csAgreementYn${num.count}" id="csAgreementYn${num.count}" value="true">
+					        <label class="form-check-label" for="csAgreementYn${num.count}">
+					            <c:choose>
+					                <c:when test="${termsList.tmRequiredYn eq true}">
+					                    [필수]
+					                </c:when>
+					                <c:otherwise>
+					                    [선택]
+					                </c:otherwise>
+					            </c:choose>
+					            ${termsList.tmName}
+					        </label>
+					        <textarea class="form-control" rows="4">${termsList.tmDetail}</textarea>
+					    </div>
 					</c:forEach>
 					<div class="col-12">
-						<button type="submit" class="btn btn-primary" onclick="moveToLogin()" value="회원 가입"
-							style="width: 100%; margin-top: 3%;">회원가입</button>
+					    <button type="submit" class="btn btn-primary" value="회원 가입" style="width: 100%; margin-top: 3%;">회원가입</button>
 					</div>
 				</form>
-
 				<!-- End Our Skills Section -->
 			</div>
 		</section>
@@ -276,6 +261,15 @@ $(function(){
     $("#idCheck").click(function(){
     
         let csEmailId = $("#csEmailId").val();
+        
+     	// 이메일 형식을 확인하기 위한 정규식
+        let emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+     	
+    	// 입력된 값이 이메일 형식과 일치하는지 확인합니다.
+        if (!emailFormat.test(csEmailId)) {
+            alert("올바른 이메일 형식으로 입력해주세요.");
+            return; // 형식이 맞지 않으면 중복 확인 요청을 보내지 않음
+        }
          
         $.ajax({
             type:'post', //post 형식으로 controller 에 보내기위함!!
@@ -348,8 +342,7 @@ $(function(){
 			$resultMsg.css('color', 'red');
 		}
 	}); //인증번호 비교
-</script>
-<script>
+
 /* 비밀번호, 비밀번호 확인 입력창에 입력된 값을 비교해서 같다면 비밀번호 일치, 그렇지 않으면 불일치 라는 텍스트 출력.*/
 function passConfirm() {
 	/* document : 현재 문서를 의미함. 작성되고 있는 문서를 뜻함. */
@@ -369,9 +362,97 @@ function passConfirm() {
 		}
 	}
 
-function moveToLogin(){
-	alert ("회원가입이 완료되었습니다. 로그인페이지로 이동합니다.")
+// 입력하지 않은 값이 있다면 해당 태그로 focus
+function validateForm() {
+    var csEmailId = document.getElementById('csEmailId').value;
+    var csPassword = document.getElementById('csPassword').value;
+    var passwordConfirm = document.getElementById('passwordConfirm').value;
+    var csName = document.getElementsByName('csName')[0].value;
+    var csPhoneNumber1 = document.getElementsByName('csPhoneNumber1')[0].value;
+    var csPhoneNumber2 = document.getElementsByName('csPhoneNumber2')[0].value;
+    var csPhoneNumber3 = document.getElementsByName('csPhoneNumber3')[0].value;
+    var csBirth = document.getElementsByName('csBirth')[0].value;
+    var csGenderOptions = document.getElementsByName('csGenderMw');
+    var genderSelected = false;
+    var overallAgreement = document.getElementById('flexCheckDefault');
+    var agreementCheckboxes = document.querySelectorAll('[id^="csAgreementYn"]');
+    
+    for (var i = 0; i < csGenderOptions.length; i++) {
+        if (csGenderOptions[i].checked) {
+            genderSelected = true;
+            break;
+        }
+    }
+    
+	// 전체 동의 체크박스가 체크되었는지 확인
+    if (!overallAgreement.checked) {
+        overallAgreement.focus();
+        return false;
+    }
+    
+	// 각 동의 항목 체크박스들의 체크 상태 확인
+    var atLeastOneUnchecked = false;
+    for (var i = 0; i < agreementCheckboxes.length; i++) {
+        if (!agreementCheckboxes[i].checked) {
+            atLeastOneUnchecked = true;
+            break;
+        }
+    }
+
+    if (csEmailId === '') {
+        document.getElementById('csEmailId').focus();
+        return false;
+    }
+    
+    if (csPassword === '') {
+        document.getElementById('csPassword').focus();
+        return false;
+    }
+    
+    if (passwordConfirm === '') {
+        document.getElementById('passwordConfirm').focus();
+        return false;
+    }
+
+    if (csName === '') {
+        document.getElementsByName('csName')[0].focus();
+        return false;
+    }
+
+    if (csPhoneNumber1 === '' || csPhoneNumber2 === '' || csPhoneNumber3 === '') {
+        document.getElementsByName('csPhoneNumber1')[0].focus();
+        return false;
+    }
+
+    if (csBirth === '') {
+        document.getElementsByName('csBirth')[0].focus();
+        return false;
+    }
+    
+    if (!genderSelected) {
+        csGenderOptions[0].focus();
+        return false;
+    }
+    
+    if (atLeastOneUnchecked) {
+        agreementCheckboxes[0].focus();
+        return false;
+    }
+
+    return true;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var overallAgreement = document.querySelector('.overall-agreement');
+    var individualAgreements = document.querySelectorAll('.individual-agreement');
+
+    overallAgreement.addEventListener('change', function() {
+        individualAgreements.forEach(function(checkbox) {
+            checkbox.checked = overallAgreement.checked;
+        });
+    });
+});
+
 </script>
 
 

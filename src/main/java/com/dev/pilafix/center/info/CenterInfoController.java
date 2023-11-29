@@ -17,6 +17,13 @@ public class CenterInfoController {
 	@Autowired
 	private CenterInfoService service;
 
+	/**
+	 * 공지사항 목록 조회 
+	 * 
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/getCenterInfoList.do")
 	public String getCenterInfoList(HttpSession session, Model model) {
 		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
@@ -29,6 +36,14 @@ public class CenterInfoController {
 		return "redirect:centerLogin.do";
 	}
 
+	/**
+	 * 상세 공지사항 조회 
+	 * (클릭 시 조회수 증가)
+	 * 
+	 * @param icNumber
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/getCenterInfo.do")
 	public String getCenterInfo(@RequestParam("icNumber") Integer icNumber, Model model) {
 		// 조회수 증가
@@ -56,8 +71,11 @@ public class CenterInfoController {
 		if(!loginCenter.isEmpty()) {
 			int ctCode = (int) loginCenter.get("ctCode");
 			vo.setWriterMemberCode(ctCode);
-			//공지 등록 밑 알림 등록
-			service.insertCenterInfoAndLoadNotices(vo);
+			if(vo.isOpenYN()) {
+				service.insertCenterInfoAndLoadNotices(vo);// 공지 등록 및 알림 등록
+			}else {
+				service.insertCenterInfo(vo);// 비공개로 등록 시 알림 등록 x
+			}
 			return "redirect:getCenterInfoList.do";
 		}
 		return "redirect:centerLogin.do";
@@ -82,17 +100,30 @@ public class CenterInfoController {
 	 * @return
 	 */
 	@PostMapping("/updateCenterInfo.do")
-	public String update(CenterInfoVO vo, @RequestParam("originalOpenYn") boolean originalOpenYn) {
-		System.out.println("CenterInfoController에서 동작 ==> "+originalOpenYn);
-		
-		if(!originalOpenYn && vo.isOpenYN()) {// 기존 상태가 비공개였다가 공개로 수정한 경우 알림 발송
-			service.updateCenterInfoAndLoadNotices(vo);
-		}else {
-			service.updateCenterInfo(vo);
+	public String update(HttpSession session, CenterInfoVO vo, @RequestParam("originalOpenYn") boolean originalOpenYn) {
+		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+
+		if(!loginCenter.isEmpty()) {
+			int ctCode = (int) loginCenter.get("ctCode");
+			vo.setWriterMemberCode(ctCode);
+			if(!originalOpenYn && vo.isOpenYN()) {// 기존 상태가 비공개였다가 공개로 수정한 경우 알림 발송
+				service.updateCenterInfoAndLoadNotices(vo);
+			}else {
+				service.updateCenterInfo(vo);
+			}
+			return "redirect:getCenterInfoList.do";
 		}
-		return "redirect:getCenterInfoList.do";
+		return "redirect:centerLogin.do";
+		
+		
 	}
 
+	/**
+	 * 공지사항 삭제 
+	 * 
+	 * @param seq
+	 * @return
+	 */
 	@GetMapping("/deleteCenterInfo.do")
 	public String delete(int seq) {
 		service.deleteCenterInfo(seq);

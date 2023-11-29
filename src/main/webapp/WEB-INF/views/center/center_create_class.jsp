@@ -91,11 +91,11 @@
 										<option value="22">22시</option>
 									</select>
 									<div id="dateTimeContainer"></div>
-									<button type="button" class="btn btn-primary" id="addButton" onclick="addDateTimeInput()">날짜 및 시간 추가</button>
+									<button type="button" class="btn btn-primary" id="addButton">날짜 및 시간 추가</button>
 								</div>
 								<div class="text-center">
-									<button type="submit" class="btn btn-primary">등록</button>
-									<button type="reset" class="btn btn-secondary" onclick="location.href='getCenterLessonList.do'">취소</button>
+								    <button type="submit" class="btn btn-primary">제출</button>
+								    <button type="reset" class="btn btn-secondary" onclick="location.href='getCenterLessonList.do'">취소</button>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->
@@ -107,7 +107,7 @@
 	</main>
 	<!-- End #main -->
 <script type="text/javascript">
-// 개인일 경우 1명만 선택 가능
+// 개인 / 그룹 선택
 function Activity(name, list){
     this.name = name;
     this.list = list;
@@ -137,35 +137,79 @@ function removeForm(formElement) {
     formElement.parentNode.removeChild(formElement);
 }
 
-function addDateTimeInput() {
-    // 기존의 폼 요소를 가져옵니다.
-    var originalForm = document.querySelector('form[name="myForm"]');
-    
-    // 기존 폼을 복제합니다.
-    var clonedForm = originalForm.cloneNode(true);
-    
-    // 복제된 폼 내의 버튼 요소를 제거합니다.
-    var buttons = clonedForm.querySelectorAll('button');
-    buttons.forEach(function(button) {
-        button.remove();
-    });
+// 수업 동시 등록
+//날짜와 시간을 담을 배열
+var dateTimeArray = [];
 
-    // 특정 input 요소의 type을 hidden으로 변경합니다.
-    var dateInput = clonedForm.querySelector('input[name="lsDate"]');
-    dateInput.type = 'hidden';
+// '날짜 및 시간 추가' 버튼 클릭 시 실행되는 함수
+document.getElementById('addButton').addEventListener('click', function() {
+    var lsDate = document.getElementById('dateInput').value;
+    var lsTime = document.getElementById('timeSelect').value;
 
-    var timeSelect = clonedForm.querySelector('select[name="lsTime"]');
-    timeSelect.type = 'hidden';
-    
-    // 특정 부분을 제외하고 숨깁니다.
-    var elementsToHide = clonedForm.querySelectorAll('.col-md-12:not(:nth-child(7)):not(:nth-child(8))');
-    elementsToHide.forEach(function(element) {
-        element.style.display = 'none';
-    });
-    
-    // 새로운 폼을 추가합니다.
-    document.querySelector('main').appendChild(clonedForm);
+    if (lsDate && lsTime) {
+        // 날짜와 시간을 배열에 추가
+        dateTimeArray.push({ lsDate: lsDate, lsTime: lsTime });
+
+        // 표에 추가된 정보를 보여줄 컨테이너
+        var dateTimeContainer = document.getElementById('dateTimeContainer');
+
+        // 추가된 정보를 표에 추가
+        var newRow = document.createElement('div');
+        newRow.innerHTML = lsDate + ' ' + lsTime + '시' + ' ' + ' <button class="btn btn-danger" onclick="removeRow(this)">Remove</button><br/>';
+        dateTimeContainer.appendChild(newRow);
+    } else {
+        alert('날짜와 시간을 선택해주세요.');
+    }
+});
+
+document.querySelector('form').addEventListener('submit', async function(e) {
+    e.preventDefault(); // 기본 제출 동작 막기
+
+    if (dateTimeArray.length > 0) {
+        try {
+            for (let i = 0; i < dateTimeArray.length; i++) {
+                const dateTime = dateTimeArray[i];
+                const response = await fetch('insertCenterLesson.do', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        lsName: document.querySelector('input[name="lsName"]').value,
+                        lsType: document.querySelector('input[name="lsType"]:checked').value,
+                        lsDate: dateTime.lsDate,
+                        lsTime: dateTime.lsTime,
+                        lsCapacity: document.querySelector('select[name="lsCapacity"]').value,
+                        trainerMemberCode: document.querySelector('select[name="trainerMemberCode"]').value,
+                        lsContent: document.querySelector('textarea[name="lsContent"]').value,
+                        centerCode: document.getElementById('centerCode').value
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('전송 중 오류가 발생했습니다.');
+                }
+            }
+
+            alert('모든 날짜와 시간이 성공적으로 등록되었습니다.');
+            // 원하는 작업 수행 - 페이지 리로드 등
+        } catch (error) {
+            console.error('Error:', error);
+            alert('전송 중 오류가 발생했습니다.');
+        }
+    } else {
+        alert('등록할 날짜와 시간이 없습니다.');
+    }
+});
+
+// 표에서 행 제거 함수
+function removeRow(button) {
+    var row = button.parentNode;
+    var index = Array.from(row.parentNode.children).indexOf(row);
+    row.remove();
+    dateTimeArray.splice(index, 1);
 }
+
 </script>
 
 <%@ include file="center_footer_common.jsp" %>

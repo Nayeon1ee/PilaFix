@@ -35,6 +35,19 @@ public class MemberLoginController {
 	public String register() {
 		return "member/register";
 	}
+	
+	@GetMapping("/testmainPage.do")
+	public String testmainpage(@ModelAttribute MemberVO memberVO, HttpSession session, Model model) {
+		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+
+		if (loginUser != null) {
+			int csMemberCode = (int) loginUser.get("csMemberCode");
+			return "member/test_main";
+		}
+		else {
+			return "member/login";
+		}
+	}
 
 
 	/**
@@ -73,7 +86,7 @@ public class MemberLoginController {
 					
 					/*메인테스트용임 추후 삭제*/ 
 					model.addAttribute("loginUser", member.getCsName() ); 
-					return "member/test_main";
+					return "redirect:ticketPage.do";
 //					return "member/test_main_test";
 					
 				} else {
@@ -90,7 +103,7 @@ public class MemberLoginController {
 					
 					/*메인테스트용임 추후 삭제*/ 
 					model.addAttribute("loginUser", member.getCsName() ); 
-					return "member/test_main";
+					return "member/test_main_tr";
 				} else {
 					
 					/*메인테스트용임 추후 삭제*/ 

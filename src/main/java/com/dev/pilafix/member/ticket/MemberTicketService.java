@@ -26,6 +26,7 @@ public interface MemberTicketService {
 
 	String getToken(String apiKey, String secretKey) throws IOException;
 
-	void refundRequest(String token, String imp_uid, String reason) throws IOException;
+	void refundRequest(String token, String imp_uid) throws IOException;
 
+	
 }

@@ -30,7 +30,32 @@ public class CenterVO {
 	private MultipartFile multipart;
 	private String businessRegistrationFilePath;
 	
+	//뱃지에서 사용하려고 추가
+	private String memberCount;
+	private String trainerCount;
+	private String questionCount;
 	
+	
+	
+	
+	public String getMemberCount() {
+		return memberCount;
+	}
+	public void setMemberCount(String memberCount) {
+		this.memberCount = memberCount;
+	}
+	public String getTrainerCount() {
+		return trainerCount;
+	}
+	public void setTrainerCount(String trainerCount) {
+		this.trainerCount = trainerCount;
+	}
+	public String getQuestionCount() {
+		return questionCount;
+	}
+	public void setQuestionCount(String questionCount) {
+		this.questionCount = questionCount;
+	}
 	public int getCtCode() {
 		return ctCode;
 	}
@@ -185,9 +210,11 @@ public class CenterVO {
 				+ ownerPhoneNumber3 + ", ownerEmail=" + ownerEmail + ", contractStartDate=" + contractStartDate
 				+ ", contractEndDate=" + contractEndDate + ", contractExpiryYn=" + contractExpiryYn
 				+ ", contractRevokeYn=" + contractRevokeYn + ", ctRegistrationDate=" + ctRegistrationDate + ", ctId="
-				+ ctId + ", ctPassword=" + ctPassword + ", roleCode=" + roleCode + ", multipart="
-				+ multipart + ", businessRegistrationFilePath=" + businessRegistrationFilePath + "]";
+				+ ctId + ", ctPassword=" + ctPassword + ", roleCode=" + roleCode + ", multipart=" + multipart
+				+ ", businessRegistrationFilePath=" + businessRegistrationFilePath + ", memberCount=" + memberCount
+				+ ", trainerCount=" + trainerCount + ", questionCount=" + questionCount + "]";
 	}
+	
 	
 	
 }
