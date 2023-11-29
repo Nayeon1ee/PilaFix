@@ -15,11 +15,16 @@
 		<result property="centerCode" column="CENTER_CODE"/>
 		<result property="centerName" column="CENTER_NAME"/>
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
+	
 	</resultMap>
+<resultMap type="calender" id="calenderResult">
+		<result property="title" column="TITLE"/>	
+		<result property="start" column="START"/>
+</resultMap>
 
 
 
-<!-- 당월의 예약 스케줄 불러오기 -->
+<!-- 당월의 예약 스케줄 불러오기 (현재시간 기준으로 이후의 예약만)-->
 <!-- step01 예약테이블에서 해당 회원의 수업코드만 가져옴 -->
 <select id="getLessonCode" resultType="String">
 	SELECT lesson_code from tbl_reserv 
@@ -134,4 +139,21 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
     AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
     AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
 </select>
+
+<!-- 당월의 모든 예약 리스트 가져오는 쿼리 -->
+<select id="getMonthSchedule" parameterType="java.util.Map" resultMap="calenderResult">
+	SELECT 
+        LS_NAME AS TITLE,
+        LS_DATE AS START,
+        LS_CODE
+    FROM TBL_LESSON 
+    WHERE LS_CODE IN
+    <foreach collection="lessonCode" item="lsCodeForAll" open="(" separator="," close=")">
+        #{lsCodeForAll}
+    </foreach>
+    AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CAST(#{calenderDate} AS DATE))
+    AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CAST(#{calenderDate} AS DATE))
+</select>
+
+
 </mapper>

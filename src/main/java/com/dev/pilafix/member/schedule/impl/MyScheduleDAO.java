@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.schedule.impl;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,17 @@ public class MyScheduleDAO {
 		
 		
 		return count;
+	}
+
+	public List<MyScheduleVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
+		
+		Map<String,Object> param = new HashMap<>();
+		param.put("lessonCode", lessonCode);
+		param.put("calenderDate", calenderDate);
+		
+		return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
+		 
 	}
 
 }

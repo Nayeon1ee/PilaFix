@@ -448,11 +448,17 @@
             type: "POST",
             success: function(response) {
                 $('#memberCount').html('');
-				$('#memberCount').append(response.memberCount);
+                if (response.memberCount>0){
+					$('#memberCount').append(response.memberCount);
+                }
                 $('#trainerCount').html('');
-				$('#trainerCount').append(response.trainerCount);
+                if (response.trainerCount>0){
+					$('#trainerCount').append(response.trainerCount);
+                }
                 $('#questionCount').html('');
-				$('#questionCount').append(response.questionCount);
+                if (response.questionCount>0){
+					$('#questionCount').append(response.questionCount);
+                }
                 
             },
             error: function(error) {

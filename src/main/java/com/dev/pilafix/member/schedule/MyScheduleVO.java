@@ -16,7 +16,7 @@ public class MyScheduleVO {
 	private int centerCode;
 	private String centerName;
 	private boolean lsColseYN;
-	
+
 	
 	public Timestamp getLessonDatetime() {
 		return lessonDatetime;
@@ -97,6 +97,7 @@ public class MyScheduleVO {
 				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
 				+ ", centerCode=" + centerCode + ", centerName=" + centerName + ", lsColseYN=" + lsColseYN + "]";
 	}
+	
 	
 	
 

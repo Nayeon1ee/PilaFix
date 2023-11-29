@@ -76,24 +76,6 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -223,6 +205,7 @@
             center: 'title',
             right: 'next'
          },
+         
          selectable: true,
          themeSystem: 'bootstrap', // 부트스트랩 테마 사용
          bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함
@@ -240,6 +223,7 @@
                }
             }
          },
+         
          buttonText: {
             today: '오늘',
             month: '월',
@@ -252,16 +236,28 @@
                html: '<div style="background-color: #9b56e9; color: white; padding: 5px;">' + arg.event.title + '</div>'
             };
          },
-         events: [
-            {
-               title: '체어&바렐(B)',
-               start: '2023-11-25'
-            },
-            {
-               title: '콤비리포머(C)',
-               start: '2023-11-10'
-            }
-         ],
+         
+       // ajax로 캘린더에 일정 넣기
+         eventSources: [{
+     		events: function(info, successCallback) {
+     			//달력의 시작 날짜 가져옴 (11월이면 10월 마지막주 날짜로 시작해서 10 더해줌/ 서버에서 월만 쓸거라 정확한 날짜 중요x) 
+     			var startDate = new Date(info.start);
+     			startDate.setDate(startDate.getDate() + 10);
+
+     			var calenderDate = startDate.toISOString().slice(0, 10);
+     			console.log("달력의 날짜"+calenderDate);
+     		
+     			$.ajax({
+     				url: 'getMonthSchedule.do',
+     				type: 'POST',
+     				dataType: 'json',
+     				data: {calenderDate:calenderDate },
+     				success: function(data) {
+     					successCallback(data);
+     				}
+     			});
+     		}
+     	}],
          eventClick: function(info) {
             window.location.href(info.event.url);
          }
@@ -272,6 +268,8 @@
 
       calendar.render();
    });
+
+ 
 </script>
 	
 <!-- 예약정보 가져오는 js -->
@@ -332,10 +330,8 @@
              }
          });
      });
-	</script>
 	
 	<!-- 출석정보 가져오는 js -->
-	<script type="text/javascript">
 	 $("#attend").click(function() {
          // AJAX 요청
          $.ajax({
@@ -381,10 +377,8 @@
              }
          });
      });
-	</script>
 	
 	<!-- 결석정보 가져오는 js -->
-	<script type="text/javascript">
 	 $("#absent").click(function() {
          // AJAX 요청
          $.ajax({
@@ -431,6 +425,8 @@
          });
      });
 	</script>
+
+	
 
 	<!-- Vendor JS Files -->
 	<script

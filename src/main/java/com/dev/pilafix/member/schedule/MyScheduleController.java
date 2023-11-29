@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.schedule;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,11 +20,30 @@ public class MyScheduleController {
 	private MyScheduleService service;
 	
 	@GetMapping("schedule.do")
-	public String schedule(HttpSession session,Model model) {
+	public String schedule(HttpSession session, Model model) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 		int csMemberCode = (int) user.get("csMemberCode");
-		model.addAttribute("count",service.getCount(csMemberCode));
+		model.addAttribute("count", service.getCount(csMemberCode));
 		return "member/schedule_ing";
+	}
+
+	// 당월의 예약정보 가져옴 (한달 전체-달력에 보여주려고)
+//	@PostMapping("/getMonthSchedule.do")
+//	@ResponseBody
+//	public List<MyScheduleVO> getMonthSchedule(HttpSession session) {
+//		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+//		int csMemberCode = (int) user.get("csMemberCode");
+//		List<MyScheduleVO> reservMonthInfo = (List<MyScheduleVO>) service.getMonthSchedule(csMemberCode);
+//		return reservMonthInfo;
+//	}
+	@PostMapping("/getMonthSchedule.do")
+	@ResponseBody
+	public List<MyScheduleVO> getMonthSchedule(HttpSession session,Date calenderDate) {
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		int csMemberCode = (int) user.get("csMemberCode");
+		System.out.println("컨트롤러로 넘어온 풀캘린더 날자" + calenderDate);
+		List<MyScheduleVO> reservMonthInfo = (List<MyScheduleVO>) service.getMonthSchedule(csMemberCode,calenderDate);
+		return reservMonthInfo;
 	}
 	
 	// 회원의 당월 예약정보 가져옴 (오늘을 기준으로 예정된 수업만)
@@ -57,5 +77,6 @@ public class MyScheduleController {
 		List<MyScheduleVO> AbsentList = service.getAbsentList(csMemberCode);
 		return AbsentList;
 	}
-
+	
+	
 }
