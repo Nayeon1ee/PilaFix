@@ -393,6 +393,9 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
+	
 
 </body>
 

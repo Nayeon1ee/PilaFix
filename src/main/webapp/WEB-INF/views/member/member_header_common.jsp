@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +92,12 @@
 				<!-- Uncomment below if you prefer to use an image logo -->
 				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 			</div>
-
+			<%-- 로그인/로그아웃 상태 확인 --%>
+			<%
+			    // 로그인 상태 확인
+			    boolean isLoggedIn = session.getAttribute("loginUser") != null;
+			    String loginLogoutText = isLoggedIn ? "로그아웃" : "로그인";
+			%>
 			<!--  start nav -->
 			<nav id="navbar" class="navbar">
 				<ul>
@@ -118,35 +124,49 @@
 							<li><a href="#">약관및정책</a></li>
 						</ul></li>
 
-				
-					<!--  알림 부분 -->
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#"
-						id="notificationsDropdown" role="button" data-bs-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> <img
-							src="${pageContext.request.contextPath}/resources/images/alram.png"
-							alt="Notification Image"
-							style="height: 1.8em; width: 1.8em; object-fit: cover; border-radius: 50%;">
-							<span class="badge rounded-pill bg-danger">7</span>
-					</a>
+					<%
+					if (isLoggedIn) {
+					%>
+					<!-- 로그아웃 처리를 위한 폼 -->
+					<li>
+					<form action="logout.do" method="post">
+					    <button type="submit" class="nav-link" style="background: none; border: none; padding: 5px; margin: 0; color: inherit; font-size: small; text-decoration: underline;">로그아웃</button>
+					</form>
+					</li>
+					<%
+					} else {
+					%>
+					<!-- 로그인 페이지 링크 -->
+					<li><a href="memberLogin.do">로그인</a></li>
+					<%
+					}
+					%>
+					
+					<!--  알림 부분-->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown"aria-haspopup="true" aria-expanded="false"> 
+								<img src="${pageContext.request.contextPath}/resources/images/alarm.png" alt="Notification Image" style="height: 2em; width: 2em; object-fit: cover; border-radius: 50%;">
+								<!-- 알림 있을 때 아래 영역에 카운트 추가 -->
+								<div id="NotificationBadge"></div>
+						</a>
+						
 						<div class="dropdown-menu" aria-labelledby="notificationsDropdown">
-							<!-- 알림 내용은 여기에 추가하세요 -->
-							<a class="dropdown-item" href="#"> 알림 내용 1</a> <a
-								class="dropdown-item" href="#"> 알림 내용 2</a> <a
-								class="dropdown-item" href="#"> 알림 내용 3</a> <a
-								class="dropdown-item" href="#"> 알림 내용 4</a> <a
-								class="dropdown-item" href="#"> 알림 내용 5</a> <a
-								class="dropdown-item" href="#"> 알림 내용 6</a> <a
-								class="dropdown-item" href="#"> 알림 내용 7</a> <a
-								class="dropdown-item" href="#"> 알림 내용 8</a>
-						</div></li>
+							<!-- 알림 내용은 아래 영역에 추가됨 -->
+							<div id="NotificationsList"></div>
+						</div>
+					</li> 
+					
 					<!--  알림 부분 -->
 					
+				
 				</ul>
 
 
 			</nav>
 			<!-- end navbar -->
+			 
+			 <!-- notice.js에서 세션정보 가져오기 위함  -->
+			 <div id="csMemberCode" data-cs-member-code="<%= session.getAttribute("csMemberCode") != null ? (int)session.getAttribute("csMemberCode") : 0 %>"></div>
 
 		</div>
 	</header>
