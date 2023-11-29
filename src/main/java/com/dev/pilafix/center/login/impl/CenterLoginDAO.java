@@ -45,4 +45,9 @@ public class CenterLoginDAO {
 		sqlSessionTemplate.update("CenterLoginDAO.updatePasswordCenter",params);
 	}
 	
+	//연동요청 온 회원수와 답변달리지 않은 문의사항 갯수 세옴(네비바에 갯수 보여주려고)
+	public CenterVO countForBadge(int ctCode){
+		return sqlSessionTemplate.selectOne("CenterLoginDAO.countForBadge", ctCode);
+		
+	}
 }
