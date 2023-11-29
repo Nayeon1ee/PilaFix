@@ -134,7 +134,7 @@
 						<label for="inputAddress" class="form-label"
 							style="float: left; width: 20%;">인증요청</label>
 						<input type="text" class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"
-							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
+							style="float: left; width: 80%; border: 0px; padding-top: 0px; pointer-events: none;" data-readonly required>
 							
 					</div>
 					<span id="mail-check-warn"></span>
@@ -438,10 +438,11 @@ function validateForm() {
         agreementCheckboxes[0].focus();
         return false;
     }
-
+    
     return true;
 }
 
+// 모두 동의 체크시 모든 체크박스 체크
 document.addEventListener('DOMContentLoaded', function() {
     var overallAgreement = document.querySelector('.overall-agreement');
     var individualAgreements = document.querySelectorAll('.individual-agreement');

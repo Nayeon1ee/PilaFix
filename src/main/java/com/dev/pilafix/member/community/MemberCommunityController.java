@@ -121,7 +121,7 @@ public class MemberCommunityController {
 
 	// 수정 기능
 	@PostMapping("/updateMemberCommunity.do")
-	public String update(MemberCommunityVO vo, Model model) {
+	public String update(MemberCommunityVO vo) {
 		service.updateMemberCommunity(vo);
 		return "redirect:getMemberCommunityList.do";
 	}
@@ -143,7 +143,7 @@ public class MemberCommunityController {
 	
 	// 답글 수정
 	@PostMapping("/updateMemberCommunityReply.do")
-	public String updateMemberCommunityReply(MemberCommunityVO vo, Model model) {
+	public String updateMemberCommunityReply(MemberCommunityVO vo) {
 		service.updateMemberCommunityReply(vo);
 		int memberCmNumber = vo.getMemberCmNumber();
 		return "redirect:getMemberCommunity.do?memberCmNumber=" + memberCmNumber;
