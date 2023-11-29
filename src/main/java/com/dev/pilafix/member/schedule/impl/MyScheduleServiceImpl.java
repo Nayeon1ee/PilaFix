@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.schedule.impl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,11 @@ public class MyScheduleServiceImpl implements MyScheduleService{
 	@Override
 	public Map<String, Integer> getCount(int csMemberCode) {
 		return dao.getCount(csMemberCode);
+	}
+
+	@Override
+	public List<MyScheduleVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+		return dao.getMonthSchedule(csMemberCode,calenderDate);
 	}
 
 }

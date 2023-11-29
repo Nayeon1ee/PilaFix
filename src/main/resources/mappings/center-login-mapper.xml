@@ -81,15 +81,5 @@
 		        AND qs_answer_yn = 'f') AS UNANSWERED_QUESTION_COUNT;
 	</select>
 	
-	<!-- 연동요청 온 강사수 세옴 -->
-	<select id="countConnRequestTrainer">
-		
-	</select>
-	
-	<!-- 문의사항 중 답변 달리지 않은 글의 수 세옴 -->
-	<select id="countNoAnswerInquiry">
-		
-	</select>
-	
 	
 </mapper>
