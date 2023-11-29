@@ -14,7 +14,7 @@
 
 			<div class="logo">
 				<h1>
-					<a href="index.html">PILAFIX</a>
+					<a href="testmainPage.do">PILAFIX</a>
 				</h1>
 				<!-- Uncomment below if you prefer to use an image logo -->
 				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -29,11 +29,11 @@
 			<!--  start nav -->
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li><a class="active" href="index.html">Home</a></li>
-					<li><a href="ticket_.do">수강권 결제</a></li>
-					<li><a href="reserv_.do">예약하기</a></li>
+					<li><a class="active" href="testmainPage.do">Home</a></li>
+					<li><a href="getTrainerLessonList.do">수업관리</a></li>
+					<!-- <li><a href="reservPage.do">예약하기</a></li> -->
 					<li><a href="getMemberCommunityList.do">커뮤니티</a></li>
-					<li><a href="member_notice.do">공지사항</a></li>
+					<!-- <li><a href="member_notice.do">공지사항</a></li> -->
 					<!-- <li><a href="member_mypage.do">마이페이지</a></li>  -->
 					<li class="dropdown"><a href="member_mypage.do"><span>마이페이지</span> <i
 							class="bi bi-chevron-down"></i></a>
@@ -49,7 +49,7 @@
 								</ul>  -->	
 							</li>
 							<li><a href="#">공지사항</a></li>	
-							<li><a href="#">결제내역</a></li>
+							<!-- <li><a href="#">결제내역</a></li>  -->
 							<li><a href="#">연동센터관리</a></li>
 							<li><a href="#">FAQ</a></li>
 							<li><a href="getQuestionList.do">문의사항</a></li>

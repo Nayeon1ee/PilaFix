@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -55,27 +58,10 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-			</div>
-		</div>
-	</section>
+
 
 	<!-- ======= Header ======= -->
-	<%@ include file="member_header_common.jsp"%>
+	<%@ include file="member_header_common_tr.jsp"%>
 	<!-- End Header -->
 
 	<main id="main">
@@ -183,12 +169,13 @@
 
 				<!-- 리스트 시작-->
 				
-				<!-- 그룹수업일 경우/ 개인수업일 경우로 나누고 각각에 따라 <table>다르게 분기 -->
+
 				<!-- 그룹수업 = "getLessonByTrainerG.do" 개인수업 = "getLessonByTrainerP.do" -->
 				<table class="table datatable">
 					<thead>
 						<tr>
 							<th scope="col">수업코드</th>
+							<th scope="col">그룹/개인</th>
 							<th scope="col">수업명</th>
 							<th scope="col">수업일자</th>
 							<th scope="col">수업시간</th>
@@ -198,28 +185,41 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th>{lessonList.lsCode}</th>
-							<td><a href="member_community_detail.do"class="admin-alink-color">그룹수업 ~~</a></td>
-							<td>2023.11.21 ~ 2024.02.21</td>
-							<td>폐강</td>
-							<td>1/6</td>
-							<td>폐강</td>
-							<td>xx점 xx테스</td>
-						</tr>
-
+						<c:if test="${lessonList == null }">
+							<tr>
+								<td colspan="5">현재 진행중인 수업이 없습니다.</td>
+							</tr>
+						</c:if>
+						<c:forEach var="lesson" items="${lessonList }">
+							<tr>
+								<td>${lesson.lsCode}</td>
+								<td>${lesson.lsType}</td>
+								<td><a href="getTrainerLesson.do?lsCode=${lesson.lsCode}">${lesson.lsName}</a></td>
+								<!-- 날짜 형식 변환 -->						
+								<td>${lesson.lsDate}</td>
+								<!-- 시간 형식 변환 -->
+								<td>${fn:substring(lesson.lsTime, 11, 16)}</td> 
+								<!-- 예약된 인원/전체 인원 -->
+								<td>${lesson.reservedCount}/${lesson.lsCapacity}</td> 
+								<!-- 수업시간lsTime이 현재시간 지나면 '수업종료' -->
+						        <td>
+								<c:set var="correctTime" value="${fn:substring(lesson.lsTime, 11, 19)}" />
+							    <!-- lsDate와 시간 부분을 결합하여 완전한 날짜-시간 문자열 생성 -->
+							    <c:set var="fullLessonDateTime" value="${lesson.lsDate} ${correctTime}" />
+							    <fmt:parseDate value="${fullLessonDateTime}" pattern="yyyy-MM-dd HH:mm:ss" var="lessonDateTime"/>
+							    <!-- 현재 시간과 비교 -->
+							    <c:choose>
+							        <c:when test="${lesson.lsCloseYN eq 'true'}">폐강</c:when>
+							        <c:when test="${lessonDateTime lt currentTime}">수업종료</c:when>
+							        <c:otherwise>진행중</c:otherwise>
+								</c:choose>
+						        </td>
+								<td>${lesson.lsCenterName}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				<!-- 리스트 끝 -->
-
-
-
-
-
-
-
-
-
 
 				<!-- End Our Skills Section -->
 			</div>

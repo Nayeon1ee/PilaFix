@@ -13,5 +13,6 @@ public interface CenterLoginService {
 	boolean centerLogin(String ctId, String ctPassword);
 	boolean checkPassword(int ctCode, String currentPassword);
 	void updatePassword(int ctCode, String newPassword);
+	CenterVO countForBadge(int ctCode);
 	
 }
