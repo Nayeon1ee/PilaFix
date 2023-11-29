@@ -31,6 +31,7 @@ public class NoticeDAO {
 	
 	/**
 	 * 알림 등록 
+	 * 한 명의 회원 대상 (NoticeVO)
 	 * 
 	 * @param notice
 	 */
@@ -41,7 +42,8 @@ public class NoticeDAO {
 	}
 	
 	/**
-	 * 알림 등록  
+	 * 알림 등록 
+	 * 다수 회원 대상 (List<NoticeVO>)
 	 * 
 	 * @param noticeList
 	 */
@@ -64,15 +66,34 @@ public class NoticeDAO {
 		}
 
 	}
+	
+	/**
+	 * 미확인 알림 카운트 조회
+	 * 
+	 * @param csMemberCode
+	 * @return
+	 */
+	public int getUnReadNotificationCount(int csMemberCode){
+		return sqlSessionTemplate.selectOne("NoticeDAO.getUnReadNotificationCount",csMemberCode);
+	}
 
-	// 알림 발송을을 위한 대상 알림 조회 
-	public List<NoticeVO> getNoticesForSend(int csMemberCode){
-		return sqlSessionTemplate.selectList("NoticeDAO.getNoticesForSend",csMemberCode);
+	/**
+	 * 미확인 알림 리스트 조회
+	 * 
+	 * @param csMemberCode
+	 * @return
+	 */
+	public List<NoticeVO> getUnReadNotification(int csMemberCode) {
+		return sqlSessionTemplate.selectList("NoticeDAO.getUnReadNotification", csMemberCode);
 	}
 	
-	// 알림 발송 업데이트 
+	/**
+	 * 미확인 알림 클릭 시 상태 업데이트 
+	 * 
+	 * @param ncId
+	 */
 	public void updateNoticeStatus(String ncId) {
 		sqlSessionTemplate.update("NoticeDAO.updateNoticeStatus", ncId);
 	}
-	
+
 }

@@ -16,11 +16,11 @@ public class NoticeHistoryDAO {
 
 	public List<NoticeHistoryVO> getNoticeHistoryList(int currentUserCode) {
 		
-		return sqlSessionTemplate.selectList("NoticeHistoryDAO.getNoticeHistoryList",String.valueOf(currentUserCode));
+		return sqlSessionTemplate.selectList("NoticeDAO.getNoticeHistoryList",String.valueOf(currentUserCode));
 	}
 
 	public NoticeHistoryVO getNoticeHistory(String ncId) {
-		return sqlSessionTemplate.selectOne("NoticeHistoryDAO.getNoticeHistory",ncId);
+		return sqlSessionTemplate.selectOne("NoticeDAO.getNoticeHistory",ncId);
 	}
 
 }

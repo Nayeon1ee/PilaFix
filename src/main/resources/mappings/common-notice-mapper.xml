@@ -6,37 +6,74 @@
 	<resultMap type="Integer" id="codeResult"> 
 	     <result property="" column="CS_MEMBER_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
 	</resultMap>
-
-	<!-- 알림 발송을 위한 회원 코드 목록 조회(관리자용) -->
+	
+	<resultMap type="notices" id="noticesResult">
+		<id property="ncId" column="NC_ID"/>
+		<result property="memberCode" column="MEMBER_CODE" />
+		<result property="recipientCode" column="RECIPIENT_CODE" />
+		<result property="eventType" column="EVENT_TYPE" />
+		<result property="eventDatetime" column="EVENT_DATETIME" />
+		<result property="uniqueIdentifierCode" column="UNIQUE_IDENTIFIER_CODE" />
+		<result property="ncNoticeContent" column="NC_NOTICE_CONTENT" />
+		<result property="ncReadYn" column="NC_READ_YN" />
+		<result property="ncSentDatetime" column="NC_SENT_DATETIME" />
+		<result property="centerName" column="CENTER_NAME" /> <!-- 알림 리스트 출력 시 필요 (센터인 경우만 존재) -->
+	</resultMap>
+	
+	<!-- [관리자] 알림 발송을 위한 회원 코드 목록 조회 -->
 	<select id="getMemberCodeList" resultMap="codeResult">
-		SELECT CS_MEMBER_CODE FROM TBL_CST
+		SELECT CS_MEMBER_CODE 
+		FROM TBL_CST
 	</select>
 
-	<!-- 알림 발송을 위한 회원 코드 목록 조회(센터용) -->
+	<!-- [센터] 알림 발송을 위한 회원 코드 목록 조회 -->
 	<select id="getMemberCodeListByCtCode" resultMap="codeResult">
-		SELECT CS_MEMBER_CODE FROM TBL_CST
+		SELECT CS_MEMBER_CODE 
+		FROM TBL_CST
 		WHERE (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
 	</select>
 	
 	<!-- 알림 테이블 등록 -->
 	<insert id="insertNotice" parameterType="com.dev.pilafix.common.notice.NoticeVO">
-		INSERT INTO TBL_NOTICE(NC_ID, MEMBER_CODE, RECIPIENT_CODE, EVENT_TYPE, UNIQUE_IDENTIFIER_CODE, NC_NOTICE_CONTENT,NC_SEND_YN, NC_READ_YN )
-		VALUES(CONCAT('NC',NEXTVAL('seq_notice')), #{memberCode},#{recipientCode},#{eventType},#{uniqueIdentifierCode},#{ncNoticeContent},false,false)
+		INSERT INTO TBL_NOTICE(NC_ID, MEMBER_CODE, RECIPIENT_CODE, EVENT_TYPE, EVENT_DATETIME, UNIQUE_IDENTIFIER_CODE, NC_NOTICE_CONTENT,NC_READ_YN )
+		VALUES(CONCAT('NC',NEXTVAL('seq_notice')), #{memberCode},#{recipientCode},#{eventType},CURRENT_TIMESTAMP,#{uniqueIdentifierCode},#{ncNoticeContent},false)
 	</insert>
 	
-	<!-- 알림 발송  -->
-	<select id="getNoticesForSend">
-		SELECT * FROM TBL_NOTICE
-		WHERE MEMBER_CODE=#{memberCode}
-			AND NC_SEND_YN=FALSE
+	<!-- 미확인 알림 카운트 조회 -->
+	<select id="getUnReadNotificationCount" resultType="Integer">
+		SELECT COUNT(NC_ID) FROM TBL_NOTICE
+		WHERE MEMBER_CODE=#{csMemberCode}
+			AND NC_READ_YN=FALSE
+	</select>
+	
+	<!-- 미확인 알림 리스트 조회 -->
+	<select id="getUnReadNotification" resultMap="noticesResult">
+		SELECT *, (SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE::TEXT=RECIPIENT_CODE) AS CENTER_NAME
+		FROM TBL_NOTICE
+		WHERE MEMBER_CODE=#{csMemberCode}
+			AND NC_READ_YN=FALSE
 	</select>
 	
 	<!-- 알림 발송 후 상태 업데이트  -->
 	<update id="updateNoticeStatus">
 		UPDATE TBL_NOTICE
-		SET NC_SEND_YN=TRUE, NC_SENT_DATETIME=CURRENT_TIMESTAMP
+		SET NC_READ_YN=TRUE, NC_SENT_DATETIME=CURRENT_TIMESTAMP
 		WHERE NC_ID=#{ncId}
 	</update>
+
+
+	
+	<!--  [센터] 알림이력조회 -->
+	<!-- 알림 이력 조회  -->
+	<select id="getNoticeHistoryList" resultMap="noticesResult" >
+		SELECT * FROM TBL_NOTICE
+		WHERE RECIPIENT_CODE=#{currentUserCode}
+	</select>
+	<!-- 알림 이력 조회 상세  -->
+	<select id="getNoticeHistory" resultMap="noticesResult">
+		SELECT * FROM TBL_NOTICE
+		WHERE NC_ID=#{ncId}
+	</select>
 	
 	
 </mapper>
