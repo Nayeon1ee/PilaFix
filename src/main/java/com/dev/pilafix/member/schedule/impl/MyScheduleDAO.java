@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dev.pilafix.member.schedule.CalenderVO;
 import com.dev.pilafix.member.schedule.MyScheduleVO;
 
 @Repository
@@ -51,7 +52,7 @@ public class MyScheduleDAO {
 		return count;
 	}
 
-	public List<MyScheduleVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
 		
 		Map<String,Object> param = new HashMap<>();
