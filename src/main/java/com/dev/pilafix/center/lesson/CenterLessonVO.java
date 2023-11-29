@@ -23,13 +23,7 @@ public class CenterLessonVO {
 	private String centerName;
 	private Date lsRegistrationDate;
 	private boolean lsCloseYN;
-	public boolean isLsCloseYN() {
-		return lsCloseYN;
-	}
 
-	public void setLsCloseYN(boolean lsCloseYN) {
-		this.lsCloseYN = lsCloseYN;
-	}
 
 	private String lsRegistrationDateToString;
 	private Timestamp lsTimeDB;
@@ -50,7 +44,13 @@ public class CenterLessonVO {
 	private int absentCount;
 	private List<MemberVO> reservedMembers;
 	
-	
+	public boolean isLsCloseYN() {
+		return lsCloseYN;
+	}
+
+	public void setLsCloseYN(boolean lsCloseYN) {
+		this.lsCloseYN = lsCloseYN;
+	}
 	
 	public int getAttendedCount() {
 		return attendedCount;

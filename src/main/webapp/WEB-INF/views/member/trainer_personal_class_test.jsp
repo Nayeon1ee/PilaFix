@@ -48,7 +48,7 @@
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
-</head>
+
 <!-- 내 css -->
 
 <link rel="stylesheet"
@@ -74,7 +74,25 @@
 					<li>personal class schedule</li>
 				</ol>
 				<h2>개인 수업 스케줄</h2>
-
+				<!-- ############################################################# -->
+				<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음--> 
+				<!-- ############################################################# -->		
+				    <!-- 수업시간 --> 
+					<span  style="display: inline-block;">
+                        ${lessonDetail.lsDate} 
+                    </span>
+                    <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
+                    <c:choose>
+                        <c:when test="${hour lt 12}"> <!-- 오전 확인 -->
+                            오전
+                        </c:when>
+                        <c:otherwise>
+                            오후
+                        </c:otherwise>
+                    </c:choose>
+                    <span  style="display: inline-block;">
+                        ${fn:substring(lessonDetail.lsTime, 11, 16)}
+                    </span>
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
@@ -109,6 +127,29 @@
 				    <div class="container">
 				        <p class="h3 mb-0">${lessonDetail.lsName}</p> <!-- 수업 제목 -->
 				        <p class="lead">${lessonDetail.lsContent}</p> <!-- 수업 설명 -->
+				        
+				        
+				<!-- ############################################################# -->
+				<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음--> 
+				<!-- ############################################################# -->		
+				    <!-- 수업시간 --> 
+					<span  style="display: inline-block;">
+                        ${lessonDetail.lsDate} 
+                    </span>
+                    <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
+                    <c:choose>
+                        <c:when test="${hour lt 12}"> <!-- 오전 확인 -->
+                            오전
+                        </c:when>
+                        <c:otherwise>
+                            오후
+                        </c:otherwise>
+                    </c:choose>
+                    <span  style="display: inline-block;">
+                        ${fn:substring(lessonDetail.lsTime, 11, 16)}
+                    </span>
+                    
+                    
 				    </div>
 				</section>
 				
@@ -119,7 +160,7 @@
         <div class="row align-items-center">
             <div class="col-md-4">
                 <div class="image text-center">
-                    <i class="bi bi-person fs-1"></i>
+               <!--     <i class="bi bi-person fs-1"></i> --> 
                 </div>
             </div>
         <div class="col-md-4">
@@ -127,13 +168,11 @@
 <div class="private_status text-center">
 <c:choose>
 <c:when test="${not empty lessonDetail.reservedMembers}">
-	<c:forEach var="member"
-		items="${lessonDetail.reservedMembers}" varStatus="status">
+	<c:forEach var="member" items="${lessonDetail.reservedMembers}" varStatus="status">
 		<div class="col-md-2">
 			<div class="member-check text-center">
 				<input type="checkbox" class="btn-check"
-					id="btn-check-${status.index}" name="selectedMemberCodes"
-					value="${member.csMemberCode}" autocomplete="off">
+					id="btn-check-${status.index}" name="selectedMemberCodes" value="${member.csMemberCode}" autocomplete="off">
 				<label class="btn" for="btn-check-${status.index}">
 					<i class="bi bi-person-circle"></i>
 					<p class="h6 mb-0">${member.csName}</p>
@@ -209,14 +248,14 @@
     </div>
 </section>-->
 
-<!-- Buttons Section -->
+				<!-- Buttons Section -->
 
-    <div class="container">
-      <div class="d-flex justify-content-start">
-					<button type="button" class="btn btn-primary ms-3"
-						onclick="location.href='getTrainerLessonList.do'">목록</button>
+				<div class="container">
+					<div class="d-flex justify-content-center">
+						<button type="button" class="btn btn-primary ms-3"
+							onclick="location.href='getTrainerLessonList.do'">목록</button>
+					</div>
 				</div>
-    </div>
 
 
 
@@ -239,7 +278,7 @@
 
 	<!-- 내 js -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap)common.js"></script>
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 
 
 	<!-- Vendor JS Files -->

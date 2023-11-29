@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.attend.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +42,34 @@ public class AttendServiceImpl implements AttendService{
 	public CenterLessonVO getTrainerLessonDetail(String lsCode) {
 	    CenterLessonVO lessonDetail = dao.getLessonByTrainerWithCsName(lsCode);
 
-	    // 예약한 회원 이름과 회원코드 List
-	    lessonDetail.setReservedMembers(dao.getReservedMembersNamesForLesson(lsCode));
-	    // 예약한 회원수
+	    List<Integer> memberCodes = dao.getReservedMemberCodeForLesson(lsCode);
+	    List<String> memberNames = dao.getReservedNameForLesson(lsCode);
+
+	    // 회원 코드와 이름 결합
+	    List<MemberVO> reservedMembers = new ArrayList<>();
+	    for (int i = 0; i < memberCodes.size(); i++) {
+	        MemberVO member = new MemberVO();
+	        member.setCsMemberCode(memberCodes.get(i)); // 이미 Integer 값
+	        member.setCsName(memberNames.get(i)); // 이미 String 값
+	        reservedMembers.add(member);
+	    }
+
+	    lessonDetail.setReservedMembers(reservedMembers);
+//	    // 예약한 회원 이름과 회원코드 List 주석처리
+//	    List<MemberVO> reservedMembers = dao.getReservedMembersNamesForLesson(lsCode);
+//	    lessonDetail.setReservedMembers(reservedMembers);
+//	    System.out.println("Reserved Members: " + reservedMembers); // 데이터 확인
+	    
+	    // 예약한 회원수, 출석한 회원수, 결석한 회원수 설정
 	    lessonDetail.setReservedCount(dao.getReservedCountForLesson(lsCode));
-	    // 출석한 회원수
 	    lessonDetail.setAttendedCount(dao.getAttendedCountForLesson(lsCode));
-	    // 결석한 회원수
 	    lessonDetail.setAbsentCount(dao.getAbsentCountForLesson(lsCode));
+
 	    return lessonDetail;
 	}
+
+	
+	
 
 	/**
 	 * 개인수업출결
@@ -87,6 +106,16 @@ public class AttendServiceImpl implements AttendService{
 	public List<MemberVO> getReservedMembersNamesForLesson(String lessonCode) {
 		return dao.getReservedMembersNamesForLesson(lessonCode);
 	}
+	@Override
+	public List<Integer> getReservedMemberCodeForLesson(String lessonCode) {
+		return dao.getReservedMemberCodeForLesson(lessonCode);
+	}
+	@Override
+	public List<String> getReservedNameForLesson(String lessonCode) {
+		return dao.getReservedNameForLesson(lessonCode);
+	}
+
+
 
 	@Override
 	public int getReservedCountForLesson(String lsCode) {
@@ -105,6 +134,7 @@ public class AttendServiceImpl implements AttendService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 

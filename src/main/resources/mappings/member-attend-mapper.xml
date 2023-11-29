@@ -31,14 +31,33 @@
 	</resultMap>
 
 <!-- 수업 상세에서 출결 처리 위한 수업예약한 회원이름, 회원코드 -->
+<!-- 회원이름 , 회원코드 둘다-->
 <select id="getReservedMembersNamesForLesson" parameterType="String" resultMap="reservedMember">
-	SELECT CST.CS_NAME AS csName,
-			CST.CS_MEMBER_CODE AS csMemberCode
+	SELECT CST.CS_NAME AS csName
+			,CST.CS_MEMBER_CODE AS csMemberCode
 	FROM TBL_RESERV RSV
 	JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
 	WHERE RSV.LESSON_CODE = #{lessonCode}
 			AND RSV.RS_CANCEL_YN = FALSE;
 </select>
+<!-- 회원코드 -->
+<select id="getReservedMemberCodeForLesson" parameterType="String" resultType="Integer">
+    SELECT CST.CS_MEMBER_CODE
+    FROM TBL_RESERV RSV
+    JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+    WHERE RSV.LESSON_CODE = #{lessonCode}
+    AND RSV.RS_CANCEL_YN = FALSE;
+</select>
+
+<!-- 회원이름 -->
+<select id="getReservedNameForLesson" parameterType="String" resultType="String">
+    SELECT CST.CS_NAME
+    FROM TBL_RESERV RSV
+    JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+    WHERE RSV.LESSON_CODE = #{lessonCode}
+    AND RSV.RS_CANCEL_YN = FALSE;
+</select>
+
 
 	
 	<!-- 예약된 회원 수 -->

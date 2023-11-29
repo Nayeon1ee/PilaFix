@@ -12,8 +12,10 @@ public interface AttendService {
 	List<CenterLessonVO> getLessonListWithCtNameAndCsName(int csMemberCode);
 	List<MemberVO> getReservedMembersNamesForLesson(String lessonCode);
 	CenterLessonVO getTrainerLessonDetail(String lessonCode);
-	
 	CenterLessonVO getLessonByTrainerWithCsName(String lsCode);
+	
+	List<Integer> getReservedMemberCodeForLesson(String lessonCode);
+	List<String> getReservedNameForLesson(String lessonCode);
 	
 	
 	void updateAttendancePersonalLesson(String lessonCode, int memberCode);

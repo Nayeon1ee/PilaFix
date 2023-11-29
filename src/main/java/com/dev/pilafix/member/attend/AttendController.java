@@ -49,23 +49,20 @@ public class AttendController {
 	 */
 	@GetMapping("/getTrainerLesson.do")
 	public String getLessonDetail(@RequestParam("lsCode") String lsCode, HttpSession session, Model model) {
-		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 
-		if (user != null) {
-//			int csMemberCode = (int) user.get("csMemberCode");
-			CenterLessonVO lessonDetail = service.getTrainerLessonDetail(lsCode);
+	    if (user != null) {
+	        CenterLessonVO lessonDetail = service.getTrainerLessonDetail(lsCode);
+	        model.addAttribute("lessonDetail", lessonDetail);
 
-			if (lessonDetail.getLsType().equals("그룹")) {
-				model.addAttribute("lessonDetail", lessonDetail);
-				return "member/trainer_group_class_test";
-			}else {
-				model.addAttribute("lessonDetail", lessonDetail);
-				return "member/trainer_personal_class_test";
-			}
-
-		} else {
-			return "member/login";
-		}
+	        if (lessonDetail.getLsType().equals("그룹")) {
+	            return "member/trainer_group_class_test";
+	        } else {
+	            return "member/trainer_personal_class_test";
+	        }
+	    } else {
+	        return "member/login";
+	    }
 	}
 	/**
 	 * 개인수업 출석 업데이트

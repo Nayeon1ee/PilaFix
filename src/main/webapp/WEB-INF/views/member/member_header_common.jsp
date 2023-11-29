@@ -14,7 +14,7 @@
 
 			<div class="logo">
 				<h1>
-					<a href="testmainPage.do">PILAFIX</a>
+					<a href="mainPage.do">PILAFIX</a>
 				</h1>
 				<!-- Uncomment below if you prefer to use an image logo -->
 				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -30,7 +30,7 @@
 			<nav id="navbar" class="navbar">
 				<ul>
 					<!-- <li><a class="active" href="index.html">Home</a></li> -->
-					<li><a class="active" href="testmainPage.do">Home</a></li>
+					<li><a class="active" href="mainPage.do">Home</a></li>
 					<li><a href="ticketPage.do">수강권 결제</a></li>
 					<li><a href="reservPage.do">예약하기</a></li>
 					<li><a href="getMemberCommunityList.do">커뮤니티</a></li>
