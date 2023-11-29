@@ -14,19 +14,19 @@
 	margin: 0;
 	display: flex;
 	margin-left: -10px;
-	/* Adjust this value to move the links more to the left */
+	
 }
 
 #topbar li {
-	margin-right: 10px; /* Adjust as needed for spacing between items */
+	margin-right: 10px; 
 }
 
 #topbar li:last-child {
-	margin-right: 0; /* Remove margin for the last item */
+	margin-right: 0; 
 }
 
 #topbar li a {
-	color: #fff; /* Set the color to white or your preferred color */
+	color: #fff; 
 	text-decoration: none;
 }
 
@@ -50,11 +50,11 @@
 	padding: 8px 16px;
 	font-size: 14px;
 	color: #333;
-	border-bottom: 1px solid #ddd; /* Add a border bottom for separation */
+	border-bottom: 1px solid #ddd; 
 }
 
 .notification-item:last-child {
-	border-bottom: none; /* Remove border bottom for the last item */
+	border-bottom: none; 
 }
 </style>
 
@@ -108,13 +108,7 @@
 						<ul>
 							
 							<li class="dropdown"><a href="#"><span>내정보관리</span><i class="bi bi-chevron-right"></i></a>
-							<!-- <ul>
-									<li><a href="#">Deep Drop Down 1</a></li>
-									<li><a href="#">Deep Drop Down 2</a></li>
-									<li><a href="#">Deep Drop Down 3</a></li>
-									<li><a href="#">Deep Drop Down 4</a></li>
-									<li><a href="#">Deep Drop Down 5</a></li>
-								</ul>  -->	
+						
 							</li>
 							<li><a href="member_notice.do">공지사항</a></li>	
 							<li><a href="#">결제내역</a></li>
@@ -125,9 +119,6 @@
 						</ul></li>
 
 				
-
-
-
 					<!--  알림 부분 -->
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#"
@@ -164,10 +155,8 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	<!-- 부트스트랩 및 자바스크립트 링크 추가 -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
+ 
 </body>
 </html>
