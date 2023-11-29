@@ -15,6 +15,8 @@
 		<result property="centerCode" column="CENTER_CODE"/>
 		<result property="centerName" column="CENTER_NAME"/>
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
+		<result property="lsCode" column="RS_CODE"/>	
+		<result property="rsCode" column="LS_CODE"/>	
 	
 	</resultMap>
 <resultMap type="calender" id="calenderResult">
@@ -29,6 +31,7 @@
 <select id="getLessonCode" resultType="String">
 	SELECT lesson_code from tbl_reserv 
 	WHERE member_code = #{csMemberCode}
+	AND rs_cancel_yn = 'f';
 	<!--  AND rs_datetime >= CURRENT_DATE - INTERVAL '2 months'-->
 </select>
 
@@ -36,6 +39,7 @@
 <select id="getLessonInfo" parameterType="java.util.List" resultMap="myScheduleResult">
 	 SELECT 
         L.LS_NAME,
+        L.LS_CODE,
         L.LS_TYPE,
         L.LS_DATE,
         TO_CHAR(L.ls_time, 'AM HH:MI') AS LS_TIME,
@@ -44,10 +48,12 @@
         L.TRAINER_MEMBER_CODE,
         M.CS_NAME AS TRAINER_MEMBER_NAME,  
         L.CENTER_CODE,
-        C.ct_name AS CENTER_NAME 
+        C.ct_name AS CENTER_NAME,
+        R.rs_code
     FROM TBL_LESSON L
     LEFT JOIN TBL_cst M ON L.TRAINER_MEMBER_CODE = M.CS_MEMBER_CODE
     LEFT JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
+    LEFT JOIN TBL_RESERV R ON L.LS_CODE = R.LESSON_CODE
     WHERE L.LS_CODE IN
     <foreach collection="list" item="lsCode" open="(" separator="," close=")">
         #{lsCode}
