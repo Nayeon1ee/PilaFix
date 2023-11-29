@@ -142,3 +142,13 @@
 .schedule-card::-webkit-scrollbar-track {
     background: #FBF3FD;  /*스크롤바 뒷 배경 색상*/
 }
+
+#absentColor{
+	color:#ff6600;
+}
+#attendColor{
+	color:#088A08;
+}
+#reservColor{
+	color:#0070c0;
+}

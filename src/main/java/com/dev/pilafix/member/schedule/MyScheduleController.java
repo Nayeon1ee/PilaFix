@@ -38,11 +38,11 @@ public class MyScheduleController {
 //	}
 	@PostMapping("/getMonthSchedule.do")
 	@ResponseBody
-	public List<MyScheduleVO> getMonthSchedule(HttpSession session,Date calenderDate) {
+	public List<CalenderVO> getMonthSchedule(HttpSession session,Date calenderDate) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 		int csMemberCode = (int) user.get("csMemberCode");
 		System.out.println("컨트롤러로 넘어온 풀캘린더 날자" + calenderDate);
-		List<MyScheduleVO> reservMonthInfo = (List<MyScheduleVO>) service.getMonthSchedule(csMemberCode,calenderDate);
+		List<CalenderVO> reservMonthInfo = (List<CalenderVO>) service.getMonthSchedule(csMemberCode,calenderDate);
 		return reservMonthInfo;
 	}
 	

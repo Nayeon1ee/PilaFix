@@ -118,7 +118,7 @@
 										<li class="nav-item"><a class="nav-link active"
 											style="color: #0070c0; text-weight: bold; text-decoration: none;">예약&nbsp;${count.reservCount }건</a></li>
 										<li class="nav-item"><a class="nav-link"
-											style="color: #14761d; text-weight: bold; text-decoration: none;">출석&nbsp;${count.attendCount }건</a></li>
+											style="color: #088A08; text-weight: bold; text-decoration: none;">출석&nbsp;${count.attendCount }건</a></li>
 										<li class="nav-item"><a class="nav-link"
 											style="color: #ff6600; text-weight: bold; text-decoration: none;">결석&nbsp;${count.absentCount }건</a></li>
 									</ul>
@@ -307,7 +307,7 @@
 									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
-									str += '<small class="text-muted"><strong>예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
 									str += '<div class="d-flex w-100 justify-content-between">'
 									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
 									// 수업시간 3시간 전까지는 취소하기 버튼 표시 (그 이후는 취소 불가라서 취소하기 버튼 없음)
@@ -358,7 +358,7 @@
 									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
-									str += '<small class="text-muted"><strong>출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<small class="text-muted"><strong id="attendColor">출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
 									str += '<div class="d-flex w-100 justify-content-between">'
 									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
 									str += '</div>'
@@ -405,7 +405,7 @@
 									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
-									str += '<small class="text-muted"><strong>결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<small class="text-muted"><strong id="absentColor">결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
 									str += '<div class="d-flex w-100 justify-content-between">'
 									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
 									str += '</div>'
