@@ -15,6 +15,9 @@ public class AttendVO {
 	private boolean atAttendance5Yn;	
 	private int atMember6Code;
 	private boolean atAttendance6Yn;
+	
+	
+	
 	public String getAtCode() {
 		return atCode;
 	}

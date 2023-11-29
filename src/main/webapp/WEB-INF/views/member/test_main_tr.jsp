@@ -61,10 +61,9 @@
 <body>
 
 
-
 	<!-- ======= Header ======= -->
 
-	<%@ include file="member_header_common.jsp"%>
+	<%@ include file="member_header_common_tr.jsp"%>
 	
 	<!-- End Header -->
 
@@ -162,7 +161,7 @@
 						<div class="icon-box">
 							<i class="bi bi-calendar-check"></i>
 							<h3>
-								<a href="reservPage.do">수업 예약</a>
+								<a href="getTrainerLesson.do">수업관리</a>
 							</h3>
 							<p>원하는 시간, 내 스타일의 수업! 지금 예약하고, 새로운 나를 만나보세요.</p>
 						</div>
@@ -171,7 +170,7 @@
 						<div class="icon-box">
 							<i class="bi bi-ticket-perforated-fill"></i>
 							<h3>
-								<a href="ticketPage.do">수강권 구매</a>
+								<a href="member_mypage.do">마이페이지</a>
 							</h3>
 							<p>내 건강에 투자하는 최고의 선택! 다양한 수강권으로 나만의 플랜을 만들어보세요.</p>
 						</div>
