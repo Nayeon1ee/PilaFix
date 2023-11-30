@@ -20,6 +20,7 @@
 		<result property="atAttendance5Yn" column="AT_ATTENDANCE5_YN" />
 		<result property="atMember6Code" column="AT_MEMBER6_CODE" />
 		<result property="atAttendance6Yn" column="AT_ATTENDANCE6_YN" />
+		<result property="atDate" column="AT_DATE" />
 	</resultMap>
 
 	<resultMap type="com.dev.pilafix.common.member.CenterVO" id="centerForLesson">
@@ -122,15 +123,15 @@
 	
 
 
-	<!-- 출결 레코드 자동 생성될 예정 주석처리
-	<insert id="insertAttend" parameterType="attend"> 
+	<!-- 출결 레코드 자동 생성 -->
+	<insert id="insertAttendance" parameterType="attend"> 
 		INSERT INTO TBL_ATTEND 
 		VALUES (CONCAT('AT', NEXTVAL('SEQ_ATTEND')), #{lessonCode}, #{atMember1Code}, 
 		#{atAttendance1Yn}, #{atMember2Code}, #{atAttendance2Yn}, #{atMember3Code}, 
 		#{atAttendance3Yn}, #{atMember4Code}, #{atAttendance4Yn}, #{atMember5Code}, 
-		#{atAttendance5Yn}, #{atMember6Code}, #{atAttendance6Yn}
+		#{atAttendance5Yn}, #{atMember6Code}, #{atAttendance6Yn}, CURRENT_DATE)
 	</insert> 
-	 -->
+	 
 
 	<!-- 수업 상세에서 예약된 회원 이름만 따로 SELECT-->
 	<!-- resultType="string"

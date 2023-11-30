@@ -36,6 +36,7 @@ public interface MemberManageService {
 
 	List<CenterLessonVO> getPersonalLesson(int csMemberCode);
 
+	List<CenterLessonVO> getAllLesson(int csMemberCode);
 	CenterLessonVO getLessonCount(int csMemberCode);
 
 
@@ -45,5 +46,6 @@ public interface MemberManageService {
 
 	List<MemberVO> getMemberExcelManageList(int ctCode);
 	List<MemberVO> getTrainerExcelManageList(int ctCode);
+
 
 }

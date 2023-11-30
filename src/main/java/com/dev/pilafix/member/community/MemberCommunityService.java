@@ -20,7 +20,7 @@ public interface MemberCommunityService {
 	
 	List<MemberCommunityVO> getMemberCommunityReply(int memberCmNumber);
 	int insertMemberCommunityReply(MemberCommunityVO vo);
-	int updateMemberCommunityReply(MemberCommunityVO vo);
+	int insertMemberCommunityReplyReply(MemberCommunityVO vo);
 	int deleteMemberCommunityReply(MemberCommunityVO vo);
 	
 }

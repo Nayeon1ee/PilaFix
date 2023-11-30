@@ -15,8 +15,8 @@
 		<result property="centerCode" column="CENTER_CODE"/>
 		<result property="centerName" column="CENTER_NAME"/>
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
-		<result property="lsCode" column="RS_CODE"/>	
-		<result property="rsCode" column="LS_CODE"/>	
+		<result property="rsCode" column="RS_CODE"/>	
+		<result property="lsCode" column="LS_CODE"/>	
 	
 	</resultMap>
 <resultMap type="calender" id="calenderResult">
@@ -29,7 +29,7 @@
 <!-- 당월의 예약 스케줄 불러오기 (현재시간 기준으로 이후의 예약만)-->
 <!-- step01 예약테이블에서 해당 회원의 수업코드만 가져옴 -->
 <select id="getLessonCode" resultType="String">
-	SELECT lesson_code from tbl_reserv 
+	SELECT DISTINCT lesson_code from tbl_reserv 
 	WHERE member_code = #{csMemberCode}
 	AND rs_cancel_yn = 'f';
 	<!--  AND rs_datetime >= CURRENT_DATE - INTERVAL '2 months'-->
@@ -61,6 +61,7 @@
     AND EXTRACT(MONTH FROM L.LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
     AND EXTRACT(YEAR FROM L.LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
     AND (L.LS_DATE::TIMESTAMP + L.LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE > CURRENT_TIMESTAMP
+    AND R.rs_cancel_yn='f'
     ORDER BY COMBINED_DATETIME ASC
 </select>
 

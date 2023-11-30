@@ -70,24 +70,6 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -212,14 +194,15 @@
 							<!-- 여기에 ajax결과 들어옴 -->
 						</div>
 						<div class="card-footer text-muted">이용정책</div>
-						<div class="card-body" id="ticketBuyGuide">
+						<div class="card-body pt-0" id="ticketBuyGuide">
 								<!-- 여기에 ajax결과 들어옴 -->
 							</div>
 							<div class = "policy-area">
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> 
-									<label class="form-check-label" for="flexCheckDefault" style="margin:10px;"> 이용 정책을 모두 확인 하였습니다. 이에 동의합니다.</label>
+									<label class="form-check-label m-0" for="flexCheckDefault" style="margin:10px;"> 이용 정책을 모두 확인 하였습니다. 이에 동의합니다.</label>
 							</div>
+						 
 							</div>
 						<button class="btn btn-primary" id="ticketBuy">결제하기</button> 
 						

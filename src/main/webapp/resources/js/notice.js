@@ -30,7 +30,7 @@ $(document).ready(function() {
     	            console.error('AJAX 요청 시 에러', error);
     	        }
     	    });
-    	}, 3000); // 3초에 한 번씩 실행
+    	}, 100000000); // 3초에 한 번씩 실행 추후에 3000으로 바꾸기
     }
 });
 
@@ -63,9 +63,9 @@ function handleNotificationClick() {
 	            	 response.forEach(function (item) {
 	                    
 	                    if (item.eventType === '예약' || item.eventType === '예약취소') {
-	                        var gstr = '<a class="dropdown-item" href="schedule.do">'; // 예약이거나 예약취소이면 내스케줄 페이지
+	                        var gstr = '<a class="dropdown-item" href="schedule.do">'; // 예약이거나 예약취소이면 내스케줄 페이지 //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
 	                    } else {
-	                        var gstr = '<a class="dropdown-item" href="#">'; // 공지사항 페이지 나오면 등록해야 함
+	                        var gstr = '<a class="dropdown-item" href="#">'; // 공지사항 페이지 나오면 등록해야 함 //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
 	                    }
 	                    gstr += '<div>';
 	
@@ -92,6 +92,31 @@ function handleNotificationClick() {
 	        }
 	    });
 }
+
+
+// 알림 클릭 시 
+$('#notificationsDropdown').on('click', function() {
+    updateNoticeStatus();
+});
+
+// 알림테이블 확인여부 업데이트 
+function updateNoticeStatus(ncId){
+	console.log(ncId);
+	
+	$.ajax({
+	        url: 'updateNoticeStatus.do',
+	        method: 'POST',
+	        data: { ncId: ncId },
+	        success: function() {
+	        	console.log("확인여부 업데이트 완료");
+	            
+	        },
+	        error: function(error) {
+	            console.error('AJAX 요청 시 에러', error);
+	        }
+	    });
+}
+
 
 // "yyyy.MM.dd HH:mm" 형식으로 날짜를 변환하는 함수
 function formatTimestamp(timestamp) {

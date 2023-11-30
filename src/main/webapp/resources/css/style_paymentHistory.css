@@ -40,7 +40,6 @@
 .payment-status {
     font-weight: bold;
     font-size: 16px; /* 폰트 크기 조정 (선택적으로 사용) */
-    max-width: 80px; /* 길이 조절 (적절한 값으로 조절) */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -54,11 +53,7 @@
 	border-radius: 30px;
 }
 
-.payment-item:hover .payment-status, .payment-item:hover .payment-description,
-	.payment-item:hover .payment-date, .payment-item:hover .payment-amount
-	{
-	color: #9b56e9;
-}
+
 
 
 .payment-status {
@@ -92,4 +87,10 @@
 a {
 	text-decoration: none;
 	color: inherit;
+	text-decoration : underline;
+	text-underline-position : under;
+}
+.payment-id{
+	font-size:14px;
+	color:#212529BF;
 }

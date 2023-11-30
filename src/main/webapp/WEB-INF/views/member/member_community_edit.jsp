@@ -89,9 +89,11 @@
 						<p>개인 정보가 포함되지 않도록 유의하시고, 아래와 같은 규정에 따라 삭제될 수 있습니다.</p>
 
 						<form class="row g-3" action="updateMemberCommunity.do" method="post">
+						<input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
+						
 							<div class="col-md-2">
 								<label class="form-label"> 번호</label>
-								<input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmNumber }">
+								<input type="text" readonly disabled class="form-control" name="memberCmNumber" value="${memberCommunity.memberCmNumber }">
 							</div>
 							<div class="col-md-5">
 								<label class="form-label">작성자</label>
@@ -103,17 +105,17 @@
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">글 제목</label>
-								<input type="text" class="form-control" value="${memberCommunity.memberCmTitle }">
+								<input type="text" class="form-control" name="memberCmTitle" value="${memberCommunity.memberCmTitle }">
 							</div>
 							<div class="col-md-12">
 								<label class="form-label">글 내용</label>
-								<textarea class="form-control" style="height: 300px;">${memberCommunity.memberCmContent }</textarea>
+								<textarea class="form-control" style="height: 300px;" name="memberCmContent">${memberCommunity.memberCmContent }</textarea>
 							</div>
 
 							<div class="text-center">
 								<div class="btn-toolbar justify-content-end d-flex" role="toolbar">
 									<div class="me-auto ms-3">
-										<button type="button" class="btn btn-secondary" onclick="location.href='getMemberCommunityList.do'">목록</button>
+										<button type="button" class="btn btn-secondary" onclick="location.href='communityPage.do'">목록</button>
 									</div>
 									<div class="btn-group me-2">
 										<input type="submit" class="btn btn-primary" value="수정">

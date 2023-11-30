@@ -19,7 +19,7 @@ public class MemberCommunityController {
 	private MemberCommunityService service;
 	
 	// 전체 리스트 확인
-	@GetMapping("getMemberCommunityList.do")
+	@GetMapping("communityPage.do")
 	public String getMemberCommunityList(HttpSession session, Model model) {
 		
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
@@ -114,7 +114,7 @@ public class MemberCommunityController {
 
 	// 수정 페이지
 	@GetMapping("updateMemberCommunity.do")
-	public String updateMemberCommunity(@RequestParam("memberCmNumber") Integer memberCmNumber, Model model) {
+	public String updateMemberCommunity(@RequestParam("memberCmNumber") int memberCmNumber, Model model) {
 		model.addAttribute("memberCommunity", service.getMemberCommunity(memberCmNumber));
 		return "member/member_community_edit";
 	}
@@ -123,6 +123,8 @@ public class MemberCommunityController {
 	@PostMapping("/updateMemberCommunity.do")
 	public String update(MemberCommunityVO vo) {
 		service.updateMemberCommunity(vo);
+		int memberCmNumber = vo.getMemberCmNumber();
+		System.out.println("확인" + memberCmNumber);
 		return "redirect:getMemberCommunityList.do";
 	}
 
@@ -135,19 +137,27 @@ public class MemberCommunityController {
 
 	// 답글 쓰기
 	@PostMapping("/insertMemberCommunityReply.do")
-	public String insertMemberCommunityReply(MemberCommunityVO vo) {
+	public String insertMemberCommunityReply(MemberCommunityVO vo, HttpSession session) {
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		int memberWriterCode = (Integer)user.get("csMemberCode");
+		vo.setMemberWriterCode(memberWriterCode);
+		
 		service.insertMemberCommunityReply(vo);
 		int memberCmNumber = vo.getMemberCmNumber();
 		return "redirect:getMemberCommunity.do?memberCmNumber=" + memberCmNumber;
 	}
 	
-	// 답글 수정
-	@PostMapping("/updateMemberCommunityReply.do")
-	public String updateMemberCommunityReply(MemberCommunityVO vo) {
-		service.updateMemberCommunityReply(vo);
-		int memberCmNumber = vo.getMemberCmNumber();
-		return "redirect:getMemberCommunity.do?memberCmNumber=" + memberCmNumber;
-	}
+	// 대댓글 쓰기
+		@PostMapping("/insertMemberCommunityReplyReply.do")
+		public String insertMemberCommunityReplyReply(MemberCommunityVO vo, HttpSession session) {
+			Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+			int memberWriterCode = (Integer)user.get("csMemberCode");
+			vo.setMemberWriterCode(memberWriterCode);
+			
+			service.insertMemberCommunityReplyReply(vo);
+			int memberCmNumber = vo.getMemberCmNumber();
+			return "redirect:getMemberCommunity.do?memberCmNumber=" + memberCmNumber;
+		}
 	
 	// 답글 삭제 기능
 	@GetMapping("/deleteMemberCommunityReply.do")
