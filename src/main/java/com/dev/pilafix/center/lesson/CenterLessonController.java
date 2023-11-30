@@ -3,7 +3,6 @@ package com.dev.pilafix.center.lesson;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +39,15 @@ public class CenterLessonController {
 	
 	@GetMapping("/insertCenterLesson.do")
 	public String insertCenterLesson(HttpSession session, Model model) {
-		
 		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
-		int centerCode = (Integer)center.get("ctCode");
 		
-		model.addAttribute("trainerList", service.getTrainerCode(centerCode));
-		return "center/center_create_class";
+		if(center != null && !center.isEmpty()) {
+			int centerCode = (Integer)center.get("ctCode");
+			
+			model.addAttribute("trainerList", service.getTrainerCode(centerCode));
+			return "center/center_create_class";
+		}
+		return "redirect:centerLogin.do";
 	}
 	
 	@ResponseBody
@@ -65,9 +67,8 @@ public class CenterLessonController {
 			int centerCode = (int)center.get("ctCode");
 			vo.setCenterCode(centerCode);
 			service.insertCenterLesson(vo);
-			return "redirect:getCenterLessonList.do";
 		}
-		return "redirect:centerLogin.do";
+		return "redirect:getCenterLessonList.do";
 	}
 	
 	@GetMapping("/deleteCenterLesson.do")
