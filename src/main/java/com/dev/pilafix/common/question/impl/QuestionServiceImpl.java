@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.pilafix.center.info.CenterInfoVO;
 import com.dev.pilafix.common.member.CenterVO;
-import com.dev.pilafix.common.notice.NoticeDAO;
 import com.dev.pilafix.common.notice.NoticeVO;
+import com.dev.pilafix.common.notice.impl.NoticeDAO;
 import com.dev.pilafix.common.question.QuestionReplyVO;
 import com.dev.pilafix.common.question.QuestionService;
 import com.dev.pilafix.common.question.QuestionVO;

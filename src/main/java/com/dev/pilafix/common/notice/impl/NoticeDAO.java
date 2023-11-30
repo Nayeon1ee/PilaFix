@@ -1,4 +1,4 @@
-package com.dev.pilafix.common.notice;
+package com.dev.pilafix.common.notice.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.dev.pilafix.common.notice.NoticeVO;
 
 @Repository
 public class NoticeDAO {

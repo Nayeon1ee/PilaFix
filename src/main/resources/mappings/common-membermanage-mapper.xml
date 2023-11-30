@@ -95,10 +95,10 @@
 		<result property="lsContent" column="LS_CONTENT"/>
 		<result property="centerCode" column="CENTER_CODE"/>
 		<result property="lsRegistrationDate" column="LS_REGISTRATION_DATE"/>
-		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
+		<result property="lsCloseYn" column="LS_CLOSE_YN"/>	
 		<result property="csName" column="CS_NAME"/>
 		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
-		<result property="lsColseYN" column="LS_CLOSE_YN"/>
+		<result property="lsCloseYN" column="LS_CLOSE_YN"/>
 		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE"/>
 		<result property="groupCount" column="GROUP_COUNT"/>
 		<result property="personalCount" column="PERSONAL_COUNT"/>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -56,24 +57,6 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -120,22 +103,21 @@
 								<div class="section1">
 									 <div class="card h-100" style="max-width: 347.5px;">
 										<div class="card-header">
-											<b>내 수강권 정보 확인</b>
+											<b>내 예약 정보 확인</b>
 										</div>
 										<ul class="list-group list-group-flush">
-								<li class="list-group-item mb-1 title-text">XX필라테스 xx점 | 그룹수업</li>
+											<li class="list-group-item mb-2">${cancelInfo.lesson.centerName} | ${cancelInfo.lesson.lsType }수업</li>
+											<li class="list-group-item mb-2">${cancelInfo.lesson.lsName}</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="remainingSessions">잔여횟수</label>
-													<input type="text" class="form-control"
-														id="remainingSessions" name="remainingSessions" readonly>
+													<label class="input-group-text" for="remainingSessions">예약일자</label>
+													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.lesson.lsDate}" readonly>
 												</div>
 											</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="expirationDate">만료일</label>
-													<input type="text" class="form-control" id="expirationDate"
-														name="expirationDate" readonly>
+													<label class="input-group-text" for="expirationDate">예약시간</label>
+													<input type="text" class="form-control" id="expirationDate" value="${cancelInfo.lesson.lsTime} ~ ${cancelInfo.lesson.lsEndTime}"name="expirationDate" readonly>
 												</div>
 											</li>
 										</ul>
@@ -149,19 +131,17 @@
 											<b>내 수강권 정보 확인</b>
 										</div>
 										<ul class="list-group list-group-flush">
-										<li class="list-group-item mb-1 title-text">XX필라테스 xx점 | 그룹수업</li>
+										<li class="list-group-item mb-1 title-text">${cancelInfo.lesson.centerName} | ${cancelInfo.lesson.lsType }수업</li>
 											<li class="list-group-item">
 												<div class="input-group">
 													<label class="input-group-text" for="remainingSessions">잔여횟수</label>
-													<input type="text" class="form-control"
-														id="remainingSessions" name="remainingSessions" readonly>
+													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketRemainingCount }" readonly>
 												</div>
 											</li>
 											<li class="list-group-item">
 												<div class="input-group">
 													<label class="input-group-text" for="expirationDate">만료일</label>
-													<input type="text" class="form-control" id="expirationDate"
-														name="expirationDate" readonly>
+													<input type="text" class="form-control" id="expirationDate" value="${cancelInfo.ticket.ticketExpiryDate }"	name="expirationDate" readonly>
 												</div>
 											</li>
 										</ul>
@@ -178,18 +158,21 @@
 								<b>이용정책</b>
 							</div>
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item">
-									<div class="d-flex justify-content-between align-items-center">
-										<span class="fw-bold">예약 취소 정책</span>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="policy-form">
-										<textarea class="form-control" rows="4" readonly>
-                        수업 예약의 취소나 변경은 0일 3시간 0분 전까지 가능합니다.
-                    </textarea>
-									</div>
-								</li>
+								<c:forEach var="guide" items="${cancelInfo.reservGuideList}">
+									<li class="list-group-item">
+										<div class="d-flex justify-content-between align-items-center">
+											<span class="fw-bold">${guide.ugName}</span>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="policy-form">
+											<textarea class="form-control" rows="4" readonly>${guide.ugContent}</textarea>
+										</div>
+									</li>
+								
+						        </c:forEach>
+								
+								
 							</ul>
 						</div>
 					</div>
@@ -219,17 +202,17 @@
 							<div class="modal-body">
 								<div class="highlight-section">
 									<p class="highlight-text">
-										<span class="highlight-date">10월 21일 오전 10:00에 진행하는</span>
+										<span class="highlight-date">${cancelInfo.lesson.lsDate} ${cancelInfo.lesson.lsTime }에 진행하는</span>
 									</p>
 									<p class="hightlight-text" style="font-size: 18px;">
-										체어&바렐(B) : 다이어트, 체력강화 수업을 취소하시겠습니까?</p>
+										${cancelInfo.lesson.lsName } 수업을 취소하시겠습니까?</p>
 								</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">닫기</button>
-								<button type="button" class="btn btn-primary my-auto">예약
-									취소</button>
+								<button type="button" class="btn btn-primary my-auto" onclick="cancelReservation('${cancelInfo.reservation.rsCode}', '${cancelInfo.lesson.lsCode}', ${cancelInfo.lesson.centerCode})">취소하기</button>
+
 							</div>
 						</div>
 					</div>
@@ -256,30 +239,88 @@
 
 	<!--  취소 가능한 시간 js -->
 	<script>
-		// 취소 가능한 날짜 설정 (예: 2023년 12월 31일 23시 59분 59초)
-		var cancelDate = new Date('2023-12-31T23:59:59');
+	<!--  취소 가능한 날짜 계산 함수 -->
+    function calculateCancellationDate(lessonDate) {
+        // 예약 시간에서 24시간을 빼서 하루 전까지만 취소 가능하도록 설정
+        var cancelDate = new Date(lessonDate);
+        cancelDate.setHours(cancelDate.getHours() - 3);
 
-		// 시간 간격 계산 함수
-		function calculateTimeRemaining() {
-			var now = new Date();
-			var timeDifference = cancelDate - now;
+        return cancelDate;
+    }
 
-			// 시간, 분, 초 계산
-			var hours = Math.floor(timeDifference / (1000 * 60 * 60));
-			var minutes = Math.floor((timeDifference % (1000 * 60 * 60))
-					/ (1000 * 60));
-			var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    // 시간 간격 계산 함수
+    function calculateTimeRemaining() {
+        // 취소 가능한 날짜 계산
+        var lessonDate = new Date('${cancelInfo.lesson.lessonDatetime}'); // 서버에서 받은 lesson 정보를 사용
+        console.log(lessonDate);
+        var now = new Date();
 
-			// 결과를 페이지에 반영
-			document.getElementById('timeRemaining').innerHTML = hours + '시간 '
-					+ minutes + '분 ' + seconds + '초';
-		}
+        // 당일 취소 불가인 경우
+        if (lessonDate.getDate() === now.getDate() && lessonDate.getMonth() === now.getMonth() && lessonDate.getFullYear() === now.getFullYear()) {
+            document.getElementById('timeRemaining').innerHTML = '당일 취소는 불가능합니다.';
+            return;
+        }
 
-		// 페이지 로드 시 초기화
-		calculateTimeRemaining();
+        var cancelDate = calculateCancellationDate(lessonDate);
 
-		// 1초마다 갱신
-		setInterval(calculateTimeRemaining, 1000);
+        // 당일 취소가 아닌 경우에만 남은 시간 계산
+        if (now < cancelDate) {
+            var timeDifference = cancelDate - now;
+
+            // 시간, 분, 초 계산
+            var hours = Math.floor(timeDifference / (1000 * 60 * 60));
+            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            // 결과를 페이지에 반영
+            document.getElementById('timeRemaining').innerHTML = hours + '시간 ' + minutes + '분 ' + seconds + '초';
+        } else {
+            document.getElementById('timeRemaining').innerHTML = '취소 가능한 시간이 지났습니다.';
+        }
+    }
+
+    // 페이지 로드 시 초기화
+    calculateTimeRemaining();
+
+    // 1초마다 갱신
+    setInterval(calculateTimeRemaining, 1000);
+        
+    <!-- 예약 취소 -->
+	function cancelReservation(rsCode, lsCode, centerCode) {
+	    console.log("cancelReservation 호출 ");
+		console.log("예약 번호: ");
+		console.log(rsCode);
+		console.log("수업 코드: ");
+		console.log(lsCode);
+		console.log("센터 코드: ");
+		console.log(centerCode);
+		
+	    var data = {
+	    	rsCode: rsCode,
+	    	lsCode: lsCode,
+	    	centerCode: centerCode
+			};
+	     	
+	        $.ajax({
+	            type : "Post",
+	            url : "cancelReservation.do", 
+	            data : data,
+	            success : function(response) {
+	                
+	                if(response){
+   	                console.log("cancelReservation() 호출 성공");
+	              		// 추후 내스케줄 확인으로 이동
+	   	            alert("취소가 완료되었습니다. ");
+	                }
+	            },
+	            error : function (xhr, status, error) {
+	                console.error("Ajax 요청 실패");
+	                console.error("상태 코드: ", xhr.status);
+	                console.error("에러 메시지: ", error);
+	            }
+	        });
+
+	    }
 	</script>
 	<!--  취소 가능한 시간 스크립트 -->
 

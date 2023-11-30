@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dev.pilafix.admin.info.AdminInfoService;
 import com.dev.pilafix.admin.info.AdminInfoVO;
 import com.dev.pilafix.center.info.CenterInfoVO;
-import com.dev.pilafix.common.notice.NoticeDAO;
 import com.dev.pilafix.common.notice.NoticeVO;
+import com.dev.pilafix.common.notice.impl.NoticeDAO;
 
 @Service
 public class AdminInfoServiceImpl implements AdminInfoService {

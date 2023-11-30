@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.member.MemberVO;
-import com.dev.pilafix.common.notice.NoticeDAO;
 import com.dev.pilafix.common.notice.NoticeVO;
+import com.dev.pilafix.common.notice.impl.NoticeDAO;
 import com.dev.pilafix.member.reserve.ReservService;
 import com.dev.pilafix.member.reserve.ReservVO;
 

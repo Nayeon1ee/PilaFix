@@ -302,7 +302,7 @@
 												<td class="truncate-text">${group.lsName}</td>
 												<td>
 												<c:choose>
-													<c:when test="${ group.lsColseYN == 't'}">폐강</c:when>
+													<c:when test="${ group.lsCloseYN == 't'}">폐강</c:when>
 													<c:otherwise>
 														<!-- 현재 시간이 수업 시작시간보다 늦으면 수업종료 / 수업전, 진행중 , 수업완료, 폐강? -->
 														<c:if test="group.lsTime"></c:if>
