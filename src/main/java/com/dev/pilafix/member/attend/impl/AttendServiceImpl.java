@@ -44,7 +44,7 @@ public class AttendServiceImpl implements AttendService {
 	 */
 	@Override
 	public CenterLessonVO getTrainerLessonDetail(String lsCode) {
-		CenterLessonVO lessonDetail = dao.getLessonByTrainerWithCsName(lsCode);
+		CenterLessonVO lessonDetail = dao.getLessonByTrainer(lsCode);
 		List<Integer> memberCodes = dao.getReservedMemberCodeForLesson(lsCode);
 		List<String> memberNames = dao.getReservedNameForLesson(lsCode);
 
@@ -109,8 +109,8 @@ public class AttendServiceImpl implements AttendService {
 	 * 수업상세내역
 	 */
 	@Override
-	public CenterLessonVO getLessonByTrainerWithCsName(String lsCode) {
-		return dao.getLessonByTrainerWithCsName(lsCode);
+	public CenterLessonVO getLessonByTrainer(String lsCode) {
+		return dao.getLessonByTrainer(lsCode);
 	}
 
 	/**

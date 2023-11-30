@@ -39,54 +39,12 @@ public class CenterLessonVO {
 	private int reservedCount;
 	private int attendedCount;
 	private int absentCount;
-	private List<MemberVO> reservedMembers;
 
 	private String atCode;
 	private String lessonCode;
-	
-	public CenterLessonVO() {}
-	
-	public CenterLessonVO(String lsCode, String lsName, String lsType, Date lsDate, String lsTime, int lsCapacity,
-			int lsCurrentApplicants, int trainerMemberCode, String trainerMemberName, String lsContent, int centerCode,
-			String centerName, Date lsRegistrationDate, boolean lsCloseYN, String lsRegistrationDateToString,
-			Timestamp lsTimeDB, String lsEndTime, Timestamp lessonDatetime, int csMemberCode, String csName,
-			int groupCount, int personalCount, int closedGroupCount, int closedPersonalCount, String lsCenterName,
-			int reservedCount, int attendedCount, int absentCount, List<MemberVO> reservedMembers, String atCode,
-			String lessonCode) {
-		this.lsCode = lsCode;
-		this.lsName = lsName;
-		this.lsType = lsType;
-		this.lsDate = lsDate;
-		this.lsTime = lsTime;
-		this.lsCapacity = lsCapacity;
-		this.lsCurrentApplicants = lsCurrentApplicants;
-		this.trainerMemberCode = trainerMemberCode;
-		this.trainerMemberName = trainerMemberName;
-		this.lsContent = lsContent;
-		this.centerCode = centerCode;
-		this.centerName = centerName;
-		this.lsRegistrationDate = lsRegistrationDate;
-		this.lsCloseYN = lsCloseYN;
-		this.lsRegistrationDateToString = lsRegistrationDateToString;
-		this.lsTimeDB = lsTimeDB;
-		this.lsEndTime = lsEndTime;
-		this.lessonDatetime = lessonDatetime;
-		this.csMemberCode = csMemberCode;
-		this.csName = csName;
-		this.groupCount = groupCount;
-		this.personalCount = personalCount;
-		this.closedGroupCount = closedGroupCount;
-		this.closedPersonalCount = closedPersonalCount;
-		this.lsCenterName = lsCenterName;
-		this.reservedCount = reservedCount;
-		this.attendedCount = attendedCount;
-		this.absentCount = absentCount;
-		this.reservedMembers = reservedMembers;
-		this.atCode = atCode;
-		this.lessonCode = lessonCode;
-	}
 
-
+	private String lsStartTime;
+	private Timestamp lsTimeDB;
 
 	public String getLsCode() {
 		return lsCode;
@@ -177,13 +135,7 @@ public class CenterLessonVO {
 	}
 	public void setLsRegistrationDateToString(String lsRegistrationDateToString) {
 		this.lsRegistrationDateToString = lsRegistrationDateToString;
-	}
-	public Timestamp getLsTimeDB() {
-		return lsTimeDB;
-	}
-	public void setLsTimeDB(Timestamp lsTimeDB) {
-		this.lsTimeDB = lsTimeDB;
-	}
+  }
 	public String getLsEndTime() {
 		return lsEndTime;
 	}
@@ -196,6 +148,14 @@ public class CenterLessonVO {
 	public void setLessonDatetime(Timestamp lessonDatetime) {
 		this.lessonDatetime = lessonDatetime;
 	}
+
+	public Timestamp getLessonEndDatetime() {
+		return lessonEndDatetime;
+	}
+	public void setLessonEndDatetime(Timestamp lessonEndDatetime) {
+		this.lessonEndDatetime = lessonEndDatetime;
+	}
+
 	public int getCsMemberCode() {
 		return csMemberCode;
 	}
@@ -262,6 +222,7 @@ public class CenterLessonVO {
 	public void setReservedMembers(List<MemberVO> reservedMembers) {
 		this.reservedMembers = reservedMembers;
 	}
+  
 	public String getAtCode() {
 		return atCode;
 	}
@@ -273,6 +234,19 @@ public class CenterLessonVO {
 	}
 	public void setLessonCode(String lessonCode) {
 		this.lessonCode = lessonCode;
+
+	public String getLsStartTime() {
+		return lsStartTime;
+	}
+	public void setLsStartTime(String lsStartTime) {
+		this.lsStartTime = lsStartTime;
+	}
+	public Timestamp getLsTimeDB() {
+		return lsTimeDB;
+	}
+	public void setLsTimeDB(Timestamp lsTimeDB) {
+		this.lsTimeDB = lsTimeDB;
+
 	}
 	@Override
 	public String toString() {
@@ -281,16 +255,12 @@ public class CenterLessonVO {
 				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
 				+ ", lsContent=" + lsContent + ", centerCode=" + centerCode + ", centerName=" + centerName
 				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsCloseYN=" + lsCloseYN
-				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB
-				+ ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime + ", csMemberCode=" + csMemberCode
-				+ ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount=" + personalCount
-				+ ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount=" + closedPersonalCount
-				+ ", lsCenterName=" + lsCenterName + ", reservedCount=" + reservedCount + ", attendedCount="
-				+ attendedCount + ", absentCount=" + absentCount + ", reservedMembers=" + reservedMembers + ", atCode="
-				+ atCode + ", lessonCode=" + lessonCode + "]";
-	}
-
-	
-	
-	
+				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", lsEndTime=" + lsEndTime
+				+ ", lessonDatetime=" + lessonDatetime + ", lessonEndDatetime=" + lessonEndDatetime + ", csMemberCode="
+				+ csMemberCode + ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount="
+				+ personalCount + ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount="
+				+ closedPersonalCount + ", lsCenterName=" + lsCenterName + ", reservedCount=" + reservedCount
+				+ ", attendedCount=" + attendedCount + ", absentCount=" + absentCount + ", reservedMembers="
+				+ reservedMembers + ", lsStartTime=" + lsStartTime + ", lsTimeDB=" + lsTimeDB + "]";
+  }
 }
