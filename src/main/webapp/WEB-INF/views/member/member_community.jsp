@@ -61,7 +61,6 @@
 
 <body>
 
-	
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
 	<!-- End Header -->

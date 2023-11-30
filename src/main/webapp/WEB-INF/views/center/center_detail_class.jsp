@@ -51,7 +51,7 @@
 							<div class="col-sm-10">
 								<label class="form-label">폐강 여부</label>
 								<c:choose>
-									<c:when test="${centerLesson.lsColseYN}"><input type="text" readonly class="form-control" value="폐강"></c:when>
+									<c:when test="${centerLesson.lsCloseYN}"><input type="text" readonly class="form-control" value="폐강"></c:when>
 									<c:otherwise><input type="text" readonly class="form-control" value="개강"></c:otherwise>
 								</c:choose>
 							</div>

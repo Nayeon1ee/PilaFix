@@ -248,13 +248,6 @@
 			<artifactId>json</artifactId>
 			<version>20231013</version>
 		</dependency>
-		<!-- 스프링 웹소켓  -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-websocket</artifactId>
-			<version>5.3.29</version>
-		</dependency>
-			
 		
 		<!-- 문자메시지 API (CoolSMS) -->
 		<dependency>

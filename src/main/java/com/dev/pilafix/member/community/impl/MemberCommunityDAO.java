@@ -59,8 +59,8 @@ public class MemberCommunityDAO {
 		return sqlSessionTemplate.insert("MemberCommunityDAO.insertMemberCommunityReply", vo);
 	}
 	
-	public int updateMemberCommunityReply(MemberCommunityVO vo) {
-		return sqlSessionTemplate.update("MemberCommunityDAO.updateMemberCommunityReply", vo);
+	public int insertMemberCommunityReplyReply(MemberCommunityVO vo) {
+		return sqlSessionTemplate.insert("MemberCommunityDAO.insertMemberCommunityReplyReply", vo);
 	}
 	
 	public int deleteMemberCommunityReply(MemberCommunityVO vo) {

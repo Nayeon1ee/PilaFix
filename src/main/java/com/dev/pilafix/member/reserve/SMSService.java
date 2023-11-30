@@ -77,32 +77,32 @@ public class SMSService {
 		JSONObject obj = null;
 		String failReason=null;
 		
-//		try {
-//			obj = (JSONObject) coolsms.send(params);
-//			System.out.println(obj.toString());
-//			
-//		} catch (CoolsmsException e) {
-//			System.out.println(e.getMessage());
-//			System.out.println(e.getCode());
-//			failReason = e.getMessage(); //실패 사유 저장 
-//		} finally {
-//			/* STEP03. 문자발송 이력 등록 - 실패 시에도 등록되어야 함 */
-//			
-//			SendSmsHistoryVO smsHistory = new SendSmsHistoryVO();
-//			smsHistory.setShSendCode((String)obj.get("group_id"));
-//			smsHistory.setShSendCenterCode(reservLesson.getCenterCode()); //센터코드 저장 
-//			smsHistory.setShRecipientName(memberName);
-//			smsHistory.setShRecipientPhone(memberPhone);
-//			smsHistory.setShRecipientContent(smsContent);
-//			System.out.println("smsService까지 옴");
-//			if(obj != null && (long)obj.get("success_count")==1) { //json응답이 null이 아니면서 성공 count가 있다면 
-//				smsHistory.setShSuccessYn(true);
-//			}else {
-//				smsHistory.setShSuccessYn(false);
-//				smsHistory.setShFailReason(failReason);
-//			}
-//			smsDAO.saveSMSHistory(smsHistory);
-//		}
+		try {
+			obj = (JSONObject) coolsms.send(params);
+			System.out.println(obj.toString());
+			
+		} catch (CoolsmsException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getCode());
+			failReason = e.getMessage(); //실패 사유 저장 
+		} finally {
+			/* STEP03. 문자발송 이력 등록 - 실패 시에도 등록되어야 함 */
+			
+			SendSmsHistoryVO smsHistory = new SendSmsHistoryVO();
+			smsHistory.setShSendCode((String)obj.get("group_id"));
+			smsHistory.setShSendCenterCode(reservLesson.getCenterCode()); //센터코드 저장 
+			smsHistory.setShRecipientName(memberName);
+			smsHistory.setShRecipientPhone(memberPhone);
+			smsHistory.setShRecipientContent(smsContent);
+			System.out.println("smsService까지 옴");
+			if(obj != null && (long)obj.get("success_count")==1) { //json응답이 null이 아니면서 성공 count가 있다면 
+				smsHistory.setShSuccessYn(true);
+			}else {
+				smsHistory.setShSuccessYn(false);
+				smsHistory.setShFailReason(failReason);
+			}
+			smsDAO.saveSMSHistory(smsHistory);
+		}
         
     }
 

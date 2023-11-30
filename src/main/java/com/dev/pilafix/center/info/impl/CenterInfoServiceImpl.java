@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.pilafix.center.info.CenterInfoService;
 import com.dev.pilafix.center.info.CenterInfoVO;
-import com.dev.pilafix.common.notice.NoticeDAO;
 import com.dev.pilafix.common.notice.NoticeVO;
+import com.dev.pilafix.common.notice.impl.NoticeDAO;
 
 @Service
 public class CenterInfoServiceImpl implements CenterInfoService {
@@ -78,7 +78,6 @@ public class CenterInfoServiceImpl implements CenterInfoService {
 			 notice.setEventType("공지사항");
 			 notice.setUniqueIdentifierCode(String.valueOf(icNumber));
 			 notice.setNcNoticeContent("[공지] "+title);
-			 notice.setNcSendYn(false);
 			 notice.setNcReadYn(false);
 			noticeList.add(notice);
 		}
@@ -134,7 +133,6 @@ public class CenterInfoServiceImpl implements CenterInfoService {
 			 notice.setEventType("공지사항");
 			 notice.setUniqueIdentifierCode(String.valueOf(icNumber));
 			 notice.setNcNoticeContent("[공지] "+title);
-			 notice.setNcSendYn(false);
 			 notice.setNcReadYn(false);
 			noticeList.add(notice);
 		}

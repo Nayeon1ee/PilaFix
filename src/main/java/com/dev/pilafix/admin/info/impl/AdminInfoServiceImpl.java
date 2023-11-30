@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dev.pilafix.admin.info.AdminInfoService;
 import com.dev.pilafix.admin.info.AdminInfoVO;
 import com.dev.pilafix.center.info.CenterInfoVO;
-import com.dev.pilafix.common.notice.NoticeDAO;
 import com.dev.pilafix.common.notice.NoticeVO;
+import com.dev.pilafix.common.notice.impl.NoticeDAO;
 
 @Service
 public class AdminInfoServiceImpl implements AdminInfoService {
@@ -61,7 +61,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 		// ======= STEP02. 방금 등록된 공지사항 정보 저장 ======= 
 		int iwNumber = vo.getIwNumber();// insert되면서 vo에 icNumber가 세팅됨 
 		String title = vo.getTitle();
-		
+		System.out.println("공지사항 등록 번호 "+iwNumber);
 		
 		// ======= STEP03. 전체 회원 코드 목록 조회 ======= 
 		List<Integer> members = noticeDAO.getMemberCodeList();
@@ -78,7 +78,6 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 			 notice.setEventType("공지사항");
 			 notice.setUniqueIdentifierCode(String.valueOf(iwNumber));
 			 notice.setNcNoticeContent("[공지] "+title);
-			 notice.setNcSendYn(false);
 			 notice.setNcReadYn(false);
 			noticeList.add(notice);
 		}
@@ -133,7 +132,6 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 			notice.setEventType("공지사항");
 			 notice.setUniqueIdentifierCode(String.valueOf(iwNumber));
 			notice.setNcNoticeContent("[공지] " + title);
-			notice.setNcSendYn(false);
 			notice.setNcReadYn(false);
 			noticeList.add(notice);
 		}

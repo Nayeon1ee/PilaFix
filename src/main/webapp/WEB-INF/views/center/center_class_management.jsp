@@ -99,7 +99,7 @@
 											<td>${centerLesson.lsTime }:00</td>
 											<c:choose>
 
-												<c:when test="${centerLesson.lsColseYN=='f'}"><td>N</td></c:when>
+												<c:when test="${centerLesson.lsCloseYN=='f'}"><td>N</td></c:when>
 												<c:otherwise><td>Y</td></c:otherwise>
 
 											</c:choose>

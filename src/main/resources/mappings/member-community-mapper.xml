@@ -39,7 +39,7 @@
 	<select id="getMemberCommunityList" resultMap="memberCommunityResult">
 		SELECT CM_NUMBER, CM_TITLE, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=CM_WRITER_MEMBER_CODE) as CS_NAME, CM_REGDATE, CM_VIEWS
 		FROM TBL_COMMUNITY
-		ORDER BY CM_NUMBER DESC;
+		ORDER BY CM_NUMBER DESC
 	</select>
 	<select id="getMemberCommunity" resultMap="memberCommunityResult">
 		SELECT CM_NUMBER, CM_TITLE, CM_CONTENT, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=CM_WRITER_MEMBER_CODE) as CS_NAME, CM_REGDATE, CM_VIEWS, CM_WRITER_MEMBER_CODE, CM_WRITER_IP
@@ -75,16 +75,20 @@
 	
 	<!-- 댓글 -->
 	<select id="getMemberCommunityReply" resultMap="memberCommunityResult">
-		SELECT *
-		FROM TBL_REPLY WHERE RE_TARGET_POST_NUMBER=#{memberCmNumber}
+		SELECT TBL_CST.CS_NAME, TBL_REPLY.RE_CONTENT, TBL_REPLY.RE_REGDATE, *
+		FROM TBL_REPLY
+		INNER JOIN TBL_CST ON TBL_REPLY.WRITER_MEMBER_CODE = TBL_CST.CS_MEMBER_CODE
+		WHERE TBL_REPLY.RE_TARGET_POST_NUMBER = #{memberCmNumber}
+		ORDER BY RE_NUMBER DESC
 	</select>
 	<insert id="insertMemberCommunityReply" parameterType="memberCommunity">
 		INSERT INTO TBL_REPLY (RE_NUMBER, RE_TITLE, RE_CONTENT, WRITER_ROLE_CODE, WRITER_MEMBER_CODE, RE_REGDATE, RE_TARGET_POST_TYPE, RE_TARGET_POST_NUMBER)
-		VALUES(nextval('seq_reply'), #{memberReTitle}, #{memberReContent}, 'ME', 2009, CURRENT_TIMESTAMP, 'CM', #{memberCmNumber})
+		VALUES(nextval('seq_reply'), '[댓글]', #{memberReContent}, 'ME', #{memberWriterCode}, CURRENT_TIMESTAMP, 'CM', #{memberCmNumber})
 	</insert>
-	<update id="updateMemberCommunityReply" parameterType="memberCommunity">
-		UPDATE TBL_REPLY SET RE_CONTENT=#{memberReContent} WHERE RE_NUMBER=#{memberReNumber}
-	</update>
+	<insert id="insertMemberCommunityReplyReply" parameterType="memberCommunity">
+		INSERT INTO TBL_REPLY (RE_NUMBER, RE_TITLE, RE_CONTENT, WRITER_ROLE_CODE, WRITER_MEMBER_CODE, RE_REGDATE, RE_TARGET_POST_TYPE, RE_TARGET_POST_NUMBER)
+		VALUES(nextval('seq_reply'), '[대댓글]', #{memberReContent}, 'ME', #{memberWriterCode}, CURRENT_TIMESTAMP, 'CM', #{memberReNumber})
+	</insert>
 	<delete id="deleteMemberCommunityReply" parameterType="memberCommunity">
 		DELETE FROM TBL_REPLY WHERE RE_NUMBER = #{memberReNumber}
 	</delete>

@@ -74,12 +74,12 @@
 					<li>Reserved list</li>
 				</ol>
 				<h2>예약 목록</h2>
-				<%--
-				추후 내스케줄 화면 생기면 삭제해야 함 
-				예약 취소 테스트를 위한 버튼 
+				
+				<!-- 추후 내스케줄 화면 생기면 삭제해야 함 
+				예약 취소 테스트를 위한 버튼  -->
 				<button onclick="location.href='cancelPage.do?rsCode=RS321'">RS321 - 오늘 날짜 예약 취소</button>
-				<button onclick="location.href='cancelPage.do?rsCode=RS325'">RS325 - 내일 날짜 예약 취소</button>
-				 --%>
+				<button onclick="location.href='cancelPage.do?rsCode=RS353'">RS353 - 내일 날짜 예약 취소</button>
+				
 
 			</div>
 		</section>
