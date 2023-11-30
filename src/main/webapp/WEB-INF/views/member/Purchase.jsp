@@ -335,7 +335,29 @@
 	<!-- 내 js -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
-	
+	<!--  이미지 색 바꾸기 위한 js -->
+	<script>
+		const canvas = document.getElementById('coloredCanvas');
+		const ctx = canvas.getContext('2d');
+		const image = new Image();
+		image.src = '${pageContext.request.contextPath}/resources/images/hand.png';
+
+		image.onload = function() {
+
+			ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+			ctx.globalCompositeOperation = 'source-atop';
+			ctx.fillStyle = '#946CEE';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+			ctx.globalCompositeOperation = 'source-over';
+		};
+
+		const button = document.getElementById('clickButton');
+		button.addEventListener('click', function() {
+
+		});
+	</script>
 	
 <!-- 셀렉트박스에서 센터 선택하면 해당 센터의 수강권정보 가져오는 js  -->
 	<script>
@@ -355,10 +377,11 @@
 							//  centerInfoContainer라는 아이디 가진 영역의 기존 내용을 지움
 							$('#centerInfoContainer').html('');
 							if (centerTicketInfo.length < 1) {
-								str = '<p>센터에서 등록한 수강권이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
+								str = '<p style= "font-size: 18px; text-align: center; color: #333;">센터에서 등록한 수강권이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
 								$('#centerInfoContainer').append(str);
 							} else {
 								centerTicketInfo.forEach(function(item) {
+									
 
 											/* 구매일로부터 사용기간 계산 */
 											// 현재 날짜를 가져옴
