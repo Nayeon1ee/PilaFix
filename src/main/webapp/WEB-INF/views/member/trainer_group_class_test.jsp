@@ -150,12 +150,7 @@
  -->
 
 				<!-- End Our Skills Section -->
-			</c:choose>
-			<span style="display: inline-block;">
-				${fn:substring(lessonDetail.lsTime, 11, 16)} </span>
 
-		</div>
-	</section>
 	<!-- End Breadcrumbs -->
 
 	<!-- ======= Services Section ======= -->
