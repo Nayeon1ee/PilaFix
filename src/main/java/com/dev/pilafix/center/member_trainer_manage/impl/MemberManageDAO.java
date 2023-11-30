@@ -135,14 +135,23 @@ public class MemberManageDAO {
 		return sqlSessionTemplate.selectOne("MemberManageDAO.getMember", csMemberCode);
 	}
 	
+	//=========================강사 상세=====================================
+	
+	//강사의 오늘일자의 그룹레슨만 가져오기
 	public List<CenterLessonVO> getGroupLesson(int csMemberCode) {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getGroupLesson",csMemberCode);
 	}
-
+	//강사의 오늘일자의 개인레슨만 가져오기
 	public List<CenterLessonVO> getPersonalLesson(int csMemberCode) {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getPersonalLesson",csMemberCode);
 	}
-
+	
+	//강사의 전체 수업 정보 가져오기
+	public List<CenterLessonVO> getAllLesson(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getAllLesson",csMemberCode);
+	}
+	
+	//강사의 개인수업/그룹수업 갯수 반환 (현재 날짜를 기준으로 전월 한달에 해당하는 것만) & 그룹 개인수업 각각 폐강된 갯수 반환
 	public CenterLessonVO getLessonCount(int csMemberCode) {
 		return sqlSessionTemplate.selectOne("MemberManageDAO.getLessonCount",csMemberCode);
 	}

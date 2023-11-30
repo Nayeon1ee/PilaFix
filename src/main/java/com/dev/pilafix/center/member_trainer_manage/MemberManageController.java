@@ -169,8 +169,10 @@ public class MemberManageController {
 			model.addAttribute("groupLesson", service.getGroupLesson(csMemberCode));
 			//개인 수업내용
 			model.addAttribute("personalLesson", service.getPersonalLesson(csMemberCode));
+			// 강사의 전월 수업수 세옴
 			model.addAttribute("lessonCount", service.getLessonCount(csMemberCode));
 			//전체 수업내용
+			model.addAttribute("allLesson", service.getAllLesson(csMemberCode));
 
 			return "center/center_trainer_detail";
 		}

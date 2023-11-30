@@ -26,9 +26,9 @@ public class CenterLessonVO {
 
 
 	private String lsRegistrationDateToString;
-	private Timestamp lsTimeDB;
 	private String lsEndTime;
 	private Timestamp lessonDatetime;
+	private Timestamp lessonEndDatetime;
 
 	private int csMemberCode;
 	private String csName;
@@ -44,6 +44,16 @@ public class CenterLessonVO {
 	private int absentCount;
 	private List<MemberVO> reservedMembers;
 	
+	
+	
+	public Timestamp getLessonEndDatetime() {
+		return lessonEndDatetime;
+	}
+
+	public void setLessonEndDatetime(Timestamp lessonEndDatetime) {
+		this.lessonEndDatetime = lessonEndDatetime;
+	}
+
 	public boolean isLsCloseYN() {
 		return lsCloseYN;
 	}
@@ -122,14 +132,6 @@ public class CenterLessonVO {
 
 	public void setPersonalCount(int personalCount) {
 		this.personalCount = personalCount;
-	}
-
-	public Timestamp getLsTimeDB() {
-		return lsTimeDB;
-	}
-
-	public void setLsTimeDB(Timestamp lsTimeDB) {
-		this.lsTimeDB = lsTimeDB;
 	}
 
 	public String getLsCode() {
@@ -290,13 +292,16 @@ public class CenterLessonVO {
 				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
 				+ ", lsContent=" + lsContent + ", centerCode=" + centerCode + ", centerName=" + centerName
 				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsCloseYN=" + lsCloseYN
-				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB
-				+ ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime + ", csMemberCode=" + csMemberCode
-				+ ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount=" + personalCount
-				+ ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount=" + closedPersonalCount
-				+ ", lsCenterName=" + lsCenterName + ", reservedCount=" + reservedCount + ", attendedCount="
-				+ attendedCount + ", absentCount=" + absentCount + ", reservedMembers=" + reservedMembers + "]";
+				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString 
+				+ ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime + ", lessonEndDatetime="
+				+ lessonEndDatetime + ", csMemberCode=" + csMemberCode + ", csName=" + csName + ", groupCount="
+				+ groupCount + ", personalCount=" + personalCount + ", closedGroupCount=" + closedGroupCount
+				+ ", closedPersonalCount=" + closedPersonalCount + ", lsCenterName=" + lsCenterName + ", reservedCount="
+				+ reservedCount + ", attendedCount=" + attendedCount + ", absentCount=" + absentCount
+				+ ", reservedMembers=" + reservedMembers + "]";
 	}
+
+	
 
 
 
