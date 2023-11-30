@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+#topbar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	margin-left: -10px;
+}
+
+#topbar li {
+	margin-right: 10px;
+}
+
+#topbar li:last-child {
+	margin-right: 0;
+}
+
+#topbar li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.dropdown-menu {
+	overflow-y: auto;
+	max-height: 400px;
+	white-space: nowrap;
+	word-break: break-all;
+	/* 다른 스타일들 */
+	right: auto;
+	left: 0;
+	/* 크기 유지를 위해 추가한 스타일 */
+	transform: translateX(-85%);
+}
+
+#NotificationsList .notification.read {
+	color: #888; /* 회색으로 변경 */
+	/* 기타 읽음 상태에 대한 스타일링 추가 가능 */
+	/* 예시: 배경색 약간 어둡게 */
+	background-color: #f2f2f2;
+	/* 예시: 폰트 스타일 변경 */
+	font-style: italic;
+}
