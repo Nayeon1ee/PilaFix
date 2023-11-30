@@ -5,9 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MemberMypageController {
+	//화면보여주기 위한 것
 	@GetMapping("/getPaymentHistory.do")
-	public String getMypage() {
+	public String getPaymentHistory() {
 		return "member/paymentHistory";
+	}
+	@GetMapping("/getPaymentHistoryDetail.do")
+	public String getPaymentHistoryDetail() {
+		return "member/paymentHistory_detail";
 	}
 
 }

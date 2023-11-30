@@ -15,8 +15,8 @@
 		<result property="centerCode" column="CENTER_CODE"/>
 		<result property="centerName" column="CENTER_NAME"/>
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
-		<result property="lsCode" column="RS_CODE"/>	
-		<result property="rsCode" column="LS_CODE"/>	
+		<result property="rsCode" column="RS_CODE"/>	
+		<result property="lsCode" column="LS_CODE"/>	
 	
 	</resultMap>
 <resultMap type="calender" id="calenderResult">
