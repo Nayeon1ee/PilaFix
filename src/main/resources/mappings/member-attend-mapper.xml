@@ -6,6 +6,7 @@
 <mapper namespace="AttendDAO">
 	<resultMap type="attend" id="attendResult">
 		<id property="atCode" column="AT_CODE" />
+		<result property="atDate" column="AT_DATE" />
 		<result property="lessonCode" column="LESSON_CODE" />
 		<result property="atMember1Code" column="AT_MEMBER1_CODE" />
 		<result property="atAttendance1Yn" column="AT_ATTENDANCE1_YN" />
@@ -45,6 +46,7 @@
     SELECT CST.CS_MEMBER_CODE
     FROM TBL_RESERV RSV
     JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+    JOIN TBL_ATTEND ATT ON RSV.LESSON_CODE = ATT.LESSON_CODE
     WHERE RSV.LESSON_CODE = #{lessonCode}
     AND RSV.RS_CANCEL_YN = FALSE;
 </select>
@@ -53,6 +55,7 @@
     SELECT CST.CS_NAME
     FROM TBL_RESERV RSV
     JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+    JOIN TBL_ATTEND ATT ON RSV.LESSON_CODE = ATT.LESSON_CODE
     WHERE RSV.LESSON_CODE = #{lessonCode}
     AND RSV.RS_CANCEL_YN = FALSE;
 </select>
@@ -66,22 +69,30 @@
 	  		AND RS_CANCEL_YN = FALSE;
 	</select>
 	
-	<!-- 출석한 회원 수 -->
-	<select id="getAttendedCountForLesson" parameterType="String" resultType="int">
-	  SELECT COUNT(*) FROM TBL_ATTEND
-	  WHERE LESSON_CODE = #{lessonCode}
-	  AND (AT_ATTENDANCE1_YN = TRUE OR AT_ATTENDANCE2_YN = TRUE OR AT_ATTENDANCE3_YN = TRUE OR 
-	  		AT_ATTENDANCE4_YN = TRUE OR AT_ATTENDANCE5_YN = TRUE OR AT_ATTENDANCE6_YN = TRUE);
-	</select>
+	<!-- 출석한 회원 수 AT_CODE로 가져와서, 회원코드가 0이 아닐때 등으로 조건 주기-->
+<select id="getAttendedCountForLesson" parameterType="String" resultType="int">
+    SELECT COUNT(*) FROM TBL_ATTEND
+    WHERE LESSON_CODE = #{lessonCode}
+    AND (AT_MEMBER1_CODE != 0 AND AT_ATTENDANCE1_YN = TRUE) OR
+        (AT_MEMBER2_CODE != 0 AND AT_ATTENDANCE2_YN = TRUE) OR
+        (AT_MEMBER3_CODE != 0 AND AT_ATTENDANCE3_YN = TRUE) OR
+        (AT_MEMBER4_CODE != 0 AND AT_ATTENDANCE4_YN = TRUE) OR
+        (AT_MEMBER5_CODE != 0 AND AT_ATTENDANCE5_YN = TRUE) OR
+        (AT_MEMBER6_CODE != 0 AND AT_ATTENDANCE6_YN = TRUE);
+</select>
 	
 	<!-- 결석한 회원 수 -->
-	<select id="getAbsentCountForLesson" parameterType="String" resultType="int">
-	  SELECT COUNT(*)
-	  FROM TBL_ATTEND
-	  WHERE LESSON_CODE = #{lessonCode}
-	  AND (AT_ATTENDANCE1_YN = FALSE OR AT_ATTENDANCE2_YN = FALSE OR AT_ATTENDANCE3_YN = FALSE OR 
-	  		AT_ATTENDANCE4_YN = FALSE OR AT_ATTENDANCE5_YN = FALSE OR AT_ATTENDANCE6_YN = FALSE);
-	</select>
+<select id="getAbsentCountForLesson" parameterType="String" resultType="int">
+    SELECT COUNT(*)
+    FROM TBL_ATTEND
+    WHERE LESSON_CODE = #{lessonCode}
+    AND (AT_MEMBER1_CODE != 0 AND AT_ATTENDANCE1_YN = FALSE) OR
+        (AT_MEMBER2_CODE != 0 AND AT_ATTENDANCE2_YN = FALSE) OR
+        (AT_MEMBER3_CODE != 0 AND AT_ATTENDANCE3_YN = FALSE) OR
+        (AT_MEMBER4_CODE != 0 AND AT_ATTENDANCE4_YN = FALSE) OR
+        (AT_MEMBER5_CODE != 0 AND AT_ATTENDANCE5_YN = FALSE) OR
+        (AT_MEMBER6_CODE != 0 AND AT_ATTENDANCE6_YN = FALSE);
+</select>
 
 
 	
@@ -90,7 +101,6 @@
 <update id="updateAttendanceGroupLesson" parameterType="map">
     UPDATE TBL_ATTEND
     SET 
-    AT_DATE = CURRENT_DATE, <!-- 출석 날짜를 현재 날짜로 설정 -->
     AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE1_YN END,
     AT_ATTENDANCE2_YN = CASE WHEN AT_MEMBER2_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE2_YN END,
     AT_ATTENDANCE3_YN = CASE WHEN AT_MEMBER3_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE3_YN END,
@@ -106,7 +116,6 @@
 <update id="updateAttendancePersonalLesson" parameterType="map">
 	UPDATE TBL_ATTEND
 	SET 
-	AT_DATE = CURRENT_DATE,
 	AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{selectedMemberCode} THEN TRUE ELSE FALSE END
 	WHERE LESSON_CODE = #{lessonCode};
 </update>

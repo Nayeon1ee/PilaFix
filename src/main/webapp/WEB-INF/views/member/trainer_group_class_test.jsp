@@ -144,10 +144,10 @@
 <!-- 수업 예약한 회원 목록 -->
 <section class="member_list py-4 my-3">
     <div class="container">
-        <div class="row justify-content-center">
-            <form id="form" method="post" action="updateAttendG.do">
-                <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
+        <form id="form" method="post" action="updateAttendG.do">
+            <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
 
+            <div class="row justify-content-center">
                 <c:forEach var="member" items="${lessonDetail.reservedMembers}" varStatus="status">
                     <div class="col-md-2">
                         <div class="member-check text-center">
@@ -159,15 +159,13 @@
                         </div>
                     </div>
                 </c:forEach>
+            </div>
 
-                <div class="container">
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary" id="attendanceButton">출석처리</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='getTrainerLessonList.do'">목록</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary" id="attendanceButton">출석처리</button>
+                <button type="button" class="btn btn-primary ms-2" onclick="location.href='getTrainerLessonList.do'">목록</button>
+            </div>
+        </form>
     </div>
 </section>
 

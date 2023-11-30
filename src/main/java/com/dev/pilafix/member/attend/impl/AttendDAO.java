@@ -42,16 +42,22 @@ public class AttendDAO {
 		return sqlSessionTemplate.selectList("CenterLessonDAO.getLessonListWithCtNameAndCsName", csMemberCode);
 	}
 
+//	/**
+//	 * 수업 상세 + 예약회원이름 -> 예약회원 없는 경우 에러 수업만 따로 select
+//	 */
+//	public CenterLessonVO getLessonByTrainerWithCsName(String lsCode) {
+//		return sqlSessionTemplate.selectOne("CenterLessonDAO.getLessonByTrainerWithCsName", lsCode);
+//	}	
 	/**
-	 * 수업 상세 + 회원이름
-	 * 
-	 * @param lessonCode
-	 * @param memberCode
-	 * @param isAttended
+	 * 수업상세
+	 * @param lsCode
+	 * @return
 	 */
-	public CenterLessonVO getLessonByTrainerWithCsName(String lsCode) {
-		return sqlSessionTemplate.selectOne("CenterLessonDAO.getLessonByTrainerWithCsName", lsCode);
+	public CenterLessonVO getLessonByTrainer(String lsCode) {
+		return sqlSessionTemplate.selectOne("CenterLessonDAO.getLessonByTrainer", lsCode);
 	}
+	
+	
 
 	/**
 	 * 개인수업 출석 업데이트
