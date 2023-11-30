@@ -111,6 +111,11 @@ public class MemberManageServiceImpl implements MemberManageService {
 		return dao.getPersonalLesson(csMemberCode);
 	}
 	
+	@Override
+	public List<CenterLessonVO> getAllLesson(int csMemberCode) {
+		return dao.getAllLesson(csMemberCode);
+	}
+	
 	// 그룹/개인레슨 갯수 세오기
 	@Override
 	public CenterLessonVO getLessonCount(int csMemberCode) {
