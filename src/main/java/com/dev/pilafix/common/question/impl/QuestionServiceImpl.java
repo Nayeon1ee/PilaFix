@@ -91,7 +91,6 @@ public class QuestionServiceImpl implements QuestionService {
 		
 		
 		// 4.
-		List<NoticeVO> noticeList = new ArrayList<>();
 		int ctCode = replyVO.getWriterMemberCode();// 세션에 있는 센터 코드
 		NoticeVO notice = new NoticeVO();
 		notice.setMemberCode(writerMemberCode);
@@ -99,13 +98,9 @@ public class QuestionServiceImpl implements QuestionService {
 		notice.setEventType("답변등록");
 		notice.setUniqueIdentifierCode(String.valueOf(qsNumber));
 		notice.setNcNoticeContent("[알림] 문의사항에 대한 답변이 등록되었습니다.");
-		notice.setNcSendYn(false);
 		notice.setNcReadYn(false);
-		noticeList.add(notice);
 
-		System.out.println(noticeList.toString());
-		noticeDAO.insertNotice(noticeList);
-
+		noticeDAO.insertNotice(notice);
 	}
 
 	/**

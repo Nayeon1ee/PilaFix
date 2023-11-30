@@ -73,12 +73,31 @@
 					<%
 					}
 					%>
+					
+					<!--  알림 부분-->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown"aria-haspopup="true" aria-expanded="false"> 
+								<img src="${pageContext.request.contextPath}/resources/images/alarm.png" alt="Notification Image" style="height: 2em; width: 2em; object-fit: cover; border-radius: 50%;">
+								<!-- 알림 있을 때 아래 영역에 카운트 추가 -->
+								<div id="NotificationBadge"></div>
+						</a>
+						
+						<div class="dropdown-menu" aria-labelledby="notificationsDropdown">
+							<!-- 알림 내용은 아래 영역에 추가됨 -->
+							<div id="NotificationsList"></div>
+						</div>
+					</li> 
+					
+					<!--  알림 부분 -->
+					
+					
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>
 			<!-- end navbar -->
 
 		</div>
+		<div id="csMemberCode" data-cs-member-code="<%= (int)session.getAttribute("csMemberCode") %>"></div> <!-- notice.js에서 세션정보 가져오기 위함  -->
 	</header>
 </body>
 </html>

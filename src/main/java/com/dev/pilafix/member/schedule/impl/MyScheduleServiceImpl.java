@@ -1,11 +1,13 @@
 package com.dev.pilafix.member.schedule.impl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.pilafix.member.schedule.CalenderVO;
 import com.dev.pilafix.member.schedule.MyScheduleService;
 import com.dev.pilafix.member.schedule.MyScheduleVO;
 
@@ -33,6 +35,11 @@ public class MyScheduleServiceImpl implements MyScheduleService{
 	@Override
 	public Map<String, Integer> getCount(int csMemberCode) {
 		return dao.getCount(csMemberCode);
+	}
+
+	@Override
+	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+		return dao.getMonthSchedule(csMemberCode,calenderDate);
 	}
 
 }

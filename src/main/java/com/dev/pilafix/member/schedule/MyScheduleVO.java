@@ -16,20 +16,7 @@ public class MyScheduleVO {
 	private int centerCode;
 	private String centerName;
 	private boolean lsColseYN;
-	
-	
-	public Timestamp getLessonDatetime() {
-		return lessonDatetime;
-	}
-	public void setLessonDatetime(Timestamp lessonDatetime) {
-		this.lessonDatetime = lessonDatetime;
-	}
-	public String getLsEndTime() {
-		return lsEndTime;
-	}
-	public void setLsEndTime(String lsEndTime) {
-		this.lsEndTime = lsEndTime;
-	}
+	private String rsCode;
 	public String getLsCode() {
 		return lsCode;
 	}
@@ -59,6 +46,18 @@ public class MyScheduleVO {
 	}
 	public void setLsTime(String lsTime) {
 		this.lsTime = lsTime;
+	}
+	public String getLsEndTime() {
+		return lsEndTime;
+	}
+	public void setLsEndTime(String lsEndTime) {
+		this.lsEndTime = lsEndTime;
+	}
+	public Timestamp getLessonDatetime() {
+		return lessonDatetime;
+	}
+	public void setLessonDatetime(Timestamp lessonDatetime) {
+		this.lessonDatetime = lessonDatetime;
 	}
 	public int getTrainerMemberCode() {
 		return trainerMemberCode;
@@ -90,13 +89,25 @@ public class MyScheduleVO {
 	public void setLsColseYN(boolean lsColseYN) {
 		this.lsColseYN = lsColseYN;
 	}
+	public String getRsCode() {
+		return rsCode;
+	}
+	public void setRsCode(String rsCode) {
+		this.rsCode = rsCode;
+	}
 	@Override
 	public String toString() {
 		return "MyScheduleVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsType=" + lsType + ", lsDate=" + lsDate
 				+ ", lsTime=" + lsTime + ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime
 				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
-				+ ", centerCode=" + centerCode + ", centerName=" + centerName + ", lsColseYN=" + lsColseYN + "]";
+				+ ", centerCode=" + centerCode + ", centerName=" + centerName + ", lsColseYN=" + lsColseYN + ", rsCode="
+				+ rsCode + "]";
 	}
+
+	
+	
+	
+	
 	
 	
 

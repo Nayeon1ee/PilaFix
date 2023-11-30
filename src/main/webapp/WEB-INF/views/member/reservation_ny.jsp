@@ -17,48 +17,47 @@
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/animate.css/animate.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/boxicons/css/boxicons.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/glightbox/css/glightbox.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.css"
+	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="${pageContext.request.contextPath}/resources/member/assets/css/style.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
+	rel="stylesheet">
 
 </head>
 
 <!-- 내 css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common_0.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_reservation_details.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common_0.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style_reservation_details.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
 
 
 <body>
-
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -81,7 +80,7 @@
 				<button onclick="location.href='cancelPage.do?rsCode=RS321'">RS321 - 오늘 날짜 예약 취소</button>
 				<button onclick="location.href='cancelPage.do?rsCode=RS325'">RS325 - 내일 날짜 예약 취소</button>
 				 --%>
-				
+
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
@@ -133,46 +132,57 @@
 
 							<!-- 셀렉트 박스 - 연동된 센터의 목록 -->
 							<div class="custom-select-wrapper text-center mt-3">
-							    <select class="form-select p-1" id="centerSelect" onchange="getLessonInfoByCenter()">
-							        <c:choose>
-							            <c:when test="${empty connCenterList}">
-							                <!-- 첫 번째 옵션을 기본으로 선택하도록 selected 속성 추가 -->
-							                <option selected>연동센터 없음</option>
-							            </c:when>
-							            <c:otherwise>
-							                <c:forEach var="center" items="${connCenterList}" varStatus="loop">
-							                    <option value="${center.ctCode}" <c:if test="${loop.index eq 0}">selected</c:if>>센터코드: ${center.ctCode}&센터이름: ${center.ctName}</option>
-							                </c:forEach>
-							            </c:otherwise>
-							        </c:choose>
-							    </select>
+								<select class="form-select p-1" id="centerSelect"
+									onchange="getLessonInfoByCenter()">
+									<c:choose>
+										<c:when test="${empty connCenterList}">
+											<!-- 첫 번째 옵션을 기본으로 선택하도록 selected 속성 추가 -->
+											<option selected>연동센터 없음</option>
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="center" items="${connCenterList}"
+												varStatus="loop">
+												<option value="${center.ctCode}"
+													<c:if test="${loop.index eq 0}">selected</c:if>>센터코드:
+													${center.ctCode}&센터이름: ${center.ctName}</option>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</select>
 							</div>
 
 							<div class="tab-buttons text-center">
-							    <ul class="nav nav-tabs justify-content-center mt-3" id="pills-tab" role="tablist">
-							        <li class="nav-item flex-grow-1" role="presentation">
-							            <a class="nav-link active show" id="pills-group-tab" data-toggle="pill" href="#pills-group" role="tab" aria-controls="pills-group" aria-selected="true">그룹</a>
-							        </li>
-							        <li class="nav-item flex-grow-1" role="presentation">
-							            <a class="nav-link px-auto active show" id="pills-individual-tab" data-toggle="pill" href="#pills-individual" role="tab" aria-controls="pills-individual" aria-selected="false">개인</a>
-							        </li>
-							    </ul>
+								<ul class="nav nav-tabs justify-content-center mt-3"
+									id="pills-tab" role="tablist">
+									<li class="nav-item flex-grow-1" role="presentation"><a
+										class="nav-link active show" id="pills-group-tab"
+										data-toggle="pill" href="#pills-group" role="tab"
+										aria-controls="pills-group" aria-selected="true">그룹</a></li>
+									<li class="nav-item flex-grow-1" role="presentation"><a
+										class="nav-link px-auto active show" id="pills-individual-tab"
+										data-toggle="pill" href="#pills-individual" role="tab"
+										aria-controls="pills-individual" aria-selected="false">개인</a>
+									</li>
+								</ul>
 							</div>
 
 							<!-- 탭 전환 시 변경될 데이터 -->
 							<div class="tab-content">
 
 								<!--  그룹 탭  -->
-								<div class="tab-pane fade active show" id="pills-group" role="tabpanel"	aria-labelledby="pills-group-tab">
+								<div class="tab-pane fade active show" id="pills-group"
+									role="tabpanel" aria-labelledby="pills-group-tab">
 
 									<!-- 그룹 탭에 대한 내용 -->
 									<div class="content-filter">
-										<div class="form-check form-switch d-flex justify-content-between align-items-center">
-											<div>
+										<div
+											class="form-check form-switch d-flex justify-content-between align-items-center">
+											<div style="display: flex; align-items: center;">
 												<input class="form-check-input" type="checkbox"
 													id="flexSwitchCheckDefault"> <label
 													class="form-check-label" for="flexSwitchCheckDefault"
-													style="color: black;"> 예약 가능 </label>
+													style="color: black; display: inline-block; margin-left: 5px;">예약
+													가능</label>
 											</div>
 											<div>
 												<button class="btn btn-secondary refresh"
@@ -198,7 +208,7 @@
 										<div class="list-group">
 											<c:forEach var="item" items="${lessonList}">
 												<a class="list-group-item list-group-item-action">
-													<p class="mb-1">${item.lsTime }~ ${item.lsEndTime }</p>
+													<p class="mb-1">${item.lsTime }~${item.lsEndTime }</p>
 													<div class="d-flex w-100 justify-content-between">
 														<h5 class="mb-1">${ item.lsName }</h5>
 													</div>
@@ -217,25 +227,31 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- 개인 탭  -->
-								<div class="tab-pane fade" id="pills-individual" role="tabpanel" aria-labelledby="pills-individual-tab">
-								
-								<!-- 개인 탭에 대한 내용 -->
+								<div class="tab-pane fade" id="pills-individual" role="tabpanel"
+									aria-labelledby="pills-individual-tab">
+
+									<!-- 개인 탭에 대한 내용 -->
 									<div class="content-filter mt-1">
-										<div class="form-check form-switch d-flex justify-content-between align-items-center">
+										<div
+											class="form-check form-switch d-flex justify-content-between align-items-center">
 											<div>
-												<input class="form-check-input" type="checkbox"	id="flexSwitchCheckDefault"> 
-												<label class="form-check-label" for="flexSwitchCheckDefault" style="color: black;"> 예약 가능 </label>
+												<input class="form-check-input" type="checkbox"
+													id="flexSwitchCheckDefault"> <label
+													class="form-check-label" for="flexSwitchCheckDefault"
+													style="color: black;"> 예약 가능 </label>
 											</div>
 											<div>
-												<button class="btn btn-secondary refresh" onclick="window.location.reload()" style="background-color: white; color: #333; border: 1px solid white;">
+												<button class="btn btn-secondary refresh"
+													onclick="window.location.reload()"
+													style="background-color: white; color: #333; border: 1px solid white;">
 													<i class="bi bi-arrow-clockwise"></i> 새로고침
 												</button>
 											</div>
 										</div>
 									</div>
-									
+
 									<div id="lessonListContainerForPersonal">
 										<!-- 생성된 개인탭 내용 -->
 									</div>
@@ -331,39 +347,50 @@
 									</div>
 
 									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> 
-										<label class="form-check-label" for="flexCheckDefault"> 이용 정책을 전부 확인하였습니다. 이에 동의합니다.</label>
+										<input class="form-check-input" type="checkbox" value=""
+											id="flexCheckDefault"> <label
+											class="form-check-label pt-2" for="flexCheckDefault">
+											이용 정책을 전부 확인하였습니다. 이에 동의합니다.</label>
 									</div>
 
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-									<button type="button" class="btn btn-primary"  onclick="makeReservation()">예약하기</button>
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-primary"
+										onclick="makeReservation()">예약하기</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<!-- 예약 완료 Modal -->
-				<div class="modal fade" id="reservationSuccessModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal fade" id="reservationSuccessModal"
+					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg modal-dialog-centered">
-						<!-- model-lg는 모달 크기 조절 -->
-						<div class="modal-dialog">
-			        		<div class="modal-content">
-			            		<div class="modal-header">
-				                	<h5 class="modal-title" id="exampleModalLabel">예약 완료</h5>
-				                	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			            		</div>
-					            <div class="modal-body">
-					            	<img src="${pageContext.request.contextPath}/resources/images/success.png">
-					                <p> 예약이 성공적으로 완료되었습니다. </p>
-					                <p> <a href="#">내 스케줄 확인하러 가기</a> </p>
-					            </div>
-					            <div class="modal-footer">
-					                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-					            </div>
-			       			</div>
-			    		</div>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">예약 완료</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body text-center">
+								<img class="img-fluid mb-3"
+									src="${pageContext.request.contextPath}/resources/images/success.png"
+									alt="Success Image" style="max-width: 100%;">
+								<p>
+									<span class="highlight-text" style="font-size: 1.3em">예약이 성공적으로 완료되었습니다.</span>
+								</p>
+								<p>
+									<a href="#" class="btn btn-primary">내 스케줄 확인하러 가기</a>
+								</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">닫기</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- 모달 끝 -->
@@ -372,6 +399,7 @@
 
 
 				<!-- End Our Skills Section -->
+			</div>
 		</section>
 	</main>
 
@@ -419,6 +447,13 @@
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
 
 	<script>
+	<!-- 모달이 닫힌 후에 modal-backdrop을 수동으로 제거 -->
+	$(document).ready(function() {
+        $('#reservationSuccessModal').on('hidden.bs.modal', function (e) {
+            $('.modal-backdrop').remove();
+        });
+    });
+	
 		var selectedTab = "pills-group-tab"; // 기본 선택 탭
 		var reservationData = {};
 		
@@ -491,7 +526,10 @@
 					        $('#lessonListContainerForPersonal').html('');
 					        
 							if (lessonList.length < 1) {
-								str = '<p>개설된 수업이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
+								str = '<div class="no-lessons-message">' +
+			                    '<p class="message-text">현재 개설된 수업이 없습니다.</p>' +
+			                    '<p class="message-text">더 많은 정보는 센터에 문의해주세요.</p>' +
+			              '</div>';
 								$('#lessonListContainerForGroup').append(str);
 								$('#lessonListContainerForPersonal').append(str);
 								
@@ -772,8 +810,8 @@
     
 	
 </script>
-		
-		
+
+
 </body>
 
 </html>

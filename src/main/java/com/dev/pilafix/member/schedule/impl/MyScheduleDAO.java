@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.schedule.impl;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dev.pilafix.member.schedule.CalenderVO;
 import com.dev.pilafix.member.schedule.MyScheduleVO;
 
 @Repository
@@ -48,6 +50,17 @@ public class MyScheduleDAO {
 		
 		
 		return count;
+	}
+
+	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
+		
+		Map<String,Object> param = new HashMap<>();
+		param.put("lessonCode", lessonCode);
+		param.put("calenderDate", calenderDate);
+		
+		return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
+		 
 	}
 
 }

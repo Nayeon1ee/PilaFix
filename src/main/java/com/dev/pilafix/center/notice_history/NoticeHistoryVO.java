@@ -9,7 +9,7 @@ public class NoticeHistoryVO {
 	private String recipientCode;
 	private String eventType;
 	private String uniqueIdentifierCode;
-	private boolean readYn;
+	private boolean ncReadYn;
 	private String ncNoticeContent;
 	
 	
@@ -49,11 +49,11 @@ public class NoticeHistoryVO {
 	public void setUniqueIdentifierCode(String uniqueIdentifierCode) {
 		this.uniqueIdentifierCode = uniqueIdentifierCode;
 	}
-	public boolean isReadYn() {
-		return readYn;
+	public boolean isNcReadYn() {
+		return ncReadYn;
 	}
-	public void setReadYn(boolean readYn) {
-		this.readYn = readYn;
+	public void setNcReadYn(boolean ncReadYn) {
+		this.ncReadYn = ncReadYn;
 	}
 	
 	
@@ -67,7 +67,7 @@ public class NoticeHistoryVO {
 	public String toString() {
 		return "NoticeHistoryVO [ncId=" + ncId + ", ncSentDatetime=" + ncSentDatetime + ", memberCode=" + memberCode
 				+ ", recipientCode=" + recipientCode + ", eventType=" + eventType + ", uniqueIdentifierCode="
-				+ uniqueIdentifierCode + ", readYn=" + readYn + "]";
+				+ uniqueIdentifierCode + ", ncReadYn=" + ncReadYn + "]";
 	}
 	
 	

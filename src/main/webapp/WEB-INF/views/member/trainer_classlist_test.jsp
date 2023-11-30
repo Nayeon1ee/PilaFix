@@ -203,16 +203,17 @@
 								<td>${lesson.reservedCount}/${lesson.lsCapacity}</td> 
 								<!-- 수업시간lsTime이 현재시간 지나면 '수업종료' -->
 						        <td>
-								<c:set var="correctTime" value="${fn:substring(lesson.lsTime, 11, 19)}" />
-							    <!-- lsDate와 시간 부분을 결합하여 완전한 날짜-시간 문자열 생성 -->
-							    <c:set var="fullLessonDateTime" value="${lesson.lsDate} ${correctTime}" />
-							    <fmt:parseDate value="${fullLessonDateTime}" pattern="yyyy-MM-dd HH:mm:ss" var="lessonDateTime"/>
-							    <!-- 현재 시간과 비교 -->
-							    <c:choose>
-							        <c:when test="${lesson.lsCloseYN eq 'true'}">폐강</c:when>
-							        <c:when test="${lessonDateTime lt currentTime}">수업종료</c:when>
-							        <c:otherwise>진행중</c:otherwise>
-								</c:choose>
+<% java.util.Date now = new java.util.Date(); %>
+<fmt:formatDate value="<%= now %>" pattern="yyyy-MM-dd HH:mm" var="currentTime" />	        
+<c:set var="correctTime" value="${fn:substring(lesson.lsTime, 11, 16)}" />
+<c:set var="fullLessonDateTime" value="${lesson.lsDate} ${correctTime}" />
+<fmt:parseDate value="${fullLessonDateTime}" pattern="yyyy-MM-dd HH:mm" var="lessonDateTime"/>
+<c:choose>
+    <c:when test="${lesson.lsCloseYN eq 'true'}">폐강</c:when>
+    <c:when test="${lessonDateTime lt currentTime}">수업종료</c:when>
+    <c:otherwise>진행중</c:otherwise>
+</c:choose>
+
 						        </td>
 								<td>${lesson.lsCenterName}</td>
 							</tr>

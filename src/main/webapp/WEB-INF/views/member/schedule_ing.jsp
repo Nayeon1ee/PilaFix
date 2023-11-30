@@ -76,24 +76,6 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -136,7 +118,7 @@
 										<li class="nav-item"><a class="nav-link active"
 											style="color: #0070c0; text-weight: bold; text-decoration: none;">예약&nbsp;${count.reservCount }건</a></li>
 										<li class="nav-item"><a class="nav-link"
-											style="color: #14761d; text-weight: bold; text-decoration: none;">출석&nbsp;${count.attendCount }건</a></li>
+											style="color: #088A08; text-weight: bold; text-decoration: none;">출석&nbsp;${count.attendCount }건</a></li>
 										<li class="nav-item"><a class="nav-link"
 											style="color: #ff6600; text-weight: bold; text-decoration: none;">결석&nbsp;${count.absentCount }건</a></li>
 									</ul>
@@ -223,6 +205,7 @@
             center: 'title',
             right: 'next'
          },
+         
          selectable: true,
          themeSystem: 'bootstrap', // 부트스트랩 테마 사용
          bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함
@@ -240,6 +223,7 @@
                }
             }
          },
+         
          buttonText: {
             today: '오늘',
             month: '월',
@@ -252,16 +236,28 @@
                html: '<div style="background-color: #9b56e9; color: white; padding: 5px;">' + arg.event.title + '</div>'
             };
          },
-         events: [
-            {
-               title: '체어&바렐(B)',
-               start: '2023-11-25'
-            },
-            {
-               title: '콤비리포머(C)',
-               start: '2023-11-10'
-            }
-         ],
+         
+       // ajax로 캘린더에 일정 넣기
+         eventSources: [{
+     		events: function(info, successCallback) {
+     			//달력의 시작 날짜 가져옴 (11월이면 10월 마지막주 날짜로 시작해서 10 더해줌/ 서버에서 월만 쓸거라 정확한 날짜 중요x) 
+     			var startDate = new Date(info.start);
+     			startDate.setDate(startDate.getDate() + 10);
+
+     			var calenderDate = startDate.toISOString().slice(0, 10);
+     			console.log("달력의 날짜"+calenderDate);
+     		
+     			$.ajax({
+     				url: 'getMonthSchedule.do',
+     				type: 'POST',
+     				dataType: 'json',
+     				data: {calenderDate:calenderDate },
+     				success: function(data) {
+     					successCallback(data);
+     				}
+     			});
+     		}
+     	}],
          eventClick: function(info) {
             window.location.href(info.event.url);
          }
@@ -272,6 +268,8 @@
 
       calendar.render();
    });
+
+ 
 </script>
 	
 <!-- 예약정보 가져오는 js -->
@@ -291,6 +289,7 @@
 						$('#reservInfo').append('<p>예약된 수업이 없습니다.</p>');
 					} else {
 						reservInfoList.forEach(function(item) {
+							console.log(item);
 							// lsDate를 월-일(요일) 형태로 포맷팅
 		                    var date = new Date(item.lsDate);
 		                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
@@ -309,12 +308,21 @@
 									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
-									str += '<small class="text-muted"><strong>예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
 									str += '<div class="d-flex w-100 justify-content-between">'
 									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
 									// 수업시간 3시간 전까지는 취소하기 버튼 표시 (그 이후는 취소 불가라서 취소하기 버튼 없음)
 				                    if (currentDatetime < threeHoursBefore) {
-				                        str += '<button type="button" class="btn btn-outline-primary btn-reservation">취소하기</button>';
+				                    	// rsCode, lsCode, centerCode 변수에 저장
+				                        var rsCode = item.rsCode;
+				                        var lsCode = item.lsCode;
+				                        var centerCode = item.centerCode;
+				                        console.log("변수에 담을 때 값 유지되나?"+rsCode);
+				                		console.log(lsCode);
+				                		console.log(centerCode);
+				                        
+				                        //str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="location.href=""/pilafix/.do?rsCode="+ +">취소하기</button>';
+				                		str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="cancelReservation(\'' + rsCode + '\', \'' + lsCode + '\', \'' + centerCode + '\')">취소하기</button>';
 				                    }
 									str += '</div>'
 									str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
@@ -332,10 +340,32 @@
              }
          });
      });
-	</script>
-	
+	// 취소하기 버튼 클릭 시 실행되는 함수
+	 function cancelReservation(rsCode, lsCode, centerCode) {
+		console.log(rsCode);
+		console.log(lsCode);
+		console.log(centerCode);
+	     // AJAX 요청
+	     $.ajax({
+	         type: "POST",
+	         url: "cancelReservation.do",
+	         data: {
+	             rsCode: rsCode,
+	             lsCode: lsCode,
+	             centerCode: centerCode
+	         },
+	         success: function(response) {
+	             console.log("예약 취소하기 AJAX 요청 성공", response);
+	             // 취소 성공 시 추가적인 동작 수행
+	             window.location.href = 'schedule.do';
+	             alert("예약 취소 성공");
+	         },
+	         error: function(error) {
+	             console.error("취소하기 AJAX 요청 실패", error);
+	         }
+	     });
+	 }
 	<!-- 출석정보 가져오는 js -->
-	<script type="text/javascript">
 	 $("#attend").click(function() {
          // AJAX 요청
          $.ajax({
@@ -362,7 +392,7 @@
 									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
-									str += '<small class="text-muted"><strong>출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<small class="text-muted"><strong id="attendColor">출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
 									str += '<div class="d-flex w-100 justify-content-between">'
 									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
 									str += '</div>'
@@ -381,10 +411,8 @@
              }
          });
      });
-	</script>
 	
 	<!-- 결석정보 가져오는 js -->
-	<script type="text/javascript">
 	 $("#absent").click(function() {
          // AJAX 요청
          $.ajax({
@@ -411,7 +439,7 @@
 									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
-									str += '<small class="text-muted"><strong>결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+									str += '<small class="text-muted"><strong id="absentColor">결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
 									str += '<div class="d-flex w-100 justify-content-between">'
 									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
 									str += '</div>'
@@ -431,6 +459,8 @@
          });
      });
 	</script>
+
+	
 
 	<!-- Vendor JS Files -->
 	<script

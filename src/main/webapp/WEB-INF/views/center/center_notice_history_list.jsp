@@ -95,7 +95,7 @@
 										<td>${list.eventType }</td>
 										<td>${list.uniqueIdentifierCode }</td>
 										<c:choose>
-											<c:when test="${list.readYn }">
+											<c:when test="${list.ncReadYn }">
 												<td>읽음</td>
 											</c:when>
 											<c:otherwise>
