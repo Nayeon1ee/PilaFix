@@ -32,11 +32,11 @@ public class AutoUpdateSchedule {
 	}
 
 	/**
-	 * 수강권 만료 
+	 * 수강권 만료 처리
 	 */
-	@Scheduled(cron = "0 10 0 * * ?") // 매일 00시 10분에 실행
+	@Scheduled(cron = "0 0 0 * * ?") // 매일 00시 10분에 실행
 	public void autoExpiryTickets() {
-//		controller.autoExpiryTickets();
+		controller.autoExpiryTickets();
 	}
 		
 	

@@ -26,6 +26,14 @@ public class AutoUpdateDAO {
 	public void insertAttendance(AttendVO attend) {
 		sqlSessionTemplate.insert("AttendDAO.insertAttendance", attend);
 	}
+
+	public void autoExpiryTicketsForGroup(Date today) {
+		sqlSessionTemplate.update("MemberManageDAO.autoExpiryTicketsForGroup",today);
+	}
+
+	public void autoExpiryTicketsForPersonal(Date today) {
+		sqlSessionTemplate.update("MemberManageDAO.autoExpiryTicketsForPersonal",today);
+	}
 	
 	
 

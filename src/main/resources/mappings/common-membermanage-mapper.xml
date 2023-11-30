@@ -306,4 +306,21 @@
 		ORDER BY T1.CS_MEMBER_CODE DESC
 	</select>
 	
+	
+	<!-- 11/30 자동 수강권 만료 처리 -->
+	<select id="autoExpiryTicketsForPersonal">
+		<![CDATA[
+			UPDATE tbl_cst
+			SET ticket_expiry_yn_personal1 = TRUE
+			WHERE ticket_expiry_date_personal1::DATE = #{today};
+		]]>
+	</select>
+	<select id="autoExpiryTicketsForGroup">
+		<![CDATA[
+			UPDATE tbl_cst
+			SET ticket_expiry_yn_group1 = TRUE
+			WHERE ticket_expiry_date_group1::DATE = #{today};
+		]]>
+	</select>
+	
 </mapper>

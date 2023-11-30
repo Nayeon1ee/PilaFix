@@ -41,4 +41,17 @@ public class AutoUpdateService {
 		dao.insertAttendance(attend);
 	}
 
+	/**
+	 * 수강권 자동 만료 처리 
+	 */
+	public void autoExpiryTickets() {
+		try {
+			Date today = new Date();
+			dao.autoExpiryTicketsForGroup(today);
+			dao.autoExpiryTicketsForPersonal(today);
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
+	}
+
 }
