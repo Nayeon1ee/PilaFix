@@ -194,14 +194,15 @@
 							<!-- 여기에 ajax결과 들어옴 -->
 						</div>
 						<div class="card-footer text-muted">이용정책</div>
-						<div class="card-body" id="ticketBuyGuide">
+						<div class="card-body pt-0" id="ticketBuyGuide">
 								<!-- 여기에 ajax결과 들어옴 -->
 							</div>
 							<div class = "policy-area">
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> 
-									<label class="form-check-label" for="flexCheckDefault" style="margin:10px;"> 이용 정책을 모두 확인 하였습니다. 이에 동의합니다.</label>
+									<label class="form-check-label m-0" for="flexCheckDefault" style="margin:10px;"> 이용 정책을 모두 확인 하였습니다. 이에 동의합니다.</label>
 							</div>
+						 
 							</div>
 						<button class="btn btn-primary" id="ticketBuy">결제하기</button> 
 						

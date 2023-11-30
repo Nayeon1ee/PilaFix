@@ -124,7 +124,7 @@
 													<div class="col-lg-9 col-md-8">
 													<!-- 폐강된 count가 0보다 크면 폐강된 수업의 건수 보여주고 아니면 -보여줌 -->
 													<c:choose>
-														<c:when test="${lessonCount.closedPersonalCount>0}">
+														<c:when test="${lessonCount.closedPersonalCount gt 0}">
 															폐강 : ${lessonCount.closedPersonalCount }건
 														</c:when>
 														<c:otherwise>
@@ -156,7 +156,7 @@
 													<div class="col-lg-3 col-md-4 label">비고</div>
 													<div class="col-lg-9 col-md-8">
 														<c:choose>
-														<c:when test="${lessonCount.closedPersonalCount>0}">
+														<c:when test="${lessonCount.closedGroupCount gt 0}">
 															폐강 : ${lessonCount.closedGroupCount }건
 														</c:when>
 														<c:otherwise>
@@ -184,12 +184,16 @@
 
 
 							<hr>
-
+							
+							<!-- 현재시간 구하기 (그룹/개인 리스트에서 상태계산시 사용)-->
+							<c:set var="now" value="<%= new java.util.Date() %>" />
+							<!-- 현재 날자 포맷지정 (오늘 날짜 mm-dd만 나오게)-->
+							<fmt:formatDate value="${now}" pattern="MM월dd일" var="todayDate" />
 
 							<div class="card card_box_shadow">
 								<div class="card-body">
-									<h5 class="card-title">개인 수업</h5>
-									<p>강사가 진행하고있는 개인수업 내역입니다.</p>
+									<h5 class="card-title">개인 수업 (${todayDate})</h5>
+									<p>오늘 강사가 진행하고있는 개인수업 내역입니다.</p>
 
 									<!-- Table with stripped rows -->
 									<table class="table datatable">
@@ -204,41 +208,40 @@
 										</thead>
 
 										<tbody>
-											<c:if test="${empty groupLesson}">
+											<c:if test="${empty personalLesson}">
 											<tr>
-												<td colspan="5" >등록된 개인 수업이 없습니다.</td>
+												<td colspan="5" >오늘 진행할 개인수업이 없습니다.</td>
 											</tr>
 										</c:if>
 										<c:forEach var="personal" items="${personalLesson}">
-											<tr>
-											<!-- 요일 구하기 -->
+											<!-- 요일 구하기 (그룹/개인수업 리스트에서 사용) -->
 											<c:set var="formattedDate">
 											    <fmt:formatDate value="${personal.lsDate}" pattern="yyyy-MM-dd"/>
 											</c:set>
 											<fmt:parseDate value="${formattedDate}" pattern="yyyy-MM-dd" var="parsedDate" />
 											<fmt:formatDate value="${parsedDate}" pattern="E" var="dayOfWeek" />
 											
-											<!-- 날짜 구하기 
-											<c:set var="formattedDateTime">
-									            <fmt:parseDate value="${personal.lsTime}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDateTime"/>
-									        </c:set>
-									
-									        <c:set var="formattedTime">
-									            <fmt:formatDate value="${formattedDateTime}" pattern="a hh:mm"/>
-									        </c:set>
-											-->
-								
+											<tr>
 												<td>${personal.lsDate}&nbsp; (${dayOfWeek})</td>
 												<td>${personal.lsTime}</td>
-												<td>${personal.lsTime}</td>
+												<td>${personal.lsEndTime}</td>
 												<td class="truncate-text">${personal.lsName}</td>
 												<td>
 												<c:choose>
-													<c:when test="${ personal.lsColseYN == 't'}">폐강</c:when>
+													<c:when test="${ personal.lsCloseYN eq true}"><strong style="color:#FE2E2E">폐강</strong></c:when>
 													<c:otherwise>
-														<!-- 현재 시간이 수업 시작시간보다 늦으면 수업종료 / 수업전, 진행중 , 수업완료, 폐강? -->
-														<c:if test="group.lsTime"></c:if>
-													
+											            <!-- 현재 시간이 수업 시작시간보다 빠를 때 -->
+											            <c:if test="${now lt personal.lessonDatetime}">
+											                수업예정
+											            </c:if>
+											            <!-- 현재 시간이 수업 시작시간과 종료시간 사이에 있을 때 -->
+											            <c:if test="${now gt personal.lessonDatetime and now lt personal.lessonEndDatetime}">
+											                <strong style="color:#0D6EFD">진행중</strong>
+											            </c:if>
+											            <!-- 현재 시간이 수업 종료시간보다 늦을 때 -->
+											            <c:if test="${now gt personal.lessonEndDatetime}">
+											                수업종료
+											            </c:if>
 													</c:otherwise>
 												</c:choose>
 												</td>
@@ -255,8 +258,8 @@
 
 							<div class="card card_box_shadow">
 								<div class="card-body">
-									<h5 class="card-title">그룹 수업</h5>
-									<p>강사가 진행하고있는 그룹수업 내역입니다.</p>
+									<h5 class="card-title">그룹 수업 (${todayDate})</h5>
+									<p>오늘 강사가 진행하고있는 그룹수업 내역입니다.</p>
 
 									<!-- Table with stripped rows -->
 									<table class="table datatable">
@@ -272,41 +275,38 @@
 										<tbody>
 										<c:if test="${empty groupLesson}">
 											<tr>
-												<td colspan="5" >등록된 그룹 수업이 없습니다.</td>
+												<td colspan="5" >오늘 진행할 그룹수업이 없습니다.</td>
 											</tr>
 										</c:if>
 										<c:forEach var="group" items="${groupLesson}">
-											<tr>
-											<!-- 요일 구하기 -->
+											<!-- 요일 구하기 (그룹/개인수업 리스트에서 사용) -->
 											<c:set var="formattedDate">
 											    <fmt:formatDate value="${group.lsDate}" pattern="yyyy-MM-dd"/>
 											</c:set>
 											<fmt:parseDate value="${formattedDate}" pattern="yyyy-MM-dd" var="parsedDate" />
 											<fmt:formatDate value="${parsedDate}" pattern="E" var="dayOfWeek" />
 											
-											<!-- 날짜 구하기 
-											<c:set var="formattedDateTime">
-									            <fmt:parseDate value="${group.lsTime}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDateTime"/>
-									        </c:set>
-									
-									        <c:set var="formattedTime">
-									            <fmt:formatDate value="${formattedDateTime}" pattern="a hh:mm"/>
-									        </c:set>
-											-->
-											
-											
-											
+												<tr>
 												<td>${group.lsDate}&nbsp; (${dayOfWeek})</td>
 												<td>${group.lsTime}</td>
-												<td>${group.lsTime}</td>
+												<td>${group.lsEndTime}</td>
 												<td class="truncate-text">${group.lsName}</td>
 												<td>
 												<c:choose>
-													<c:when test="${ group.lsCloseYN == 't'}">폐강</c:when>
+													<c:when test="${ group.lsCloseYN eq true}"><strong style="color:#FE2E2E">폐강</strong></c:when>
 													<c:otherwise>
-														<!-- 현재 시간이 수업 시작시간보다 늦으면 수업종료 / 수업전, 진행중 , 수업완료, 폐강? -->
-														<c:if test="group.lsTime"></c:if>
-													
+											            <!-- 현재 시간이 수업 시작시간보다 빠를 때 -->
+											            <c:if test="${now lt group.lessonDatetime}">
+											                수업예정
+											            </c:if>
+											            <!-- 현재 시간이 수업 시작시간과 종료시간 사이에 있을 때 -->
+											            <c:if test="${now gt group.lessonDatetime and now lt group.lessonEndDatetime}">
+											                <strong style="color:#0D6EFD">진행중</strong>
+											            </c:if>
+											            <!-- 현재 시간이 수업 종료시간보다 늦을 때 -->
+											            <c:if test="${now gt group.lessonEndDatetime}">
+											                수업종료
+											            </c:if>
 													</c:otherwise>
 												</c:choose>
 												</td>
@@ -325,55 +325,60 @@
 								<div class="card-body">
 									<h5 class="card-title">전체 수업 내역</h5>
 									<p>강사가 현재까지 센터에서 진행한 전체 수업의 내역입니다.</p>
-									<p>
-										전체 <span id="totalRequests">0</span>건
-									</p>
 									<!-- Table with stripped rows -->
 									<table class="table datatable">
 										<thead>
 											<tr>
-												<th scope="col">수업시작일자</th>
-												<th scope="col">수업종료일자</th>
+												<th scope="col">수업일자</th>
+												<th scope="col">수업시간</th>
 												<th scope="col">수업명</th>
+												<th scope="col">수업유형</th>
 												<th scope="col">상태</th>
 											</tr>
 										</thead>
 
 										<tbody>
-											<tr>
-												<td>2023.04.08(금)</td>
-												<td>2023.04.18(금)</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
-											</tr>
+											
 
+										<c:if test="${empty allLesson}">
 											<tr>
-												<td>2023.04.08(금)</td>
-												<td>2023.04.18(금)</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
+												<td colspan="5" >센터에서 진행한 수업이 아직 없습니다.</td>
 											</tr>
-
-											<tr>
-												<td>2023.04.08(금)</td>
-												<td>2023.04.18(금)</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
+										</c:if>
+										<c:forEach var="all" items="${allLesson}">
+											<!-- 요일 구하기 (그룹/개인수업 리스트에서 사용) -->
+											<c:set var="formattedDate">
+											    <fmt:formatDate value="${all.lsDate}" pattern="yyyy-MM-dd"/>
+											</c:set>
+											<fmt:parseDate value="${formattedDate}" pattern="yyyy-MM-dd" var="parsedDate" />
+											<fmt:formatDate value="${parsedDate}" pattern="E" var="dayOfWeek" />
+											
+												<tr>
+												<td>${all.lsDate}&nbsp; (${dayOfWeek})</td>
+												<td>${all.lsTime}</td>
+												<td class="truncate-text">${all.lsName}</td>
+												<td>${all.lsType}</td>
+												<td>
+												<c:choose>
+													<c:when test="${ all.lsCloseYN eq true}"><strong style="color:#FE2E2E">폐강</strong></c:when>
+													<c:otherwise>
+											            <!-- 현재 시간이 수업 시작시간보다 빠를 때 -->
+											            <c:if test="${now lt all.lessonDatetime}">
+											                수업예정
+											            </c:if>
+											            <!-- 현재 시간이 수업 시작시간과 종료시간 사이에 있을 때 -->
+											            <c:if test="${now gt all.lessonDatetime and now lt all.lessonEndDatetime}">
+											                <strong style="color:#0D6EFD">진행중</strong>
+											            </c:if>
+											            <!-- 현재 시간이 수업 종료시간보다 늦을 때 -->
+											            <c:if test="${now gt all.lessonEndDatetime}">
+											                수업종료
+											            </c:if>
+													</c:otherwise>
+												</c:choose>
+												</td>
 											</tr>
-
-											<tr>
-												<td>2023.04.08(금)</td>
-												<td>2023.04.18(금)</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
-											</tr>
-
-											<tr>
-												<td>2023.04.08(금)</td>
-												<td>2023.04.18(금)</td>
-												<td class="truncate-text">수업명수업명수업명수업명수업명</td>
-												<td>진행중</td>
-											</tr>
+										</c:forEach>	
 										</tbody>
 									</table>
 									

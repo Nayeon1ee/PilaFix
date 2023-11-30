@@ -1,8 +1,11 @@
 package com.dev.pilafix.member.attend;
 
+import java.sql.Date;
+
 public class AttendVO {
 	private String atCode;
 	private String lessonCode;
+	private Date atDate;
 	private int atMember1Code;
 	private boolean atAttendance1Yn;
 	private int atMember2Code;
@@ -15,6 +18,7 @@ public class AttendVO {
 	private boolean atAttendance5Yn;	
 	private int atMember6Code;
 	private boolean atAttendance6Yn;
+	
 	
 	
 	
@@ -102,6 +106,14 @@ public class AttendVO {
 	public void setAtAttendance6Yn(boolean atAttendance6Yn) {
 		this.atAttendance6Yn = atAttendance6Yn;
 	}
+	
+	
+	public Date getAtDate() {
+		return atDate;
+	}
+	public void setAtDate(Date atDate) {
+		this.atDate = atDate;
+	}
 	@Override
 	public String toString() {
 		return "AttendVO [atCode=" + atCode + ", lessonCode=" + lessonCode + ", atMember1Code=" + atMember1Code
@@ -109,7 +121,9 @@ public class AttendVO {
 				+ atAttendance2Yn + ", atMember3Code=" + atMember3Code + ", atAttendance3Yn=" + atAttendance3Yn
 				+ ", atMember4Code=" + atMember4Code + ", atAttendance4Yn=" + atAttendance4Yn + ", atMember5Code="
 				+ atMember5Code + ", atAttendance5Yn=" + atAttendance5Yn + ", atMember6Code=" + atMember6Code
-				+ ", atAttendance6Yn=" + atAttendance6Yn + "]";
+				+ ", atAttendance6Yn=" + atAttendance6Yn + ", atDate=" + atDate + "]";
 	}
+
+	
 
 }

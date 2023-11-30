@@ -23,9 +23,9 @@ public class CenterLessonVO {
 	private boolean lsCloseYN;
 
 	private String lsRegistrationDateToString;
-	private Timestamp lsTimeDB;
 	private String lsEndTime;
 	private Timestamp lessonDatetime;
+	private Timestamp lessonEndDatetime;
 
 	private int csMemberCode;
 	private String csName;
@@ -40,9 +40,99 @@ public class CenterLessonVO {
 	private int attendedCount;
 	private int absentCount;
 	private List<MemberVO> reservedMembers;
-
 	private String atCode;
 	private String lessonCode;
+
+	
+	
+	
+	public Timestamp getLessonEndDatetime() {
+		return lessonEndDatetime;
+	}
+
+	public void setLessonEndDatetime(Timestamp lessonEndDatetime) {
+		this.lessonEndDatetime = lessonEndDatetime;
+	}
+
+	public boolean isLsCloseYN() {
+		return lsCloseYN;
+	}
+
+	public void setLsCloseYN(boolean lsCloseYN) {
+		this.lsCloseYN = lsCloseYN;
+	}
+	
+	public int getAttendedCount() {
+		return attendedCount;
+	}
+
+	public void setAttendedCount(int attendedCount) {
+		this.attendedCount = attendedCount;
+	}
+
+	public int getAbsentCount() {
+		return absentCount;
+	}
+
+	public void setAbsentCount(int absentCount) {
+		this.absentCount = absentCount;
+	}
+
+	public List<MemberVO> getReservedMembers() {
+		return reservedMembers;
+	}
+
+	public void setReservedMembers(List<MemberVO> reservedMembers) {
+		this.reservedMembers = reservedMembers;
+	}
+
+	public int getReservedCount() {
+		return reservedCount;
+	}
+
+	public void setReservedCount(int reservedCount) {
+		this.reservedCount = reservedCount;
+	}
+
+	public String getLsCenterName() {
+		return lsCenterName;
+	}
+
+	public void setLsCenterName(String lsCenterName) {
+		this.lsCenterName = lsCenterName;
+	}
+
+	public int getClosedGroupCount() {
+		return closedGroupCount;
+	}
+
+	public void setClosedGroupCount(int closedGroupCount) {
+		this.closedGroupCount = closedGroupCount;
+	}
+
+	public int getClosedPersonalCount() {
+		return closedPersonalCount;
+	}
+
+	public void setClosedPersonalCount(int closedPersonalCount) {
+		this.closedPersonalCount = closedPersonalCount;
+	}
+
+	public int getGroupCount() {
+		return groupCount;
+	}
+
+	public void setGroupCount(int groupCount) {
+		this.groupCount = groupCount;
+	}
+
+	public int getPersonalCount() {
+		return personalCount;
+	}
+
+	public void setPersonalCount(int personalCount) {
+		this.personalCount = personalCount;
+	}
 
 	public String getLsCode() {
 		return lsCode;
@@ -307,5 +397,4 @@ public class CenterLessonVO {
 				+ attendedCount + ", absentCount=" + absentCount + ", reservedMembers=" + reservedMembers + ", atCode="
 				+ atCode + ", lessonCode=" + lessonCode + "]";
 	}
-
 }

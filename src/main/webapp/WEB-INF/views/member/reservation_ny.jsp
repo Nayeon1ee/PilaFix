@@ -75,10 +75,12 @@
 				</ol>
 				<h2>예약 목록</h2>
 				
+				<h6>자신의 운동 수준과 목표에 맞는 수업을 선택하여 예약하세요!</h6>
+				<h6>수업 시작 <b>3시간 전까지</b> 예약이 가능합니다. 이 시간 이후에는 예약이 불가능하오니 미리 계획하여 참여 부탁드립니다.</h6>
+				
 				<!-- 추후 내스케줄 화면 생기면 삭제해야 함 
 				예약 취소 테스트를 위한 버튼  -->
-				<button onclick="location.href='cancelPage.do?rsCode=RS321'">RS321 - 오늘 날짜 예약 취소</button>
-				<button onclick="location.href='cancelPage.do?rsCode=RS353'">RS353 - 내일 날짜 예약 취소</button>
+				<button onclick="location.href='cancelPage.do?rsCode=RS368'">RS368 - 예약 취소</button>
 				
 
 			</div>
@@ -349,7 +351,7 @@
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" value=""
 											id="flexCheckDefault"> <label
-											class="form-check-label pt-2" for="flexCheckDefault">
+											class="form-check-label" for="flexCheckDefault">
 											이용 정책을 전부 확인하였습니다. 이에 동의합니다.</label>
 									</div>
 
@@ -383,12 +385,11 @@
 									<span class="highlight-text" style="font-size: 1.3em">예약이 성공적으로 완료되었습니다.</span>
 								</p>
 								<p>
-									<a href="#" class="btn btn-primary">내 스케줄 확인하러 가기</a>
+									<a href="schedule.do" class="btn btn-primary">내 스케줄 확인하러 가기</a>
 								</p>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">닫기</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='reservPage.do'">닫기</button>
 							</div>
 						</div>
 					</div>
@@ -550,13 +551,17 @@
 							            // 예약 시간 item.lessonDatetime과 현재 날짜 비교해서 시간이 지났다면 버튼 안 보여야 함
 							            var lessonDatetime = new Date(item.lessonDatetime); // 예약 시간을 Date 객체로 변환
 							            var currentDate = new Date(); // 현재 시간을 Date 객체로 얻기
+							            
+							        	// 현재 시간에서 3시간 전의 시간을 계산
+							            var threeHoursAgo = new Date();
+							            threeHoursAgo.setHours(currentDate.getHours()+3);
 
-							            // 현재 신청 인원이 정원과 같으면 버튼이 보이지 않아야 함
-							            if (item.lsCurrentApplicants === item.lsCapacity) {
+							            if (lessonDatetime <= threeHoursAgo) { // 현재 시간 기준 3시간 전 수업 예약 불가
 							                gstr += '<div class="mymodal" style="display: none;">';
-							            } else if (lessonDatetime < currentDate) {
-							                // 시간이 지났으면 버튼을 보이지 않도록 스타일 적용
+							            }else if (item.lsCurrentApplicants === item.lsCapacity) {// 현재 신청 인원이 정원과 같으면 버튼이 보이지 않아야 함
 							                gstr += '<div class="mymodal" style="display: none;">';
+							            }else if(item.lsCloseYN){// 폐강여부가 true면 버튼 X
+							            	 gstr += '<div class="mymodal" style="display: none;">';
 							            } else {
 							                // 시간이 지나지 않았으면 예약하기 버튼 표시
 							                gstr += '<div class="mymodal">';
