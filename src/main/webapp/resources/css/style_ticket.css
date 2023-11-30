@@ -29,6 +29,11 @@
 	border-bottom: 2px solid #946CEE; /* 선택 시 밑줄 색상 조절 */
 }
 
+.card text-center {
+    height: 700px; /* 원하는 높이로 수정하세요 */
+    overflow-y: auto; /* 내용이 높이를 초과하는 경우 스크롤을 표시할 수 있도록 설정 */
+}
+
 /* 선택된 옵션 스타일 */
 .text-center select option[selected] {
 	background-color: #946CEE; /* 선택된 옵션 배경색 조절 */
@@ -42,7 +47,7 @@
 
 /* 호버 시 배경색 변환 스타일 지정 */
 .list-group-ticket li:hover {
-	background-color: #a885db; /* 호버 시 배경색 지정 */
+	background-color: #ad95d5; /* 호버 시 배경색 지정 */
 	color: #ffffff;
 }
 
@@ -58,6 +63,7 @@
 	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 	cursor: pointer;
 	height: 700px;
+	color: #fff;
 }
 
 #clickButton .card-body {
@@ -68,12 +74,6 @@
 	justify-content: center;
 }
 
-#clickButton:hover {
-	background-color: #9b56e9;
-	color: #f8ecf3;
-	border-color: white;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
 
 #coloredCanvas {
 	transition: filter 0.3s;
@@ -81,9 +81,6 @@
 	height: auto; /* 이미지 비율 유지 */
 }
 
-#clickButton:hover #coloredCanvas {
-	filter: brightness(8);
-}
 
 .tab-buttons {
 	display: flex;
@@ -108,7 +105,7 @@
 }
 
 .nav-tabs .nav-link {
-	width: 100%; /* Adjust this value as needed */
+	width: 100%; 
 }
 
 /* 수강권 결제쪽 */
@@ -124,16 +121,25 @@
 	color: white;
 }
 
+#coloredCanvas {
+    width: 100px; 
+    height: 100px; 
+    margin-bottom: 20px; 
+}
 
+.card-title {
+    color: #484848; 
+    font-weight: bold; 
+}
 
 #ticketBuyGuide {
     margin-top: 10px;
 }
 
 .card-body-title {
-    font-size: 1.0em; /* 작은 글씨로 조정 */
+    font-size: 1.0em; 
     margin-top: 5px;
-    color: #333; /* 텍스트 색상 지정 */
+    color: #333; 
 }
 
 textarea {

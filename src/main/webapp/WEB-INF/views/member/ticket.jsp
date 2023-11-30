@@ -240,6 +240,10 @@
 								class="btn btn-lg btn-block px-5">
 								<div class="card-body text-center mx-auto">
 									<h5 class="card-title mb-4">관심 가는 수강권을 클릭해보세요!</h5>
+									<div class="image-overlay">
+                <!-- 이미지를 여기에 추가 -->
+                <img src="path/to/your/image.jpg" alt="Your Image" class="img-fluid">
+            </div>
 									<canvas id="coloredCanvas" width="100" height="100"></canvas>
 									<span class="ms-2">클릭!</span>
 								</div>

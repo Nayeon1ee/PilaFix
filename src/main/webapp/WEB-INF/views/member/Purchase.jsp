@@ -176,8 +176,10 @@
 							<button type="button" id="clickButton"
 								class="btn btn-lg btn-block px-5">
 								<div class="card-body text-center mx-auto">
-									<canvas id="coloredCanvas" width="100" height="100"></canvas>
+									<canvas id="coloredCanvas"></canvas>
 									<h5 class="card-title mb-4">관심 가는 수강권을 클릭해보세요!</h5>
+									
+								
 								</div>
 							</button>
 						</div>
@@ -333,29 +335,7 @@
 	<!-- 내 js -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
-	<!--  이미지 색 바꾸기 위한 js -->
-	<script>
-		const canvas = document.getElementById('coloredCanvas');
-		const ctx = canvas.getContext('2d');
-		const image = new Image();
-		image.src = '${pageContext.request.contextPath}/resources/images/hand.png';
-
-		image.onload = function() {
-
-			ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-			ctx.globalCompositeOperation = 'source-atop';
-			ctx.fillStyle = '#946CEE';
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-			ctx.globalCompositeOperation = 'source-over';
-		};
-
-		const button = document.getElementById('clickButton');
-		button.addEventListener('click', function() {
-
-		});
-	</script>
+	
 	
 <!-- 셀렉트박스에서 센터 선택하면 해당 센터의 수강권정보 가져오는 js  -->
 	<script>
