@@ -77,11 +77,6 @@
 				
 				<h6>자신의 운동 수준과 목표에 맞는 수업을 선택하여 예약하세요!</h6>
 				<h6>수업 시작 <b>3시간 전까지</b> 예약이 가능합니다. 이 시간 이후에는 예약이 불가능하오니 미리 계획하여 참여 부탁드립니다.</h6>
-				
-				<!-- 추후 내스케줄 화면 생기면 삭제해야 함 
-				예약 취소 테스트를 위한 버튼  -->
-				<button onclick="location.href='cancelPage.do?rsCode=RS368'">RS368 - 예약 취소</button>
-				
 
 			</div>
 		</section>
@@ -305,13 +300,13 @@
 													</h5></li>
 												<li class="list-group-item"><img alt="bar"
 													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-													강사명 :<span id="trainerName"></span></li>
+													강사명 : <span id="trainerName"></span></li>
 												<li class="list-group-item"><img alt="bar"
 													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-													예약일자 :<span id="lsDate"></span></li>
+													예약일자 : <span id="lsDate"></span></li>
 												<li class="list-group-item"><img alt="bar"
 													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-													예약시간 :<span id="lsTime"></span> ~ <span id="lsEndTime"></span></li>
+													예약시간 : <span id="lsTime"></span> ~ <span id="lsEndTime"></span></li>
 											</ul>
 										</div>
 									</div>
@@ -326,10 +321,10 @@
 												<li class="list-group-item"><span id="ticketName"></span></li>
 												<li class="list-group-item"><img alt="bar"
 													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-													잔여횟수 :<span id="remainingCount"></span></li>
+													잔여횟수 : <span id="remainingCount"></span> 회</li>
 												<li class="list-group-item"><img alt="bar"
 													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
-													만료일 :<span id="expirationDate"></span></li>
+													만료일 : <span id="expirationDate"></span></li>
 											</ul>
 										</div>
 									</div>
@@ -658,14 +653,18 @@
 	                $('#lessonType').text(lessonDetail.lsType);
 	                $('#lessonName').text(lessonDetail.lsName);
 	                $('#trainerName').text(lessonDetail.trainerMemberName);
-	                $('#lsDate').text(lessonDetail.lsDate);
+	                var date = new Date(lessonDetail.lsDate);
+	                var formattedDate = date.toLocaleDateString(); //날짜 형식 
+	                $('#lsDate').text(formattedDate);
 	                $('#lsTime').text(lessonDetail.lsTime);
 	                $('#lsEndTime').text(lessonDetail.lsEndTime);
 
 	                // 수강권 내역 조회
 	                $('#ticketName').text(myTicket.ticketNameGroup1);
 	                $('#remainingCount').text(myTicket.ticketRemainingCountGroup1);
-	                $('#expirationDate').text(myTicket.ticketExpiryDateGroup1);
+	                var date = new Date(myTicket.ticketExpiryDateGroup1);
+	                var formattedDate = date.toLocaleDateString(); //날짜 형식 
+	                $('#expirationDate').text(formattedDate);
 
 	                // 이용정책 조회 및 추가
 	                var userguideContainer = $('#userguideContainer');

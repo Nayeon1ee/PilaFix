@@ -312,14 +312,14 @@
 		<![CDATA[
 			UPDATE tbl_cst
 			SET ticket_expiry_yn_personal1 = TRUE
-			WHERE ticket_expiry_date_personal1::DATE = #{today};
+			WHERE ticket_expiry_date_personal1::DATE = CURRENT_DATE - INTERVAL '1 day';
 		]]>
 	</select>
 	<select id="autoExpiryTicketsForGroup">
 		<![CDATA[
 			UPDATE tbl_cst
 			SET ticket_expiry_yn_group1 = TRUE
-			WHERE ticket_expiry_date_group1::DATE = #{today};
+			WHERE ticket_expiry_date_group1::DATE =CURRENT_DATE - INTERVAL '1 day';
 		]]>
 	</select>
 	
