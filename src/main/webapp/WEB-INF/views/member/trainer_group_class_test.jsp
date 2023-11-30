@@ -90,6 +90,66 @@
 				<c:otherwise>
                             오후
                         </c:otherwise>
+                    </c:choose>
+                    <span  style="display: inline-block;">
+                        ${fn:substring(lessonDetail.lsTime, 11, 16)}
+                    </span>
+				    </div>
+				</section>
+
+
+<!-- 출석 통계 -->
+<div class="status py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 text-center">예약: ${lessonDetail.reservedCount}</div>
+            <div class="col-md-4 text-center">출석: ${lessonDetail.attendedCount}</div>
+            <div class="col-md-4 text-center">결석: ${lessonDetail.absentCount}</div>
+        </div>
+    </div>
+</div>
+
+<!-- 수업 예약한 회원 목록 -->
+<section class="member_list py-4 my-3">
+    <div class="container">
+        <form id="form" method="post" action="updateAttendG.do">
+            <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
+
+            <div class="row justify-content-center">
+                <c:forEach var="member" items="${lessonDetail.reservedMembers}" varStatus="status">
+                    <div class="col-md-2">
+                        <div class="member-check text-center">
+                            <input type="checkbox" class="btn-check" id="btn-check-${status.index}" name="selectedMemberCodes" value="${member.csMemberCode}" autocomplete="off">
+                            <label class="btn" for="btn-check-${status.index}">
+                                <i class="bi bi-person-circle"></i>
+                                <p>${member.csName}</p>
+                            </label>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary" id="attendanceButton">출석처리</button>
+                <button type="button" class="btn btn-primary ms-2" onclick="location.href='getTrainerLessonList.do'">목록</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<!-- 참고해보려고 한거 https://devfootprint.tistory.com/58 -->
+<!-- 
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <form action="updateAttendG.do" method="post" class="me-2">
+        <button type="submit" class="btn btn-primary" id="attendanceButton">출석처리</button>  
+        <button type="button" class="btn btn-primary" onclick="location.href='getTrainerLessonList.do'">목록</button>
+    </div>
+</div>
+ -->
+
+				<!-- End Our Skills Section -->
 			</c:choose>
 			<span style="display: inline-block;">
 				${fn:substring(lessonDetail.lsTime, 11, 16)} </span>

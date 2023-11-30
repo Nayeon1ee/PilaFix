@@ -40,6 +40,17 @@ public class CenterLessonVO {
 	private int attendedCount;
 	private int absentCount;
 	private List<MemberVO> reservedMembers;
+	private String lsStartTime;
+	
+	
+	
+	public String getLsStartTime() {
+		return lsStartTime;
+	}
+
+	public void setLsStartTime(String lsStartTime) {
+		this.lsStartTime = lsStartTime;
+=======
 	private String atCode;
 	private String lessonCode;
 
