@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.member.attend.AttendVO;
 
 @Service
@@ -46,12 +47,24 @@ public class AutoUpdateService {
 	 */
 	public void autoExpiryTickets() {
 		try {
-			Date today = new Date();
-			dao.autoExpiryTicketsForGroup(today);
-			dao.autoExpiryTicketsForPersonal(today);
+			dao.autoExpiryTicketsForGroup();
+			dao.autoExpiryTicketsForPersonal();
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
+	}
+
+	public void autoCloseLessons() {
+		Date today = new Date();
+		
+		/*오늘 날짜에 해당하는 수업 리스트 조회 */
+		List<String> lessons = dao.getLessonsThreeHoursAgo();
+		
+		// 
+		for(String lessonCode : lessons) {
+			dao.updateLessonsClosingYn(lessonCode);
+		}
+		
 	}
 
 }

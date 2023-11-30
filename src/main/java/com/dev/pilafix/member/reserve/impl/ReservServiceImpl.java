@@ -100,6 +100,7 @@ public class ReservServiceImpl implements ReservService {
 		/* 
 		 * STEP02. 회원 테이블의 잔여 수강권 매수 -1 
 		 * STEP03. 수업 테이블의 현재 신청 인원 +1
+		 * STEP04. 출결레코드 해당 회원 정보 추가 
 		 * 
 		 */
 		if(lesson.getLsType().equals("그룹")) {
@@ -111,7 +112,7 @@ public class ReservServiceImpl implements ReservService {
 		}
 		
 		
-		/* STEP04. 알림 테이블의 등록 */
+		/* STEP05. 알림 테이블의 등록 */
 		NoticeVO notice = new NoticeVO();
 		 notice.setMemberCode(csMemberCode);
 		 notice.setRecipientCode(String.valueOf(ctCode)); 
@@ -121,8 +122,8 @@ public class ReservServiceImpl implements ReservService {
         noticeDAO.insertNotice(notice);
 
 		/*
-		 * STEP05. 문자 발송
-		 * STEP06. 문자 발송 이력 등록
+		 * STEP06. 문자 발송
+		 * STEP07. 문자 발송 이력 등록
 		 * ==> 화면에서 ajax로 요청 
 		 */
 		
