@@ -72,8 +72,8 @@ public class MemberCommunityServiceImpl implements MemberCommunityService {
 	}
 	
 	@Override
-	public int updateMemberCommunityReply(MemberCommunityVO vo) {
-		return dao.updateMemberCommunityReply(vo);
+	public int insertMemberCommunityReplyReply(MemberCommunityVO vo) {
+		return dao.insertMemberCommunityReply(vo);
 	}
 
 	@Override
