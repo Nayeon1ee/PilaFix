@@ -46,10 +46,10 @@
 			</tr>
 			<tr>
 				<th>폐강 여부</th>
-				<c:if test="${centerLesson.lsColseYN == true}">
+				<c:if test="${centerLesson.lsCloseYN == true}">
 					<td>N</td>
 				</c:if>
-				<c:if test="${centerLesson.lsColseYN == false}">
+				<c:if test="${centerLesson.lsCloseYN == false}">
 					<td>Y</td>
 				</c:if>
 			</tr>
