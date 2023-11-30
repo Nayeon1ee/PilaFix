@@ -90,26 +90,6 @@
 				</ol>
 				<h2>그룹 수업 스케줄</h2>
 				
-				
-				<!-- ############################################################# -->
-				<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음--> 
-				<!-- ############################################################# -->				
-					<span  style="display: inline-block;">
-                        ${lessonDetail.lsDate} 
-                    </span>
-                    <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
-                    <c:choose>
-                        <c:when test="${hour lt 12}"> <!-- 오전 확인 -->
-                            오전
-                        </c:when>
-                        <c:otherwise>
-                            오후
-                        </c:otherwise>
-                    </c:choose>
-                    <span  style="display: inline-block;">
-                        ${fn:substring(lessonDetail.lsTime, 11, 16)}
-                    </span>
-
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
@@ -128,12 +108,8 @@
                     </strong></p>
                     <br>
 
-				    <p class="lead">${lessonDetail.lsContent}</p> <!-- 수업 설명 -->
-				    
-				    
-				<!-- ############################################################# -->
-				<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음--> 
-				<!-- ############################################################# -->		
+				    <p class="lead">${lessonDetail.lsContent} <br> 부가적인 수업설명들이 추가된다. </p> <!-- 수업 설명 -->
+
 				    <!-- 수업시간 --> 
 					<span  style="display: inline-block;">
                         ${lessonDetail.lsDate} 
@@ -169,53 +145,49 @@
 <section class="member_list py-4 my-3">
     <div class="container">
         <div class="row justify-content-center">
-            <c:choose>
-                <c:when test="${not empty lessonDetail.reservedMembers}">
-                    <c:forEach var="member" items="${lessonDetail.reservedMembers}" varStatus="status">
-                        <div class="col-md-2">
-                            <div class="member-check text-center">
-                                <input type="checkbox" class="btn-check" id="btn-check-${status.index}" name="selectedMemberCodes" value="${member.csMemberCode}" autocomplete="off"> 
-                                <label class="btn" for="btn-check-${status.index}">
-                                    <i class="bi bi-person-circle"></i>
-                                    <p>${member.csName}</p>
-                                </label>
-                            </div>
+            <form id="form" method="post" action="updateAttendG.do">
+                <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
+
+                <c:forEach var="member" items="${lessonDetail.reservedMembers}" varStatus="status">
+                    <div class="col-md-2">
+                        <div class="member-check text-center">
+                            <input type="checkbox" class="btn-check" id="btn-check-${status.index}" name="selectedMemberCodes" value="${member.csMemberCode}" autocomplete="off">
+                            <label class="btn" for="btn-check-${status.index}">
+                                <i class="bi bi-person-circle"></i>
+                                <p>${member.csName}</p>
+                            </label>
                         </div>
-                    </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <div class="col-md-12">
-                        <p class="text-center">현재 예약한 회원이 없습니다.</p>
                     </div>
-                </c:otherwise>
-            </c:choose>
+                </c:forEach>
+
+                <div class="container">
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" id="attendanceButton">출석처리</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='getTrainerLessonList.do'">목록</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>
 
+
+<!-- 참고해보려고 한거 https://devfootprint.tistory.com/58 -->
+<!-- 
 <div class="container">
     <div class="d-flex justify-content-center">
-        <!-- 출석 처리 버튼 -->
-        <form action="/updateAttendG.do" method="post" class="me-2">
-            <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
-            <c:forEach var="member" items="${reservedMembers}">
-                <input type="checkbox" name="selectedMemberCodes" value="${member.memberCode}">
-            </c:forEach>
-            <button type="submit" class="btn btn-primary">출석처리</button>
-        </form>
-
-        <!-- 목록 버튼 -->
-        <button type="button" class="btn btn-primary"
-                onclick="location.href='getTrainerLessonList.do'">목록</button>
+        <form action="updateAttendG.do" method="post" class="me-2">
+        <button type="submit" class="btn btn-primary" id="attendanceButton">출석처리</button>  
+        <button type="button" class="btn btn-primary" onclick="location.href='getTrainerLessonList.do'">목록</button>
     </div>
 </div>
-
+ -->
 
 				<!-- End Our Skills Section -->
 			</div>
 		</section>
 	</main>
-	
+
 	
 	<!-- End #main -->
 
