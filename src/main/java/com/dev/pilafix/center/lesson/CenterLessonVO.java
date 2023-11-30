@@ -39,6 +39,7 @@ public class CenterLessonVO {
 	private int reservedCount;
 	private int attendedCount;
 	private int absentCount;
+    private List<MemberVO> reservedMembers;
 
 	private String atCode;
 	private String lessonCode;
@@ -269,6 +270,14 @@ public class CenterLessonVO {
 		this.absentCount = absentCount;
 	}
 
+	public List<MemberVO> getReservedMembers() {
+		return reservedMembers;
+	}
+
+	public void setReservedMembers(List<MemberVO> reservedMembers) {
+		this.reservedMembers = reservedMembers;
+	}
+
 	public String getAtCode() {
 		return atCode;
 	}
@@ -305,8 +314,8 @@ public class CenterLessonVO {
 				+ ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount=" + personalCount
 				+ ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount=" + closedPersonalCount
 				+ ", lsCenterName=" + lsCenterName + ", reservedCount=" + reservedCount + ", attendedCount="
-				+ attendedCount + ", absentCount=" + absentCount + ", atCode=" + atCode + ", lessonCode=" + lessonCode
-				+ ", lsStartTime=" + lsStartTime + "]";
+				+ attendedCount + ", absentCount=" + absentCount + ", reservedMembers=" + reservedMembers + ", atCode="
+				+ atCode + ", lessonCode=" + lessonCode + ", lsStartTime=" + lsStartTime + "]";
 	}
 
 	
