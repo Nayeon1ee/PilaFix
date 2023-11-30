@@ -7,43 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
-<style>
-#topbar ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	display: flex;
-	margin-left: -10px;
-}
-
-#topbar li {
-	margin-right: 10px;
-}
-
-#topbar li:last-child {
-	margin-right: 0;
-}
-
-#topbar li a {
-	color: #fff;
-	text-decoration: none;
-}
-
-.dropdown-menu {
-overflow-y: auto;
-  max-height: 400px;
-  white-space: nowrap;
-  word-break: break-all;
-  
-  /* 다른 스타일들 */
-  right: auto;
-  left: 0;
- 
-  /* 크기 유지를 위해 추가한 스타일 */
-  transform: translateX(-85%);
-}
-</style>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style_header.css"/>
 
 <body>
 	<!-- ======= Top Bar ======= -->
@@ -146,7 +111,6 @@ overflow-y: auto;
 						</div></li>
 
 					<!--  알림 부분 -->
-
 
 				</ul>
 
