@@ -315,14 +315,15 @@
 				                    if (currentDatetime < threeHoursBefore) {
 				                    	// rsCode, lsCode, centerCode 변수에 저장
 				                        var rsCode = item.rsCode;
-				                        var lsCode = item.lsCode;
-				                        var centerCode = item.centerCode;
+				                      //  var lsCode = item.lsCode;
+				                       // var centerCode = item.centerCode;
 				                        console.log("변수에 담을 때 값 유지되나?"+rsCode);
-				                		console.log(lsCode);
-				                		console.log(centerCode);
+				                	//	console.log(lsCode);
+				                		//console.log(centerCode);
 				                        
 				                        //str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="location.href=""/pilafix/.do?rsCode="+ +">취소하기</button>';
-				                		str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="cancelReservation(\'' + rsCode + '\', \'' + lsCode + '\', \'' + centerCode + '\')">취소하기</button>';
+				                		//str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="cancelReservation(\'' + rsCode + '\')">취소하기</button>';
+				                        str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="redirectToCancelPage(\'' + rsCode + '\')">취소하기</button>';
 				                    }
 									str += '</div>'
 									str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
@@ -340,31 +341,11 @@
              }
          });
      });
-	// 취소하기 버튼 클릭 시 실행되는 함수
-	 function cancelReservation(rsCode, lsCode, centerCode) {
-		console.log(rsCode);
-		console.log(lsCode);
-		console.log(centerCode);
-	     // AJAX 요청
-	     $.ajax({
-	         type: "POST",
-	         url: "cancelReservation.do",
-	         data: {
-	             rsCode: rsCode,
-	             lsCode: lsCode,
-	             centerCode: centerCode
-	         },
-	         success: function(response) {
-	             console.log("예약 취소하기 AJAX 요청 성공", response);
-	             // 취소 성공 시 추가적인 동작 수행
-	             window.location.href = 'schedule.do';
-	             alert("예약 취소 성공");
-	         },
-	         error: function(error) {
-	             console.error("취소하기 AJAX 요청 실패", error);
-	         }
-	     });
-	 }
+	 // 취소버튼 
+	 function redirectToCancelPage(rsCode) {
+		    // rsCode를 파라미터로 받아서 취소 페이지로 이동
+		    window.location.href = 'cancelPage.do?rsCode=' + rsCode;
+		}
 	<!-- 출석정보 가져오는 js -->
 	 $("#attend").click(function() {
          // AJAX 요청
