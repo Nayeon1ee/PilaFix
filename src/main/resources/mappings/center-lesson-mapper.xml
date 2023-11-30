@@ -18,9 +18,16 @@
 		<result property="lsCloseYN" column="LS_CLOSE_YN"/>	
 		<result property="csName" column="CS_NAME"/>
 		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
-		<result property="lsCloseYN" column="LS_CLOSE_YN"/>
 		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE_TO_STRING"/>
 		<result property="lsCenterName" column="LS_CENTER_NAME"/> 
+	</resultMap>
+	
+	<resultMap type="String" id="codeResult"> 
+	     <result property="" column="MEMBER_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
+	</resultMap>
+	
+	<resultMap type="String" id="codeResult2"> 
+	     <result property="" column="LS_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
 	</resultMap>
 	
 	<select id="getCenterLessonList" resultMap="centerLessonResult" >
@@ -97,5 +104,16 @@
 	    AND L.LS_CODE = #{lsCode};
 	</select>
 
+
+	<!-- 11/30 출결레코드 자동 생성 대상 수업내역 조회 -->
+	<select id="getOpenLessonCodesForToday" resultMap="codeResult2">
+		<![CDATA[
+		SELECT LS_CODE 
+		FROM TBL_LESSON 
+		WHERE LS_DATE=#{today}
+			AND LS_CURRENT_APPLICANTS > 0 
+			AND LS_CLOSE_YN = FALSE 
+		]]>
+	</select>
 
 </mapper>
