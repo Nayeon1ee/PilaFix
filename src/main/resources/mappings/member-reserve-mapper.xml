@@ -93,6 +93,11 @@
 		<result property="rsCancelYn" column="RS_CANCEL_YN"/>
 	</resultMap>
 	
+	<resultMap type="Integer" id="codeResult"> 
+	     <result property="" column="MEMBER_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
+	</resultMap>
+	
+	
 	<!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
 	<select id="getConnCenterList" resultMap="centerResult" parameterType="int">
 		SELECT CT_NAME,CT_CODE
@@ -108,7 +113,7 @@
 	
 	<!-- 수업정보 조회 -->
 	<select id="getLessonList" parameterType="java.util.Map" resultMap="centerLessonResult">
-	    SELECT LS_CODE, LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE, LS_DATE,CENTER_CODE,
+	    SELECT LS_CODE, LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE, LS_DATE,CENTER_CODE,LS_CLOSE_YN,
 	    	(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)AS CENTER_NAME,
 	    	(SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) AS TRAINER_MEMBER_NAME,
 	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
@@ -282,7 +287,13 @@
 
 	<!-- =========================================================== -->
 	
-
+	
+	<!-- 11/30 출결레코드 자동 생성 대상 - 수업코드로 예약 조회 -->
+	<select id="getMemberCodesByLessonCode" resultMap="codeResult">
+		SELECT MEMBER_CODE 
+		FROM TBL_RESERV 
+		WHERE LESSON_CODE=#{lessonCode}
+	</select>
 	
 	
 	
