@@ -289,7 +289,7 @@
 						$('#reservInfo').append('<p>예약된 수업이 없습니다.</p>');
 					} else {
 						reservInfoList.forEach(function(item) {
-							console.log(item);
+							//console.log(item);
 							// lsDate를 월-일(요일) 형태로 포맷팅
 		                    var date = new Date(item.lsDate);
 		                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
@@ -300,9 +300,9 @@
 		                    
 		                    /// lessonDatetime을 Timestamp로 파싱
 		                    var lessonDatetime = new Date(item.lessonDatetime);
-		                    var threeHoursBefore = new Date(lessonDatetime);
+		                    var fourHoursBefore = new Date(lessonDatetime);
 		                    var currentDatetime = new Date();
-		                    threeHoursBefore.setHours(lessonDatetime.getHours() - 3); // 수업시작시간에서 3시간 을 뺀 시간이 저장됌
+		                    fourHoursBefore.setHours(lessonDatetime.getHours() - 4); // 수업시작시간에서 4시간 을 뺀 시간이 저장됌
 
 									var str = '<div class="card" style="border-radius: 0;">';
 									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
@@ -311,8 +311,8 @@
 									str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
 									str += '<div class="d-flex w-100 justify-content-between">'
 									str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
-									// 수업시간 3시간 전까지는 취소하기 버튼 표시 (그 이후는 취소 불가라서 취소하기 버튼 없음)
-				                    if (currentDatetime < threeHoursBefore) {
+									// 수업시간 4시간 전까지는 취소하기 버튼 표시 (그 이후는 취소 불가라서 취소하기 버튼 없음)
+				                    if (currentDatetime < fourHoursBefore) {
 				                    	// rsCode, lsCode, centerCode 변수에 저장
 				                        var rsCode = item.rsCode;
 				                      //  var lsCode = item.lsCode;

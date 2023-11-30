@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberMypageDAO">
+
+<resultMap type="memberMypage" id="memberMypageResult">
+		
+		<result property="paId" column="PA_ID"/>
+		<result property="paMethod" column="PA_METHOD"/>
+		<result property="paDateTime" column="PA_DATETIME"/>
+		<result property="paAmount" column="PA_AMOUNT"/>
+		<result property="ticketCode" column="TICKET_CODE"/>
+		<result property="memberCode" column="MEMBER_CODE"/>
+		<result property="paCancelYn" column="PA_CANCEL_YN"/>
+		
+		<result property="tkName" column="TK_NAME"/>
+		<result property="tkLessonType" column="TK_LESSON_TYPE"/>
+		<result property="tkUsageNumMonth" column="TK_USAGE_NUM_MONTH"/>
+		<result property="tkUsageCount" column="TK_USAGE_COUNT"/>
+		<result property="tkPriceAddDot" column="TK_PRICE"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="tkCapacity" column="TK_CAPACITY"/>
+
+		<result property="centerName" column="CT_NAME" />
+		
+</resultMap>
+
+<select id="getMyPaymentInfo" resultMap="memberMypageResult">
+	SELECT 
+		P.PA_ID,P.PA_METHOD,P.PA_DATETIME,P.PA_AMOUNT,P.TICKET_CODE,P.PA_CANCEL_YN,
+		T.TK_NAME,T.TK_LESSON_TYPE,T.TK_USAGE_NUM_MONTH,T.TK_USAGE_COUNT,T.CENTER_CODE,T.TK_CAPACITY,
+		C.CT_NAME
+	FROM tbl_payment P
+	JOIN TBL_TICKET T ON P.TICKET_CODE = T.TK_CODE
+    JOIN TBL_CENTER C ON T.CENTER_CODE = C.CT_CODE
+    WHERE MEMBER_CODE=#{csMemberCode}
+</select>
+
+
+
+
+</mapper>

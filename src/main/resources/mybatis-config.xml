@@ -35,6 +35,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <typeAlias type="com.dev.pilafix.member.ticket.MemberTicketVO" alias="memberTicket" />
         <typeAlias type="com.dev.pilafix.member.schedule.MyScheduleVO" alias="mySchedule" />
         <typeAlias type="com.dev.pilafix.member.schedule.CalenderVO" alias="calender" />
+        <typeAlias type="com.dev.pilafix.member.mypage.MemberMypageVO" alias="memberMypage" />
 	</typeAliases>
 	
 
@@ -67,6 +68,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappings/member-attend-mapper.xml" />
 		<mapper resource="mappings/member-ticket-mapper.xml" />
 		<mapper resource="mappings/member-schedule-mapper.xml" />
+		<mapper resource="mappings/member-mypage-mapper.xml" />
 	</mappers>
 
 </configuration>

@@ -1,6 +1,7 @@
 package com.dev.pilafix.member.schedule.impl;
 
 import java.sql.Date;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,50 +18,75 @@ public class MyScheduleDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	//당월의 예약정보 가져옴
+	//당월의 예약정보 가져옴(예약된 게 없으면 lessonCode없으므로 분기해줌)
 	public List<MyScheduleVO> getReservList(int csMemberCode) {
 		// 예약테이블에서 수업코드 가져옴
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
-		return sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode);
+		if(lessonCode.isEmpty()) {
+			return 	Collections.emptyList();
+		}else {
+			return sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode);
+		}
 	}
 
 	public List<MyScheduleVO> getAttendList(int csMemberCode) {
 		//출석여부가 true인 것에 대해 데이터 가져옴
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendLessonCode",csMemberCode );
-		return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonInfo", lessonCode);
+		if(lessonCode.isEmpty()) {
+			return 	Collections.emptyList();
+		}else {
+			return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonInfo", lessonCode);
+		}
 	}
 
 	public List<MyScheduleVO> getAbsentList(int csMemberCode) {
 		//출석여부가 false인 것에 대해 데이터 가져옴
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAbsentLessonCode",csMemberCode );
-		return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonInfo",lessonCode);
+		if(lessonCode.isEmpty()) {
+			return 	Collections.emptyList();
+		}else {
+			return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonInfo",lessonCode);
+		}
 	}
 
 	public Map<String, Integer> getCount(int csMemberCode) {
 		Map<String,Integer> count = new HashMap<String, Integer>();
-		// 당월의 예약수업 수 세와서 map에 담음
+		// 당월의 예약수업 수 세와서 map에 담음 (예약수업이 없으면 lessonCodeReserv가 없으므로 0담음)
 		List<String> lessonCodeReserv = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
-		count.put("reservCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countReserv",lessonCodeReserv ));
+		if(lessonCodeReserv.isEmpty()) {
+			count.put("reservCount", 0);
+		}else {
+			count.put("reservCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countReserv",lessonCodeReserv ));
+		}
 		
 		List<String> lessonCodeAttend = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendLessonCode",csMemberCode );
-		count.put("attendCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countAttendance",lessonCodeAttend ));
+		if(lessonCodeAttend.isEmpty()) {
+			count.put("attendCount", 0);
+		}else {
+			count.put("attendCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countAttendance",lessonCodeAttend ));
+		}
 		
 		List<String> lessonCodeAbsent = sqlSessionTemplate.selectList("MyScheduleDAO.getAbsentLessonCode",csMemberCode );
-		count.put("absentCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countAttendance",lessonCodeAbsent ));
-		
+		if(lessonCodeAbsent.isEmpty()) {
+			count.put("absentCount", 0);	
+		}else {
+			count.put("absentCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countAttendance",lessonCodeAbsent ));
+		}
 		
 		return count;
 	}
 
 	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
-		
-		Map<String,Object> param = new HashMap<>();
-		param.put("lessonCode", lessonCode);
-		param.put("calenderDate", calenderDate);
-		
-		return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
-		 
+		if(lessonCode.isEmpty()) {
+			return 	Collections.emptyList();
+		}else {
+			Map<String,Object> param = new HashMap<>();
+			param.put("lessonCode", lessonCode);
+			param.put("calenderDate", calenderDate);
+			
+			return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
+		}
 	}
 
 }

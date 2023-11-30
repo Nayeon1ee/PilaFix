@@ -29,7 +29,7 @@
 <!-- 당월의 예약 스케줄 불러오기 (현재시간 기준으로 이후의 예약만)-->
 <!-- step01 예약테이블에서 해당 회원의 수업코드만 가져옴 -->
 <select id="getLessonCode" resultType="String">
-	SELECT lesson_code from tbl_reserv 
+	SELECT DISTINCT lesson_code from tbl_reserv 
 	WHERE member_code = #{csMemberCode}
 	AND rs_cancel_yn = 'f';
 	<!--  AND rs_datetime >= CURRENT_DATE - INTERVAL '2 months'-->

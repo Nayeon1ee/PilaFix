@@ -164,9 +164,9 @@ public class MemberTicketController {
 	// 사용자 요구 구매취소 
 		@PostMapping("/memberCancel.do")
 		@ResponseBody
-		public int memberCancel(String imp_uid,String reason ) throws IOException {
+		public int memberCancel(String imp_uid) throws IOException {
 			String token = service.getToken(apiKey, secretKey);
-			service.refundRequest(token,imp_uid);
+			service.refundMemberRequest(token,imp_uid);
 	        return 0;
 		}
 

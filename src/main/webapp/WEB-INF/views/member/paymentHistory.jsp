@@ -82,75 +82,27 @@
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
 				</div>
-
+				
+				<!-- 결체치소 카드 부분 전체 영역 -->
 				<div class="payment-history">
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp"> <!-- 변경된 위치에 결제 취소 버튼 추가 -->
-							<form action="paymentCancellation.jsp" method="post"
-								class="pt-2 float-end">
-								<input type="hidden" name="paymentId" value="12345">
-								<button type="submit" class="btn btn-sm btn-danger mt-1">결제취소</button>
-							</form>
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date pt-1">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-
+					
 
 					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp"> <!-- 변경된 위치에 결제 취소 버튼 추가 -->
 							<form action="paymentCancellation.jsp" method="post"
 								class="pt-2 float-end">
 								<input type="hidden" name="paymentId" value="12345">
-								<button type="submit" class="btn btn-sm btn-danger mt-1">결제취소</button>
 							</form>
-							<div class="payment-status">결제완료</div>
+							<div class="payment-status">결제완료<span class="payment-id">(주문번호 imp0238482394)</span></div>
 							<div class="payment-details">
 								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
+								<a href="#" style="float:right">결제취소</a>
 								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
 								<div class="payment-date pt-1">2023.11.17 오전 11:08</div>
 								<div class="payment-amount">533,500원</div>
 							</div>
-						</a>
 					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp"> <!-- 변경된 위치에 결제 취소 버튼 추가 -->
-							<form action="paymentCancellation.jsp" method="post"
-								class="pt-2 float-end">
-								<input type="hidden" name="paymentId" value="12345">
-								<button type="submit" class="btn btn-sm btn-danger mt-1">결제취소</button>
-							</form>
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date pt-1">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-					<div class="payment-item">
-						<a href="paymentHistorydetail.jsp"> <!-- 변경된 위치에 결제 취소 버튼 추가 -->
-							<form action="paymentCancellation.jsp" method="post"
-								class="pt-2 float-end">
-								<input type="hidden" name="paymentId" value="12345">
-								<button type="submit" class="btn btn-sm btn-danger mt-1">결제취소</button>
-							</form>
-							<div class="payment-status">결제완료</div>
-							<div class="payment-details">
-								<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-								<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-								<div class="payment-date pt-1">2023.11.17 오전 11:08</div>
-								<div class="payment-amount">533,500원</div>
-							</div>
-						</a>
-					</div>
-				</div>
+					
+				</div><!-- 결체치소 카드 부분 전체 영역 끝-->
 
 
 

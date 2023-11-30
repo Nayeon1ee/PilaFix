@@ -66,18 +66,18 @@
 		SELECT
 		    (SELECT COUNT(*) FROM tbl_center_request 
 		        WHERE member_code BETWEEN 2000 AND 8000
-		        AND center_code = 186
+		        AND center_code = #{ctCode}
 		        AND cr_reject_date IS NULL
 		        AND cr_connection_yn = 'f') AS MEMBER_REQUEST_COUNT,
         
 		    (SELECT COUNT(*) FROM tbl_center_request 
 		        WHERE member_code >= 8000
-		        AND center_code = 186
+		        AND center_code = #{ctCode}
 		        AND cr_reject_date IS NULL
 		        AND cr_connection_yn = 'f') AS TRAINER_REQUEST_COUNT,
 		        
 		    (SELECT COUNT(*) FROM tbl_question
-		        WHERE center_code = 186
+		        WHERE center_code = #{ctCode}
 		        AND qs_answer_yn = 'f') AS UNANSWERED_QUESTION_COUNT;
 	</select>
 	
