@@ -176,6 +176,7 @@
 				<label class="btn" for="btn-check-${status.index}">
 					<i class="bi bi-person-circle"></i>
 					<p class="h6 mb-0">${member.csName}</p>
+			
 				</label>
 			</div>
 		</div>
@@ -188,13 +189,7 @@
 </c:otherwise>
 </c:choose>
 </div>
-<!-- 
-				<div class="private_status text-center">
-                    <p class="h6 mb-0">회원 이름: 홍길동</p>
-                    <p class="h6 mb-0">전화번호: 010-1234-5678</p>
-                </div>
-                
- -->                
+              
             </div>
             <div class="col-md-4">
                 <div class="button2 text-center">

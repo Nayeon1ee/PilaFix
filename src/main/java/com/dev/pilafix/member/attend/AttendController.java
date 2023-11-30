@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.attend;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
@@ -53,6 +55,16 @@ public class AttendController {
 
 	    if (user != null) {
 	        CenterLessonVO lessonDetail = service.getTrainerLessonDetail(lsCode);
+
+	        // 출석 처리 여부 확인 및 통계 추가
+	        boolean isAttendanceProcessed = service.isAttendanceProcessed(lsCode);
+	        if (isAttendanceProcessed) {
+	            int attendedCount = service.getAttendedCountForLesson(lsCode);
+	            int absentCount = service.getAbsentCountForLesson(lsCode);
+	            model.addAttribute("attendedCount", attendedCount);
+	            model.addAttribute("absentCount", absentCount);
+	        }
+
 	        model.addAttribute("lessonDetail", lessonDetail);
 
 	        if (lessonDetail.getLsType().equals("그룹")) {
@@ -92,36 +104,29 @@ public class AttendController {
 	 * @return
 	 */
 	@PostMapping("/updateAttendG.do")
-	public String updateGroupAttend(
-	        @RequestParam("lessonCode") String lessonCode,
-	        @RequestParam("selectedMemberCodes") List<Integer> selectedMemberCodes) {
+	public String updateGroupAttend(@RequestParam("lessonCode") String lessonCode,
+	                                @RequestParam(name = "selectedMemberCodes", required = false) List<Integer> selectedMemberCodes) {
 
 	    try {
-	        // 그룹수업 출석 업데이트 처리
-	        service.updateAttendanceGroupLesson(lessonCode, selectedMemberCodes);
-	        System.out.println("출결 업데이트 성공" + lessonCode + selectedMemberCodes);
+	        if (selectedMemberCodes != null && !selectedMemberCodes.isEmpty()) {
+	            // 선택된 회원에 대한 출석 처리
+	            service.updateAttendanceGroupLesson(lessonCode, selectedMemberCodes);
+	            System.out.println("출결 업데이트 성공: " + lessonCode + " " + selectedMemberCodes);
+	        } else {
+	            // 아무것도 선택되지 않았을 경우 별도의 처리가 필요 없음
+	            System.out.println("선택된 회원 없음: " + lessonCode);
+	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        System.out.println("출결 업데이트 실패"+ lessonCode + selectedMemberCodes);	       
+	        System.out.println("출결 업데이트 실패: " + lessonCode + " " + selectedMemberCodes);
 	    }
-	    return "redirect:/getTrainerLesson.do?lsCode=" + lessonCode; // 해당 수업 상세 페이지로 리다이렉트
+
+	    return "redirect:/getTrainerLesson.do?lsCode=" + lessonCode;
 	}
+
 
 	
 	
-//	@GetMapping("/getLessonList.do")
-//	public String getLessonList(HttpSession session, Model model) {
-//		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-//
-//		if (user != null) {
-//			int csMemberCode = (int) user.get("csMemberCode");
-//			model.addAttribute("lessonList", service.getAllLessonListWithCtName(csMemberCode));
-//			return "member/trainer_classlist_test"; //수업리스트 화면으로 
-//
-//		} else {
-//			return "member/login";
-//		}
-//	}
 
 
 	/**
