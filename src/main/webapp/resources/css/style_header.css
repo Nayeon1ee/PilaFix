@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+#navbar {
+    margin-left: auto;
+}
+
 #topbar ul {
 	list-style: none;
 	padding: 0;
