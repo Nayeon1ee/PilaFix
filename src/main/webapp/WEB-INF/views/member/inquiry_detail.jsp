@@ -79,7 +79,7 @@
 
 
 				<div id="userInfo" class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2"
+					<div id="myInfoLink" class="ms-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
@@ -112,7 +112,7 @@
 					    <textarea class="form-control" name="qsContent" rows="6"></textarea>
 					</div>
 <div style="display: flex; justify-content: flex-end;">
-    <button type="button" class="submit-button" onclick="getQuestionInfo()">문의하기</button>
+    <button type="button" class="submit-button me-2" onclick="getQuestionInfo()">문의하기</button>
 </div>
 				    
 			<!-- </form>  -->	
