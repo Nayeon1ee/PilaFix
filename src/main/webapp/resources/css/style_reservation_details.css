@@ -27,7 +27,7 @@ input[type="checkbox"].btn-check:not(:checked)+.btn {
 
 .message-text {
 	color: #363333;
-	font-weight: bold; 
+	font-weight: bold;
 	margin: 10px 0;
 }
 
@@ -35,7 +35,16 @@ input[type="checkbox"].btn-check:not(:checked)+.btn {
 	text-align: right;
 }
 
-.form-check-label.pt-2 {
-	margin-top: 2px; /* 조절하고 싶은 크기에 맞게 값을 조정하세요 */
+/* 체크 박스 */
+.form-check {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.form-check-input {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 5px;
 }
 

@@ -349,7 +349,7 @@
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" value=""
 											id="flexCheckDefault"> <label
-											class="form-check-label pt-2" for="flexCheckDefault">
+											class="form-check-label" for="flexCheckDefault">
 											이용 정책을 전부 확인하였습니다. 이에 동의합니다.</label>
 									</div>
 
