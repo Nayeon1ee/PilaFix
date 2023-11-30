@@ -9,4 +9,5 @@ public interface CenterLessonService {
 	int deleteCenterLesson(String lsCode);
 	
 	List<CenterLessonVO> getTrainerCode(int centerCode);
+//	void insertCenterLesson(CenterLessonVO[] lessons);
 }

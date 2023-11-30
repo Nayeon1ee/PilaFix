@@ -23,9 +23,9 @@ public class CenterLessonVO {
 	private boolean lsCloseYN;
 
 	private String lsRegistrationDateToString;
+	private Timestamp lsTimeDB;
 	private String lsEndTime;
 	private Timestamp lessonDatetime;
-	private Timestamp lessonEndDatetime;
 
 	private int csMemberCode;
 	private String csName;
@@ -39,9 +39,13 @@ public class CenterLessonVO {
 	private int reservedCount;
 	private int attendedCount;
 	private int absentCount;
-	private List<MemberVO> reservedMembers;
+
+	private String atCode;
+	private String lessonCode;
+
 	private String lsStartTime;
 	private Timestamp lsTimeDB;
+
 	public String getLsCode() {
 		return lsCode;
 	}
@@ -131,7 +135,7 @@ public class CenterLessonVO {
 	}
 	public void setLsRegistrationDateToString(String lsRegistrationDateToString) {
 		this.lsRegistrationDateToString = lsRegistrationDateToString;
-	}
+  }
 	public String getLsEndTime() {
 		return lsEndTime;
 	}
@@ -144,12 +148,14 @@ public class CenterLessonVO {
 	public void setLessonDatetime(Timestamp lessonDatetime) {
 		this.lessonDatetime = lessonDatetime;
 	}
+
 	public Timestamp getLessonEndDatetime() {
 		return lessonEndDatetime;
 	}
 	public void setLessonEndDatetime(Timestamp lessonEndDatetime) {
 		this.lessonEndDatetime = lessonEndDatetime;
 	}
+
 	public int getCsMemberCode() {
 		return csMemberCode;
 	}
@@ -216,6 +222,19 @@ public class CenterLessonVO {
 	public void setReservedMembers(List<MemberVO> reservedMembers) {
 		this.reservedMembers = reservedMembers;
 	}
+  
+	public String getAtCode() {
+		return atCode;
+	}
+	public void setAtCode(String atCode) {
+		this.atCode = atCode;
+	}
+	public String getLessonCode() {
+		return lessonCode;
+	}
+	public void setLessonCode(String lessonCode) {
+		this.lessonCode = lessonCode;
+
 	public String getLsStartTime() {
 		return lsStartTime;
 	}
@@ -227,6 +246,7 @@ public class CenterLessonVO {
 	}
 	public void setLsTimeDB(Timestamp lsTimeDB) {
 		this.lsTimeDB = lsTimeDB;
+
 	}
 	@Override
 	public String toString() {
@@ -242,8 +262,5 @@ public class CenterLessonVO {
 				+ closedPersonalCount + ", lsCenterName=" + lsCenterName + ", reservedCount=" + reservedCount
 				+ ", attendedCount=" + attendedCount + ", absentCount=" + absentCount + ", reservedMembers="
 				+ reservedMembers + ", lsStartTime=" + lsStartTime + ", lsTimeDB=" + lsTimeDB + "]";
-	}
-	
-	
-
+  }
 }
