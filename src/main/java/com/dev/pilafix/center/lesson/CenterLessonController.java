@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -76,4 +77,22 @@ public class CenterLessonController {
 		service.deleteCenterLesson(lsCode);
 		return "redirect:getCenterLessonList.do";
 	}
+	
+	
+//	@PostMapping("/insertTest.do")
+//	public void insertTest(HttpSession session, @RequestParam("lsName") String lsName,@RequestParam("lsType") String lsType, @RequestParam("dateTimeArray")Object[] datetimeArray ) {
+//		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
+//		
+//		if(!center.isEmpty()) {
+//			int centerCode = (int)center.get("ctCode");
+//			for(int i = 0 ; i < datetimeArray.length; i++) {
+//				CenterLessonVO lesson = new CenterLessonVO();
+//				lesson.setLsName(lsName);
+//				lesson.setLsType(lsType);
+//				System.out.println(datetimeArray.toString());
+//			}
+////			service.insertCenterLesson(lessons);
+//		}
+////		return "redirect:getCenterLessonList.do";
+//	}
 }
