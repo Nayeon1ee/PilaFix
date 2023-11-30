@@ -116,7 +116,7 @@
 
 <!-- 결제 테이블에 결제정보 저장 -->
 <insert id="insertPaymentinfo" parameterType="memberTicket" >
-	INSERT INTO tbl_payment VALUES (#{paId},#{ticketCode},#{paAmount},#{memberCode},#{paMethod}, TO_TIMESTAMP(#{paDateTime}, 'YYYY-MM-DD HH24:MI:SS'))
+	INSERT INTO tbl_payment VALUES (#{paId},#{ticketCode},#{paAmount},#{memberCode},#{paMethod}, TO_TIMESTAMP(#{paDateTime}, 'YYYY-MM-DD HH24:MI:SS'),'f')
 </insert>
 
 <!-- 회원 테이블에 수강권 정보 업데이트 / 구매한 수강권 타입에 따라 업데이트 다르게 해야해서 다이나믹SQL사용 -->
