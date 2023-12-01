@@ -7,7 +7,6 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.pilafix.center.ticket.CenterTicketVO;
 import com.dev.pilafix.center.userguide.UserguideVO;
@@ -50,6 +49,22 @@ public class MemberTicketDAO {
 
 	public int updateMemberTicketInfo(MemberTicketVO vo) {
 		return sqlSessionTemplate.update("MemberTicketDAO.updateMemberTicketInfo", vo);
+	}
+
+	public int checkTicketUsage(String tkLessonType, int csMemberCode) {
+		Map<String,Object> memberInfo = new HashMap<>();
+		memberInfo.put("tkLessonType", tkLessonType);
+		memberInfo.put("csMemberCode", csMemberCode);
+		return sqlSessionTemplate.selectOne("MemberTicketDAO.checkTicketUsage", memberInfo);
+	}
+	//결제취소해서 회원테이블에 수강권없애고 결제테이블에 결제취소여부 t로 update
+	public int cancelMemberTicketInfo(int csMemberCode, String tkLessonType, String imp_uid) {
+		Map<String,Object> paymentInfo = new HashMap<>();
+		paymentInfo.put("csMemberCode", csMemberCode);
+		paymentInfo.put("tkLessonType", tkLessonType);
+		paymentInfo.put("imp_uid", imp_uid);
+		
+		return sqlSessionTemplate.update("MemberTicketDAO.cancelMemberTicketInfo",paymentInfo);
 	}
 
 //	@Transactional(rollbackFor = Exception.class)

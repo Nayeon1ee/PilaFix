@@ -156,39 +156,52 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 	    }
 		
 		//결제 취소 메서드(사용자 요구에 의한 결제 취소)
-				public void refundMemberRequest(String access_token, String imp_uid) throws IOException {
-			        URL url = new URL("https://api.iamport.kr/payments/cancel");
-			        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-			 
-			        // 요청 방식을 POST로 설정
-			        conn.setRequestMethod("POST");
-			 
-			        // 요청의 Content-Type, Accept, Authorization 헤더 설정
-			        conn.setRequestProperty("Content-type", "application/json");
-			        conn.setRequestProperty("Accept", "application/json");
-			        conn.setRequestProperty("Authorization", access_token);
-			 
-			        // 해당 연결을 출력 스트림(요청)으로 사용
-			        conn.setDoOutput(true);
-			 
-			        // JSON 객체에 해당 API가 필요로하는 데이터 추가.
-			        JsonObject json = new JsonObject();
-			        json.addProperty("imp_uid", imp_uid);
-			 
-			        // 출력 스트림으로 해당 conn에 요청
-			        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-			        bw.write(json.toString());
-			        bw.flush();
-			        bw.close();
-			 
-			        // 입력 스트림으로 conn 요청에 대한 응답 반환
-			        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        br.close();
-			        conn.disconnect();
+				public int refundMemberRequest(String access_token, String imp_uid,int csMemberCode,String tkLessonType) throws IOException {
+					int updateDbResult = dao.cancelMemberTicketInfo(csMemberCode,tkLessonType,imp_uid);
+					// 디비에 정보 성공적으로 업데이트하면 결제취소 진행하고 0리턴/오류나면 100리턴
+					if (updateDbResult == 1) {
+						URL url = new URL("https://api.iamport.kr/payments/cancel");
+				        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+				 
+				        // 요청 방식을 POST로 설정
+				        conn.setRequestMethod("POST");
+				 
+				        // 요청의 Content-Type, Accept, Authorization 헤더 설정
+				        conn.setRequestProperty("Content-type", "application/json");
+				        conn.setRequestProperty("Accept", "application/json");
+				        conn.setRequestProperty("Authorization", access_token);
+				 
+				        // 해당 연결을 출력 스트림(요청)으로 사용
+				        conn.setDoOutput(true);
+				 
+				        // JSON 객체에 해당 API가 필요로하는 데이터 추가.
+				        JsonObject json = new JsonObject();
+				        json.addProperty("imp_uid", imp_uid);
+				 
+				        // 출력 스트림으로 해당 conn에 요청
+				        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+				        bw.write(json.toString());
+				        bw.flush();
+				        bw.close();
+				 
+				        // 입력 스트림으로 conn 요청에 대한 응답 반환
+				        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				        br.close();
+				        conn.disconnect();
+				        
+				        return 0;
+					}else {
+						return 100;
+					}
 			        
 			        
-			        //log.info("결제 취소 완료 : 주문 번호 {}", merchant_uid);
 			       
 			    }
+				
+				// 마이페이지에서 결제 취소 버튼 클릭시 수강권을 사용했는지 안했는지 먼저 검사
+				@Override
+				public int checkTicketUsage(String tkLessonType, int csMemberCode) {
+					return dao.checkTicketUsage(tkLessonType,csMemberCode);
+				}
 
 }

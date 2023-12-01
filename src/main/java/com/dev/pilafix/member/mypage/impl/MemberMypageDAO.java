@@ -14,8 +14,7 @@ public class MemberMypageDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	public List<MemberMypageVO> getMyPaymentInfo(int csMemberCode) {
-		sqlSessionTemplate.selectList("MemberMypageDAO.getMyPaymentInfo",csMemberCode );
-		return null;
+		return sqlSessionTemplate.selectList("MemberMypageDAO.getMyPaymentInfo",csMemberCode );
 	}
 
 }

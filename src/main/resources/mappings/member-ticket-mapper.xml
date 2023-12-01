@@ -139,7 +139,19 @@ UPDATE tbl_cst
 WHERE CS_MEMBER_CODE = #{memberCode}
 </update>
 
-<update id="canclMemberTicketInfo" parameterType="memberTicket">
+
+<select id="checkTicketUsage" parameterType="java.util.Map" resultType="int">
+	SELECT 
+		<if test="tkLessonType=='그룹'">
+				TICKET_REMAINING_COUNT_GROUP1
+		</if>
+		<if test="tkLessonType=='개인'">
+			TICKET_REMAINING_COUNT_PERSONAL1
+		</if>
+	FROM tbl_cst WHERE cs_member_code=#{csMemberCode}
+</select>
+
+<update id="cancelMemberTicketInfo" parameterType="java.util.Map"  >
 	UPDATE TBL_CST  
 	<if test="tkLessonType=='그룹'">
 		SET TICKET_CODE_GROUP1 = null,
@@ -155,7 +167,9 @@ WHERE CS_MEMBER_CODE = #{memberCode}
 			TICKET_EXPIRY_DATE_PERSONAL1 = null,
 			TICKET_EXPIRY_YN_PERSONAL1 = null,
 	</if>
-	WHERE CS_MEMBER_CODE = #{memberCode}
-</update>
+	WHERE CS_MEMBER_CODE = #{csMemberCode};
 	
+	UPDATE tbl_payment SET pa_cancel_yn = 't'
+	WHERE pa_id=#{imp_uid}
+</update>
 </mapper>
