@@ -19,6 +19,16 @@ public class MyScheduleVO {
 	private String rsCode;
 	private Date rsDatetime; //예약일자 
 	
+	private boolean atAttendanceYn;
+	
+	
+	
+	public boolean isAtAttendanceYn() {
+		return atAttendanceYn;
+	}
+	public void setAtAttendanceYn(boolean atAttendanceYn) {
+		this.atAttendanceYn = atAttendanceYn;
+	}
 	public String getLsCode() {
 		return lsCode;
 	}
@@ -109,8 +119,9 @@ public class MyScheduleVO {
 				+ ", lsTime=" + lsTime + ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime
 				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
 				+ ", centerCode=" + centerCode + ", centerName=" + centerName + ", lsColseYN=" + lsColseYN + ", rsCode="
-				+ rsCode + "]";
+				+ rsCode + ", atAttendanceYn=" + atAttendanceYn + "]";
 	}
+	
 
 	
 	

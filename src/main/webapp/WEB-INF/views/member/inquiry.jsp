@@ -118,7 +118,7 @@
 
 
 				<div id="userInfo" class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2"
+					<div id="myInfoLink" class="ms-2 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
@@ -198,25 +198,23 @@
 
 <!-- 삭제 버튼 모달 -->
 <div class="modal fade" id="basicModal" tabindex="-1">
-     <div class="modal-dialog">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-         </div>
-         <div class="modal-body">
-           확인 버튼을 누르시면 다시 복구시킬 수 없습니다.
-         </div>
-         
-     <input type="hidden" id="currentQsNumber" value="">    
-         
-     <div class="modal-footer">
-       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-       <button type="button" class="btn btn-primary" onclick="deleteQuestion()">확인</button>
-     </div>
-       </div>
-     </div>
-   </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+  <p class="font-weight-bold">확인 버튼을 누르시면 다시 복구시킬 수 없습니다.</p>
+</div>
+      <input type="hidden" id="currentQsNumber" value="">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" onclick="deleteQuestion()">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
 </main><!-- End #main -->
  
 
