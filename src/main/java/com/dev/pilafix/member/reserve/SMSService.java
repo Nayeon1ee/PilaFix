@@ -54,7 +54,6 @@ public class SMSService {
         CenterLessonVO reservLesson = reservService.getLessonDetail(lsCode);
         
         StringBuilder text = new StringBuilder();
-        text.append("[필라픽스] ");
         text.append(memberName);
         text.append(" 회원님, ");
         text.append(convertToKoreanTime(reservLesson.getLsTime()));
@@ -70,7 +69,9 @@ public class SMSService {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", memberPhone); //세션에 저장된 현재 로그인한 회원의 연락처 
 		params.put("from", "01051275264");
-		params.put("type", "SMS");
+		params.put("type", "LMS");
+        params.put("country", "82");
+        params.put("subject", "[필라픽스] 예약 완료 안내");
 		params.put("text", smsContent);
 		params.put("app_version", "test app 1.2"); 
 		

@@ -5,16 +5,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.common.member.CenterVO;
@@ -196,7 +199,6 @@ public class ReservController {
 	@ResponseBody
 	public Map<String, Object> sendSms(String lsCode, HttpSession session) {
 		Map<String, Object> response = new HashMap<>();
-		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
 		
 		System.out.println("sendSMS.do 호출됨");
 
@@ -207,6 +209,31 @@ public class ReservController {
 
 		return response;
 	}
+	
+	/**
+	 * 예약 가능 여부 체크 
+	 * 
+	 * @param session
+	 * @param lsCode
+	 * @return
+	 */
+	@PostMapping("/checkReservation.do")
+	@ResponseBody
+	@Async
+	public boolean checkReservation(HttpSession session, String lsCode) {
+		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			int csMemberCode = (int) loginUser.get("csMemberCode");
+			int result = service.checkReservation(csMemberCode, lsCode);
+			System.out.println("예약 가능 여부 컨트롤러 :"+result);
+			if(result == 0) { 
+				return true;//예약 가능 
+			}
+		}
+		return false;
+	}	
+	
 	
 	/**
 	 * 예약 취소 페이지 
@@ -237,6 +264,12 @@ public class ReservController {
 	/**
 	 * 예약 취소 진행 
 	 * 
+	 * STEP01. 회원 테이블에서 수강권 매수 +1 (개인/그룹 구분)
+	 * STEP02. 수업 테이블에 현재 신청 인원 -1
+	 * STEP03. 예약 테이블의 취소 여부 true
+	 * STEP04. 출결 테이블의 회원코드 지우기 
+	 * STEP05. insert 알림 테이블 이력 
+	 * 
 	 * @param rsCode
 	 * @param lsCode
 	 * @param centerCode
@@ -263,7 +296,6 @@ public class ReservController {
 			
 		}
 		return response;
-		
 	}
 
 }
