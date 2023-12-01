@@ -148,13 +148,15 @@
 		]]>
 	</select>
 	
-	<!-- 자동 폐강 대상 목록 조회  - 수업일자가 당일이면서 수업시작 3시간 전이면서 신청인원이 0 -->
+	<!-- 자동 폐강 대상 목록 조회  - 수업시작 3시간 전이면서 신청인원이 0 -->
 	<select id="getLessonsThreeHoursAgo" resultMap="codeResult2">
+		<![CDATA[
 	    SELECT LS_CODE
 	    FROM TBL_LESSON
 	    WHERE ls_date = CURRENT_DATE
-	      AND ls_time::time = (CURRENT_TIME - INTERVAL '3 hours')
-	      AND LS_CURRENT_APPLICANTS = 0;
+  			AND ls_time::time <= (CURRENT_TIME + INTERVAL '3 hours')
+	    	AND LS_CURRENT_APPLICANTS = 0;
+	   	]]>
 	</select>
 	<!-- 폐강 처리  -->
 	<update id="updateLessonsClosingYn">
