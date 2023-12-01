@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 #myPage {
 	margin: 0 auto;
@@ -35,7 +35,27 @@
 }
 
 
+select {
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #fff; 
+    color: #555; 
+    font-size: 15px; 
+}
 
+
+select:focus {
+    outline: none; 
+    border-color: #6c757d; 
+    box-shadow: 0 0 5px rgba(108, 117, 125, 0.5); 
+}
+
+/* 옵션 스타일 */
+select option {
+    background-color: #f8f8f8; /* 배경색 설정 */
+    color: #555; /* 텍스트 색상 설정 */
+}
 
 hr {
 	border: none;
@@ -82,3 +102,5 @@ input[type="text"] {
 select option:checked {
 	color: #333;
 }
+
+

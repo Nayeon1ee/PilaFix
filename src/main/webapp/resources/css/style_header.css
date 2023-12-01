@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+@import
+	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
+	;
+
+#navbar {
+	margin-left: auto;
+}
+
 #topbar ul {
 	list-style: none;
 	padding: 0;

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 #comment-list {
     list-style: none;

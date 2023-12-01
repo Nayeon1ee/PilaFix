@@ -86,7 +86,7 @@
 				<div class="reserv_cancel_list d-flex justify-content-center">
 					<div class="reserv_cancel_list d-flex justify-content-center">
 						<div class="section_0"
-							style="border: border-radius: 5px; margin-bottom: 20px; position: relative; overflow: hidden; width: 700px;">
+							style="border: border-radius: 5px; margin-bottom: 20px; position: relative; overflow: hidden; width: 970px;">
 							<div class="time" id="cancelTime">
 								<p class="fw-bold mb-0" style="color: #e44d26;">
 									취소 가능한 시간까지 <span id="timeRemaining"></span> 남았어요!
@@ -97,62 +97,74 @@
 
 
 
-					<div class="container" style="max-width: 700px">
-						<div class="row">
-							<div class="col-md-6 p-0">
+					<div class="container px-0" style="max-width: 1000px">
+				
+							
 								<div class="section1">
-									 <div class="card h-100" style="max-width: 347.5px;">
+									 <div class="card h-100" style="max-width: 990px;">
 										<div class="card-header">
 											<b>내 예약 정보 확인</b>
 										</div>
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item mb-2">${cancelInfo.lesson.centerName} | ${cancelInfo.lesson.lsType }수업</li>
-											<li class="list-group-item mb-2">${cancelInfo.lesson.lsName}</li>
+											<li class="list-group-item mb-2 custom-highlight-item">${cancelInfo.lesson.centerName} | ${cancelInfo.lesson.lsType }수업</li>
+											<li class="list-group-item pt-0 mb-2">${cancelInfo.lesson.lsName}</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="remainingSessions">예약일자</label>
+													<label class="input-group-text" for="remainingSessions"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">예약일자 :</label>
 													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.lesson.lsDate}" readonly>
 												</div>
 											</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="expirationDate">예약시간</label>
+													<label class="input-group-text" for="expirationDate"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">예약시간 :</label>
 													<input type="text" class="form-control" id="expirationDate" value="${cancelInfo.lesson.lsTime} ~ ${cancelInfo.lesson.lsEndTime}"name="expirationDate" readonly>
 												</div>
 											</li>
 										</ul>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-6 p-0">
-								<div class="section2">
-									 <div class="card h-100" style="max-width: 347.5px;">
+							
+							
+								<div class="section2 mt-3">
+									 <div class="card h-100" style="max-width: 990px;">
 										<div class="card-header">
 											<b>내 수강권 정보 확인</b>
 										</div>
 										<ul class="list-group list-group-flush">
-										<li class="list-group-item mb-1 title-text">${cancelInfo.lesson.centerName} | ${cancelInfo.lesson.lsType }수업</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="remainingSessions">잔여횟수</label>
+													<label class="input-group-text" for="remainingSessions"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">수강권명 :</label>
+													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketRemainingCount }" readonly>
+												</div>
+											</li>
+											
+											<li class="list-group-item">
+												<div class="input-group">
+													<label class="input-group-text" for="remainingSessions"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">잔여횟수 :</label>
 													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketRemainingCount }" readonly>
 												</div>
 											</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="expirationDate">만료일</label>
+													<label class="input-group-text" for="expirationDate"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">만료일 :</label>
 													<input type="text" class="form-control" id="expirationDate" value="${cancelInfo.ticket.ticketExpiryDate }"	name="expirationDate" readonly>
 												</div>
 											</li>
 										</ul>
 									</div>
 								</div>
-							</div>
+							
 
 
-						</div>
+						
 					</div>
-					<div class="section">
+					
+					<div class="section" style="max-width: 1000px">
 						<div class="card">
 							<div class="card-header">
 								<b>이용정책</b>
@@ -166,7 +178,7 @@
 									</li>
 									<li class="list-group-item">
 										<div class="policy-form">
-											<textarea class="form-control" rows="4" readonly>${guide.ugContent}</textarea>
+											<textarea class="form-control custom-textarea" rows="4" readonly>${guide.ugContent}</textarea>
 										</div>
 									</li>
 								
@@ -179,7 +191,7 @@
 
 					<div class="section">
 
-						<div class="d-grid gap-2 justify-content-end me-2">
+						<div class="d-flex justify-content-end" style="width: 825px;">
 							<button class="btn btn-primary my-auto" type="button" onclick="isPossibleToCancel()"	style="width: 100px;">취소하기</button>
 						</div>
 
@@ -342,8 +354,7 @@
 	                
 	                if(response){
    	                console.log("cancelReservation() 호출 성공");
-	              		// 추후 내스케줄 확인으로 이동
-	   	            alert("취소가 완료되었습니다. ");
+	              	// 추후 내스케줄 확인으로 이동
 	   	            window.location.href = 'schedule.do';
 	                }
 	            },

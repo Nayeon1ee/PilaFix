@@ -51,7 +51,7 @@
 		SELECT *, (SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE::TEXT=RECIPIENT_CODE) AS CENTER_NAME
 		FROM TBL_NOTICE
 		WHERE MEMBER_CODE=#{csMemberCode}
-			AND NC_READ_YN=FALSE
+		ORDER BY EVENT_DATETIME DESC
 	</select>
 	
 	<!-- 알림 발송 후 상태 업데이트  -->
@@ -68,6 +68,7 @@
 	<select id="getNoticeHistoryList" resultMap="noticesResult" >
 		SELECT * FROM TBL_NOTICE
 		WHERE RECIPIENT_CODE=#{currentUserCode}
+		ORDER BY EVENT_DATETIME DESC
 	</select>
 	<!-- 알림 이력 조회 상세  -->
 	<select id="getNoticeHistory" resultMap="noticesResult">

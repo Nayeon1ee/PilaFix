@@ -51,9 +51,7 @@
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common_0.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_ticket.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-	rel="stylesheet">
+
 	
 <!-- 내가 추가한 js -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -176,8 +174,10 @@
 							<button type="button" id="clickButton"
 								class="btn btn-lg btn-block px-5">
 								<div class="card-body text-center mx-auto">
-									<canvas id="coloredCanvas" width="100" height="100"></canvas>
+									<canvas id="coloredCanvas"></canvas>
 									<h5 class="card-title mb-4">관심 가는 수강권을 클릭해보세요!</h5>
+									
+								
 								</div>
 							</button>
 						</div>
@@ -189,7 +189,7 @@
 				
 				<!-- 클릭시 보여줄 이미지 -->
 				<div class = "card-content1-replace" id="content1-replace">
-					 <div class="card text-center" >
+					 <div class="card text-center">
 						<div id="ticket-detail-info">
 							<!-- 여기에 ajax결과 들어옴 -->
 						</div>
@@ -375,10 +375,11 @@
 							//  centerInfoContainer라는 아이디 가진 영역의 기존 내용을 지움
 							$('#centerInfoContainer').html('');
 							if (centerTicketInfo.length < 1) {
-								str = '<p>센터에서 등록한 수강권이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
+								str = '<p style= "font-size: 18px; text-align: center; color: #333;">센터에서 등록한 수강권이 없습니다.<br> 센터에 문의하시기 바랍니다</p>'
 								$('#centerInfoContainer').append(str);
 							} else {
 								centerTicketInfo.forEach(function(item) {
+									
 
 											/* 구매일로부터 사용기간 계산 */
 											// 현재 날짜를 가져옴

@@ -48,15 +48,15 @@
 		WITH new_lesson AS (
 		  INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE, LS_DATE, LS_TIME, LS_CAPACITY, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE)
 		  VALUES (CONCAT('LS', NEXTVAL('SEQ_LESSON')), #{lsName}, #{lsType}, #{lsDate}, to_timestamp('${lsTime}', 'HH24:MI'), #{lsCapacity}, #{trainerMemberCode}, #{lsContent}, #{centerCode}, CURRENT_TIMESTAMP)
-		  RETURNING LS_CODE
+		  RETURNING LS_CODE, LS_DATE
 		)
-		INSERT INTO TBL_ATTEND (AT_CODE, LESSON_CODE)
-		SELECT CONCAT('AT', NEXTVAL('SEQ_ATTEND')), LS_CODE
+		INSERT INTO TBL_ATTEND (AT_CODE, LESSON_CODE, AT_DATE)
+		SELECT CONCAT('AT', NEXTVAL('SEQ_ATTEND')), LS_CODE, LS_DATE
 		FROM new_lesson;
 	</insert>
 	<delete id="deleteCenterLesson" parameterType="centerLesson">
 		DELETE FROM TBL_LESSON WHERE LS_CODE = #{lsCode}
-	</delete>
+	</delete> 
 
 	<select id="getTrainerCode" resultMap="centerLessonResult">
 		SELECT DISTINCT CS_MEMBER_CODE, CS_NAME
@@ -137,7 +137,7 @@
 	</select>
 
 
-	<!-- 11/30 출결레코드 자동 생성 대상 수업내역 조회 -->
+	<!-- 11/30 출결레코드 자동 생성 대상 수업내역 조회(미사용) -->
 	<select id="getOpenLessonCodesForToday" resultMap="codeResult2">
 		<![CDATA[
 		SELECT LS_CODE 
@@ -147,5 +147,26 @@
 			AND LS_CLOSE_YN = FALSE 
 		]]>
 	</select>
+	
+	<!-- 자동 폐강 대상 목록 조회  - 수업시작 3시간 전이면서 신청인원이 0 -->
+	<select id="getLessonsThreeHoursAgo" resultMap="codeResult2">
+		<![CDATA[
+	    SELECT LS_CODE
+	    FROM TBL_LESSON
+	    WHERE ls_date = CURRENT_DATE
+  			AND ls_time::time <= (CURRENT_TIME + INTERVAL '3 hours')
+	    	AND LS_CURRENT_APPLICANTS = 0;
+	   	]]>
+	</select>
+	<!-- 폐강 처리  -->
+	<update id="updateLessonsClosingYn">
+		UPDATE TBL_LESSON
+		SET LS_CLOSE_YN=TRUE
+		WHERE LS_CODE=#{lsCode}
+	</update>
+	
+	  
+	
+	
 
 </mapper>

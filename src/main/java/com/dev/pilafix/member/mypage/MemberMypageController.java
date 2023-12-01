@@ -36,7 +36,7 @@ public class MemberMypageController {
 	@GetMapping("/getPaymentHistory.do")
 	public String getPaymentHistory(HttpSession session,Model model) {
 		
-		Map<String,Object> user = (Map<String, Object>) session.getAttribute("userLogin");
+		Map<String,Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 		int csMemberCode = (int) user.get("csMemberCode");
 		
 		model.addAttribute("paymentInfo", service.getMyPaymentInfo(csMemberCode));

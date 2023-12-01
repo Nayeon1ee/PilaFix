@@ -4,8 +4,6 @@ import java.util.List;
 
 public interface NotificationService {
 
-	void processUnsentNotifications();
-
 	List<NoticeVO> getUnReadNotification(int csMemberCode);
 
 	int getUnReadNotificationCount(int csMemberCode);

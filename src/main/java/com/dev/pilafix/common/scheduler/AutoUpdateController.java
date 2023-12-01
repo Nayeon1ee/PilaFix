@@ -78,9 +78,18 @@ public class AutoUpdateController {
 
 	}
 
+	/**
+	 * 수업 폐강 처리 
+	 */
 	public void autoCloseLessons() {
-		// TODO Auto-generated method stub
-		
+		service.autoCloseLessons();
+	}
+
+	/**
+	 * 수강권 자동 만료 처리
+	 */
+	public void autoExpiryTickets() {
+		service.autoExpiryTickets();
 	}
 
 }

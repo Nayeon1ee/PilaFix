@@ -7,11 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.member.attend.AttendVO;
 
 @Repository
 public class AutoUpdateDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
@@ -26,7 +27,23 @@ public class AutoUpdateDAO {
 	public void insertAttendance(AttendVO attend) {
 		sqlSessionTemplate.insert("AttendDAO.insertAttendance", attend);
 	}
+
+	public void autoExpiryTicketsForGroup() {
+		sqlSessionTemplate.update("MemberManageDAO.autoExpiryTicketsForGroup");
+	}
+
+	public void autoExpiryTicketsForPersonal() {
+		sqlSessionTemplate.update("MemberManageDAO.autoExpiryTicketsForPersonal");
+	}
+
+	public List<String> getLessonsThreeHoursAgo() {
+		return sqlSessionTemplate.selectList("CenterLessonDAO.getLessonsThreeHoursAgo");
+	}
 	
+	public void updateLessonsClosingYn(String lsCode){
+		sqlSessionTemplate.update("CenterLessonDAO.updateLessonsClosingYn", lsCode);
+	}
+		
 	
 
 }

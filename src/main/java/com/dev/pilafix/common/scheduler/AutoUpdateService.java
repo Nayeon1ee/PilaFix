@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.member.attend.AttendVO;
 
 @Service
@@ -39,6 +40,39 @@ public class AutoUpdateService {
 	 */
 	public void insertAttendance(AttendVO attend) {
 		dao.insertAttendance(attend);
+	}
+
+	/**
+	 * 수강권 자동 만료 처리 
+	 */
+	public void autoExpiryTickets() {
+		try {
+			dao.autoExpiryTicketsForGroup();
+			dao.autoExpiryTicketsForPersonal();
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 자동 폐강 처리
+	 * 폐강 대상 : 수업시작 3시간 전이면서 신청인원이 0인 수업
+	 * 
+	 * 1. 조건에 해당하는 수업 리스트 조회 
+	 * 2. 해당 수업 폐강 처리 
+	 * 
+	 */
+	public void autoCloseLessons() {
+		Date today = new Date();
+		
+		/*오늘 날짜에 해당하는 수업 리스트 조회 */
+		List<String> lessons = dao.getLessonsThreeHoursAgo();
+		
+		// 
+		for(String lessonCode : lessons) {
+			dao.updateLessonsClosingYn(lessonCode);
+		}
+		
 	}
 
 }

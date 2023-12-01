@@ -151,9 +151,10 @@ public class ReservController {
 	 * STEP01. 예약테이블 등록 
 	 * STEP02. 회원테이블 수강권매수 -1 
 	 * STEP03. 수업테이블 현재신청인원 +1 
-	 * STEP04. 알림테이블 적재 
-	 * STEP05. 문자발송 
-	 * STEP05-1. 문자발송 이력 등록
+	 * STEP04. 출결레코드 해당 회원 정보 추가 
+	 * STEP05. 알림테이블 적재 
+	 * STEP06. 문자발송 
+	 * STEP06-1. 문자발송 이력 등록
 	 * 
 	 * 
 	 * @param session

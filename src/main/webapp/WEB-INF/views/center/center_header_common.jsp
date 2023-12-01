@@ -296,7 +296,9 @@
 				<a class="nav-link collapsed" href="getMemberManageList.do"> 
 					<i class="bi bi-person"></i>
 						<span>회원 관리</span>
-						<span class="badge bg-primary" id="memberCount"></span> 
+						<span class="badge bg-primary" id="memberCount">
+							<!-- 여기에 ajax로 가져온 연동요청한 회원수 호출 -->
+						</span> 
 				</a>
 			</li>
 			<!-- End 회원관리 Nav -->
@@ -305,7 +307,9 @@
 				<a class="nav-link collapsed" href="getTrainerManageList.do"> 
 					<i class="bi bi-journal-text"></i>
 						<span>강사 관리</span>
-						<span class="badge bg-primary" id="trainerCount"></span>
+						<span class="badge bg-primary" id="trainerCount">
+							<!-- 여기에 ajax로 가져온 연동요청한 강사수 호출 -->
+						</span>
 				</a>
 			</li>
 			<!-- End 강사관리 Nav -->
@@ -355,7 +359,9 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="getCTQuestionList.do"> 
 					<i class="bi bi-envelope"></i><span>문의사항 관리</span>
-					<span class="badge bg-primary" id="questionCount"></span>
+					<span class="badge bg-primary" id="questionCount">
+						<!-- 여기에 ajax로 가져온 답변 안달린 문의사항 갯수 호출 -->
+					</span>
 				</a>
 			</li>
 			<!-- End [센터]문의사항 Nav -->
