@@ -90,7 +90,7 @@
 								<c:forEach var="list" items="${noticeHistoryList }">
 									<tr>
 										<td>${list.ncId }</td>
-										<td>${list.ncSentDatetime }</td>
+										<td>${list.eventDatetime }</td>
 										<td>${list.memberCode }</td>
 										<td>${list.eventType }</td>
 										<td>${list.uniqueIdentifierCode }</td>

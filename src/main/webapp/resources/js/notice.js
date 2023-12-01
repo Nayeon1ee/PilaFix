@@ -63,9 +63,10 @@ function handleNotificationClick() {
 	            	 response.forEach(function (item) {
 	                    let eventType = item.eventType; 
 						let ncId = item.ncId;
+						let ncReadYN = item.ncReadYN;
 						
-						if(item.ncReadYN){ //사용자가 확인했다면 
-							var gstr = '<a class="dropdown-item"  style="color: #888; background-color: #f2f2f2;" onclick="requestView(\''+ eventType + '\')">'; 
+						if(ncReadYN){ //사용자가 확인했다면 
+							var gstr = '<a class="dropdown-item"  style="color: #3c3c3d; background-color: #515152;" onclick="requestView(\''+ eventType + '\')">'; 
 						}else{
 							var gstr = '<a class="dropdown-item" onclick="updateNoticeStatus(\'' + ncId + '\',\'' + eventType + '\')">'; //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
 						}

@@ -2,6 +2,7 @@ package com.dev.pilafix.admin.member_trainer_manage;
 
 import java.util.List;
 
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.common.member.MemberVO;
 
 
@@ -19,4 +20,6 @@ public interface MemberTrainerManageSerice {
 	
 	List<MemberVO> getExcelMemberList();
 	List<MemberVO> getExcelTrainerList();
+	
+	
 }

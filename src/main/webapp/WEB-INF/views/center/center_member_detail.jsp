@@ -94,7 +94,7 @@
 												<h5 class="card-title st_session_pass_p">개인</h5>
 												<div class="row">
 													
-													<div class="col-lg-3 col-md-4 label classname000">
+													<div class="col-lg-3 col-md-4 label classname000"  style="font-weight: bold"> 
 														<c:choose>
 															<c:when test="${not empty member.ticketCodePersonal1 }">
 																${ticketInfo['personal'].tkName}
@@ -140,25 +140,17 @@
 													<div class="col-lg-9 col-md-8">
 													<c:choose>
 											            <c:when test="${not empty member.ticketCodePersonal1}">
-											                <%-- 시작일과 만료일을 지정된 형식으로 포맷 
-											                <fmt:formatDate pattern="yyyy-MM-dd" var="formattedStartDate" value="${member.ticketStartDatePersonal1}" />
-											                <fmt:formatDate pattern="yyyy-MM-dd" var="formattedExpiryDate" value="${member.ticketExpiryDatePersonal1}" />
-															--%>
-											                <%-- 시작일과 만료일에서 날짜 부분만 추출 
-											                <c:set var="startDate" value="${fn:substring(formattedStartDate, 0, 10)}" />
-											                <c:set var="expiryDate" value="${fn:substring(formattedExpiryDate, 0, 10)}" />
-															--%>
-											                <%-- 총 일수 계산 
-											                <c:set var="totalDays" value="${fn:substring((expiryDate - startDate), 0, fn:length((expiryDate - startDate)) - 1)}" />
-															--%>
-											                <%-- 현재 날짜를 가져오기 
-											                <fmt:formatDate pattern="yyyy-MM-dd" var="currentDate" value="${now}" />
-															--%>
-											                <%-- 남은 일수 계산 
-											                <c:set var="remainingDays" value="${fn:substring(expiryDate - currentDate, 0, fn:length(expiryDate - currentDate) - 1)}" />
-											
-											                ${remainingDays}일 남음 / 총 ${totalDays}일
-											                --%>
+															    <fmt:parseDate var="startDate" value="${member.ticketStartDatePersonal1}" pattern="yyyy-MM-dd" />
+															    <fmt:parseDate var="endDate" value="${member.ticketExpiryDatePersonal1}" pattern="yyyy-MM-dd" />
+																
+																<jsp:useBean id="now" class="java.util.Date" />
+																												    
+															    <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" />
+																<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="resultEndDate" />
+																<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="resultStartDate" />
+																
+																${resultEndDate - nowfmtTime }일 남음 / 총 ${resultEndDate - resultStartDate} 일 
+																
 											            	</c:when>
 															<c:otherwise>
 																		-
@@ -245,6 +237,15 @@
 												                <c:set var="remainingDays" value="${fn:substring((expiryDate.time - currentDate.time) / (24 * 60 * 60 * 1000), 0, fn:length((expiryDate.time - currentDate.time) / (24 * 60 * 60 * 1000)) - 2)}" />
 												                ${remainingDays}일 남음 / 총 ${totalDays}일
 												                --%>
+												                
+												                <fmt:parseDate var="startDate2" value="${member.ticketStartDateGroup1}" pattern="yyyy-MM-dd" />
+															    <fmt:parseDate var="endDate2" value="${member.ticketExpiryDateGroup1}" pattern="yyyy-MM-dd" />
+																												    
+																<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="resultEndDate2" />
+																<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="resultStartDate2" />
+																
+																${resultEndDate2 - nowfmtTime }일 남음 / 총 ${resultEndDate2 - resultStartDate2} 일 
+																
 											          		</c:when>
 															<c:otherwise>
 																		-
@@ -288,21 +289,6 @@
 								<div class="card-body">
 									<h5 class="card-title">최근 문의 내역</h5>
 									<p>회원이 최근에 문의한 문의 내역 리스트입니다.</p>
-
-									<!--검색창 주석
-		      <div class="searchfilter-size">
-				<select class="form-select right-align" aria-label="Default select example" id="filterSelect">
-				  <option selected>전체</option>
-				  <option value="1">이름</option>
-				  <option value="2">전화번호</option>
-				</select>
-				<form class="d-flex right-align">
-				        <input class="form-control me-2" type="search" placeholder="검색어를 입력해주세요." aria-label="Search">
-				        <button class="btn btn-outline-success" type="submit">search</button>
-				</form>
-			  </div>
-			 -->
-									<!-- Table with stripped rows -->
 									<table class="table datatable">
 										<thead>
 											<tr>
@@ -337,39 +323,29 @@
 								<div class="card-body">
 									<h5 class="card-title">최근 예약 수업 내역</h5>
 									<p>회원이 최근에 예약한 수업 내역 리스트입니다.</p>
-									<!--검색창 주석
-		      <div class="searchfilter-size">
-				<select class="form-select right-align" aria-label="Default select example" id="filterSelect">
-				  <option selected>전체</option>
-				  <option value="1">이름</option>
-				  <option value="2">전화번호</option>
-				</select>
-				<form class="d-flex right-align">
-				        <input class="form-control me-2" type="search" placeholder="검색어를 입력해주세요." aria-label="Search">
-				        <button class="btn btn-outline-success" type="submit">search</button>
-				</form>
-			  </div>
-			 -->
-									<!-- Table with stripped rows -->
 									<table class="table datatable">
 										<thead>
 											<tr>
 												<th scope="col">수업일시</th>
-												<th scope="col">예약일시</th>
 												<th scope="col">수업명</th>
+												<th scope="col">센터명</th>
 												<th scope="col">담당강사</th>
+												<th scope="col">예약일시</th>
 											</tr>
 										</thead>
-
 										<tbody>
-											<tr>
-												<td>2023.04.18(금) 오후 8:00</td>
-												<td>2023.04.08(금) 오후 8:00</td>
-												<td>수업</td>
-												<td>홍길동</td>
-											</tr>
-
-											
+											<c:if test="${empty RList}">
+												<td colspan="3"> 예약 내역이 존재하지 않습니다.</td>
+											</c:if>
+											<c:forEach var="rlist" items="${RList}">
+												<tr>
+													<td><fmt:formatDate pattern="yyyy.MM.dd(E) a h:mm" var="formattedDate" value="${rlist.lessonDatetime }" />${formattedDate }</td>
+													<td>${rlist.lsName }</td>
+													<td>${rlist.centerName }</td>
+													<td>${rlist.trainerMemberName }</td>
+													<td><fmt:formatDate pattern="yyyy.MM.dd(E) a h:mm" var="formattedDate" value="${rlist.rsDatetime }" />${formattedDate }</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 									<!-- End Table with stripped rows -->

@@ -1,5 +1,7 @@
 package com.dev.pilafix.center.notice_history;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,15 @@ public class NoticeHistoryController {
 	@GetMapping("/getNoticeHistoryList.do")
 	public String getNoticeHistoryList(HttpSession session, Model model) {
 		//로그인 완료되면 해당 문장 삭제 
-		session.setAttribute("loginUser",111);
+		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginCenter");
 		
-		//로그인 완료되면 로그인 세션에서 꺼내오기 
-		int currentUserCode = (int) session.getAttribute("loginUser");
-		
-		model.addAttribute("noticeHistoryList",service.getNoticeHistoryList(currentUserCode));
-		
-		return "center/center_notice_history_list";
+		if(loginUser != null) {
+			int ctCode = (int) loginUser.get("ctCode");
+			model.addAttribute("noticeHistoryList",service.getNoticeHistoryList(ctCode));
+			return "center/center_notice_history_list";
+		}
+		return "redirect:centerLogin.do";
+				
 	}
 	
 	@GetMapping("/getNoticeHistory.do")
