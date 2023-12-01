@@ -165,7 +165,16 @@
 
   .btn.btn-outline-primary.btn-reservation {
     font-size: 15px; 
+    font-size: 14px; 
+    color: #9b56e9; 
+    border-color: #9b56e9; 
   }
+
+  .btn.btn-outline-primary.btn-reservation:hover {
+    background-color: #9b56e9; 
+    color: #fff; 
+  }
+
 
 /* 캘린더 스타일 */
 .fc-prev-button, .fc-next-button {
