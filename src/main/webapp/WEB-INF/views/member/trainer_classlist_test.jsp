@@ -202,7 +202,7 @@
 	</main>
 	<!-- End #main -->
 
-<script>
+<!-- <script>
   // 현재 시간을 가져오는 함수
   function getCurrentTime() {
     var now = new Date();
@@ -292,7 +292,7 @@
   }
   // 페이지 로딩 시 호출
   window.onload = updateAndSplitTable;
-</script>
+</script> -->
 	<!-- ======= Footer ======= -->
 	<%@ include file="member_footer_common.jsp"%>
 	<!-- End Footer -->
