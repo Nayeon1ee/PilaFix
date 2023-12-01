@@ -54,6 +54,7 @@ public class NotificationController {
 	 * @param ncId
 	 */
 	@PostMapping("/updateNoticeStatus.do")
+	@ResponseBody
 	public void updateNoticeStatus(String ncId) {
 		service.updateNoticeStatus(ncId);
 	}

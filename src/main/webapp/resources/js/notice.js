@@ -110,7 +110,7 @@ function updateNoticeStatus(ncId, eventType){
 				ncId: ncId,
 				eventType : eventType
 			 },
-	        success: function() {
+	        success: function(response) {
 	        	console.log("확인여부 업데이트 완료");
 				if(eventType === '예약' || eventType  === '예약취소'){ //예약이거나 예약취소이면 내스케줄 페이지
 					window.location.href='schedule.do';
