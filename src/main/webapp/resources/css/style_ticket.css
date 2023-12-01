@@ -8,9 +8,7 @@
 	display: inline-box;
 }
 
-.card {
-	height: 700px;
-}
+
 
 .text-center select {
 	appearance: none;
@@ -138,9 +136,7 @@
 	font-weight: bold;
 }
 
-#ticketBuyGuide {
-	margin-top: 10px;
-}
+
 
 .card-body-title {
 	font-size: 1.0em;
@@ -159,7 +155,7 @@ textarea {
 }
 
 #ticketBuy {
-	margin-top: -20px;
+	margin-top: -32px;
 }
 
 .form-check-label {
