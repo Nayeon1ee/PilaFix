@@ -6,7 +6,7 @@ public class MemberMypageVO {
 	private String paId;
 	private String paMethod;
 	private Timestamp paDateTime;
-	private int paAmount;
+	private String paAmount;
 	private String ticketCode;
 	private int memberCode;
 	private boolean paCancelYn;
@@ -18,6 +18,7 @@ public class MemberMypageVO {
 	private int centerCode;
 	private int tkCapacity;
 	private String centerName;
+	
 	public String getPaId() {
 		return paId;
 	}
@@ -36,10 +37,10 @@ public class MemberMypageVO {
 	public void setPaDateTime(Timestamp paDateTime) {
 		this.paDateTime = paDateTime;
 	}
-	public int getPaAmount() {
+	public String getPaAmount() {
 		return paAmount;
 	}
-	public void setPaAmount(int paAmount) {
+	public void setPaAmount(String paAmount) {
 		this.paAmount = paAmount;
 	}
 	public String getTicketCode() {

@@ -13,11 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -164,10 +159,46 @@ public class MemberTicketController {
 	// 사용자 요구 구매취소 
 		@PostMapping("/memberCancel.do")
 		@ResponseBody
-		public int memberCancel(String imp_uid) throws IOException {
-			String token = service.getToken(apiKey, secretKey);
-			service.refundMemberRequest(token,imp_uid);
-	        return 0;
+		public int memberCancel(String imp_uid,String tkLessonType,int tkUsageCount,HttpSession session) throws IOException {
+			System.out.println("컨트롤러로 넘어온 수강권 타입:"+tkLessonType);
+			System.out.println("컨트롤러로 넘어온 수강권 횟수:"+tkUsageCount);
+			Map<String,Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+			int csMemberCode = (int) user.get("csMemberCode");
+			
+			// 마이페이지에서 결제 취소 버튼 클릭시 수강권을 사용했는지 안했는지 먼저 검사
+			int memberTicketUsageCount = service.checkTicketUsage(tkLessonType,csMemberCode);
+			
+			//수강권 사용안했으면 결제취소 진행,사용했으면 취소 못하게 함
+			if(tkUsageCount == memberTicketUsageCount) {
+				String token = service.getToken(apiKey, secretKey);
+				int updateResult = service.refundMemberRequest(token,imp_uid,csMemberCode,tkLessonType);
+				if (updateResult == 0) {
+					return 0;
+				}else {
+					return 100;
+				}
+				
+			}else {
+				
+				return 1;
+			}
 		}
+		
+	// 마이페이지에서 결제 취소 버튼 클릭시 수강권을 사용했는지 안했는지 먼저 검사
+//		@PostMapping("checkTicketUsage.do")
+//		@ResponseBody
+//		public int checkTicketUsage(String tkLessonType,int tkUsageCount,HttpSession session) {
+//			System.out.println("컨트롤러로 넘어온 수강권 타입:"+tkLessonType);
+//			System.out.println("컨트롤러로 넘어온 수강권 횟수:"+tkUsageCount);
+//			Map<String,Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+//			int csMemberCode = (int) user.get("csMemberCode");
+//			int memberTicketUsageCount = service.checkTicketUsage(tkLessonType,csMemberCode);
+//			if(tkUsageCount == memberTicketUsageCount) {
+//				return 0;
+//			}else {
+//				return 1;
+//			}
+//			
+//		}
 
 }
