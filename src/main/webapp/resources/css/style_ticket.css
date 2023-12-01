@@ -1,8 +1,15 @@
 @charset "UTF-8";
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+@import
+	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
+	;
 
 .text-center {
 	display: inline-box;
+}
+
+.card {
+	height: 700px;
 }
 
 .text-center select {
@@ -31,8 +38,8 @@
 }
 
 .card text-center {
-    height: 700px; /* 원하는 높이로 수정하세요 */
-    overflow-y: auto; /* 내용이 높이를 초과하는 경우 스크롤을 표시할 수 있도록 설정 */
+	height: 700px; /* 원하는 높이로 수정하세요 */
+	overflow-y: auto; /* 내용이 높이를 초과하는 경우 스크롤을 표시할 수 있도록 설정 */
 }
 
 /* 선택된 옵션 스타일 */
@@ -75,13 +82,11 @@
 	justify-content: center;
 }
 
-
 #coloredCanvas {
 	transition: filter 0.3s;
 	max-width: 100%;
 	height: auto; /* 이미지 비율 유지 */
 }
-
 
 .tab-buttons {
 	display: flex;
@@ -90,7 +95,7 @@
 }
 
 .tab-content {
-	border: 1px solid #bdb7e1; 
+	border: 1px solid #bdb7e1;
 	border-radius: 8px;
 	padding: 20px;
 }
@@ -106,7 +111,7 @@
 }
 
 .nav-tabs .nav-link {
-	width: 100%; 
+	width: 100%;
 }
 
 /* 수강권 결제쪽 */
@@ -123,66 +128,64 @@
 }
 
 #coloredCanvas {
-    width: 100px; 
-    height: 100px; 
-    margin-bottom: 20px; 
+	width: 100px;
+	height: 100px;
+	margin-bottom: 20px;
 }
 
 .card-title {
-    color: #484848; 
-    font-weight: bold; 
+	color: #484848;
+	font-weight: bold;
 }
 
 #ticketBuyGuide {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 .card-body-title {
-    font-size: 1.0em; 
-    margin-top: 5px;
-    color: #333; 
+	font-size: 1.0em;
+	margin-top: 5px;
+	color: #333;
 }
 
 textarea {
-    width: 100%;
-    height: 100px;
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ccc; 
-    border-radius: 5px;
-    resize: none; 
+	width: 100%;
+	height: 100px;
+	margin-top: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	resize: none;
 }
 
 #ticketBuy {
-    margin-top: -20px; 
+	margin-top: -20px;
 }
 
 .form-check-label {
-    font-size: 14px; 
-    color: #333;
-    display: flex; 
-    align-items: center; 
+	font-size: 14px;
+	color: #333;
+	display: flex;
+	align-items: center;
 }
 
 ul {
-    list-style: none;
-    padding: 10px;
+	list-style: none;
+	padding: 10px;
 }
 
 /* 각 리스트 아이템 스타일링 */
 .ticket-list-li {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 /* 아이콘 이미지 스타일링 */
 .bar-icon {
-    width: 20px; /* 원하는 이미지 너비로 조절 */
-    height: auto; /* 이미지 높이 자동으로 조절 */
-    margin-right: 5px; /* 이미지와 텍스트 사이 간격 조절 */
-    vertical-align: middle; /* 이미지를 수직 중앙 정렬 */
+	width: 20px; /* 원하는 이미지 너비로 조절 */
+	height: auto; /* 이미지 높이 자동으로 조절 */
+	margin-right: 5px; /* 이미지와 텍스트 사이 간격 조절 */
+	vertical-align: middle; /* 이미지를 수직 중앙 정렬 */
 }
-
-
 
 /*sumi 추가 css*/
 /* 수강권 상세 정보 리스트*/
@@ -199,11 +202,10 @@ ul {
 }
 
 /*수강권 리스트에서 가격 굵게 나타내기*/
-.tkPrice{
-font-weight: bold; 
-text-align: right; 
-display: block;
-
+.tkPrice {
+	font-weight: bold;
+	text-align: right;
+	display: block;
 }
 
 /* 수강권 상세 화면 이용정책 부분*/
@@ -213,17 +215,16 @@ display: block;
 	text-align: left;
 }
 
-
 /* 수강권 상세 <li>태그에 적용 */
 .ticket-list-li {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 /* 수강권 상세에 리스트 앞에 보라색 bar이미지 */
 .bar-icon {
-    content: url("../images/purple_bar.png");
-  }
-  
+	content: url("../images/purple_bar.png");
+}
+
 /* 수강권 클릭하기 전엔 수강권 상세 내용 숨김처리*/
 .card-content1-replace {
 	display: none;

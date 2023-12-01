@@ -51,9 +51,7 @@
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common_0.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_ticket.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-	rel="stylesheet">
+
 	
 <!-- 내가 추가한 js -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -191,7 +189,7 @@
 				
 				<!-- 클릭시 보여줄 이미지 -->
 				<div class = "card-content1-replace" id="content1-replace">
-					 <div class="card text-center" >
+					 <div class="card text-center">
 						<div id="ticket-detail-info">
 							<!-- 여기에 ajax결과 들어옴 -->
 						</div>
