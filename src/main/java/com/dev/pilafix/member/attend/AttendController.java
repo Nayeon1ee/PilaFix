@@ -1,6 +1,6 @@
 package com.dev.pilafix.member.attend;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
@@ -104,7 +103,7 @@ public class AttendController {
 	 * @return
 	 */
 	@PostMapping("/updateAttendG.do")
-	public String updateGroupAttend(@RequestParam("lessonCode") String lessonCode,
+	public String updateGroupAttend(@RequestParam("lessonCode") String lessonCode, Model model,
 	                                @RequestParam(name = "selectedMemberCodes", required = false) List<Integer> selectedMemberCodes) {
 
 	    try {
@@ -112,6 +111,14 @@ public class AttendController {
 	            // 선택된 회원에 대한 출석 처리
 	            service.updateAttendanceGroupLesson(lessonCode, selectedMemberCodes);
 	            System.out.println("출결 업데이트 성공: " + lessonCode + " " + selectedMemberCodes);
+	            
+	        	Map<String, Integer> attendanceCounts = service.getCountAttendanceForLesson(lessonCode);
+	        	int attendedCount = attendanceCounts.get("attended");
+	        	int absentCount = attendanceCounts.get("absent");
+	        	
+	        	model.addAttribute("attendedCount",attendanceCounts.get("attended"));
+	        	model.addAttribute("absentCount",attendanceCounts.get("absent"));
+	        	
 	        } else {
 	            // 아무것도 선택되지 않았을 경우 별도의 처리가 필요 없음
 	            System.out.println("선택된 회원 없음: " + lessonCode);

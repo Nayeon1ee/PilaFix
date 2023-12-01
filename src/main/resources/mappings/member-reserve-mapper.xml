@@ -93,6 +93,11 @@
 		<result property="rsCancelYn" column="RS_CANCEL_YN"/>
 	</resultMap>
 	
+	<resultMap type="Integer" id="codeResult"> 
+	     <result property="" column="MEMBER_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
+	</resultMap>
+	
+	
 	<!-- 회원번호에 해당하는 사람의 연동센터 이름 가져오기 -->
 	<select id="getConnCenterList" resultMap="centerResult" parameterType="int">
 		SELECT CT_NAME,CT_CODE
@@ -108,7 +113,7 @@
 	
 	<!-- 수업정보 조회 -->
 	<select id="getLessonList" parameterType="java.util.Map" resultMap="centerLessonResult">
-	    SELECT LS_CODE, LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE, LS_DATE,CENTER_CODE,
+	    SELECT LS_CODE, LS_NAME, TRAINER_MEMBER_CODE, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_TYPE, LS_DATE,CENTER_CODE,LS_CLOSE_YN,
 	    	(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)AS CENTER_NAME,
 	    	(SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) AS TRAINER_MEMBER_NAME,
 	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
@@ -204,6 +209,17 @@
 		UPDATE TBL_LESSON
 		SET LS_CURRENT_APPLICANTS=(LS_CURRENT_APPLICANTS+1)
 		WHERE LS_CODE=#{lsCode};
+		
+		<!-- STEP04. 출결레코드에 추가 -->
+		UPDATE TBL_ATTEND SET
+			AT_MEMBER1_CODE = CASE WHEN AT_MEMBER1_CODE = 0 THEN #{csMemberCode} ELSE AT_MEMBER1_CODE END,
+			AT_MEMBER2_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE = 0 THEN #{csMemberCode} ELSE AT_MEMBER2_CODE END,
+			AT_MEMBER3_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE != 0 AND AT_MEMBER3_CODE = 0 THEN #{csMemberCode} ELSE AT_MEMBER3_CODE END,
+			AT_MEMBER4_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE != 0 AND AT_MEMBER3_CODE !=0 AND AT_MEMBER4_CODE =0 THEN #{csMemberCode} ELSE AT_MEMBER4_CODE END,
+			AT_MEMBER5_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE != 0 AND AT_MEMBER3_CODE !=0 AND AT_MEMBER4_CODE !=0 AND AT_MEMBER5_CODE=0 THEN #{csMemberCode} ELSE AT_MEMBER5_CODE END,
+			AT_MEMBER6_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE != 0 AND AT_MEMBER3_CODE !=0 AND AT_MEMBER4_CODE !=0 AND AT_MEMBER5_CODE!=0 AND AT_MEMBER6_CODE=0 THEN #{csMemberCode} ELSE AT_MEMBER6_CODE END
+		WHERE LESSON_CODE = #{lsCode}
+		
 	</update>
 	
 	<!-- 개인 수업의 예약  -->
@@ -217,11 +233,22 @@
 		UPDATE TBL_LESSON
 		SET LS_CURRENT_APPLICANTS=(LS_CURRENT_APPLICANTS+1)
 		WHERE LS_CODE=#{lsCode};
+		
+		<!-- STEP04. 출결레코드에 추가 -->
+		UPDATE TBL_ATTEND SET
+			AT_MEMBER1_CODE = CASE WHEN AT_MEMBER1_CODE = 0 THEN #{csMemberCode} ELSE AT_MEMBER1_CODE END,
+			AT_MEMBER2_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE = 0 THEN #{csMemberCode} ELSE AT_MEMBER2_CODE END,
+			AT_MEMBER3_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE != 0 AND AT_MEMBER3_CODE = 0 THEN #{csMemberCode} ELSE AT_MEMBER3_CODE END,
+			AT_MEMBER4_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE != 0 AND AT_MEMBER3_CODE !=0 AND AT_MEMBER4_CODE =0 THEN #{csMemberCode} ELSE AT_MEMBER4_CODE END,
+			AT_MEMBER5_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE != 0 AND AT_MEMBER3_CODE !=0 AND AT_MEMBER4_CODE !=0 AND AT_MEMBER5_CODE=0 THEN #{csMemberCode} ELSE AT_MEMBER5_CODE END,
+			AT_MEMBER6_CODE = CASE WHEN AT_MEMBER1_CODE != 0 AND AT_MEMBER2_CODE != 0 AND AT_MEMBER3_CODE !=0 AND AT_MEMBER4_CODE !=0 AND AT_MEMBER5_CODE!=0 AND AT_MEMBER6_CODE=0 THEN #{csMemberCode} ELSE AT_MEMBER6_CODE END
+		WHERE LESSON_CODE = #{lsCode}
+		
 	</update>	
 	
-	<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
-	<!-- STEP05. 문자발송 -->
-	<!-- STEP06. 문자발송 이력 등록  -->
+	<!-- STEP05. 알림 테이블 등록(NoticeDAO에서 진행) -->
+	<!-- STEP06. 문자발송 -->
+	<!-- STEP07. 문자발송 이력 등록  -->
 	<!-- 성공 시간에서 성공이면 현재 시간이 들어가고, 실패했다면 null-->
 	<insert id="saveSMSHistory" parameterType="sendSmsHistory" >
 		INSERT INTO TBL_SEND_SMS_HISTORY(sh_send_code, sh_send_datetime, sh_send_center_code, sh_recipient_name, sh_recipient_phone, sh_recipient_content, sh_success_yn, sh_success_datetime, sh_fail_reason)
@@ -257,7 +284,18 @@
 		SET RS_CANCEL_YN=TRUE
 		WHERE RS_CODE=#{rsCode};
 		
-		<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+		<!-- 04. 출결 테이블의 회원코드 지우기  -->
+		UPDATE TBL_ATTEND
+		SET
+		    AT_MEMBER1_CODE = CASE WHEN AT_MEMBER1_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER1_CODE END,
+		    AT_MEMBER2_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER2_CODE END,
+		    AT_MEMBER3_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER3_CODE END,
+		    AT_MEMBER4_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER4_CODE END,
+		    AT_MEMBER5_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER5_CODE END,
+		    AT_MEMBER6_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE != #{csMemberCode} AND AT_MEMBER6_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER6_CODE END
+		WHERE LESSON_CODE = #{lsCode};
+	    	
+		<!-- STEP05. 알림 테이블 등록(NoticeDAO에서 진행) -->
 	</update>
 	
 	<!-- 개인 수업의 예약 취소  -->
@@ -276,13 +314,39 @@
 		UPDATE TBL_RESERV
 		SET RS_CANCEL_YN=TRUE
 		WHERE RS_CODE=#{rsCode};
+
+		<!-- 04. 출결 테이블의 회원코드 지우기  -->
+		UPDATE TBL_ATTEND
+		SET
+		    AT_MEMBER1_CODE = CASE WHEN AT_MEMBER1_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER1_CODE END,
+		    AT_MEMBER2_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER2_CODE END,
+		    AT_MEMBER3_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER3_CODE END,
+		    AT_MEMBER4_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER4_CODE END,
+		    AT_MEMBER5_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER5_CODE END,
+		    AT_MEMBER6_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE != #{csMemberCode} AND AT_MEMBER6_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER6_CODE END
+		WHERE LESSON_CODE = #{lsCode};
 		
-		<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+		<!-- STEP05. 알림 테이블 등록(NoticeDAO에서 진행) -->
 	</update>
 
 	<!-- =========================================================== -->
 	
-
+	<!-- 예약 가능 여부 체크  -->
+	<select id="checkReservation" parameterType="java.util.Map" resultType="int" >
+		SELECT COUNT(*) 
+		FROM TBL_RESERV
+		WHERE LESSON_CODE=#{lsCode}
+  			AND MEMBER_CODE=#{csMemberCode}
+  			AND RS_CANCEL_YN=FALSE ;
+	</select>
+	
+	<!-- (미사용) 출결레코드 자동 생성 대상 - 수업코드로 예약 조회 -->
+	<select id="getMemberCodesByLessonCode" resultMap="codeResult">
+		SELECT MEMBER_CODE 
+		FROM TBL_RESERV 
+		WHERE LESSON_CODE=#{lessonCode}
+	</select>
+	
 	
 	
 	

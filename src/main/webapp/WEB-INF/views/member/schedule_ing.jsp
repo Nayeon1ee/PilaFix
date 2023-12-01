@@ -65,8 +65,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_myschedule.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
+
 
 <!-- 달력 -->
 
@@ -132,6 +131,7 @@
 							<div class="card-header-con py-1 mt-1 custom-rounded">
 								<div class="btn-group d-flex py-1" role="group"
 									aria-label="Basic radio toggle button group">
+
 									<input type="button" class="btn-check" name="options" id="option1" autocomplete="off"> 
 									<label class="btn btn-outline-primary1" for="option1" id="allSchedule">전체</label> 
 										<input type="button" class="btn-check" name="options"  autocomplete="off"> 
@@ -216,13 +216,13 @@
          bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함
          customButtons: {
             prev: {
-               text: '이전',
+               text: '<',
                click: function() {
                   calendar.prev();
                }
             },
             next: {
-               text: '다음',
+               text: '>',
                click: function() {
                   calendar.next();
                }
@@ -269,7 +269,7 @@
       });
 
       // 전체 텍스트 색상 변경
-      calendarEl.style.color = '#9b56e9';
+      calendarEl.style.color = '#333';
 
       calendar.render();
    });

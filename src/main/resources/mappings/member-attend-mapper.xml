@@ -6,6 +6,7 @@
 <mapper namespace="AttendDAO">
 	<resultMap type="attend" id="attendResult">
 		<id property="atCode" column="AT_CODE" />
+		<result property="atDate" column="AT_DATE" />
 		<result property="lessonCode" column="LESSON_CODE" />
 		<result property="atMember1Code" column="AT_MEMBER1_CODE" />
 		<result property="atAttendance1Yn" column="AT_ATTENDANCE1_YN" />
@@ -19,6 +20,7 @@
 		<result property="atAttendance5Yn" column="AT_ATTENDANCE5_YN" />
 		<result property="atMember6Code" column="AT_MEMBER6_CODE" />
 		<result property="atAttendance6Yn" column="AT_ATTENDANCE6_YN" />
+		<result property="atDate" column="AT_DATE" />
 	</resultMap>
 
 	<resultMap type="com.dev.pilafix.common.member.CenterVO" id="centerForLesson">
@@ -45,6 +47,7 @@
     SELECT CST.CS_MEMBER_CODE
     FROM TBL_RESERV RSV
     JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+    JOIN TBL_ATTEND ATT ON RSV.LESSON_CODE = ATT.LESSON_CODE
     WHERE RSV.LESSON_CODE = #{lessonCode}
     AND RSV.RS_CANCEL_YN = FALSE;
 </select>
@@ -53,44 +56,64 @@
     SELECT CST.CS_NAME
     FROM TBL_RESERV RSV
     JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+    JOIN TBL_ATTEND ATT ON RSV.LESSON_CODE = ATT.LESSON_CODE
     WHERE RSV.LESSON_CODE = #{lessonCode}
     AND RSV.RS_CANCEL_YN = FALSE;
 </select>
 
-
 	
-	<!-- 예약된 회원 수 -->
-	<select id="getReservedCountForLesson" parameterType="String" resultType="int">
-	  SELECT COUNT(*) FROM TBL_RESERV
-	  WHERE LESSON_CODE = #{lessonCode} 
-	  		AND RS_CANCEL_YN = FALSE;
-	</select>
+<!-- 예약된 회원 수 -->
+<select id="getReservedCountForLesson" parameterType="String" resultType="int">
+  SELECT COUNT(*) FROM TBL_RESERV
+  WHERE LESSON_CODE = #{lessonCode} 
+    AND RS_CANCEL_YN = FALSE
+    AND MEMBER_CODE != 0;
+</select>
 	
-	<!-- 출석한 회원 수 -->
-	<select id="getAttendedCountForLesson" parameterType="String" resultType="int">
-	  SELECT COUNT(*) FROM TBL_ATTEND
-	  WHERE LESSON_CODE = #{lessonCode}
-	  AND (AT_ATTENDANCE1_YN = TRUE OR AT_ATTENDANCE2_YN = TRUE OR AT_ATTENDANCE3_YN = TRUE OR 
-	  		AT_ATTENDANCE4_YN = TRUE OR AT_ATTENDANCE5_YN = TRUE OR AT_ATTENDANCE6_YN = TRUE);
-	</select>
+<!-- 출석한 회원 수 -->
+<select id="getAttendedCountForLesson" parameterType="String" resultType="int">
+SELECT
+  SUM(CASE WHEN AT_ATTENDANCE1_YN = TRUE AND AT_MEMBER1_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE2_YN = TRUE AND AT_MEMBER2_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE3_YN = TRUE AND AT_MEMBER3_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE4_YN = TRUE AND AT_MEMBER4_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE5_YN = TRUE AND AT_MEMBER5_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE6_YN = TRUE AND AT_MEMBER6_CODE > 0 THEN 1 ELSE 0 END) AS 출석한_회원_수
+FROM TBL_ATTEND
+WHERE LESSON_CODE = #{lessonCode}
+</select>
 	
-	<!-- 결석한 회원 수 -->
-	<select id="getAbsentCountForLesson" parameterType="String" resultType="int">
-	  SELECT COUNT(*)
-	  FROM TBL_ATTEND
-	  WHERE LESSON_CODE = #{lessonCode}
-	  AND (AT_ATTENDANCE1_YN = FALSE OR AT_ATTENDANCE2_YN = FALSE OR AT_ATTENDANCE3_YN = FALSE OR 
-	  		AT_ATTENDANCE4_YN = FALSE OR AT_ATTENDANCE5_YN = FALSE OR AT_ATTENDANCE6_YN = FALSE);
-	</select>
+<!-- 결석한 회원 수 -->
+<select id="getAbsentCountForLesson" parameterType="String" resultType="int">
+SELECT
+  SUM(CASE WHEN AT_ATTENDANCE1_YN = FALSE AND AT_MEMBER1_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE2_YN = FALSE AND AT_MEMBER2_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE3_YN = FALSE AND AT_MEMBER3_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE4_YN = FALSE AND AT_MEMBER4_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE5_YN = FALSE AND AT_MEMBER5_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE6_YN = FALSE AND AT_MEMBER6_CODE > 0 THEN 1 ELSE 0 END) AS 결석한_회원_수
+FROM TBL_ATTEND
+WHERE LESSON_CODE = #{lessonCode}
+</select>
 
 
 	
 	<!-- 강사가 그룹수업 상세에서 출석버튼 눌렀을때 출결 처리 -->
 	<!-- selectedMemberCodes와 memberCode(AT_MEMBER?_CODE)가 일치하면 해당 출결Yn=true or default(false) -->
 <update id="updateAttendanceGroupLesson" parameterType="map">
+UPDATE TBL_ATTEND
+SET AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE IN (#{selectedMemberCodes}) THEN true ELSE AT_ATTENDANCE1_YN END,
+    AT_ATTENDANCE2_YN = CASE WHEN AT_MEMBER2_CODE IN (#{selectedMemberCodes}) THEN true ELSE AT_ATTENDANCE2_YN END,
+    AT_ATTENDANCE3_YN = CASE WHEN AT_MEMBER3_CODE IN (#{selectedMemberCodes}) THEN true ELSE AT_ATTENDANCE3_YN END,
+    AT_ATTENDANCE4_YN = CASE WHEN AT_MEMBER4_CODE IN (#{selectedMemberCodes}) THEN true ELSE AT_ATTENDANCE4_YN END,
+    AT_ATTENDANCE5_YN = CASE WHEN AT_MEMBER5_CODE IN (#{selectedMemberCodes}) THEN true ELSE AT_ATTENDANCE5_YN END,
+    AT_ATTENDANCE6_YN = CASE WHEN AT_MEMBER6_CODE IN (#{selectedMemberCodes}) THEN true ELSE AT_ATTENDANCE6_YN END
+WHERE LESSON_CODE = #{lessonCode};
+</update> 
+
+<!-- <update id="updateAttendanceGroupLesson" parameterType="map">
     UPDATE TBL_ATTEND
     SET 
-    AT_DATE = CURRENT_DATE, <!-- 출석 날짜를 현재 날짜로 설정 -->
     AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE1_YN END,
     AT_ATTENDANCE2_YN = CASE WHEN AT_MEMBER2_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE2_YN END,
     AT_ATTENDANCE3_YN = CASE WHEN AT_MEMBER3_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE3_YN END,
@@ -100,28 +123,28 @@
     WHERE LESSON_CODE = #{lessonCode}
     AND (AT_MEMBER1_CODE = #{memberCode} OR AT_MEMBER2_CODE = #{memberCode} OR AT_MEMBER3_CODE = #{memberCode}
         OR AT_MEMBER4_CODE = #{memberCode} OR AT_MEMBER5_CODE = #{memberCode} OR AT_MEMBER6_CODE = #{memberCode});
-</update>
+</update> -->
+
 	
 <!-- 강사가 개인수업 상세에서 출석버튼 눌렀을때 출결 처리 -->
 <update id="updateAttendancePersonalLesson" parameterType="map">
 	UPDATE TBL_ATTEND
 	SET 
-	AT_DATE = CURRENT_DATE,
 	AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{selectedMemberCode} THEN TRUE ELSE FALSE END
 	WHERE LESSON_CODE = #{lessonCode};
 </update>
 	
 
 
-	<!-- 출결 레코드 자동 생성될 예정 주석처리
-	<insert id="insertAttend" parameterType="attend"> 
+	<!-- 출결 레코드 자동 생성 -->
+	<insert id="insertAttendance" parameterType="attend"> 
 		INSERT INTO TBL_ATTEND 
 		VALUES (CONCAT('AT', NEXTVAL('SEQ_ATTEND')), #{lessonCode}, #{atMember1Code}, 
 		#{atAttendance1Yn}, #{atMember2Code}, #{atAttendance2Yn}, #{atMember3Code}, 
 		#{atAttendance3Yn}, #{atMember4Code}, #{atAttendance4Yn}, #{atMember5Code}, 
-		#{atAttendance5Yn}, #{atMember6Code}, #{atAttendance6Yn}
+		#{atAttendance5Yn}, #{atMember6Code}, #{atAttendance6Yn}, CURRENT_DATE)
 	</insert> 
-	 -->
+	 
 
 	<!-- 수업 상세에서 예약된 회원 이름만 따로 SELECT-->
 	<!-- resultType="string"

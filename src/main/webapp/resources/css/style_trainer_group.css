@@ -1,0 +1,22 @@
+@charset "UTF-8";
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+  .btn-check:checked + .btn {
+        background-color: #9b56e9;
+        color: #fff;
+        border-color: #9b56e9;
+    }
+
+    .btn-check:focus + .btn {
+        box-shadow: 0 0 0 0.25rem rgba(155, 86, 233, 0.25);
+    }
+
+    .btn-check:checked:hover + .btn {
+        background-color: #8338ec;
+        border-color: #8338ec;
+    }
+    
+    .btn-label {
+  width: 100px;
+  height: 100px;
+}

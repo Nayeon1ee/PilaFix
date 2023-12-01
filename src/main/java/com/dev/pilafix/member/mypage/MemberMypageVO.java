@@ -18,6 +18,16 @@ public class MemberMypageVO {
 	private int centerCode;
 	private int tkCapacity;
 	private String centerName;
+	private String adminName;
+	
+	
+	
+	public String getAdminName() {
+		return adminName;
+	}
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
 	
 	public String getPaId() {
 		return paId;

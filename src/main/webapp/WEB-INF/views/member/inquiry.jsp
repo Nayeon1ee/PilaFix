@@ -158,16 +158,17 @@
         <div id="collapse${status.index}" class="accordion-collapse collapse"
              aria-labelledby="heading${status.index}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
+            <div class="inquiry-body">
                 <strong>문의내역</strong><br> ${question.qsContent}
-
-                <div class="text-center">
+</div>
+                <div class="text-center d-flex justify-content-end mt-2">
                     <!-- 삭제 -->
                     <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button> -->
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="openDeleteModal(${question.qsNumber})">삭제</button>
+                    <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="openDeleteModal(${question.qsNumber})">삭제</button>
 
                     <!-- 답변이 없는 경우에만 수정 버튼 표시 -->
                     <c:if test="${!question.qsAnswerYn}">
-                        <button type="button" class="btn btn-primary" onclick="location.href='updateQuestion.do?qsNumber=${question.qsNumber}'">수정</button>
+                        <button type="button" class="btn btn-primary me-2" onclick="location.href='updateQuestion.do?qsNumber=${question.qsNumber}'">수정</button>
                     </c:if>
                 </div>
 
@@ -312,6 +313,41 @@ accordionButtons.forEach(button => {
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
 
+<!--  아코디언 스크립트 -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var accordionButtons = document.querySelectorAll('.accordion-button');
+
+    accordionButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            console.log('Button clicked!');
+
+            // 현재 버튼의 아코디언 바디에 색상 적용
+            var accordionBody = this.closest('.accordion-item').querySelector('.accordion-body');
+            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? '#f5f3ff' : '#fff';
+
+            // 클릭한 버튼이 이미 열린 상태라면 닫음
+            if (!this.classList.contains('collapsed')) {
+                this.classList.add('collapsed');
+                accordionBody.style.backgroundColor = '#f5f3ff';
+            } else {
+                // 클릭 시 다른 아코디언 버튼들을 닫음
+                accordionButtons.forEach(function (otherButton) {
+                    if (otherButton !== button) {
+                        otherButton.classList.add('collapsed');
+                        var otherAccordionBody = otherButton.closest('.accordion-item').querySelector('.accordion-body');
+                        otherAccordionBody.style.backgroundColor = '#f5f3ff';
+                    }
+                });
+
+                // 현재 버튼 열기
+                this.classList.remove('collapsed');
+                accordionBody.style.backgroundColor = '#fff';
+            }
+        });
+    });
+});
+</script>
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>

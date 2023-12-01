@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-	<mapper namespace="kakaoLoginDAO">
+	<mapper namespace="KakaoLoginDAO">
 	<resultMap type="kakaologin" id="kakaologinResult">
 		<id property="csMemberCode" column="CS_MEMBER_CODE"/>
 		<result property="csRoleCode" column="CS_ROLE_CODE" />
