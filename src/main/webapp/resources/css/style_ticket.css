@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 .text-center {
 	display: inline-box;
@@ -153,8 +154,7 @@ textarea {
 }
 
 #ticketBuy {
-    margin-top: 10px; 
-    margin-bottom: 0px;
+    margin-top: -20px; 
 }
 
 .form-check-label {
@@ -209,6 +209,7 @@ display: block;
 /* 수강권 상세 화면 이용정책 부분*/
 .policy-area {
 	margin: 0px 10px 20px;
+	padding-bottom: 10px;
 	text-align: left;
 }
 
