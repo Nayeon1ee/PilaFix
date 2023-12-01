@@ -120,9 +120,15 @@
 	align-items: center;
 }
 
+.list-group-item-action {
+  transition: background-color 0.3s, box-shadow 0.3s; /* 호버 효과를 부드럽게 만들기 위한 트랜지션 */
+  color: #333; 
+}
+
 .list-group-item-action:hover {
-	background-color: #9b56e9;
-	color: white;
+  background-color: rgba(155, 86, 233, 0.4); /* 투명도를 조절하려면 여기서 알파 값을 조절하세요 */
+  color: white; /* 호버 시 텍스트 색상 변경 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 호버 시 약간의 그림자 효과 */
 }
 
 #coloredCanvas {
