@@ -48,6 +48,7 @@
 		<result property="paDatetime" column="PA_DATETIME" />
 		<result property="centerName" column="CENTER_NAME" />
 		<result property="ticketName" column="TICKET_NAME" />
+		<result property="paCancelYn" column="PA_CANCEL_YN" />
 	</resultMap>
 
 	<resultMap type="question" id="questionResult">
@@ -112,8 +113,24 @@
 		<result property="tkCode" column="TK_CODE" />
 		<result property="tkName" column="TK_NAME" />
 		<result property="tkUsageCount" column="TK_USAGE_COUNT"/>
-
 	</resultMap>
+
+	<resultMap type="mySchedule" id="myScheduleResult">
+		<id property="lsCode" column="LESSON_CODE"/>
+		<result property="lsName" column="LS_NAME"/>
+		<result property="lsType" column="LS_TYPE"/>
+		<result property="lsDate" column="LS_DATE"/>
+		<result property="lsTime" column="LS_TIME"/>
+		<result property="lsEndTime" column="LS_END_TIME"/>
+		<result property="lessonDatetime" column="COMBINED_DATETIME"/>
+		<result property="trainerMemberCode" column="TRAINER_MEMBER_CODE"/>
+		<result property="trainerMemberName" column="TRAINER_MEMBER_NAME"/>
+		<result property="centerCode" column="CENTER_CODE"/>
+		<result property="centerName" column="CENTER_NAME"/>
+		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
+		<result property="rsCode" column="RS_CODE"/>	
+		<result property="rsDatetime" column="RS_DATETIME"/>	
+	</resultMap>	
 	
 	<!-- 센터 회원 목록 조회 -->
 	<select id="getMemberList" resultMap="memberResult">
@@ -138,23 +155,39 @@
 	</select>
 	<!-- 결제 내역 조회 -->
 	<select id="getPaymentForManage" resultMap="paymentResult">
-		SELECT PA_ID, TICKET_CODE,
+		SELECT PA_ID, TICKET_CODE, 
 		(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=(SELECT CENTER_CODE FROM TBL_TICKET WHERE TK_CODE=pay.TICKET_CODE)) AS CENTER_NAME, 
 		PA_AMOUNT, MEMBER_CODE, PA_METHOD, PA_DATETIME, (SELECT TK_NAME FROM TBL_TICKET WHERE TK_CODE=pay.TICKET_CODE) AS TICKET_NAME
 		FROM TBL_PAYMENT pay
 		WHERE MEMBER_CODE=#{csMemberCode}
+			AND PA_CANCEL_YN=FALSE
 	</select>
 	<!-- 화면 출력에 필요한 수강권 정보 조회  -->
 	<select id="getTicketInfo" resultMap="ticketInfo">
 		SELECT TK_CODE, TK_NAME, TK_USAGE_COUNT FROM TBL_TICKET
 		WHERE TK_CODE=#{tkCode}
 	</select>
-	
-	
+	<!-- 화면 출력에 필요한 센터 연동 센터 내역 조회 -->
 	<select id="getCenterConnectHistory" resultMap="connectHistoryResult">
 		SELECT CH_CODE, CENTER_CODE,(SELECT CT_NAME FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)as CENTER_NAME, 
 		(SELECT CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' || CT_ADDRESS3 FROM TBL_CENTER WHERE CT_CODE=CENTER_CODE)as CENTER_ADDRESS
 		FROM TBL_CENTER_CONN WHERE MEMBER_CODE=#{csMemberCode}
+	</select>
+	<!-- 화면 출력에 필요한 예약 내역 조회  -->
+	<select id="getReservationForManage" resultMap="myScheduleResult">
+		SELECT 
+		    R.RS_DATETIME, 
+		    (L.LS_DATE::TIMESTAMP + L.LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME,
+		    L.LS_NAME, C.CS_NAME AS TRAINER_MEMBER_NAME, CT.CT_NAME AS CENTER_NAME,
+		    R.RS_DATETIME AS RS_DATETIME
+		FROM 
+		    TBL_RESERV R
+		JOIN TBL_LESSON L ON R.LESSON_CODE = L.LS_CODE
+		JOIN TBL_CST C ON L.TRAINER_MEMBER_CODE = C.CS_MEMBER_CODE
+		JOIN TBL_CENTER CT ON L.CENTER_CODE = CT.CT_CODE
+		WHERE R.MEMBER_CODE = #{csMemberCode}
+		    AND R.RS_CANCEL_YN = FALSE
+		ORDER BY COMBINED_DATETIME DESC;
 	</select>
 	
 	<!-- 센터 강사 목록 조회 -->
@@ -322,5 +355,6 @@
 			WHERE ticket_expiry_date_group1::DATE =CURRENT_DATE - INTERVAL '1 day';
 		]]>
 	</select>
+	
 	
 </mapper>

@@ -1,6 +1,8 @@
 package com.dev.pilafix.common.sendsmshistory;
 
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,15 @@ public class SendSmsHistoryController {
 	 */
 	@GetMapping("/getSendSmsHistoryListForCe.do")
 	public String getSendSmsHistoryListForCe(HttpSession session,Model model) {
-		//로그인 완료되면 해당 문장 삭제 
-		session.setAttribute("loginUser",111);
+		Map<String, Object> center = (Map<String, Object>) session.getAttribute("loginCenter");
 		
-		//로그인 완료되면 로그인 세션에서 꺼내오기 
-		int currentUserCode = (int) session.getAttribute("loginUser");
-		
-		model.addAttribute("sendSmsHistoryList", service.getSendSmsHistoryListForCenter(currentUserCode));
-		return "center/center_send_message_list";
+		if(center != null) {
+			int ctCode = (int) center.get("ctCode");
+			model.addAttribute("sendSmsHistoryList", service.getSendSmsHistoryListForCenter(ctCode));
+			return "center/center_send_message_list";
+		}
+		return "redirect:loginCenter.do";
+	
 	}
 	
 	/**

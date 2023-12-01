@@ -17,6 +17,8 @@ public class MyScheduleVO {
 	private String centerName;
 	private boolean lsColseYN;
 	private String rsCode;
+	private Date rsDatetime; //예약일자 
+	
 	public String getLsCode() {
 		return lsCode;
 	}
@@ -94,6 +96,12 @@ public class MyScheduleVO {
 	}
 	public void setRsCode(String rsCode) {
 		this.rsCode = rsCode;
+	}
+	public Date getRsDatetime() {
+		return rsDatetime;
+	}
+	public void setRsDatetime(Date rsDatetime) {
+		this.rsDatetime = rsDatetime;
 	}
 	@Override
 	public String toString() {

@@ -2,10 +2,12 @@ package com.dev.pilafix.center.notice_history;
 
 import java.util.List;
 
+import com.dev.pilafix.common.notice.NoticeVO;
+
 public interface NoticeHistoryService {
 
-	List<NoticeHistoryVO> getNoticeHistoryList(int currentUserCode);
-	NoticeHistoryVO getNoticeHistory(String ncId);
+	List<NoticeVO> getNoticeHistoryList(int currentUserCode);
+	NoticeVO getNoticeHistory(String ncId);
 
 
 

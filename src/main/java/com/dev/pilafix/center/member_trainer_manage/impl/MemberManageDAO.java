@@ -9,15 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import com.dev.pilafix.center.lesson.CenterLessonVO;
-
 import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
-
+import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.center.member_trainer_manage.ConnectRequestVO;
 import com.dev.pilafix.center.member_trainer_manage.TicketInfoVO;
 import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.common.question.QuestionVO;
+import com.dev.pilafix.member.schedule.MyScheduleVO;
+import com.dev.pilafix.member.schedule.MyScheduleVO;
 
 @Repository
 public class MemberManageDAO {
@@ -73,9 +72,16 @@ public class MemberManageDAO {
 		return sqlSessionTemplate.selectOne("MemberManageDAO.getTicketInfo",tkCode);
 	}
 	
-//	public List<ReservationVO> getReserveForManage(int csMemberCode) {
-//		return sqlSessionTemplate.selectList("MemberManageDAO.getReserveForManage",csMemberCode);
-//	}
+	/**
+	 * 예약 내역 조회 
+	 * 
+	 * @param csMemberCode
+	 * @return
+	 */
+	public List<MyScheduleVO> getReserveForManage(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberManageDAO.getReservationForManage",csMemberCode);
+	}
+
 	
 	/**
 	 * 회원 상세 정보 조회
@@ -173,5 +179,6 @@ public class MemberManageDAO {
 	public List<MemberVO> getTrainerExcelManageList(int ctCode) {
 		return sqlSessionTemplate.selectList("MemberManageDAO.getTrainerList", ctCode);
 	}
+
 
 }

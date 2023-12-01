@@ -99,9 +99,8 @@ public class MemberManageController {
 			model.addAttribute("QList", service.getQuestionForManage(csMemberCode));
 			
 			// 최근 예약 수업 내역 저장  
-//			model.addAttribute("RList", service.getReserveForManage(csMemberCode));
+			model.addAttribute("RList", service.getReserveForManage(csMemberCode));
 
-			
 			// 최근 결제 내역 저장 
 			model.addAttribute("PList", service.getPaymentForManage(csMemberCode));
 			
