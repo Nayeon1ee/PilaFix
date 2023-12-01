@@ -33,10 +33,10 @@
         	Kakao.Auth.login({
                 success: function(authObj) {
                     // 서버로 토큰 전송 및 처리
-                    console.log(authObj);
+                	console.log("Kakao login success:", authObj);
                 },
                 fail: function(err) {
-                    alert(JSON.stringify(err));
+                	console.error("Kakao login failed:", JSON.stringify(err));
                 }
             });
         }

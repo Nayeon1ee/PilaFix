@@ -30,4 +30,5 @@
 	<delete id="deleteFaqInfo" parameterType="Integer">
 		DELETE FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber}
 	</delete>
+
 </mapper>

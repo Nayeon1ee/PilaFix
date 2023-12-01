@@ -20,11 +20,11 @@ public interface AttendService {
 	boolean isAttendanceProcessed(String lessonCode);
 	
 	void updateAttendancePersonalLesson(String lessonCode, int memberCode);
-//	void updateAttendanceGroupLesson(String lessonCode, List<Integer> selectedMemberCodes);
-	Map<String, Integer> updateAttendanceGroupLesson(String lessonCode, List<Integer> selectedMemberCodes);
-	
-	int getReservedCountForLesson(String lsCode);
-	int getAttendedCountForLesson(String lsCode);
-	int getAbsentCountForLesson(String lsCode);
+	void updateAttendanceGroupLesson(String lessonCode, List<Integer> selectedMemberCodes);
 
+	
+	int getReservedCountForLesson(String lessonCode);
+	int getAttendedCountForLesson(String lessonCode);
+	int getAbsentCountForLesson(String lessonCode);
+	Map<String, Integer> getCountAttendanceForLesson(String lessonCode);
 }
