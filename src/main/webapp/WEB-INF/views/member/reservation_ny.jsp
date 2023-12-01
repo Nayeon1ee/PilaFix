@@ -223,6 +223,7 @@
 											</c:forEach>
 										</div>
 									</div>
+									
 								</div>
 
 								<!-- 개인 탭  -->
@@ -248,9 +249,28 @@
 											</div>
 										</div>
 									</div>
-
+								
 									<div id="lessonListContainerForPersonal">
-										<!-- 생성된 개인탭 내용 -->
+										<div class="list-group">
+											<c:forEach var="item" items="${lessonList}">
+												<a class="list-group-item list-group-item-action">
+													<p class="mb-1">${item.lsTime }~${item.lsEndTime }</p>
+													<div class="d-flex w-100 justify-content-between">
+														<h5 class="mb-1">${ item.lsName }</h5>
+													</div>
+													<p class="mb-1">${item.trainerMemberName}</p> <small
+													class="text-muted">${item.lsCapacity - item.lsCurrentApplicants }명
+														남음</small> | <small class="text-muted">정원
+														${item.lsCapacity }명</small> <!-- 버튼 상태 달라져야 함 -->
+													<div class="mymodal">
+														<button type="button" class="btn btn-outline-primary"
+															data-bs-toggle="modal" data-bs-target="#reservModal"
+															onclick="getReservationInfo('${item.lsCode}', '${item.centerCode }')">예약하기</button>
+													</div>
+
+												</a>
+											</c:forEach>
+										</div>
 									</div>
 
 
@@ -523,9 +543,9 @@
 					        
 							if (lessonList.length < 1) {
 								str = '<div class="no-lessons-message">' +
-			                    '<p class="message-text">현재 개설된 수업이 없습니다.</p>' +
-			                    '<p class="message-text">더 많은 정보는 센터에 문의해주세요.</p>' +
-			              '</div>';
+					                    '<p class="message-text">현재 개설된 수업이 없습니다.</p>' +
+					                    '<p class="message-text">더 많은 정보는 센터에 문의해주세요.</p>' +
+					            		'</div>';
 								$('#lessonListContainerForGroup').append(str);
 								$('#lessonListContainerForPersonal').append(str);
 								
@@ -557,10 +577,18 @@
 							                gstr += '<div class="mymodal" style="display: none;">';
 							            }else if(item.lsCloseYN){// 폐강여부가 true면 버튼 X
 							            	 gstr += '<div class="mymodal" style="display: none;">';
-							            } else {
-							                // 시간이 지나지 않았으면 예약하기 버튼 표시
+							            }else {
+							            	// 시간이 지나지 않았으면 예약하기 버튼 표시
 							                gstr += '<div class="mymodal">';
-							                gstr += '<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+							                
+							                var lsCode = item.lsCode;
+
+							                if (!checkReservation(lsCode)) {
+							                    gstr += '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+							                } else {
+							                    gstr += '<button type="button" class="btn btn-outline-primary" disabled>예약완료</button>';
+							                }
+							                
 							            }
 
 							            gstr += '</div>';
@@ -570,46 +598,23 @@
 							            // lessonListContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
 							            $('#lessonListContainerForGroup').append(gstr);
 				                    });
-				                } else if (lessonType === '개인') {
-				                    console.log("개인for문으로들어옴");
+				                } else {
+				                	 //$('#lessonListContainerForPersonal').append('<p> 개인탭 테스트 </p>');
+				                	 
+				                	 //lessonList.forEach(function (item) {
+				                		// pstr += '<p> 개인탭 테스트 </p>';
+				                		 //$('#lessonListContainerForPersonal').append(pstr);
+				                	 //});
+				                	 
+				                	// lessonListContainerForPersonal 영역을 지우기
+				                	 $('#lessonListContainerForPersonal').empty();
 
-				                    // 개인 탭에 대한 내용 생성
-				                    pstr += '<div class="content-filter py-2 my-4">';
-				                    pstr += '<div class="time-slot d-flex justify-content-around align-items-center">';
-				                    
+				                	 // 새로운 내용 추가
+				                	 $('#lessonListContainerForPersonal').append('<p> 개인탭 테스트 </p>');
 
-				                    var timeLabels = [
-				                        "10:00 - 10:50",
-				                        "11:00 - 11:50",
-				                        "12:00 - 12:50",
-				                        "13:00 - 13:50",
-				                        "14:00 - 14:50",
-				                        "15:00 - 15:50"
-				                    ];
+				                	 
+				                	
 
-				                    for (var i = 2; i <= 7; i++) {
-				                    	pstr += '<div class="time-info">';
-				                    	pstr += '<label class="form-check-label time-label" for="flexSwitchCheckDefault' + i + '">';
-				                    	pstr += '<div class="time-check text-center">';
-				                    	pstr += '<input type="checkbox" class="btn-check" id="btn-check-' + i + '" autocomplete="off">';
-				                    	pstr += '<label class="btn" for="btn-check-' + i + '"> <i class="bi bi-clock"></i>';
-				                        pstr += '<p class="mt-2">' + timeLabels[i - 2] + '</p>';
-				                        pstr += '</label>';
-				                        pstr += '</div>';
-				                        pstr += '</label>';
-				                        pstr += '</div>';
-				                    }
-
-				                    pstr += '</div>';
-				                    pstr += '</div>';
-
-				                    pstr += '<div class="reservation-btn d-flex justify-content-end">';
-				                    pstr += '<button class="btn btn-primary" onclick="reserveTime()">';
-				                    pstr += '<i class="bi bi-calendar-plus"></i> 예약하기';
-				                    pstr += '</button>';
-				                    pstr += '</div>';
-				                    
-				                    $('#lessonListContainerForPersonal').append(pstr);
 				                }
 
 							}
@@ -812,7 +817,26 @@
         }
     }
 
-<!-- 현재 사용자가 예약한 내역 불러와서 버튼 완료 처리 -->
+<!-- 현재 사용자 예약 가능 여부를 불러옴 -->
+function checkReservation(lsCode) {
+    $.ajax({
+        url: 'checkReservation.do',
+        method: 'POST',
+        data: { lsCode: lsCode }, 
+        success: function(response) {
+        	if(response){
+        		return true;
+        	}else{
+        		return false;
+        	}
+        },
+        error: function(error) {
+            console.error('AJAX 요청 시 에러', error);
+            return false;
+        }
+    });
+}
+
 	
 </script>
 

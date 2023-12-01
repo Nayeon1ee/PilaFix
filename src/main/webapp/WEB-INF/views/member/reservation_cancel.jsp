@@ -137,7 +137,7 @@
 												<div class="input-group">
 													<label class="input-group-text" for="remainingSessions"><img alt="bar"
 													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">수강권명 :</label>
-													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketRemainingCount }" readonly>
+													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketName}" readonly>
 												</div>
 											</li>
 											

@@ -30,7 +30,7 @@ $(document).ready(function() {
     	            console.error('AJAX 요청 시 에러', error);
     	        }
     	    });
-    	}, 100000000); // 3초에 한 번씩 실행 추후에 3000으로 바꾸기
+    	}, 3000); // 3초에 한 번씩 실행 추후에 3000으로 바꾸기
     }
 });
 
@@ -63,13 +63,13 @@ function handleNotificationClick() {
 	            	 response.forEach(function (item) {
 	                    let eventType = item.eventType; 
 						let ncId = item.ncId;
-
-						console.log("알림 목록 반환");
-						console.log(eventType);
-						console.log(ncId);
 						
-						var gstr = '<a class="dropdown-item" onclick="updateNoticeStatus(\'' + ncId + '\',\'' + eventType + '\')">'; //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
-	                    gstr += '<div>';
+						if(item.ncReadYN){ //사용자가 확인했다면 
+							var gstr = '<a class="dropdown-item"  style="color: #888; background-color: #f2f2f2;" onclick="requestView(\''+ eventType + '\')">'; 
+						}else{
+							var gstr = '<a class="dropdown-item" onclick="updateNoticeStatus(\'' + ncId + '\',\'' + eventType + '\')">'; //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
+						}
+						gstr += '<div>';
 	
 	                    if (item.centerName !== null) {
 	                        gstr += '<small class="text-muted">' + item.centerName + '</small>'; // 센터이름이 존재한다면
@@ -112,16 +112,21 @@ function updateNoticeStatus(ncId, eventType){
 			 },
 	        success: function(response) {
 	        	console.log("확인여부 업데이트 완료");
-				if(eventType === '예약' || eventType  === '예약취소'){ //예약이거나 예약취소이면 내스케줄 페이지
-					window.location.href='schedule.do';
-				}else{
-					window.location.href='#'; //추후 공지사항으로 이동 
-				}
+				requestView(eventType);
 	        },
 	        error: function(error) {
 	            console.error('AJAX 요청 시 에러', error);
 	        }
 	    });
+}
+
+// 확인한 알림 클릭 시 화면 이동 
+function requestView(eventType){
+	if(eventType === '예약' || eventType  === '예약취소'){ //예약이거나 예약취소이면 내스케줄 페이지
+		window.location.href='schedule.do';
+	}else{
+		window.location.href='#'; //추후 공지사항으로 이동 
+	}
 }
 
 

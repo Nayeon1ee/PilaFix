@@ -178,6 +178,14 @@ public class ReservDAO {
 		sqlSessionTemplate.update("ReservDAO.cancelReservationPersonal", params);
 	}
 
+	public int checkReservation(int csMemberCode, String lsCode) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("csMemberCode", csMemberCode);
+		params.put("lsCode",lsCode );
+		
+		return sqlSessionTemplate.selectOne("ReservDAO.checkReservation", params);
+	}
+
 	
 	
 

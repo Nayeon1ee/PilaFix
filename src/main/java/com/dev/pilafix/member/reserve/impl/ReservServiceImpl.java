@@ -188,7 +188,7 @@ public class ReservServiceImpl implements ReservService {
 			dao.cancelReservationPersonal(csMemberCode, rsCode, lsCode );
 		}
 		
-		/* STEP04. insert 알림 테이블 이력 쌓기 */
+		/* STEP05. insert 알림 테이블 이력 쌓기 */
 		NoticeVO notice = new NoticeVO();
 		 notice.setMemberCode(csMemberCode);
 		 notice.setRecipientCode(String.valueOf(centerCode)); 
@@ -197,6 +197,14 @@ public class ReservServiceImpl implements ReservService {
 		 notice.setNcNoticeContent(lesson.getLsDate()+" "+lesson.getLsTime()+" "+lesson.getLsName()+" 예약이 취소되었습니다."); 
         noticeDAO.insertNotice(notice);
 		
+	}
+
+	/**
+	 * 예약 가능 여부 체크 
+	 */
+	@Override
+	public int checkReservation(int csMemberCode, String lsCode) {
+		return dao.checkReservation(csMemberCode, lsCode);
 	}
 	
 	
