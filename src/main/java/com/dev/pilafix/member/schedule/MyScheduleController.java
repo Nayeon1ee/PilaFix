@@ -27,15 +27,7 @@ public class MyScheduleController {
 		return "member/schedule_ing";
 	}
 
-	// 당월의 예약정보 가져옴 (한달 전체-달력에 보여주려고)
-//	@PostMapping("/getMonthSchedule.do")
-//	@ResponseBody
-//	public List<MyScheduleVO> getMonthSchedule(HttpSession session) {
-//		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-//		int csMemberCode = (int) user.get("csMemberCode");
-//		List<MyScheduleVO> reservMonthInfo = (List<MyScheduleVO>) service.getMonthSchedule(csMemberCode);
-//		return reservMonthInfo;
-//	}
+	// 캘린더 날짜에 해당하는 예약정보 가져옴 (한달 전체-달력에 보여주려고)
 	@PostMapping("/getMonthSchedule.do")
 	@ResponseBody
 	public List<CalenderVO> getMonthSchedule(HttpSession session,Date calenderDate) {
@@ -76,6 +68,22 @@ public class MyScheduleController {
 		int csMemberCode = (int) user.get("csMemberCode");
 		List<MyScheduleVO> AbsentList = service.getAbsentList(csMemberCode);
 		return AbsentList;
+	}
+	
+	@PostMapping("getAllInfo.do")
+	@ResponseBody
+	public Map<String,Object> getAllInfo(HttpSession session){
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+		//세션에서 가져온 값으로 서비스 호출
+		int csMemberCode = (int) user.get("csMemberCode");
+		//Map<String,Object> allInfo;
+		
+		
+//		List<MyScheduleVO> reservInfoList = service.getReservList(csMemberCode);
+//		List<MyScheduleVO> attendList = service.getAttendList(csMemberCode);
+//		List<MyScheduleVO> AbsentList = service.getAbsentList(csMemberCode);
+		return service.getAllInfo(csMemberCode);
+		
 	}
 	
 	
