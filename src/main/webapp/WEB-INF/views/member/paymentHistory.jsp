@@ -88,7 +88,11 @@
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
 				</div>
-					
+					<c:if test="${empty paymentInfo}">
+						<div class="payment-history">
+						아직 결제하신 수강권이 없습니다. 
+						</div>
+					</c:if>
 					<!-- 결제 정보 카드 -->
 					<c:forEach var="paymentInfo" items="${paymentInfo}">
 					<div class="payment-history">
