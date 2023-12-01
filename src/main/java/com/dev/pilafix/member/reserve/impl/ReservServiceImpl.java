@@ -177,6 +177,7 @@ public class ReservServiceImpl implements ReservService {
 		 * STEP01. 회원 테이블에서 수강권 매수 +1 (개인/그룹 구분)
 		 * STEP02. 수업 테이블에 현재 신청 인원 -1
 		 * STEP03. 예약 테이블의 취소 여부 true
+		 * STEP04. 출결 테이블의 회원코드 지우기 
 		 * 
 		 */
 		if(lesson.getLsType().equals("그룹")) {

@@ -284,7 +284,18 @@
 		SET RS_CANCEL_YN=TRUE
 		WHERE RS_CODE=#{rsCode};
 		
-		<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+		<!-- 04. 출결 테이블의 회원코드 지우기  -->
+		UPDATE TBL_ATTEND
+		SET
+		    AT_MEMBER1_CODE = CASE WHEN AT_MEMBER1_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER1_CODE END,
+		    AT_MEMBER2_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER2_CODE END,
+		    AT_MEMBER3_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER3_CODE END,
+		    AT_MEMBER4_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER4_CODE END,
+		    AT_MEMBER5_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER5_CODE END,
+		    AT_MEMBER6_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE != #{csMemberCode} AND AT_MEMBER6_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER6_CODE END
+		WHERE LESSON_CODE = #{lsCode};
+	    	
+		<!-- STEP05. 알림 테이블 등록(NoticeDAO에서 진행) -->
 	</update>
 	
 	<!-- 개인 수업의 예약 취소  -->
@@ -303,8 +314,19 @@
 		UPDATE TBL_RESERV
 		SET RS_CANCEL_YN=TRUE
 		WHERE RS_CODE=#{rsCode};
+
+		<!-- 04. 출결 테이블의 회원코드 지우기  -->
+		UPDATE TBL_ATTEND
+		SET
+		    AT_MEMBER1_CODE = CASE WHEN AT_MEMBER1_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER1_CODE END,
+		    AT_MEMBER2_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER2_CODE END,
+		    AT_MEMBER3_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER3_CODE END,
+		    AT_MEMBER4_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER4_CODE END,
+		    AT_MEMBER5_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER5_CODE END,
+		    AT_MEMBER6_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE != #{csMemberCode} AND AT_MEMBER6_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER6_CODE END
+		WHERE LESSON_CODE = #{lsCode};
 		
-		<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+		<!-- STEP05. 알림 테이블 등록(NoticeDAO에서 진행) -->
 	</update>
 
 	<!-- =========================================================== -->

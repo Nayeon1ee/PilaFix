@@ -811,7 +811,8 @@
             document.getElementById('timeRemaining').innerHTML = '취소 가능한 시간이 지났습니다.';
         }
     }
-    
+
+<!-- 현재 사용자가 예약한 내역 불러와서 버튼 완료 처리 -->
 	
 </script>
 

@@ -354,8 +354,7 @@
 	                
 	                if(response){
    	                console.log("cancelReservation() 호출 성공");
-	              		// 추후 내스케줄 확인으로 이동
-	   	            alert("취소가 완료되었습니다. ");
+	              	// 추후 내스케줄 확인으로 이동
 	   	            window.location.href = 'schedule.do';
 	                }
 	            },
