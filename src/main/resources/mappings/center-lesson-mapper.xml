@@ -48,15 +48,15 @@
 		WITH new_lesson AS (
 		  INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE, LS_DATE, LS_TIME, LS_CAPACITY, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE)
 		  VALUES (CONCAT('LS', NEXTVAL('SEQ_LESSON')), #{lsName}, #{lsType}, #{lsDate}, to_timestamp('${lsTime}', 'HH24:MI'), #{lsCapacity}, #{trainerMemberCode}, #{lsContent}, #{centerCode}, CURRENT_TIMESTAMP)
-		  RETURNING LS_CODE
+		  RETURNING LS_CODE, LS_DATE
 		)
-		INSERT INTO TBL_ATTEND (AT_CODE, LESSON_CODE)
-		SELECT CONCAT('AT', NEXTVAL('SEQ_ATTEND')), LS_CODE
+		INSERT INTO TBL_ATTEND (AT_CODE, LESSON_CODE, AT_DATE)
+		SELECT CONCAT('AT', NEXTVAL('SEQ_ATTEND')), LS_CODE, LS_DATE
 		FROM new_lesson;
 	</insert>
 	<delete id="deleteCenterLesson" parameterType="centerLesson">
 		DELETE FROM TBL_LESSON WHERE LS_CODE = #{lsCode}
-	</delete>
+	</delete> 
 
 	<select id="getTrainerCode" resultMap="centerLessonResult">
 		SELECT DISTINCT CS_MEMBER_CODE, CS_NAME
