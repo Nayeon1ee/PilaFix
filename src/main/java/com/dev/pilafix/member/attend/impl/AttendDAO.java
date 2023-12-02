@@ -122,14 +122,14 @@ public class AttendDAO {
 	 * 출석한 회원 수
 	 */
 	public int getAttendedCountForLesson(String lessonCode) {
-		return sqlSessionTemplate.selectOne("AttendDAO.getAttendedCountForLesson", lessonCode);
+	    Integer count = sqlSessionTemplate.selectOne("AttendDAO.getAttendedCountForLesson", lessonCode);
+	    return (count != null) ? count : 0;
 	}
-
 	/**
 	 * 결석한 회원 수
 	 */
 	public int getAbsentCountForLesson(String lessonCode) {
-		return sqlSessionTemplate.selectOne("AttendDAO.getAbsentCountForLesson", lessonCode);
+	    Integer count = sqlSessionTemplate.selectOne("AttendDAO.getAbsentCountForLesson", lessonCode);
+	    return (count != null) ? count : 0;
 	}
-
 }

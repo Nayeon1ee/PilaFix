@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dev.pilafix.admin.faq.FaqVO;
 import com.dev.pilafix.admin.info.AdminInfoVO;
+import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.center.info.CenterInfoVO;
 import com.dev.pilafix.center.ticket.CenterTicketVO;
 import com.dev.pilafix.common.member.CenterVO;
@@ -25,6 +26,6 @@ public interface MemberMypageService {
 	List<FaqVO> getFAQListByMember();
 	FaqVO getFaqByMember(int fqNumber);
 	MemberVO getMypageMemberInfo(int csMemberCode);
-	
+	List<TermsVO> getMyTermsListByMember();
 	
 }

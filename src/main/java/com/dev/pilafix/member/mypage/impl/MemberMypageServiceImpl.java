@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.faq.FaqVO;
 import com.dev.pilafix.admin.info.AdminInfoVO;
+import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.center.info.CenterInfoVO;
 import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.member.MemberVO;
@@ -115,6 +116,14 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	@Override
 	public MemberVO getMypageMemberInfo(int csMemberCode) {
 		return dao.getMypageMemberInfo(csMemberCode);
+	}
+
+	/**
+	 * 이용약관 및 정책 
+	 */
+	@Override
+	public List<TermsVO> getMyTermsListByMember() {
+		return dao.getMyTermsListByMember();
 	}
 
 }

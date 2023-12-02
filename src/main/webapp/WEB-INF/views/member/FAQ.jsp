@@ -59,24 +59,6 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -102,13 +84,13 @@
 		<section id="services" class="services">
 			<div class="container" style="max-width: 700px">
 
-				<div id="userInfo"
+<!-- 				<div id="userInfo"
 					class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
-				</div>
+				</div> -->
 
 					<section class="section002 py-3 my-3">
 						<nav class="navbar navbar-expand-lg py-1 my-1">
@@ -153,109 +135,46 @@
 
 					</div>
 
-					<div>
+<!-- 					<div>
 						<p class="total-faq-count">전체 00건</p>
 						<hr>
-					</div>
+					</div> -->
 
 
-
-					<div class="accordion" id="accordionExample">
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button" type="button"
-									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-									aria-expanded="true" aria-controls="inquiryCollapse">
-									<div class="inquiry-item">
-										<div class="inquiry-details">
-											<div class="inquiry-title">
-												<strong>Q</strong> 질문입니다.
-											</div>
-										</div>
-									</div>
-								</button>
-							</h2>
-							<div id="inquiryCollapse"
-								class="accordion-collapse collapse show"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>A</strong> <br> 답변입니다.
-								</div>
-							</div>
-						</div>
-
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button" type="button"
-									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse2"
-									aria-expanded="true" aria-controls="inquiryCollapse2">
-									<div class="inquiry-item">
-										<div class="inquiry-details">
-											<div class="inquiry-title">
-												<strong>Q</strong> 질문입니다.
-											</div>
-										</div>
-									</div>
-								</button>
-							</h2>
-							<div id="inquiryCollapse2"
-								class="accordion-collapse collapse show"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>A</strong> <br> 답변입니다.
-								</div>
-							</div>
-						</div>
-
-
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button" type="button"
-									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse3"
-									aria-expanded="true" aria-controls="inquiryCollapse3">
-									<div class="inquiry-item">
-										<div class="inquiry-details">
-											<div class="inquiry-title">
-												<strong>Q</strong> 질문입니다.
-											</div>
-										</div>
-									</div>
-								</button>
-							</h2>
-							<div id="inquiryCollapse3"
-								class="accordion-collapse collapse show"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>A</strong> <br> 답변입니다.
-								</div>
-							</div>
-						</div>
-
-
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button" type="button"
-									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse4"
-									aria-expanded="true" aria-controls="inquiryCollapse4">
-									<div class="inquiry-item">
-										<div class="inquiry-details">
-											<div class="inquiry-title">
-												<strong>Q</strong> 질문입니다.
-											</div>
-										</div>
-									</div>
-								</button>
-							</h2>
-							<div id="inquiryCollapse4"
-								class="accordion-collapse collapse show"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>A</strong> <br> 답변입니다.
-								</div>
-							</div>
-						</div>
-
-					</div>
+<div class="accordion" id="accordionExample">
+    <c:choose>
+        <c:when test="${empty FAQlist}">
+            <!-- FAQ 리스트가 비어있을 때 표시할 메시지 -->
+            <p>아직 등록된 글이 없습니다.</p>
+        </c:when>
+        <c:otherwise>
+            <c:forEach items="${FAQlist}" var="faq">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#faqCollapse${faq.fqNumber}"
+                                aria-expanded="true" aria-controls="faqCollapse${faq.fqNumber}">
+                            <div class="inquiry-item">
+                                <div class="inquiry-details">
+                                    <div class="inquiry-title">
+                                        <strong>Q</strong> ${faq.fqTitle}
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="faqCollapse${faq.fqNumber}"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>A</strong> <br> ${faq.fqContent}
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+</div>
 
 
 

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.admin.faq.FaqVO;
 import com.dev.pilafix.admin.info.AdminInfoVO;
+import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.center.info.CenterInfoVO;
-import com.dev.pilafix.center.ticket.CenterTicketVO;
 import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.mypage.MemberMypageVO;
@@ -90,6 +90,13 @@ public class MemberMypageDAO {
 	}
 	public FaqVO getFaqByMember(int fqNumber) {
 		return sqlSessionTemplate.selectOne("MemberMypageDAO.getFaqByMember",fqNumber);
+	}
+	
+	/**
+	 * 약관및정책 리스트
+	 */
+	public List<TermsVO> getMyTermsListByMember(){
+		return sqlSessionTemplate.selectList("MemberMypageDAO.getMyTermsListByMember");
 	}
 	
 	/**

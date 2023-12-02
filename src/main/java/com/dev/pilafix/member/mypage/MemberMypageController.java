@@ -6,14 +6,15 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dev.pilafix.admin.faq.FaqVO;
 import com.dev.pilafix.admin.info.AdminInfoVO;
+import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.center.info.CenterInfoVO;
 import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.member.MemberVO;
@@ -137,49 +138,33 @@ public class MemberMypageController {
         model.addAttribute("centerInfoList", centerInfoList);
         model.addAttribute("pilafixInfoList", pilafixInfoList);
 
-        return "member/member_notice"; // noticePage는 해당 화면의 뷰 이름
+        return "member/member_notice"; 
     }
 	
-//	@GetMapping("/getCenterInfo.do")
-//    public ResponseEntity<List<CenterInfoVO>> getCenterInfo(HttpSession session) {
-//        Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-//        int csMemberCode = (int) user.get("csMemberCode");
-//        List<CenterInfoVO> centerInfoList = service.getCenterInfoListByMember(csMemberCode);
-//        return ResponseEntity.ok(centerInfoList);
-//    }
-//
-//    @GetMapping("/getPilafixInfo.do")
-//    public ResponseEntity<List<AdminInfoVO>> getPilafixInfo(HttpSession session) {
-//        Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-//        int csMemberCode = (int) user.get("csMemberCode");
-//        List<AdminInfoVO> pilafixInfoList = service.getAdminInfoListByMember(csMemberCode);
-//        return ResponseEntity.ok(pilafixInfoList);
-//    }
 
-//	@GetMapping("/myNoticeDetail.do")
-//	public String showMyWebInfoDetail(HttpSession session, Model model) {
-//		// 공지사항을 눌렀을때 각각의 상세 페이지로 이동해야함
-//		// 센터의 공지사항의 번호(PK) - IC_NUMBER
-//		// 필라픽스의 공지사항의 번호(PK) - IW_NUMBER 
-//		// 각각의 공지사항 번호를 hidden으로 받아서 상세로 이동해야함
-//		
-//	}
 
 	/**
-	 * FAQ
+	 * FAQ 
+	 * 로그인 안해도 보이게? ?
 	 */
 	@GetMapping("/myFAQpage.do")
 	public String showMyFAQ(HttpSession session, Model model) {
-		return "member/FAQ";
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+	    List<FaqVO> faqList = service.getFAQListByMember();
+	    model.addAttribute("FAQlist", faqList);
+	    return "member/FAQ";
 	}
 
 	/**
 	 * 약관 및 정책
+	 * 로그인 안해도 보이게? ?
 	 */
 	@GetMapping("/myTermsPage.do")
 	public String showMyTerms(HttpSession session, Model model) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-		return "member/member_terms";
+		List<TermsVO> termsList = service.getMyTermsListByMember();
+	    model.addAttribute("termsList", termsList);
+	    return "member/member_terms";
 
 	}
 
