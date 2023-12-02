@@ -57,12 +57,12 @@
 										</c:otherwise>
 									</c:choose>
 								</div>
-								<div class="col-md-11">
+								<div class="col-md-12">
 									<label class="form-label">발송 내용</label>
 									<input type="text" disabled readonly class="form-control" value="${noticeHistory.ncNoticeContent }" >
 								</div>
-								<div class="text-center">
-									<button type="button" class="btn btn-primary" onclick="location.href='getNoticeHistoryList.do'">목록</button>
+								<div class=" d-flex justify-content-start">
+									<button type="button" class="btn btn-secondary ms-3" onclick="location.href='getNoticeHistoryList.do'">목록</button>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->
