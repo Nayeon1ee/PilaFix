@@ -49,7 +49,7 @@
 								<div class="col-md-5">
 									<label class="form-label">읽음 여부</label> 
 									<c:choose>
-										<c:when test="${noticeHistory.readYn }">
+										<c:when test="${noticeHistory.ncReadYn }">
 											<input type="text" disabled readonly class="form-control" value="읽음" >
 										</c:when>
 										<c:otherwise>
