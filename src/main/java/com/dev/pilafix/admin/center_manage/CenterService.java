@@ -5,12 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.dev.pilafix.common.member.CenterVO;
+import com.dev.pilafix.common.sendsmshistory.SendSmsHistoryVO;
 
 public interface CenterService {
 	
 	List<CenterVO> getCenterList();
 	CenterVO getCenter(int ctCode);
-//	List<SendEmailHistoryVO> getSendEmailHistory(int ctCode);
+	List<SendSmsHistoryVO> getSmsHistory(int ctCode);
 	int insertCenter(CenterVO vo);
 	int updateCenter(CenterVO vo);
 	int deleteCenter(int ctCode);

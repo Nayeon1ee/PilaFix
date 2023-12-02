@@ -73,6 +73,7 @@ public class MemberTrainerManageController {
 		//강사는  paymentList 조회 X
 		if(member.getCsRoleCode().equals("TR")) {
 			model.addAttribute("type", "T"); // view에서 해당 타입에 따라 분기 
+		}else {
 			model.addAttribute("paymentList", service.getPaymentList(csMemberCode));
 		}
 		

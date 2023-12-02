@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="admin_header_common.jsp" %>
 
   <main id="main" class="main">
@@ -108,18 +109,17 @@
 					</div>
 			   </div>
 			   <div class="row mb-300" style="width: 122%; margin-top: 1%;">
-					<div class="col-sm-10">
-						<input type="text" class="form-control0" value="문자발송이력" disabled>
-					</div>
+				<div class="area3">
+					<p>문자 발송 이력 </p>
 				</div>
-				<!-- 문자발송이력 테이블 추가 해야 함  -->
+				</div>
 			   <table class="table datatable">
 					<thead>
 						<tr>
 							<th scope="col">번호</th>
 							<th scope="col" class="contentcol">내용</th>
 							<th scope="col">수신인</th>
-							<th scope="col">발송일</th>
+							<th scope="col">발송일시</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -129,38 +129,18 @@
 							<td colspan="5">등록된 센터가 없습니다.</td>
 						</tr>
 					</c:if>
-					<%--
-					<c:forEach var="emailHistory" items="${emailHistory }">
+					<c:forEach var="smsHistory" items="${smsHistory }">
 						<tr>
-							<th scope="row">1</th>
-							<td>그룹 수업 6:1 [체어&바렐]수업이 2023.10.20(수요일) 오전 10:00에 예약되었습니다</td>
-							<td>Designer</td>
-							<td>2023-05-25</td>
-						</tr>
-						<tr>
-							<td>${emailHistory.mhEmailSendCode }</td>
-							<td>${emailHistory.mhRecipientTitle }</td>
-							<td>${emailHistory.mhRecipientName }</td>
-							<td>${emailHistory.mhEmailSendDate }</td>
+							<td>${smsHistory.shSendCode }</td>
+							<td>${smsHistory.shRecipientContent }</td>
+							<td>${smsHistory.shRecipientName }</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${smsHistory.shSendDatetime }"/></td>
 						</tr>
 					</c:forEach>
-					 --%>
 					</tbody>
 				</table>
 						
-						
-				<!-- End Table with stripped rows -->
-				<div class="admin-screen-paging">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">이전</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">4</a></li>
-						<li class="page-item"><a class="page-link" href="#">5</a></li>
-						<li class="page-item"><a class="page-link" href="#">다음</a></li>
-					</ul>
-				</div>
+		
 	          </div>
 	        </div>
 	      </div>

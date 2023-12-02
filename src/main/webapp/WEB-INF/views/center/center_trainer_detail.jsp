@@ -41,8 +41,8 @@
 										<div
 											class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-											<img src="#" alt="logo" class="rounded-circle rounded-logo">
-
+											<img src="${pageContext.request.contextPath }/resources/images/customer3.png"  class="rounded-circle rounded-logo" alt="logo"  width="50%"><br>
+											
 											<h5>${member.csName}</h5>
 											<c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
 												<c:set var="birthYear" value="${fn:split(member.csBirth,'-')[0]}" />

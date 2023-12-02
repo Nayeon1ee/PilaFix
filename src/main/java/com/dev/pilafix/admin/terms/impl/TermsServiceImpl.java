@@ -6,6 +6,8 @@ import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -129,7 +131,8 @@ public class TermsServiceImpl implements TermsService {
 		email.setMhEmailSendType("변경약관동의");
 		email.setMhRecipientName(center.getOwnerName());
 		email.setMhRecipientTitle(title);
-		email.setMhRecipientContent(content.toString());
+		Document doc = Jsoup.parse(content.toString());//html 태그 파싱 
+		email.setMhRecipientContent(doc.text());
 		email.setMhRecipientEmail(toSend);
 
 		if (flag == 1) {
