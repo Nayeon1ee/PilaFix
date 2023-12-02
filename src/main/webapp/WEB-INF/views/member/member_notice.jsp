@@ -140,10 +140,10 @@
 				            <c:forEach items="${centerInfoList}" var="noticeC">
 				                <li class="list-group-item d-flex justify-content-between align-items-start">
 				                    <div class="ms-2 me-auto">
-				                        <a href="noticeDetail.do?code=${noticeC.icCode}">${noticeC.icTitle}</a></div>
-				                        조회수: ${noticeC.icViews}
+				                        <a href="noticeDetail.do?code=${noticeC.icNumber}">${noticeC.title}</a></div>
+				                        조회수: ${noticeC.cnt}
 				             
-				                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeC.icRegdate}</div>
+				                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeC.regDate}</div>
 				                </li>
 				                <hr class="my-1">
 				            </c:forEach>
@@ -158,9 +158,9 @@
 				            <c:forEach items="${pilafixInfoList}" var="noticeW">
 				                <li class="list-group-item d-flex justify-content-between align-items-start">
 				                    <div class="ms-2 me-auto">
-				                        <a href="noticeDetail.do?code=${noticeW.iwCode}">${noticeW.iwTitle}</a></div>
-				                        조회수: ${noticeW.iwViews}
-				                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeW.iwRegdate}</div>
+				                        <a href="noticeDetail.do?code=${noticeW.iwNumber}">${noticeW.title}</a></div>
+				                        조회수: ${noticeW.cnt}
+				                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeW.regDate}</div>
 				                </li>
 				                <hr class="my-1">
 				            </c:forEach>
