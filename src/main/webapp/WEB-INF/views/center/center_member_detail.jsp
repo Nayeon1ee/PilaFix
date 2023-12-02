@@ -43,11 +43,12 @@
 											<img src="${pageContext.request.contextPath }/resources/images/customer.png"  class="rounded-circle rounded-logo" alt="logo"  width="50%"><br>
 											
 											<h5>${member.csName }</h5>
-											<!-- 생년월일에 따라 나이 분기 필요 -->
-										     <c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
-											<c:set var="birthYear" value="${fn:substring(member.csBirth, 0, 4)}" />
-											<c:set var="age" value="${currentYear - birthYear}" />
-											<h5>${member.csBirth } (${age}세)</h5>
+											<c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
+												<c:set var="birthYear" value="${fn:split(member.csBirth,'-')[0]}" />
+												<c:set var="birthMonth" value="${fn:split(member.csBirth,'-')[1]}" />
+												<c:set var="birthDay" value="${fn:split(member.csBirth,'-')[2]}" />
+												<c:set var="age" value="${currentYear - birthYear}" />
+											<h5>${birthYear}년&nbsp;${birthMonth}월&nbsp;${birthDay}일&nbsp; (만 ${age}세)</h5>
 
 											<div class="social-links mt-2">
 												<table class="CTS_information00">

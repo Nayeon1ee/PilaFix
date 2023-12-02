@@ -6,6 +6,8 @@ import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,7 +158,8 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 		email.setMhEmailSendType("비밀번호찾기");
 		email.setMhRecipientName("회원");
 		email.setMhRecipientTitle(title);
-		email.setMhRecipientContent(content.toString());
+		Document doc = Jsoup.parse(content.toString());//html 태그 파싱 
+		email.setMhRecipientContent(doc.text());
 		email.setMhRecipientEmail(toSend);
 
 		if (flag == 1) {

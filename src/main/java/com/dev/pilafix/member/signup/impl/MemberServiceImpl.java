@@ -10,6 +10,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -133,7 +135,8 @@ public class MemberServiceImpl implements MemberService {
 		email.setMhEmailSendType("회원가입 인증");
 		email.setMhRecipientName("회원"); //회원가입시 회원은 이름이 없음
 		email.setMhRecipientTitle(title);
-		email.setMhRecipientContent(content.toString());
+		Document doc = Jsoup.parse(content.toString());//html 태그 파싱 
+		email.setMhRecipientContent(doc.text());
 		email.setMhRecipientEmail(toSend);
 
 		if(flag == 1) {

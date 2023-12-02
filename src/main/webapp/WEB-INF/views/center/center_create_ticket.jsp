@@ -82,23 +82,23 @@
 									<textarea name="tkDescription" class="form-control" style="height: 300px;" placeholder="내용을 입력하세요"></textarea>
 								</div>
 								<div class="col-sm-10">
-									<label class="form-label">예약 가능 여부</label>
+									<label class="form-label">구매 가능 여부</label>
 									<fieldset class="row mb-3">
 								    	<div class="col-sm-10">
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="purchaseAvailableYN" id="flexRadioDefault2" value=true>
-												<label class="form-check-label" for="flexRadioDefault2">Y</label>
+												<label class="form-check-label" for="flexRadioDefault2">구매 가능</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="purchaseAvailableYN" id="flexRadioDefault2" value=false>
-												<label class="form-check-label" for="flexRadioDefault2">N</label>
+												<label class="form-check-label" for="flexRadioDefault2">구매 불가</label>
 											</div>
 										</div>
 									</fieldset>
 								</div>
 								<div class="p-check">
-									<p>(Y를 선택하면 회원이 바로 구매가 가능합니다.)</p>
-									<p>(N을 선택하면 수강권을 생성만 합니다.)</p>
+									<p>('구매 가능' 선택 시, 수강권이 즉시 회원에게 보여집니다.)</p>
+									<p>('구매 불가' 선택 시, 수강권은 생성되지만, 회원에게는 보여지지 않습니다.)</p>
 								</div>
 								<div class="text-center">
 									<button type="submit" class="btn btn-primary">등록</button>

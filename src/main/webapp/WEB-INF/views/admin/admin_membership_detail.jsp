@@ -69,11 +69,21 @@
                 <div class="col-md-4">
                   <label class="form-label">현재연동센터</label>
                   <c:choose>
-                  <c:when test="${member.connectedCenterCode1 == null}">
-                   <input type="text" readonly class="form-control" placeholder="현재 연동된 센터가 없습니다" disabled>
+                  <c:when test="${member.connectedCenterCode1 eq 0}">
+                   <input type="text" readonly class="form-control" placeholder="현재 연동된 센터 없음" disabled>
                   </c:when>
                   <c:otherwise>
-                  <input type="text" readonly class="form-control" value="${member.connectedCenterCode1 }&nbsp;${member.connectedCenterCode2 }&nbsp;${member.connectedCenterCode3 }" disabled>
+                  	
+                  	<c:if test="${member.connectedCenterCode1 != 0 && member.connectedCenterCode2 == 0 && member.connectedCenterCode3 == 0 }">
+                  		<input type="text" readonly class="form-control" value="${member.connectedCenterName1 }" disabled>
+                  	</c:if>
+                  	<c:if test="${member.connectedCenterCode1 != 0 && member.connectedCenterCode2 != 0 && member.connectedCenterCode3 == 0 }">
+                  		<input type="text" readonly class="form-control" value="${member.connectedCenterName1 },&nbsp;${member.connectedCenterName2 }" disabled>
+                  	</c:if>
+                  	<c:if test="${member.connectedCenterCode1 != 0 && member.connectedCenterCode2 != 0 && member.connectedCenterCode3 != 0 }">
+	                	<input type="text" readonly class="form-control" value="${member.connectedCenterName1 },&nbsp;${member.connectedCenterName2 },&nbsp;${member.connectedCenterName3 }" disabled>
+                  	</c:if>
+                  	
                 </c:otherwise>
                 </c:choose>
                 </div>
@@ -122,23 +132,6 @@
                   
                 </tbody>
               </table>
-             
-              <!-- End Table with stripped rows -->
-              
-              <!-- 페이징 처리 시작 -->
-              <div class="admin-screen-paging">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">4</a></li>
-                  <li class="page-item"><a class="page-link" href="#">5</a></li>
-                  <li class="page-item"><a class="page-link" href="#">다음</a></li>
-                </ul>
-             </div>
-      <!-- 페이징 처리 끝 -->
-              
               
             </div>
           </div>

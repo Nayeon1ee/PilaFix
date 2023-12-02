@@ -26,6 +26,7 @@ public class CenterLessonVO {
 	private Timestamp lsTimeDB;
 	private String lsEndTime;
 	private Timestamp lessonDatetime;
+	private  Timestamp lessonEndDatetime;
 
 	private int csMemberCode;
 	private String csName;
@@ -300,6 +301,15 @@ public class CenterLessonVO {
 
 	public void setLsStartTime(String lsStartTime) {
 		this.lsStartTime = lsStartTime;
+	}
+
+	
+	public Timestamp getLessonEndDatetime() {
+		return lessonEndDatetime;
+	}
+
+	public void setLessonEndDatetime(Timestamp lessonEndDatetime) {
+		this.lessonEndDatetime = lessonEndDatetime;
 	}
 
 	@Override
