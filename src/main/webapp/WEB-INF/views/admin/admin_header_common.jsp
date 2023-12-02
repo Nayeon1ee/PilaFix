@@ -36,7 +36,9 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_terms.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_centerReg.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
-  
+
+<!-- 내가 넣은 jquery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>  
   
 <!-- =======================================================
   * Template Name: PilaAdmin

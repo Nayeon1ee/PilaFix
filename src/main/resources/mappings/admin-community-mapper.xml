@@ -17,7 +17,8 @@
 		SELECT c.CM_NUMBER,c.CM_TITLE,c.CM_CONTENT,t.cs_name,c.CM_REGDATE
 		FROM tbl_community c
 		JOIN tbl_cst t
-		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code;
+		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code
+		ORDER BY CM_REGDATE DESC
 	</select>
 	<select id="getCommunity" resultMap="communityResult">
 		<!--

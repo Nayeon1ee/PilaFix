@@ -442,7 +442,7 @@
              }
          });
      });
-	 
+	 /*
 	 //전체 스케줄 가져오는 js (페이지로드되면 나와야하고 버튼 클릭해도 나와야해서 함수로 뻄)
 	 $(document).ready(function () {
 	    // 페이지 로드 시 AJAX 요청
@@ -476,7 +476,7 @@
 			            }else if (allInfo.hasOwnProperty('attendanceInfo')){
 			            	console.log("attendanceinfo존재함")
 			            }
-						/*	// allInfo는 맵이므로 배열 메서드가 아닌 맵을 다루는 방식으로 접근해야 합니다.
+						// allInfo는 맵이므로 배열 메서드가 아닌 맵을 다루는 방식으로 접근해야 합니다.
 			            // 예: allInfo.forEach(...)가 아닌 Object.values(allInfo).forEach(...)를 사용
 			            Object.values(allInfo).forEach(function (item) {
 			                // lsDate를 월-일(요일) 형태로 포맷팅
@@ -501,7 +501,7 @@
 			                str += '</div>';
 			                str += '</div>';
 			                $('#absentInfo').append(str);
-			            });*/
+			            })
 
 					}
 			},
@@ -510,6 +510,7 @@
              }
          });
     }
+    */
 	</script>
 
 	
