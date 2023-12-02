@@ -381,6 +381,8 @@
 						</div>
 					</div>
 				</div>
+				
+				
 				<!-- 예약 완료 Modal -->
 				<div class="modal fade" id="reservationSuccessModal"
 					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -405,6 +407,33 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='reservPage.do'">닫기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!-- 예약 불가 모달  -->
+				<div class="modal fade" id="impossibleModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										이미 예약이 완료된 수업입니다.
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+
 							</div>
 						</div>
 					</div>
@@ -581,13 +610,8 @@
 							            	// 시간이 지나지 않았으면 예약하기 버튼 표시
 							                gstr += '<div class="mymodal">';
 							                
-							                var lsCode = item.lsCode;
-
-							                if (!checkReservation(lsCode)) {
-							                    gstr += '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
-							                } else {
-							                    gstr += '<button type="button" class="btn btn-outline-primary" disabled>예약완료</button>';
-							                }
+							                gstr += '<button type="button" class="btn btn-primary"  onclick="checkReservation(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+							                //gstr += '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
 							                
 							            }
 
@@ -626,6 +650,30 @@
 						}
 					});
 		}
+		
+	<!-- 현재 사용자 예약 가능 여부를 불러옴 -->
+	function checkReservation(lsCode, centerCode) {
+		
+	    $.ajax({
+	        url: 'checkReservation.do',
+	        method: 'POST',
+	        data: { lsCode: lsCode }, 
+	        success: function(response) {
+	        	
+	        	if(response){
+	        		getReservationInfo(lsCode, centerCode);
+	        	}else{
+	        		//이미 예약했다는 모달 
+	        		$('#impossibleModal').modal('show');
+	        	}
+	        },
+	        error: function(error) {
+	            console.error('AJAX 요청 시 에러', error);
+	            return false;
+	        }
+	    });
+	}
+		
 		
 	<!-- 예약하기 버튼 클릭 시 수업 정보, 수강권 정보, 이용정책 Map으로 받아옴 -->
 	function getReservationInfo(lsCode, ctCode) {
@@ -691,6 +739,8 @@
 		                    ticketCode: myTicket.ticketCodeGroup1, // 수강권 코드
 		                    lsCode: lsCode // 수업코드  
 		            };
+					
+					$('#reservModal').modal('show');
 					
 	            } else {
 	                console.error("서버 응답 데이터가 비어있거나 유효하지 않습니다.");
@@ -817,25 +867,7 @@
         }
     }
 
-<!-- 현재 사용자 예약 가능 여부를 불러옴 -->
-function checkReservation(lsCode) {
-    $.ajax({
-        url: 'checkReservation.do',
-        method: 'POST',
-        data: { lsCode: lsCode }, 
-        success: function(response) {
-        	if(response){
-        		return true;
-        	}else{
-        		return false;
-        	}
-        },
-        error: function(error) {
-            console.error('AJAX 요청 시 에러', error);
-            return false;
-        }
-    });
-}
+
 
 	
 </script>

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -25,12 +26,12 @@ public class ComplaintsController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/getComplaintsInfoList.do")
-	public String getComplaintsInfoList( HttpSession session,  Model model) {
+	@GetMapping("/getTargetComplaintsList.do")
+	public String getTargetComplaintsList( HttpSession session,  Model model) {
 		Map<String, Object> admin = (Map<String, Object>) session.getAttribute("loginAdmin");
 
 		if(!admin.isEmpty()) {
-			model.addAttribute("ComplaintsInfoList", service.getComplaintsInfoList());
+			model.addAttribute("targetComplaintsList", service.getTargetComplaintsList());
 			return "admin/admin_baned_comment";
 		}
 		return "redirect:adminLogin.do";
@@ -46,55 +47,42 @@ public class ComplaintsController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/getComplaintsInfo.do")
-	public String getComplaintsInfo(@RequestParam("cpCode") int cpCode, int cpTargetPostNumber, Model model) {
-		model.addAttribute("ComplaintsInfo", service.getComplaintsInfo(cpCode));
-		model.addAttribute("complaintsInfoBlamerList", service.getAllComplaintsList(cpTargetPostNumber));
+	@GetMapping("/getComplaintsDetail.do")
+	public String getComplaintsDetail(@RequestParam("cmNumber") int cmNumber,Model model) {
+		// 신고글 상세 
+		model.addAttribute("originBoard", service.getComplaintsDetail(cmNumber)); 
+		
+		// 해당 신고글에 대한 신고내역
+		model.addAttribute("complaintList", service.getComplaintsList(cmNumber));
+		
 		return "admin/admin_baned_comment_detail";
 	}
 	
 	/**
-	 * 신고사유 목록 조회 
+	 * 신고사유 툴팁 
 	 * 
 	 * @param cmCode
 	 * @return
 	 */
-	@GetMapping("/getBlameReasons")
-    public List<ComplaintsVO> getBlameReasons(@RequestParam("cmCode") String cmCode) {
-        return service.getBlameReasonsByCount(cmCode);
+	@GetMapping("/blameReasonList.do")
+	@ResponseBody
+    public Map<String, Object> blameReasonList(@RequestParam("cmNumber") int cmNumber) {
+		Map<String, Object> responseData = new HashMap<>();
+		responseData.put("reasons", service.getComplaintsList(cmNumber));
+		return responseData;
     }
-	
-	
-	
-	
-	
-	
-	
 
 	
-	@GetMapping("/updateComplaintsInfo.do")
-	public String updateComplaintsInfo(@RequestParam("cpCode") int cpCode, Model model) {
-		model.addAttribute("list", service.getComplaintsInfo(cpCode));
-		return "admin_complaints/updateComplaintsInfo.jsp";
-	}
-
-	@PostMapping("/updateComplaintsInfo.do")
-	public String update(ComplaintsVO vo, Model model) {
-		service.updateComplaintsInfo(vo);
-		return "redirect:getComplaintsInfoList.do";
-	}
-
-	@GetMapping("/deleteComplaintsInfo.do")
-	public String delete(int cp_code) {
-		service.deleteComplaintsInfo(cp_code);
-		return "redirect:getComplaintsInfoList.do";
-	}
-
-
-	@GetMapping("/revokeComplaints.do")
-	public String revokeComplaints(int cpCode) {
-		service.revokeComplaints(cpCode);
-		return "redirect:getComplaintsInfo.do?cpCode="+cpCode;
+	/**
+	 * 신고글 처리 
+	 * 커뮤니티 글 비공개처리 
+	 * @param cpCode
+	 * @return
+	 */
+	@GetMapping("/updateComplaintsStatus.do")
+	public String updateComplaintsStatus(int cmNumber) {
+		service.updateComplaintsStatus(cmNumber);
+		return "redirect:getComplaintsDetail.do?cmNumber="+cmNumber;
 	}
 	
 
