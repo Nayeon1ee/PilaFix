@@ -69,6 +69,15 @@ public class MyScheduleController {
 		List<MyScheduleVO> AbsentList = service.getAbsentList(csMemberCode);
 		return AbsentList;
 	}
+//	@PostMapping("getAttendanceList.do")
+//	@ResponseBody
+//	public List<MyScheduleVO> getAttendanceList(HttpSession session) {
+//		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+//		//세션에서 가져온 값으로 서비스 호출
+//		int csMemberCode = (int) user.get("csMemberCode");
+//		List<MyScheduleVO> attendanceList = service.getAttendanceList(csMemberCode);
+//		return attendanceList;
+//	}
 	
 	@PostMapping("getAllInfo.do")
 	@ResponseBody
@@ -76,12 +85,6 @@ public class MyScheduleController {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 		//세션에서 가져온 값으로 서비스 호출
 		int csMemberCode = (int) user.get("csMemberCode");
-		//Map<String,Object> allInfo;
-		
-		
-//		List<MyScheduleVO> reservInfoList = service.getReservList(csMemberCode);
-//		List<MyScheduleVO> attendList = service.getAttendList(csMemberCode);
-//		List<MyScheduleVO> AbsentList = service.getAbsentList(csMemberCode);
 		return service.getAllInfo(csMemberCode);
 		
 	}

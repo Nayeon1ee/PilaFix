@@ -84,29 +84,45 @@ public class MyScheduleDAO {
 		
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
 		List<String> reservlessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonCode",csMemberCode);
-		if((lessonCode == null || lessonCode.isEmpty()) && (reservlessonCode == null || reservlessonCode.isEmpty())) {
-			return allInfo; //빈 맵을 리턴해야함 allInfo
-		}else if (reservlessonCode != null && lessonCode == null){
-			Map<String,Object> param = new HashMap<>();
-			param.put("reservlessonCode", reservlessonCode);
-			param.put("csMemberCode", csMemberCode);
-			
-			allInfo.put("attendanceInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceInfo",param));
-			return allInfo; 
-		}else if (lessonCode != null && reservlessonCode == null) {
+		
+		if (lessonCode.isEmpty()) {
+			allInfo.put("reservInfo", null);
+			System.out.println("1 예약if문 null");
+		}else {
 			allInfo.put("reservInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode));
-			return allInfo; 
+			System.out.println("1 예약if문 값o");
+		}
+		
+		if (reservlessonCode.isEmpty()) {
+			allInfo.put("reservInfo", null);
+			System.out.println("2 출결if문 null");
 		}else {
 			Map<String,Object> param = new HashMap<>();
 			param.put("reservlessonCode", reservlessonCode);
 			param.put("csMemberCode", csMemberCode);
 			
-			allInfo.put("reservInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", reservlessonCode));
 			allInfo.put("attendanceInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceInfo",param));
-			
-			return allInfo; 
+			System.out.println("2 출결if문 값o");
 		}
+
+			System.out.println("3 if문 탈출");
+			return allInfo; 
+		
 		
 	}
+
+//	public List<MyScheduleVO> getAttendanceList(int csMemberCode) {
+//		List<String> reservlessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonCode",csMemberCode);
+//		
+//		if (reservlessonCode.isEmpty()) {
+//			return 	Collections.emptyList();
+//		}else {
+//			Map<String,Object> param = new HashMap<>();
+//			param.put("reservlessonCode", reservlessonCode);
+//			param.put("csMemberCode", csMemberCode);
+//			
+//			return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceInfo",param);
+//		}
+//	}
 
 }
