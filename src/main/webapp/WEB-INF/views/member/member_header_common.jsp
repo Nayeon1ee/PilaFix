@@ -60,18 +60,17 @@
 					<li><a href="getMemberCommunityList.do">커뮤니티</a></li>
 					<li><a href="member_notice.do">공지사항</a></li>
 					<!-- <li><a href="member_mypage.do">마이페이지</a></li>  -->
-					<li class="dropdown"><a href="member_mypage.do"><span>마이페이지</span>
+					<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
 							<i class="bi bi-chevron-down"></i></a>
 						<ul>
 
-							<li class="dropdown"><a href="#"><span>내정보관리</span><i
-									class="bi bi-chevron-right"></i></a></li>
-							<li><a href="member_notice.do">공지사항</a></li>
-							<li><a href="#">결제내역</a></li>
-							<li><a href="#">연동센터관리</a></li>
-							<li><a href="#">FAQ</a></li>
-							<li><a href="getQuestionList.do">문의사항</a></li>
-							<li><a href="#">약관및정책</a></li>
+							<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
+							<li><a href="myNoticePage.do">공지사항</a></li>
+							<li><a href="getPaymentHistory.do">결제내역</a></li>
+							<li><a href="myConnectedCenter.do">연동센터관리</a></li>
+							<li><a href="myFAQpage.do">FAQ</a></li>
+							<li><a href="questionPage.do">문의사항</a></li>
+							<li><a href="myTermsPage.do">약관및정책</a></li>
 						</ul></li>
 
 					<%

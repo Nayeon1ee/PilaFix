@@ -52,24 +52,7 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-			</div>
-		</div>
-	</section>
+
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -105,14 +88,11 @@
 				</div>
 
 				<section class="section000 pb-5 mb-5">
-					<div class="btn-group" role="group"
-						aria-label="Basic radio toggle button group">
-						<input type="radio" class="btn-check" name="btnradio"
-							id="btnradio1" autocomplete="off" checked> <label
-							class="btn btn-outline-primary" for="btnradio1">센터</label> <input
-							type="radio" class="btn-check" name="btnradio" id="btnradio2"
-							autocomplete="off"> <label
-							class="btn btn-outline-primary" for="btnradio2">필라픽스</label>
+					<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+<label class="btn btn-outline-primary" for="btnradio1" data-target="centerInfo">센터</label>
+<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+<label class="btn btn-outline-primary" for="btnradio2" data-target="pilafixInfo">필라픽스</label>
 					</div>
 				</section>
 
@@ -152,48 +132,77 @@
 					</nav>
 				</section>
 
-				<!--  리스트 수정중 -->
-				<form class="row g-3">
-					<ul class="list-group list-group-numbered w-100">
-						<li
-							class="list-group-item d-flex justify-content-between align-items-start">
-							<div class="ms-2 me-auto">
-								<div class="fw-bold">제목</div>
-								조회수: 234
-							</div>
-							<div class="badge rounded-pill my-auto"
-								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
-						</li>
-						<hr class="my-1">
-						<li
-							class="list-group-item d-flex justify-content-between align-items-start">
-							<div class="ms-2 me-auto">
-								<div class="fw-bold">제목</div>
-								조회수: 234
-							</div>
-							<div class="badge rounded-pill my-auto"
-								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
-						</li>
-						<hr class="my-1">
-						<li
-							class="list-group-item d-flex justify-content-between align-items-start">
-							<div class="ms-2 me-auto">
-								<div class="fw-bold">제목</div>
-								조회수: 234
-							</div>
-							<div class="badge rounded-pill my-auto"
-								style="background-color: #9b56e9;">2023.11.19 오후 3:45</div>
-						</li>
-						<hr class="my-1">
-					</ul>
-				</form>
-				<!--  리스트 수정중 -->
+
+				
+				<div id="centerInfo">
+				    <form class="row g-3">
+				        <ul class="list-group list-group-numbered w-100">
+				            <c:forEach items="${centerInfoList}" var="noticeC">
+				                <li class="list-group-item d-flex justify-content-between align-items-start">
+				                    <div class="ms-2 me-auto">
+				                        <a href="noticeDetail.do?code=${noticeC.icCode}">${noticeC.icTitle}</a></div>
+				                        조회수: ${noticeC.icViews}
+				             
+				                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeC.icRegdate}</div>
+				                </li>
+				                <hr class="my-1">
+				            </c:forEach>
+				        </ul>
+				    </form>
+				</div>
+			
+				<div id="pilafixInfo">
+				    <!-- 필라픽스 정보를 표시할 내용 -->
+				    <form class="row g-3">
+				        <ul class="list-group list-group-numbered w-100">
+				            <c:forEach items="${pilafixInfoList}" var="noticeW">
+				                <li class="list-group-item d-flex justify-content-between align-items-start">
+				                    <div class="ms-2 me-auto">
+				                        <a href="noticeDetail.do?code=${noticeW.iwCode}">${noticeW.iwTitle}</a></div>
+				                        조회수: ${noticeW.iwViews}
+				                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeW.iwRegdate}</div>
+				                </li>
+				                <hr class="my-1">
+				            </c:forEach>
+				        </ul>
+				    </form>    
+				</div>	
+				
+							
+	
+</div>		
+
+
 
 				<!-- End Our Skills Section -->
-			</div>
 		</section>
 	</main>
 
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("input[name='btnradio']").change(function() {
+        var targetId = $(this).attr("data-target");
+        var targetDiv = $("#" + targetId);
+
+        // AJAX를 사용하여 해당 정보
+        var ajaxUrl = targetId === "centerInfo" ? "getCenterInfo.do" : "getPilafixInfo.do";
+        $.ajax({
+            url: ajaxUrl, // 서버 요청 URL
+            success: function(data) {
+                // 성공적으로 데이터를 받았을 때 해당 div에 내용을 업데이트
+                targetDiv.html(data);
+            },
+            error: function() {
+                // 에러 처리 로직을 추가
+                console.error("Failed to retrieve data.");
+            }
+        });
+    });
+});
+</script>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->

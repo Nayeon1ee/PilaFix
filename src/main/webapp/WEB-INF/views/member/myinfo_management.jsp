@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -55,24 +56,7 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-			</div>
-		</div>
-	</section>
+
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -81,38 +65,27 @@
 
 		<section class="info-box">
 			<div class="info-box04">
-				<p>이름 : ${memberInfo.csName}</p>
+				<p>이름 : ${myInfo.csName}</p>
 			</div>
 			<div class="info-box04">
-				<p>Email : ${memberInfo.csEmailId}</p>
+				<p>Email : ${myInfo.csEmailId}</p>
 			</div>
 			<div class="info-box04">
-				<p>성별 : ${memberInfo.csGenderMw }</p>
+				<p>성별 : ${myInfo.csGenderMw }</p>
 			</div>
 			<div class="info-box04">
-				<p>휴대폰번호 : ${memberInfo.csPhoneNumber1 }-${memberInfo.csPhoneNumber2 }-${memberInfo.csPhoneNumber3 }</p>
+				<p>휴대폰번호 : ${myInfo.csPhoneNumber1}-${myInfo.csPhoneNumber2}-${myInfo.csPhoneNumber3}</p>
 			</div>
-			<div class="info-box04" >
-				<a href="ticketPage.do">수강권구매</a>
-			</div>
+
 			<div class="info-box04">
-				<a href="getQuestionList.do">문의사항</a>
-			</div>
-			
-			<div class="info-box04">
-				<p>
-					<!-- <a class="password_Change" href="checkCurrentPassword.do">비밀번호변경▶</a> -->
-					<a href="#" class="password_Change" onclick="showCurrentPasswordModal()">비밀번호변경▶</a>
-					<form action="logout.do" method="post">
-						<button type="submit">로그아웃</button>
-					</form>	
-				</p>
+					<a href="#" class="password_Change" onclick="showCurrentPasswordModal()">비밀번호변경</a>
+
 			</div>
 
 		</section>
 
 		<div class="info-box04" style="text-align: center;">
-			<a class="withdraw_button" href="withdraw.jsp">회원탈퇴</a>
+			<a class="withdraw_button" href="withdrawal.do">회원탈퇴</a>
 		</div>
 		
 		<!-- 첫 번째 모달: 현재 비밀번호 확인 -->
@@ -132,9 +105,6 @@
 		        </div>
 		    </div>
 		</div>
-		
-		
-
 		<!-- 두 번째 모달: 새 비밀번호 설정 -->
 		<div class="modal fade" id="newPasswordModal" tabindex="-1">
 		    <div class="modal-dialog modal-dialog-centered">
@@ -156,6 +126,10 @@
 		</div>
 		
 </main>
+
+
+
+
 		<script>
 			function showCurrentPasswordModal() {
 				$('#currentPasswordModal').modal('show');

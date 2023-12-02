@@ -39,6 +39,18 @@ public class MemberVO {
 	private String connectedCenterName2; //연동 센터 명 (센터 코드랑 조인해서 가져옴)
 	private String connectedCenterName3; //연동 센터 명 (센터 코드랑 조인해서 가져옴)
 	
+
+    private int ticketUsageMonthPersonal1;
+    private int ticketUsageCountPersonal1;
+    private String centerNamePersonal1;
+    
+    private int ticketUsageMonthGroup1;
+    private int ticketUsageCountGroup1;
+    private String centerNameGroup1;
+
+	
+	
+
 	public int getCsMemberCode() {
 		return csMemberCode;
 	}
@@ -245,6 +257,42 @@ public class MemberVO {
 	public void setTicketNameGroup1(String ticketNameGroup1) {
 		this.ticketNameGroup1 = ticketNameGroup1;
 	}
+	public int getTicketUsageMonthPersonal1() {
+		return ticketUsageMonthPersonal1;
+	}
+	public void setTicketUsageMonthPersonal1(int ticketUsageMonthPersonal1) {
+		this.ticketUsageMonthPersonal1 = ticketUsageMonthPersonal1;
+	}
+	public int getTicketUsageCountPersonal1() {
+		return ticketUsageCountPersonal1;
+	}
+	public void setTicketUsageCountPersonal1(int ticketUsageCountPersonal1) {
+		this.ticketUsageCountPersonal1 = ticketUsageCountPersonal1;
+	}
+	public String getCenterNamePersonal1() {
+		return centerNamePersonal1;
+	}
+	public void setCenterNamePersonal1(String centerNamePersonal1) {
+		this.centerNamePersonal1 = centerNamePersonal1;
+	}
+	public int getTicketUsageMonthGroup1() {
+		return ticketUsageMonthGroup1;
+	}
+	public void setTicketUsageMonthGroup1(int ticketUsageMonthGroup1) {
+		this.ticketUsageMonthGroup1 = ticketUsageMonthGroup1;
+	}
+	public int getTicketUsageCountGroup1() {
+		return ticketUsageCountGroup1;
+	}
+	public void setTicketUsageCountGroup1(int ticketUsageCountGroup1) {
+		this.ticketUsageCountGroup1 = ticketUsageCountGroup1;
+	}
+	public String getCenterNameGroup1() {
+		return centerNameGroup1;
+	}
+	public void setCenterNameGroup1(String centerNameGroup1) {
+		this.centerNameGroup1 = centerNameGroup1;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [csMemberCode=" + csMemberCode + ", csRoleCode=" + csRoleCode + ", csEmailId=" + csEmailId
@@ -255,18 +303,19 @@ public class MemberVO {
 				+ ", csAgreementYn3=" + csAgreementYn3 + ", csRegistrationType=" + csRegistrationType
 				+ ", connectedCenterCode1=" + connectedCenterCode1 + ", connectedCenterCode2=" + connectedCenterCode2
 				+ ", connectedCenterCode3=" + connectedCenterCode3 + ", ticketCodePersonal1=" + ticketCodePersonal1
-				+ ", ticketRemainingCountPersonal1=" + ticketRemainingCountPersonal1 + ", ticketStartDatePersonal1="
-				+ ticketStartDatePersonal1 + ", ticketExpiryDatePersonal1=" + ticketExpiryDatePersonal1
-				+ ", ticketExpiryYnPersonal1=" + ticketExpiryYnPersonal1 + ", ticketCodeGroup1=" + ticketCodeGroup1
-				+ ", ticketRemainingCountGroup1=" + ticketRemainingCountGroup1 + ", ticketStartDateGroup1="
-				+ ticketStartDateGroup1 + ", ticketExpiryDateGroup1=" + ticketExpiryDateGroup1
-				+ ", ticketExpiryYnGroup1=" + ticketExpiryYnGroup1 + ", connectedCenterName1=" + connectedCenterName1
-				+ ", connectedCenterName2=" + connectedCenterName2 + ", connectedCenterName3=" + connectedCenterName3
-				+ "]";
+				+ ", ticketNamePersonal1=" + ticketNamePersonal1 + ", ticketRemainingCountPersonal1="
+				+ ticketRemainingCountPersonal1 + ", ticketStartDatePersonal1=" + ticketStartDatePersonal1
+				+ ", ticketExpiryDatePersonal1=" + ticketExpiryDatePersonal1 + ", ticketExpiryYnPersonal1="
+				+ ticketExpiryYnPersonal1 + ", ticketCodeGroup1=" + ticketCodeGroup1 + ", ticketNameGroup1="
+				+ ticketNameGroup1 + ", ticketRemainingCountGroup1=" + ticketRemainingCountGroup1
+				+ ", ticketStartDateGroup1=" + ticketStartDateGroup1 + ", ticketExpiryDateGroup1="
+				+ ticketExpiryDateGroup1 + ", ticketExpiryYnGroup1=" + ticketExpiryYnGroup1 + ", connectedCenterName1="
+				+ connectedCenterName1 + ", connectedCenterName2=" + connectedCenterName2 + ", connectedCenterName3="
+				+ connectedCenterName3 + ", ticketUsageMonthPersonal1=" + ticketUsageMonthPersonal1
+				+ ", ticketUsageCountPersonal1=" + ticketUsageCountPersonal1 + ", centerNamePersonal1="
+				+ centerNamePersonal1 + ", ticketUsageMonthGroup1=" + ticketUsageMonthGroup1
+				+ ", ticketUsageCountGroup1=" + ticketUsageCountGroup1 + ", centerNameGroup1=" + centerNameGroup1 + "]";
 	}
-	
-	
-	
-	
-	
+
+
 }

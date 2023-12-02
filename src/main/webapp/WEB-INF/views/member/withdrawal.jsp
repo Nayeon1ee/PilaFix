@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,28 +28,16 @@
 
 			<main>
 				<div id="myPage">
-					<h3>
-						<a href="memberPage.jsp">마이페이지</a> > 회원탈퇴
-					</h3>
-					<div id="userInfo">
-						<div id="myInfoLink">내 정보 관리</div>
-						<div id="userInfoText">*** 회원님</div>
-						<div id="logout">로그아웃</div>
-					</div>
-
-
 					<div class="withdraw-container">
-
 						<p>탈퇴하시려면 비밀번호를 입력하세요.</p>
 
 						<div class="input-container">
-							<label for="password">비밀번호 :</label> <input type="password"
-								id="password" placeholder="영문, 숫자 포함 8글자 이상 입력">
+							<label for="password">비밀번호 :</label> 
+							<input type="password" id="password" name=>
 						</div>
 						<button class="withdraw-button">탈퇴하기</button>
 						<p class="error-message" id="error-message"></p>
 					</div>
-
 
 					<script>
 						document
@@ -69,6 +60,8 @@
 											}
 										});
 					</script>
+					
+					
 			</main>
 
 			<area2>

@@ -38,9 +38,10 @@ public class QuestionController {
 	 * 회원의 문의사항 목록 조회
 	 * 
 	 * @param model
+	 * getQuestionList
 	 * @return
 	 */
-	@GetMapping("/getQuestionList.do")
+	@GetMapping("/questionPage.do")
 	public String getQuestionList(HttpSession session, Model model) {
 		// 로그인 후 세션에 저장된 사용자 정보에서 코드 꺼내서 getQuestionList의 파라미터로 전달해야 함
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
@@ -206,7 +207,7 @@ public class QuestionController {
 	    if (questionVO.getQsWriterMemberCode() == csMemberCode) {
 	        service.updateQuestion(questionVO);
 	    }
-	    return "redirect:/getQuestionList.do";
+	    return "redirect:/questionPage.do";
 	}
 
 	@GetMapping("/deleteQuestion.do")
@@ -217,7 +218,7 @@ public class QuestionController {
 	    }
 //	    int csMemberCode = (int) user.get("csMemberCode");
 		service.deleteQuestion(qsNumber);
-		return "redirect:getQuestionList.do";
+		return "redirect:questionPage.do";
 	}
 
 	
