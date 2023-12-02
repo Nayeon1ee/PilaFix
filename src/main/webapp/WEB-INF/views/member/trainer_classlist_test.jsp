@@ -87,72 +87,28 @@
 
 
 
-				<!-- 검색창 -->
-				<div class="container" style="max-width: 900px; margin-right: 0px;">
-					<div class="search-filter mx-auto">
-						<div class="search-filter-inner">
-							<div class="serch-filter-content">
-								<div class="row py-2 my-4">
-									<div class="col-md-3 me-1">
-										<label for="inputState" class="form-label">검색</label> <select
-											id="inputState" class="form-select" style="width: 100%;">
-											<option selected disabled>전체</option>
-											<option>그룹수업</option>
-											<option>개인수업</option>
-										</select>
-									</div>
-									<div class="col-md-6 pt-2 mt-4">
-										<div class="input-group">
-											<input type="text" class="form-control me-2" id="inputCity"
-												placeholder="검색어를 입력해주세요">
-											<div class="input-group-append">
-												<button type="submit" class="btn btn-primary search">검색</button>
-												<button type="reset" class="btn btn-primary search"
-													id="resetButton">초기화</button>
-											</div>
-										</div>
-									</div>
-								</div>
-
-
-
-								<div class="row mb-3">
-									<div class="col-md-3 me-2">
-										<label for="inputState2" class="form-label">처리상태</label> <select
-											id="inputState2" class="form-select">
-											<option selected disabled>회원상태</option>
-											<option>계약회원</option>
-											<option>해지회원</option>
-											<option>만료회원</option>
-										</select>
-									</div>
-									<div class="col-md-5">
-										<div class="input-group mb-3">
-											<label for="inputState" class="form-label mb-2">기간검색</label>
-											<div class="row">
-												<div class="col-sm-6 px-0">
-													<div class="input-group">
-														<input type="date" class="form-control rounded-start"
-															id="startDate">
-
-													</div>
-												</div>
-												<div class="col-sm-6 pe-2 pr-2">
-													<div class="input-group">
-														<input type="date" class="form-control rounded-end"
-															id="endDate">
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-								</div>
-
-
-
+<!-- 검색창 -->
+<div class="container" style="max-width: 900px; margin-right: 0px;">
+	<div class="search-filter mx-auto">
+		<div class="search-filter-inner">
+			<div class="serch-filter-content">
+				<div class="row py-2 my-4">
+					<div class="col-md-3 me-1">
+						<label for="inputState" class="form-label">검색</label> <select
+							id="inputState" class="form-select" style="width: 100%;">
+							<option selected disabled>전체</option>
+							<option>그룹수업</option>
+							<option>개인수업</option>
+						</select>
+					</div>
+					<div class="col-md-6 pt-2 mt-4">
+						<div class="input-group">
+							<input type="text" class="form-control me-2" id="inputCity"
+								placeholder="검색어를 입력해주세요">
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-primary search">검색</button>
+								<button type="reset" class="btn btn-primary search"
+									id="resetButton">초기화</button>
 							</div>
 						</div>
 					</div>
@@ -160,17 +116,47 @@
 
 
 
+				<div class="row mb-3">
+					<div class="col-md-3 me-2">
+						<label for="inputState2" class="form-label">처리상태</label> <select
+							id="inputState2" class="form-select">
+							<option selected disabled>수업상태</option>
+							<option>수업중</option>
+							<option>수업종료</option>
+							<option>폐강</option>
+						</select>
+					</div>
+					<div class="col-md-5">
+						<div class="input-group mb-3">
+							<label for="inputState" class="form-label mb-2">기간검색</label>
+							<div class="row">
+								<div class="col-sm-6 px-0">
+									<div class="input-group">
+										<input type="date" class="form-control rounded-start"
+											id="startDate">
+
+									</div>
+								</div>
+								<div class="col-sm-6 pe-2 pr-2">
+									<div class="input-group">
+										<input type="date" class="form-control rounded-end"
+											id="endDate">
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 검색창 END -->
 
 
 
-
-
-
-
-				<!-- 리스트 시작-->
-				
-
-				<!-- 그룹수업 = "getLessonByTrainerG.do" 개인수업 = "getLessonByTrainerP.do" -->
+<!-- 리스트 시작-->
 				<table class="table datatable">
 					<thead>
 						<tr>
@@ -195,32 +181,20 @@
 								<td>${lesson.lsCode}</td>
 								<td>${lesson.lsType}</td>
 								<td><a href="getTrainerLesson.do?lsCode=${lesson.lsCode}">${lesson.lsName}</a></td>
-								<!-- 날짜 형식 변환 -->						
 								<td>${lesson.lsDate}</td>
-								<!-- 시간 형식 변환 -->
 								<td>${fn:substring(lesson.lsTime, 11, 16)}</td> 
-								<!-- 예약된 인원/전체 인원 -->
 								<td>${lesson.reservedCount}/${lesson.lsCapacity}</td> 
-								<!-- 수업시간lsTime이 현재시간 지나면 '수업종료' -->
-						        <td>
-<% java.util.Date now = new java.util.Date(); %>
-<fmt:formatDate value="<%= now %>" pattern="yyyy-MM-dd HH:mm" var="currentTime" />	        
-<c:set var="correctTime" value="${fn:substring(lesson.lsTime, 11, 16)}" />
-<c:set var="fullLessonDateTime" value="${lesson.lsDate} ${correctTime}" />
-<fmt:parseDate value="${fullLessonDateTime}" pattern="yyyy-MM-dd HH:mm" var="lessonDateTime"/>
-<c:choose>
-    <c:when test="${lesson.lsCloseYN eq 'true'}">폐강</c:when>
-    <c:when test="${lessonDateTime lt currentTime}">수업종료</c:when>
-    <c:otherwise>진행중</c:otherwise>
-</c:choose>
+        <td data-lesson-start-time="${lesson.lsStartTime}" data-close-yn="${lesson.lsCloseYN}">
 
-						        </td>
-								<td>${lesson.lsCenterName}</td>
+		</td>						
+		<td>${lesson.lsCenterName}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<!-- 리스트 끝 -->
+				<!--  리스트 끝 -->
+
+
 
 				<!-- End Our Skills Section -->
 			</div>
@@ -228,6 +202,97 @@
 	</main>
 	<!-- End #main -->
 
+<!-- <script>
+  // 현재 시간을 가져오는 함수
+  function getCurrentTime() {
+    var now = new Date();
+    return now.getTime();
+  }
+
+  // 상태를 업데이트하고 테이블을 분리하는 함수
+  function updateAndSplitTable() {
+    var currentTime = getCurrentTime();
+    var rows = document.querySelectorAll(".table.datatable tbody tr");
+    
+    // 기존 테이블과 3개의 새로운 테이블을 생성
+    var existingTable = document.querySelector(".table.datatable");
+    var openTable = createEmptyTable("수업중");
+    var completedTable = createEmptyTable("수업완료");
+    var closedTable = createEmptyTable("폐강");
+    
+    rows.forEach(function (row) {
+      var closeYN = row.querySelector("td[data-close-yn]").getAttribute("data-close-yn");
+      var startTimeString = row.querySelector("td[data-lesson-start-time]").getAttribute("data-lesson-start-time");
+      var startTime = new Date(startTimeString).getTime() + 50 * 60 * 1000;
+
+      var status;
+      if (closeYN === "Y") {
+        status = "폐강";
+      } else if (currentTime >= startTime) {
+        status = "수업완료";
+      } else {
+        status = "수업중";
+      }
+      var statusCell = row.querySelector("td[data-lesson-start-time]");
+      statusCell.textContent = status; // 상태 값을 셀에 표시
+		
+      var newRow = row.cloneNode(true);
+
+      if (status === "폐강") {
+        closedTable.querySelector("tbody").appendChild(newRow);
+      } else if (status === "수업완료") {
+        completedTable.querySelector("tbody").appendChild(newRow);
+      } else {
+        openTable.querySelector("tbody").appendChild(newRow);
+      }
+    });
+    
+    // 기존 테이블을 유지하고, 새로운 테이블을 추가
+    existingTable.parentNode.appendChild(openTable);
+    existingTable.parentNode.appendChild(completedTable);
+    existingTable.parentNode.appendChild(closedTable);
+    
+    // 기존 테이블 삭제
+    existingTable.parentNode.removeChild(existingTable);
+  }
+
+  // 빈 테이블 생성 함수
+  function createEmptyTable(status) {
+    var table = document.createElement("table");
+    table.className = "table datatable";
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th scope="col">수업코드</th>
+          <th scope="col">그룹/개인</th>
+          <th scope="col">수업명</th>
+          <th scope="col">수업일자</th>
+          <th scope="col">수업시간</th>
+          <th scope="col">진행인원</th>
+          <th scope="col">상태</th>
+          <th scope="col">센터명</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    `;
+
+    var statusRow = document.createElement("tr");
+    statusRow.innerHTML = `<td colspan="8">${status}</td>`;
+    table.querySelector("tbody").appendChild(statusRow);
+
+    return table;
+  }
+
+
+//테이블 캡션(제목)을 추가하는 함수
+  function addTableCaption(table, captionText) {
+    var caption = document.createElement("caption");
+    caption.textContent = captionText;
+    table.querySelector("thead").appendChild(caption);
+  }
+  // 페이지 로딩 시 호출
+  window.onload = updateAndSplitTable;
+</script> -->
 	<!-- ======= Footer ======= -->
 	<%@ include file="member_footer_common.jsp"%>
 	<!-- End Footer -->

@@ -91,7 +91,7 @@
 										<option value="22">22시</option>
 									</select>
 									<div id="dateTimeContainer"></div>
-									<button type="button" class="btn btn-primary" id="addButton">날짜 및 시간 추가</button>
+									<button type="button" class="btn btn-primary" id="addButton">날짜 및 시간 등록</button>
 								</div>
 								<div class="text-center">
 								    <button type="submit" class="btn btn-primary">등록</button>
@@ -141,64 +141,103 @@ function removeForm(formElement) {
 //날짜와 시간을 담을 배열
 var dateTimeArray = [];
 
-// '날짜 및 시간 추가' 버튼 클릭 시 실행되는 함수
+// 데이터를 전달하기 위해 name추가
+function addNameProperty(dateTime) {
+    dateTime.lsDate = { value: dateTime.lsDate, name: "lsDate" };
+    dateTime.lsTime = { value: dateTime.lsTime, name: "lsTime" };
+}
+
+// '날짜 및 시간 등록' 버튼 클릭 시 실행되는 함수
 document.getElementById('addButton').addEventListener('click', function() {
     var lsDate = document.getElementById('dateInput').value;
     var lsTime = document.getElementById('timeSelect').value;
 
     if (lsDate && lsTime) {
-        // 날짜와 시간을 배열에 추가
-        dateTimeArray.push({ lsDate: lsDate, lsTime: lsTime });
+        // 날짜와 시간을 객체로 만들어 배열에 추가
+        var dateTime = { lsDate: lsDate, lsTime: lsTime };
+        dateTimeArray.push(dateTime);
+        console.log(dateTimeArray);
 
         // 표에 추가된 정보를 보여줄 컨테이너
         var dateTimeContainer = document.getElementById('dateTimeContainer');
 
         // 추가된 정보를 표에 추가
         var newRow = document.createElement('div');
-        newRow.innerHTML = lsDate + ' ' + lsTime + '시' + ' ' + ' <button class="btn btn-danger" onclick="removeRow(this)">Remove</button><br/>';
+        newRow.innerHTML = lsDate + ' ' + lsTime + '시' + ' ' + ' <button style="margin-bottom: 10px;" class="btn btn-danger" onclick="removeRow(this)">Remove</button><br/>';
         dateTimeContainer.appendChild(newRow);
     } else {
         alert('날짜와 시간을 선택해주세요.');
     }
 });
+/**
+var lsName = document.querySelector('input[name="lsName"]').value;
+var lsType= document.querySelector('input[name="lsType"]:checked').value;
 
-document.querySelector('form').addEventListener('submit', async function(e) {
-    e.preventDefault();
 
-    if (dateTimeArray.length > 0) {
-        try {
-            for (let i = 0; i < dateTimeArray.length; i++) {
-                const dateTime = dateTimeArray[i];
-                const response = await fetch('insertCenterLesson.do', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        lsName: document.querySelector('input[name="lsName"]').value,
-                        lsType: document.querySelector('input[name="lsType"]:checked').value,
-                        lsDate: dateTime.lsDate,
-                        lsTime: dateTime.lsTime,
-                        lsCapacity: document.querySelector('select[name="lsCapacity"]').value,
-                        trainerMemberCode: document.querySelector('select[name="trainerMemberCode"]').value,
-                        lsContent: document.querySelector('textarea[name="lsContent"]').value,
-                        centerCode: document.getElementById('centerCode').value
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error('전송 중 오류가 발생했습니다.');
-                }
-            }
-            alert('모든 날짜와 시간이 성공적으로 등록되었습니다.');
-        } catch (error) {
-            console.error('Error:', error);
-            alert('전송 중 오류가 발생했습니다.');
+function insertLesson(){
+	console.log("insertLesson() 함수 호출됨");
+	console.log(lsName);
+	console.log(lsType);
+	console.log(dateTimeArray);
+	
+    $.ajax({
+        type : "Post",
+        url : "insertTest.do", 
+        data : {
+        	lsName : lsName,
+        	lsType : lsType,
+        	dateTimeArray : dateTimeArray
+        },
+        success : function(response) {
+            console.log("insertLesson() 함수 호출됨");
+           	alert("수업 등록 완료 ");
+        },
+        error : function (xhr, status, error) {
+            console.error("Ajax 요청 실패");
+            console.error("상태 코드: ", xhr.status);
+            console.error("에러 메시지: ", error);
         }
-    } else {
-        alert('등록할 날짜와 시간이 없습니다.');
-    }
-});
+    });
+}
+*/
+
+// 데이터를 등록
+ document.querySelector('form').addEventListener('submit', async function(e) {
+		console.log(dataTimeArray);
+		
+	    if (dateTimeArray.length > 0) {
+	        try {
+	        	console.log('반복 수' + dateTimeArray.length);
+	        	for (let i = 0; i < dateTimeArray.length; i++) {
+	                const dateTime = dateTimeArray[i];
+	                const response = await fetch('insertCenterLesson.do', {
+	                    method: 'POST',
+	                    headers: {
+	                        'Content-Type': 'application/json;charset=UTF-8;'
+	                    },
+	                    body: JSON.stringify({
+	                        lsName: document.querySelector('input[name="lsName"]').value,
+	                        lsType: document.querySelector('input[name="lsType"]:checked').value,
+	                        lsDate: dateTime.lsDate,
+	                        lsTime: dateTime.lsTime,
+	                        lsCapacity: document.querySelector('select[name="lsCapacity"]').value,
+	                        trainerMemberCode: document.querySelector('select[name="trainerMemberCode"]').value,
+	                        lsContent: document.querySelector('textarea[name="lsContent"]').value,
+	                        centerCode: document.getElementById('centerCode').value
+	                    })
+	                });
+	            }
+	            alert('모든 날짜와 시간이 성공적으로 등록되었습니다.');
+	        } catch (error) {
+	            console.error('Error:', error);
+	            alert('전송 중 오류가 발생했습니다.');
+	        }
+	    } else {
+	        alert('등록할 날짜와 시간이 없습니다.');
+	    }
+	});
+ 
+
 
 // 배열 행 제거 함수
 function removeRow(button) {
@@ -207,7 +246,6 @@ function removeRow(button) {
     row.remove();
     dateTimeArray.splice(index, 1);
 }
-
 
 </script>
 

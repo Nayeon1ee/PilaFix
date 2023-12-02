@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 .total-faq-count {
   font-size: 14px;

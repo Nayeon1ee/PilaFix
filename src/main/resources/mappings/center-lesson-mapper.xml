@@ -18,24 +18,45 @@
 		<result property="lsCloseYN" column="LS_CLOSE_YN"/>	
 		<result property="csName" column="CS_NAME"/>
 		<result property="csMemberCode" column="CS_MEMBER_CODE"/>
-		<result property="lsCloseYN" column="LS_CLOSE_YN"/>
 		<result property="lsRegistrationDateToString" column="LS_REGISTRATION_DATE_TO_STRING"/>
 		<result property="lsCenterName" column="LS_CENTER_NAME"/> 
+		<result property="lsStartTime" column="LS_START_TIME"/> 
+		
+		<result property="atCode" column="AT_CODE" />
+		<result property="lessonCode" column="LESSON_CODE" />
+	</resultMap>
+	
+	<resultMap type="String" id="codeResult"> 
+	     <result property="" column="MEMBER_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
+	</resultMap>
+	
+	<resultMap type="String" id="codeResult2"> 
+	     <result property="" column="LS_CODE"/>  <!-- List<Integer>타입이므로 property가 존재하지 않음  -->
 	</resultMap>
 	
 	<select id="getCenterLessonList" resultMap="centerLessonResult" >
-		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN FROM TBL_LESSON WHERE CENTER_CODE=#{centerCode} ORDER BY LS_CODE DESC
+		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME,
+			LS_TYPE, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME,
+			LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE, LS_CLOSE_YN FROM TBL_LESSON
+		WHERE CENTER_CODE=#{centerCode}
+		ORDER BY LS_CODE DESC
 	</select>
 	<select id="getCenterLesson" resultMap="centerLessonResult">
 		SELECT LS_CODE, LS_NAME, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) as CS_NAME, LS_TYPE, LS_DATE, date_part('hour', LS_TIME::timestamp) as LS_TIME, LS_CAPACITY, LS_CURRENT_APPLICANTS, LS_CONTENT, CENTER_CODE, LS_DATE, LS_CLOSE_YN FROM TBL_LESSON WHERE LS_CODE=#{lsCode}
 	</select>
 	<insert id="insertCenterLesson" parameterType="centerLesson">
-		INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE, LS_DATE, LS_TIME, LS_CAPACITY, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE)
-		VALUES (CONCAT('LS', NEXTVAL('SEQ_LESSON')), #{lsName}, #{lsType}, #{lsDate}, to_timestamp('${lsTime}', 'HH24:00'), #{lsCapacity}, #{trainerMemberCode}, #{lsContent}, #{centerCode}, CURRENT_TIMESTAMP)
+		WITH new_lesson AS (
+		  INSERT INTO TBL_LESSON(LS_CODE, LS_NAME, LS_TYPE, LS_DATE, LS_TIME, LS_CAPACITY, TRAINER_MEMBER_CODE, LS_CONTENT, CENTER_CODE, LS_REGISTRATION_DATE)
+		  VALUES (CONCAT('LS', NEXTVAL('SEQ_LESSON')), #{lsName}, #{lsType}, #{lsDate}, to_timestamp('${lsTime}', 'HH24:MI'), #{lsCapacity}, #{trainerMemberCode}, #{lsContent}, #{centerCode}, CURRENT_TIMESTAMP)
+		  RETURNING LS_CODE, LS_DATE
+		)
+		INSERT INTO TBL_ATTEND (AT_CODE, LESSON_CODE, AT_DATE)
+		SELECT CONCAT('AT', NEXTVAL('SEQ_ATTEND')), LS_CODE, LS_DATE
+		FROM new_lesson;
 	</insert>
 	<delete id="deleteCenterLesson" parameterType="centerLesson">
 		DELETE FROM TBL_LESSON WHERE LS_CODE = #{lsCode}
-	</delete>
+	</delete> 
 
 	<select id="getTrainerCode" resultMap="centerLessonResult">
 		SELECT DISTINCT CS_MEMBER_CODE, CS_NAME
@@ -43,6 +64,12 @@
 		WHERE CS_MEMBER_CODE > 8000
 		AND (CONNECTED_CENTER_CODE1 = #{centerCode} OR CONNECTED_CENTER_CODE2 = #{centerCode} OR CONNECTED_CENTER_CODE3 = #{centerCode})
 	</select>
+
+
+
+
+
+	
 	
 	
 	
@@ -50,14 +77,18 @@
 	
 	<!-- 11/27 attend에 사용할 쿼리 추가 -->
 	<!-- 로그인한 강사의 전체 수업 리스트 가져오기 + 센터이름 -->
-	<select id="getTrainerLessonListWithCtName" parameterType="int" resultMap="centerLessonResult">
-	  SELECT 
-	    L.*, 
-	    C.CT_NAME AS LS_CENTER_NAME
-	  FROM TBL_LESSON L
-	  INNER JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
-	  WHERE L.TRAINER_MEMBER_CODE = #{csMemberCode}
-	  AND L.LS_CLOSE_YN = FALSE
+	<select id="getTrainerLessonListWithCtName" parameterType="int"
+		resultMap="centerLessonResult">
+		SELECT
+		L.*,
+		C.CT_NAME AS LS_CENTER_NAME,
+		(L.LS_DATE + L.LS_TIME::time)AS LS_START_TIME
+		FROM TBL_LESSON L
+		INNER JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
+		WHERE L.TRAINER_MEMBER_CODE = #{csMemberCode}
+		AND L.LS_CLOSE_YN = FALSE
+		<!-- ORDER BY ((L.LS_DATE + L.LS_TIME::time) - NOW()) ASC;  -->
+		ORDER BY L.LS_DATE ASC, L.LS_TIME::time DESC;
 	</select>
 	
 	<!-- 로그인한 강사의 그룹 수업 리스트 가져오기 + 센터이름 -->
@@ -87,7 +118,7 @@
 	  AND L.LS_TYPE = '개인'
 	</select>	
 
-	<!-- 수업 상세 가져오기 + 회원이름 -->
+	<!-- 수업 상세 가져오기 + 회원이름 
 	<select id="getLessonByTrainerWithCsName" parameterType="String"  resultMap="centerLessonResult">
 	    SELECT L.*, C.CS_NAME 
 	    FROM TBL_LESSON L
@@ -95,7 +126,47 @@
 	    JOIN TBL_CST C ON R.MEMBER_CODE = C.CS_MEMBER_CODE 
 	    WHERE R.RS_CANCEL_YN = FALSE
 	    AND L.LS_CODE = #{lsCode};
+	</select> -->
+	
+	<!-- 수업 상세 가져오기 -->
+	<select id="getLessonByTrainer" parameterType="String"  resultMap="centerLessonResult">
+	    SELECT *,
+	    (LS_DATE + LS_TIME::time) AS LS_START_TIME
+	    FROM TBL_LESSON
+	    WHERE LS_CODE = #{lsCode};
 	</select>
 
+
+	<!-- 11/30 출결레코드 자동 생성 대상 수업내역 조회(미사용) -->
+	<select id="getOpenLessonCodesForToday" resultMap="codeResult2">
+		<![CDATA[
+		SELECT LS_CODE 
+		FROM TBL_LESSON 
+		WHERE LS_DATE=#{today}
+			AND LS_CURRENT_APPLICANTS > 0 
+			AND LS_CLOSE_YN = FALSE 
+		]]>
+	</select>
+	
+	<!-- 자동 폐강 대상 목록 조회  - 수업시작 3시간 전이면서 신청인원이 0 -->
+	<select id="getLessonsThreeHoursAgo" resultMap="codeResult2">
+		<![CDATA[
+	    SELECT LS_CODE
+	    FROM TBL_LESSON
+	    WHERE ls_date = CURRENT_DATE
+  			AND ls_time::time <= (CURRENT_TIME + INTERVAL '3 hours')
+	    	AND LS_CURRENT_APPLICANTS = 0;
+	   	]]>
+	</select>
+	<!-- 폐강 처리  -->
+	<update id="updateLessonsClosingYn">
+		UPDATE TBL_LESSON
+		SET LS_CLOSE_YN=TRUE
+		WHERE LS_CODE=#{lsCode}
+	</update>
+	
+	  
+	
+	
 
 </mapper>

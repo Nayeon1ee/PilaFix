@@ -42,16 +42,22 @@ public class AttendDAO {
 		return sqlSessionTemplate.selectList("CenterLessonDAO.getLessonListWithCtNameAndCsName", csMemberCode);
 	}
 
+//	/**
+//	 * 수업 상세 + 예약회원이름 -> 예약회원 없는 경우 에러 수업만 따로 select
+//	 */
+//	public CenterLessonVO getLessonByTrainerWithCsName(String lsCode) {
+//		return sqlSessionTemplate.selectOne("CenterLessonDAO.getLessonByTrainerWithCsName", lsCode);
+//	}	
 	/**
-	 * 수업 상세 + 회원이름
-	 * 
-	 * @param lessonCode
-	 * @param memberCode
-	 * @param isAttended
+	 * 수업상세
+	 * @param lsCode
+	 * @return
 	 */
-	public CenterLessonVO getLessonByTrainerWithCsName(String lsCode) {
-		return sqlSessionTemplate.selectOne("CenterLessonDAO.getLessonByTrainerWithCsName", lsCode);
+	public CenterLessonVO getLessonByTrainer(String lsCode) {
+		return sqlSessionTemplate.selectOne("CenterLessonDAO.getLessonByTrainer", lsCode);
 	}
+	
+	
 
 	/**
 	 * 개인수업 출석 업데이트
@@ -72,12 +78,15 @@ public class AttendDAO {
 	 * @param lessonCode
 	 * @param selectedMemberCodes
 	 */
-	public void updateAttendanceGroupLesson(String lessonCode, List<Integer> selectedMemberCodes) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("lessonCode", lessonCode);
-		params.put("selectedMemberCodes", selectedMemberCodes);
-		sqlSessionTemplate.update("AttendDAO.updateAttendanceGroupLesson", params);
-	}
+	public void updateAttendanceGroupLesson(Map<String, Object> paramMap) {
+        sqlSessionTemplate.update("AttendDAO.updateAttendanceGroupLesson", paramMap);
+    }
+//	public void updateAttendanceGroupLesson(String lessonCode, List<Integer> selectedMemberCodes) {
+//		Map<String, Object> params = new HashMap<>();
+//		params.put("lessonCode", lessonCode);
+//		params.put("selectedMemberCodes", selectedMemberCodes);
+//		sqlSessionTemplate.update("AttendDAO.updateAttendanceGroupLesson", params);
+//	}
 
 	/**
 	 * 예약한 회원 이름, 회원코드
@@ -105,22 +114,22 @@ public class AttendDAO {
 	/**
 	 * 예약한 회원 수
 	 */
-	public int getReservedCountForLesson(String lsCode) {
-		return sqlSessionTemplate.selectOne("AttendDAO.getReservedCountForLesson", lsCode);
+	public int getReservedCountForLesson(String lessonCode) {
+		return sqlSessionTemplate.selectOne("AttendDAO.getReservedCountForLesson", lessonCode);
 	}
 
 	/**
 	 * 출석한 회원 수
 	 */
-	public int getAttendedCountForLesson(String lsCode) {
-		return sqlSessionTemplate.selectOne("AttendDAO.getAttendedCountForLesson", lsCode);
+	public int getAttendedCountForLesson(String lessonCode) {
+		return sqlSessionTemplate.selectOne("AttendDAO.getAttendedCountForLesson", lessonCode);
 	}
 
 	/**
 	 * 결석한 회원 수
 	 */
-	public int getAbsentCountForLesson(String lsCode) {
-		return sqlSessionTemplate.selectOne("AttendDAO.getAbsentCountForLesson", lsCode);
+	public int getAbsentCountForLesson(String lessonCode) {
+		return sqlSessionTemplate.selectOne("AttendDAO.getAbsentCountForLesson", lessonCode);
 	}
 
 }

@@ -41,14 +41,25 @@ public class MemberTrainerManageController {
 	}
 	
 	
+	/**
+	 * 강사 리스트 조회 
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/getTrainerList.do")
 	public String getTrainerList(Model model) {
 		model.addAttribute("memberList", service.getTrainerList());
 		return "admin/admin_trainer";
 	}
 	
-	
-	
+	/**
+	 * 회원 상세 조회 
+	 * 
+	 * @param csMemberCode
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/getMember.do")
 	public String getMemberAndPaymentListAndConnectCenterList(int csMemberCode, Model model) {
 		

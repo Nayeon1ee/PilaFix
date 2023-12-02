@@ -86,7 +86,7 @@
 				<div class="reserv_cancel_list d-flex justify-content-center">
 					<div class="reserv_cancel_list d-flex justify-content-center">
 						<div class="section_0"
-							style="border: border-radius: 5px; margin-bottom: 20px; position: relative; overflow: hidden; width: 700px;">
+							style="border: border-radius: 5px; margin-bottom: 20px; position: relative; overflow: hidden; width: 970px;">
 							<div class="time" id="cancelTime">
 								<p class="fw-bold mb-0" style="color: #e44d26;">
 									취소 가능한 시간까지 <span id="timeRemaining"></span> 남았어요!
@@ -97,62 +97,74 @@
 
 
 
-					<div class="container" style="max-width: 700px">
-						<div class="row">
-							<div class="col-md-6 p-0">
+					<div class="container px-0" style="max-width: 1000px">
+				
+							
 								<div class="section1">
-									 <div class="card h-100" style="max-width: 347.5px;">
+									 <div class="card h-100" style="max-width: 990px;">
 										<div class="card-header">
 											<b>내 예약 정보 확인</b>
 										</div>
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item mb-2">${cancelInfo.lesson.centerName} | ${cancelInfo.lesson.lsType }수업</li>
-											<li class="list-group-item mb-2">${cancelInfo.lesson.lsName}</li>
+											<li class="list-group-item mb-2 custom-highlight-item">${cancelInfo.lesson.centerName} | ${cancelInfo.lesson.lsType }수업</li>
+											<li class="list-group-item pt-0 mb-2">${cancelInfo.lesson.lsName}</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="remainingSessions">예약일자</label>
+													<label class="input-group-text" for="remainingSessions"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">예약일자 :</label>
 													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.lesson.lsDate}" readonly>
 												</div>
 											</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="expirationDate">예약시간</label>
+													<label class="input-group-text" for="expirationDate"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">예약시간 :</label>
 													<input type="text" class="form-control" id="expirationDate" value="${cancelInfo.lesson.lsTime} ~ ${cancelInfo.lesson.lsEndTime}"name="expirationDate" readonly>
 												</div>
 											</li>
 										</ul>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-6 p-0">
-								<div class="section2">
-									 <div class="card h-100" style="max-width: 347.5px;">
+							
+							
+								<div class="section2 mt-3">
+									 <div class="card h-100" style="max-width: 990px;">
 										<div class="card-header">
 											<b>내 수강권 정보 확인</b>
 										</div>
 										<ul class="list-group list-group-flush">
-										<li class="list-group-item mb-1 title-text">${cancelInfo.lesson.centerName} | ${cancelInfo.lesson.lsType }수업</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="remainingSessions">잔여횟수</label>
+													<label class="input-group-text" for="remainingSessions"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">수강권명 :</label>
+													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketName}" readonly>
+												</div>
+											</li>
+											
+											<li class="list-group-item">
+												<div class="input-group">
+													<label class="input-group-text" for="remainingSessions"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">잔여횟수 :</label>
 													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketRemainingCount }" readonly>
 												</div>
 											</li>
 											<li class="list-group-item">
 												<div class="input-group">
-													<label class="input-group-text" for="expirationDate">만료일</label>
+													<label class="input-group-text" for="expirationDate"><img alt="bar"
+													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">만료일 :</label>
 													<input type="text" class="form-control" id="expirationDate" value="${cancelInfo.ticket.ticketExpiryDate }"	name="expirationDate" readonly>
 												</div>
 											</li>
 										</ul>
 									</div>
 								</div>
-							</div>
+							
 
 
-						</div>
+						
 					</div>
-					<div class="section">
+					
+					<div class="section" style="max-width: 1000px">
 						<div class="card">
 							<div class="card-header">
 								<b>이용정책</b>
@@ -166,7 +178,7 @@
 									</li>
 									<li class="list-group-item">
 										<div class="policy-form">
-											<textarea class="form-control" rows="4" readonly>${guide.ugContent}</textarea>
+											<textarea class="form-control custom-textarea" rows="4" readonly>${guide.ugContent}</textarea>
 										</div>
 									</li>
 								
@@ -179,17 +191,15 @@
 
 					<div class="section">
 
-						<div class="d-grid gap-2 justify-content-end me-2">
-							<button class="btn btn-primary my-auto" type="button"
-								data-bs-toggle="modal" data-bs-target="#exampleModal"
-								style="width: 100px;">취소하기</button>
+						<div class="d-flex justify-content-end" style="width: 825px;">
+							<button class="btn btn-primary my-auto" type="button" onclick="isPossibleToCancel()"	style="width: 100px;">취소하기</button>
 						</div>
 
 					</div>
 				</div>
 
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1"
+				<div class="modal fade" id="cancelModal" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div
 						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -212,6 +222,32 @@
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">닫기</button>
 								<button type="button" class="btn btn-primary my-auto" onclick="cancelReservation('${cancelInfo.reservation.rsCode}', '${cancelInfo.lesson.lsCode}', ${cancelInfo.lesson.centerCode})">취소하기</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 예약 불가 모달  -->
+				<div class="modal fade" id="impossibleModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										예약취소 가능 시간이 지났습니다.<br>
+										자세한 정보는 센터에 문의해주세요.
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='schedule.do'">닫기</button>
 
 							</div>
 						</div>
@@ -241,9 +277,9 @@
 	<script>
 	<!--  취소 가능한 날짜 계산 함수 -->
     function calculateCancellationDate(lessonDate) {
-        // 예약 시간에서 24시간을 빼서 하루 전까지만 취소 가능하도록 설정
+        // 예약 시간에서 4시간 전까지만 취소 가능하도록 설정
         var cancelDate = new Date(lessonDate);
-        cancelDate.setHours(cancelDate.getHours() - 3);
+        cancelDate.setHours(cancelDate.getHours() - 4);
 
         return cancelDate;
     }
@@ -252,18 +288,11 @@
     function calculateTimeRemaining() {
         // 취소 가능한 날짜 계산
         var lessonDate = new Date('${cancelInfo.lesson.lessonDatetime}'); // 서버에서 받은 lesson 정보를 사용
-        console.log(lessonDate);
+        //console.log(lessonDate);
         var now = new Date();
-
-        // 당일 취소 불가인 경우
-        if (lessonDate.getDate() === now.getDate() && lessonDate.getMonth() === now.getMonth() && lessonDate.getFullYear() === now.getFullYear()) {
-            document.getElementById('timeRemaining').innerHTML = '당일 취소는 불가능합니다.';
-            return;
-        }
 
         var cancelDate = calculateCancellationDate(lessonDate);
 
-        // 당일 취소가 아닌 경우에만 남은 시간 계산
         if (now < cancelDate) {
             var timeDifference = cancelDate - now;
 
@@ -275,7 +304,8 @@
             // 결과를 페이지에 반영
             document.getElementById('timeRemaining').innerHTML = hours + '시간 ' + minutes + '분 ' + seconds + '초';
         } else {
-            document.getElementById('timeRemaining').innerHTML = '취소 가능한 시간이 지났습니다.';
+        	document.getElementById('cancelTime').innerHTML='';
+            document.getElementById('cancelTime').innerHTML = '<p class="fw-bold mb-0" style="color: #e44d26;">취소 가능한 시간이 지났습니다.</p>';
         }
     }
 
@@ -284,6 +314,21 @@
 
     // 1초마다 갱신
     setInterval(calculateTimeRemaining, 1000);
+    
+    <!-- 모달 클릭 시 취소가능 여부 판단 -->
+    function isPossibleToCancel(){
+    	 var lessonDate = new Date('${cancelInfo.lesson.lessonDatetime}'); // 서버에서 받은 lesson 정보를 사용
+         var now = new Date();
+
+         var cancelDate = calculateCancellationDate(lessonDate);
+
+         if (now < cancelDate) {
+        	 $('#cancelModal').modal('show');
+         } else {
+        	 $('#impossibleModal').modal('show');
+         }
+
+    }
         
     <!-- 예약 취소 -->
 	function cancelReservation(rsCode, lsCode, centerCode) {
@@ -309,8 +354,7 @@
 	                
 	                if(response){
    	                console.log("cancelReservation() 호출 성공");
-	              		// 추후 내스케줄 확인으로 이동
-	   	            alert("취소가 완료되었습니다. ");
+	              	// 추후 내스케줄 확인으로 이동
 	   	            window.location.href = 'schedule.do';
 	                }
 	            },
@@ -323,8 +367,6 @@
 
 	    }
 	</script>
-	<!--  취소 가능한 시간 스크립트 -->
-
 
 
 	<!-- Vendor JS Files -->

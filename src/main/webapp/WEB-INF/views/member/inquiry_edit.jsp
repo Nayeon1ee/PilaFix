@@ -121,7 +121,7 @@
                                 <textarea class="form-control" name="qsContent" rows="6">${question.qsContent}</textarea>
                             </div>
 						    <div style="display: flex; justify-content: flex-end;">
-						        <button type="submit" class="submit-button">수정하기</button>
+						        <button type="submit" class="submit-button me-2">수정하기</button>
 						    </div>
                        
                    <!-- End Our Skills Section -->

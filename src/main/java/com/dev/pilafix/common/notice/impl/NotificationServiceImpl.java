@@ -11,22 +11,10 @@ import com.dev.pilafix.common.notice.NotificationService;
 @Service
 public class NotificationServiceImpl implements NotificationService{
 
-//	@Autowired
-//	private WebSocketSessionManager sessionManager;
 	
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	@Override
-	public void processUnsentNotifications() {
-//		System.out.println("Scheduler 동작 중 ");
-//		int csMemberCode = (int) session.getAttributes().get("csMemberCode");
-//
-//		// 회원 화면에 떠야 할 내용 
-//		List<NoticeVO> notices = noticeDAO.getNoticesForSend();
-//		noticeDAO.updateNoticeStatus(null);
-		
-	}
 
 	/**
 	 * 미확인 알림 카운트 조회

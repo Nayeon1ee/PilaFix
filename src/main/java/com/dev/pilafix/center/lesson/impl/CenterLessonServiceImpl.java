@@ -39,4 +39,11 @@ public class CenterLessonServiceImpl implements CenterLessonService {
 		return dao.getTrainerCode(centerCode);
 	}
 
+//	@Override
+//	public void insertCenterLesson(CenterLessonVO[] lessons) {
+//		for(int i=0; i<lessons.length; i++) {
+//			dao.insertCenterLesson(lessons[i]);
+//		}
+//	}
+
 }

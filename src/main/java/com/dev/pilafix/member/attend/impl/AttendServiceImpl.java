@@ -44,7 +44,7 @@ public class AttendServiceImpl implements AttendService {
 	 */
 	@Override
 	public CenterLessonVO getTrainerLessonDetail(String lsCode) {
-		CenterLessonVO lessonDetail = dao.getLessonByTrainerWithCsName(lsCode);
+		CenterLessonVO lessonDetail = dao.getLessonByTrainer(lsCode);
 		List<Integer> memberCodes = dao.getReservedMemberCodeForLesson(lsCode);
 		List<String> memberNames = dao.getReservedNameForLesson(lsCode);
 
@@ -71,11 +71,25 @@ public class AttendServiceImpl implements AttendService {
 		return lessonDetail;
 	}
 
-	@Transactional
-	public Map<String, Integer> updateAttendanceGroupLesson(String lessonCode, List<Integer> selectedMemberCodes) {
-		// 출석한 회원에 대한 업데이트 로직
-		dao.updateAttendanceGroupLesson(lessonCode, selectedMemberCodes);
+	/**
+	 * 그룹수업 출결처리
+	 */
+	@Override
+    @Transactional
+    public void updateAttendanceGroupLesson(String lessonCode, List<Integer> selectedMemberCodes) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("lessonCode", lessonCode);
+        paramMap.put("selectedMemberCodes", selectedMemberCodes);
+        dao.updateAttendanceGroupLesson(paramMap);
 
+    }
+	
+	/**
+	 * 출석,결석 수 저장
+	 */
+	
+	@Override
+	public Map<String, Integer> getCountAttendanceForLesson(String lessonCode) {
 		// 출석/결석 count 가져오기
 		int attendedCount = dao.getAttendedCountForLesson(lessonCode);
 		int absentCount = dao.getAbsentCountForLesson(lessonCode);
@@ -84,10 +98,47 @@ public class AttendServiceImpl implements AttendService {
 		Map<String, Integer> counts = new HashMap<>();
 		counts.put("attended", attendedCount);
 		counts.put("absent", absentCount);
-
 		// 결과 반환
 		return counts;
 	}
+	
+//호출할때
+//	Map<String, Integer> attendanceCounts = service.getCountAttendanceForLesson(lessonCode);
+//	int attendedCount = attendanceCounts.get("attended");
+//	int absentCount = attendanceCounts.get("absent");
+	
+	
+//	@Override
+//	public int getCountAttendanceForLesson(String lessonCode) {
+//        // 출석 및 결석 회원 수 가져오기
+//        int attendedCount = dao.getAttendedCountForLesson(lessonCode);
+//        int absentCount = dao.getAbsentCountForLesson(lessonCode);
+//
+//        // CenterLessonVO에 출석 및 결석 회원 수 업데이트
+//        CenterLessonVO lesson = new CenterLessonVO();
+//        lesson.setLsCode(lessonCode);
+//        lesson.setAttendedCount(attendedCount);
+//        lesson.setAbsentCount(absentCount);
+//        
+//        return 
+//	}
+//	@Transactional
+//	public Map<String, Integer> updateAttendanceGroupLesson(String lessonCode, List<Integer> selectedMemberCodes) {
+//		// 출석한 회원에 대한 업데이트 로직
+//		dao.updateAttendanceGroupLesson(lessonCode, selectedMemberCodes);
+//
+//		// 출석/결석 count 가져오기
+//		int attendedCount = dao.getAttendedCountForLesson(lessonCode);
+//		int absentCount = dao.getAbsentCountForLesson(lessonCode);
+//
+//		// 결과 맵 생성
+//		Map<String, Integer> counts = new HashMap<>();
+//		counts.put("attended", attendedCount);
+//		counts.put("absent", absentCount);
+//
+//		// 결과 반환
+//		return counts;
+//	}
 
 	/**
 	 * 개인수업출결
@@ -109,8 +160,8 @@ public class AttendServiceImpl implements AttendService {
 	 * 수업상세내역
 	 */
 	@Override
-	public CenterLessonVO getLessonByTrainerWithCsName(String lsCode) {
-		return dao.getLessonByTrainerWithCsName(lsCode);
+	public CenterLessonVO getLessonByTrainer(String lsCode) {
+		return dao.getLessonByTrainer(lsCode);
 	}
 
 	/**

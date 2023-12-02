@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 /* 노말라이즈 시작 */
 body, ul, li {

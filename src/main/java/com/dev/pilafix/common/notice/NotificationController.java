@@ -26,6 +26,7 @@ public class NotificationController {
 	 */
 	@PostMapping("/unReadNotificationCount.do")
 	@ResponseBody
+	@Async
 	public int sendNotification(int csMemberCode) {
 		System.out.println("count호출 됨 ");
 		int response = service.getUnReadNotificationCount(csMemberCode);
@@ -53,6 +54,7 @@ public class NotificationController {
 	 * @param ncId
 	 */
 	@PostMapping("/updateNoticeStatus.do")
+	@ResponseBody
 	public void updateNoticeStatus(String ncId) {
 		service.updateNoticeStatus(ncId);
 	}

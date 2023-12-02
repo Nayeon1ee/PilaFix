@@ -4,41 +4,232 @@
 
 <mapper namespace="MemberMypageDAO">
 
-<resultMap type="memberMypage" id="memberMypageResult">
-		
-		<result property="paId" column="PA_ID"/>
-		<result property="paMethod" column="PA_METHOD"/>
-		<result property="paDateTime" column="PA_DATETIME"/>
-		<result property="paAmount" column="PA_AMOUNT"/>
-		<result property="ticketCode" column="TICKET_CODE"/>
-		<result property="memberCode" column="MEMBER_CODE"/>
-		<result property="paCancelYn" column="PA_CANCEL_YN"/>
-		
+	<resultMap type="memberMypage" id="memberMypageResult">		
+			<result property="paId" column="PA_ID"/>
+			<result property="paMethod" column="PA_METHOD"/>
+			<result property="paDateTime" column="PA_DATETIME"/>
+			<result property="paAmount" column="PA_AMOUNT"/>
+			<result property="ticketCode" column="TICKET_CODE"/>
+			<result property="memberCode" column="MEMBER_CODE"/>
+			<result property="paCancelYn" column="PA_CANCEL_YN"/>		
+			<result property="tkName" column="TK_NAME"/>
+			<result property="tkLessonType" column="TK_LESSON_TYPE"/>
+			<result property="tkUsageNumMonth" column="TK_USAGE_NUM_MONTH"/>
+			<result property="tkUsageCount" column="TK_USAGE_COUNT"/>
+			<result property="tkPriceAddDot" column="TK_PRICE"/>
+			<result property="centerCode" column="CENTER_CODE"/>
+			<result property="tkCapacity" column="TK_CAPACITY"/>
+			<result property="centerName" column="CT_NAME" />	
+	</resultMap>
+
+	<resultMap type="centerInfo" id="centerInfoResult">
+		<id property="icNumber" column="IC_NUMBER"/>
+		<result property="title" column="IC_TITLE" />
+		<result property="content" column="IC_CONTENT" />
+		<result property="writerMemberCode" column="IC_WRITER_MEMBER_CODE" />
+		<result property="regDate" column="IC_REGDATE" />
+		<result property="cnt" column="IC_VIEWS" />
+		<result property="openYN" column="IC_OPEN_YN" />
+		<result property="centerName" column="CT_NAME" />
+	</resultMap>
+	<resultMap type="adminInfo" id="adminInfoResult">
+		<id property="iwNumber" column="IW_NUMBER"/>
+		<result property="title" column="IW_TITLE" />
+		<result property="content" column="IW_CONTENT" />
+		<result property="writerMemberCode" column="IW_WRITER_MEMBER_CODE" />
+		<result property="writerMemberName" column="AD_NAME" />
+		<result property="regDate" column="IW_REGDATE" />
+		<result property="cnt" column="IW_VIEWS" />
+		<result property="openYN" column="IW_OPEN_YN" />
+		<result property="adminName" column="AD_NAME" />
+	</resultMap>	
+	<resultMap type="faqInfo" id="faqInfoResult">
+		<id property="fqNumber" column="FQ_NUMBER"/>
+		<result property="fqTitle" column="FQ_TITLE" />
+		<result property="fqContent" column="FQ_CONTENT" />
+		<result property="fqWriterMemberCode" column="FQ_WRITER_MEMBER_CODE" />
+		<result property="fqRegDate" column="FQ_REGDATE" />
+		<result property="fqOpenYn" column="FQ_OPEN_YN" />
+		<result property="fqType" column="FQ_TYPE" />
+	</resultMap>	
+	<resultMap type="member" id="memberResult">
+	    <id property="csMemberCode" column="CS_MEMBER_CODE"/>
+	    <result property="csEmailId" column="CS_EMAIL_ID"/>
+	    <result property="csPassword" column="CS_PASSWORD" />
+	    <result property="csName" column="CS_NAME" />
+	    <result property="csPhoneNumber1" column="CS_PHONE_NUMBER1" />
+	    <result property="csPhoneNumber2" column="CS_PHONE_NUMBER2" />
+	    <result property="csPhoneNumber3" column="CS_PHONE_NUMBER3" />
+	    <result property="csRegistrationDate" column="CS_REGISTRATION_DATE" />
+	    <result property="csBirth" column="CS_BIRTH" />
+	    <result property="csGenderMw" column="CS_GENDER_MW" />
+	    <result property="csDeleteYn" column="CS_DELETE_YN" />
+	    <result property="csAgreementYn1" column="CS_AGREEMENT_YN1" />
+	    <result property="csAgreementYn2" column="CS_AGREEMENT_YN2" />
+	    <result property="csAgreementYn3" column="CS_AGREEMENT_YN3" />
+	    <result property="csRegistrationType" column="CS_REGISTRATION_TYPE" />
+	    <result property="csRegistrationDate" column="CS_REGISTRATION_DATE" />
+	    <result property="csRoleCode" column="CS_ROLE_CODE" />
+	    <result property="connectedCenterCode1" column="CONNECTED_CENTER_CODE1" />
+	    <result property="connectedCenterCode2" column="CONNECTED_CENTER_CODE2" />
+	    <result property="connectedCenterCode3" column="CONNECTED_CENTER_CODE3" />
+	    <result property="connectedCenterName1" column="CONNECTED_CENTER_NAME1" />
+	    <result property="connectedCenterName2" column="CONNECTED_CENTER_NAME2" />
+	    <result property="connectedCenterName3" column="CONNECTED_CENTER_NAME3" />
+	    <result property="ticketCodePersonal1" column="TICKET_CODE_PERSONAL1" />
+		<result property="ticketRemainingCountPersonal1" column="TICKET_REMAINING_COUNT_PERSONAL1" />
+		<result property="ticketStartDatePersonal1" column="TICKET_START_DATE_PERSONAL1" />
+		<result property="ticketExpiryDatePersonal1" column="TICKET_EXPIRY_DATE_PERSONAL1" />
+		<result property="ticketExpiryYnPersonal1" column="TICKET_EXPIRY_YN_PERSONAL1" />
+		<result property="ticketCodeGroup1" column="TICKET_CODE_GROUP1" />
+		<result property="ticketRemainingCountGroup1" column="TICKET_REMAINING_COUNT_GROUP1" />
+		<result property="ticketStartDateGroup1" column="TICKET_START_DATE_GROUP1" />
+		<result property="ticketExpiryDateGroup1" column="TICKET_EXPIRY_DATE_GROUP1" />
+		<result property="ticketExpiryYnGroup1" column="TICKET_EXPIRY_YN_GROUP1" />
+	</resultMap>	
+	<resultMap type="centerTicket" id="centerTicketResult">
+		<id property="tkCode" column="TK_CODE"/>
 		<result property="tkName" column="TK_NAME"/>
 		<result property="tkLessonType" column="TK_LESSON_TYPE"/>
+		<result property="tkCapacity" column="TK_CAPACITY"/>
 		<result property="tkUsageNumMonth" column="TK_USAGE_NUM_MONTH"/>
 		<result property="tkUsageCount" column="TK_USAGE_COUNT"/>
+		<result property="tkDescription" column="TK_DESCRIPTION"/>
 		<result property="tkPriceAddDot" column="TK_PRICE"/>
+		<result property="purchaseAvailableYN" column="PURCHASE_AVAILABLE_YN"/>
 		<result property="centerCode" column="CENTER_CODE"/>
-		<result property="tkCapacity" column="TK_CAPACITY"/>
+		<result property="RegistrationDate" column="REGISTRATION_DATE"/>
+		<result property="centerName" column="CT_NAME"/>
+	</resultMap>
+		<resultMap type="com.dev.pilafix.common.member.CenterVO" id="centerResult">
+		<result property="ctName" column="CT_NAME" />
+		<result property="ctCode" column="CT_CODE" />
+	</resultMap>
+	
+	
+	
+	<select id="getMyPaymentInfo" resultMap="memberMypageResult">
+	   SELECT 
+	      P.PA_ID,P.PA_METHOD,P.PA_DATETIME,TO_CHAR(P.PA_AMOUNT,'999,999,999')AS PA_AMOUNT,P.TICKET_CODE,P.PA_CANCEL_YN,
+	      T.TK_NAME,T.TK_LESSON_TYPE,T.TK_USAGE_NUM_MONTH,T.TK_USAGE_COUNT,T.CENTER_CODE,T.TK_CAPACITY,
+	      C.CT_NAME
+	   FROM tbl_payment P
+	   JOIN TBL_TICKET T ON P.TICKET_CODE = T.TK_CODE
+	    JOIN TBL_CENTER C ON T.CENTER_CODE = C.CT_CODE
+	    WHERE MEMBER_CODE=#{csMemberCode}
+	    ORDER BY P.PA_DATETIME DESC
+	</select>
+	
+	
+	<!-- 연동센터 이름, 코드 가져오기 -->
+	<select id="getConnectedCenterList" resultMap="centerResult" parameterType="int">
+		SELECT CT_NAME,CT_CODE
+		FROM TBL_CENTER
+		WHERE CT_CODE IN (
+	    		SELECT CONNECTED_CENTER_CODE1 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+	  		    UNION
+	    		SELECT CONNECTED_CENTER_CODE2 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+	    		UNION SELECT CONNECTED_CENTER_CODE3 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+				)
+	</select>
+	<!-- 회원의 연동 센터 해제 -->
+	<update id="disconnectCenter" parameterType="map">
+        UPDATE TBL_CST
+        SET
+            CONNECTED_CENTER_CODE1 = CASE
+                WHEN CONNECTED_CENTER_CODE1 = #{selectedCenterCode} THEN 0
+                ELSE CONNECTED_CENTER_CODE1
+            END,
+            CONNECTED_CENTER_CODE2 = CASE
+                WHEN CONNECTED_CENTER_CODE2 = #{selectedCenterCode} THEN 0
+                ELSE CONNECTED_CENTER_CODE2
+            END,
+            CONNECTED_CENTER_CODE3 = CASE
+                WHEN CONNECTED_CENTER_CODE3 = #{selectedCenterCode} THEN 0
+                ELSE CONNECTED_CENTER_CODE3
+            END
+        WHERE
+            CS_MEMBER_CODE = #{csMemberCode};
+    </update>
+	
+	<!-- 회원탈퇴 -->
+	<update id="withdrawMember" parameterType="int">
+		UPDATE TBL_CST
+		SET CS_DELETE_YN = TRUE
+		WHERE CS_MEMBER_CODE = #{csMemberCode}
+	</update>
+	
+	<!-- 회원의 개인수강권 정보 조회  -->
+	<select id="getPersonalTicketByMember" resultMap="centerTicketResult">
+		SELECT TK.*, CT.CT_NAME AS centerName
+		FROM TBL_TICKET TK
+		JOIN TBL_CST CST ON CST.TICKET_CODE_PERSONAL1 = TK.TK_CODE
+		JOIN TBL_CENTER CT ON TK.CENTER_CODE = CT.CT_CODE
+		WHERE CST.CS_MEMBER_CODE = #{csMemberCode};
+	</select>	
+	<!-- 회원의 그룹수강권 정보 조회  -->
+	<select id="getGroupTicketByMember" resultMap="centerTicketResult">
+		SELECT TK.*, CT.CT_NAME AS centerName
+		FROM TBL_TICKET TK
+		JOIN TBL_CST CST ON CST.TICKET_CODE_GROUP1 = TK.TK_CODE
+		JOIN TBL_CENTER CT ON TK.CENTER_CODE = CT.CT_CODE
+		WHERE CST.CS_MEMBER_CODE = #{csMemberCode};
+	</select>	
 
-		<result property="centerName" column="CT_NAME" />
-		
-</resultMap>
+	<!-- 회원의 센터 공지사항 리스트,상세 -->
+	<select id="getCenterInfoListByMember" resultMap="centerInfoResult" >
+	   SELECT n.*, c.CT_NAME as centerName
+	    FROM (
+	        SELECT CS_MEMBER_CODE, CONNECTED_CENTER_CODE1 AS CENTER_CODE FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+	        UNION ALL
+	        SELECT CS_MEMBER_CODE, CONNECTED_CENTER_CODE2 AS CENTER_CODE FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+	        UNION ALL
+	        SELECT CS_MEMBER_CODE, CONNECTED_CENTER_CODE3 AS CENTER_CODE FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
+	    ) cst
+	    LEFT JOIN TBL_INFO_C n ON cst.CENTER_CODE = n.IC_WRITER_MEMBER_CODE
+	    LEFT JOIN TBL_CENTER c ON c.CT_CODE = n.IC_WRITER_MEMBER_CODE
+	    WHERE n.IC_OPEN_YN = TRUE
+	    ORDER BY IC_NUMBER DESC; 
+	</select>
+	<select id="getCenterInfoByMember" resultMap="centerInfoResult">
+		SELECT I.*, C.CT_NAME as centerName
+		FROM TBL_INFO I
+		LEFT JOIN TBL_CENTER C ON I.IC_WRITER_MEMBER_CODE = C.CT_CODE
+		WHERE I.IC_NUMBER = #{icNumber};
+	</select>	
 
-<select id="getMyPaymentInfo" resultMap="memberMypageResult">
-	SELECT 
-		P.PA_ID,P.PA_METHOD,P.PA_DATETIME,TO_CHAR(P.PA_AMOUNT,'999,999,999')AS PA_AMOUNT,P.TICKET_CODE,P.PA_CANCEL_YN,
-		T.TK_NAME,T.TK_LESSON_TYPE,T.TK_USAGE_NUM_MONTH,T.TK_USAGE_COUNT,T.CENTER_CODE,T.TK_CAPACITY,
-		C.CT_NAME
-	FROM tbl_payment P
-	JOIN TBL_TICKET T ON P.TICKET_CODE = T.TK_CODE
-    JOIN TBL_CENTER C ON T.CENTER_CODE = C.CT_CODE
-    WHERE MEMBER_CODE=#{csMemberCode}
-    ORDER BY P.PA_DATETIME DESC
-</select>
+	<!-- 회원의 웹관리자 공지사항 리스트,상세 -->
+	<select id="getAdminInfoListByMember" resultMap="adminInfoResult" >
+		SELECT *
+		FROM TBL_INFO_W
+		WHERE IW_OPEN_YN = TRUE
+		ORDER BY IW_NUMBER DESC;
+	</select>
+	<select id="getAdminInfoByMember" resultMap="adminInfoResult">
+		SELECT * FROM TBL_INFO WHERE IW_NUMBER = #{iwNumber}
+	</select>	
+	
+	<!-- FAQ 리스트, 상세 -->
+	<!-- FQ_WRITER_MEMBER_CODE int형식으로 되어있는데 수정해야함 -->
+	<select id="getFAQListByMember" resultMap="faqInfoResult">
+	    SELECT
+	        FQ.*,
+	        A.AD_NAME AS adminName
+	    FROM TBL_FAQ FQ
+	    LEFT JOIN TBL_ADMIN A ON FQ.FQ_WRITER_MEMBER_CODE = A.AD_CODE
+	    WHERE FQ.FQ_OPEN_YN = TRUE
+	    ORDER BY FQ.FQ_NUMBER DESC;
+	</select>
+	<select id="getFaqByMember" resultMap="faqInfoResult" >
+		SELECT * FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber} 
+	</select>	
 
+	<!-- 마이페이지 내정보 조회 member-login -->
+	<select id="getMypageMemberInfo" resultMap="memberResult">
+   		SELECT * FROM TBL_CST WHERE cs_member_code = #{csMemberCode}
+	</select> 
+	
 
-
+	
 
 </mapper>
