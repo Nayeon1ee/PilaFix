@@ -37,23 +37,10 @@ public class CommunityController {
 		
 	}
 	
-//	@PostMapping("serchFilter.do")
-//	@ResponseBody
-//	public String serchFilter(@RequestParam String searchType,String searchKeyword,Date startDate,Date endDate) {
-//		
-//		System.out.println(searchType);
-//		System.out.println(searchKeyword);
-//		System.out.println(startDate);
-//		System.out.println(endDate);
-//		return "";
-//	}
+	// 검색필터 (부트스트랩 테이블 ajax안먹어서 조건으로 검색한 값 가지고 페이지 재로드함)
 	@PostMapping("/serchFilter.do")
 	public String getFilteringData(String searchType,String searchKeyword,String startDate,String endDate,Model model) {
 		Map<String,Object> searchCondition = new HashMap<>();
-//		if (searchType=="") { searchCondition.put("searchType", null);} else {searchCondition.put("searchType", searchType);}
-//		if (searchType=="") { searchCondition.put("searchKeyword", null);} else {searchCondition.put("searchKeyword", searchKeyword);}
-//		if (searchType=="") { searchCondition.put("startDate", null);} else {searchCondition.put("startDate", startDate);}
-//		if (searchType=="") { searchCondition.put("endDate", null);} else {searchCondition.put("endDate", endDate);}
 		
 		searchCondition.put("searchType", searchType);
 		searchCondition.put("searchKeyword", searchKeyword);

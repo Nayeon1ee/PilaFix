@@ -67,12 +67,6 @@
 	href="${pageContext.request.contextPath}/resources/css/style_myschedule.css">
 
 
-<!-- 달력 -->
-
-
-
-<!--  달력 -->
-
 <body>
 
 
@@ -132,7 +126,7 @@
 								<div class="btn-group d-flex py-1" role="group"
 									aria-label="Basic radio toggle button group">
 
-									<input type="button" class="btn-check" name="options" id="option1" autocomplete="off"> 
+									<input type="button" class="btn-check" name="options" id="option1" autocomplete="off" > 
 									<label class="btn btn-outline-primary1" for="option1" id="allSchedule">전체</label> 
 										<input type="button" class="btn-check" name="options"  autocomplete="off"> 
 										<label class="btn btn-outline-primary2" for="option2" id="reservation">예약</label> 
@@ -442,7 +436,7 @@
              }
          });
      });
-	 /*
+	 
 	 //전체 스케줄 가져오는 js (페이지로드되면 나와야하고 버튼 클릭해도 나와야해서 함수로 뻄)
 	 $(document).ready(function () {
 	    // 페이지 로드 시 AJAX 요청
@@ -459,6 +453,7 @@
              url: "getAllInfo.do",
              success: function(allInfo) {
                  console.log("AJAX 요청 성공");
+                 console.log(allInfo);
                  $('#allInfo').html('');
                  $('#reservInfo').html('');
                  $('#attendInfo').html('');
@@ -468,49 +463,88 @@
                 	 	console.log("맵이 비어있음");
 						$('#allInfo').append('<p>이번달에 스케줄이 없습니다.</p>');
 					} else {
-						if (allInfo.hasOwnProperty('reservInfo')) {
-			                console.log("reservInfo 존재함");
-			                // reservInfo가 존재하는 경우의 작업 수행
-			                var reservInfoList = allInfo.reservInfo;
-			                // reservInfoList를 이용한 작업 수행
-			            }else if (allInfo.hasOwnProperty('attendanceInfo')){
-			            	console.log("attendanceinfo존재함")
-			            }
-						// allInfo는 맵이므로 배열 메서드가 아닌 맵을 다루는 방식으로 접근해야 합니다.
-			            // 예: allInfo.forEach(...)가 아닌 Object.values(allInfo).forEach(...)를 사용
-			            Object.values(allInfo).forEach(function (item) {
-			                // lsDate를 월-일(요일) 형태로 포맷팅
-			                var date = new Date(item.lsDate);
-			                var formattedDate = new Intl.DateTimeFormat('ko-KR', {
-			                    month: 'short',
-			                    day: 'numeric',
-			                    weekday: 'short'
-			                }).format(date);
+						if (allInfo.reservInfo.length>0) {
+					        console.log("reservInfo 존재함");
+					        allInfo.reservInfo.forEach(function(item) {
+					        	// lsDate를 월-일(요일) 형태로 포맷팅
+			                    var date = new Date(item.lsDate);
+			                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
+			                        month: 'short',
+			                        day: 'numeric',
+			                        weekday: 'short'
+			                    }).format(date);
+			                    
+			                    /// lessonDatetime을 Timestamp로 파싱
+			                    var lessonDatetime = new Date(item.lessonDatetime);
+			                    var fourHoursBefore = new Date(lessonDatetime);
+			                    var currentDatetime = new Date();
+			                    fourHoursBefore.setHours(lessonDatetime.getHours() - 4); // 수업시작시간에서 4시간 을 뺀 시간이 저장됌
 
-			                var str = '<div class="card" style="border-radius: 0;">';
-			                str += '<div class="card-header bg-white">' + formattedDate + '</div>';
-			                str += '<div class="card-body">';
-			                str += '<div class="mt-3" style="margin-top:0px!important">';
-			                str += '<small class="text-muted"><strong id="absentColor">결석</strong> &nbsp; ' + item.lsTime + ' ~ ' + item.lsEndTime + '</small>';
-			                str += '<div class="d-flex w-100 justify-content-between">';
-			                str += '<h5 class="my-auto" style="color: black;">' + item.lsName + '</h5>';
-			                str += '</div>';
-			                str += '<small class="text-muted">' + item.trainerMemberName + ' 강사</small><br>';
-			                str += '<small class="text-muted">' + item.centerName + ' - ' + item.lsType + '수업</small>';
-			                str += '</div>';
-			                str += '</div>';
-			                str += '</div>';
-			                $('#absentInfo').append(str);
-			            })
-
-					}
+								var str = '<div class="card" style="border-radius: 0;">';
+								str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+								str += '<div class="card-body">'
+								str += '<div class="mt-3" style="margin-top:0px!important">'
+								str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+								str += '<div class="d-flex w-100 justify-content-between">'
+								str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
+								// 수업시간 4시간 전까지는 취소하기 버튼 표시 (그 이후는 취소 불가라서 취소하기 버튼 없음)
+			                    if (currentDatetime < fourHoursBefore) {
+			                    	// rsCode, lsCode, centerCode 변수에 저장
+			                        var rsCode = item.rsCode;
+			                      //  var lsCode = item.lsCode;
+			                       // var centerCode = item.centerCode;
+			                        console.log("변수에 담을 때 값 유지되나?"+rsCode);
+			                        str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="redirectToCancelPage(\'' + rsCode + '\')">취소하기</button>';
+			                    }
+								str += '</div>'
+								str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
+								str += '<small class="text-muted">'+item.centerName+' - '+item.lsType+'수업</small>'
+								str += '</div>'
+								str += '</div>'
+								str += '</div>'
+								$('#allInfo').append(str);
+					        }); //예약리스트 foreach문 끝
+						
+					}// 예약리스트에 정보 있는지 if문 끝
+					if (allInfo.attendanceInfo.length>0) {
+						console.log("attendanceInfo 존재함");
+				        allInfo.attendanceInfo.forEach(function(item) {
+						// lsDate를 월-일(요일) 형태로 포맷팅
+	                    var date = new Date(item.lsDate);
+	                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
+	                        month: 'short',
+	                        day: 'numeric',
+	                        weekday: 'short'
+	                    }).format(date);
+	                    
+								var str = '<div class="card" style="border-radius: 0;">';
+								str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+								str += '<div class="card-body">'
+								str += '<div class="mt-3" style="margin-top:0px!important">'
+								if(item.atAttendanceYn === true){
+									str += '<small class="text-muted"><strong id="attendColor">출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+								}else {
+									str += '<small class="text-muted"><strong id="absentColor">결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+								}
+								str += '<div class="d-flex w-100 justify-content-between">'
+								str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
+								str += '</div>'
+								str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
+								str += '<small class="text-muted">'+item.centerName+' - '+item.lsType+'수업</small>'
+								str += '</div>'
+								str += '</div>'
+								str += '</div>'
+								$('#attendInfo').append(str);
+				        });//출결리스트 foreach문 끝
+					}//출결리스트에 정보 있나 확인하는 if문 끝
+				}
 			},
              error: function(error) {
                  console.error("AJAX 요청 실패", error);
              }
          });
     }
-    */
+    
 	</script>
 
 	
