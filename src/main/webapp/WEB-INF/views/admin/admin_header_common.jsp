@@ -299,7 +299,7 @@
 			<!-- End 커뮤니티 관리 Nav -->
 
 			<li class="nav-item"><a class="nav-link collapsed"
-				href="getComplaintsInfoList.do"> <i class="bi bi-dash-circle"></i> <span>신고글
+				href="getTargetComplaintsList.do"> <i class="bi bi-dash-circle"></i> <span>신고글
 						관리</span>
 			</a></li>
 			<!-- End 신고글 관리 Nav -->

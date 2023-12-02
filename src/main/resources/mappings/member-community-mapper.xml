@@ -39,6 +39,7 @@
 	<select id="getMemberCommunityList" resultMap="memberCommunityResult">
 		SELECT CM_NUMBER, CM_TITLE, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=CM_WRITER_MEMBER_CODE) as CS_NAME, CM_REGDATE, CM_VIEWS
 		FROM TBL_COMMUNITY
+		WHERE CM_OPEN_YN=TRUE
 		ORDER BY CM_NUMBER DESC
 	</select>
 	<select id="getMemberCommunity" resultMap="memberCommunityResult">

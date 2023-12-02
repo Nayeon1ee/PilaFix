@@ -1,11 +1,11 @@
 package com.dev.pilafix.admin.complaints.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.pilafix.admin.community.CommunityVO;
 import com.dev.pilafix.admin.complaints.ComplaintsService;
 import com.dev.pilafix.admin.complaints.ComplaintsVO;
 
@@ -16,49 +16,38 @@ public class ComplaintsServiceimpl implements ComplaintsService {
 	@Autowired
 	private ComplaintsDAO dao;
 
+	/**
+	 * 신고글 목록 조회 
+	 */
 	@Override
-	public List<ComplaintsVO> getComplaintsInfoList() {
-		return dao.getComplaintsInfoList();
+	public List<CommunityVO> getTargetComplaintsList() {
+		return dao.getTargetComplaintsList();
 	}
-
+	
+	/**
+	 * 신고글 상세 - 대상 글 상세 
+	 */
 	@Override
-	public ComplaintsVO getComplaintsInfo(int cpCode) {
-		return dao.getComplaintsInfo(cpCode);
-	}
-
-	@Override
-	public int insertComplaintsInfo(ComplaintsVO vo) {
-		return dao.insertComplaintsInfo(vo);
-	}
-
-	@Override
-	public int updateComplaintsInfo(ComplaintsVO vo) {
-		return dao.updateComplaintsInfo(vo);
-	}
-
-	@Override
-	public int deleteComplaintsInfo(int cp_code) {
-		return dao.deleteComplaintsInfo(cp_code);
+	public CommunityVO getComplaintsDetail(int cmNumber) {
+		return dao.getComplaintsDetail(cmNumber);
 	}
 
 	/**
-     * 상태 변경 메서드 
-     * 파라미터로 받은 cpCode에 해당하는 센터의 계약 해지 true 변경
-     */
+	 * 신고글 상세 - 신고내역 
+	 */
 	@Override
-	public void revokeComplaints(int cpCode) {
-		dao.revokeComplaints(cpCode);
-
+	public List<ComplaintsVO> getComplaintsList(int cmNumber) {
+		return dao.getComplaintsList(cmNumber);
 	}
 
+	/**
+	 * 신고글 처리 
+	 * 커뮤니티 비공개 처리 
+	 */
 	@Override
-	public List<ComplaintsVO> getAllComplaintsList(int cpTargetPostNumber) {
-		return dao.getAllComplaintsList(cpTargetPostNumber);
+	public void updateComplaintsStatus(int cmNumber) {
+		dao.updateComplaintsStatus(cmNumber);
 	}
 
-	@Override
-	public List<ComplaintsVO> getBlameReasonsByCount(String cmBlameCount) {
-		return dao.getBlameReasonsByCount(cmBlameCount);
-	}
 
 }
