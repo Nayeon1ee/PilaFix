@@ -141,7 +141,7 @@ function getQuestionInfo() {
         success: function(response) {
             // 성공 시 로직
             console.log("성공: ", response);
-            window.location.href = "getQuestionList.do"; // 문의 목록 페이지로 이동
+            window.location.href = "questionPage.do"; // 문의 목록 페이지로 이동
         },
         error: function(error) {
             // 실패 시 로직

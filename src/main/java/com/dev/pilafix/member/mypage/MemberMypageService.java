@@ -13,11 +13,11 @@ public interface MemberMypageService {
 
 	List<MemberMypageVO> getMyPaymentInfo(int csMemberCode);
 
-	CenterVO getConnectedCenterList(int csMemberCode);
+	List<CenterVO> getConnectedCenterList(int csMemberCode);
 	int disconnectCenter(int csMemberCode, int selectedCenterCode);
 	int withdrawMember(int csMemberCode);
-	CenterTicketVO getPersonalTicketByMember(int csMemberCode);
-	CenterTicketVO getGroupTicketByMember(int csMemberCode);
+	MemberVO getPersonalTicketByMember(int csMemberCode);
+	MemberVO getGroupTicketByMember(int csMemberCode);
 	List<CenterInfoVO> getCenterInfoListByMember(int csMemberCode);
 	CenterInfoVO getCenterInfoByMember(int icNumber);
 	List<AdminInfoVO> getAdminInfoListByMember(int csMemberCode);

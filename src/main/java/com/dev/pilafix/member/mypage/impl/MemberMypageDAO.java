@@ -29,8 +29,8 @@ public class MemberMypageDAO {
 	 * 연동센터관리
 	 * 연동센터 이름, 센터코드 가져오기
 	 */
-	public CenterVO getConnectedCenterList(int csMemberCode) {
-		return sqlSessionTemplate.selectOne("MemberMypageDAO.getConnectedCenterList",csMemberCode);
+	public List<CenterVO> getConnectedCenterList(int csMemberCode) {
+		return sqlSessionTemplate.selectList("MemberMypageDAO.getConnectedCenterList",csMemberCode);
 	}
 	/**
 	 * 연동센터해제 - 선택된 연동센터코드 0 으로 업데이트
@@ -54,10 +54,10 @@ public class MemberMypageDAO {
 	/**
 	 * 회원의 수강권 정보조회 (개인/그룹)
 	 */
-	public CenterTicketVO getPersonalTicketByMember(int csMemberCode) {
+	public MemberVO getPersonalTicketByMember(int csMemberCode) {
 		return sqlSessionTemplate.selectOne("MemberMypageDAO.getPersonalTicketByMember",csMemberCode);
 	}
-	public CenterTicketVO getGroupTicketByMember(int csMemberCode) {
+	public MemberVO getGroupTicketByMember(int csMemberCode) {
 		return sqlSessionTemplate.selectOne("MemberMypageDAO.getGroupTicketByMember",csMemberCode);
 	}
 	

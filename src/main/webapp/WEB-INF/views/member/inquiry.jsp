@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
+
 <html lang="kor">
 
 <head>
@@ -237,7 +240,7 @@ function deleteQuestion() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        window.location.href = 'getQuestionList.do';
+        window.location.href = 'questionPage.do';
     })
     .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);

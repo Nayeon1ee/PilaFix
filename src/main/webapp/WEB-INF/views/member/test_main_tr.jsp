@@ -170,7 +170,7 @@
 						<div class="icon-box">
 							<i class="bi bi-ticket-perforated-fill"></i>
 							<h3>
-								<a href="member_mypage.do">마이페이지</a>
+								<a href="member_">마이페이지</a>
 							</h3>
 							<p>내 건강에 투자하는 최고의 선택! 다양한 수강권으로 나만의 플랜을 만들어보세요.</p>
 						</div>
