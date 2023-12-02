@@ -1,6 +1,7 @@
 package com.dev.pilafix.admin.community;
 
-import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,14 +47,28 @@ public class CommunityController {
 //		System.out.println(endDate);
 //		return "";
 //	}
-	@PostMapping("serchFilter.do")
-	@ResponseBody
-	public String serchFilter(@RequestParam String searchType,@RequestParam String searchKeyword,@RequestParam Date startDate,@RequestParam Date endDate) {
+	@PostMapping("/serchFilter.do")
+	public String getFilteringData(String searchType,String searchKeyword,String startDate,String endDate,Model model) {
+		Map<String,Object> searchCondition = new HashMap<>();
+//		if (searchType=="") { searchCondition.put("searchType", null);} else {searchCondition.put("searchType", searchType);}
+//		if (searchType=="") { searchCondition.put("searchKeyword", null);} else {searchCondition.put("searchKeyword", searchKeyword);}
+//		if (searchType=="") { searchCondition.put("startDate", null);} else {searchCondition.put("startDate", startDate);}
+//		if (searchType=="") { searchCondition.put("endDate", null);} else {searchCondition.put("endDate", endDate);}
 		
-		System.out.println(searchType);
-		System.out.println(searchKeyword);
-		System.out.println(startDate);
-		System.out.println(endDate);
-		return "";
+		searchCondition.put("searchType", searchType);
+		searchCondition.put("searchKeyword", searchKeyword);
+		searchCondition.put("startDate", startDate);
+		searchCondition.put("endDate", endDate);
+		
+		System.out.println("셀렉박스값 :"+searchCondition.get("searchType"));
+		System.out.println("검색어 :"+searchCondition.get("searchKeyword"));
+		System.out.println("날자시작 :"+searchCondition.get("startDate"));
+		System.out.println("날짜 끝 :"+searchCondition.get("endDate"));
+		
+		
+		
+		model.addAttribute("communityList",  service.getFilteringData(searchCondition));
+		
+		return "admin/admin_community";
 	}
 }
