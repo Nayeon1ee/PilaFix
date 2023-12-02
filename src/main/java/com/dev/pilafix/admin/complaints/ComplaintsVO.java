@@ -10,7 +10,6 @@ public class ComplaintsVO {
 	private int blamerMemberCode;
 	private Date cpDate;
 	private String blamerIp;
-	private boolean cpOpenYn;
 	private String cmTitle;
 	private String cmContent;
 	private String blameReasonName;
@@ -18,6 +17,7 @@ public class ComplaintsVO {
 	private String csName;
 	private int cmBlameCount; 
 	
+	private boolean cmOpenYn;
 	
 	public int getCmBlameCount() {
 		return cmBlameCount;
@@ -25,13 +25,14 @@ public class ComplaintsVO {
 	public void setCmBlameCount(int cmBlameCount) {
 		this.cmBlameCount = cmBlameCount;
 	}
-	public boolean isCpOpenYn() {
-		return cpOpenYn;
-	}
-	public void setCpOpenYn(boolean cpOpenYn) {
-		this.cpOpenYn = cpOpenYn;
-	}
 	
+	
+	public boolean isCmOpenYn() {
+		return cmOpenYn;
+	}
+	public void setCmOpenYn(boolean cmOpenYn) {
+		this.cmOpenYn = cmOpenYn;
+	}
 	public int getCpCode() {
 		return cpCode;
 	}
@@ -108,9 +109,9 @@ public class ComplaintsVO {
 	public String toString() {
 		return "ComplaintsVO [cpCode=" + cpCode + ", cpTargetPostNumber=" + cpTargetPostNumber + ", cpTargetPostType="
 				+ cpTargetPostType + ", targetWriterMemberCode=" + targetWriterMemberCode + ", blamerMemberCode="
-				+ blamerMemberCode + ", cpDate=" + cpDate + ", blamerIp=" + blamerIp + ", cpOpenYn=" + cpOpenYn
-				+ ", cmTitle=" + cmTitle + ", cmContent=" + cmContent + ", blameReasonName=" + blameReasonName
-				+ ", csEmailId=" + csEmailId + ", csName=" + csName + ", cmBlameCount=" + cmBlameCount + "]";
+				+ blamerMemberCode + ", cpDate=" + cpDate + ", blamerIp=" + blamerIp + ", cmTitle=" + cmTitle
+				+ ", cmContent=" + cmContent + ", blameReasonName=" + blameReasonName + ", csEmailId=" + csEmailId
+				+ ", csName=" + csName + ", cmBlameCount=" + cmBlameCount + ", cmOpenYn=" + cmOpenYn + "]";
 	}
-	
+
 }

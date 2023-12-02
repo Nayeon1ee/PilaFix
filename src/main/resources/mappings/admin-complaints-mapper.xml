@@ -11,7 +11,6 @@
 		<result property="blamerMemberCode" column="BLAMER_MEMBER_CODE" />
 		<result property="cpDate" column="CP_DATE" />
 		<result property="blamerIp" column="BLAMER_IP" />
-		<result property="cpOpenYn" column="CP_OPEN_YN" />
 		<result property="blamerIp" column="BLAMER_IP" />
 		<result property="cmTitle" column="CM_TITLE" />
 		<result property="cmContent" column="CM_CONTENT" />
@@ -19,7 +18,49 @@
 		<result property="csEmailId" column="CS_EMAIL_ID" />
 		<result property="csName" column="CS_NAME" />
 		<result property="cmBlameCount" column="CM_BLAME_COUNT" />
+		<result property="cmOpenYn" column="CM_OPEN_YN" />
 	</resultMap>
+	
+	<resultMap type="community" id="communityResult">
+		<id property="cmNumber" column="CM_NUMBER"></id>
+		<result property="cmTitle" column="CM_TITLE"/>
+		<result property="cmContent" column="CM_CONTENT"/>
+		<result property="cmWriterMemberCode" column="CM_WRITER_MEMBER_CODE"/>
+		<result property="csName" column="CS_NAME"/>
+		<result property="cmRegdate" column="CM_REGDATE"/>
+	</resultMap>	
+	
+
+	<!-- 신고글 리스트  -->
+	<select id="getComplaintsInfoList" resultMap="communityResult" >
+		<!--
+		SELECT CM_BLAME_COUNT, CS_NAME, CS_EMAIL_ID, BLAME_REASON_NAME, CM_CONTENT, CM_TITLE, CM_OPEN_YN
+	       CP_CODE, CP_TARGET_POST_NUMBER, CP_TARGET_POST_TYPE, TARGET_WRITER_MEMBER_CODE,
+	       BLAMER_MEMBER_CODE, CP_DATE, BLAMER_IP
+			FROM (
+			    SELECT B.CM_BLAME_COUNT, D.CS_NAME, D.CS_EMAIL_ID,
+			           C.BLAME_REASON_NAME, B.CM_CONTENT, B.CM_TITLE,
+			           A.CP_CODE, A.CP_TARGET_POST_NUMBER, 
+			           A.CP_TARGET_POST_TYPE, A.TARGET_WRITER_MEMBER_CODE,
+			           A.BLAMER_MEMBER_CODE, A.CP_DATE, A.BLAMER_IP, 
+			           ROW_NUMBER() OVER (PARTITION BY A.CP_TARGET_POST_NUMBER ORDER BY A.CP_CODE DESC) AS rn
+			    FROM TBL_COMPLAINTS AS A 
+			    INNER JOIN TBL_COMMUNITY AS B ON CAST(A.CP_TARGET_POST_NUMBER AS INTEGER) = B.CM_NUMBER 
+			    INNER JOIN TBL_CST AS D ON A.TARGET_WRITER_MEMBER_CODE = D.CS_MEMBER_CODE 
+			    INNER JOIN TBL_COMPLAINTS_REASON AS C ON A.BLAME_REASON_CODE = C.BLAME_REASON_CODE 
+			) AS sub
+			WHERE rn = 1
+			ORDER BY CP_CODE DESC; 
+			 -->
+		
+		<!-- 아래꺼 완료되면 위 내용 지우기  -->
+		 
+		SELECT * FROM TBL_COMMUNITY 
+		WHERE CM_BLAME_COUNT > 0
+	</select>
+	
+	
+	
 	<select id="getComplaintsInfo" resultMap="ComplaintsInfoResult" parameterType="complaintsInfo">
 		SELECT * FROM TBL_COMPLAINTS AS A
 			INNER JOIN TBL_COMMUNITY AS B ON CAST (A.CP_TARGET_POST_NUMBER AS INTEGER) = B.CM_NUMBER
@@ -27,60 +68,18 @@
 			INNER JOIN TBL_COMPLAINTS_REASON AS C ON A.BLAME_REASON_CODE =C.BLAME_REASON_CODE 
 			WHERE CP_CODE = #{cpCode}
 	</select>
-	<!-- 신고글 리스트  -->
-	<select id="getComplaintsInfoList" resultMap="ComplaintsInfoResult" parameterType="complaintsInfo">
-	   SELECT CM_BLAME_COUNT, CS_NAME, CS_EMAIL_ID, BLAME_REASON_NAME, CM_CONTENT, CM_TITLE,
-       CP_CODE, CP_TARGET_POST_NUMBER, CP_TARGET_POST_TYPE, TARGET_WRITER_MEMBER_CODE,
-       BLAMER_MEMBER_CODE, CP_DATE, BLAMER_IP, CP_OPEN_YN
-		FROM (
-		    SELECT B.CM_BLAME_COUNT, D.CS_NAME, D.CS_EMAIL_ID,
-		           C.BLAME_REASON_NAME, B.CM_CONTENT, B.CM_TITLE,
-		           A.CP_CODE, A.CP_TARGET_POST_NUMBER, 
-		           A.CP_TARGET_POST_TYPE, A.TARGET_WRITER_MEMBER_CODE,
-		           A.BLAMER_MEMBER_CODE, A.CP_DATE, A.BLAMER_IP, 
-		           A.CP_OPEN_YN,
-		           ROW_NUMBER() OVER (PARTITION BY A.CP_TARGET_POST_NUMBER ORDER BY A.CP_CODE DESC) AS rn
-		    FROM TBL_COMPLAINTS AS A 
-		    INNER JOIN TBL_COMMUNITY AS B ON CAST(A.CP_TARGET_POST_NUMBER AS INTEGER) = B.CM_NUMBER 
-		    INNER JOIN TBL_CST AS D ON A.TARGET_WRITER_MEMBER_CODE = D.CS_MEMBER_CODE 
-		    INNER JOIN TBL_COMPLAINTS_REASON AS C ON A.BLAME_REASON_CODE = C.BLAME_REASON_CODE 
-		) AS sub
-		WHERE rn = 1
-		ORDER BY CP_CODE DESC; 
-		<!-- select * 
-		 FROM TBL_COMPLAINTS AS A 
-		    INNER JOIN TBL_COMMUNITY AS B ON CAST(A.CP_TARGET_POST_NUMBER AS INTEGER) = B.CM_NUMBER 
-		    INNER JOIN TBL_CST AS D ON A.TARGET_WRITER_MEMBER_CODE = D.CS_MEMBER_CODE 
-		    INNER JOIN TBL_COMPLAINTS_REASON AS C ON A.BLAME_REASON_CODE = C.BLAME_REASON_CODE 
-		    order by a.cp_code desc
-		; --> 
-		
-	</select>
-	<insert id="insertComplaintsInfo" parameterType="complaintsInfo">
-		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN) VALUES(nextval('seq_faq'), #{fq_title}, #{fq_content}, '999', CURRENT_TIMESTAMP, #{fq_open_yn})
-	</insert>
-	<update id="updateComplaintsInfo" parameterType="complaintsInfo">
-		UPDATE TBL_FAQ SET FQ_TITLE=#{fq_title}, FQ_CONTENT=#{fq_content}, FQ_OPEN_YN=#{fq_open_yn} WHERE FQ_NUMBER=#{fq_number}
-	</update>
-	<delete id="deleteComplaintsInfo" parameterType="Integer">
-		DELETE FROM TBL_FAQ WHERE FQ_NUMBER = #{fq_number}
-	</delete>
 	
-	<!-- N 상태로 변경  -->
-	<update id="updateContractRevokeYN" parameterType="Integer">
-		UPDATE TBL_COMPLAINTS set CP_OPEN_YN='false' WHERE cp_code=#{cpCode}
+	
+	<!-- 신고글 처리 시 커뮤니티 비공개 상태로 변경  -->
+	<update id="updateCmOpenYn" parameterType="Integer">
+		UPDATE TBL_COMMUNITY 
+		set CM_OPEN_YN='false' 
+		WHERE CM_NUMBER=#{cpCode}
 	</update>
+	
 	<!-- 신고자 목록 조회 -->
 	<select id="getAllComplaintsList" resultMap="ComplaintsInfoResult" >
 		<!-- 
-		SELECT * 
-			FROM TBL_COMPLAINTS AS A 
-			INNER JOIN TBL_COMMUNITY AS B ON 
-			CAST (A.CP_TARGET_POST_NUMBER AS INTEGER) = B.CM_NUMBER 
-			INNER JOIN TBL_CST AS D ON A.TARGET_WRITER_MEMBER_CODE = D.CS_MEMBER_CODE 
-			INNER JOIN TBL_COMPLAINTS_REASON AS C ON A.BLAME_REASON_CODE =C.BLAME_REASON_CODE 
-			WHERE CP_CODE = #{cpCode}-->
-	
 		SELECT 
 		A.TARGET_WRITER_MEMBER_CODE,A.CP_TARGET_POST_NUMBER, D.CS_NAME, 
 		D.CS_EMAIL_ID, C.BLAME_REASON_NAME, A.TARGET_WRITER_MEMBER_CODE, A.CP_OPEN_YN, 
@@ -89,7 +88,8 @@
 		INNER JOIN TBL_CST AS D ON A.TARGET_WRITER_MEMBER_CODE = D.CS_MEMBER_CODE
 		INNER JOIN TBL_COMPLAINTS_REASON AS C ON A.BLAME_REASON_CODE = C.BLAME_REASON_CODE 
 		where A.cp_target_post_number = #{cpTargetPostNumber}
-		ORDER BY A.TARGET_WRITER_MEMBER_CODE, A.CP_CODE DESC 
+		ORDER BY A.TARGET_WRITER_MEMBER_CODE, A.CP_CODE DESC  -->
+		
 		 <!-- SELECT DISTINCT ON (A.TARGET_WRITER_MEMBER_CODE)
 	       A.CP_TARGET_POST_NUMBER, D.CS_NAME, 
 	       D.CS_EMAIL_ID, C.BLAME_REASON_NAME, A.TARGET_WRITER_MEMBER_CODE, 
@@ -120,6 +120,7 @@
 			ORDER BY A.CP_TARGET_POST_NUMBER, A.CP_CODE DESC; -->
 	</select>
 	
+	<!-- 툴팁으로 뜨는 사유 가져오는 리스트인 것 같음 
 	<select id="getBlameReasonsByCount" resultMap="ComplaintsInfoResult" >
 		SELECT
             A.TARGET_WRITER_MEMBER_CODE,
@@ -141,5 +142,8 @@
             A.TARGET_WRITER_MEMBER_CODE,
             A.CP_CODE DESC
     </select>
+	
+	 -->
+	
 	
 </mapper>
