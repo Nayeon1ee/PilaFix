@@ -30,7 +30,7 @@
 		<result property="regDate" column="IC_REGDATE" />
 		<result property="cnt" column="IC_VIEWS" />
 		<result property="openYN" column="IC_OPEN_YN" />
-		<result property="centerName" column="CT_NAME" />
+		<result property="ctName" column="CT_NAME" />
 	</resultMap>
 	<resultMap type="adminInfo" id="adminInfoResult">
 		<id property="iwNumber" column="IW_NUMBER"/>
@@ -41,7 +41,7 @@
 		<result property="regDate" column="IW_REGDATE" />
 		<result property="cnt" column="IW_VIEWS" />
 		<result property="openYN" column="IW_OPEN_YN" />
-		<result property="adminName" column="AD_NAME" />
+
 	</resultMap>	
 	<resultMap type="faqInfo" id="faqInfoResult">
 		<id property="fqNumber" column="FQ_NUMBER"/>
