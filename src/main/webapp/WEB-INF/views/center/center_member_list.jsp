@@ -160,7 +160,7 @@
 							<!-- 검색필터 끝 -->
 
 							<!-- 엑셀다운 -->
-							<div class="table-summary">
+							<div class="table-summary my-2 d-flex justify-content-end me-3">
 								<button onclick="window.open('<c:url value='/centerMemberExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
 							</div>
 

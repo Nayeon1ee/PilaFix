@@ -79,8 +79,8 @@
 
 							<hr />
 
-							<div class="button_con">
-								<button type="button" onclick="location.href='insertCenterTicket.do'" class="btn btn-primary btn-lg">수강권 등록</button>
+							<div class="button_con d-flex justify-content-end me-3">
+								<button type="button" onclick="location.href='insertCenterTicket.do'" class="btn btn-primary">수강권 등록</button>
 							</div>
 
 

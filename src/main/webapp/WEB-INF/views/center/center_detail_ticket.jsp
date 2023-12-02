@@ -86,12 +86,19 @@
 								    </c:otherwise>
 								</c:choose>
 
+<<<<<<< HEAD
+									<div class="p-check">
+										<p>(Y를 선택하면 회원이 바로 구매가 가능합니다.)</p>
+										<p>(N을 선택하면 수강권을 생성만 합니다.)</p>
+									</div>
+=======
 									
 									<button type="submit" class="btn btn-primary">수정</button>
+>>>>>>> aa37e3d7c4161b46f1428a9122c1dd097fec0e6f
 									</div>
-									<div class="text-center">
-										<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-			                 			<button type="button" class="btn btn-secondary" onclick="location.href='getCenterTicketList.do'">목록</button>
+									<div class="d-flex justify-content-between">
+									<button type="button" class="btn btn-secondary ms-3" onclick="location.href='getCenterTicketList.do'">목록</button>
+										<button type="button" class="btn btn-danger me-3" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>			                 			
 									</div>
 							</form>
 							<!-- End Multi Columns Form -->

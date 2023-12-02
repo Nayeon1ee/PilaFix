@@ -70,9 +70,8 @@
 						</div>
 					</div>
 					<!-- 검색필터 끝 -->
+					<hr>
 					
-					
-<div>전체 ${totalQuestionCount}건</div>
 <!-- Table with stripped rows -->
 <table class="table datatable">
 
@@ -120,17 +119,7 @@
 </table>
 
 							<!-- End Table with stripped rows -->
-							<div class="admin-screen-paging">
-								<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#">이전</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item"><a class="page-link" href="#">다음</a></li>
-								</ul>
-							</div>
+							
 						</div>
 					</div>
 
