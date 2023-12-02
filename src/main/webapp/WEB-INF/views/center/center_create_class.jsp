@@ -1,76 +1,86 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<%@ include file="center_header_common.jsp" %>
-	<main id="main" class="main">
-		<div class="pagetitle">
-			<h1>수업 생성</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<!-- 소제목 필요 시 작성 -->
-					<li class="breadcrumb-item"></li>
-				</ol>
-			</nav>
-		</div>
-		<!-- End Page Title -->
-		<section class="section">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="card-body">
-							<!-- Multi Columns Form -->
-							<form class="row g-3" action="insertCenterLesson.do" method="post" name="myForm"> 
-								<input type="hidden" class="form-control" name="lsCode" value="${centerLesson.lsCode }">
-								<div class="col-md-12 col-top">
-									<label class="form-label">수업 유형</label>
-									<div class="radio-box">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="lsType" value="그룹" onclick="updateList(this.value)" id="flexRadioDefault1">
-											<label class="form-check-label" for="flexRadioDefault1">그룹</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="lsType" value="개인" onclick="updateList(this.value)" id="flexRadioDefault1">
-											<label class="form-check-label" for="flexRadioDefault1">개인</label>
-										</div>
+<%@ include file="center_header_common.jsp"%>
+<main id="main" class="main">
+	<div class="pagetitle">
+		<h1>수업 생성</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<!-- 소제목 필요 시 작성 -->
+				<li class="breadcrumb-item"></li>
+			</ol>
+		</nav>
+	</div>
+	<!-- End Page Title -->
+	<section class="section">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body p-3">
+						<!-- Multi Columns Form -->
+						<form class="row g-3" action="insertCenterLesson.do" method="post"
+							name="myForm">
+							<input type="hidden" class="form-control" name="lsCode"
+								value="${centerLesson.lsCode }">
+							<div class="col-md-12 col-top">
+								<label class="form-label">수업 유형</label>
+								<div class="radio-box">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="lsType"
+											value="그룹" onclick="updateList(this.value)"
+											id="flexRadioDefault1"> <label
+											class="form-check-label" for="flexRadioDefault1">그룹</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="lsType"
+											value="개인" onclick="updateList(this.value)"
+											id="flexRadioDefault1"> <label
+											class="form-check-label" for="flexRadioDefault1">개인</label>
 									</div>
 								</div>
-								<div class="col-md-12">
-									<label class="form-label">수업명</label>
-									<input type="text" class="form-control" name="lsName" placeholder="수업명을 입력하세요">
+							</div>
+							<div class="col-md-12">
+								<label class="form-label">수업명</label> <input type="text"
+									class="form-control" name="lsName" placeholder="수업명을 입력하세요">
+							</div>
+							<div class="col-md-12">
+								<label class="form-label">강사명</label> <select
+									class="form-select" name="trainerMemberCode"
+									aria-label="Default select example" id="centerCode">
+									<option selected>강사</option>
+									<c:forEach var="trainerList" items="${trainerList }">
+										<option value="${trainerList.csMemberCode }">${trainerList.csName }</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="col-md-12">
+								<label class="form-label">수업 정원</label> <select
+									class="form-select" name="lsCapacity" id="lsCapacity"
+									aria-label="Default select example">
+									<option selected>수업 정원</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+								</select>
+							</div>
+							<div class="col-md-12">
+								<label class="form-label">수업 내용</label>
+								<textarea class="form-control" name="lsContent"
+									style="height: 300px;" placeholder="내용을 입력하세요"></textarea>
+							</div>
+							<div class="row">
+								<div class="col-md-3 mt-2">
+									<label class="form-label">수업 일자</label> <input type="date"
+										id="dateInput" name="lsDate" class="form-control">
 								</div>
-								<div class="col-md-12">
-							        <label class="form-label">강사명</label>
-							        <select class="form-select" name="trainerMemberCode" aria-label="Default select example" id="centerCode">
-						        	<option selected>강사</option>
-							        <c:forEach	var="trainerList" items="${trainerList }">
-							        	<option value="${trainerList.csMemberCode }">${trainerList.csName }</option>
-							        </c:forEach>
-							        </select>
-							    </div>
-								<div class="col-md-12">
-									<label class="form-label">수업 정원</label>
-									<select class="form-select" name="lsCapacity" id="lsCapacity"  aria-label="Default select example">
-										<option selected>수업 정원</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-									</select>
-								</div>
-								<div class="col-md-12">
-									<label class="form-label">수업 내용</label>
-									<textarea class="form-control" name="lsContent" style="height: 300px;" placeholder="내용을 입력하세요"></textarea>
-								</div>
-								<div class="col-md-12">
-									<label class="form-label">수업 일자</label>
-									<input type="date" id="dateInput" name="lsDate">
-								</div>
-								<div class="col-md-12">
-									<label class="form-label" >수업 시간</label>
-									<select id="timeSelect" class="time-select" name="lsTime">
+								<div class="col-md-3 mt-2">
+									<label class="form-label">수업 시간</label> <select id="timeSelect"
+										class="form-select" name="lsTime">
 										<option selected>시간</option>
 										<option value="6">6시</option>
 										<option value="7">7시</option>
@@ -90,22 +100,32 @@
 										<option value="21">21시</option>
 										<option value="22">22시</option>
 									</select>
+
+
 									<div id="dateTimeContainer"></div>
-									<button type="button" class="btn btn-primary btn-sm ms-2 mt-2" id="addButton">날짜 및 시간 등록</button>
+
+
 								</div>
-								<div class="text d-flex justify-content-end">
-								    <button type="submit" class="btn btn-primary me-2">등록</button>
-								    <button type="reset" class="btn btn-secondary me-3" onclick="location.href='getCenterLessonList.do'">취소</button>
+								<div class="col-md-3 mt-2 d-flex align-items-end">
+									<button type="button" class="btn btn-primary btn-sm"
+										id="addButton">날짜 및 시간 등록</button>
 								</div>
-							</form>
-							<!-- End Multi Columns Form -->
-						</div>
+							</div>
+
+							<div class="text d-flex justify-content-end">
+								<button type="submit" class="btn btn-primary me-2">등록</button>
+								<button type="reset" class="btn btn-secondary me-3"
+									onclick="location.href='getCenterLessonList.do'">취소</button>
+							</div>
+						</form>
+						<!-- End Multi Columns Form -->
 					</div>
 				</div>
 			</div>
-		</section>
-	</main>
-	<!-- End #main -->
+		</div>
+	</section>
+</main>
+<!-- End #main -->
 <script type="text/javascript">
 // 개인 / 그룹 선택
 function Activity(name, list){
@@ -252,4 +272,4 @@ function removeRow(button) {
 
 </script>
 
-<%@ include file="center_footer_common.jsp" %>
+<%@ include file="center_footer_common.jsp"%>

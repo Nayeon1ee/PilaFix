@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card">
-					<div class="card-body">
+					<div class="card-body p-3">
 						<!-- Multi Columns Form -->
 						<form class="row g-3" action="updateCenterLesson.do" method="post">
 							<div class="col-md-12 col-top">
