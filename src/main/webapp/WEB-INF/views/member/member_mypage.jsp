@@ -102,7 +102,7 @@
 						<i class="bx bx-file"></i>
 					</div>
 					<c:choose>
-						<c:when test="${empty personalTicket}">
+						<c:when test="${empty personalTicket.ticketNamePersonal1}">
 					        <p>보유한 개인 수강권이 없습니다</p>
 						</c:when>
 						<c:otherwise>    
@@ -122,7 +122,7 @@
 						<i class="bx bx-file"></i>
 					</div>
 					<c:choose>
-						<c:when test="${empty groupTicket}">
+						<c:when test="${empty groupTicket.ticketNameGroup1}">
 					        <p>보유한 그룹 수강권이 없습니다</p>
 						</c:when>
 						<c:otherwise>    

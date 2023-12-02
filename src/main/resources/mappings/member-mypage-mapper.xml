@@ -41,7 +41,6 @@
 		<result property="regDate" column="IW_REGDATE" />
 		<result property="cnt" column="IW_VIEWS" />
 		<result property="openYN" column="IW_OPEN_YN" />
-
 	</resultMap>	
 	<resultMap type="faqInfo" id="faqInfoResult">
 		<id property="fqNumber" column="FQ_NUMBER"/>
@@ -52,6 +51,15 @@
 		<result property="fqOpenYn" column="FQ_OPEN_YN" />
 		<result property="fqType" column="FQ_TYPE" />
 	</resultMap>	
+	<resultMap type="terms" id="termsResult">
+		<id property="tmCode" column="TM_CODE" />
+		<result property="tmName" column="TM_NAME" />
+		<result property="tmDetail" column="TM_DETAIL" />
+		<result property="tmRegdate" column="TM_REGDATE" />
+		<result property="tmModifiedDate" column="TM_MODIFIED_DATE" />
+		<result property="tmRequiredYn" column="TM_REQUIRED_YN" />
+		<result property="tmOpenYn" column="TM_OPEN_YN" />
+	</resultMap>
 	<resultMap type="member" id="memberResult">
 	    <id property="csMemberCode" column="CS_MEMBER_CODE"/>
 	    <result property="csEmailId" column="CS_EMAIL_ID"/>
@@ -205,7 +213,7 @@
 
 	<!-- 회원의 센터 공지사항 리스트,상세 -->
 	<select id="getCenterInfoListByMember" resultMap="centerInfoResult" >
-	   SELECT n.*, c.CT_NAME
+	   SELECT n.ic_number, n.ic_title, n.ic_writer_member_code, n.ic_regdate, n.ic_views, c.CT_NAME
 	    FROM (
 	        SELECT CS_MEMBER_CODE, CONNECTED_CENTER_CODE1 AS CENTER_CODE FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
 	        UNION ALL
@@ -227,7 +235,7 @@
 
 	<!-- 회원의 웹관리자 공지사항 리스트,상세 -->
 	<select id="getAdminInfoListByMember" resultMap="adminInfoResult" >
-		SELECT *
+		SELECT iw_number, iw_title, iw_writer_member_code, iw_regdate, iw_views
 		FROM TBL_INFO_W
 		WHERE IW_OPEN_YN = TRUE
 		ORDER BY IW_NUMBER DESC;
@@ -239,13 +247,10 @@
 	<!-- FAQ 리스트, 상세 -->
 	<!-- FQ_WRITER_MEMBER_CODE int형식으로 되어있는데 수정해야함 -->
 	<select id="getFAQListByMember" resultMap="faqInfoResult">
-	    SELECT
-	        FQ.*,
-	        A.AD_NAME
-	    FROM TBL_FAQ FQ
-	    LEFT JOIN TBL_ADMIN A ON FQ.FQ_WRITER_MEMBER_CODE = A.AD_CODE
-	    WHERE FQ.FQ_OPEN_YN = TRUE
-	    ORDER BY FQ.FQ_NUMBER DESC;
+	    SELECT *
+	    FROM TBL_FAQ 
+	    WHERE FQ_OPEN_YN = TRUE
+	    ORDER BY FQ_NUMBER DESC;
 	</select>
 	<select id="getFaqByMember" resultMap="faqInfoResult" >
 		SELECT * FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber} 
@@ -256,7 +261,16 @@
    		SELECT * FROM TBL_CST WHERE cs_member_code = #{csMemberCode}
 	</select> 
 	
+	<!-- 약관및정책 리스트, 상세 -->
+	<select id="getMyTermsListByMember" resultMap="termsResult">
+	    SELECT*
+	    FROM TBL_TERMS
+	    WHERE TM_OPEN_YN = TRUE
+	    ORDER BY TM_CODE DESC;
+	</select>
 
+	
+	
 	
 
 </mapper>

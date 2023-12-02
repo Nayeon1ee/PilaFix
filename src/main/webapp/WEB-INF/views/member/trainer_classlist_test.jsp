@@ -196,13 +196,113 @@
 
 
 
+
+
+
+
 				<!-- End Our Skills Section -->
 			</div>
 		</section>
 	</main>
 	<!-- End #main -->
+	
+<script>
+  // 현재 시간을 가져오는 함수
+  function getCurrentTime() {
+    var now = new Date();
+    return now.getTime();
+  }
 
-<!-- <script>
+  // 상태를 업데이트하고 테이블을 분리하는 함수
+  function updateAndSplitTable() {
+    var currentTime = getCurrentTime();
+    var rows = document.querySelectorAll(".table.datatable tbody tr");
+    
+    // 기존 테이블과 3개의 새로운 테이블을 생성
+    var existingTable = document.querySelector(".table.datatable");
+    var openTable = createEmptyTable("수업중");
+    var completedTable = createEmptyTable("수업완료");
+    var closedTable = createEmptyTable("폐강");
+    
+    rows.forEach(function (row) {
+      var closeYN = row.querySelector("td[data-close-yn]").getAttribute("data-close-yn");
+      var startTimeString = row.querySelector("td[data-lesson-start-time]").getAttribute("data-lesson-start-time");
+      var startTime = new Date(startTimeString).getTime() + 50 * 60 * 1000;
+
+      var status;
+      if (closeYN === "Y") {
+        status = "폐강";
+      } else if (currentTime >= startTime) {
+        status = "수업완료";
+      } else {
+        status = "수업중";
+      }
+      var statusCell = row.querySelector("td[data-lesson-start-time]");
+      statusCell.textContent = status; // 상태 값을 셀에 표시
+      
+      // lsCode 값을 추출하는 부분
+      var lessonNameCell = row.querySelector("td:nth-child(3) a");
+      var lsCode = lessonNameCell ? lessonNameCell.getAttribute("href").split("=")[1] : null;
+
+      var newRow = row.cloneNode(true);
+
+      // 새 행의 링크를 업데이트
+      var newLessonNameCell = newRow.querySelector("td:nth-child(3) a");
+      if (newLessonNameCell && lsCode) {
+        newLessonNameCell.setAttribute("href", "getTrainerLesson.do?lsCode=" + lsCode);
+      }
+
+
+      if (status === "폐강") {
+        closedTable.querySelector("tbody").appendChild(newRow);
+      } else if (status === "수업완료") {
+        completedTable.querySelector("tbody").appendChild(newRow);
+      } else {
+        openTable.querySelector("tbody").appendChild(newRow);
+      }
+    });
+    
+    // 기존 테이블을 유지하고, 새로운 테이블을 추가
+    existingTable.parentNode.appendChild(openTable);
+    existingTable.parentNode.appendChild(completedTable);
+    existingTable.parentNode.appendChild(closedTable);
+    
+    // 기존 테이블 삭제
+    existingTable.parentNode.removeChild(existingTable);
+  }
+
+  // 빈 테이블 생성 함수
+  function createEmptyTable(status) {
+    var table = document.createElement("table");
+    table.className = "table datatable";
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th scope="col">수업코드</th>
+          <th scope="col">그룹/개인</th>
+          <th scope="col">수업명</th>
+          <th scope="col">수업일자</th>
+          <th scope="col">수업시간</th>
+          <th scope="col">진행인원</th>
+          <th scope="col">상태</th>
+          <th scope="col">센터명</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    `;
+
+    var statusRow = document.createElement("tr");
+    statusRow.innerHTML = `<td colspan="8">${status}</td>`;
+    table.querySelector("tbody").appendChild(statusRow);
+
+    return table;
+  }
+
+  // 페이지 로딩 시 호출
+  window.onload = updateAndSplitTable;
+</script>
+	
+ <!-- <script>
   // 현재 시간을 가져오는 함수
   function getCurrentTime() {
     var now = new Date();

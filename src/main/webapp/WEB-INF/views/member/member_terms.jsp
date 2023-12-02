@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -52,24 +55,7 @@
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-			</div>
-		</div>
-	</section>
+
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -82,10 +68,10 @@
 			<div class="container" style="max-width: 700px">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
-					<li>Link Center Management</li>
+					<li><a href="mainPage.do">Home</a></li>
+					<li>Terms of Use and Policies</li>
 				</ol>
-				<h2>연동 센터 관리</h2>
+				<h2>이용약관 및 정책</h2>
 
 			</div>
 		</section>
@@ -95,7 +81,7 @@
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
 
-				<div id="userInfo"
+<!-- 				<div id="userInfo"
 					class="d-flex align-items-center justify-content-center mb-2">
 					<div id="myInfoLink" class="mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
@@ -112,7 +98,7 @@
 							<i class="fas fa-user mr-1"></i>로그아웃
 						</a>
 					</div>
-				</div>
+				</div> -->
 
 
 				<div class="card mt-3">
@@ -131,82 +117,39 @@
 					</div>
 				</div>
 
-
-				<div class="accordion" id="accordionExample">
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button" type="button"
-									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse"
-									aria-expanded="true" aria-controls="inquiryCollapse">
-									<div class="inquiry-item">
-										<div class="inquiry-details">
-											<div class="inquiry-title">
-												<strong>/</strong> 이용약관
-											</div>
-										</div>
-									</div>
-								</button>
-							</h2>
-							<div id="inquiryCollapse"
-								class="accordion-collapse collapse show"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>/</strong> <br> 약관 내용
-								</div>
-							</div>
-						</div>
-
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button" type="button"
-									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse2"
-									aria-expanded="true" aria-controls="inquiryCollapse2">
-									<div class="inquiry-item">
-										<div class="inquiry-details">
-											<div class="inquiry-title">
-												<strong>/</strong> 개인정보 처리방침 
-											</div>
-										</div>
-									</div>
-								</button>
-							</h2>
-							<div id="inquiryCollapse2"
-								class="accordion-collapse collapse show"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>/</strong> 개인정보 처리방침 내용
-								</div>
-							</div>
-						</div>
-
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button" type="button"
-									data-bs-toggle="collapse" data-bs-target="#inquiryCollapse3"
-									aria-expanded="true" aria-controls="inquiryCollapse3">
-									<div class="inquiry-item">
-										<div class="inquiry-details">
-											<div class="inquiry-title">
-												<strong>/</strong> 환불정책
-											</div>
-										</div>
-									</div>
-								</button>
-							</h2>
-							<div id="inquiryCollapse3"
-								class="accordion-collapse collapse show"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>/</strong> <br> 환불정책 내용
-								</div>
-							</div>
-						</div>
-
-
-
-					</div>
-
-
+<div class="accordion" id="accordionExample">
+    <c:choose>
+        <c:when test="${empty termsList}">
+            <p>아직 등록된 글이 없습니다.</p>
+        </c:when>
+        <c:otherwise>
+            <c:forEach items="${termsList}" var="terms">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#faqCollapse${terms.tmCode}"
+                                aria-expanded="true" aria-controls="faqCollapse${terms.tmCode}">
+                            <div class="inquiry-item">
+                                <div class="inquiry-details">
+                                    <div class="inquiry-title">
+                                        <strong>Q</strong> ${terms.tmName}
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="faqCollapse${terms.tmCode}"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>A</strong> <br> ${terms.tmDetail}
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+</div>
 
 
 

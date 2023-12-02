@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -65,7 +68,7 @@
 			<div class="container" style="max-width: 1000px">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
+					<li><a href="mainPge.do">Home</a></li>
 					<li>notice</li>
 				</ol>
 				<h2>공지사항</h2>
@@ -78,23 +81,23 @@
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
 
-
+<!-- 
 				<div id="userInfo"
 					class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
-				</div>
+				</div> -->
 
-				<section class="section000 pb-5 mb-5">
-					<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-<label class="btn btn-outline-primary" for="btnradio1" data-target="centerInfo">센터</label>
-<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-<label class="btn btn-outline-primary" for="btnradio2" data-target="pilafixInfo">필라픽스</label>
-					</div>
-				</section>
+<section class="section000 pb-5 mb-5">
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnradio1" data-target="centerInfo">센터</label>
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2" data-target="pilafixInfo">필라픽스</label>
+    </div>
+</section>
 
 				<section class="section002 py-3 my-3">
 					<nav class="navbar navbar-expand-lg">
@@ -134,40 +137,40 @@
 
 
 				
-				<div id="centerInfo">
-				    <form class="row g-3">
-				        <ul class="list-group list-group-numbered w-100">
-				            <c:forEach items="${centerInfoList}" var="noticeC">
-				                <li class="list-group-item d-flex justify-content-between align-items-start">
-				                    <div class="ms-2 me-auto">
-				                        <a href="noticeDetail.do?code=${noticeC.icNumber}">${noticeC.title}</a></div>
-				                        조회수: ${noticeC.cnt}
-				             
-				                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeC.regDate}</div>
-				                </li>
-				                <hr class="my-1">
-				            </c:forEach>
-				        </ul>
-				    </form>
-				</div>
-			
-				<div id="pilafixInfo">
-				    <!-- 필라픽스 정보를 표시할 내용 -->
-				    <form class="row g-3">
-				        <ul class="list-group list-group-numbered w-100">
-				            <c:forEach items="${pilafixInfoList}" var="noticeW">
-				                <li class="list-group-item d-flex justify-content-between align-items-start">
-				                    <div class="ms-2 me-auto">
-				                        <a href="noticeDetail.do?code=${noticeW.iwNumber}">${noticeW.title}</a></div>
-				                        조회수: ${noticeW.cnt}
-				                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeW.regDate}</div>
-				                </li>
-				                <hr class="my-1">
-				            </c:forEach>
-				        </ul>
-				    </form>    
-				</div>	
-				
+<div id="centerInfo" class="tab-content">
+    <form class="row g-3">
+        <ul class="list-group list-group-numbered w-100">
+            <c:forEach items="${centerInfoList}" var="noticeC">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <a href="noticeDetail.do?code=${noticeC.icNumber}">${noticeC.title}</a>
+                    </div>
+                    조회수: ${noticeC.cnt}
+                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeC.regDate}</div>
+                </li>
+                <hr class="my-1">
+            </c:forEach>
+        </ul>
+    </form>
+</div>
+
+<div id="pilafixInfo" class="tab-content">
+    <!-- 필라픽스 정보를 표시할 내용 -->
+    <form class="row g-3">
+        <ul class="list-group list-group-numbered w-100">
+            <c:forEach items="${pilafixInfoList}" var="noticeW">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <a href="noticeDetail.do?code=${noticeW.iwNumber}">${noticeW.title}</a>
+                    </div>
+                    조회수: ${noticeW.cnt}
+                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeW.regDate}</div>
+                </li>
+                <hr class="my-1">
+            </c:forEach>
+        </ul>
+    </form>
+</div>
 							
 	
 </div>		
@@ -179,30 +182,75 @@
 	</main>
 
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    $("input[name='btnradio']").change(function() {
-        var targetId = $(this).attr("data-target");
-        var targetDiv = $("#" + targetId);
+    // 페이지 로드시 센터 정보를 표시하고 필라픽스 정보는 숨깁니다.
+    $("#centerInfo").show();
+    $("#pilafixInfo").hide();
 
-        // AJAX를 사용하여 해당 정보
-        var ajaxUrl = targetId === "centerInfo" ? "getCenterInfo.do" : "getPilafixInfo.do";
+    // 라디오 버튼 클릭 처리
+    $("#btnradio1").click(function() {
+        $("#centerInfo").show();
+        $("#pilafixInfo").hide();
+    });
+
+    $("#btnradio2").click(function() {
+        $("#centerInfo").hide();
+        $("#pilafixInfo").show();
+    });
+});
+</script>
+ <!-- <script>
+$(document).ready(function() {
+/*     // 초기에 "센터" 탭이 선택되도록 설정
+    $("input[name='btnradio'][data-target='centerInfo']").prop("checked", true);
+ */
+ 
+    // 탭 선택 시 데이터를 업데이트하는 함수
+    function updateTabData(targetId) {
+        // 선택된 탭에 따라 서버 요청 URL 변경
+        var targetId = $("input[name='btnradio']:checked").attr("data-target");
+        var ajaxUrl = targetId === "centerInfo" ? "getMyCenterInfo.do" : "getMyPilafixInfo.do";
+
+        // Ajax 요청
         $.ajax({
-            url: ajaxUrl, // 서버 요청 URL
+            url: ajaxUrl,
             success: function(data) {
                 // 성공적으로 데이터를 받았을 때 해당 div에 내용을 업데이트
-                targetDiv.html(data);
+                var targetDiv = $("#" + targetId + " ul");
+                targetDiv.empty(); // 기존 내용 비우기
+                $.each(data, function(index, item) {
+                    // 데이터를 HTML 형식으로 생성하여 추가
+                    var html = '<li class="list-group-item d-flex justify-content-between align-items-start">';
+                    html += '<div class="ms-2 me-auto">';
+                    html += '<a href="noticeDetail.do?code=' + item.code + '">' + item.title + '</a></div>';
+                    html += '조회수: ' + item.cnt;
+                    html += '<div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">' + item.regDate + '</div>';
+                    html += '</li>';
+                    targetDiv.append(html);
+                });
             },
             error: function() {
                 // 에러 처리 로직을 추가
                 console.error("Failed to retrieve data.");
             }
         });
+    }
+
+    // 탭 선택 시 이벤트 핸들러 등록
+    $("input[name='btnradio']").change(function() {
+        var targetId = $(this).attr("data-target");
+        updateTabData(targetId);
     });
+
+    // 페이지 로드 시 초기 탭 데이터 로드
+    var initialTabId = $("input[name='btnradio']:checked").attr("data-target");
+    updateTabData(initialTabId);
 });
-</script>
+</script> 
+ -->
+
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
@@ -216,7 +264,7 @@ $(document).ready(function() {
 	<!-- 내 js -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 	<!-- Vendor JS Files -->
 	<script
