@@ -8,14 +8,10 @@ public class CommunityVO {
 	private String cmTitle;
 	private String cmContent;
 	private int cmWriterMemberCode;
-	private Timestamp cmRegdate;
+	private String cmRegdate;
 	
 	private String csName;
-	
-	private String searchType;
-	private String searchKeyword;
-	private Date startDate;
-	private Date endDate;
+
 	
 	
 	public String getCsName() {
@@ -49,10 +45,10 @@ public class CommunityVO {
 	public void setCmWriterMemberCode(int cmWriterMemberCode) {
 		this.cmWriterMemberCode = cmWriterMemberCode;
 	}
-	public Timestamp getCmRegdate() {
+	public String getCmRegdate() {
 		return cmRegdate;
 	}
-	public void setCmRegdate(Timestamp cmRegdate) {
+	public void setCmRegdate(String cmRegdate) {
 		this.cmRegdate = cmRegdate;
 	}
 	
