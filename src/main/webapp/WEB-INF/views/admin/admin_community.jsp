@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ include file="admin_header_common.jsp" %>
+
+
  
   <main id="main" class="main">
 
@@ -23,6 +27,7 @@
               <h5 class="card-title">중제목 작성</h5>
               <p>간략한 설명</p>
 <!-- 검색필터 시작 -->
+ <form id="searchForm">
              <div class="search-filter">
       <div class="search-filter-inner" >
     
@@ -30,15 +35,15 @@
       <div class="search-top">
               <div class="col-md-3">
                   <label for="inputState" class="form-label">검색</label>
-                  <select id="inputState" class="form-select">
+                  <select id="searchType" class="form-select">
                     <option selected disabled>전체</option>
-                    <option>글 제목</option>
-                    <option>글 작성자</option>
+                    <option value="CM_TITLE">글 제목</option>
+                    <option value="CS_NAME">글 작성자</option>
                   </select>
                 </div>
            <div class="serch-input">
              <div class="col-md-6">
-                  <input type="text" class="form-control" id="inputCity" placeholder="검색어를 입력해주세요">
+                  <input type="text" class="form-control" id="searchKeyword" placeholder="검색어를 입력해주세요">
                 </div>
                 <div class="search-btn">
                 <button type="submit" class="btn btn-primary search">검색</button>
@@ -61,6 +66,7 @@
                 </div>
              </div>
              </div>
+        </form>
 <!-- 검색필터 끝 -->
 <!-- 게시판 시작 -->
     <h5 class="card-title"></h5>
@@ -83,7 +89,8 @@
                     <td><a href="getCommunity.do?cmNumber=${list.cmNumber}&csName=${list.csName}" class="admin-alink-color">${list.cmTitle}</a></td>
 					<td>${list.cmContent}</td>
 					<td>${list.csName}</td>
-					<td>${list.cmRegdate}</td>
+					<c:set var="regDate" value="${list.cmRegdate}" />
+					<td><fmt:formatDate value="${regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 				</tr>
 			</c:forEach>
                   
@@ -96,6 +103,46 @@
         </div>
       </div>
     </section>
+ <!-- 내가만든 js -->
+ <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/admin_common_2.js"></script> 
+ 
+ <!-- 검색필터 -->
+ <script type="text/javascript">
+ $(document).ready(function () {
+     $("#searchForm").submit(function (event) {
+         event.preventDefault(); //  HTML 폼이 제출되면 페이지가 다시 로드되거나 새로 고침되는데 그걸 방지해줌
 
+         // 폼 데이터 가져오기
+         var searchType = $("#searchType").val()
+         var searchKeyword = $("#searchKeyword").val()
+         var startDate = $("#startDate").val()
+         var endDate = $("#endDate").val()
+        console.log("폼에 입력한 데이터"+searchType,searchKeyword,startDate,endDate) ;
+         // AJAX를 사용하여 서버에 데이터 전송
+         $.ajax({
+             type: "POST",
+             url: "serchFilter.do",
+             data: {
+            	 searchType :searchType,
+            	 searchKeyword : searchKeyword,
+            	 startDate : startDate,
+            	 endDate : endDate 
+             },
+             success: function (data) {
+                 // 결과를 처리하는 코드 작성 (필요에 따라)
+                 console.log(data);
+             },
+             error: function (error) {
+                 console.log("에러 발생: " + JSON.stringify(error));
+             }
+         });
+     });
+ });
+ 
+ 
+ 
+ 
+ 
+ </script>
   </main><!-- End #main -->
 <%@ include file="admin_footer_common.jsp"%>

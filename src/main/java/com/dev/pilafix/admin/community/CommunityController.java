@@ -1,10 +1,15 @@
 package com.dev.pilafix.admin.community;
 
+import java.sql.Date;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CommunityController {
@@ -29,5 +34,26 @@ public class CommunityController {
 		service.deleteCommunity(cmNumber);
 		return "redirect:/getCommunityList.do"; // .do로 요청해야 위에 getCommunityList.do수행하고 디비가서 바뀐정보로 다시 가져옴
 		
+	}
+	
+//	@PostMapping("serchFilter.do")
+//	@ResponseBody
+//	public String serchFilter(@RequestParam String searchType,String searchKeyword,Date startDate,Date endDate) {
+//		
+//		System.out.println(searchType);
+//		System.out.println(searchKeyword);
+//		System.out.println(startDate);
+//		System.out.println(endDate);
+//		return "";
+//	}
+	@PostMapping("serchFilter.do")
+	@ResponseBody
+	public String serchFilter(@RequestParam String searchType,@RequestParam String searchKeyword,@RequestParam Date startDate,@RequestParam Date endDate) {
+		
+		System.out.println(searchType);
+		System.out.println(searchKeyword);
+		System.out.println(startDate);
+		System.out.println(endDate);
+		return "";
 	}
 }

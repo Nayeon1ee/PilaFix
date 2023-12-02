@@ -1,5 +1,6 @@
 package com.dev.pilafix.admin.community;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class CommunityVO {
@@ -7,9 +8,14 @@ public class CommunityVO {
 	private String cmTitle;
 	private String cmContent;
 	private int cmWriterMemberCode;
-	private Date cmRegdate;
+	private Timestamp cmRegdate;
 	
 	private String csName;
+	
+	private String searchType;
+	private String searchKeyword;
+	private Date startDate;
+	private Date endDate;
 	
 	
 	public String getCsName() {
@@ -43,10 +49,10 @@ public class CommunityVO {
 	public void setCmWriterMemberCode(int cmWriterMemberCode) {
 		this.cmWriterMemberCode = cmWriterMemberCode;
 	}
-	public Date getCmRegdate() {
+	public Timestamp getCmRegdate() {
 		return cmRegdate;
 	}
-	public void setCmRegdate(Date cmRegdate) {
+	public void setCmRegdate(Timestamp cmRegdate) {
 		this.cmRegdate = cmRegdate;
 	}
 	
