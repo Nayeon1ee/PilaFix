@@ -144,9 +144,7 @@
 		
 		
 		
-	<script>
-
-	</script>
+	
 	<script>
 		<!-- 센터 선택 시, 날짜 선택 시 해당 센터의 수업 목록 조회 -->
 		function getLessonInfoByCenter() {

@@ -93,16 +93,26 @@
 												<input class="form-check-input" type="radio" name="purchaseAvailableYN" id="flexRadioDefault2" value=false>
 												<label class="form-check-label" for="flexRadioDefault2">구매 불가</label>
 											</div>
+<<<<<<< HEAD
+											<div class="p-check">
+									<p>(Y를 선택하면 회원이 바로 구매가 가능합니다.)</p>
+									<p>(N을 선택하면 수강권을 생성만 합니다.)</p>
+=======
 										</div>
 									</fieldset>
 								</div>
 								<div class="p-check">
 									<p>('구매 가능' 선택 시, 수강권이 즉시 회원에게 보여집니다.)</p>
 									<p>('구매 불가' 선택 시, 수강권은 생성되지만, 회원에게는 보여지지 않습니다.)</p>
+>>>>>>> aa37e3d7c4161b46f1428a9122c1dd097fec0e6f
 								</div>
-								<div class="text-center">
-									<button type="submit" class="btn btn-primary">등록</button>
-									<button type="reset" class="btn btn-secondary" onclick="location.href='getCenterTicketList.do'">취소</button>
+										</div>
+									</fieldset>
+								</div>
+								
+								<div class="text d-flex justify-content-end">
+									<button type="submit" class="btn btn-primary me-2">등록</button>
+									<button type="reset" class="btn btn-secondary me-3" onclick="location.href='getCenterTicketList.do'">취소</button>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->

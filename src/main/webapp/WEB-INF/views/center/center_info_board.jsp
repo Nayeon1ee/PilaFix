@@ -70,10 +70,10 @@
 							<!-- 검색필터 끝 -->
 
 							<!-- Table with stripped rows -->
-
-						<div class="terms-btn">
+<hr>
+						<div class="terms-btn my-3">
 							<span class="terms-reg-btn">
-								<button type="button" class="btn btn-primary" onclick="location.href='insertCenterInfo.do'">공지사항 등록</button>
+								<button type="button" class="btn btn-primary me-3" onclick="location.href='insertCenterInfo.do'">공지사항 등록</button>
 							</span>
 						</div>
 

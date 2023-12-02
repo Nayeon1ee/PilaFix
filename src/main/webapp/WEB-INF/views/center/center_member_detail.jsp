@@ -22,6 +22,7 @@
 		</div>
 		<!-- End Page Title -->
 
+
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
@@ -179,7 +180,7 @@
 
 												<h5 class="card-title st_session_pass">그룹</h5>
 												<div class="row">
-													<div class="col-lg-3 col-md-4 label classname000" style="font-weight: bold"> 
+													<div class="col-lg-4 col-md-4 label classname000" style="font-weight: bold"> 
 														<c:choose>
 															<c:when test="${not empty member.ticketCodeGroup1 }">
 																${ticketInfo['group'].tkName} <!-- 맵에서 티켓 정보만 추출 -->
@@ -189,7 +190,7 @@
 															</c:otherwise>
 														</c:choose>
 													</div>
-												</div><br>
+												</div>
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">기간</div>
@@ -308,7 +309,7 @@
 													<td><fmt:formatDate pattern="yyyy.MM.dd(E) a h:mm" var="formattedDate2" value="${qlist.qsRegdate}" />${formattedDate2 }</td>
 													<td>${qlist.qsTitle }</td>
 													<td>
-														<button type="submit" onclick="location.href='getQuestionReply.do?reTargetPostNumber=${qlist.qsNumber}' " class="btn btn-primary mb-3">${qlist.qsAnswerYn ? '답변대기' : '답변완료'}</button>
+														<button type="submit" onclick="location.href='getQuestionReply.do?reTargetPostNumber=${qlist.qsNumber}' " class="btn btn-primary btn-sm mb-3">${qlist.qsAnswerYn ? '답변대기' : '답변완료'}</button>
 													</td>
 												</tr>
 											</c:forEach>

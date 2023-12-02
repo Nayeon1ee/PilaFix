@@ -91,11 +91,11 @@
 										<option value="22">22시</option>
 									</select>
 									<div id="dateTimeContainer"></div>
-									<button type="button" class="btn btn-primary" id="addButton">날짜 및 시간 등록</button>
+									<button type="button" class="btn btn-primary btn-sm ms-2 mt-2" id="addButton">날짜 및 시간 등록</button>
 								</div>
-								<div class="text-center">
-								    <button type="submit" class="btn btn-primary">등록</button>
-								    <button type="reset" class="btn btn-secondary" onclick="location.href='getCenterLessonList.do'">취소</button>
+								<div class="text d-flex justify-content-end">
+								    <button type="submit" class="btn btn-primary me-2">등록</button>
+								    <button type="reset" class="btn btn-secondary me-3" onclick="location.href='getCenterLessonList.do'">취소</button>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->
@@ -163,12 +163,15 @@ document.getElementById('addButton').addEventListener('click', function() {
 
         // 추가된 정보를 표에 추가
         var newRow = document.createElement('div');
-        newRow.innerHTML = lsDate + ' ' + lsTime + '시' + ' ' + ' <button style="margin-bottom: 10px;" class="btn btn-danger" onclick="removeRow(this)">Remove</button><br/>';
+        newRow.classList.add('mt-2'); 
+        newRow.innerHTML = lsDate + ' ' + lsTime + '시' + ' <button class="btn btn-danger btn-sm ms-2 py-auto align-self-center" onclick="removeRow(this)">Remove</button><br/>';
         dateTimeContainer.appendChild(newRow);
     } else {
         alert('날짜와 시간을 선택해주세요.');
     }
 });
+
+
 /**
 var lsName = document.querySelector('input[name="lsName"]').value;
 var lsType= document.querySelector('input[name="lsType"]:checked').value;
