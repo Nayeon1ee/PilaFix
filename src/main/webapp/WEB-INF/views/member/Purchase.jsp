@@ -169,7 +169,7 @@
 							<!-- 3비율 잡기 위한 컨테이너-->
 						</div>
 						<!-- 기본으로 보여줄 이미지 -->
-						<div class="col-md-5 content1 h-100" style="width: 406px;">
+						<div class="col-md-5 content1 h-100" style="min-height: 700px; max-height: 700px; width: 406px;  overflow-y: auto;">
 						<div class="content1-img" id="content1-disappear">
 							<button type="button" id="clickButton"
 								class="btn btn-lg btn-block px-5">
