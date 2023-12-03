@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="center_header_common.jsp" %>
 
 	<main id="main" class="main">
@@ -95,7 +96,7 @@
 								<c:forEach var="list" items="${noticeHistoryList }">
 									<tr>
 										<td>${list.ncId }</td>
-										<td>${list.eventDatetime }</td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.eventDatetime }" /></td>
 										<td>${list.memberCode }</td>
 										<td>${list.eventType }</td>
 										<td>${list.uniqueIdentifierCode }</td>

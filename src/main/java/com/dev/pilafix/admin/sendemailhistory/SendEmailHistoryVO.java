@@ -1,18 +1,20 @@
 package com.dev.pilafix.admin.sendemailhistory;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class SendEmailHistoryVO {
 	private String mhEmailSendCode;
 	private String mhEmailSendType;
-	private Date mhEmailSendDatetime;
+	private Timestamp mhEmailSendDatetime;
 	private	String mhRecipientName;
 	private	String mhRecipientTitle;
 	private String mhRecipientContent;
 	private	String mhRecipientEmail;
 	private boolean	mhSuccessyn;
-	private Date mhSuccessDatetime;
+	private Timestamp mhSuccessDatetime;
 	private String mhFailReason;
+	
+	
 	public String getMhEmailSendCode() {
 		return mhEmailSendCode;
 	}
@@ -25,12 +27,7 @@ public class SendEmailHistoryVO {
 	public void setMhEmailSendType(String mhEmailSendType) {
 		this.mhEmailSendType = mhEmailSendType;
 	}
-	public Date getMhEmailSendDatetime() {
-		return mhEmailSendDatetime;
-	}
-	public void setMhEmailSendDatetime(Date mhEmailSendDatetime) {
-		this.mhEmailSendDatetime = mhEmailSendDatetime;
-	}
+	
 	public String getMhRecipientName() {
 		return mhRecipientName;
 	}
@@ -61,26 +58,33 @@ public class SendEmailHistoryVO {
 	public void setMhSuccessyn(boolean mhSuccessyn) {
 		this.mhSuccessyn = mhSuccessyn;
 	}
-	public Date getMhSuccessDatetime() {
-		return mhSuccessDatetime;
-	}
-	public void setMhSuccessDatetime(Date mhSuccessDatetime) {
-		this.mhSuccessDatetime = mhSuccessDatetime;
-	}
+
 	public String getMhFailReason() {
 		return mhFailReason;
 	}
 	public void setMhFailReason(String mhFailReason) {
 		this.mhFailReason = mhFailReason;
 	}
+	public Timestamp getMhEmailSendDatetime() {
+		return mhEmailSendDatetime;
+	}
+	public void setMhEmailSendDatetime(Timestamp mhEmailSendDatetime) {
+		this.mhEmailSendDatetime = mhEmailSendDatetime;
+	}
+	public Timestamp getMhSuccessDatetime() {
+		return mhSuccessDatetime;
+	}
+	public void setMhSuccessDatetime(Timestamp mhSuccessDatetime) {
+		this.mhSuccessDatetime = mhSuccessDatetime;
+	}
 	@Override
 	public String toString() {
 		return "SendEmailHistoryVO [mhEmailSendCode=" + mhEmailSendCode + ", mhEmailSendType=" + mhEmailSendType
-				+ ", mhEmailSendDatetime=" + mhEmailSendDatetime + ", mhRecipientName=" + mhRecipientName
-				+ ", mhRecipientTitle=" + mhRecipientTitle + ", mhRecipientContent=" + mhRecipientContent
-				+ ", mhRecipientEmail=" + mhRecipientEmail + ", mhSuccessyn=" + mhSuccessyn + ", mhSuccessDatetime="
-				+ mhSuccessDatetime + ", mhFailReason=" + mhFailReason + "]";
+				+ ", mhRecipientName=" + mhRecipientName + ", mhRecipientTitle=" + mhRecipientTitle
+				+ ", mhRecipientContent=" + mhRecipientContent + ", mhRecipientEmail=" + mhRecipientEmail
+				+ ", mhSuccessyn=" + mhSuccessyn + ", mhFailReason=" + mhFailReason + "]";
 	}
+	
 	
 	
 }

@@ -97,7 +97,7 @@
                   <tr>
                     <td>${sendEmailHistoryInfo.mhEmailSendCode }</td>
 					<td>${sendEmailHistoryInfo.mhEmailSendType }</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${sendEmailHistoryInfo.mhEmailSendDatetime }"/></td>
+					<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhEmailSendDatetime }"/></td>
 					<td>${sendEmailHistoryInfo.mhRecipientName}</td>
 					<td><a href="getSendEmailHistoryInfo.do?mhEmailSendCode=${sendEmailHistoryInfo.mhEmailSendCode }">${sendEmailHistoryInfo.mhRecipientTitle }</a></td>
 					<td>${sendEmailHistoryInfo.mhRecipientEmail }</td>
@@ -107,7 +107,7 @@
 							<td>-</td>
 						</c:when>
 						<c:otherwise>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${sendEmailHistoryInfo.mhSuccessDatetime }"/></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhSuccessDatetime }"/></td>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>

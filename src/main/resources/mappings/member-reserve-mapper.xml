@@ -331,13 +331,33 @@
 
 	<!-- =========================================================== -->
 	
-	<!-- 예약 가능 여부 체크  -->
+	<!-- 예약 가능 여부 체크 1. 기존 예약 여부 체크 -->
 	<select id="checkReservation" parameterType="java.util.Map" resultType="int" >
 		SELECT COUNT(*) 
 		FROM TBL_RESERV
 		WHERE LESSON_CODE=#{lsCode}
   			AND MEMBER_CODE=#{csMemberCode}
   			AND RS_CANCEL_YN=FALSE ;
+	</select>
+	
+	<!-- 예약 가능 여부 체크 2. 선택한 센터에 맞는 수강권 보유 여부 체크   -->
+	<select id="checkTicket"  resultType="int" >
+		SELECT COUNT(*) 
+		FROM TBL_TICKET
+		WHERE
+		    TK_CODE = (
+		        SELECT TICKET_CODE_GROUP1
+		        FROM TBL_CST
+		        WHERE CS_MEMBER_CODE=#{csMemberCode}
+		    )
+		    AND CENTER_CODE=#{centerCode}
+		  OR
+		    TK_CODE = (
+		        SELECT TICKET_CODE_PERSONAL1
+		        FROM TBL_CST
+		        WHERE CS_MEMBER_CODE=#{csMemberCode}
+		    )
+		    AND CENTER_CODE=#{centerCode}
 	</select>
 	
 	<!-- (미사용) 출결레코드 자동 생성 대상 - 수업코드로 예약 조회 -->
