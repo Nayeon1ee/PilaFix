@@ -413,8 +413,8 @@
 				</div>
 				
 				
-				<!-- 예약 불가 모달  -->
-				<div class="modal fade" id="impossibleModal" tabindex="-1"
+				<!-- 기 예약건 존재로 인한 예약 불가 모달  -->
+				<div class="modal fade" id="alreadyReserveModal" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div
 						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -427,7 +427,9 @@
 							<div class="modal-body">
 								<div class="highlight-section">
 									<p class="hightlight-text" style="font-size: 18px;">
-										이미 예약이 완료된 수업입니다.
+										<b>이미 예약이 완료된 수업입니다!</b>
+										<br><br>
+										<a href="schedule.do">내스케줄 확인하러가기</a>
 									</p>
 								</div>
 							</div>
@@ -438,6 +440,34 @@
 						</div>
 					</div>
 				</div>
+				<!-- 수강권 미소유로 인한 예약 불가 모달  -->
+				<div class="modal fade" id="noTicketModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										<b>구매가능한 수강권이 존재하지 않습니다!</b><br>
+										수강권 구매 후 이용하여 주시기 바랍니다.<br><br>
+										<a href="ticketPage.do">수강권 구매하러가기</a>
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<!-- 모달 끝 -->
 
 				<!-- 내용 -->
@@ -657,19 +687,24 @@
 	    $.ajax({
 	        url: 'checkReservation.do',
 	        method: 'POST',
-	        data: { lsCode: lsCode }, 
+	        data: { 
+	        	lsCode: lsCode,
+	        	centerCode : centerCode
+	        	}, 
 	        success: function(response) {
-	        	// 사용가능한 보유한 수강권이 없다면 
 	        	
-	        	// 이미 예약 했다면 
-	        	
-	        	
-	        	if(response){
-	        		getReservationInfo(lsCode, centerCode);
+	        	console.log("예약 가능 여부 체크 ");
+	        	if(response.checkTicket === 0){ //수강권 미소유
+	        		console.log(1);
+	        		$('#noTicketModal').modal('show');
+	        	}else if(response.checkReservation !== 0){ // 이미 예약 했다면 
+	        		console.log(2);
+	        		$('#alreadyReserveModal').modal('show');
 	        	}else{
-	        		//이미 예약했다는 모달 
-	        		$('#impossibleModal').modal('show');
+	        		console.log(3);
+	        		getReservationInfo(lsCode, centerCode);
 	        	}
+	        	
 	        },
 	        error: function(error) {
 	            console.error('AJAX 요청 시 에러', error);

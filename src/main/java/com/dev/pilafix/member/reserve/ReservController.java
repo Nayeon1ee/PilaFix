@@ -223,18 +223,17 @@ public class ReservController {
 	@PostMapping("/checkReservation.do")
 	@ResponseBody
 	@Async
-	public boolean checkReservation(HttpSession session, String lsCode) {
+	public Map<String, Integer> checkReservationAndTicket(HttpSession session, String lsCode, int centerCode) {
 		Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
+		Map<String, Integer> checkResult = new HashMap<>();
 		
 		if(loginUser != null) {
 			int csMemberCode = (int) loginUser.get("csMemberCode");
-			int result = service.checkReservation(csMemberCode, lsCode);
-			System.out.println("예약 가능 여부 컨트롤러 :"+result);
-			if(result == 0) { 
-				return true;//예약 가능 
-			}
+			checkResult = service.checkReservationAndTicket(csMemberCode, lsCode, centerCode);
+			System.out.println("예약 가능 여부 컨트롤러 :"+checkResult);
+						
 		}
-		return false;
+		return checkResult;
 	}	
 	
 	
