@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -76,7 +76,7 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container" style="max-width:1000px">
+			<div class="container" style="max-width: 1000px">
 
 				<form action="memberLogin.do" method="post" class="row g-3">
 
@@ -120,29 +120,22 @@
 					style="display: flex; justify-content: center;">
 
 					<div
-						style="width: 40px; height: 40px; background: white; display: inline-block; margin-right: 30px;">
+						style="width: 150px; height: 40px; background: white; display: inline-block; margin-right: 10px;">
 						<a href="[네이버 로그인 링크]"> <img
 							src="${pageContext.request.contextPath}/resources/images/naver_login_bt.png"
-							alt="네이버 로그인" style="max-width: 100%; max-height: 100%;">
+							alt="네이버 로그인"
+							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
 						</a>
 					</div>
 
 					<div
-						style="width: 40px; height: 40px; background: white; display: inline-block; margin-right: 30px;">
+						style="width: 150px; height: 40px; background: white; display: inline-block; margin-right: 10px;">
 						<a href="[카카오 로그인 링크]"> <img
 							src="${pageContext.request.contextPath}/resources/images/kakao_login_bt.png"
-							alt="카카오 로그인" style="max-width: 100%; max-height: 100%;">
+							alt="카카오 로그인"
+							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
 						</a>
 					</div>
-
-					<div
-						style="width: 40px; height: 40px; background: white; display: inline-block;">
-						<a href="[구글 로그인 링크]"> <img
-							src="${pageContext.request.contextPath}/resources/images/google_login_bt.png"
-							alt="구글 로그인" style="max-width: 100%; max-height: 100%;">
-						</a>
-					</div>
-
 
 				</div>
 
@@ -161,15 +154,15 @@
 
 
 
-<!-- 로그인 실패 메시지 표시 -->
-<c:if test="${not empty message}">
-	<!-- <div class="alert alert-danger" role="alert"> -->
+				<!-- 로그인 실패 메시지 표시 -->
+				<c:if test="${not empty message}">
+					<!-- <div class="alert alert-danger" role="alert"> -->
             ${message}
 	<!-- </div> -->
-</c:if>
+				</c:if>
 
 
-<script type="text/javascript">
+				<script type="text/javascript">
     function validateLoginForm() {
         var email = document.getElementById('csEmailId').value;
         var password = document.getElementById('csPassword').value;
