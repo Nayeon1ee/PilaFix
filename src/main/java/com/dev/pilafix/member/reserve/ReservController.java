@@ -213,6 +213,9 @@ public class ReservController {
 	/**
 	 * 예약 가능 여부 체크 
 	 * 
+	 * 1. 사용가능한 수강권이 있는지 
+	 * 2. 해당 수업에 대한 예약 여부 확인
+	 * 
 	 * @param session
 	 * @param lsCode
 	 * @return

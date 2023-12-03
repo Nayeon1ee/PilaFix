@@ -659,6 +659,10 @@
 	        method: 'POST',
 	        data: { lsCode: lsCode }, 
 	        success: function(response) {
+	        	// 사용가능한 보유한 수강권이 없다면 
+	        	
+	        	// 이미 예약 했다면 
+	        	
 	        	
 	        	if(response){
 	        		getReservationInfo(lsCode, centerCode);
