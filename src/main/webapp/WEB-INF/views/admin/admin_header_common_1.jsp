@@ -351,7 +351,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="insertFaqInfo.do"> 
+						<a href="insertTerms.do"> 
 							<i class="bi bi-circle"></i><span>약관 등록</span>
 						</a>
 					</li>

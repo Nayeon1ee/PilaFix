@@ -1,17 +1,18 @@
 package com.dev.pilafix.admin.center_manage;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class SendEmailHistoryVO {
 	private String mhEmailSendCode;
 	private String mhEmailSendType;
-	private LocalDateTime mhEmailSendDate;
+	private Timestamp mhEmailSendDate;
 	private String mhRecipientName;
 	private String mhRecipientTitle;
 	private String mhRecipientContent;
 	private String mhRecipientEmail;
 	private boolean mhSuccessYN;
-	private LocalDateTime mhSuccessDate;
+	private Timestamp mhSuccessDate;
 	private String mhFailReason;
 	public String getMhEmailSendCode() {
 		return mhEmailSendCode;
@@ -25,12 +26,8 @@ public class SendEmailHistoryVO {
 	public void setMhEmailSendType(String mhEmailSendType) {
 		this.mhEmailSendType = mhEmailSendType;
 	}
-	public LocalDateTime getMhEmailSendDate() {
-		return mhEmailSendDate;
-	}
-	public void setMhEmailSendDate(LocalDateTime mhEmailSendDate) {
-		this.mhEmailSendDate = mhEmailSendDate;
-	}
+
+	
 	public String getMhRecipientName() {
 		return mhRecipientName;
 	}
@@ -61,17 +58,26 @@ public class SendEmailHistoryVO {
 	public void setMhSuccessYN(boolean mhSuccessYN) {
 		this.mhSuccessYN = mhSuccessYN;
 	}
-	public LocalDateTime getMhSuccessDate() {
-		return mhSuccessDate;
-	}
-	public void setMhSuccessDate(LocalDateTime mhSuccessDate) {
-		this.mhSuccessDate = mhSuccessDate;
-	}
+	
 	public String getMhFailReason() {
 		return mhFailReason;
 	}
 	public void setMhFailReason(String mhFailReason) {
 		this.mhFailReason = mhFailReason;
+	}
+	
+	
+	public Timestamp getMhEmailSendDate() {
+		return mhEmailSendDate;
+	}
+	public void setMhEmailSendDate(Timestamp mhEmailSendDate) {
+		this.mhEmailSendDate = mhEmailSendDate;
+	}
+	public Timestamp getMhSuccessDate() {
+		return mhSuccessDate;
+	}
+	public void setMhSuccessDate(Timestamp mhSuccessDate) {
+		this.mhSuccessDate = mhSuccessDate;
 	}
 	@Override
 	public String toString() {
