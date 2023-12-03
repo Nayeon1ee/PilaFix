@@ -23,31 +23,24 @@ public class AttendDAO {
 	}
 
 	/**
-	 * 로그인한 강사의 회원코드로 가져오는 그룹 수업리스트 + 센터이름
-	 * 
-	 * @param csMemberCode
-	 * @return
+	 * 수업 상태별로 3가지 리스트 
 	 */
-	public List<CenterLessonVO> getGroupLessonListWithCtName(int csMemberCode) {
-		return sqlSessionTemplate.selectList("CenterLessonDAO.getGroupLessonListWithCtName", csMemberCode);
+	//진행중 
+	public List<CenterLessonVO> getOngoingTrainerLessons(int csMemberCode) {
+		return sqlSessionTemplate.selectList("CenterLessonDAO.getOngoingTrainerLessons",csMemberCode);
 	}
-
-	/**
-	 * 로그인한 강사의 회원코드로 가져오는 개인 수업리스트 + 센터이름 + 예약회원이름
-	 * 
-	 * @param csMemberCode
-	 * @return
-	 */
-	public List<CenterLessonVO> getLessonListWithCtNameAndCsName(int csMemberCode) {
-		return sqlSessionTemplate.selectList("CenterLessonDAO.getLessonListWithCtNameAndCsName", csMemberCode);
+	//수업종료
+	public List<CenterLessonVO> getCompletedTrainerLessons(int csMemberCode) {
+		return sqlSessionTemplate.selectList("CenterLessonDAO.getCompletedTrainerLessons",csMemberCode);
 	}
+	
+	//폐강
+	public List<CenterLessonVO> getClosedTrainerLessons(int csMemberCode) {
+		return sqlSessionTemplate.selectList("CenterLessonDAO.getClosedTrainerLessons",csMemberCode);
+	}
+	
+	
 
-//	/**
-//	 * 수업 상세 + 예약회원이름 -> 예약회원 없는 경우 에러 수업만 따로 select
-//	 */
-//	public CenterLessonVO getLessonByTrainerWithCsName(String lsCode) {
-//		return sqlSessionTemplate.selectOne("CenterLessonDAO.getLessonByTrainerWithCsName", lsCode);
-//	}	
 	/**
 	 * 수업상세
 	 * @param lsCode

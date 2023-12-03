@@ -162,15 +162,13 @@
 					<button type="button" class="btn btn-primary ms-3"
 						onclick="location.href='getTrainerLessonList.do'">목록</button>
 					<!-- 출석 처리 버튼 -->
-					<form action="updateAttendG.do" method="post" class="me-2">
-						<input type="hidden" name="lessonCode"
-							value="${lessonDetail.lsCode}">
-						<c:forEach var="member" items="${reservedMembers}">
-							<input type="checkbox" name="selectedMemberCodes"
-								value="${member.memberCode}">
-						</c:forEach>
-						<button type="submit" class="btn btn-primary me-3">출석처리</button>
-					</form>
+<form action="updateAttendG.do" method="post" class="me-2">
+    <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
+    <c:forEach var="member" items="${reservedMembers}">
+        <input type="checkbox" name="selectedMemberCodes" value="${member.memberCode}">
+    </c:forEach>
+    <button type="submit" class="btn btn-primary me-3">출석처리</button>
+</form>
 
 
 				</div>

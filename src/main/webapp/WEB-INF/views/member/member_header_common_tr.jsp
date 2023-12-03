@@ -32,11 +32,11 @@
 			<nav id="navbar" class="navbar">
 				<ul>
 					<li><a class="active" href="mainPage.do">Home</a></li>
-					<li><a href="getTrainerLessonList.do">수업관리</a></li>
+					<li><a href="trainerLessonPage.do">수업관리</a></li>
 					<!-- 
 					<li><a href="ticketPage.do">수강권 결제</a></li>
 					<li><a href="reservPage.do">예약하기</a></li> -->
-					<li><a href="getMemberCommunityList.do">커뮤니티</a></li>
+					<li><a href="communityPage.do">커뮤니티</a></li>
 					<li><a href="member_notice.do">공지사항</a></li>
 					<li class="dropdown"><a href="myPage.do"><span>마이페이지</span> 
 					<i class="bi bi-chevron-down"></i></a>

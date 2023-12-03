@@ -79,12 +79,12 @@
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
 
-				<div id="userInfo" class="d-flex align-items-center mb-2">
+<!-- 				<div id="userInfo" class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
-				</div>
+				</div> -->
 
 
 				<div class="container">
@@ -121,13 +121,10 @@
                                     <p>센터 정보: ${center.ctName}</p>
                                     <p>정말로 연동 해제하시겠습니까?</p>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                    <form action="disconnectCenter.do" method="post">
-                                        <input type="hidden" name="selectedCenterCode" value="${center.ctCode}">
-                                        <button type="button" class="btn btn-primary" onclick="disconnectCenter(${center.ctCode})">확인</button>
-                                    </form>
-                                </div>
+<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" data-center-code="${center.ctCode}" onclick="disconnectCenter(this)">확인</button>
+    </div>
                             </div>
                         </div>
                     </div>
@@ -185,19 +182,25 @@
 
 <!-- 모달의 확인 누르면 연동센터 해제 진행 -->
 <script>
-function disconnectCenter(selectedCenterCode) {
-    fetch('disconnectCenter.do?selectedCenterCode=' + selectedCenterCode, {
-        method: 'POST'
+function disconnectCenter(buttonElement) {
+    var selectedCenterCode = buttonElement.getAttribute('data-center-code');
+
+    fetch('disconnectCenter.do', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'selectedCenterCode=' + encodeURIComponent(selectedCenterCode)
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('error');
-            }
-            window.location.href = 'myConnectedCenter.do'; // 연동센터 목록 페이지로 리다이렉트
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        window.location.href = 'myConnectedCenter.do'; // 연동센터 목록 페이지로 리다이렉트
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
 }
 </script>
 	<!-- ======= Footer ======= -->

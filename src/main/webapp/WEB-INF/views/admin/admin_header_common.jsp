@@ -53,7 +53,7 @@
 	<header id="header" class="header fixed-top d-flex align-items-center">
 
 		<div class="d-flex align-items-center justify-content-between">
-			<a href="index.html" class="logo d-flex align-items-center"> <img
+			<a href="adminMain.do" class="logo d-flex align-items-center"> <img
 				src="assets/img/logo.png" alt=""> <span
 				class="d-none d-lg-block">PilaAdmin</span>
 			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -215,45 +215,45 @@
 					href="#" data-bs-toggle="dropdown"> <img
 						src="assets/img/profile-img.jpg" alt="Profile"
 						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+						class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.loginAdmin.adName}</span>
 				</a> <!-- End Profile Iamge Icon -->
 
 					<ul
 						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 						<li class="dropdown-header">
-							<h6>Kevin Anderson</h6> <span>Web Designer</span>
+							<h6>${sessionScope.loginAdmin.adName}</h6> <span>${sessionScope.loginAdmin.adCode}</span>
 						</li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="users-profile.html"> <i class="bi bi-person"></i> <span>My
-									Profile</span>
+							href="adminMypage.do"> <i class="bi bi-person"></i> 
+							<span>비밀번호변경</span>
 						</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="users-profile.html"> <i class="bi bi-gear"></i> <span>Account
-									Settings</span>
+							href="insertAdminLoginInfo.do"> <i class="bi bi-gear"></i> 
+							<span>관리자 계정 생성</span>
 						</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
 
-						<li><a class="dropdown-item d-flex align-items-center"
+	<!-- 					<li><a class="dropdown-item d-flex align-items-center"
 							href="pages-faq.html"> <i class="bi bi-question-circle"></i>
 								<span>Need Help?</span>
 						</a></li>
 						<li>
 							<hr class="dropdown-divider">
-						</li>
+						</li> -->
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
-									Out</span>
+							href="adminLogout.do"> <i class="bi bi-box-arrow-right"></i> 
+							<span>로그아웃</span>
 						</a></li>
 
 					</ul> <!-- End Profile Dropdown Items --></li>
@@ -271,7 +271,7 @@
 
 		<ul class="sidebar-nav" id="sidebar-nav">
 
-			<li class="nav-item"><a class="nav-link " href="index.html">
+			<li class="nav-item"><a class="nav-link " href="adminMain.do">
 					<i class="bi bi-grid"></i> <span>Dashboard</span>
 			</a></li>
 			<!-- End Dashboard Nav -->
@@ -369,14 +369,41 @@
 			<li class="nav-heading">Pages</li>
 
 			<li class="nav-item"><a class="nav-link collapsed"
-				href="users-profile.html"> <i class="bi bi-person"></i> <span>Profile</span>
+				href="insertAdminLoginInfo.do"> <i class="bi bi-person"></i> <span>관리자계정생성</span>
 			</a></li>
 			<!-- End Profile Page Nav -->
+			
+			
+<li class="nav-item"><a class="nav-link collapsed"
+href="adminLogout.do"> <i class="bi bi-box-arrow-in-right"></i>
+<span>Logout</span>
+</a></li> 
+<%-- <c:choose>
+  <c:when test="${empty loginAdmin}">
+    <!-- 로그인 세션이 없는 경우 -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="adminLogin.do">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li>
+  </c:when>
+  <c:otherwise>
+    <!-- 로그인 세션이 있는 경우 -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="adminLogout.do">
+        <i class="bi bi-box-arrow-out-left"></i>
+        <span>Logout</span>
+      </a>
+    </li>
+  </c:otherwise>
+</c:choose> --%>
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="centerLogin.do"> <i class="bi bi-box-arrow-in-right"></i>
-					<span>Login</span>
-			</a></li>
+<!-- 			
+<li class="nav-item"><a class="nav-link collapsed"
+href="adminLogin.do"> <i class="bi bi-box-arrow-in-right"></i>
+<span>Login</span>
+</a></li> -->
 			<!-- End Login Page Nav -->
 
 		</ul>

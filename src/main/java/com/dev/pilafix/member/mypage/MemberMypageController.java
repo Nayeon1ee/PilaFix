@@ -98,7 +98,7 @@ public class MemberMypageController {
 	 */
 	@PostMapping("/disconnectCenter.do")
 	public String disconnectCenter(HttpSession session,
-			@RequestParam(name = "selectedCenterCode") int selectedCenterCode, Model model) {
+	        @RequestParam(name = "selectedCenterCode") int selectedCenterCode, Model model) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 
 		if (user != null) {
@@ -117,7 +117,7 @@ public class MemberMypageController {
 			}
 		} else {
 			// 로그인되어 있지 않은 경우 로그인 페이지로 이동
-			return "member/login.do";
+			return "member/login";
 		}
 	}
 
@@ -128,7 +128,9 @@ public class MemberMypageController {
 	@GetMapping("/myNoticePage.do")
 	   public String showNoticePage(HttpSession session,Model model) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-		int csMemberCode = (int) user.get("csMemberCode");
+
+		if (user != null) {
+			int csMemberCode = (int) user.get("csMemberCode");
         // 센터 정보를 가져오는 메서드
         List<CenterInfoVO> centerInfoList = service.getCenterInfoListByMember(csMemberCode);
         // 필라픽스 정보를 가져오는 메서드
@@ -139,8 +141,10 @@ public class MemberMypageController {
         model.addAttribute("pilafixInfoList", pilafixInfoList);
 
         return "member/member_notice"; 
+    }else {
+    	return "member/login";
     }
-	
+	}
 
 
 	/**
