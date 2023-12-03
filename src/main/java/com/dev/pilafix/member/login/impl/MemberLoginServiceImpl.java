@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.login.impl;
 
+import java.sql.Timestamp;
 import java.util.Random;
 
 import javax.mail.AuthenticationFailedException;
@@ -164,7 +165,7 @@ public class MemberLoginServiceImpl implements MemberLoginService {
 
 		if (flag == 1) {
 			email.setMhSuccessYN(true);
-			email.setMhSuccessDate(java.time.LocalDateTime.now());
+			email.setMhSuccessDate(Timestamp.valueOf(java.time.LocalDateTime.now()));
 		} else {
 			email.setMhSuccessYN(false);
 			email.setMhFailReason(errorMessage);

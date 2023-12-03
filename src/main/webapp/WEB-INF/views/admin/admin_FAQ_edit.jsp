@@ -30,25 +30,28 @@
 									<label class="form-label">글번호</label> <input type="text" readonly disabled class="form-control" value="${faqInfo.fqNumber }">
 								</div> --%>
 								<div class="col-md-12">
-									<label class="form-label">공통</label>
-									<c:choose>
-									<c:when test="${faqInfo.fqType}">
-										<input type="text" readonly class="form-control" value="공통" disabled>
-									</c:when>
-									<c:when test="${faqInfo.fqType}">
-										<input type="text" readonly class="form-control" value="회원" disabled>
-									</c:when>
-									<c:otherwise>
-										<input type="text" readonly class="form-control" value="강사" disabled>
-									</c:otherwise>
-									</c:choose>
+									<label for="inputState" class="form-label">구분</label>
+									<select id="selectbox" class="form-select" name="fqType">
+										<c:choose>
+											<c:when test="${faqInfo.fqType eq 'COMMON'}">
+												<option value="COMMON" selected="selected" >공통</option>
+							                    <option value="TR">강사</option>
+							                    <option value="ME">회원</option>
+											</c:when>
+											<c:when test="${faqInfo.fqType eq 'ME'}">
+												<option value="COMMON">공통</option>
+							                    <option value="TR">강사</option>
+							                    <option value="ME" selected="selected" >회원</option>
+											</c:when>
+											<c:otherwise>
+												<option value="COMMON">공통</option>
+							                    <option value="TR" selected="selected" >강사</option>
+							                    <option value="ME">회원</option>	
+											</c:otherwise>
+										</c:choose>
+									</select>
 								</div>
-								<%-- <div class="col-md-4">
-									<label class="form-label">작성일</label> <input type="text" readonly disabled class="form-control" value="${faqInfo.fqRegDate }">
-								</div> --%>
-								<%-- <div class="col-md-4">
-									<label class="form-label">최근 수정일</label> <input type="text" readonly disabled class="form-control" value="${faqInfo.fqType }">
-								</div> --%>
+								
 								<div class="col-md-12">
 									<label class="form-label">글 제목</label> 
 									<input type="text" class="form-control" value="${faqInfo.fqTitle }" name="fqTitle">

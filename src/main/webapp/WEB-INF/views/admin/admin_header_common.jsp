@@ -331,7 +331,7 @@
 					<li><a href="getTermsList.do"> <i class="bi bi-circle"></i><span>전체
 								약관 목록 조회</span>
 					</a></li>
-					<li><a href="insertFaqInfo.do"> <i class="bi bi-circle"></i><span>약관
+					<li><a href="insertTerms.do"> <i class="bi bi-circle"></i><span>약관
 								등록</span>
 					</a></li>
 				</ul></li>

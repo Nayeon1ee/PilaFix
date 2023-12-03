@@ -29,10 +29,10 @@
                 <div class="col-md-12">
                 	<label class="form-label">구분</label>
                 	<c:choose>
-					<c:when test="${faqInfo.fqType}">
+					<c:when test="${faqInfo.fqType eq 'COMMON'}">
 						<input type="text" readonly class="form-control" value="공통" disabled>
 					</c:when>
-					<c:when test="${faqInfo.fqType}">
+					<c:when test="${faqInfo.fqType eq 'ME'}">
 						<input type="text" readonly class="form-control" value="회원" disabled>
 					</c:when>
 					<c:otherwise>

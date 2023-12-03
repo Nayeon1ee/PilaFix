@@ -41,7 +41,8 @@
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">발송일</label>
-                  <input type="text" readonly class="form-control"  value="${sendEmailHistoryInfo.mhEmailSendDatetime }" disabled>
+                  <input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhEmailSendDatetime }"/>'>
+                  
                 </div>
 		
                 <div class="col-md-12">
