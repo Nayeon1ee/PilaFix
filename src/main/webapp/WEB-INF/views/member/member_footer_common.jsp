@@ -17,7 +17,7 @@
     <ul>
         <li><i class="bx bx-chevron-right"></i> <a href="ticketPage.do">수강권 결제</a></li>
         <li><i class="bx bx-chevron-right"></i> <a href="reservPage.do">예약하기</a></li>
-        <li><i class="bx bx-chevron-right"></i> <a href="getMemberCommunityList.do">커뮤니티</a></li>
+        <li><i class="bx bx-chevron-right"></i> <a href="communityPage.do">커뮤니티</a></li>
         <li><i class="bx bx-chevron-right"></i> <a href="myNoticePage.do">공지사항</a></li>
         <li><i class="bx bx-chevron-right"></i> <a href="myPage.do">마이페이지</a></li>
     </ul>

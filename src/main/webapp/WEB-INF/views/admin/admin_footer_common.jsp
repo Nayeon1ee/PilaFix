@@ -11,7 +11,7 @@
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://PilaFixmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://PilaFixmade.com/nice-admin-bootstrap-admin-html-template/ -->
-       <a href="https://PilaFixmade.com/">PilaFixmade</a>
+       <a href="adminMain.do">PilaFixmade</a>
     </div>
   </footer><!-- End Footer -->
 

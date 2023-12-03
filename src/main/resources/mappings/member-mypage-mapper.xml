@@ -142,7 +142,7 @@
 	
 	<!-- 연동센터 이름, 코드 가져오기 -->
 	<select id="getConnectedCenterList" resultMap="centerResult" parameterType="int">
-		SELECT CT_NAME
+		SELECT CT_NAME, CT_CODE
 		FROM TBL_CENTER
 		WHERE CT_CODE IN (
 	    		SELECT CONNECTED_CENTER_CODE1 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
@@ -153,22 +153,13 @@
 	</select>
 	<!-- 회원의 연동 센터 해제 -->
 	<update id="disconnectCenter" parameterType="map">
-        UPDATE TBL_CST
-        SET
-            CONNECTED_CENTER_CODE1 = CASE
-                WHEN CONNECTED_CENTER_CODE1 = #{selectedCenterCode} THEN 0
-                ELSE CONNECTED_CENTER_CODE1
-            END,
-            CONNECTED_CENTER_CODE2 = CASE
-                WHEN CONNECTED_CENTER_CODE2 = #{selectedCenterCode} THEN 0
-                ELSE CONNECTED_CENTER_CODE2
-            END,
-            CONNECTED_CENTER_CODE3 = CASE
-                WHEN CONNECTED_CENTER_CODE3 = #{selectedCenterCode} THEN 0
-                ELSE CONNECTED_CENTER_CODE3
-            END
-        WHERE
-            CS_MEMBER_CODE = #{csMemberCode};
+	UPDATE TBL_CST
+	SET 
+	    connected_center_code1 = CASE WHEN connected_center_code1 = #{selectedCenterCode} THEN 0 ELSE connected_center_code1 END,
+	    connected_center_code2 = CASE WHEN connected_center_code2 = #{selectedCenterCode} THEN 0 ELSE connected_center_code2 END,
+	    connected_center_code3 = CASE WHEN connected_center_code3 = #{selectedCenterCode} THEN 0 ELSE connected_center_code3 END
+	WHERE
+    cs_member_code = #{csMemberCode};
     </update>
 	
 	<!-- 회원탈퇴 -->

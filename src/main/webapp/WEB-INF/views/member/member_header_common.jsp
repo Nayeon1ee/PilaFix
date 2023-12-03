@@ -44,10 +44,13 @@
 				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 			</div>
 			<%-- 로그인/로그아웃 상태 확인 --%>
+
+			<c:set var="user" value="${sessionScope.loginUser}" />
 			<%
 			// 로그인 상태 확인
 			boolean isLoggedIn = session.getAttribute("loginUser") != null;
 			String loginLogoutText = isLoggedIn ? "로그아웃" : "로그인";
+			String csRoleCode = (String) session.getAttribute("csRoleCode");
 			%>
 			<!--  start nav -->
 			<nav id="navbar" class="navbar">
@@ -55,11 +58,89 @@
 
 					<!-- <li><a class="active" href="index.html">Home</a></li> -->
 					<li><a class="active" href="mainPage.do">Home</a></li>
-					<li><a href="ticketPage.do">수강권 결제</a></li>
+					
+					
+<c:choose>
+    <c:when test="${sessionScope.loginUser.csRoleCode == 'ME'}">
+<li><a href="ticketPage.do">수강권 결제</a></li>
+<li><a href="reservPage.do">예약하기</a></li>
+<li><a href="communityPage.do">커뮤니티</a></li>
+<li><a href="member_notice.do">공지사항</a></li>
+<!-- <li><a href="member_mypage.do">마이페이지</a></li>  -->
+<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
+		<i class="bi bi-chevron-down"></i></a>
+	<ul>
+
+		<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
+		<li><a href="myNoticePage.do">공지사항</a></li>
+		<li><a href="getPaymentHistory.do">결제내역</a></li>
+		<li><a href="myConnectedCenter.do">연동센터관리</a></li>
+		<li><a href="myFAQpage.do">FAQ</a></li>
+		<li><a href="questionPage.do">문의사항</a></li>
+		<li><a href="myTermsPage.do">약관및정책</a></li>
+	</ul></li>
+</c:when>
+    <c:otherwise>
+
+<!-- 강사인 경우 -->
+<li><a href="trainerLessonPage.do">수업관리</a></li>
+<li><a href="communityPage.do">커뮤니티</a></li>
+<li><a href="member_notice.do">공지사항</a></li>
+<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
+		<i class="bi bi-chevron-down"></i></a>
+	<ul>
+		<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
+		<li><a href="myNoticePage.do">공지사항</a></li>
+		<li><a href="myConnectedCenter.do">연동센터관리</a></li>
+		<li><a href="myFAQpage.do">FAQ</a></li>
+		<li><a href="myTermsPage.do">약관및정책</a></li>
+	</ul></li>
+</c:otherwise>
+</c:choose>					
+					
+
+<%-- <% if ("ME".equals((String)session.getAttribute("csRoleCode")))  { %>
+<li><a href="ticketPage.do">수강권 결제</a></li>
+<li><a href="reservPage.do">예약하기</a></li>
+<li><a href="communityPage.do">커뮤니티</a></li>
+<li><a href="member_notice.do">공지사항</a></li>
+<!-- <li><a href="member_mypage.do">마이페이지</a></li>  -->
+<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
+		<i class="bi bi-chevron-down"></i></a>
+	<ul>
+
+		<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
+		<li><a href="myNoticePage.do">공지사항</a></li>
+		<li><a href="getPaymentHistory.do">결제내역</a></li>
+		<li><a href="myConnectedCenter.do">연동센터관리</a></li>
+		<li><a href="myFAQpage.do">FAQ</a></li>
+		<li><a href="questionPage.do">문의사항</a></li>
+		<li><a href="myTermsPage.do">약관및정책</a></li>
+	</ul></li>
+
+<% } else { %>
+<!-- 강사인 경우 -->
+<li><a href="trainerLessonPage.do">수업관리</a></li>
+<li><a href="communityPage.do">커뮤니티</a></li>
+<li><a href="member_notice.do">공지사항</a></li>
+<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
+		<i class="bi bi-chevron-down"></i></a>
+	<ul>
+		<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
+		<li><a href="myNoticePage.do">공지사항</a></li>
+		<li><a href="myConnectedCenter.do">연동센터관리</a></li>
+		<li><a href="myFAQpage.do">FAQ</a></li>
+		<li><a href="myTermsPage.do">약관및정책</a></li>
+	</ul></li>
+<% } %> --%>
+
+
+
+<!-- 					<li><a href="ticketPage.do">수강권 결제</a></li>
 					<li><a href="reservPage.do">예약하기</a></li>
-					<li><a href="getMemberCommunityList.do">커뮤니티</a></li>
+					<li><a href="communityPage.do">커뮤니티</a></li>
 					<li><a href="member_notice.do">공지사항</a></li>
-					<!-- <li><a href="member_mypage.do">마이페이지</a></li>  -->
+					<li><a href="member_mypage.do">마이페이지</a></li> 
 					<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
 							<i class="bi bi-chevron-down"></i></a>
 						<ul>
@@ -71,7 +152,7 @@
 							<li><a href="myFAQpage.do">FAQ</a></li>
 							<li><a href="questionPage.do">문의사항</a></li>
 							<li><a href="myTermsPage.do">약관및정책</a></li>
-						</ul></li>
+						</ul></li> -->
 
 					<%
 					if (isLoggedIn) {
