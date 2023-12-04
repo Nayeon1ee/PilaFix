@@ -695,13 +695,10 @@
 	        	
 	        	console.log("예약 가능 여부 체크 ");
 	        	if(response.checkTicket === 0){ //수강권 미소유
-	        		console.log(1);
 	        		$('#noTicketModal').modal('show');
 	        	}else if(response.checkReservation !== 0){ // 이미 예약 했다면 
-	        		console.log(2);
 	        		$('#alreadyReserveModal').modal('show');
 	        	}else{
-	        		console.log(3);
 	        		getReservationInfo(lsCode, centerCode);
 	        	}
 	        	

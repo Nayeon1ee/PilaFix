@@ -15,6 +15,7 @@
 		<result property="lsDate" column="LS_DATE"/>
 		<result property="lsTime" column="LS_TIME"/>
 		<result property="lessonDatetime" column="COMBINED_DATETIME"/>
+		<result property="lessonEndDatetime" column="COMBINED_END_DATETIME"/>
 		<result property="lsCapacity" column="LS_CAPACITY"/>
 		<result property="lsCurrentApplicants" column="LS_CURRENT_APPLICANTS"/>
 		<result property="trainerMemberCode" column="TRAINER_MEMBER_CODE"/>
@@ -118,14 +119,15 @@
 	    	(SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE) AS TRAINER_MEMBER_NAME,
 	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
 	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
-	        (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME
+	        (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME,
+	        (LS_DATE::TIMESTAMP + TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI')::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_END_DATETIME
 	    FROM TBL_LESSON
 	    WHERE 
 	        CENTER_CODE = #{ctCode} 
 	        AND 
 	      	LS_DATE = TO_DATE(#{selectedDate}, 'YYYY-MM-DD')
             AND LS_TYPE = #{lessonType}
-	    ORDER BY LS_TIME ASC
+	    ORDER BY COMBINED_DATETIME ASC
 	</select>
 	
 	<!-- 하나의 수업 정보 조회 -->
@@ -135,6 +137,7 @@
 	        TO_CHAR(ls_time, 'AM HH:MI') AS LS_TIME, 
 	        TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
 	        (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME,
+	        (LS_DATE::TIMESTAMP + TO_CHAR(ls_time + INTERVAL '50 minutes', 'AM HH:MI')::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_END_DATETIME,
 	        (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=TRAINER_MEMBER_CODE ) AS TRAINER_MEMBER_NAME 
 	    FROM TBL_LESSON
 	    WHERE 

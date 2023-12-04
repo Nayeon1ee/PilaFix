@@ -216,6 +216,7 @@
 			AND CR_CONNECTION_YN=FALSE 
 			AND MEMBER_CODE < 8000 
 			AND CR_REJECT_DATE IS NULL
+		ORDER BY CR_REQ_DATE DESC 
 		]]>
 		<!-- select * from tbl_center_request where center_code=#{centerCode} and cr_connection_yn=false AND MEMBER_CODE &gt 8000 AND CR_REJECT_DATE IS NULL  -->
 	</select>
@@ -227,6 +228,7 @@
 			AND CR_CONNECTION_YN=FALSE 
 			AND MEMBER_CODE > 8000
 			AND CR_REJECT_DATE IS NULL
+		ORDER BY CR_REQ_DATE DESC
 		]]>
 		<!-- select * from tbl_center_request where center_code=#{centerCode} and cr_connection_yn=false AND MEMBER_CODE &lt 8000 AND CR_REJECT_DATE IS NULL-->
 	</select>
