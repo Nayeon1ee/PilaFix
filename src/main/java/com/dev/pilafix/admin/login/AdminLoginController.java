@@ -206,10 +206,15 @@ public class AdminLoginController {
 	/**
 	 * 로그아웃
 	 */
+	@GetMapping("/adminLogout.do")
+	public String getlogout(HttpSession session) {
+		session.removeAttribute("loginAdmin");
+		return "redirect:/adminLogin.do";
+	}
+
 	@PostMapping("/adminLogout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginAdmin");
 		return "redirect:/adminLogin.do";
 	}
-
 }

@@ -145,7 +145,7 @@
               <hr class="dropdown-divider">
             </li>
             <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
+              <a href="#">전체 연동요청 보러가기</a>
             </li>
 
           </ul><!-- End Notification Dropdown Items -->
@@ -161,57 +161,32 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              새로운 문의사항 확인
+              <a href="getCTQuestionList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li class="message-item">
-              <a href="#">
+    <!-- 문의사항 목록을 forEach로 출력 -->
+    <c:forEach var="question" items="${questionList}">
+        <li class="message-item">
+            <a href="#">
                 <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
                 <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
+                    <h4>${question.qsTitle}</h4>
+                    <p>${question.qsContent}</p>
+                    <p>${question.qsRegdate}</p>
                 </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            </a>
+        </li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+    </c:forEach>
 
             <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
+              <a href="getCTQuestionList.do">전체 문의사항 보러가기</a>
             </li>
 
           </ul><!-- End Messages Dropdown Items -->
@@ -221,7 +196,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+<!--             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
             <span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.loginCenter.ctName}</span>
           </a><!-- End Profile Iamge Icon -->
 
