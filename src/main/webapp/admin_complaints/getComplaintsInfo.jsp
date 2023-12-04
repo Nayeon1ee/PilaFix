@@ -40,11 +40,9 @@
 				<th>신고한IP</th>
 				<td>${ComplaintsInfo.blamerIp }</td>
 			</tr>
-			<%-- <tr>
-				<td><a href="updateFaqInfo.do?fq_number=${faqInfo.fq_number }">수정</a> | <a href="deleteFaqInfo.do?fq_number=${faqInfo.fq_number}">삭제</a></td>
-			</tr> --%>
+			
 		</table>
-		<a href="getComplaintsInfoList.do">글 목록</a>
+		<a href="getTargetComplaintsList.do">글 목록</a>
 	</div>
 </body>
 </html>

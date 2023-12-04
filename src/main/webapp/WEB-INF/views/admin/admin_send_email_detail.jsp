@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="admin_header_common.jsp"%>
  
   <main id="main" class="main">
@@ -41,7 +42,8 @@
                 </div>
                 <div class="col-md-5">
                   <label class="form-label">발송일</label>
-                  <input type="text" readonly class="form-control"  value="${sendEmailHistoryInfo.mhEmailSendDatetime }" disabled>
+                  <input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhEmailSendDatetime }"/>'>
+                  
                 </div>
 		
                 <div class="col-md-12">

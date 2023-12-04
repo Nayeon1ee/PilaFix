@@ -4,7 +4,7 @@
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>수강권관리</h1>
+			<h1>수강권 관리</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<!-- 소제목 필요 시 작성 -->
@@ -20,67 +20,58 @@
 					<div class="card">
 						<div class="card-body">
 							<!-- 검색필터 시작 -->
-							<div class="search-filter">
-								<div class="search-filter-inner">
-									<div class="serch-filter-content">
-										<div class="search-top">
-											<div class="col-md-3">
-												<label for="inputState" class="form-label">검색</label> <select
-													id="inputState" class="form-select">
-													<option selected disabled>전체</option>
-													<option>약관명</option>
-													<option>필수 여부</option>
-												</select>
+				<div class="search-filter">
+							<div class="search-filter-inner">
+
+								<div class="serch-filter-content">
+									<div class="search-top">
+										<div class="col-md-3">
+											<label for="inputState" class="form-label">검색</label> <select
+												id="inputState" class="form-select">
+												<option selected disabled>전체</option>
+												<option>약관명</option>
+												<option>필수 여부</option>
+												<option></option>
+											</select>
+										</div>
+										<div class="serch-input">
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="inputCity"
+													placeholder="검색어를 입력해주세요">
 											</div>
-											<div class="serch-input">
-												<div class="col-md-6">
-													<input type="text" class="form-control" id="inputCity"
-														placeholder="검색어를 입력해주세요">
-												</div>
-												<div class="search-btn">
-													<button type="submit" class="btn btn-primary search">검색</button>
-													<button type="reset" class="btn btn-primary search"
-														id="resetButton">초기화</button>
-												</div>
+											<div class="search-btn">
+												<button type="submit" class="btn btn-primary search">검색</button>
+												<button type="reset" class="btn btn-primary search"
+													id="resetButton">초기화</button>
 											</div>
 										</div>
-
-										<div class="search-date">
-											<div class="col-md-3">
-												<label for="inputState" class="form-label">기간검색</label> <select
-													id="inputState2" class="form-select">
-													<option selected disabled>전체</option>
-													<option>등록일자</option>
-													<option>최근 수정일자</option>
-												</select>
-											</div>
-											<div class="col-md-3">
-												<label for="inputState" class="form-label">기간검색</label> <select
-													id="inputState2" class="form-select">
-													<option selected disabled>전체</option>
-													<option>등록일자</option>
-													<option>최근 수정일자</option>
-												</select>
-											</div>
-											<div class="col-md-3">
-												<label for="inputState" class="form-label">기간검색</label> <select
-													id="inputState2" class="form-select">
-													<option selected disabled>전체</option>
-													<option>등록일자</option>
-													<option>최근 수정일자</option>
-												</select>
-											</div>
-										</div>
-
 									</div>
+
+									<div class="search-date">
+										<div class="date-filter">
+											<label for="inputState" class="form-label">기간검색</label>
+											<div class="col-sm-12">
+												<input type="date" class="form-control-date me-1"
+													id="startDate">
+												<div class="icon mt-1">
+													<i class="ri-arrow-right-line"></i>
+												</div>
+												<input type="date" class="form-control-date ms-1"
+													id="endDate">
+													
+											</div>
+										</div>
+									</div>
+
 								</div>
 							</div>
+						</div>
 							<!-- 검색필터 끝 -->
 
 							<hr />
 
-							<div class="button_con">
-								<button type="button" onclick="location.href='insertCenterTicket.do'" class="btn btn-primary btn-lg">수강권 등록</button>
+							<div class="button_con d-flex justify-content-end me-3">
+								<button type="button" onclick="location.href='insertCenterTicket.do'" class="btn btn-primary">수강권 등록</button>
 							</div>
 
 

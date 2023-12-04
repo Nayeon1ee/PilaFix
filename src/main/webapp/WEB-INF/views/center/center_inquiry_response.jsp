@@ -112,7 +112,7 @@
 				<textarea class="form-control" style="height: 300px;" name="reContent" ></textarea>
             </div>
             
-			<div class="text d-flex justify-content-end">
+			<div class="text d-flex justify-content-end mt-3">
 				<button type="submit" class="btn btn-primary me-3">등록</button>
 			</div>
         </form>

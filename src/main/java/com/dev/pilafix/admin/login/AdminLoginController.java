@@ -22,6 +22,20 @@ import com.dev.pilafix.common.member.AdminVO;
 public class AdminLoginController {
 	@Autowired
 	private AdminLoginService service;
+	
+	@GetMapping("/adminMain.do")
+	public String centerMainPage(HttpSession session, Model model) {
+		Map<String, Object> loginAdmin = (Map<String, Object>) session.getAttribute("loginAdmin");
+		if (loginAdmin != null) {
+			String adCode = (String) loginAdmin.get("adCode");
+			model.addAttribute("adminInfo", service.getAdminLoginInfo(adCode));
+			return "admin/admin_index";
+
+		} else {
+			// 로그인실패
+			return "admin/admin_login";
+		}
+	}
 
 	/**
 	 * 로그인 테스트
@@ -60,19 +74,25 @@ public class AdminLoginController {
 	}
 
 	/**
-	 * 로그인이후 우선 이동할 페이지(비밀번호변경테스트)
+	 * 관리자 비밀번호 변경 가능한 페이지
 	 */
-	@GetMapping("/adminInfo.do")
+	@GetMapping("/adminMypage.do")
 	public String adminInfo(HttpSession session, Model model) {
 		Map<String, Object> loginAdmin = (Map<String, Object>) session.getAttribute("loginAdmin");
 		if (loginAdmin != null) {
-
-			String adId = (String) loginAdmin.get("adId");
-			AdminVO adminInfo = service.getAdminLoginInfo(adId);
+			String adCode = (String) loginAdmin.get("adCode");
+			AdminVO adminInfo = service.getAdminLoginInfo(adCode);
 			model.addAttribute("adminInfo", adminInfo);
+			return "admin/admin_login_info_test";
+		}else {
+			// 로그인실패
+			return "admin/admin_login";
 		}
-		return "admin/admin_login_info_test";
+
 	}
+	
+	
+	
 
 	/* 모달 사용을 위한 주석 처리 */
 //	/**
@@ -189,10 +209,15 @@ public class AdminLoginController {
 	/**
 	 * 로그아웃
 	 */
+	@GetMapping("/adminLogout.do")
+	public String getlogout(HttpSession session) {
+		session.removeAttribute("loginAdmin");
+		return "redirect:/adminLogin.do";
+	}
+
 	@PostMapping("/adminLogout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginAdmin");
 		return "redirect:/adminLogin.do";
 	}
-
 }

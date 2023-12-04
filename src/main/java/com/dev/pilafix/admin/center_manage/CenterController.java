@@ -51,8 +51,7 @@ public class CenterController {
 	@GetMapping("/getCenter.do")
 	public String getCenter(int ctCode, Model model) {
 		model.addAttribute("center", service.getCenter(ctCode));
-		//이메일 상세 대신 문자 상세 들어와야 함
-//		model.addAttribute("smsHistory", service.getSmsHistory(ctCode)); 
+		model.addAttribute("smsHistory", service.getSmsHistory(ctCode)); 
 		return "admin/admin_center_management_detail";
 	}
 	
@@ -362,5 +361,7 @@ public class CenterController {
 		//response OutputStream에 엑셀 작성
 		wb.write(response.getOutputStream());
 	}
+	
+   
 
 }

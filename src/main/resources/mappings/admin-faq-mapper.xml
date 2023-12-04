@@ -12,23 +12,31 @@
 		<result property="fqOpenYn" column="FQ_OPEN_YN" />
 		<result property="fqType" column="FQ_TYPE" />
 	</resultMap>
-	<select id="getFaqInfo" resultMap="faqInfoResult" parameterType="faqInfo">
+	
+	<select id="getFaqInfoList" resultMap="faqInfoResult">
+		SELECT * 
+		FROM TBL_FAQ
+		ORDER BY FQ_NUMBER DESC
+	</select>
+	
+	<select id="getFaqInfo" resultMap="faqInfoResult">
 		SELECT * FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber}
 	</select>
-	<select id="getFaqInfoList" resultMap="faqInfoResult" parameterType="faqInfo">
-		SELECT C.ROLE_NAME, A.FQ_TYPE, A.FQ_NUMBER, A.FQ_TITLE, A.FQ_CONTENT, A.FQ_REGDATE
-		FROM TBL_FAQ AS A
-		LEFT OUTER JOIN TBL_USER_ROLE C ON C.ROLE_CODE = A.FQ_TYPE
-		ORDER BY A.FQ_NUMBER DESC;
-	</select>
+	
 	<insert id="insertFaqInfo" parameterType="faqInfo">
-		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN, FQ_TYPE) VALUES(nextval('seq_faq'), #{fqTitle}, #{fqContent}, '999', CURRENT_TIMESTAMP, #{fqOpenYn} , #{fqType})
+		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN, FQ_TYPE)
+		VALUES(nextval('seq_faq'), #{fqTitle}, #{fqContent}, #{fqWriterMemberCode}, CURRENT_TIMESTAMP, true , #{fqType})
 	</insert>
+	
 	<update id="updateFaqInfo" parameterType="faqInfo">
-		UPDATE TBL_FAQ SET FQ_TITLE=#{fqTitle}, FQ_CONTENT=#{fqContent} WHERE FQ_NUMBER=#{fqNumber}
+		UPDATE TBL_FAQ 
+		SET FQ_TITLE=#{fqTitle}, FQ_CONTENT=#{fqContent} 
+		WHERE FQ_NUMBER=#{fqNumber}
 	</update>
+	
 	<delete id="deleteFaqInfo" parameterType="Integer">
-		DELETE FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber}
+		DELETE FROM TBL_FAQ 
+		WHERE FQ_NUMBER = #{fqNumber}
 	</delete>
 
 </mapper>

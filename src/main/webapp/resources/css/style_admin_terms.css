@@ -7,3 +7,11 @@
   	margin: 2em 0; 
   }
   
+
+   .terms-btn {
+    display: flex;
+  }
+
+  .terms-reg-btn {
+    margin-left: auto;
+  }

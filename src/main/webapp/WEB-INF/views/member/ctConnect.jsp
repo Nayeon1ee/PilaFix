@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,40 +106,41 @@
 											센터 찾기</label>
 									</div>
 									<div class="col-md-9 form-group mt-3 mt-md-0">
-										<label for="basic-url" class="form-label">원하는
-											센터를 검색하세요!</label>
+										<label for="basic-url" class="form-label">원하는 센터를
+											검색하세요!</label>
 									</div>
 								</div>
 								<div class="form-group mt-3 text-center">
 									<div class="input-group">
-										<input type="text" class="form-control" id=searchKeyword name="searchKeyword"
+										<input type="text" class="form-control" id=searchKeyword
+											name="searchKeyword"
 											aria-describedby="basic-addon3 basic-addon4"
-											placeholder="센터명, 주소를 입력">
-
-										<input class="btn btn-primary" type="button" id="searchCt" value="검색" />
+											placeholder="센터명, 주소를 입력"> <input
+											class="btn btn-primary" type="button" id="searchCt"
+											value="검색" />
 									</div>
 								</div>
 
 
 							</div>
 
-
-
-							 <!--  검색 누르기 전까지는 이 화면이었다가 검색 누르면 바껴야함 -->
-							<div class="form-group mt-3">
-								<div class="text-center" >
-									<div class="row" id="insertCenterList">
-										<p>이렇게 검색해 보세요!</p>
-										<p>센터명</p>
-										<p>바디코디 필라테스</p>
-										<br>
-										<p>센터 주소</p>
-										<p>부산 부산진구 중앙대로 650</p>
-									</div>
+							<!--  검색 누르기 전까지는 이 화면이었다가 검색 누르면 바껴야함 -->
+							<div class="row" id="insertCenterList"
+								style="text-align: center; padding: 20px;">
+								<p style="font-size: 1.5em; font-weight: bold; color: #343a40;">이렇게
+									검색해 보세요!</p>
+								<div class="col-md-6 offset-md-3">
+									<p style="font-size: 1.2em; font-weight: bold; color: #865adf;">센터명</p>
+									<p style="font-size: 1.1em; color: #6c757d;">바디코디 필라테스</p>
+									<br>
+									<p style="font-size: 1.2em; font-weight: bold; color: #865adf;">센터
+										주소</p>
+									<p style="font-size: 1.1em; color: #6c757d;">부산 부산진구 중앙대로
+										650</p>
 								</div>
 							</div>
 
-						
+
 
 
 						</form>
@@ -186,6 +187,7 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+
 
 <!-- 센터연동 검색 -->
 <script type="text/javascript">
@@ -258,6 +260,7 @@ function connectRequest(ctName,ctCode) {
     }
 }
 </script>
+
 
 </body>
 

@@ -41,6 +41,18 @@ public class CenterLoginController {
 		
 	}
 	
+	@GetMapping("/centerMain.do")
+	public String centerMainPage(HttpSession session, Model model) {
+		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+		if (loginCenter != null) {
+			return "center/center_index";
+		} else {
+			// 로그인 실패
+			return "center/center_login";
+		}
+	}
+	
+	
 	/**
 	 * 로그인 테스트
 	 * @return
@@ -78,16 +90,23 @@ public class CenterLoginController {
 	 * 로그인 이후 우선 이동할페이지 (비밀번호변경테스트)
 	 */
 	
-	@GetMapping("/centerInfo.do")
+	@GetMapping("/centerMypage.do")
 	public String centerInfo(HttpSession session, Model model) {
 		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
 		if (loginCenter != null) {
 			String ctId = (String) loginCenter.get("ctId");
-			CenterVO centerInfo = service.getLoginCenterCodeName(ctId);
+			int ctCode = (int) loginCenter.get("ctCode");
+			CenterVO centerInfo = service.getCenterAllInfoByCode(ctCode);
 			model.addAttribute("centerInfo",centerInfo);
+			return "center/center_mypage"; 
+		}else {
+			return "center/center_login";
 		}
-		return "center/center_login_info_test"; //테스트
+
 	}
+	
+	
+	
 	
 	
 	/**
@@ -140,6 +159,8 @@ public class CenterLoginController {
 
 	
 	
+	
+	
 	/**
      * 로그아웃
      * @param session
@@ -147,6 +168,12 @@ public class CenterLoginController {
      */
 	@PostMapping("/centerLogout.do")
 	public String logout(HttpSession session) {
+	    session.removeAttribute("loginCenter");
+	    return "redirect:/centerLogin.do";
+	}
+	
+	@GetMapping("/centerLogout.do")
+	public String getlogout(HttpSession session) {
 	    session.removeAttribute("loginCenter");
 	    return "redirect:/centerLogin.do";
 	}

@@ -203,8 +203,12 @@ public class ReservServiceImpl implements ReservService {
 	 * 예약 가능 여부 체크 
 	 */
 	@Override
-	public int checkReservation(int csMemberCode, String lsCode) {
-		return dao.checkReservation(csMemberCode, lsCode);
+	public Map<String, Integer> checkReservationAndTicket(int csMemberCode, String lsCode, int centerCode) {
+		Map<String, Integer> checkResult = new HashMap<>();
+		checkResult.put("checkReservation", dao.checkReservation(csMemberCode, lsCode));
+		checkResult.put("checkTicket",dao.checkTicket(csMemberCode, centerCode));
+		
+		return checkResult;
 	}
 	
 	

@@ -69,8 +69,8 @@
 									<label class="form-label">발송 내용</label>
 									<textarea readonly class="form-control" style="height: 300px;" disabled>${sendSmsHistory.shRecipientContent }</textarea>
 								</div>
-								<div class="text-center">
-									<a href="center_send_sms_list" button class="btn btn-primary">목록</a>
+								<div class="d-flex justify-content-start">
+									<a href="center_send_sms_list" button class="btn btn-secondary ms-3">목록</a>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->

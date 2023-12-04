@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dev.pilafix.admin.community.CommunityVO;
 import com.dev.pilafix.admin.complaints.ComplaintsVO;
 
 
@@ -15,35 +16,23 @@ public class ComplaintsDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<ComplaintsVO> getComplaintsInfoList(){
-		return sqlSessionTemplate.selectList("ComplaintsDAO.getComplaintsInfoList");
+	public List<CommunityVO> getTargetComplaintsList(){
+		return sqlSessionTemplate.selectList("ComplaintsDAO.getTargetComplaintsList");
 	}
-	public ComplaintsVO getComplaintsInfo(int cpCode) {
-	    return sqlSessionTemplate.selectOne("ComplaintsDAO.getComplaintsInfo",cpCode);
-	}
-	
-	public int insertComplaintsInfo(ComplaintsVO vo) {
-		return sqlSessionTemplate.insert("ComplaintsDAO.insertComplaintsInfo", vo);
+
+	public CommunityVO getComplaintsDetail(int cmNumber) {
+		return sqlSessionTemplate.selectOne("ComplaintsDAO.getComplaintsDetail", cmNumber);
 	}
 	
-	public int updateComplaintsInfo(ComplaintsVO vo) {
-		return sqlSessionTemplate.update("ComplaintsDAO.updateComplaintsInfo", vo);
+
+	public List<ComplaintsVO> getComplaintsList(int cmNumber) {
+		return sqlSessionTemplate.selectList("ComplaintsDAO.getComplaintsList",cmNumber);
 	}
-	
-	public int deleteComplaintsInfo(int cp_code) {
-		return sqlSessionTemplate.delete("ComplaintsDAO.deleteComplaintsInfo", cp_code);
+
+	public void updateComplaintsStatus(int cmNumber) {
+		sqlSessionTemplate.update("ComplaintsDAO.updateComplaintsStatus",cmNumber );
 	}
-	
-	public void revokeComplaints(int cpCode) {
-		sqlSessionTemplate.update("ComplaintsDAO.updateContractRevokeYN", cpCode);
-	}
-	public List<ComplaintsVO> getAllComplaintsList(int cpTargetPostNumber){
-		return sqlSessionTemplate.selectList("ComplaintsDAO.getAllComplaintsList",cpTargetPostNumber);
-	}
-	
-	public List<ComplaintsVO> getBlameReasonsByCount(String cmBlameCount){
-		return sqlSessionTemplate.selectList("ComplaintsDAO.getBlameReasonsByCount", cmBlameCount);
-	}
-	
+
+
 	
 }

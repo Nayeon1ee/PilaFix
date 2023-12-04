@@ -6,6 +6,7 @@ public interface CenterLessonService {
 	List<CenterLessonVO> getCenterLessonList(int ctCode);
 	CenterLessonVO getCenterLesson(String lsCode);
 	int insertCenterLesson(CenterLessonVO vo);
+//	int insertCenterLesson(dataListVO vo);
 	int deleteCenterLesson(String lsCode);
 	
 	List<CenterLessonVO> getTrainerCode(int centerCode);

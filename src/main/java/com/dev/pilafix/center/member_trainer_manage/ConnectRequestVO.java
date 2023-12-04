@@ -1,6 +1,7 @@
 package com.dev.pilafix.center.member_trainer_manage;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ConnectRequestVO {
 	
@@ -9,7 +10,7 @@ public class ConnectRequestVO {
 	private int memberCode;
 	private String memberName;
 	private String memberPhone;
-	private Date crReqDate;
+	private Timestamp crReqDate;
 	private String crConnectionYn;
 	private String crConnectionDate;
 	
@@ -43,10 +44,11 @@ public class ConnectRequestVO {
 	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
 	}	
-	public Date getCrReqDate() {
+	
+	public Timestamp getCrReqDate() {
 		return crReqDate;
 	}
-	public void setCrReqDate(Date crReqDate) {
+	public void setCrReqDate(Timestamp crReqDate) {
 		this.crReqDate = crReqDate;
 	}
 	public String getCrConnectionYn() {

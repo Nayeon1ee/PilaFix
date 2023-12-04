@@ -91,33 +91,49 @@
 		ORDER BY L.LS_DATE ASC, L.LS_TIME::time DESC;
 	</select>
 	
-	<!-- 로그인한 강사의 그룹 수업 리스트 가져오기 + 센터이름 -->
-	<select id="getGroupLessonListWithCtName" parameterType="int" resultMap="centerLessonResult">
-	  SELECT 
-	    L.*, 
-	    C.CT_NAME AS LS_CENTER_NAME
-	  FROM TBL_LESSON L
-	  INNER JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
-	  WHERE L.TRAINER_MEMBER_CODE = #{csMemberCode}
-	  AND L.LS_CLOSE_YN = FALSE
-	  AND L.LS_TYPE = '그룹'
+	<!-- 로그인한 강사의 진행중인 수업+ 센터이름 -->
+	<select id="getOngoingTrainerLessons" parameterType="int" resultMap="centerLessonResult">
+SELECT
+  L.*,
+  C.CT_NAME AS LS_CENTER_NAME,
+  (L.LS_DATE + L.LS_TIME::time) AS LS_START_TIME
+FROM TBL_LESSON L
+INNER JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
+WHERE L.TRAINER_MEMBER_CODE = #{csMemberCode}
+AND L.LS_CLOSE_YN = 'N'
+AND (L.LS_DATE + L.LS_TIME::time) > NOW()
+ORDER BY L.LS_DATE ASC, L.LS_TIME ASC;
 	</select>
 	
-	<!-- 로그인한 강사의 개인 수업 리스트 가져오기 + 센터이름 + 예약회원이름 -->
-	<select id="getLessonListWithCtNameAndCsName" parameterType="int" resultMap="centerLessonResult">
-	  SELECT 
-	    L.*, 
-	    CST.CS_NAME AS CS_NAME, 
-	    CTR.CT_NAME AS LS_CENTER_NAME
-	  FROM TBL_LESSON L
-	  INNER JOIN TBL_CENTER CTR ON L.CENTER_CODE = CTR.CT_CODE
-	  LEFT JOIN TBL_RESERV RSV ON L.LS_CODE = RSV.LESSON_CODE 
-	  LEFT JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE 
-	  WHERE L.TRAINER_MEMBER_CODE = #{csMemberCode}
-	  AND L.LS_CLOSE_YN = FALSE
-	  AND L.LS_TYPE = '개인'
-	</select>	
+	<!-- 로그인한 강사의 완료된 수업 + 센터이름 -->
+<select id="getCompletedTrainerLessons" parameterType="int" resultMap="centerLessonResult">
+    <![CDATA[
+    SELECT
+        L.*,
+        C.CT_NAME AS LS_CENTER_NAME,
+        (L.LS_DATE + L.LS_TIME::time) AS LS_START_TIME
+    FROM TBL_LESSON L
+    INNER JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
+    WHERE L.TRAINER_MEMBER_CODE = #{csMemberCode}
+    AND L.LS_CLOSE_YN = 'N'
+    AND (L.LS_DATE + L.LS_TIME::time) <= (NOW() - INTERVAL '50 minutes')
+    ORDER BY L.LS_DATE ASC, L.LS_TIME ASC;
+    ]]>
+</select>
 
+	<!-- 로그인한 강사의 폐강된 수업 + 센터이름 -->
+	<select id="getClosedTrainerLessons" parameterType="int" resultMap="centerLessonResult">
+SELECT
+  L.*,
+  C.CT_NAME AS LS_CENTER_NAME,
+  (L.LS_DATE + L.LS_TIME::time) AS LS_START_TIME
+FROM TBL_LESSON L
+INNER JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
+WHERE L.TRAINER_MEMBER_CODE = #{csMemberCode}
+AND L.LS_CLOSE_YN = 'Y'
+ORDER BY L.LS_DATE ASC, L.LS_TIME ASC;
+	</select>	
+	
 	<!-- 수업 상세 가져오기 + 회원이름 
 	<select id="getLessonByTrainerWithCsName" parameterType="String"  resultMap="centerLessonResult">
 	    SELECT L.*, C.CS_NAME 
