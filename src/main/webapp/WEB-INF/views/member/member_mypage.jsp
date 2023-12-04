@@ -80,16 +80,16 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services py-4">
-			<div class="container" style="max-width: 1000px">
+			<div class="container" style="max-width: 900px">
 
 				<div id="myPage" class="text-center">
 
 					<div id="userInfo" class="d-flex align-items-center mb-2">
-						<div id="myInfoLink" class="ms-4 mr-2"
-							style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-							<a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i> 내
-								정보 관리 
-						</div>
+						<div id="myInfoLink" class="ps-4 ms-5"
+    style="font-size: 18px; color: #9b56e9; font-weight: bold; margin-left: 40px;">
+    <a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i> 내 정보 관리 </a>
+</div>
+
 					</div>
 
 					<section
