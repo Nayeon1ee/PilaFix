@@ -301,11 +301,11 @@ public class MemberLoginController {
 //	}
 //	
 
-//	@GetMapping("/logout.do")
-//	public String memberLogout(HttpSession session) {
-//	    session.removeAttribute("loginUser");
-//	    return "redirect:/memberLogin.do";
-//	}
+	@GetMapping("/logout.do")
+	public String memberLogout(HttpSession session) {
+	    session.removeAttribute("loginUser");
+	    return "redirect:/memberLogin.do";
+	}
 
 	@PostMapping("/logout.do")
 	public String logout(HttpSession session) {

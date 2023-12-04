@@ -77,52 +77,66 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number" id="memberCountM"></span>
-          </a><!-- End Notification Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              <div>회원 연동 요청
-              <a href="getMemberManageList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a></div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+<%-- 
+<!-- 헤더 상단의 회원 연동요청 확인 -->
+<li class="nav-item dropdown"><a class="nav-link nav-icon"
+    href="#" data-bs-toggle="dropdown"> <i class="bi bi-bell"></i>
+    <span class="badge bg-primary badge-number" id="totalCount"></span>
+</a>
+<!-- End Notification Icon -->
+<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+    <li class="dropdown-header">
+<c:set var="currentURI" value="${pageContext.request.requestURI}" />
+        <c:choose>
 
- <c:forEach var="member" items="${memberList}" begin="0" end="2">
-        <li class="notification-item">
-            <i class="bi bi-check-circle text-success"></i>
-            <div>
-                <h4>${member.csName}</h4>
-                <p>${member.csGenderMw} / ${member.csBirth}</p>  
-            </div>
-        </li>
-</c:forEach>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
+            <c:when test="${currentURI == 'getMemberManageList.do'}">
+                <div>회원 연동 요청 <a href="getMemberManageList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a></div>
+            </c:when>
  
-            <li class="dropdown-footer">
-              <a href="getMemberManageList.do">회원연동요청 바로가기</a>
-            </li>
+            <c:when test="${currentURI == 'getTrainerManageList.do'}">
+                <div>강사 연동 요청 <a href="getTrainerManageList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a></div>
+            </c:when>
 
-          </ul><!-- End Notification Dropdown Items -->
+            <c:otherwise></c:otherwise>
+        </c:choose>
+    </li>
+    <li>
+        <hr class="dropdown-divider">
+    </li>
+    <!-- 연동요청 목록을 forEach로 출력 -->
+    <c:forEach var="member" items="${request}" begin="0" end="3">
+        <li class="message-item">
+            <a href="#">
+                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                <div>
+                    <strong>${member.memberName}</strong>
+                    <p>${member.memberPhone}</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+    </c:forEach>
 
-        </li><!-- End Notification Nav -->
+    <li class="dropdown-footer"><a href="getMemberManageList.do">회원관리 바로가기</a></li>
+<!--     <li class="dropdown-footer"><a href="getTrainerManageList.do">강사관리 바로가기</a></li> -->
+</ul>
+<!-- End Notification Dropdown Items -->
+</li>
+<!-- End Notification Nav --> --%>
 
+
+
+
+<!-- 헤더 상단의 문의사항 확인 -->
         <li class="nav-item dropdown">
-
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
             <span class="badge bg-success badge-number" id="questionCountQ"></span>
           </a><!-- End Messages Icon -->
-
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
               새로운 문의사항 확인
@@ -138,7 +152,7 @@
             <a href="#">
                 <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
                 <div>
-                    <h4>${question.qsTitle}</h4>
+                    <strong>${question.qsTitle}</strong>
                     <p>${question.qsContent}</p>
                     <p>${question.qsRegdate}</p>
                 </div>
@@ -416,6 +430,16 @@
                 if (response.questionCount>0){
 					$('#questionCountQ').append(response.questionCount);
                 }
+                
+                
+                var memberCount = parseInt(response.memberCount, 10) || 0;
+                var trainerCount = parseInt(response.trainerCount, 10) || 0;
+                var total = memberCount + trainerCount;
+                var totalDisplay = total.toString();
+                if (totalDisplay.length === 2 && totalDisplay.charAt(0) === '0') {
+                    totalDisplay = totalDisplay.charAt(1); // 2자리 수 중 첫 번째 문자(0 제거)
+                }
+                $('#totalCount').html(totalDisplay);
                 
             },
             error: function(error) {

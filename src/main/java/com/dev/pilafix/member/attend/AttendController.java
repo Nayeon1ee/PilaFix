@@ -106,13 +106,13 @@ public class AttendController {
 	        CenterLessonVO lessonDetail = service.getTrainerLessonDetail(lsCode);
 
 	        // 출석 처리 여부 확인 및 통계 추가
-	        boolean isAttendanceProcessed = service.isAttendanceProcessed(lsCode);
-	        if (isAttendanceProcessed) {
+//	        boolean isAttendanceProcessed = service.isAttendanceProcessed(lsCode);
+//	        if (isAttendanceProcessed) {
 	            int attendedCount = service.getAttendedCountForLesson(lsCode);
 	            int absentCount = service.getAbsentCountForLesson(lsCode);
 	            model.addAttribute("attendedCount", attendedCount);
 	            model.addAttribute("absentCount", absentCount);
-	        }
+//	        }
 
 	        model.addAttribute("lessonDetail", lessonDetail);
 
