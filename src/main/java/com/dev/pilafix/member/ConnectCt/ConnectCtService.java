@@ -12,4 +12,6 @@ public interface ConnectCtService {
 
 	int connectRequest(Map<String, Object> user);
 
+	Map<String, Integer> checkRequest(int csMemberCode, int ctCode);
+
 }
