@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -79,7 +79,7 @@
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
 
-<!-- 				<div id="userInfo" class="d-flex align-items-center mb-2">
+				<!-- 				<div id="userInfo" class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
@@ -89,53 +89,61 @@
 
 				<div class="container">
 
-<c:choose>
-    <c:when test="${empty centerList}">
-        <!-- 연동된 센터가 없을 때 출력할 메시지 -->
-        <p>연동된 센터가 없습니다.</p>
-    </c:when>
-    <c:otherwise>
-        <c:forEach items="${centerList}" var="center">
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">그룹수업</h5>
-    
-                    <p class="card-text mt-3">
-                        <strong>센터 정보:</strong> ${center.ctName}
-                    </p>
-                    
-                    <!-- 해제 버튼을 눌렀을 때 모달 띄우기 -->
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#disconnectModal${center.ctCode}">
-                        연동해제
-                    </button>
-                    
-                    <!-- 연동센터 해제 모달 -->
-                    <div class="modal fade" id="disconnectModal${center.ctCode}" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">연동센터 해제</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>센터 정보: ${center.ctName}</p>
-                                    <p>정말로 연동 해제하시겠습니까?</p>
-                                </div>
-<div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary" data-center-code="${center.ctCode}" onclick="disconnectCenter(this)">확인</button>
-    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
-    </c:otherwise>
-</c:choose>
-				
-				
-<%-- <c:forEach items="${centerList}" var="center">
+					<c:choose>
+						<c:when test="${empty centerList}">
+							<!-- 연동된 센터가 없을 때 출력할 메시지 -->
+							<p>연동된 센터가 없습니다.</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${centerList}" var="center">
+								<div class="card mt-3">
+									<div class="card-body">
+										<h5 class="card-title">그룹수업</h5>
+
+										<p class="card-text mt-3">
+											<strong>센터 정보:</strong> ${center.ctName}
+										</p>
+
+										<!-- 해제 버튼을 눌렀을 때 모달 띄우기 -->
+										<div class="d-flex justify-content-end">
+											<button type="button" class="btn btn-secondary me-2"
+												data-bs-toggle="modal"
+												data-bs-target="#disconnectModal${center.ctCode}">
+												연동해제</button>
+										</div>
+
+										<!-- 연동센터 해제 모달 -->
+										<div class="modal fade" id="disconnectModal${center.ctCode}"
+											tabindex="-1">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title">연동센터 해제</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<p>센터 정보: ${center.ctName}</p>
+														<p>정말로 연동 해제하시겠습니까?</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">취소</button>
+														<button type="button" class="btn btn-primary"
+															data-center-code="${center.ctCode}"
+															onclick="disconnectCenter(this)">확인</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+
+
+					<%-- <c:forEach items="${centerList}" var="center">
     <div class="card mt-3">
         <div class="card-body">
             <h5 class="card-title">그룹수업</h5>
@@ -180,8 +188,8 @@
 
 
 
-<!-- 모달의 확인 누르면 연동센터 해제 진행 -->
-<script>
+	<!-- 모달의 확인 누르면 연동센터 해제 진행 -->
+	<script>
 function disconnectCenter(buttonElement) {
     var selectedCenterCode = buttonElement.getAttribute('data-center-code');
 

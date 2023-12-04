@@ -125,7 +125,7 @@
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-4">
 						<div class="content border rounded p-3"
-							style="min-height: 648px; max-height: 648px;">
+							style="min-height: 648px; max-height: 648px; overflow-y: auto;">
 
 							<!-- 셀렉트 박스 - 연동된 센터의 목록 -->
 							<div class="custom-select-wrapper text-center mt-3">

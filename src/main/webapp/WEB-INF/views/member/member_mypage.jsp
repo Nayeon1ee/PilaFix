@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -84,63 +84,73 @@
 
 				<div id="myPage" class="text-center">
 
-					<div id="userInfo"
-					class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2" style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i>
-						내 정보 관리
+					<div id="userInfo" class="d-flex align-items-center mb-2">
+						<div id="myInfoLink" class="ms-4 mr-2"
+							style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
+							<a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i> 내
+								정보 관리 
+						</div>
 					</div>
-				</div>
 
-<section class="my-passes container mt-5 d-flex justify-content-center" style="max-width: 700px;">
-	<div class="text-center">
-		<h3>나의 수강권 현황</h3>
-		<div class="pass-box row">
-			<div class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
-				<div class="icon-box mx-auto">
-					<div class="icon">
-						<i class="bx bx-file"></i>
-					</div>
-					<c:choose>
-						<c:when test="${empty personalTicket.ticketNamePersonal1}">
-					        <p>보유한 개인 수강권이 없습니다</p>
-						</c:when>
-						<c:otherwise>    
-							<p>${personalTicket.ticketNamePersonal1}</p>
-							<p>${personalTicket.ticketStartDatePersonal1} ~ ${personalTicket.ticketExpiryDatePersonal1}</p>
-							<p>${personalTicket.ticketExpiryYnPersonal1 ? '만료' : '사용중' }</p>
-							<p>잔여횟수: ${personalTicket.ticketRemainingCountPersonal1}회 남음 / 총 ${personalTicket.ticketUsageCountPersonal1}회</p>
-							<p>사용가능지점: ${personalTicket.centerNamePersonal1}</p>
-					    </c:otherwise>
-					</c:choose>										
-				</div>
-			</div>
+					<section
+						class="my-passes container mt-5 d-flex justify-content-center"
+						style="max-width: 700px;">
+						<div class="text-center">
+							<h3>나의 수강권 현황</h3>
+							<div class="pass-box row">
+								<div
+									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
+									<div class="icon-box mx-auto">
+										<div class="icon">
+											<i class="bx bx-file"></i>
+										</div>
+										<c:choose>
+											<c:when test="${empty personalTicket.ticketNamePersonal1}">
+												<p>보유한 개인 수강권이 없습니다</p>
+											</c:when>
+											<c:otherwise>
+												<p>${personalTicket.ticketNamePersonal1}</p>
+												<p>${personalTicket.ticketStartDatePersonal1}~
+													${personalTicket.ticketExpiryDatePersonal1}</p>
+												<p>${personalTicket.ticketExpiryYnPersonal1 ? '만료' : '사용중' }</p>
+												<p>잔여횟수:
+													${personalTicket.ticketRemainingCountPersonal1}회 남음 / 총
+													${personalTicket.ticketUsageCountPersonal1}회</p>
+												<p>사용가능지점: ${personalTicket.centerNamePersonal1}</p>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
 
-			<div class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
-				<div class="icon-box mx-auto">
-					<div class="icon">
-						<i class="bx bx-file"></i>
-					</div>
-					<c:choose>
-						<c:when test="${empty groupTicket.ticketNameGroup1}">
-					        <p>보유한 그룹 수강권이 없습니다</p>
-						</c:when>
-						<c:otherwise>    
-							<p>${groupTicket.ticketNameGroup1}</p>
-							<p>${groupTicket.ticketStartDateGroup1} ~ ${groupTicket.ticketExpiryDateGroup1}</p>
-							<p>${groupTicket.ticketExpiryYnGroup1 ? '만료' : '사용중' }</p>
-							<p>잔여횟수: ${groupTicket.ticketRemainingCountGroup1}회 남음 / 총 ${groupTicket.ticketUsageCountGroup1}회</p>
-							<p>사용가능지점: ${groupTicket.centerNameGroup1}</p>
-					    </c:otherwise>
-					</c:choose>	
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+								<div
+									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
+									<div class="icon-box mx-auto">
+										<div class="icon">
+											<i class="bx bx-file"></i>
+										</div>
+										<c:choose>
+											<c:when test="${empty groupTicket.ticketNameGroup1}">
+												<p>보유한 그룹 수강권이 없습니다</p>
+											</c:when>
+											<c:otherwise>
+												<p>${groupTicket.ticketNameGroup1}</p>
+												<p>${groupTicket.ticketStartDateGroup1}~
+													${groupTicket.ticketExpiryDateGroup1}</p>
+												<p>${groupTicket.ticketExpiryYnGroup1 ? '만료' : '사용중' }</p>
+												<p>잔여횟수: ${groupTicket.ticketRemainingCountGroup1}회 남음 /
+													총 ${groupTicket.ticketUsageCountGroup1}회</p>
+												<p>사용가능지점: ${groupTicket.centerNameGroup1}</p>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
 
 
-					<section class="icon-list text-center py-3 mx-auto" style="max-width: 700px;">
+					<section class="icon-list text-center py-3 mx-auto"
+						style="max-width: 700px;">
 						<div class="icon-grid">
 							<div class="icon-row row">
 								<div class="icon-item col-md-4">
@@ -171,7 +181,8 @@
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="myTermsPage.do"> <i class="bi bi-file-earmark-text"></i>
+									<a href="myTermsPage.do"> <i
+										class="bi bi-file-earmark-text"></i>
 										<p>약관 및 정책</p>
 									</a>
 								</div>
