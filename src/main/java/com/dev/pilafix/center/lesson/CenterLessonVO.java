@@ -390,6 +390,7 @@ public class CenterLessonVO {
 
 	public void setList(List<DataListVO> list) {
 		this.list = list;
+	}
 	
 	public Timestamp getLessonEndDatetime() {
 		return lessonEndDatetime;
