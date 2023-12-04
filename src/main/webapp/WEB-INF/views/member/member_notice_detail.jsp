@@ -82,40 +82,38 @@
 			<div class="container mx-auto" style="max-width: 1000px;">
 
 
-				<section class="section">
+				<section class="section pb-1">
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="card">
 								<div class="card-body">
-									<h5 class="card-title">공지사항 상세 페이지</h5>
-								
+									<h5 class="card-title">공지사항 상세</h5>
+							
 									<!-- Multi Columns Form -->
 									<form class="row g-3" id="registrationForm000">
-										<div class="col-md-12">
+										<div class="col-md-4">
 											<label class="form-label">제목</label> <input type="text"
 												class="form-control" id="titleInput000"
 												value="${centerInfo.title }" disabled>
+										</div>
+										<div class="col-md-4">
+											<label class="form-label">작성자</label> <input type="text"
+												readonly disabled class="form-control"
+												value="<fmt:formatDate pattern='yyyy-MM-dd' value='${centerInfo.regDate }'/>">
+										</div>
+										<div class="col-md-4">
+											<label class="form-label">작성일자</label> <input type="text"
+												readonly disabled class="form-control"
+												value="<fmt:formatDate pattern='yyyy-MM-dd' value='${centerInfo.regDate }'/>">
 										</div>
 										<div class="col-md-12">
 											<label class="form-label">내용</label>
 											<textarea class="form-control" id="contentInput000"
 												style="height: 300px" disabled>${centerInfo.content }</textarea>
 										</div>
-										<div class="col-md-12">
-											<label class="form-label">조회수</label> <input type="text"
-												class="form-control" id="titleInput000"
-												value="${centerInfo.cnt }" disabled>
-										</div>
-										<div class="col-md-5">
-											<label class="form-label">작성일자</label> <input type="text"
-												readonly disabled class="form-control"
-												value="<fmt:formatDate pattern='yyyy-MM-dd' value='${centerInfo.regDate }'/>">
-										</div>
-										<div class="col-md-12">
-											<label class="form-label">공개 여부</label> <input type="text"
-												class="form-control" id="titleInput000"
-												value="${centerInfo.openYN ? '공개' : '비공개'}" disabled>
-										</div>
+										
+											
+										
 
 										<div class="text-center">
 
@@ -126,15 +124,7 @@
 														onclick="location.href='getCenterInfoList.do'">목록</button>
 												</div>
 
-												<div class="btn-group me-2">
-													<button type="button" class="btn btn-primary"
-														onclick="location.href='#'">수정</button>
-												</div>
-												<div class="btn-group me-3">
-													<button type="button" class="btn btn-danger"
-														class="btn btn-danger" data-bs-toggle="modal"
-														data-bs-target="#basicModal">삭제</button>
-												</div>
+											
 											</div>
 										</div>
 
@@ -147,25 +137,7 @@
 				</div>
 	</section>
 	<!-- End #main -->
-	<div class="modal fade" id="basicModal" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">삭제 버튼을 누르시면 다시 복구시킬 수 없습니다.</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary"
-						onclick="location.href='#'">삭제</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	
 
 
 
