@@ -1,5 +1,7 @@
 package com.dev.pilafix.admin.login;
 
+import java.util.Map;
+
 import com.dev.pilafix.common.member.AdminVO;
 
 
@@ -27,6 +29,7 @@ public interface AdminLoginService {
 	boolean admincheckPassword(String adCode, String currentPassword);
 
 	int adPasswordCheck(String adPassword);
+	Map<String,Integer> getTotalMemberCount();
 
 
 

@@ -11,6 +11,52 @@ public class AdminVO {
 	private String adPassword;
 	private String accountUsageYn;
 	private String roleCode;
+	
+	private String memberCount;
+	private String trainerCount;
+	private String centerCount;
+	private String memberCountCumulated;
+	private String trainerCountCumulated;
+	private String centerCountCumulated;
+	
+	
+	
+	public String getMemberCount() {
+		return memberCount;
+	}
+	public void setMemberCount(String memberCount) {
+		this.memberCount = memberCount;
+	}
+	public String getTrainerCount() {
+		return trainerCount;
+	}
+	public void setTrainerCount(String trainerCount) {
+		this.trainerCount = trainerCount;
+	}
+	public String getCenterCount() {
+		return centerCount;
+	}
+	public void setCenterCount(String centerCount) {
+		this.centerCount = centerCount;
+	}
+	public String getMemberCountCumulated() {
+		return memberCountCumulated;
+	}
+	public void setMemberCountCumulated(String memberCountCumulated) {
+		this.memberCountCumulated = memberCountCumulated;
+	}
+	public String getTrainerCountCumulated() {
+		return trainerCountCumulated;
+	}
+	public void setTrainerCountCumulated(String trainerCountCumulated) {
+		this.trainerCountCumulated = trainerCountCumulated;
+	}
+	public String getCenterCountCumulated() {
+		return centerCountCumulated;
+	}
+	public void setCenterCountCumulated(String centerCountCumulated) {
+		this.centerCountCumulated = centerCountCumulated;
+	}
 	public String getAdCode() {
 		return adCode;
 	}
@@ -67,9 +113,13 @@ public class AdminVO {
 	}
 	@Override
 	public String toString() {
-		return "AdminLoginVO [adCode=" + adCode + ", adName=" + adName + ", adContact1=" + adContact1 + ", adContact2="
+		return "AdminVO [adCode=" + adCode + ", adName=" + adName + ", adContact1=" + adContact1 + ", adContact2="
 				+ adContact2 + ", adContact3=" + adContact3 + ", adId=" + adId + ", adPassword=" + adPassword
-				+ ", accountUsageYn=" + accountUsageYn + ", roleCode=" + roleCode + "]";
+				+ ", accountUsageYn=" + accountUsageYn + ", roleCode=" + roleCode + ", memberCount=" + memberCount
+				+ ", trainerCount=" + trainerCount + ", centerCount=" + centerCount + ", memberCountCumulated="
+				+ memberCountCumulated + ", trainerCountCumulated=" + trainerCountCumulated + ", centerCountCumulated="
+				+ centerCountCumulated + "]";
 	}
+	
 
 }

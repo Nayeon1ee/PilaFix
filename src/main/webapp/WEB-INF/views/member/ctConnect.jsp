@@ -189,7 +189,7 @@
 
 <!-- 센터연동 검색 -->
 <script type="text/javascript">
-$(function(){
+
     $("#searchCt").click(function(){
     
     	var searchKeyword = $('#searchKeyword').val();
@@ -201,7 +201,7 @@ $(function(){
             //contentType: "application/x-www-form-urlencoded; charset=UTF-8",
            // data: {"searchKeyword":searchKeyword}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
             success: function(data){ 
-                //console.log("리스트 잘 가져왔나 확인용"+data);
+                console.log(data);
                 var str = "";
                 //  insertCenterList라는 아이디 가진 영역의 기존 내용을 지움
                 $('#insertCenterList').html('');
@@ -219,9 +219,10 @@ $(function(){
     					str+="</div>"
     					str+="</div>"
     					// insertCenterList라는 아이디를 가진 영역에 위의 내용 삽입해줌
-    					$('#insertCenterList').append(str);
+    					;
 			
-        		})	
+        		})
+        		$('#insertCenterList').append(str)
                 }
          },
             error : function(error){alert(error);}
@@ -229,7 +230,6 @@ $(function(){
         
     });
     
-});
 
 // 연동 요청 누르면 연동요청 테이블에 고객정보 입력
 function connectRequest(ctName,ctCode) {
