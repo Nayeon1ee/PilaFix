@@ -122,7 +122,7 @@
 					<div
 						style="width: 150px; height: 40px; background: white; display: inline-block; margin-right: 10px;">
 						<a href="[네이버 로그인 링크]"> <img
-							src="${pageContext.request.contextPath}/resources/images/naver_login_bt.png"
+							src="${pageContext.request.contextPath}/resources/images/naver_login_b.png"
 							alt="네이버 로그인"
 							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
 						</a>
@@ -131,7 +131,7 @@
 					<div
 						style="width: 150px; height: 40px; background: white; display: inline-block; margin-right: 10px;">
 						<a href="[카카오 로그인 링크]"> <img
-							src="${pageContext.request.contextPath}/resources/images/kakao_login_bt.png"
+							src="${pageContext.request.contextPath}/resources/images/kakao_login_b.png"
 							alt="카카오 로그인"
 							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
 						</a>
