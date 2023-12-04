@@ -64,7 +64,7 @@ public class AdminLoginController {
 //	        return "admin/admin_info"; //나와야할 화면 예상
 			
 			// 통계
-			service.getTotalMemberCount();
+//			service.getTotalMemberCount();
 			return "admin/admin_index";
 
 		} else {

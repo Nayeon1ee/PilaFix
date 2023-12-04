@@ -29,7 +29,7 @@ public interface AdminLoginService {
 	boolean admincheckPassword(String adCode, String currentPassword);
 
 	int adPasswordCheck(String adPassword);
-	Map<String,Integer> getTotalMemberCount();
+//	Map<String,Integer> getTotalMemberCount();
 
 
 

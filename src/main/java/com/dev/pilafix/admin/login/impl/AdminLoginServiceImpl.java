@@ -107,11 +107,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		return 0;
 	}
 
-	//통계 총 회원수&센터 계약수 세오기ㅣ
- 	@Override
-	public Map<String, Integer> getTotalMemberCount() {
-		return dao.getTotalMemberCount();
-	}
+//	//통계 총 회원수&센터 계약수 세오기ㅣ
+// 	@Override
+//	public Map<String, Integer> getTotalMemberCount() {
+//		return dao.getTotalMemberCount();
+//	}
 
 
 	

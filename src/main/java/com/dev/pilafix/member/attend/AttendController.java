@@ -155,7 +155,8 @@ public class AttendController {
 	@PostMapping("/updateAttendG.do")
 	public String updateGroupAttend(@RequestParam("lessonCode") String lessonCode, Model model,
 	                                @RequestParam(name = "selectedMemberCodes", required = false) List<Integer> selectedMemberCodes) {
-
+		
+		System.out.println("선택된 멤버 코드"+selectedMemberCodes);
 	    try {
 	        if (selectedMemberCodes != null && !selectedMemberCodes.isEmpty()) {
 	            // 선택된 회원에 대한 출석 처리
