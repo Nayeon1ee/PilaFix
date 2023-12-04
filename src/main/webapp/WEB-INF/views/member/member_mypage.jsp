@@ -95,7 +95,7 @@
 					</div>
 
 					<section
-						class="my-passes container mt-5 d-flex justify-content-center"
+						class="my-passes container mt-3 d-flex justify-content-center"
 						style="max-width: 720px; width: 100%;">
 						<div class="text-center" style="width: 650px;">
 							<h3 class="mt-3">나의 수강권 현황</h3>

@@ -101,7 +101,7 @@
     
 }
 
-.icon-box p {
-    font-size: 30px; /* 적절한 크기로 조정하세요 */
-    /* 다른 스타일들... */
+.services .icon-box p{
+	   font-weight: 500;
+    font-size: 17px;
 }
