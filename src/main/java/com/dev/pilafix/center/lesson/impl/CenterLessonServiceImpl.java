@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.center.lesson.CenterLessonService;
 import com.dev.pilafix.center.lesson.CenterLessonVO;
+import com.dev.pilafix.center.lesson.DataListVO;
 
 @Service
 public class CenterLessonServiceImpl implements CenterLessonService {
@@ -28,6 +29,11 @@ public class CenterLessonServiceImpl implements CenterLessonService {
 	public int insertCenterLesson(CenterLessonVO vo) {
 		return dao.insertCenterLesson(vo);
 	}
+	
+//	@Override
+//	public int insertCenterLesson(dataListVO vo) {
+//		return dao.insertCenterLesson(vo);
+//	}
 
 	@Override
 	public int deleteCenterLesson(String lsCode) {
