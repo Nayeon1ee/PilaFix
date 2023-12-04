@@ -66,26 +66,6 @@
 							</div>
 						</div>
 						<!-- 검색 필터 끝 -->
-
-						<!-- <div class="search-date">
-								<div class="col-md-3">
-									<label for="inputState" class="form-label">처리상태</label> 
-									<select id="inputState2" class="form-select">
-										<option selected disabled>회원상태</option>
-										<option>계약회원</option>
-										<option>해지회원</option>
-										<option>만료회원</option>
-									</select>
-								</div>
-								<div class="date-filter">
-									<label for="inputState" class="form-label">기간검색</label>
-									<div class="col-sm-12">
-										<input type="date" class="form-control-date" id="startDate">
-										<span>~</span> <input type="date" class="form-control-date" id="endDate">
-									</div>
-								</div>
-							</div> -->
-
 						<div class="terms-btn">
 							<span class="terms-reg-btn">
 								<button type="button" onclick="location.href='insertFaqInfo.do'"
@@ -124,8 +104,7 @@
 											<td>강사</td>
 										</c:if>
 										<td><a href="getFaqInfo.do?fqNumber=${faqInfo.fqNumber }">${faqInfo.fqTitle }</a></td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
-												value="${faqInfo.fqRegDate}" /></td>
+										<td>${faqInfo.fqRegDate}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

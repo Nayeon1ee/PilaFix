@@ -54,9 +54,9 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="centerMain.do" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">PilaFix</span>
+        <span class="d-none d-lg-block">PILAFIX</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -222,29 +222,29 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.loginCenter.ctName}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6>${sessionScope.loginCenter.ctName}</h6>
+              <span>필라테스센터</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="centerMypage.do">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>센터정보관리</span>
               </a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+<!--             <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
@@ -262,12 +262,12 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
+            </li> -->
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="centerLogout.do">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>로그아웃</span>
               </a>
             </li>
 
@@ -296,7 +296,9 @@
 				<a class="nav-link collapsed" href="getMemberManageList.do"> 
 					<i class="bi bi-person"></i>
 						<span>회원 관리</span>
-						<span class="badge bg-primary" id="memberCount"></span> 
+						<span class="badge bg-primary" id="memberCount">
+							<!-- 여기에 ajax로 가져온 연동요청한 회원수 호출 -->
+						</span> 
 				</a>
 			</li>
 			<!-- End 회원관리 Nav -->
@@ -305,7 +307,9 @@
 				<a class="nav-link collapsed" href="getTrainerManageList.do"> 
 					<i class="bi bi-journal-text"></i>
 						<span>강사 관리</span>
-						<span class="badge bg-primary" id="trainerCount"></span>
+						<span class="badge bg-primary" id="trainerCount">
+							<!-- 여기에 ajax로 가져온 연동요청한 강사수 호출 -->
+						</span>
 				</a>
 			</li>
 			<!-- End 강사관리 Nav -->
@@ -355,7 +359,9 @@
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="getCTQuestionList.do"> 
 					<i class="bi bi-envelope"></i><span>문의사항 관리</span>
-					<span class="badge bg-primary" id="questionCount"></span>
+					<span class="badge bg-primary" id="questionCount">
+						<!-- 여기에 ajax로 가져온 답변 안달린 문의사항 갯수 호출 -->
+					</span>
 				</a>
 			</li>
 			<!-- End [센터]문의사항 Nav -->
@@ -381,6 +387,26 @@
 			</li>
 			<!-- End 공지사항관리 Nav -->
 			
+			<li class="nav-item">
+				<a class="nav-link collapsed" data-bs-target="#userguide-nav" data-bs-toggle="collapse" >
+					<i class="bi bi-shield-check"></i>
+						<span>이용정책 관리</span>
+					<i class="bi bi-chevron-down ms-auto"></i>
+				</a>
+				<ul id="userguide-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+					<li>
+						<a href="getUserguideList.do"> 
+							<i class="bi bi-circle"></i><span>이용정책 목록 조회</span>
+						</a>
+					</li>
+					<li>
+						<a href="insertUserguide.do"> 
+							<i class="bi bi-circle"></i><span>이용정책 등록</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<!-- End 이용정책관리 Nav -->
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="getNoticeHistoryList.do"> 
@@ -403,7 +429,7 @@
 			<li class="nav-heading">Pages</li>
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="users-profile.html"> 
+				<a class="nav-link collapsed" href="centerMypage.do"> 
 					<i class="bi bi-person"></i> <span>Profile</span>
 				</a>
 			</li>
@@ -428,11 +454,17 @@
             type: "POST",
             success: function(response) {
                 $('#memberCount').html('');
-				$('#memberCount').append(response.memberCount);
+                if (response.memberCount>0){
+					$('#memberCount').append(response.memberCount);
+                }
                 $('#trainerCount').html('');
-				$('#trainerCount').append(response.trainerCount);
+                if (response.trainerCount>0){
+					$('#trainerCount').append(response.trainerCount);
+                }
                 $('#questionCount').html('');
-				$('#questionCount').append(response.questionCount);
+                if (response.questionCount>0){
+					$('#questionCount').append(response.questionCount);
+                }
                 
             },
             error: function(error) {

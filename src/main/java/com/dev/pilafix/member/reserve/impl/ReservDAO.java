@@ -178,6 +178,37 @@ public class ReservDAO {
 		sqlSessionTemplate.update("ReservDAO.cancelReservationPersonal", params);
 	}
 
+	/**
+	 * 예약 가능 여부 체크 
+	 * 1. 기존 예약 여부 
+	 * 
+	 * @param csMemberCode
+	 * @param lsCode
+	 * @return
+	 */
+	public int checkReservation(int csMemberCode, String lsCode) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("csMemberCode", csMemberCode);
+		params.put("lsCode",lsCode );
+		
+		return sqlSessionTemplate.selectOne("ReservDAO.checkReservation", params);
+	}
+	
+	/**
+	 * 예약 가능 여부 체크 
+	 * 2. 보유 수강권 여부 
+	 * 
+	 * @param csMemberCode
+	 * @param centerCode
+	 * @return
+	 */
+	public int checkTicket(int csMemberCode, int centerCode) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("csMemberCode", csMemberCode);
+		params.put("centerCode",centerCode );
+		
+		return sqlSessionTemplate.selectOne("ReservDAO.checkTicket", params);
+	}
 	
 	
 

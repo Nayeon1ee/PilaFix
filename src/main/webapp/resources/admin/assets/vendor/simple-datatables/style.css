@@ -178,17 +178,6 @@
 }
 
 
-.datatable-sorter::before {
-	border-top: 4px solid #000;
-	bottom: 0px;
-}
-
-.datatable-sorter::after {
-	border-bottom: 4px solid #000;
-	border-top: 4px solid transparent;
-	top: 0px;
-}
-
 .datatable-ascending .datatable-sorter::after,
 .datatable-descending .datatable-sorter::before,
 .datatable-ascending .datatable-filter::after,

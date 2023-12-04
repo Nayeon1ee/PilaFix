@@ -19,13 +19,13 @@ public class NotificationController {
 	 * 미확인 알림 개수 반환 
 	 * (화면에 동적으로 보여지기 위함) 
 	 * 
-	 * 비동기 통신 추가하기 !! 
 	 * 
 	 * @param csMemberCode
 	 * @return
 	 */
 	@PostMapping("/unReadNotificationCount.do")
 	@ResponseBody
+	@Async
 	public int sendNotification(int csMemberCode) {
 		System.out.println("count호출 됨 ");
 		int response = service.getUnReadNotificationCount(csMemberCode);
@@ -53,6 +53,7 @@ public class NotificationController {
 	 * @param ncId
 	 */
 	@PostMapping("/updateNoticeStatus.do")
+	@ResponseBody
 	public void updateNoticeStatus(String ncId) {
 		service.updateNoticeStatus(ncId);
 	}

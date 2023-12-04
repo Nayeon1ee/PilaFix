@@ -48,4 +48,9 @@
 		UPDATE TBL_INFO_C SET IC_VIEWS = IC_VIEWS + 1 WHERE IC_NUMBER=#{icNumber}
 	</update>
 	
+	
+	
+	
+
+	
 </mapper>

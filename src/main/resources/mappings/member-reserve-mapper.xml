@@ -166,7 +166,7 @@
 	<select id="getMyTicketInfoByP" resultMap="usingTicket">
 		SELECT CS_MEMBER_CODE, CS_NAME, TICKET_CODE_PERSONAL1  as TICKET_CODE,
 			 TICKET_REMAINING_COUNT_PERSONAL1 as TICKET_REMAINING_COUNT,
-				TICKET_START_DATE_PERSONAL1 as as TICKET_START_DATE, TICKET_EXPIRY_DATE_PERSONAL1 as TICKET_EXPIRY_DATE, 
+				TICKET_START_DATE_PERSONAL1 as TICKET_START_DATE, TICKET_EXPIRY_DATE_PERSONAL1 as TICKET_EXPIRY_DATE, 
 				TICKET_EXPIRY_YN_PERSONAL1 as TICKET_EXPIRY_YN, 
 				(select tk_name from tbl_ticket where tk_code=TICKET_CODE_PERSONAL1) as TICKET_NAME
 		FROM TBL_CST 
@@ -284,7 +284,18 @@
 		SET RS_CANCEL_YN=TRUE
 		WHERE RS_CODE=#{rsCode};
 		
-		<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+		<!-- 04. 출결 테이블의 회원코드 지우기  -->
+		UPDATE TBL_ATTEND
+		SET
+		    AT_MEMBER1_CODE = CASE WHEN AT_MEMBER1_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER1_CODE END,
+		    AT_MEMBER2_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER2_CODE END,
+		    AT_MEMBER3_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER3_CODE END,
+		    AT_MEMBER4_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER4_CODE END,
+		    AT_MEMBER5_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER5_CODE END,
+		    AT_MEMBER6_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE != #{csMemberCode} AND AT_MEMBER6_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER6_CODE END
+		WHERE LESSON_CODE = #{lsCode};
+	    	
+		<!-- STEP05. 알림 테이블 등록(NoticeDAO에서 진행) -->
 	</update>
 	
 	<!-- 개인 수업의 예약 취소  -->
@@ -303,19 +314,59 @@
 		UPDATE TBL_RESERV
 		SET RS_CANCEL_YN=TRUE
 		WHERE RS_CODE=#{rsCode};
+
+		<!-- 04. 출결 테이블의 회원코드 지우기  -->
+		UPDATE TBL_ATTEND
+		SET
+		    AT_MEMBER1_CODE = CASE WHEN AT_MEMBER1_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER1_CODE END,
+		    AT_MEMBER2_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER2_CODE END,
+		    AT_MEMBER3_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER3_CODE END,
+		    AT_MEMBER4_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER4_CODE END,
+		    AT_MEMBER5_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER5_CODE END,
+		    AT_MEMBER6_CODE = CASE WHEN AT_MEMBER1_CODE != #{csMemberCode} AND AT_MEMBER2_CODE != #{csMemberCode} AND AT_MEMBER3_CODE != #{csMemberCode} AND AT_MEMBER4_CODE != #{csMemberCode} AND AT_MEMBER5_CODE != #{csMemberCode} AND AT_MEMBER6_CODE = #{csMemberCode} THEN 0 ELSE AT_MEMBER6_CODE END
+		WHERE LESSON_CODE = #{lsCode};
 		
-		<!-- STEP04. 알림 테이블 등록(NoticeDAO에서 진행) -->
+		<!-- STEP05. 알림 테이블 등록(NoticeDAO에서 진행) -->
 	</update>
 
 	<!-- =========================================================== -->
 	
+	<!-- 예약 가능 여부 체크 1. 기존 예약 여부 체크 -->
+	<select id="checkReservation" parameterType="java.util.Map" resultType="int" >
+		SELECT COUNT(*) 
+		FROM TBL_RESERV
+		WHERE LESSON_CODE=#{lsCode}
+  			AND MEMBER_CODE=#{csMemberCode}
+  			AND RS_CANCEL_YN=FALSE ;
+	</select>
 	
-	<!-- 11/30 출결레코드 자동 생성 대상 - 수업코드로 예약 조회 -->
+	<!-- 예약 가능 여부 체크 2. 선택한 센터에 맞는 수강권 보유 여부 체크   -->
+	<select id="checkTicket"  resultType="int" >
+		SELECT COUNT(*) 
+		FROM TBL_TICKET
+		WHERE
+		    TK_CODE = (
+		        SELECT TICKET_CODE_GROUP1
+		        FROM TBL_CST
+		        WHERE CS_MEMBER_CODE=#{csMemberCode}
+		    )
+		    AND CENTER_CODE=#{centerCode}
+		  OR
+		    TK_CODE = (
+		        SELECT TICKET_CODE_PERSONAL1
+		        FROM TBL_CST
+		        WHERE CS_MEMBER_CODE=#{csMemberCode}
+		    )
+		    AND CENTER_CODE=#{centerCode}
+	</select>
+	
+	<!-- (미사용) 출결레코드 자동 생성 대상 - 수업코드로 예약 조회 -->
 	<select id="getMemberCodesByLessonCode" resultMap="codeResult">
 		SELECT MEMBER_CODE 
 		FROM TBL_RESERV 
 		WHERE LESSON_CODE=#{lessonCode}
 	</select>
+	
 	
 	
 	

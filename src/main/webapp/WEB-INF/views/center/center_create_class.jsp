@@ -191,6 +191,11 @@ document.getElementById('addButton').addEventListener('click', function() {
     }
 });
 
+/**
+var lsName = document.querySelector('input[name="lsName"]').value;
+var lsType= document.querySelector('input[name="lsType"]:checked').value;
+
+
 
 //데이터를 등록
 /** function insertLesson(){

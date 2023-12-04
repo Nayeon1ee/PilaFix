@@ -18,6 +18,7 @@ public class FaqInfoDAO {
 	public List<FaqVO> getFaqInfoList(){
 		return sqlSessionTemplate.selectList("FaqInfoDAO.getFaqInfoList");
 	}
+	
 	public FaqVO getFaqInfo(int fq_number) {
 	    return sqlSessionTemplate.selectOne("FaqInfoDAO.getFaqInfo",fq_number);
 	}

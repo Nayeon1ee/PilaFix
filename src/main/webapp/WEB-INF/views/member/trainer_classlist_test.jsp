@@ -157,42 +157,168 @@
 
 
 <!-- 리스트 시작-->
-				<table class="table datatable">
-					<thead>
-						<tr>
-							<th scope="col">수업코드</th>
-							<th scope="col">그룹/개인</th>
-							<th scope="col">수업명</th>
-							<th scope="col">수업일자</th>
-							<th scope="col">수업시간</th>
-							<th scope="col">진행인원</th>
-							<th scope="col">상태</th>
-							<th scope="col">센터명</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${lessonList == null }">
-							<tr>
-								<td colspan="5">현재 진행중인 수업이 없습니다.</td>
-							</tr>
-						</c:if>
-						<c:forEach var="lesson" items="${lessonList }">
-							<tr>
-								<td>${lesson.lsCode}</td>
-								<td>${lesson.lsType}</td>
-								<td><a href="getTrainerLesson.do?lsCode=${lesson.lsCode}">${lesson.lsName}</a></td>
-								<td>${lesson.lsDate}</td>
-								<td>${fn:substring(lesson.lsTime, 11, 16)}</td> 
-								<td>${lesson.reservedCount}/${lesson.lsCapacity}</td> 
-        <td data-lesson-start-time="${lesson.lsStartTime}" data-close-yn="${lesson.lsCloseYN}">
+<div class="container" style="max-width: 1000px">
+    <div class="py-4 text-center">
+        <h2>회원의 출석처리를 진행해주세요</h2>
+    </div>
+</div>
+<table class="table datatable">
+    <caption style="caption-side: top; font-weight: bold;">진행중인 수업</caption>    
+    <thead>
+        <tr>
+            <th scope="col">수업코드</th>
+            <th scope="col">그룹/개인</th>
+            <th scope="col">수업명</th>
+            <th scope="col">수업일자</th>
+            <th scope="col">수업시간</th>
+            <th scope="col">진행인원</th>
+<!--             <th scope="col">상태</th> -->
+            <th scope="col">센터명</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:if test="${ongoingLessons == null or ongoingLessons.size() == 0}">
+            <tr>
+                <td colspan="8">현재 진행중인 수업이 없습니다.</td>
+            </tr>
+        </c:if>
+        <c:forEach var="lesson" items="${ongoingLessons}">
+            <tr>
+                <td>${lesson.lsCode}</td>
+                <td>${lesson.lsType}</td>
+                <td><a href="getTrainerLesson.do?lsCode=${lesson.lsCode}">${lesson.lsName}</a></td>
+                <td>${lesson.lsDate}</td>
+                <td>${fn:substring(lesson.lsTime, 11, 16)}</td>
+                <td>${lesson.reservedCount}/${lesson.lsCapacity}</td>
+<%-- 				<td data-lesson-start-time="${lesson.lsStartTime}" data-close-yn="${lesson.lsCloseYN}"></td> --%>
+                <td>${lesson.lsCenterName}</td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
 
-		</td>						
-		<td>${lesson.lsCenterName}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+
+
+<table class="table datatable">
+    <caption style="caption-side: top; font-weight: bold;">완료된 수업</caption>   
+    <thead>
+        <tr>
+            <th scope="col">수업코드</th>
+            <th scope="col">그룹/개인</th>
+            <th scope="col">수업명</th>
+            <th scope="col">수업일자</th>
+            <th scope="col">수업시간</th>
+            <th scope="col">진행인원</th>
+<!--             <th scope="col">상태</th> -->
+            <th scope="col">센터명</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:if test="${completedLessons == null or completedLessons.size() == 0}">
+            <tr>
+                <td colspan="8">완료된 수업이 없습니다.</td>
+            </tr>
+        </c:if>
+        <c:forEach var="lesson" items="${completedLessons}">
+            <tr>
+                <td>${lesson.lsCode}</td>
+                <td>${lesson.lsType}</td>
+                <td><a href="getTrainerLesson.do?lsCode=${lesson.lsCode}">${lesson.lsName}</a></td>
+                <td>${lesson.lsDate}</td>
+                <td>${fn:substring(lesson.lsTime, 11, 16)}</td>
+                <td>${lesson.reservedCount}/${lesson.lsCapacity}</td>
+<%-- 				<td data-lesson-start-time="${lesson.lsStartTime}" data-close-yn="${lesson.lsCloseYN}"></td> --%>    
+                <td>${lesson.lsCenterName}</td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+
+
+<table class="table datatable">
+<caption style="caption-side: top; font-weight: bold;">폐강된 수업</caption>
+    <thead>
+        <tr>
+            <th scope="col">수업코드</th>
+            <th scope="col">그룹/개인</th>
+            <th scope="col">수업명</th>
+            <th scope="col">수업일자</th>
+            <th scope="col">수업시간</th>
+            <th scope="col">진행인원</th>
+<!--             <th scope="col">상태</th> -->
+            <th scope="col">센터명</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:if test="${closedLessons == null or closedLessons.size() == 0}">
+            <tr>
+                <td colspan="8">폐강된 수업이 없습니다.</td>
+            </tr>
+        </c:if>
+        <c:forEach var="lesson" items="${closedLessons}">
+            <tr>
+                <td>${lesson.lsCode}</td>
+                <td>${lesson.lsType}</td>
+                <td><a href="getTrainerLesson.do?lsCode=${lesson.lsCode}">${lesson.lsName}</a></td>
+                <td>${lesson.lsDate}</td>
+                <td>${fn:substring(lesson.lsTime, 11, 16)}</td>
+                <td>${lesson.reservedCount}/${lesson.lsCapacity}</td>
+<%-- 				<td data-lesson-start-time="${lesson.lsStartTime}" data-close-yn="${lesson.lsCloseYN}"></td> --%>
+                <td>${lesson.lsCenterName}</td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+<!-- 
+<table class="table datatable">
+	<thead>
+		<tr>
+			<th scope="col">수업코드</th>
+			<th scope="col">그룹/개인</th>
+			<th scope="col">수업명</th>
+			<th scope="col">수업일자</th>
+			<th scope="col">수업시간</th>
+			<th scope="col">진행인원</th>
+			<th scope="col">상태</th>
+			<th scope="col">센터명</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:if test="${lessonList == null }">
+			<tr>
+				<td colspan="5">현재 진행중인 수업이 없습니다.</td>
+			</tr>
+		</c:if>
+		<c:forEach var="lesson" items="${lessonList }">
+			<tr>
+				<td>${lesson.lsCode}</td>
+				<td>${lesson.lsType}</td>
+				<td><a href="getTrainerLesson.do?lsCode=${lesson.lsCode}">${lesson.lsName}</a></td>
+				<td>${lesson.lsDate}</td>
+				<td>${fn:substring(lesson.lsTime, 11, 16)}</td>
+				<td>${lesson.reservedCount}/${lesson.lsCapacity}</td>
+				<td data-lesson-start-time="${lesson.lsStartTime}"
+					data-close-yn="${lesson.lsCloseYN}"></td>
+				<td>${lesson.lsCenterName}</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
+-->
+
+
 				<!--  리스트 끝 -->
+
+
+
+
 
 
 
@@ -200,9 +326,44 @@
 			</div>
 		</section>
 	</main>
+	
+	
+	
 	<!-- End #main -->
+	
+	
+	<!-- 
+	
+	<script>
+    var rows = document.querySelectorAll(".table.datatable tbody tr");
 
-<script>
+    rows.forEach(function(row) {
+        var closeYN = row.querySelector("td[data-close-yn]").getAttribute("data-close-yn");
+        var startTimeString = row.querySelector("td[data-lesson-start-time]").getAttribute("data-lesson-start-time");
+        var startTime = new Date(startTimeString);
+
+        var statusCell = row.querySelector("td[data-lesson-start-time]");
+        var statusSpan = document.createElement("span");
+
+        if (closeYN === "Y") {
+            statusSpan.textContent = "폐강";
+            statusSpan.style.color = "red";
+        } else if (startTime > new Date()) {
+            statusSpan.textContent = "진행 중";
+            statusSpan.style.color = "green";
+        } else {
+            statusSpan.textContent = "수업종료";
+            statusSpan.style.color = "orange";
+        }
+
+        statusCell.appendChild(statusSpan);
+    });
+</script>
+	
+	
+	 -->
+	
+<!-- <script>
   // 현재 시간을 가져오는 함수
   function getCurrentTime() {
     var now = new Date();
@@ -235,8 +396,19 @@
       }
       var statusCell = row.querySelector("td[data-lesson-start-time]");
       statusCell.textContent = status; // 상태 값을 셀에 표시
-		
+      
+      // lsCode 값을 추출하는 부분
+      var lessonNameCell = row.querySelector("td:nth-child(3) a");
+      var lsCode = lessonNameCell ? lessonNameCell.getAttribute("href").split("=")[1] : null;
+
       var newRow = row.cloneNode(true);
+
+      // 새 행의 링크를 업데이트
+      var newLessonNameCell = newRow.querySelector("td:nth-child(3) a");
+      if (newLessonNameCell && lsCode) {
+        newLessonNameCell.setAttribute("href", "getTrainerLesson.do?lsCode=" + lsCode);
+      }
+
 
       if (status === "폐강") {
         closedTable.querySelector("tbody").appendChild(newRow);
@@ -283,16 +455,10 @@
     return table;
   }
 
-
-//테이블 캡션(제목)을 추가하는 함수
-  function addTableCaption(table, captionText) {
-    var caption = document.createElement("caption");
-    caption.textContent = captionText;
-    table.querySelector("thead").appendChild(caption);
-  }
   // 페이지 로딩 시 호출
   window.onload = updateAndSplitTable;
-</script>
+</script> -->
+
 	<!-- ======= Footer ======= -->
 	<%@ include file="member_footer_common.jsp"%>
 	<!-- End Footer -->

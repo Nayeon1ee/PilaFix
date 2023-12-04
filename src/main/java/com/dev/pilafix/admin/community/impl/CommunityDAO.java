@@ -1,6 +1,7 @@
 package com.dev.pilafix.admin.community.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class CommunityDAO {
 	
 	public int deleteCommunity(int cmNumber) {
 		return sqlSessionTemplate.delete("CommunityDAO.deleteCommunity", cmNumber);
+	}
+
+	public List<CommunityVO> getFilteringData(Map<String, Object> searchCondition) {
+		return sqlSessionTemplate.selectList("CommunityDAO.getFilteringData", searchCondition);
 	}
 
 }

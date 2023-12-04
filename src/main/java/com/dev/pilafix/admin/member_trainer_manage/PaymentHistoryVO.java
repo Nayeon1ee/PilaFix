@@ -11,7 +11,8 @@ public class PaymentHistoryVO {
 	private String paMethod;
 	private Date paDatetime;
 	private String centerName;
-	private String ticketName; //È­¸é Ãâ·Â ¿ë 
+	private String ticketName; //È­ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ 
+	private boolean paCancelYn;
 	
 	public String getPaId() {
 		return paId;
@@ -60,6 +61,13 @@ public class PaymentHistoryVO {
 	}
 	public void setTicketName(String ticketName) {
 		this.ticketName = ticketName;
+	}
+	
+	public boolean isPaCancelYn() {
+		return paCancelYn;
+	}
+	public void setPaCancelYn(boolean paCancelYn) {
+		this.paCancelYn = paCancelYn;
 	}
 	@Override
 	public String toString() {

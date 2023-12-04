@@ -28,7 +28,7 @@ public class MyScheduleDAO {
 			return sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode);
 		}
 	}
-
+	
 	public List<MyScheduleVO> getAttendList(int csMemberCode) {
 		//출석여부가 true인 것에 대해 데이터 가져옴
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendLessonCode",csMemberCode );
@@ -48,7 +48,7 @@ public class MyScheduleDAO {
 			return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonInfo",lessonCode);
 		}
 	}
-
+	
 	public Map<String, Integer> getCount(int csMemberCode) {
 		Map<String,Integer> count = new HashMap<String, Integer>();
 		// 당월의 예약수업 수 세와서 map에 담음 (예약수업이 없으면 lessonCodeReserv가 없으므로 0담음)
@@ -58,20 +58,9 @@ public class MyScheduleDAO {
 		}else {
 			count.put("reservCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countReserv",lessonCodeReserv ));
 		}
+			count.put("attendCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countAttend",csMemberCode ));
+			count.put("absentCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countAbsent",csMemberCode ));
 		
-		List<String> lessonCodeAttend = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendLessonCode",csMemberCode );
-		if(lessonCodeAttend.isEmpty()) {
-			count.put("attendCount", 0);
-		}else {
-			count.put("attendCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countAttendance",lessonCodeAttend ));
-		}
-		
-		List<String> lessonCodeAbsent = sqlSessionTemplate.selectList("MyScheduleDAO.getAbsentLessonCode",csMemberCode );
-		if(lessonCodeAbsent.isEmpty()) {
-			count.put("absentCount", 0);	
-		}else {
-			count.put("absentCount", sqlSessionTemplate.selectOne("MyScheduleDAO.countAttendance",lessonCodeAbsent ));
-		}
 		
 		return count;
 	}
@@ -88,5 +77,52 @@ public class MyScheduleDAO {
 			return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
 		}
 	}
+	
+	//전체탭에 뿌려줄 이번달 스케줄 가져오기
+	public Map<String, Object> getAllInfo(int csMemberCode){
+		Map<String, Object> allInfo = new HashMap<>();
+		
+		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
+		List<String> reservlessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonCode",csMemberCode);
+		
+		if (lessonCode.isEmpty()) {
+			allInfo.put("reservInfo", null);
+			System.out.println("1 예약if문 null");
+		}else {
+			allInfo.put("reservInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode));
+			System.out.println("1 예약if문 값o");
+		}
+		
+		if (reservlessonCode.isEmpty()) {
+			allInfo.put("reservInfo", null);
+			System.out.println("2 출결if문 null");
+		}else {
+			Map<String,Object> param = new HashMap<>();
+			param.put("reservlessonCode", reservlessonCode);
+			param.put("csMemberCode", csMemberCode);
+			
+			allInfo.put("attendanceInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceInfo",param));
+			System.out.println("2 출결if문 값o");
+		}
+
+			System.out.println("3 if문 탈출");
+			return allInfo; 
+		
+		
+	}
+
+//	public List<MyScheduleVO> getAttendanceList(int csMemberCode) {
+//		List<String> reservlessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonCode",csMemberCode);
+//		
+//		if (reservlessonCode.isEmpty()) {
+//			return 	Collections.emptyList();
+//		}else {
+//			Map<String,Object> param = new HashMap<>();
+//			param.put("reservlessonCode", reservlessonCode);
+//			param.put("csMemberCode", csMemberCode);
+//			
+//			return sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceInfo",param);
+//		}
+//	}
 
 }

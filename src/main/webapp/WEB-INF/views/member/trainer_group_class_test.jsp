@@ -73,21 +73,38 @@
 				<li>Group Class Schedule</li>
 			</ol>
 			<h2>그룹 수업 스케줄</h2>
+			</div>
+		</section>
+		<!-- End Breadcrumbs -->
 
 
-			<!-- ############################################################# -->
-			<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음-->
-			<!-- ############################################################# -->
-			<span style="display: inline-block;"> ${lessonDetail.lsDate} </span>
-			<c:set var="hour"
-				value="${fn:substring(lessonDetail.lsTime, 11, 13)}" />
-			<!-- 시간 추출 -->
-			<c:choose>
-				<c:when test="${hour lt 12}">
-					<!-- 오전 확인 -->
+
+	<!-- ======= Services Section ======= -->
+	<section id="services" class="services">
+		<div class="container" style="max-width: 1000px">
+
+
+			<!-- 수업 상세 정보 -->
+				<section class="explanation text-center py-5">
+				    <div class="container">
+				    <p class="h3 mb-0">
+				    <strong class="text-primary" >
+                        ${lessonDetail.lsName}
+                    </strong></p>
+                    <br>
+
+				    <p class="lead">${lessonDetail.lsContent} </p> <!-- 수업 설명 -->
+
+				    <!-- 수업시간 --> 
+					<span  style="display: inline-block;">
+                        ${lessonDetail.lsDate} 
+                    </span>
+                    <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
+                    <c:choose>
+                        <c:when test="${hour lt 12}"> <!-- 오전 확인 -->
                             오전
                         </c:when>
-				<c:otherwise>
+                        <c:otherwise>
                             오후
                         </c:otherwise>
                     </c:choose>
@@ -98,112 +115,13 @@
 				</section>
 
 
-<!-- 출석 통계 -->
-<div class="status py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4 text-center">예약: ${lessonDetail.reservedCount}</div>
-            <div class="col-md-4 text-center">출석: ${lessonDetail.attendedCount}</div>
-            <div class="col-md-4 text-center">결석: ${lessonDetail.absentCount}</div>
-        </div>
-    </div>
-</div>
-
-<!-- 수업 예약한 회원 목록 -->
-<section class="member_list py-4 my-3">
-    <div class="container">
-        <form id="form" method="post" action="updateAttendG.do">
-            <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
-
-            <div class="row justify-content-center">
-                <c:forEach var="member" items="${lessonDetail.reservedMembers}" varStatus="status">
-                    <div class="col-md-2">
-                        <div class="member-check text-center">
-                            <input type="checkbox" class="btn-check" id="btn-check-${status.index}" name="selectedMemberCodes" value="${member.csMemberCode}" autocomplete="off">
-                            <label class="btn" for="btn-check-${status.index}">
-                                <i class="bi bi-person-circle"></i>
-                                <p>${member.csName}</p>
-                            </label>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-
-            <div class="d-flex justify-content-center mt-4">
-                <button type="submit" class="btn btn-primary" id="attendanceButton">출석처리</button>
-                <button type="button" class="btn btn-primary ms-2" onclick="location.href='getTrainerLessonList.do'">목록</button>
-            </div>
-        </form>
-    </div>
-</section>
-
-
-<!-- 참고해보려고 한거 https://devfootprint.tistory.com/58 -->
-<!-- 
-<div class="container">
-    <div class="d-flex justify-content-center">
-        <form action="updateAttendG.do" method="post" class="me-2">
-        <button type="submit" class="btn btn-primary" id="attendanceButton">출석처리</button>  
-        <button type="button" class="btn btn-primary" onclick="location.href='getTrainerLessonList.do'">목록</button>
-    </div>
-</div>
- -->
-
-				<!-- End Our Skills Section -->
-
-	<!-- End Breadcrumbs -->
-
-	<!-- ======= Services Section ======= -->
-	<section id="services" class="services">
-		<div class="container" style="max-width: 1000px">
-
-
-			<!-- 수업 상세 정보 -->
-			<section class="explanation text-center py-5">
-				<div class="container">
-					<p class="h3 mb-0">
-						<strong class="text-primary"> ${lessonDetail.lsName} </strong>
-					</p>
-					<br>
-
-					<p class="lead">${lessonDetail.lsContent}</p>
-					<!-- 수업 설명 -->
-
-
-					<!-- ############################################################# -->
-					<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음-->
-					<!-- ############################################################# -->
-					<!-- 수업시간 -->
-					<span style="display: inline-block;"> ${lessonDetail.lsDate}
-					</span>
-					<c:set var="hour"
-						value="${fn:substring(lessonDetail.lsTime, 11, 13)}" />
-					<!-- 시간 추출 -->
-					<c:choose>
-						<c:when test="${hour lt 12}">
-							<!-- 오전 확인 -->
-                            오전
-                        </c:when>
-						<c:otherwise>
-                            오후
-                        </c:otherwise>
-					</c:choose>
-					<span style="display: inline-block;">
-						${fn:substring(lessonDetail.lsTime, 11, 16)} </span>
-				</div>
-			</section>
-
-
 			<!-- 출석 통계 -->
 			<div class="status py-5">
 				<div class="container">
 					<div class="row justify-content-center">
-						<div class="col-md-4 text-center">예약:
-							${lessonDetail.reservedCount}</div>
-						<div class="col-md-4 text-center">출석:
-							${lessonDetail.attendedCount}</div>
-						<div class="col-md-4 text-center">결석:
-							${lessonDetail.absentCount}</div>
+            <div class="col-md-4 text-center">예약: ${lessonDetail.reservedCount}</div>
+            <div class="col-md-4 text-center">출석: ${attendedCount}</div>
+            <div class="col-md-4 text-center">결석: ${absentCount}</div>
 					</div>
 				</div>
 			</div>
@@ -218,13 +136,11 @@
 									varStatus="status">
 									<div class="col-md-2">
 										<div class="member-check text-center">
-											<input type="checkbox" class="btn-check"
-												id="btn-check-${status.index}" name="selectedMemberCodes"
-												value="${member.csMemberCode}" autocomplete="off"> <label
-												class="btn" for="btn-check-${status.index}"> <img
-												src="${pageContext.request.contextPath}/resources/images/user.png"
-												alt="profile image" style="width: 70px; height: 70px;">
-												<p>${member.csName}</p>
+											<input type="checkbox" class="btn-check" id="btn-check-${status.index}" name="selectedMemberCodes"
+												value="${member.csMemberCode}" autocomplete="off"> 
+											<label class="btn" for="btn-check-${status.index}"> 
+											<img src="${pageContext.request.contextPath}/resources/images/user.png" alt="profile image" style="width: 70px; height: 70px;">
+											<p>${member.csName}</p>
 											</label>
 										</div>
 									</div>
@@ -246,15 +162,13 @@
 					<button type="button" class="btn btn-primary ms-3"
 						onclick="location.href='getTrainerLessonList.do'">목록</button>
 					<!-- 출석 처리 버튼 -->
-					<form action="/updateAttendG.do" method="post" class="me-2">
-						<input type="hidden" name="lessonCode"
-							value="${lessonDetail.lsCode}">
-						<c:forEach var="member" items="${reservedMembers}">
-							<input type="checkbox" name="selectedMemberCodes"
-								value="${member.memberCode}">
-						</c:forEach>
-						<button type="submit" class="btn btn-primary me-3">출석처리</button>
-					</form>
+<form action="updateAttendG.do" method="post" class="me-2">
+    <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
+    <c:forEach var="member" items="${reservedMembers}">
+        <input type="checkbox" name="selectedMemberCodes" value="${member.memberCode}">
+    </c:forEach>
+    <button type="submit" class="btn btn-primary me-3">출석처리</button>
+</form>
 
 
 				</div>

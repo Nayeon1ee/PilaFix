@@ -177,6 +177,7 @@ public class ReservServiceImpl implements ReservService {
 		 * STEP01. 회원 테이블에서 수강권 매수 +1 (개인/그룹 구분)
 		 * STEP02. 수업 테이블에 현재 신청 인원 -1
 		 * STEP03. 예약 테이블의 취소 여부 true
+		 * STEP04. 출결 테이블의 회원코드 지우기 
 		 * 
 		 */
 		if(lesson.getLsType().equals("그룹")) {
@@ -187,7 +188,7 @@ public class ReservServiceImpl implements ReservService {
 			dao.cancelReservationPersonal(csMemberCode, rsCode, lsCode );
 		}
 		
-		/* STEP04. insert 알림 테이블 이력 쌓기 */
+		/* STEP05. insert 알림 테이블 이력 쌓기 */
 		NoticeVO notice = new NoticeVO();
 		 notice.setMemberCode(csMemberCode);
 		 notice.setRecipientCode(String.valueOf(centerCode)); 
@@ -196,6 +197,18 @@ public class ReservServiceImpl implements ReservService {
 		 notice.setNcNoticeContent(lesson.getLsDate()+" "+lesson.getLsTime()+" "+lesson.getLsName()+" 예약이 취소되었습니다."); 
         noticeDAO.insertNotice(notice);
 		
+	}
+
+	/**
+	 * 예약 가능 여부 체크 
+	 */
+	@Override
+	public Map<String, Integer> checkReservationAndTicket(int csMemberCode, String lsCode, int centerCode) {
+		Map<String, Integer> checkResult = new HashMap<>();
+		checkResult.put("checkReservation", dao.checkReservation(csMemberCode, lsCode));
+		checkResult.put("checkTicket",dao.checkTicket(csMemberCode, centerCode));
+		
+		return checkResult;
 	}
 	
 	

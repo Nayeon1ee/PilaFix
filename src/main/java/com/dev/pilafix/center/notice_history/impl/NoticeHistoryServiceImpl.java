@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.center.notice_history.NoticeHistoryService;
-import com.dev.pilafix.center.notice_history.NoticeHistoryVO;
+import com.dev.pilafix.common.notice.NoticeVO;
 
 @Service
 public class NoticeHistoryServiceImpl implements NoticeHistoryService {
@@ -15,12 +15,12 @@ public class NoticeHistoryServiceImpl implements NoticeHistoryService {
 	private NoticeHistoryDAO dao;
 	
 	@Override
-	public List<NoticeHistoryVO> getNoticeHistoryList(int currentUserCode) {
+	public List<NoticeVO> getNoticeHistoryList(int currentUserCode) {
 		return dao.getNoticeHistoryList(currentUserCode);
 	}
 
 	@Override
-	public NoticeHistoryVO getNoticeHistory(String ncId) {
+	public NoticeVO getNoticeHistory(String ncId) {
 		return dao.getNoticeHistory(ncId);
 	}
 

@@ -57,9 +57,9 @@
 					                  </div>
 					                </fieldset>
 
-								<div class="text-center">
-							        <button type="submit" class="btn btn-primary">등록</button>
-							        <button type="button" class="btn btn-primary" onclick="location.href='getCenterInfoList.do'">취소</button>
+								<div class="text d-flex justify-content-end">
+							        <button type="submit" class="btn btn-primary me-2">등록</button>
+							        <button type="reset" class="btn btn-secondary me-3" onclick="location.href='getCenterInfoList.do'">취소</button>
 							    </div>
 							</form>
 							<!-- End Multi Columns Form -->

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -137,7 +138,7 @@
 												<div class="input-group">
 													<label class="input-group-text" for="remainingSessions"><img alt="bar"
 													src="${pageContext.request.contextPath}/resources/images/purple_bar.png">수강권명 :</label>
-													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketRemainingCount }" readonly>
+													<input type="text" class="form-control" id="remainingSessions" name="remainingSessions" value="${cancelInfo.ticket.ticketName}" readonly>
 												</div>
 											</li>
 											
@@ -211,11 +212,11 @@
 							</div>
 							<div class="modal-body">
 								<div class="highlight-section">
-									<p class="highlight-text">
-										<span class="highlight-date">${cancelInfo.lesson.lsDate} ${cancelInfo.lesson.lsTime }에 진행하는</span>
-									</p>
 									<p class="hightlight-text" style="font-size: 18px;">
-										${cancelInfo.lesson.lsName } 수업을 취소하시겠습니까?</p>
+										<%-- <span class="highlight-date"> --%>
+										<b><fmt:formatDate pattern="yyyy년 MM월 dd일 a hh:mm시" value="${cancelInfo.lesson.lessonDatetime}" /></b>에 진행되는<br>
+										<%-- </span>--%>
+										<b>${cancelInfo.lesson.lsName } 수업</b>을 취소하시겠습니까?</p>
 								</div>
 							</div>
 							<div class="modal-footer">
@@ -241,7 +242,7 @@
 							<div class="modal-body">
 								<div class="highlight-section">
 									<p class="hightlight-text" style="font-size: 18px;">
-										예약취소 가능 시간이 지났습니다.<br>
+										<b>예약취소 가능 시간이 지났습니다.</b><br>
 										자세한 정보는 센터에 문의해주세요.
 									</p>
 								</div>
@@ -354,8 +355,7 @@
 	                
 	                if(response){
    	                console.log("cancelReservation() 호출 성공");
-	              		// 추후 내스케줄 확인으로 이동
-	   	            alert("취소가 완료되었습니다. ");
+	              	// 추후 내스케줄 확인으로 이동
 	   	            window.location.href = 'schedule.do';
 	                }
 	            },

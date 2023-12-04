@@ -63,7 +63,7 @@
 
 	<!-- ======= Header ======= -->
 
-	<%@ include file="member_header_common_tr.jsp"%>
+	<%@ include file="member_header_common.jsp"%>
 	
 	<!-- End Header -->
 
@@ -161,25 +161,25 @@
 						<div class="icon-box">
 							<i class="bi bi-calendar-check"></i>
 							<h3>
-								<a href="getTrainerLesson.do">수업관리</a>
+								<a href="trainerLessonPage.do">수업관리</a>
 							</h3>
-							<p>원하는 시간, 내 스타일의 수업! 지금 예약하고, 새로운 나를 만나보세요.</p>
+							<p>진행중인 수업과 회원의 출석 관리</p>
 						</div>
 					</div>
 					<div class="col-lg-4 mt-4 mt-lg-0">
 						<div class="icon-box">
 							<i class="bi bi-ticket-perforated-fill"></i>
 							<h3>
-								<a href="member_mypage.do">마이페이지</a>
+								<a href="myNoticePage.do">공지사항</a>
 							</h3>
-							<p>내 건강에 투자하는 최고의 선택! 다양한 수강권으로 나만의 플랜을 만들어보세요.</p>
+							<p>공지사항 확인하기</p>
 						</div>
 					</div>
 					<div class="col-lg-4 mt-4 mt-lg-0">
 						<div class="icon-box">
 							<i class="bi bi-people"></i>
 							<h3>
-								<a href="getMemberCommunityList.do">커뮤니티 바로가기</a>
+								<a href="communityPage.do">커뮤니티 바로가기</a>
 							</h3>
 							<p>필라테스 세계에서 나만의 경험을 공유하세요. 다양한 리뷰와 정보가 당신을 기다리고 있어요!</p>
 						</div>

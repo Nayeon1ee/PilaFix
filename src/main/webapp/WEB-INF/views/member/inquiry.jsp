@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
+
 <html lang="kor">
 
 <head>
@@ -118,7 +121,7 @@
 
 
 				<div id="userInfo" class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2"
+					<div id="myInfoLink" class="ms-2 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
@@ -158,16 +161,17 @@
         <div id="collapse${status.index}" class="accordion-collapse collapse"
              aria-labelledby="heading${status.index}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
+            <div class="inquiry-body">
                 <strong>문의내역</strong><br> ${question.qsContent}
-
-                <div class="text-center">
+</div>
+                <div class="text-center d-flex justify-content-end mt-2">
                     <!-- 삭제 -->
                     <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button> -->
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="openDeleteModal(${question.qsNumber})">삭제</button>
+                    <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="openDeleteModal(${question.qsNumber})">삭제</button>
 
                     <!-- 답변이 없는 경우에만 수정 버튼 표시 -->
                     <c:if test="${!question.qsAnswerYn}">
-                        <button type="button" class="btn btn-primary" onclick="location.href='updateQuestion.do?qsNumber=${question.qsNumber}'">수정</button>
+                        <button type="button" class="btn btn-primary me-2" onclick="location.href='updateQuestion.do?qsNumber=${question.qsNumber}'">수정</button>
                     </c:if>
                 </div>
 
@@ -197,25 +201,23 @@
 
 <!-- 삭제 버튼 모달 -->
 <div class="modal fade" id="basicModal" tabindex="-1">
-     <div class="modal-dialog">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-         </div>
-         <div class="modal-body">
-           확인 버튼을 누르시면 다시 복구시킬 수 없습니다.
-         </div>
-         
-     <input type="hidden" id="currentQsNumber" value="">    
-         
-     <div class="modal-footer">
-       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-       <button type="button" class="btn btn-primary" onclick="deleteQuestion()">확인</button>
-     </div>
-       </div>
-     </div>
-   </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+  <p class="font-weight-bold">확인 버튼을 누르시면 다시 복구시킬 수 없습니다.</p>
+</div>
+      <input type="hidden" id="currentQsNumber" value="">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" onclick="deleteQuestion()">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
 </main><!-- End #main -->
  
 
@@ -237,7 +239,7 @@ function deleteQuestion() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        window.location.href = 'getQuestionList.do';
+        window.location.href = 'questionPage.do';
     })
     .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
@@ -312,6 +314,41 @@ accordionButtons.forEach(button => {
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
 
+<!--  아코디언 스크립트 -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var accordionButtons = document.querySelectorAll('.accordion-button');
+
+    accordionButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            console.log('Button clicked!');
+
+            // 현재 버튼의 아코디언 바디에 색상 적용
+            var accordionBody = this.closest('.accordion-item').querySelector('.accordion-body');
+            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? '#f5f3ff' : '#fff';
+
+            // 클릭한 버튼이 이미 열린 상태라면 닫음
+            if (!this.classList.contains('collapsed')) {
+                this.classList.add('collapsed');
+                accordionBody.style.backgroundColor = '#f5f3ff';
+            } else {
+                // 클릭 시 다른 아코디언 버튼들을 닫음
+                accordionButtons.forEach(function (otherButton) {
+                    if (otherButton !== button) {
+                        otherButton.classList.add('collapsed');
+                        var otherAccordionBody = otherButton.closest('.accordion-item').querySelector('.accordion-body');
+                        otherAccordionBody.style.backgroundColor = '#f5f3ff';
+                    }
+                });
+
+                // 현재 버튼 열기
+                this.classList.remove('collapsed');
+                accordionBody.style.backgroundColor = '#fff';
+            }
+        });
+    });
+});
+</script>
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>

@@ -1,36 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="center_header_common.jsp" %>
-	<main id="main" class="main">
-		<div class="pagetitle">
-			<h1>수강권 등록</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<!-- 소제목 필요 시 작성 -->
-					<li class="breadcrumb-item"></li>
-				</ol>
-			</nav>
-		</div>
-		<!-- End Page Title -->
-		<section class="section">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="card-body">
-							<!-- Multi Columns Form -->
-							<form class="row g-3" action="insertCenterTicket.do" method="post" name="myForm">
-							<input type="hidden" class="form-control" name="tkCode" value="${centerTicket.tkCode }">
-								<div class="col-md-12 col-top radio-box">
-									<label class="form-label">수업 유형</label>
-									<div class="radio-box">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="tkLessonType" value="그룹" id="flexRadioDefault1" onclick="updateList('그룹')">
-											<label class="form-check-label" for="flexRadioDefault1">그룹</label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="tkLessonType" value="개인" id="flexRadioDefault1" onclick="updateList('개인')">
-											<label class="form-check-label" for="flexRadioDefault1">개인</label>
-										</div>
+<%@ include file="center_header_common.jsp"%>
+<main id="main" class="main">
+	<div class="pagetitle">
+		<h1>수강권 등록</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<!-- 소제목 필요 시 작성 -->
+				<li class="breadcrumb-item"></li>
+			</ol>
+		</nav>
+	</div>
+	<!-- End Page Title -->
+	<section class="section">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body p-3">
+						<!-- Multi Columns Form -->
+						<form class="row g-3" action="insertCenterTicket.do" method="post"
+							name="myForm">
+							<input type="hidden" class="form-control" name="tkCode"
+								value="${centerTicket.tkCode }">
+							<div class="col-md-12 col-top radio-box">
+								<label class="form-label">수업 유형</label>
+								<div class="radio-box">
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="tkLessonType" value="그룹" id="flexRadioDefault1"
+											onclick="updateList('그룹')"> <label
+											class="form-check-label" for="flexRadioDefault1">그룹</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="tkLessonType" value="개인" id="flexRadioDefault1"
+											onclick="updateList('개인')"> <label
+											class="form-check-label" for="flexRadioDefault1">개인</label>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -82,66 +87,81 @@
 									<textarea name="tkDescription" class="form-control" style="height: 300px;" placeholder="내용을 입력하세요"></textarea>
 								</div>
 								<div class="col-sm-10">
-									<label class="form-label">예약 가능 여부</label>
+									<label class="form-label">구매 가능 여부</label>
 									<fieldset class="row mb-3">
 								    	<div class="col-sm-10">
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="purchaseAvailableYN" id="flexRadioDefault2" value=true>
-												<label class="form-check-label" for="flexRadioDefault2">Y</label>
+												<label class="form-check-label" for="flexRadioDefault2">구매 가능</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="radio" name="purchaseAvailableYN" id="flexRadioDefault2" value=false>
-												<label class="form-check-label" for="flexRadioDefault2">N</label>
+												<label class="form-check-label" for="flexRadioDefault2">구매 불가</label>
 											</div>
+
 										</div>
 									</fieldset>
 								</div>
 								<div class="p-check">
-									<p>(Y를 선택하면 회원이 바로 구매가 가능합니다.)</p>
-									<p>(N을 선택하면 수강권을 생성만 합니다.)</p>
+									<p>('구매 가능' 선택 시, 수강권이 즉시 회원에게 보여집니다.)</p>
+									<p>('구매 불가' 선택 시, 수강권은 생성되지만, 회원에게는 보여지지 않습니다.)</p>
 								</div>
-								<div class="text-center">
-									<button type="submit" class="btn btn-primary">등록</button>
-									<button type="reset" class="btn btn-secondary" onclick="location.href='getCenterTicketList.do'">취소</button>
+								
+								<div class="text d-flex justify-content-end">
+									<button type="submit" class="btn btn-primary me-2">등록</button>
+									<button type="reset" class="btn btn-secondary me-3" onclick="location.href='getCenterTicketList.do'">취소</button>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->
 						</div>
 					</div>
+					</fieldset>
 				</div>
+
+				<div class="text d-flex justify-content-end">
+					<button type="submit" class="btn btn-primary me-2">등록</button>
+					<button type="reset" class="btn btn-secondary me-3"
+						onclick="location.href='getCenterTicketList.do'">취소</button>
+				</div>
+				</form>
+				<!-- End Multi Columns Form -->
 			</div>
-		</section>
-	</main>
+		</div>
+		</div>
+		</div>
+	</section>
+</main>
 <script type="text/javascript">
-// 개인일 경우 1명만 선택 가능
-function Activity(name, list){
-    this.name = name;
-    this.list = list;
-}
+	// 개인일 경우 1명만 선택 가능
+	function Activity(name, list) {
+		this.name = name;
+		this.list = list;
+	}
 
-var acts = new Array();
-    acts[0] = new Activity('그룹', ['2', '3', '4', '5', '6']);
-    acts[1] = new Activity('개인', ['1']);
+	var acts = new Array();
+	acts[0] = new Activity('그룹', [ '2', '3', '4', '5', '6' ]);
+	acts[1] = new Activity('개인', [ '1' ]);
 
-function updateList(str){
-    var frm = document.myForm;
-    var oriLen = frm.tkCapacity.length;
-    var numActs;
+	function updateList(str) {
+		var frm = document.myForm;
+		var oriLen = frm.tkCapacity.length;
+		var numActs;
 
-    for (var i = 0; i < acts.length; i++){
-        if (str == acts[i].name) {
-            numActs = acts[i].list.length;
-            for (var j = 0; j < numActs; j++)
-                frm.tkCapacity.options[j] = new Option(acts[i].list[j], acts[i].list[j]);
-            for (var j = numActs; j < oriLen; j++)
-                frm.tkCapacity.options[numActs] = null;
-        }
-    }
-}
+		for (var i = 0; i < acts.length; i++) {
+			if (str == acts[i].name) {
+				numActs = acts[i].list.length;
+				for (var j = 0; j < numActs; j++)
+					frm.tkCapacity.options[j] = new Option(acts[i].list[j],
+							acts[i].list[j]);
+				for (var j = numActs; j < oriLen; j++)
+					frm.tkCapacity.options[numActs] = null;
+			}
+		}
+	}
 
-function removeForm(formElement) {
-    formElement.parentNode.removeChild(formElement);
-}
+	function removeForm(formElement) {
+		formElement.parentNode.removeChild(formElement);
+	}
 </script>
-	
-<%@ include file="center_footer_common.jsp" %>
+
+<%@ include file="center_footer_common.jsp"%>

@@ -14,31 +14,16 @@
   * License: https://PilaFixmade.com/license/
   ======================================================== -->
 <style>
-        .tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  top: 20px;
-  left: 105%;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
+    
+        /* 툴팁 스타일 설정 */
+        #tooltip {
+            position: absolute;
+            display: none;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 </style>
 </head>
 <body>
@@ -111,60 +96,55 @@
 								</div>
 							</div>
 							<!-- 검색필터 끝 -->
+							
 							<!-- 게시판 시작 -->
 							<h5 class="card-title"></h5>
 							<!-- Table with stripped rows -->
 							<table class="table datatable">
 								<thead>
 									<tr>
-										<th scope="col">번호</th>
-										<!-- <th scope="col">제목번호</th> -->
-										<th scope="col">제목</th>
-										<th scope="col">유형</th>
-										<th scope="col">신고일자</th>
+										<th scope="col">신고대상 글번호</th>
+										<th scope="col">신고대상 글제목</th>
+										<th scope="col">신고대상 글유형</th>
 										<th scope="col">신고건수</th>
 										<th scope="col">처리상태</th>
-										<th scope="col">IP</th>
+										<th scope="col">비고</th>
+										
 									</tr>
 								</thead>
-								<c:if test="${ComplaintsInfoList == null }">
+								<c:if test="${targetComplaintsList == null }">
 									<tr>
-										<td colspan="8">등록된 글이 없습니다.</td>
+										<td colspan="6"> 신고 접수된 글이 없습니다.</td>
 									</tr>
 								</c:if>
 								<tbody>
-									<c:forEach var="ComplaintsInfo" items="${ComplaintsInfoList }">
+									<c:forEach var="list" items="${targetComplaintsList }">
 										<tr>
-											<td><%-- <a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }">${ComplaintsInfo.cpCode }</a> --%>${ComplaintsInfo.cpCode }</td>
-											<%--<td> <a href="getComplaintsInfo.do?cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber }">${ComplaintsInfo.cpTargetPostNumber }</td> --%>
-											<td><a href="getComplaintsInfo.do?cpCode=${ComplaintsInfo.cpCode }&cpTargetPostNumber=${ComplaintsInfo.cpTargetPostNumber }">${ComplaintsInfo.cmTitle }</td>
-											<c:if test="${ComplaintsInfo.cpTargetPostType eq 'CM' }">
-												<td>커뮤니티</td>
+											<td>${list.cmNumber }</td>
+											<td>${list.cmTitle }</td>
+											<td>커뮤니티</td>
+																						
+										        <!-- cmNumber 파라미터를 전달하여 showTooltip 함수 호출 -->
+										        <td>
+											        <span id="targetElement" onmouseover="showTooltip('${list.cmNumber }')"  onmouseout="hideTooltip()">
+											        	${list.cmBlameCount}
+											        	<div id="tooltip" data-container="body" style="display: none;"></div>
+											        </span>
+										        </td>
+										        <!-- 툴팁을 표시할 엘리먼트 -->
+        
+        
+											<c:if test="${list.cmOpenYn}">
+												<td style="color:red">처리 대기</td>
 											</c:if>
-											<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${ComplaintsInfo.cpDate }"/></td>
-											 <td class="tooltip" colspan="2">
-									    <span>${ComplaintsInfo.cmBlameCount}</span>
-									    <div class="tooltip-text" title="${ComplaintsInfo.blameReasonName}">
-									        ${ComplaintsInfo.blameReasonName}
-									    </div>
-									</td>
-											<%-- <td><span class="tooltip-baned-reason">${ComplaintsInfo.cmBlameCount}
-											 <span class="tooltip-baned-text">${ComplaintsInfo.blameReasonName}</span></td>
-											</td> --%>
-											<c:if test="${ComplaintsInfo.cpOpenYn eq 'true' }">
-												<td>처리대기</td>
+											<c:if test="${!list.cmOpenYn}">
+												<td >처리 완료</td>
 											</c:if>
-											<c:if test="${ComplaintsInfo.cpOpenYn eq 'false' }">
-												<td>처리완료</td>
-											</c:if>
-											<td>${ComplaintsInfo.blamerIp }</td>
-											<%-- <td><a href="updateCpInfo.do?cp_code=${cpInfo.cp_code }">수정</a> | <a href="deleteCpInfo.do?cp_code=${cpInfo.cp_code }">삭제</a></td> --%>
+											<td><a href="getComplaintsDetail.do?cmNumber=${list.cmNumber}">원글보기</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-							<!-- 페이징 처리 시작 -->
-							<!-- 페이징 처리 끝 -->
 						</div>
 					</div>
 				</div>
@@ -176,75 +156,46 @@
 	<!-- ======= Footer ======= -->
 	<%@ include file="admin_footer_common.jsp" %>
 	<script type="text/javascript">
-	/* document.addEventListener("DOMContentLoaded", function() {
-	    const tooltips = document.querySelectorAll('.tooltip-text');
+    
+    function showTooltip(cmNumber) {
+        // blameReasonList.do를 호출하여 데이터를 가져옴
+        $.ajax({
+            url: "blameReasonList.do?cmNumber=" + cmNumber,
+            type: "GET",
+            success: function (data) {
+            	// 가져온 데이터를 툴팁으로 표시
+                var tooltipContent = "<ul>";
+                for (var i = 0; i < data.reasons.length; i++) {
+                    tooltipContent += "<li>" + data.reasons[i].blameReasonName + "</li>";
+                }
+                tooltipContent += "</ul>";
 
-	    tooltips.forEach(tooltip => {
-	        tooltip.addEventListener('mouseover', function(event) {
-	            // 툴팁에 표시될 모든 정보 가져오기
-	            const cmBlameCount = this.getAttribute('data-cm-blame-count');
-	            const blameReasonName = this.getAttribute('data-blame-reason-name');
-	            const csName = this.getAttribute('data-cs-name');
-	            const csEmailId = this.getAttribute('data-cs-email-id');
-	            // ... 다른 필요한 정보들도 추가로 가져올 수 있음
+                // 툴팁을 표시할 엘리먼트에 동적으로 HTML 추가
+                $("#tooltip").html(tooltipContent);
 
-	            // 툴팁을 표시하는 코드
-	            const tooltipContainer = document.createElement('div');
-	            tooltipContainer.classList.add('custom-tooltip');
+                // 툴팁을 보여줄 위치 설정 및 표시
+                 // 마우스 위치에 툴팁을 표시
+                var mouseX = event.clientX;
+                var mouseY = event.clientY;
 
-	            const tooltipContent = `
-	            	<p>${ComplaintsInfo.blameReasonName}</p>
-	            	<p>${blameReasonName}</p>
-	                <p>CM Blame Count: ${cmBlameCount}</p>
-	                <p>Blame Reason Name: ${blameReasonName}</p>
-	                <p>CS Name: ${csName}</p>
-	                <p>CS Email ID: ${csEmailId}</p>
-	            `;
-	            tooltipContainer.innerHTML = tooltipContent;
-
-	            // 툴팁을 화면에 추가
-	            this.appendChild(tooltipContainer);
-	        });
-
-	        tooltip.addEventListener('mouseout', function() {
-	            // 마우스 아웃 이벤트 처리 (툴팁을 숨기는 등)
-	            const tooltipContainer = this.querySelector('.custom-tooltip');
-	            if (tooltipContainer) {
-	                tooltipContainer.remove();
-	            }
-	        });
-	    });
-	}); */
-	
-	/* 두번째시도 */
-	document.addEventListener("DOMContentLoaded", function() {
-    const tooltips = document.querySelectorAll('.tooltip');
-
-    tooltips.forEach(tooltip => {
-        tooltip.addEventListener('mouseover', function(event) {
-            const cmBlameCount = this.querySelector('span').textContent; // cmBlameCount 가져오기
-
-            // Ajax 요청
-            fetch(`/getBlameReasons?cmBlameCount=${cmBlameCount}`)
-                .then(response => response.json())
-                .then(data => {
-                    // JSON 데이터를 툴팁에 표시
-                    const tooltipText = this.querySelector('.tooltip-text');
-                    tooltipText.textContent = JSON.stringify(data, null, 2);
-
-                    tooltipText.style.visibility = 'visible';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                $("#tooltip").css({
+                    top: mouseY + 10, // 위에서 10px 내리기
+                    left: mouseX + 10 // 왼쪽에서 10px 이동
+                }).show();
+                
+                
+            },
+            error: function () {
+                console.error("신고사유 가져오기 실패");
+            }
         });
+    }
 
-        tooltip.addEventListener('mouseout', function() {
-            const tooltipText = this.querySelector('.tooltip-text');
-            tooltipText.style.visibility = 'hidden'; // 툴팁 숨기기
-        });
-    });
-});
+    function hideTooltip() {
+        // 툴팁 숨김
+        $("#tooltip").html("");
+    }
+    
 	</script>
 	<!--내가 만든 JS File -->
 	<script

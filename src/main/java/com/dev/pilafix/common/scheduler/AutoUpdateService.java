@@ -54,6 +54,14 @@ public class AutoUpdateService {
 		}
 	}
 
+	/**
+	 * 자동 폐강 처리
+	 * 폐강 대상 : 수업시작 3시간 전이면서 신청인원이 0인 수업
+	 * 
+	 * 1. 조건에 해당하는 수업 리스트 조회 
+	 * 2. 해당 수업 폐강 처리 
+	 * 
+	 */
 	public void autoCloseLessons() {
 		Date today = new Date();
 		

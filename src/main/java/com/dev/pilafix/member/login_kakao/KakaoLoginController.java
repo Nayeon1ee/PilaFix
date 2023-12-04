@@ -48,10 +48,10 @@ public class KakaoLoginController {
         KakaoVO userinfo = (KakaoVO) session.getAttribute("user");
         if (userinfo != null) {
             // 사용자 정보가 있으면, 원하는 페이지로 리디렉션
-            return "member/inquiry";
+            return "member/test_main";
         } else {
             // 사용자 정보가 없으면, 로그인 페이지나 에러 페이지로 리디렉션
-            return "redirect:/memberLogin.do"; 
+            return "redirect:/selectMeOrTr.do"; 
         }
     }
 	

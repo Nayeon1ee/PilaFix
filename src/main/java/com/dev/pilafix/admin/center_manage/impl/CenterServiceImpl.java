@@ -1,5 +1,6 @@
 package com.dev.pilafix.admin.center_manage.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.mail.AuthenticationFailedException;
@@ -7,6 +8,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,12 +19,18 @@ import org.springframework.stereotype.Service;
 import com.dev.pilafix.admin.center_manage.CenterService;
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
 import com.dev.pilafix.common.member.CenterVO;
+import com.dev.pilafix.common.sendsmshistory.SendSmsHistoryVO;
+import com.dev.pilafix.common.sendsmshistory.impl.SendSmsHistoryDAO;
+import com.dev.pilafix.common.sendsmshistory.impl.SendSmsHistoryDAO;
 
 @Service
 public class CenterServiceImpl implements CenterService {
 	
 	@Autowired
 	private CenterDAO dao;
+	
+	@Autowired 
+	private SendSmsHistoryDAO smsHistoryDao;
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -35,6 +44,14 @@ public class CenterServiceImpl implements CenterService {
 	@Override
 	public CenterVO getCenter(int ctCode) {
 		return dao.getCenter(ctCode);
+	}
+	
+	/**
+	 * 문자발송 이력 관리 
+	 */
+	@Override
+	public List<SendSmsHistoryVO> getSmsHistory(int ctCode) {
+		return smsHistoryDao.getSendSmsHistoryListForCenter(ctCode);
 	}
 
 	@Override
@@ -139,12 +156,13 @@ public class CenterServiceImpl implements CenterService {
 		email.setMhEmailSendType("센터계정생성");
 		email.setMhRecipientName(center.getOwnerName());
 		email.setMhRecipientTitle(title);
-		email.setMhRecipientContent(content.toString());
+		Document doc = Jsoup.parse(content.toString());//html 태그 파싱 
+		email.setMhRecipientContent(doc.text());
 		email.setMhRecipientEmail(toSend);
 
 		if(flag == 1) {
 			email.setMhSuccessYN(true);
-			email.setMhSuccessDate(java.time.LocalDateTime.now());
+			email.setMhSuccessDate(Timestamp.valueOf(java.time.LocalDateTime.now()));
 		}else {
 			email.setMhSuccessYN(false);
 			email.setMhFailReason(errorMessage);
@@ -196,5 +214,6 @@ public class CenterServiceImpl implements CenterService {
 	public List<CenterVO> getExcelCenterList() {
 		return dao.getExcelCenterList();
 	}
+
 
 }

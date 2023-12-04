@@ -35,13 +35,22 @@
 <!-- 수업 상세에서 출결 처리 위한 수업예약한 회원이름, 회원코드 -->
 <!-- 회원이름 , 회원코드 둘다-->
 <select id="getReservedMembersNamesForLesson" parameterType="String" resultMap="reservedMember">
-	SELECT CST.CS_NAME AS csName
-			,CST.CS_MEMBER_CODE AS csMemberCode
+	SELECT CST.*
 	FROM TBL_RESERV RSV
 	JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
 	WHERE RSV.LESSON_CODE = #{lessonCode}
 			AND RSV.RS_CANCEL_YN = FALSE;
 </select>
+
+<!-- 
+	SELECT CST.CS_NAME
+			,CST.CS_MEMBER_CODE
+	FROM TBL_RESERV RSV
+	JOIN TBL_CST CST ON RSV.MEMBER_CODE = CST.CS_MEMBER_CODE
+	WHERE RSV.LESSON_CODE = #{lessonCode}
+			AND RSV.RS_CANCEL_YN = FALSE; -->
+
+
 <!-- 회원코드 -->
 <select id="getReservedMemberCodeForLesson" parameterType="String" resultType="Integer">
     SELECT CST.CS_MEMBER_CODE
@@ -61,38 +70,39 @@
     AND RSV.RS_CANCEL_YN = FALSE;
 </select>
 
-
 	
-	<!-- 예약된 회원 수 -->
-	<select id="getReservedCountForLesson" parameterType="String" resultType="int">
-	  SELECT COUNT(*) FROM TBL_RESERV
-	  WHERE LESSON_CODE = #{lessonCode} 
-	  		AND RS_CANCEL_YN = FALSE;
-	</select>
-	
-	<!-- 출석한 회원 수 AT_CODE로 가져와서, 회원코드가 0이 아닐때 등으로 조건 주기-->
-<select id="getAttendedCountForLesson" parameterType="String" resultType="int">
-    SELECT COUNT(*) FROM TBL_ATTEND
-    WHERE LESSON_CODE = #{lessonCode}
-    AND (AT_MEMBER1_CODE != 0 AND AT_ATTENDANCE1_YN = TRUE) OR
-        (AT_MEMBER2_CODE != 0 AND AT_ATTENDANCE2_YN = TRUE) OR
-        (AT_MEMBER3_CODE != 0 AND AT_ATTENDANCE3_YN = TRUE) OR
-        (AT_MEMBER4_CODE != 0 AND AT_ATTENDANCE4_YN = TRUE) OR
-        (AT_MEMBER5_CODE != 0 AND AT_ATTENDANCE5_YN = TRUE) OR
-        (AT_MEMBER6_CODE != 0 AND AT_ATTENDANCE6_YN = TRUE);
+<!-- 예약된 회원 수 -->
+<select id="getReservedCountForLesson" parameterType="String" resultType="int">
+  SELECT COUNT(*) FROM TBL_RESERV
+  WHERE LESSON_CODE = #{lessonCode} 
+    AND RS_CANCEL_YN = FALSE
+    AND MEMBER_CODE != 0;
 </select>
 	
-	<!-- 결석한 회원 수 -->
+<!-- 출석한 회원 수 -->
+<select id="getAttendedCountForLesson" parameterType="String" resultType="int">
+SELECT
+  SUM(CASE WHEN AT_ATTENDANCE1_YN = TRUE AND AT_MEMBER1_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE2_YN = TRUE AND AT_MEMBER2_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE3_YN = TRUE AND AT_MEMBER3_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE4_YN = TRUE AND AT_MEMBER4_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE5_YN = TRUE AND AT_MEMBER5_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE6_YN = TRUE AND AT_MEMBER6_CODE > 0 THEN 1 ELSE 0 END)
+FROM TBL_ATTEND
+WHERE LESSON_CODE = #{lessonCode}
+</select>
+	
+<!-- 결석한 회원 수 -->
 <select id="getAbsentCountForLesson" parameterType="String" resultType="int">
-    SELECT COUNT(*)
-    FROM TBL_ATTEND
-    WHERE LESSON_CODE = #{lessonCode}
-    AND (AT_MEMBER1_CODE != 0 AND AT_ATTENDANCE1_YN = FALSE) OR
-        (AT_MEMBER2_CODE != 0 AND AT_ATTENDANCE2_YN = FALSE) OR
-        (AT_MEMBER3_CODE != 0 AND AT_ATTENDANCE3_YN = FALSE) OR
-        (AT_MEMBER4_CODE != 0 AND AT_ATTENDANCE4_YN = FALSE) OR
-        (AT_MEMBER5_CODE != 0 AND AT_ATTENDANCE5_YN = FALSE) OR
-        (AT_MEMBER6_CODE != 0 AND AT_ATTENDANCE6_YN = FALSE);
+SELECT
+  SUM(CASE WHEN AT_ATTENDANCE1_YN = FALSE AND AT_MEMBER1_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE2_YN = FALSE AND AT_MEMBER2_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE3_YN = FALSE AND AT_MEMBER3_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE4_YN = FALSE AND AT_MEMBER4_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE5_YN = FALSE AND AT_MEMBER5_CODE > 0 THEN 1 ELSE 0 END +
+      CASE WHEN AT_ATTENDANCE6_YN = FALSE AND AT_MEMBER6_CODE > 0 THEN 1 ELSE 0 END)
+FROM TBL_ATTEND
+WHERE LESSON_CODE = #{lessonCode}
 </select>
 
 
@@ -100,6 +110,43 @@
 	<!-- 강사가 그룹수업 상세에서 출석버튼 눌렀을때 출결 처리 -->
 	<!-- selectedMemberCodes와 memberCode(AT_MEMBER?_CODE)가 일치하면 해당 출결Yn=true or default(false) -->
 <update id="updateAttendanceGroupLesson" parameterType="map">
+    UPDATE TBL_ATTEND
+    SET
+    AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE IN 
+        <foreach collection="selectedMemberCodes" item="memberCode" open="(" separator="," close=")">
+            #{memberCode}
+        </foreach>
+    THEN TRUE ELSE AT_ATTENDANCE1_YN END,
+    AT_ATTENDANCE2_YN = CASE WHEN AT_MEMBER2_CODE IN 
+        <foreach collection="selectedMemberCodes" item="memberCode" open="(" separator="," close=")">
+            #{memberCode}
+        </foreach>
+    THEN TRUE ELSE AT_ATTENDANCE2_YN END,
+    AT_ATTENDANCE3_YN = CASE WHEN AT_MEMBER3_CODE IN 
+        <foreach collection="selectedMemberCodes" item="memberCode" open="(" separator="," close=")">
+            #{memberCode}
+        </foreach>
+    THEN TRUE ELSE AT_ATTENDANCE3_YN END,
+    AT_ATTENDANCE4_YN = CASE WHEN AT_MEMBER4_CODE IN 
+        <foreach collection="selectedMemberCodes" item="memberCode" open="(" separator="," close=")">
+            #{memberCode}
+        </foreach>
+    THEN TRUE ELSE AT_ATTENDANCE4_YN END,
+    AT_ATTENDANCE5_YN = CASE WHEN AT_MEMBER5_CODE IN 
+        <foreach collection="selectedMemberCodes" item="memberCode" open="(" separator="," close=")">
+            #{memberCode}
+        </foreach>
+    THEN TRUE ELSE AT_ATTENDANCE5_YN END,
+    AT_ATTENDANCE6_YN = CASE WHEN AT_MEMBER6_CODE IN 
+        <foreach collection="selectedMemberCodes" item="memberCode" open="(" separator="," close=")">
+            #{memberCode}
+        </foreach>
+    THEN TRUE ELSE AT_ATTENDANCE6_YN END
+    WHERE LESSON_CODE = #{lessonCode}
+</update>
+
+
+<!-- <update id="updateAttendanceGroupLesson" parameterType="map">
     UPDATE TBL_ATTEND
     SET 
     AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE1_YN END,
@@ -111,16 +158,22 @@
     WHERE LESSON_CODE = #{lessonCode}
     AND (AT_MEMBER1_CODE = #{memberCode} OR AT_MEMBER2_CODE = #{memberCode} OR AT_MEMBER3_CODE = #{memberCode}
         OR AT_MEMBER4_CODE = #{memberCode} OR AT_MEMBER5_CODE = #{memberCode} OR AT_MEMBER6_CODE = #{memberCode});
-</update>
+</update> -->
+
 	
 <!-- 강사가 개인수업 상세에서 출석버튼 눌렀을때 출결 처리 -->
 <update id="updateAttendancePersonalLesson" parameterType="map">
+    UPDATE TBL_ATTEND
+    SET AT_ATTENDANCE1_YN = TRUE
+    WHERE LESSON_CODE = #{lessonCode} AND AT_MEMBER1_CODE = #{memberCode};
+</update>
+<!-- <update id="updateAttendancePersonalLesson" parameterType="map">
 	UPDATE TBL_ATTEND
 	SET 
 	AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{selectedMemberCode} THEN TRUE ELSE FALSE END
 	WHERE LESSON_CODE = #{lessonCode};
 </update>
-	
+	 -->
 
 
 	<!-- 출결 레코드 자동 생성 -->

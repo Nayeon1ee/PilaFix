@@ -17,6 +17,18 @@ public class MyScheduleVO {
 	private String centerName;
 	private boolean lsColseYN;
 	private String rsCode;
+	private Date rsDatetime; //예약일자 
+	
+	private boolean atAttendanceYn;
+	
+	
+	
+	public boolean isAtAttendanceYn() {
+		return atAttendanceYn;
+	}
+	public void setAtAttendanceYn(boolean atAttendanceYn) {
+		this.atAttendanceYn = atAttendanceYn;
+	}
 	public String getLsCode() {
 		return lsCode;
 	}
@@ -95,14 +107,21 @@ public class MyScheduleVO {
 	public void setRsCode(String rsCode) {
 		this.rsCode = rsCode;
 	}
+	public Date getRsDatetime() {
+		return rsDatetime;
+	}
+	public void setRsDatetime(Date rsDatetime) {
+		this.rsDatetime = rsDatetime;
+	}
 	@Override
 	public String toString() {
 		return "MyScheduleVO [lsCode=" + lsCode + ", lsName=" + lsName + ", lsType=" + lsType + ", lsDate=" + lsDate
 				+ ", lsTime=" + lsTime + ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime
 				+ ", trainerMemberCode=" + trainerMemberCode + ", trainerMemberName=" + trainerMemberName
 				+ ", centerCode=" + centerCode + ", centerName=" + centerName + ", lsColseYN=" + lsColseYN + ", rsCode="
-				+ rsCode + "]";
+				+ rsCode + ", atAttendanceYn=" + atAttendanceYn + "]";
 	}
+	
 
 	
 	

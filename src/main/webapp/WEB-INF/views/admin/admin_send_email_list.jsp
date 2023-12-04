@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="admin_header_common.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ include file="admin_header_common.jsp"%>
 <html class="yourHtmlString">
   <main id="main" class="main">
     <div class="pagetitle">
@@ -81,7 +81,6 @@
                     <th scope="col">이메일발송일시</th>
                     <th scope="col">수신자명</th>
                     <th scope="col">수신제목</th>
-                    <th scope="col">수신내용</th>
                     <th scope="col">수신자이메일</th>
                     <th scope="col">발송성공여부</th>
                     <th scope="col">발송성공시간</th>
@@ -101,11 +100,26 @@
 					<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhEmailSendDatetime }"/></td>
 					<td>${sendEmailHistoryInfo.mhRecipientName}</td>
 					<td><a href="getSendEmailHistoryInfo.do?mhEmailSendCode=${sendEmailHistoryInfo.mhEmailSendCode }">${sendEmailHistoryInfo.mhRecipientTitle }</a></td>
-					<td>${sendEmailHistoryInfo.mhRecipientContent }</td>
 					<td>${sendEmailHistoryInfo.mhRecipientEmail }</td>
 					<td>${sendEmailHistoryInfo.mhSuccessyn }</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhSuccessDatetime }"/></td>
-					<td>${sendEmailHistoryInfo.mhFailReason }</td>
+					<c:choose>
+						<c:when	test="${sendEmailHistoryInfo.mhSuccessDatetime eq null }">
+							<td>-</td>
+						</c:when>
+						<c:otherwise>
+							<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhSuccessDatetime }"/></td>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when	test="${sendEmailHistoryInfo.mhFailReason eq null }">
+							<td>-</td>
+						</c:when>
+						<c:otherwise>
+							<td>${sendEmailHistoryInfo.mhFailReason }</td>
+						</c:otherwise>
+					</c:choose>
+						
+						
                   </tr>
                   </c:forEach>
                 </tbody>
@@ -119,13 +133,6 @@
   </main><!-- End #main -->
   	<script type="text/javascript">
   	
-  	var $html = $('<div>').html(yourHtmlString);
-  	console.log(yourHtmlString);
-
-  	// card-title 속성을 가진 요소 찾아서 제거
-  	$html.find('[card]').removeAttr('card');
-
-  	var modifiedHtml = $html.html();
 	</script>
   	<script src="${pageContext.request.contextPath }/resources/js/admin_common_1.js"></script>
   	<script src="${pageContext.request.contextPath}/resources/js/admin_common_2.js"></script>

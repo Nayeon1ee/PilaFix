@@ -17,6 +17,7 @@
 		<result property="lsColseYN" column="LS_CLOSE_YN"/>	
 		<result property="rsCode" column="RS_CODE"/>	
 		<result property="lsCode" column="LS_CODE"/>	
+		<result property="atAttendanceYn" column="AT_ATTENDANCE_YN"/>	
 	
 	</resultMap>
 <resultMap type="calender" id="calenderResult">
@@ -79,9 +80,11 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
         OR (AT_MEMBER4_CODE = #{csMemberCode} AND AT_ATTENDANCE4_YN = true)
         OR (AT_MEMBER5_CODE = #{csMemberCode} AND AT_ATTENDANCE5_YN = true)
         OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = true)
-    );
+    )
+    AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);;
 </select>
-<!-- 결석 : step01 출석여부가 false인 값에 대해서 수업코드 가져옴 -->
+<!-- 결석 : step01 출석여부가 false인 값에 대해서 수업코드 가져옴 --> 
 <select id="getAbsentLessonCode" resultType="String">
 	SELECT
     LESSON_CODE
@@ -94,9 +97,11 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
         OR (AT_MEMBER4_CODE = #{csMemberCode} AND AT_ATTENDANCE4_YN = false)
         OR (AT_MEMBER5_CODE = #{csMemberCode} AND AT_ATTENDANCE5_YN = false)
         OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = false)
-    );
+    )
+    AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);;
 </select>
-<!-- step02 위에서 가져온 수업코드로 해당수업정보 뽑음 (출석결석 모두 이거 사용)-->
+<!-- step02 위에서 가져온 수업코드로 해당수업정보 뽑음 (출석결석 모두 이거 사용) -->
 <select id="getAttendanceLessonInfo" parameterType="java.util.List" resultMap="myScheduleResult">
 	 SELECT 
         L.LS_NAME,
@@ -121,6 +126,50 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
    	ORDER BY COMBINED_DATETIME DESC
 </select>
 
+<!-- ================================================출결리스트 불러오는 것 새로운거로 바꿔보기===================================== -->
+<select id="getAttendanceLessonCode" resultType="String">
+	SELECT DISTINCT 
+		L.LS_CODE AS LESSON_CODE
+	FROM TBL_RESERV R
+	JOIN TBL_LESSON L ON R.LESSON_CODE = L.LS_CODE
+	WHERE R.MEMBER_CODE = #{csMemberCode}
+	AND R.rs_cancel_yn = 'f'
+	AND EXTRACT(MONTH FROM L.LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+	AND EXTRACT(YEAR FROM L.LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+	AND (L.LS_DATE::TIMESTAMP + L.LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE &lt; CURRENT_TIMESTAMP
+</select>
+
+<select id="getAttendanceInfo" parameterType="java.util.Map" resultMap="myScheduleResult">
+SELECT 
+	CASE
+    WHEN AT_MEMBER1_CODE = #{csMemberCode} THEN AT_ATTENDANCE1_YN
+	WHEN AT_MEMBER2_CODE = #{csMemberCode} THEN AT_ATTENDANCE2_YN
+    WHEN AT_MEMBER3_CODE = #{csMemberCode} THEN AT_ATTENDANCE3_YN
+	WHEN AT_MEMBER4_CODE = #{csMemberCode} THEN AT_ATTENDANCE4_YN
+	WHEN AT_MEMBER5_CODE = #{csMemberCode} THEN AT_ATTENDANCE5_YN
+	WHEN AT_MEMBER6_CODE = #{csMemberCode} THEN AT_ATTENDANCE6_YN
+  END AS AT_ATTENDANCE_YN,
+	T.LS_NAME,
+	T.LS_TYPE,
+	T.LS_DATE,
+	TO_CHAR(T.ls_time, 'AM HH:MI') AS LS_TIME,
+	TO_CHAR(T.ls_time + INTERVAL '50 minutes', 'AM HH:MI') AS LS_END_TIME,
+	(T.LS_DATE::TIMESTAMP + T.LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE AS COMBINED_DATETIME,
+	T.TRAINER_MEMBER_CODE,
+	M.CS_NAME AS TRAINER_MEMBER_NAME,  
+	T.CENTER_CODE,
+	C.ct_name AS CENTER_NAME 
+FROM TBL_ATTEND A
+JOIN TBL_LESSON T ON A.LESSON_CODE = T.LS_CODE
+LEFT JOIN TBL_CST M ON T.TRAINER_MEMBER_CODE = M.CS_MEMBER_CODE
+LEFT JOIN TBL_CENTER C ON T.CENTER_CODE = C.CT_CODE
+WHERE T.LS_CODE IN 
+ <foreach collection="reservlessonCode" item="attendancelsCode" open="(" separator="," close=")">
+        #{attendancelsCode}
+    </foreach>
+ORDER BY COMBINED_DATETIME DESC;
+  
+</select>
 
 <!-- 당월의 예약 수 세오는 쿼리-->
 <select id="countReserv" resultType="int">
@@ -135,7 +184,7 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
     AND (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE > CURRENT_TIMESTAMP
 </select>
 
-<!-- 당월의 출석,결석 수 세오는 쿼리-->
+<!-- 당월의 출석,결석 수 세오는 쿼리
 <select id="countAttendance" resultType="int">
 	SELECT COUNT(*)
     FROM TBL_LESSON 
@@ -146,8 +195,43 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
     AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
     AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
 </select>
+-->
+<!-- 당월의 출석 수 세오는 쿼리 -->
+<select id="countAttend" resultType="int">
+		SELECT
+	    count(*)
+	FROM TBL_ATTEND
+	WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_MEMBER4_CODE, AT_MEMBER5_CODE, AT_MEMBER6_CODE)
+	    AND (
+	        (AT_MEMBER1_CODE = #{csMemberCode} AND AT_ATTENDANCE1_YN = true)
+	        OR (AT_MEMBER2_CODE = #{csMemberCode} AND AT_ATTENDANCE2_YN = true)
+	        OR (AT_MEMBER3_CODE = #{csMemberCode} AND AT_ATTENDANCE3_YN = true)
+	        OR (AT_MEMBER4_CODE = #{csMemberCode} AND AT_ATTENDANCE4_YN = true)
+	        OR (AT_MEMBER5_CODE = #{csMemberCode} AND AT_ATTENDANCE5_YN = true)
+	        OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = true)
+	    )
+		AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);
+</select>
+<!-- 당월의 결석 수 세오는 결석 -->
+<select id="countAbsent" resultType="int">
+	SELECT
+		    count(*)
+		FROM TBL_ATTEND
+		WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_MEMBER4_CODE, AT_MEMBER5_CODE, AT_MEMBER6_CODE)
+		    AND (
+		        (AT_MEMBER1_CODE = #{csMemberCode} AND AT_ATTENDANCE1_YN = false)
+		        OR (AT_MEMBER2_CODE = #{csMemberCode} AND AT_ATTENDANCE2_YN = false)
+		        OR (AT_MEMBER3_CODE = #{csMemberCode} AND AT_ATTENDANCE3_YN = false)
+		        OR (AT_MEMBER4_CODE = #{csMemberCode} AND AT_ATTENDANCE4_YN = false)
+		        OR (AT_MEMBER5_CODE = #{csMemberCode} AND AT_ATTENDANCE5_YN = false)
+		        OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = false)
+		    )
+			AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
+		AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);
+</select>
 
-<!-- 당월의 모든 예약 리스트 가져오는 쿼리 -->
+<!-- 캘린더 날짜에 해당하는 모든 예약 리스트 가져오는 쿼리 -->
 <select id="getMonthSchedule" parameterType="java.util.Map" resultMap="calenderResult">
 	SELECT 
         LS_NAME AS TITLE,

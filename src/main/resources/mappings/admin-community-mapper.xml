@@ -14,10 +14,11 @@
 	</resultMap>	
 		
 	<select id="getCommunityList" resultMap="communityResult" >
-		SELECT c.CM_NUMBER,c.CM_TITLE,c.CM_CONTENT,t.cs_name,c.CM_REGDATE
+		SELECT c.CM_NUMBER,c.CM_TITLE,c.CM_CONTENT,t.cs_name,TO_CHAR(C.CM_REGDATE, 'YYYY-MM-DD HH24:MI:SS') AS CM_REGDATE
 		FROM tbl_community c
 		JOIN tbl_cst t
-		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code;
+		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code
+		ORDER BY CM_REGDATE DESC
 	</select>
 	<select id="getCommunity" resultMap="communityResult">
 		<!--
@@ -34,12 +35,37 @@
 		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code
 		WHERE c.CM_WRITER_MEMBER_CODE = #{cmWriterMemberCode};
 		-->
-		 SELECT CM_NUMBER,CM_TITLE,CM_CONTENT,CM_REGDATE
+		 SELECT CM_NUMBER,CM_TITLE,CM_CONTENT,TO_CHAR(CM_REGDATE, 'YYYY-MM-DD HH24:MI:SS') AS CM_REGDATE
 		 FROM tbl_community
 		 WHERE CM_NUMBER = #{cmNumber};
 	</select>
 	<delete id="deleteCommunity" parameterType="Integer">
 		DELETE FROM TBL_COMMUNITY WHERE CM_NUMBER=#{cmNumber}
 	</delete>
+	
+	<!-- 
+		 case01 : 셀렉트박스선택하고 검색어 입력해서 검색
+		 case02 : 날짜만 입력해서 검색
+		 case03 : 셀렉트박스&검색어 ,날짜 모두 입력해서 검색
+		 각 case에 따라 where절 분기함
+	 -->
+	<select id="getFilteringData" resultMap="communityResult">
+		SELECT c.CM_NUMBER,c.CM_TITLE,c.CM_CONTENT,t.cs_name,TO_CHAR(C.CM_REGDATE, 'YYYY-MM-DD HH24:MI:SS') AS CM_REGDATE
+		FROM tbl_community c
+		JOIN tbl_cst t
+		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code
+			<if test="searchType != '' and searchKeyword != '' and startDate == '' and endDate == ''">
+	            WHERE ${searchType} LIKE '%'||#{searchKeyword}||'%'
+	        </if>
+	        <if test="searchType == '' and searchKeyword == '' and startDate != '' and endDate != ''">
+	            WHERE c.CM_REGDATE BETWEEN TO_TIMESTAMP(#{startDate}, 'YYYY-MM-DD') AND (TO_TIMESTAMP(#{endDate}, 'YYYY-MM-DD') + INTERVAL '1 day')
+	        </if>
+	        <if test="searchType != '' and searchKeyword != '' and startDate != '' and endDate != ''">
+	            WHERE ${searchType} LIKE '%'||#{searchKeyword}||'%'
+			AND c.CM_REGDATE BETWEEN TO_TIMESTAMP(#{startDate}, 'YYYY-MM-DD') AND (TO_TIMESTAMP(#{endDate}, 'YYYY-MM-DD') + INTERVAL '1 day')
+	        </if>
+		ORDER BY CM_REGDATE DESC
+	</select>
+	
 </mapper>
  

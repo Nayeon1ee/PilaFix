@@ -42,4 +42,14 @@ public class MyScheduleServiceImpl implements MyScheduleService{
 		return dao.getMonthSchedule(csMemberCode,calenderDate);
 	}
 
+	@Override
+	public Map<String,Object> getAllInfo(int csMemberCode) {
+		return dao.getAllInfo(csMemberCode);
+	}
+
+//	@Override
+//	public List<MyScheduleVO> getAttendanceList(int csMemberCode) {
+//		return dao.getAttendanceList(csMemberCode);
+//	}
+
 }

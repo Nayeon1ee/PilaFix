@@ -65,14 +65,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_myschedule.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
 
-<!-- 달력 -->
-
-
-
-<!--  달력 -->
 
 <body>
 
@@ -132,8 +125,9 @@
 							<div class="card-header-con py-1 mt-1 custom-rounded">
 								<div class="btn-group d-flex py-1" role="group"
 									aria-label="Basic radio toggle button group">
-									<input type="button" class="btn-check" name="options" id="option1" autocomplete="off" checked> 
-									<labelclass="btn btn-outline-primary1" for="option1" >전체</label> 
+
+									<input type="button" class="btn-check" name="options" id="option1" autocomplete="off" > 
+									<label class="btn btn-outline-primary1" for="option1" id="allSchedule">전체</label> 
 										<input type="button" class="btn-check" name="options"  autocomplete="off"> 
 										<label class="btn btn-outline-primary2" for="option2" id="reservation">예약</label> 
 										<input type="button" class="btn-check" name="options" id="option3" autocomplete="off"> 
@@ -145,7 +139,12 @@
 							
 							<!-- 카드영역 -->
 							<div class="schedule-card" style=" max-height: 400px;">
-
+								
+								<!-- 전체 스케줄 -->
+								<div id="allInfo">
+									
+								</div>
+								
 								<!-- 예약 수업정보 가져오는 곳 -->
 								<div id="reservInfo">
 									<!-- 여기에 예약수업 리스트 나올거임-->
@@ -211,13 +210,13 @@
          bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함
          customButtons: {
             prev: {
-               text: '이전',
+               text: '<',
                click: function() {
                   calendar.prev();
                }
             },
             next: {
-               text: '다음',
+               text: '>',
                click: function() {
                   calendar.next();
                }
@@ -264,7 +263,7 @@
       });
 
       // 전체 텍스트 색상 변경
-      calendarEl.style.color = '#9b56e9';
+      calendarEl.style.color = '#333';
 
       calendar.render();
    });
@@ -282,6 +281,7 @@
              success: function(reservInfoList) {
                  console.log("AJAX 요청 성공");
                  
+                 $('#allInfo').html('');
                  $('#reservInfo').html('');
                  $('#attendInfo').html('');
                  $('#absentInfo').html('');
@@ -318,11 +318,6 @@
 				                      //  var lsCode = item.lsCode;
 				                       // var centerCode = item.centerCode;
 				                        console.log("변수에 담을 때 값 유지되나?"+rsCode);
-				                	//	console.log(lsCode);
-				                		//console.log(centerCode);
-				                        
-				                        //str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="location.href=""/pilafix/.do?rsCode="+ +">취소하기</button>';
-				                		//str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="cancelReservation(\'' + rsCode + '\')">취소하기</button>';
 				                        str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="redirectToCancelPage(\'' + rsCode + '\')">취소하기</button>';
 				                    }
 									str += '</div>'
@@ -354,6 +349,7 @@
              url: "getAttendList.do",
              success: function(reservInfoList) {
                  console.log("AJAX 요청 성공");
+                 $('#allInfo').html('');
                  $('#reservInfo').html('');
                  $('#attendInfo').html('');
                  $('#absentInfo').html('');
@@ -401,6 +397,7 @@
              url: "getAbsentList.do",
              success: function(reservInfoList) {
                  console.log("AJAX 요청 성공");
+                 $('#allInfo').html('');
                  $('#reservInfo').html('');
                  $('#attendInfo').html('');
                  $('#absentInfo').html('');
@@ -439,6 +436,115 @@
              }
          });
      });
+	 
+	 //전체 스케줄 가져오는 js (페이지로드되면 나와야하고 버튼 클릭해도 나와야해서 함수로 뻄)
+	 $(document).ready(function () {
+	    // 페이지 로드 시 AJAX 요청
+	    getAllSchedlue();
+	 });
+    // #allSchedule 버튼 클릭 시 AJAX 요청
+    $('#allSchedule').click(function () {
+    	getAllSchedlue();
+	});
+    function getAllSchedlue() {
+         // AJAX 요청
+         $.ajax({
+             type: "POST",
+             url: "getAllInfo.do",
+             success: function(allInfo) {
+                 console.log("AJAX 요청 성공");
+                 console.log(allInfo);
+                 $('#allInfo').html('');
+                 $('#reservInfo').html('');
+                 $('#attendInfo').html('');
+                 $('#absentInfo').html('');
+                 //반환된 맵이 비어있으면 출력
+                 if (Object.keys(allInfo).length === 0) {
+                	 	console.log("맵이 비어있음");
+						$('#allInfo').append('<p>이번달에 스케줄이 없습니다.</p>');
+					} else {
+						if (allInfo.reservInfo.length>0) {
+					        console.log("reservInfo 존재함");
+					        allInfo.reservInfo.forEach(function(item) {
+					        	// lsDate를 월-일(요일) 형태로 포맷팅
+			                    var date = new Date(item.lsDate);
+			                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
+			                        month: 'short',
+			                        day: 'numeric',
+			                        weekday: 'short'
+			                    }).format(date);
+			                    
+			                    /// lessonDatetime을 Timestamp로 파싱
+			                    var lessonDatetime = new Date(item.lessonDatetime);
+			                    var fourHoursBefore = new Date(lessonDatetime);
+			                    var currentDatetime = new Date();
+			                    fourHoursBefore.setHours(lessonDatetime.getHours() - 4); // 수업시작시간에서 4시간 을 뺀 시간이 저장됌
+
+								var str = '<div class="card" style="border-radius: 0;">';
+								str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+								str += '<div class="card-body">'
+								str += '<div class="mt-3" style="margin-top:0px!important">'
+								str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+								str += '<div class="d-flex w-100 justify-content-between">'
+								str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
+								// 수업시간 4시간 전까지는 취소하기 버튼 표시 (그 이후는 취소 불가라서 취소하기 버튼 없음)
+			                    if (currentDatetime < fourHoursBefore) {
+			                    	// rsCode, lsCode, centerCode 변수에 저장
+			                        var rsCode = item.rsCode;
+			                      //  var lsCode = item.lsCode;
+			                       // var centerCode = item.centerCode;
+			                        console.log("변수에 담을 때 값 유지되나?"+rsCode);
+			                        str += '<button type="button" class="btn btn-outline-primary btn-reservation" onclick="redirectToCancelPage(\'' + rsCode + '\')">취소하기</button>';
+			                    }
+								str += '</div>'
+								str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
+								str += '<small class="text-muted">'+item.centerName+' - '+item.lsType+'수업</small>'
+								str += '</div>'
+								str += '</div>'
+								str += '</div>'
+								$('#allInfo').append(str);
+					        }); //예약리스트 foreach문 끝
+						
+					}// 예약리스트에 정보 있는지 if문 끝
+					if (allInfo.attendanceInfo.length>0) {
+						console.log("attendanceInfo 존재함");
+				        allInfo.attendanceInfo.forEach(function(item) {
+						// lsDate를 월-일(요일) 형태로 포맷팅
+	                    var date = new Date(item.lsDate);
+	                    var formattedDate = new Intl.DateTimeFormat('ko-KR', {
+	                        month: 'short',
+	                        day: 'numeric',
+	                        weekday: 'short'
+	                    }).format(date);
+	                    
+								var str = '<div class="card" style="border-radius: 0;">';
+								str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+								str += '<div class="card-body">'
+								str += '<div class="mt-3" style="margin-top:0px!important">'
+								if(item.atAttendanceYn === true){
+									str += '<small class="text-muted"><strong id="attendColor">출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+								}else {
+									str += '<small class="text-muted"><strong id="absentColor">결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
+								}
+								str += '<div class="d-flex w-100 justify-content-between">'
+								str += '<h5 class="my-auto" style="color: black;">'+item.lsName+'</h5>'
+								str += '</div>'
+								str += '<small class="text-muted">'+item.trainerMemberName+' 강사</small><br>'
+								str += '<small class="text-muted">'+item.centerName+' - '+item.lsType+'수업</small>'
+								str += '</div>'
+								str += '</div>'
+								str += '</div>'
+								$('#attendInfo').append(str);
+				        });//출결리스트 foreach문 끝
+					}//출결리스트에 정보 있나 확인하는 if문 끝
+				}
+			},
+             error: function(error) {
+                 console.error("AJAX 요청 실패", error);
+             }
+         });
+    }
+    
 	</script>
 
 	

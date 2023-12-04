@@ -28,7 +28,9 @@ public interface MemberTicketService {
 
 	void refundRequest(String token, String imp_uid) throws IOException;
 
-	void refundMemberRequest(String token, String imp_uid) throws IOException;
+	int checkTicketUsage(String tkLessonType, int csMemberCode);
+
+	int refundMemberRequest(String token, String imp_uid, int csMemberCode, String tkLessonType) throws IOException;
 
 	
 }

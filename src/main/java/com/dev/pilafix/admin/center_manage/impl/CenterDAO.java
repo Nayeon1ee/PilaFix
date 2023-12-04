@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
 import com.dev.pilafix.common.member.CenterVO;
+import com.dev.pilafix.common.sendsmshistory.SendSmsHistoryVO;
 
 @Repository
 public class CenterDAO {
@@ -21,7 +22,7 @@ public class CenterDAO {
 	public CenterVO getCenter(int ctCode) {
 		return sqlSessionTemplate.selectOne("CenterDAO.getCenter", ctCode);
 	}
-
+	
 	public int insertCenter(CenterVO vo) {
 		return sqlSessionTemplate.insert("CenterDAO.insertCenter", vo);
 	}
@@ -61,5 +62,6 @@ public class CenterDAO {
 	public List<CenterVO> getExcelCenterList() {
 		return sqlSessionTemplate.selectList("CenterDAO.getExelCenter");
 	}
+
 
 }

@@ -12,7 +12,6 @@
 		<result property="regDate" column="IW_REGDATE" />
 		<result property="cnt" column="IW_VIEWS" />
 		<result property="openYN" column="IW_OPEN_YN" />
-		
 	</resultMap>
 	<select id="getAdminInfoList" resultMap="adminInfoResult" parameterType="adminInfo">
 		SELECT IW_NUMBER, IW_TITLE, IW_CONTENT,IW_REGDATE,IW_VIEWS, IW_OPEN_YN, IW_WRITER_MEMBER_CODE, 
@@ -48,4 +47,5 @@
 	<update id="updateAdminInfoViewCnt" >
 		UPDATE TBL_INFO_W SET IW_VIEWS = IW_VIEWS + 1 WHERE IW_NUMBER=#{iwNumber}
 	</update>
+
 </mapper>

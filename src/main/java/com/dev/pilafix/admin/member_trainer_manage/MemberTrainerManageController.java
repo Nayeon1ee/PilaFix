@@ -34,6 +34,11 @@ public class MemberTrainerManageController {
 	@Autowired
 	private MemberTrainerManageSerice service;
 	
+	/**
+	 * 회원 리스트 조회 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/getMemberList.do")
 	public String getMemberList(Model model) {
 		model.addAttribute("memberList", service.getMemberList());
@@ -41,14 +46,25 @@ public class MemberTrainerManageController {
 	}
 	
 	
+	/**
+	 * 강사 리스트 조회 
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/getTrainerList.do")
 	public String getTrainerList(Model model) {
 		model.addAttribute("memberList", service.getTrainerList());
 		return "admin/admin_trainer";
 	}
 	
-	
-	
+	/**
+	 * 회원 상세 조회 
+	 * 
+	 * @param csMemberCode
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/getMember.do")
 	public String getMemberAndPaymentListAndConnectCenterList(int csMemberCode, Model model) {
 		
@@ -57,11 +73,12 @@ public class MemberTrainerManageController {
 		//강사는  paymentList 조회 X
 		if(member.getCsRoleCode().equals("TR")) {
 			model.addAttribute("type", "T"); // view에서 해당 타입에 따라 분기 
+		}else {
 			model.addAttribute("paymentList", service.getPaymentList(csMemberCode));
 		}
 		
-		model.addAttribute("member", member);
-		model.addAttribute("centerConnectList", service.getCenterConnectHistory(csMemberCode));
+		model.addAttribute("member", member); //회원정보 저장 
+		model.addAttribute("centerConnectList", service.getCenterConnectHistory(csMemberCode)); //연동센터내역 저장 
 		return "admin/admin_membership_detail";
 	}
 	

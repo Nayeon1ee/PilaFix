@@ -51,9 +51,7 @@
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common_0.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_ticket.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-	rel="stylesheet">
+
 	
 <!-- 내가 추가한 js -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -93,14 +91,14 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container" style="max-width: 1000px">
+			<div class="container" style="max-width: 1080px">
 
 
 				<!-- 7비율 잡기 위한 컨테이너 -->
 				<div class="container">
 
 					<div class="row">
-						<div class="col-md-7 ticket border" style="max-height: 700px; overflow-y: auto; border-radius: 10px; border-style: solid; border-color: #9259e1; padding: 10px;">
+						<div class="col-md-7 ticket border" style="max-height: 700px; width: 637px; overflow-y: auto; border-radius: 10px; border-style: solid; border-color: #9259e1; padding: 10px;">
 							<!-- 7비율 잡기 위한 컨테이너 -->
 
 							<!-- 센터 셀렉트 박스 -->
@@ -171,7 +169,7 @@
 							<!-- 3비율 잡기 위한 컨테이너-->
 						</div>
 						<!-- 기본으로 보여줄 이미지 -->
-						<div class="col-md-5 content1 h-100">
+						<div class="col-md-5 content1 h-100" style="min-height: 700px; max-height: 700px; width: 406px;  overflow-y: auto;">
 						<div class="content1-img" id="content1-disappear">
 							<button type="button" id="clickButton"
 								class="btn btn-lg btn-block px-5">
@@ -191,7 +189,7 @@
 				
 				<!-- 클릭시 보여줄 이미지 -->
 				<div class = "card-content1-replace" id="content1-replace">
-					 <div class="card text-center" >
+					 <div class="card text-center">
 						<div id="ticket-detail-info">
 							<!-- 여기에 ajax결과 들어옴 -->
 						</div>

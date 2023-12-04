@@ -14,6 +14,7 @@ import com.dev.pilafix.center.member_trainer_manage.MemberManageService;
 import com.dev.pilafix.center.member_trainer_manage.TicketInfoVO;
 import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.common.question.QuestionVO;
+import com.dev.pilafix.member.schedule.MyScheduleVO;
 
 @Service
 public class MemberManageServiceImpl implements MemberManageService {
@@ -39,7 +40,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 
 	}
 
-	/**
+    /**
 	 * 문의사항 내역조회
 	 */
 	@Override
@@ -57,14 +58,14 @@ public class MemberManageServiceImpl implements MemberManageService {
 	}
 
 	/**
-	 * 예약 내역 조회 예약 구현 후 VO 가져오기
+	 * 예약 내역 조회 
 	 */
-//	@Override
-//	public List<ReservationVO> getReserveForManage(int csMemberCode) {
-//		return dao.getReserveForManage(csMemberCode);;
-//	}
+	@Override
+	public List<MyScheduleVO> getReserveForManage(int csMemberCode) {
+		return dao.getReserveForManage(csMemberCode);
+	}
 
-	
+
 	
 	/**
 	 * 그룹/개인 티켓에 대한 정보 조회
@@ -154,5 +155,6 @@ public class MemberManageServiceImpl implements MemberManageService {
 	public List<MemberVO> getTrainerExcelManageList(int ctCode) {
 		return dao.getTrainerExcelManageList(ctCode);
 	}
+
 
 }

@@ -16,4 +16,8 @@ public interface MyScheduleService {
 
 	List<CalenderVO> getMonthSchedule(int csMemberCode, Date calenderDate);
 
+	Map<String, Object> getAllInfo(int csMemberCode);
+
+//	List<MyScheduleVO> getAttendanceList(int csMemberCode);
+
 }

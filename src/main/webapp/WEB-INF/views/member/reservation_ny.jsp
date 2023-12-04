@@ -67,7 +67,7 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
@@ -125,7 +125,7 @@
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-4">
 						<div class="content border rounded p-3"
-							style="min-height: 600px; max-height: 600px; overflow-y: auto;">
+							style="min-height: 648px; max-height: 648px;">
 
 							<!-- 셀렉트 박스 - 연동된 센터의 목록 -->
 							<div class="custom-select-wrapper text-center mt-3">
@@ -223,6 +223,7 @@
 											</c:forEach>
 										</div>
 									</div>
+									
 								</div>
 
 								<!-- 개인 탭  -->
@@ -248,9 +249,28 @@
 											</div>
 										</div>
 									</div>
-
+								
 									<div id="lessonListContainerForPersonal">
-										<!-- 생성된 개인탭 내용 -->
+										<div class="list-group">
+											<c:forEach var="item" items="${lessonList}">
+												<a class="list-group-item list-group-item-action">
+													<p class="mb-1">${item.lsTime }~${item.lsEndTime }</p>
+													<div class="d-flex w-100 justify-content-between">
+														<h5 class="mb-1">${ item.lsName }</h5>
+													</div>
+													<p class="mb-1">${item.trainerMemberName}</p> <small
+													class="text-muted">${item.lsCapacity - item.lsCurrentApplicants }명
+														남음</small> | <small class="text-muted">정원
+														${item.lsCapacity }명</small> <!-- 버튼 상태 달라져야 함 -->
+													<div class="mymodal">
+														<button type="button" class="btn btn-outline-primary"
+															data-bs-toggle="modal" data-bs-target="#reservModal"
+															onclick="getReservationInfo('${item.lsCode}', '${item.centerCode }')">예약하기</button>
+													</div>
+
+												</a>
+											</c:forEach>
+										</div>
 									</div>
 
 
@@ -361,6 +381,8 @@
 						</div>
 					</div>
 				</div>
+				
+				
 				<!-- 예약 완료 Modal -->
 				<div class="modal fade" id="reservationSuccessModal"
 					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -389,6 +411,63 @@
 						</div>
 					</div>
 				</div>
+				
+				
+				<!-- 기 예약건 존재로 인한 예약 불가 모달  -->
+				<div class="modal fade" id="alreadyReserveModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										<b>이미 예약이 완료된 수업입니다!</b>
+										<br><br>
+										<a href="schedule.do">내스케줄 확인하러가기</a>
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 수강권 미소유로 인한 예약 불가 모달  -->
+				<div class="modal fade" id="noTicketModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										<b>구매가능한 수강권이 존재하지 않습니다!</b><br>
+										수강권 구매 후 이용하여 주시기 바랍니다.<br><br>
+										<a href="ticketPage.do">수강권 구매하러가기</a>
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<!-- 모달 끝 -->
 
 				<!-- 내용 -->
@@ -523,9 +602,9 @@
 					        
 							if (lessonList.length < 1) {
 								str = '<div class="no-lessons-message">' +
-			                    '<p class="message-text">현재 개설된 수업이 없습니다.</p>' +
-			                    '<p class="message-text">더 많은 정보는 센터에 문의해주세요.</p>' +
-			              '</div>';
+					                    '<p class="message-text">현재 개설된 수업이 없습니다.</p>' +
+					                    '<p class="message-text">더 많은 정보는 센터에 문의해주세요.</p>' +
+					            		'</div>';
 								$('#lessonListContainerForGroup').append(str);
 								$('#lessonListContainerForPersonal').append(str);
 								
@@ -557,10 +636,13 @@
 							                gstr += '<div class="mymodal" style="display: none;">';
 							            }else if(item.lsCloseYN){// 폐강여부가 true면 버튼 X
 							            	 gstr += '<div class="mymodal" style="display: none;">';
-							            } else {
-							                // 시간이 지나지 않았으면 예약하기 버튼 표시
+							            }else {
+							            	// 시간이 지나지 않았으면 예약하기 버튼 표시
 							                gstr += '<div class="mymodal">';
-							                gstr += '<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+							                
+							                gstr += '<button type="button" class="btn btn-primary"  onclick="checkReservation(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+							                //gstr += '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+							                
 							            }
 
 							            gstr += '</div>';
@@ -570,46 +652,23 @@
 							            // lessonListContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
 							            $('#lessonListContainerForGroup').append(gstr);
 				                    });
-				                } else if (lessonType === '개인') {
-				                    console.log("개인for문으로들어옴");
+				                } else {
+				                	 //$('#lessonListContainerForPersonal').append('<p> 개인탭 테스트 </p>');
+				                	 
+				                	 //lessonList.forEach(function (item) {
+				                		// pstr += '<p> 개인탭 테스트 </p>';
+				                		 //$('#lessonListContainerForPersonal').append(pstr);
+				                	 //});
+				                	 
+				                	// lessonListContainerForPersonal 영역을 지우기
+				                	 $('#lessonListContainerForPersonal').empty();
 
-				                    // 개인 탭에 대한 내용 생성
-				                    pstr += '<div class="content-filter py-2 my-4">';
-				                    pstr += '<div class="time-slot d-flex justify-content-around align-items-center">';
-				                    
+				                	 // 새로운 내용 추가
+				                	 $('#lessonListContainerForPersonal').append('<p> 개인탭 테스트 </p>');
 
-				                    var timeLabels = [
-				                        "10:00 - 10:50",
-				                        "11:00 - 11:50",
-				                        "12:00 - 12:50",
-				                        "13:00 - 13:50",
-				                        "14:00 - 14:50",
-				                        "15:00 - 15:50"
-				                    ];
+				                	 
+				                	
 
-				                    for (var i = 2; i <= 7; i++) {
-				                    	pstr += '<div class="time-info">';
-				                    	pstr += '<label class="form-check-label time-label" for="flexSwitchCheckDefault' + i + '">';
-				                    	pstr += '<div class="time-check text-center">';
-				                    	pstr += '<input type="checkbox" class="btn-check" id="btn-check-' + i + '" autocomplete="off">';
-				                    	pstr += '<label class="btn" for="btn-check-' + i + '"> <i class="bi bi-clock"></i>';
-				                        pstr += '<p class="mt-2">' + timeLabels[i - 2] + '</p>';
-				                        pstr += '</label>';
-				                        pstr += '</div>';
-				                        pstr += '</label>';
-				                        pstr += '</div>';
-				                    }
-
-				                    pstr += '</div>';
-				                    pstr += '</div>';
-
-				                    pstr += '<div class="reservation-btn d-flex justify-content-end">';
-				                    pstr += '<button class="btn btn-primary" onclick="reserveTime()">';
-				                    pstr += '<i class="bi bi-calendar-plus"></i> 예약하기';
-				                    pstr += '</button>';
-				                    pstr += '</div>';
-				                    
-				                    $('#lessonListContainerForPersonal').append(pstr);
 				                }
 
 							}
@@ -621,6 +680,39 @@
 						}
 					});
 		}
+		
+	<!-- 현재 사용자 예약 가능 여부를 불러옴 -->
+	function checkReservation(lsCode, centerCode) {
+		
+	    $.ajax({
+	        url: 'checkReservation.do',
+	        method: 'POST',
+	        data: { 
+	        	lsCode: lsCode,
+	        	centerCode : centerCode
+	        	}, 
+	        success: function(response) {
+	        	
+	        	console.log("예약 가능 여부 체크 ");
+	        	if(response.checkTicket === 0){ //수강권 미소유
+	        		console.log(1);
+	        		$('#noTicketModal').modal('show');
+	        	}else if(response.checkReservation !== 0){ // 이미 예약 했다면 
+	        		console.log(2);
+	        		$('#alreadyReserveModal').modal('show');
+	        	}else{
+	        		console.log(3);
+	        		getReservationInfo(lsCode, centerCode);
+	        	}
+	        	
+	        },
+	        error: function(error) {
+	            console.error('AJAX 요청 시 에러', error);
+	            return false;
+	        }
+	    });
+	}
+		
 		
 	<!-- 예약하기 버튼 클릭 시 수업 정보, 수강권 정보, 이용정책 Map으로 받아옴 -->
 	function getReservationInfo(lsCode, ctCode) {
@@ -686,6 +778,8 @@
 		                    ticketCode: myTicket.ticketCodeGroup1, // 수강권 코드
 		                    lsCode: lsCode // 수업코드  
 		            };
+					
+					$('#reservModal').modal('show');
 					
 	            } else {
 	                console.error("서버 응답 데이터가 비어있거나 유효하지 않습니다.");
@@ -811,7 +905,9 @@
             document.getElementById('timeRemaining').innerHTML = '취소 가능한 시간이 지났습니다.';
         }
     }
-    
+
+
+
 	
 </script>
 

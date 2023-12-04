@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.dev.pilafix.admin.member_trainer_manage.CenterConnectHistoryVO;
 import com.dev.pilafix.admin.member_trainer_manage.MemberTrainerManageSerice;
 import com.dev.pilafix.admin.member_trainer_manage.PaymentHistoryVO;
-import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.member.MemberVO;
 
 @Service
