@@ -188,98 +188,79 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
 
-	<!-- 센터연동 검색 -->
-	<script type="text/javascript">
-		$(function() {
-			$("#searchCt")
-					.click(
-							function() {
 
-								var searchKeyword = $('#searchKeyword').val();
-								console.log(searchKeyword);
+<!-- 센터연동 검색 -->
+<script type="text/javascript">
 
-								$
-										.ajax({
-											type : 'get', //post 형식으로 controller 에 보내기위함!!
-											url : "searchCt.do?searchKeyword="
-													+ searchKeyword, // 컨트롤러로 가는 mapping 입력
-											//contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-											// data: {"searchKeyword":searchKeyword}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
-											success : function(data) {
-												//console.log("리스트 잘 가져왔나 확인용"+data);
-												var str = "";
-												//  insertCenterList라는 아이디 가진 영역의 기존 내용을 지움
-												$('#insertCenterList').html('');
-												if (data.length < 1) {
-													str = '<p>검색된 결과가 없습니다</p>'
-													$('#insertCenterList')
-															.append(str);
-												} else {
-													data
-															.forEach(function(
-																	item) {
-																str += '<div class="col-lg-6">'
-																str += '<div class="info-box mb-4">'
-																str += '<i class="bx bx-map"></i>'
-																str += "<h3>"
-																		+ item.ctName
-																		+ "</h3>";
-																str += "<p>("
-																		+ item.ctAddress
-																		+ ")</p><br>";
-																str += '<input type="button" class="btn btn-primary" value="연동 신청" onclick="connectRequest(\''
-																		+ item.ctName
-																		+ '\', \''
-																		+ item.ctCode
-																		+ '\')">';
-																str += "</div>"
-																str += "</div>"
-																// insertCenterList라는 아이디를 가진 영역에 위의 내용 삽입해줌
-																$(
-																		'#insertCenterList')
-																		.append(
-																				str);
+    $("#searchCt").click(function(){
+    
+    	var searchKeyword = $('#searchKeyword').val();
+        console.log(searchKeyword);
+    	
+        $.ajax({
+            type:'get', //post 형식으로 controller 에 보내기위함!!
+            url:"searchCt.do?searchKeyword="+searchKeyword, // 컨트롤러로 가는 mapping 입력
+            //contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+           // data: {"searchKeyword":searchKeyword}, // 원하는 값을 중복확인하기위해서  JSON 형태로 DATA 전송
+            success: function(data){ 
+                console.log(data);
+                var str = "";
+                //  insertCenterList라는 아이디 가진 영역의 기존 내용을 지움
+                $('#insertCenterList').html('');
+                if (data.length < 1){
+                	str = '<p>검색된 결과가 없습니다</p>'
+                		$('#insertCenterList').append(str);
+                }else{
+                data.forEach(function(item){
+    					str+='<div class="col-lg-6">'
+    					str+='<div class="info-box mb-4">'
+    					str+='<i class="bx bx-map"></i>'
+    					str += "<h3>"+item.ctName+"</h3>";
+    					str+="<p>("+item.ctAddress+")</p><br>";
+    					str+='<input type="button" class="btn btn-primary" value="연동 신청" onclick="connectRequest(\'' + item.ctName + '\', \'' + item.ctCode + '\')">';
+    					str+="</div>"
+    					str+="</div>"
+    					// insertCenterList라는 아이디를 가진 영역에 위의 내용 삽입해줌
+    					;
+			
+        		})
+        		$('#insertCenterList').append(str)
+                }
+         },
+            error : function(error){alert(error);}
+        });
+        
+    });
+    
 
-															})
-												}
-											},
-											error : function(error) {
-												alert(error);
-											}
-										});
+// 연동 요청 누르면 연동요청 테이블에 고객정보 입력
+function connectRequest(ctName,ctCode) {
+    if (window.confirm(ctName + ' 센터로 고객님의 성함과 연락처가 전송됩니다. \n연동 신청 하시겠습니까? ')) {
+        $.ajax({
+            type: 'post',
+            url: 'connectRequest.do',
+            data: {
+                'ctName': ctName,
+                'ctCode': ctCode
+            },
+            success: function(data) {
+            	console.log(data);
+            	var resultAsString = data.toString(); // int를 문자열로 변환
+                if (resultAsString === '1') {
+                    alert('연동 요청을 완료했습니다.');
+                } else {
+                	console.error(error); // 오류를 콘솔에 출력
+                    alert('연동요청 중 오류가 발생했습니다.');
+                }
+            },
+            error: function(error) {
+                alert('오류가 발생했습니다.');
+            }
+        });
+    }
+}
+</script>
 
-							});
-
-		});
-
-		// 연동 요청 누르면 연동요청 테이블에 고객정보 입력
-		function connectRequest(ctName, ctCode) {
-			if (window.confirm(ctName
-					+ ' 센터로 고객님의 성함과 연락처가 전송됩니다. \n연동 신청 하시겠습니까? ')) {
-				$.ajax({
-					type : 'post',
-					url : 'connectRequest.do',
-					data : {
-						'ctName' : ctName,
-						'ctCode' : ctCode
-					},
-					success : function(data) {
-						console.log(data);
-						var resultAsString = data.toString(); // int를 문자열로 변환
-						if (resultAsString === '1') {
-							alert('연동 요청을 완료했습니다.');
-						} else {
-							console.error(error); // 오류를 콘솔에 출력
-							alert('연동요청 중 오류가 발생했습니다.');
-						}
-					},
-					error : function(error) {
-						alert('오류가 발생했습니다.');
-					}
-				});
-			}
-		}
-	</script>
 
 </body>
 

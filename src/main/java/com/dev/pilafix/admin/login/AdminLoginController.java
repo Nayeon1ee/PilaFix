@@ -62,6 +62,9 @@ public class AdminLoginController {
 			session.setAttribute("loginAdmin", loginAdmin);
 //			return "redirect:/adminInfo.do"; // 테스트화면
 //	        return "admin/admin_info"; //나와야할 화면 예상
+			
+			// 통계
+			service.getTotalMemberCount();
 			return "admin/admin_index";
 
 		} else {

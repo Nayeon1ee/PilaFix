@@ -40,8 +40,8 @@ public class ConnectCtController {
 	@ResponseBody
 	public List<ConnectCtVO> searchCt(String searchKeyword){
 		System.out.println("화면에서 컨트롤러로 넘어온 검색 키워드" + searchKeyword);
-		List<ConnectCtVO> searchCenterList = service.searchCt(searchKeyword);
-		return searchCenterList;
+	
+		return service.searchCt(searchKeyword);
 	}
 	
 	@PostMapping("connectRequest.do")

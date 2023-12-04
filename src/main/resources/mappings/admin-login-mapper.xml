@@ -14,6 +14,13 @@
 		<result property="adPassword" column="AD_PASSWORD" />
 		<result property="accountUsageYn" column="ACCOUNT_USAGE_YN" />
 		<result property="roleCode" column="ROLE_CODE" />
+		
+		<result property="memberCount" column="member_count" />
+		<result property="trainerCount" column="trainer_count" />
+		<result property="centerCount" column="center_count" />
+		<result property="memberCountCumulated" column="member_count_cumulated" />
+		<result property="trainerCountCumulated" column="trainer_count_cumulated" />
+		<result property="centerCountCumulated" column="center_count_cumulated" />
 	</resultMap>
 
 
@@ -55,6 +62,18 @@
 		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_ID=#{adId}
 	</select>
 	
+	<!-- 전체 회원,강사 수 /센터수 (현재&누적)-->
+	<select id="getTotalMemberCount" resultMap="adminloginResult">
+		<!-- 현재 -->
+		SELECT COUNT(*) AS member_count FROM tbl_cst WHERE cs_role_code = 'ME' AND cs_delete_yn='n';
+		SELECT COUNT(*) AS trainer_count FROM tbl_cst WHERE cs_role_code = 'TR' AND cs_delete_yn='n';
+		SELECT COUNT(*) AS center_count FROM tbl_center WHERE contract_revoke_yn='n' AND contract_expiry_yn='n';
+		<!-- 누적 -->
+		SELECT COUNT(*) AS member_count_cumulated FROM tbl_cst WHERE cs_role_code = 'ME';
+		SELECT COUNT(*) AS trainer_count_cumulated FROM tbl_cst WHERE cs_role_code = 'TR';
+		SELECT COUNT(*) AS center_count_cumulated FROM tbl_center;
+	
+	</select>
 
 
 </mapper>

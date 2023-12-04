@@ -1,5 +1,7 @@
 package com.dev.pilafix.admin.login.impl;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +105,12 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	public int adPasswordCheck(String adPassword) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	//통계 총 회원수&센터 계약수 세오기ㅣ
+ 	@Override
+	public Map<String, Integer> getTotalMemberCount() {
+		return dao.getTotalMemberCount();
 	}
 
 

@@ -67,5 +67,12 @@ public class AdminLoginDAO {
 		return sqlSessionTemplate.selectOne("AdminLoginDAO.adPasswordCheck",adPassword);
 	}
 
+
+	public AdminVO getTotalMemberCount() {
+		//회원,강사 수 
+		sqlSessionTemplate.selectOne("AdminLoginDAO.getTotalMemberCount");
+		return null;
+	}
+
 	
 }
