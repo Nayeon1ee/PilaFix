@@ -145,6 +145,11 @@ public class MemberMypageController {
     	return "member/login";
     }
 	}
+	
+	
+	/**
+	 * 공지사항 상세
+	 */
 
 
 	/**

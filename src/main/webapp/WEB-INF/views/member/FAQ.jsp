@@ -157,7 +157,7 @@
                             <div class="inquiry-item">
                                 <div class="inquiry-details">
                                     <div class="inquiry-title">
-                                        <strong>Q</strong> ${faq.fqTitle}
+                                        <strong>Q ${faq.fqTitle}</strong>
                                     </div>
                                 </div>
                             </div>
