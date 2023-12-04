@@ -22,7 +22,7 @@
 	<!-- 연동센터 검색시 키워드에 맞는 센터 찾아오는 쿼리문 -->
 	<select id="searchCtList" resultMap="connectCtResult">
 
-		SELECT CT_CODE,CT_NAME,CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' ||
+		SELECT DISTINCT CT_CODE,CT_NAME,CT_ADDRESS1 || ' ' || CT_ADDRESS2 || ' ' ||
 		CT_ADDRESS3 AS ctAddress
 		FROM TBL_CENTER
 		WHERE CT_NAME LIKE '%'||#{searchKeyword}||'%' OR CT_ADDRESS1 || ' ' ||

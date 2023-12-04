@@ -51,6 +51,29 @@
 
 }
 
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+.list-group-item a {
+    text-decoration: none;
+    color: #000;
+}
+
+.list-group-item hr {
+    margin: 0.5rem 0;
+}
+
+.list-group-item .badge {
+    background-color: #9b56e9;
+}
+
 
 .btn-group {
   display: flex;

@@ -55,11 +55,6 @@
 
 <body>
 
-<<<<<<< minseung_view_2	
-                      
-=======
-                      
->>>>>>> dev
 
 
 	<!-- ======= Header ======= -->
@@ -70,7 +65,7 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
 					<li><a href="mainPge.do">Home</a></li>
@@ -151,9 +146,9 @@
                         <a href="noticeDetail.do?code=${noticeC.icNumber}">${noticeC.title}</a>
                     </div>
                     조회수: ${noticeC.cnt}
-                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeC.regDate}</div>
+                    <div class="badge rounded-pill my-auto ms-2" style="background-color: #9b56e9;">${noticeC.regDate}</div>
                 </li>
-                <hr class="my-1">
+                <hr class="my-1 mb-2">
             </c:forEach>
         </ul>
     </form>
@@ -169,9 +164,9 @@
                         <a href="noticeDetail.do?code=${noticeW.iwNumber}">${noticeW.title}</a>
                     </div>
                     조회수: ${noticeW.cnt}
-                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeW.regDate}</div>
+                    <div class="badge rounded-pill my-auto ms-2" style="background-color: #9b56e9;">${noticeW.regDate}</div>
                 </li>
-                <hr class="my-1">
+                <hr class="my-1 mb-2">
             </c:forEach>
         </ul>
     </form>

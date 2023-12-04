@@ -6,15 +6,10 @@
 	padding: 20px;
 }
 
-#myPage a {
-	color: black;
-	text-decoration: none;
-}
 
 #myInfoLink {
 	text-decoration: none;
 	cursor: pointer;
-	text-decoration: none;
 }
 
 #userInfoText {
@@ -30,12 +25,7 @@
 
 .my-passes {
 	border: 1px solid #ddd;
-	padding: 20px;
 	border-radius: 15px;
-	padding: 20px;
-}
-
-.my-passes {
 	text-align: center;
 	margin-top: 20px;
 	max-width: 600px;
@@ -47,7 +37,7 @@
 	justify-content: space-between;
 }
 
-.row {
+.row-custom {
 	display: flex;
 	flex-wrap: wrap;
 	margin-right: -5px;
@@ -58,9 +48,8 @@
 	border: 1px solid #ddd;
 	padding: 20px;
 	border-radius: 5px;
-	width: calc(50% - 20px);
+	width: calc(50% - 10px); /* Adjusted width to consider the margin */
 	box-sizing: border-box;
-	margin: 10px;
 	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -78,14 +67,41 @@
 	border: 1px solid #ddd;
 	border-radius: 5px;
 	transition: background-color 0.3s;
+	
 }
 
 .icon-item:hover {
-	color: #ffffff;
-	background-color: #9b56e9;
+    background-color: #9b56e9;
+}
+
+.icon-item:hover i,
+.icon-item:hover p {
+    color: white;
+}
+
+.icon-item a {
+    color: black; 
+    text-decoration: none;
 }
 
 .icon-item i {
-	font-size: 36px;
-	margin-bottom: 10px;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.icon-item p {
+    margin: 0; 
+}
+
+
+
+
+.icon-box {
+    width: 200px; 
+    
+}
+
+.icon-box p {
+    font-size: 30px; /* 적절한 크기로 조정하세요 */
+    /* 다른 스타일들... */
 }
