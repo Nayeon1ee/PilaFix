@@ -98,7 +98,8 @@ public class MemberLoginController {
 					/* 메인테스트용임 추후 삭제 */
 					model.addAttribute("loginUser", member.getCsName());
 //					return "redirect:ticketPage.do";
-					return "redirect:/getPaymentHistory.do";
+//					return "redirect:/getPaymentHistory.do";
+					return "redirect:/mainPage.do";
 
 				} else {
 //					return "redirect:/memberMyinfo.do"; // 센터 연동 페이지
@@ -114,7 +115,8 @@ public class MemberLoginController {
 
 					/* 메인테스트용임 추후 삭제 */
 					model.addAttribute("loginUser", member.getCsName());
-					return "redirect:/getPaymentHistory.do";
+//					return "redirect:/getPaymentHistory.do";
+					return "redirect:/mainPage.do";
 				} else {
 
 					/* 메인테스트용임 추후 삭제 */

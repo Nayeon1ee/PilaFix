@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -45,29 +47,30 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <!-- 내 css -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common_0.css">
+
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_inquiryform.css">
-
-
+	href="${pageContext.request.contextPath}/resources/css/style_withdraw.css">
 <body>
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
 	<!-- End Header -->
+	<main>
 
-	<main id="main">
-
-		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>inquiryForm</li>
+					<li>withdrawal</li>
 				</ol>
-				<h2>문의사항</h2>
+				<h2>회원탈퇴</h2>
 
 			</div>
 		</section>
@@ -75,84 +78,60 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container mx-auto" style="max-width: 700px;">
+			<div class="container" style="max-width: 700px">
 
 
-				<div id="userInfo" class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
+				<div id="myPage" class="container">
+					<div class="withdraw-container border rounded p-4 pb-2 mt-5">
+						<p class="h5">탈퇴하시려면 비밀번호를 입력하세요.</p>
+						
+						<div class="row my-3">
+							<label for="password" class="col-sm-2 col-form-label text-end">비밀번호
+								:</label>
+							<div class="col-sm-9">
+								<input type="password" class="form-control" id="password"
+									name="password">
+							</div>
+						</div>
+						
+						<div class="text-end mt-3">
+							<button class="btn btn-danger withdraw-button me-2">탈퇴하기</button>
+						</div>
+
+						<p class="error-message mt-2" id="error-message"></p>
 					</div>
 				</div>
-				
-		<!-- <form action="insertQuestion.do" method="POST"> -->		 
 
-				<!-- 로그인한 회원코드의 연동된 센터가 있으면 선택하게 -->
-<select id="selectedCenter">
-    
-    <c:choose>
-        <c:when test="${empty connectedCenters}">
-            <option>연동센터 없음</option>
-        </c:when>
-        <c:otherwise>
-            <option selected disabled hidden>센터를 선택해주세요</option>
-            <c:forEach var="center" items="${connectedCenters}">
-                <option value="${center.ctCode}">센터코드: ${center.ctCode} | 센터이름: ${center.ctName}</option>
-            </c:forEach>
-        </c:otherwise>
-    </c:choose>
-</select>			    
-   
-					<div class="input-section">
-					    <p>문의하실 제목을 입력해주세요</p>
-					    <input type="text" name="qsTitle">
-					</div>
-					<div class="input-section">
-					    <p>문의하실 내용을 입력해주세요</p>
-					    <textarea class="form-control" name="qsContent" rows="6"></textarea>
-					</div>
-<div style="display: flex; justify-content: flex-end;">
-    <button type="button" class="submit-button me-2" onclick="getQuestionInfo()">문의하기</button>
-</div>
-				    
-			<!-- </form>  -->	
+				<script>
+					document
+							.querySelector('.withdraw-button')
+							.addEventListener(
+									'click',
+									function() {
+										var passwordInput = document
+												.getElementById('password');
+
+										// 비밀번호 검사 (일단 비밀번호 password1)
+										if (passwordInput.value !== "password1") {
+											alert("올바른 비밀번호가 아닙니다.");
+										} else {
+											var confirmation = confirm("김영우 회원님, 정말로 탈퇴하시겠습니까?");
+											if (confirmation) {
+												// 탈퇴 로직 추가
+												alert("탈퇴가 완료되었습니다.");
+											}
+										}
+									});
+				</script>
 
 
-				<!-- End Our Skills Section -->
+			</div>
+
 			</div>
 		</section>
-<script>
-function getQuestionInfo() {
-    var ctCode = document.getElementById("selectedCenter").value;
-    console.log()
-    console.log(ctCode); // 선택된 센터 코드 출력
-    var qsTitle = document.querySelector("input[name='qsTitle']").value;
-    var qsContent = document.querySelector("textarea[name='qsContent']").value;
 
-    // Ajax 요청
-    $.ajax({
-        type: "POST",
-        url: "insertQuestion.do",
-        data: {
-            ctCode: ctCode,
-            qsTitle: qsTitle,
-            qsContent: qsContent
-        },
-        success: function(response) {
-            // 성공 시 로직
-            console.log("성공: ", response);
-            window.location.href = "questionPage.do"; // 문의 목록 페이지로 이동
-        },
-        error: function(error) {
-            // 실패 시 로직
-            console.log("실패: ", error);
-        }
-    });
-}
-</script>
 	</main>
 
-	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
 	<%@ include file="member_footer_common.jsp"%>
@@ -163,6 +142,9 @@ function getQuestionInfo() {
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+
 
 	<!-- Vendor JS Files -->
 	<script
@@ -183,7 +165,6 @@ function getQuestionInfo() {
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </body>
 

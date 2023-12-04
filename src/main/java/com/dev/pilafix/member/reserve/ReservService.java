@@ -28,6 +28,6 @@ public interface ReservService {
 
 	void cancelReservation(int csMemberCode, String rsCode, String lsCode, int centerCode);
 
-	int checkReservation(int csMemberCode, String lsCode);
+	 Map<String, Integer> checkReservationAndTicket(int csMemberCode, String lsCode,  int centerCode);
 
 }

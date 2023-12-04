@@ -20,6 +20,54 @@ public class AttendController {
 	@Autowired
 	private AttendService service;
 
+	
+	
+	
+	/**
+	 * 수업 상태별로 가져오는 전체 수업 리스트
+	 */
+	@GetMapping("/trainerLessonPage.do")
+	public String getAllLessonList(HttpSession session, Model model) {
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+
+		if (user != null) {
+			int csMemberCode = (int) user.get("csMemberCode");
+	        List<CenterLessonVO> ongoingLessons = service.getOngoingTrainerLessons(csMemberCode);
+	        List<CenterLessonVO> completedLessons = service.getCompletedTrainerLessons(csMemberCode);
+	        List<CenterLessonVO> closedLessons = service.getClosedTrainerLessons(csMemberCode);
+
+	        for (CenterLessonVO lesson : ongoingLessons) {
+	            int reservedCount = service.getReservedCountForLesson(lesson.getLsCode());
+	            lesson.setReservedCount(reservedCount);
+	        }
+
+	        for (CenterLessonVO lesson : completedLessons) {
+	            int reservedCount = service.getReservedCountForLesson(lesson.getLsCode());
+	            lesson.setReservedCount(reservedCount);
+	        }
+
+	        for (CenterLessonVO lesson : closedLessons) {
+	            int reservedCount = service.getReservedCountForLesson(lesson.getLsCode());
+	            lesson.setReservedCount(reservedCount);
+	        }
+	        
+	        model.addAttribute("ongoingLessons", ongoingLessons);
+	        model.addAttribute("completedLessons", completedLessons);
+	        model.addAttribute("closedLessons", closedLessons);
+
+	        return "member/trainer_classlist_test"; // 수업리스트 화면으로
+		}else {
+			return "member/login";
+		}
+
+	}
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 로그인한 강사의 csMemberCode로 가져오는 전체 수업 리스트(그룹/개인)
 	 * 
@@ -44,6 +92,8 @@ public class AttendController {
 			return "member/login";
 		}
 	}
+	
+
 
 	/**
 	 * 수업 상세 가져오기
@@ -113,11 +163,11 @@ public class AttendController {
 	            System.out.println("출결 업데이트 성공: " + lessonCode + " " + selectedMemberCodes);
 	            
 	        	Map<String, Integer> attendanceCounts = service.getCountAttendanceForLesson(lessonCode);
-	        	int attendedCount = attendanceCounts.get("attended");
-	        	int absentCount = attendanceCounts.get("absent");
+	        	int attendedCount = attendanceCounts.get("attendedCount");
+	        	int absentCount = attendanceCounts.get("absentCount");
 	        	
-	        	model.addAttribute("attendedCount",attendanceCounts.get("attended"));
-	        	model.addAttribute("absentCount",attendanceCounts.get("absent"));
+	        	model.addAttribute("attendedCount",attendanceCounts.get("attendedCount"));
+	        	model.addAttribute("absentCount",attendanceCounts.get("absentCount"));
 	        	
 	        } else {
 	            // 아무것도 선택되지 않았을 경우 별도의 처리가 필요 없음
@@ -136,40 +186,6 @@ public class AttendController {
 	
 
 
-	/**
-	 * 로그인한 강사의 csMemberCode로 가져오는 그룹수업 리스트
-	 */
-	@GetMapping("/getGroupLessonList.do")
-	public String getGroupLessonList(HttpSession session, Model model) {
-		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-
-		if (user != null) {
-			int csMemberCode = (int) user.get("csMemberCode");
-//			int csMemberCode = 8016; // 임의로 부여함
-			model.addAttribute("GrouplessonList", service.getGroupLessonListWithCtName(csMemberCode));
-			return "member/trainer_classlist_test"; // 수업리스트 화면으로
-
-		} else {
-			return "member/login";
-		}
-	}
-
-	/**
-	 * 로그인한 강사의 csMemberCode로 가져오는 개인수업 리스트
-	 */
-	@GetMapping("/getPesonalLessonList.do")
-	public String getPesonalLessonList(HttpSession session, Model model) {
-		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-
-		if (user != null) {
-			int csMemberCode = (int) user.get("csMemberCode");
-			model.addAttribute("personalLessonList", service.getLessonListWithCtNameAndCsName(csMemberCode));
-			return "member/trainer_classlist_test"; // 수업리스트 화면으로
-
-		} else {
-			return "member/login";
-		}
-	}
 
 
 

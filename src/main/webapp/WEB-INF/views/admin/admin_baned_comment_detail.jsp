@@ -29,24 +29,24 @@
 							<form class="row g-3" >
 								<div class="col-md-2">
 									<label class="form-label">글번호</label> 
-									<input type="text" readonly disabled class="form-control" value="${ComplaintsInfo.cpCode }">
+									<input type="text" readonly disabled class="form-control" value="${originBoard.cmNumber }">
 								</div>
 								<div class="col-md-5">
 									<label class="form-label">작성자</label> 
-									<input type="text" readonly disabled class="form-control" value="${ComplaintsInfo.csName }" placeholder="작성자를 입력해주세요">
+									<input type="text" readonly disabled class="form-control" value="${originBoard.cmWriterMemberCode }" >
 								</div>
 								<div class="col-md-5">
 									<label class="form-label">작성일</label> 
-									<input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${ComplaintsInfo.cpDate }"/>'>
+									<input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${originBoard.cmRegdate }"/>'>
 								</div>
 								<div class="col-md-12">
 									<label class="form-label">글 제목</label> <input type="text"
-										readonly disabled class="form-control" value="${ComplaintsInfo.cmTitle }" placeholder="제목을 입력해주세요">
+										readonly disabled class="form-control" value="${originBoard.cmTitle }" >
 								</div>
 								<div class="col-md-12">
 									<label class="form-label">글 내용</label>
 									<textarea readonly disabled class="form-control"
-										style="height: 300px;" placeholder="글 내용을 입력해주세요" name="cmContent">${ComplaintsInfo.cmTitle }</textarea>
+										style="height: 300px;" name="cmContent">${originBoard.cmContent }</textarea>
 								</div>
 								
 						<!-- <h5 class="card-title"></h5> -->
@@ -55,46 +55,21 @@
 						<table class="table datatable">
 							<thead>
 								<tr>
-									<th scope="col">신고사유.</th>
+									<th scope="col">신고사유</th>
 									<th scope="col">신고자</th>
 									<th scope="col">신고자이메일</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="ComplaintsInfo" items="${complaintsInfoBlamerList }">
+								<c:forEach var="list" items="${complaintList }">
 									<tr>
-										<td>${ComplaintsInfo.blameReasonName }</td>
-										<td>${ComplaintsInfo.csName }</td>
-										<td>${ComplaintsInfo.csEmailId }</td>
+										<td>${list.blameReasonName }</td>
+										<td>${list.blamerMemberName }</td>
+										<td>${list.blamerMemberEmail }</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
-								<%-- <div class="baned-info">신고 정보</div>
-								<div class="col-md-5">
-									<label class="form-label">신고사유</label> <input type="text"
-										readonly disabled class="form-control" value="${ComplaintsInfo.blameReasonName }">
-								</div>
-								<div class="col-md-3">
-									<label class="form-label">신고자</label> <input type="text"
-										readonly disabled class="form-control" value="${ComplaintsInfo.csName }">
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">신고자 이메일</label> <input type="text"
-										readonly disabled class="form-control" value="${ComplaintsInfo.csEmailId }">
-								</div> --%>
-								<%-- <div class="col-40000" style="margin-top: 1%;">
-									<label class="form-label">상태</label>
-									<!-- 상태여부 처리 -->
-										<c:choose>
-											<c:when test="${ComplaintsInfo.blamerMemberCode }">
-												<input type="text" readonly disabled class="form-control" value="Y">					
-											</c:when>
-											<c:otherwise>
-												<input type="text" readonly disabled class="form-control" value="N">
-											</c:otherwise>
-										</c:choose>
-								</div> --%>
 								<div class="text-center">
 								    <div class="text-center">
 								        <div class="btn-toolbar justify-content-end d-flex" role="toolbar">
@@ -112,41 +87,38 @@
 				</div>
 			</div>
 		</section>
-		<!-- 상태변경 모달 -->
-<div class="modal fade" id="basicModa20" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">정말로 변경하시겠습니까?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">변경하면 상태를 되돌릴 수 없습니다.</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" onclick="revokeCenter(${ComplaintsInfo.cpCode })">변경</button>
-            </div>
-        </div>
-    </div>
-</div>
+				<!-- 상태변경 모달 -->
+				<div class="modal fade" id="basicModa20" tabindex="-1">
+				    <div class="modal-dialog">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <h5 class="modal-title"> 신고글 처리 </h5>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+				            <div class="modal-body">버튼 클릭 시 회원에게 비공개 처리됩니다. <br>처리하시겠습니까?</div>
+				            <div class="modal-footer">
+				                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+				                <button type="button" class="btn btn-primary" onclick="updateComplaintsStatus(${originBoard.cmNumber})">확인</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>
 	</main>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
 	<%@ include file="admin_footer_common.jsp"%>
 	<script type="text/javascript">
-	function goBack() {
-	  window.history.back();
-	}
 	/* // 신고글변경 클릭 시 모달 작동  */
-	function revokeCenter(cpCode){
-		fetch('/pilafix/revokeComplaints.do?cpCode=' + cpCode, {
+	function updateComplaintsStatus(cmNumber){
+		fetch('/pilafix/updateComplaintsStatus.do?cmNumber=' + cmNumber, {
 			method: 'GET'
 		})
 			.then(response => {
 				if (!response.ok) {
 					throw new Error('error');
 				}
-				window.location.href = 'getComplaintsInfoList.do'; // 에러나면 목록 페이지로 리다이렉트
+				window.location.href = 'getTargetComplaintsList.do'; // 목록 페이지로 리다이렉트
 			})
 			.catch(error => {
 				console.error(error);

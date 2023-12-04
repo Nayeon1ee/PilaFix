@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.faq.FaqVO;
 import com.dev.pilafix.admin.info.AdminInfoVO;
+import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.center.info.CenterInfoVO;
-import com.dev.pilafix.center.ticket.CenterTicketVO;
 import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.mypage.MemberMypageVO;
@@ -30,7 +30,7 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	 * 회원의 연동센터 리스트 가져오기
 	 */
 	@Override
-	public CenterVO getConnectedCenterList(int csMemberCode) {
+	public List<CenterVO> getConnectedCenterList(int csMemberCode) {
 		return dao.getConnectedCenterList(csMemberCode);
 	}
 
@@ -40,7 +40,10 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	 */
 	@Override
 	public int disconnectCenter(int csMemberCode, int selectedCenterCode) {
+		System.out.println("선택된센터코드" + selectedCenterCode);
+		System.out.println("회원코드" + csMemberCode);
 		return dao.disconnectCenter(csMemberCode, selectedCenterCode);
+
 	}
 
 	/**
@@ -56,7 +59,7 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	 * 개인수강권
 	 */
 	@Override
-	public CenterTicketVO getPersonalTicketByMember(int csMemberCode) {
+	public MemberVO getPersonalTicketByMember(int csMemberCode) {
 		return dao.getPersonalTicketByMember(csMemberCode);
 	}
 
@@ -64,7 +67,7 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	 * 그룹수강권
 	 */
 	@Override
-	public CenterTicketVO getGroupTicketByMember(int csMemberCode) {
+	public MemberVO getGroupTicketByMember(int csMemberCode) {
 		return dao.getGroupTicketByMember(csMemberCode);
 	}
 
@@ -113,6 +116,14 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	@Override
 	public MemberVO getMypageMemberInfo(int csMemberCode) {
 		return dao.getMypageMemberInfo(csMemberCode);
+	}
+
+	/**
+	 * 이용약관 및 정책 
+	 */
+	@Override
+	public List<TermsVO> getMyTermsListByMember() {
+		return dao.getMyTermsListByMember();
 	}
 
 }

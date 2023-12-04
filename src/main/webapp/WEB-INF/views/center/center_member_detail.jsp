@@ -22,6 +22,7 @@
 		</div>
 		<!-- End Page Title -->
 
+
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
@@ -43,11 +44,12 @@
 											<img src="${pageContext.request.contextPath }/resources/images/customer.png"  class="rounded-circle rounded-logo" alt="logo"  width="50%"><br>
 											
 											<h5>${member.csName }</h5>
-											<!-- 생년월일에 따라 나이 분기 필요 -->
-										     <c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
-											<c:set var="birthYear" value="${fn:substring(member.csBirth, 0, 4)}" />
-											<c:set var="age" value="${currentYear - birthYear}" />
-											<h5>${member.csBirth } (${age}세)</h5>
+											<c:set var="currentYear" value="<%= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR) %>" />
+												<c:set var="birthYear" value="${fn:split(member.csBirth,'-')[0]}" />
+												<c:set var="birthMonth" value="${fn:split(member.csBirth,'-')[1]}" />
+												<c:set var="birthDay" value="${fn:split(member.csBirth,'-')[2]}" />
+												<c:set var="age" value="${currentYear - birthYear}" />
+											<h5>${birthYear}년&nbsp;${birthMonth}월&nbsp;${birthDay}일&nbsp; (만 ${age}세)</h5>
 
 											<div class="social-links mt-2">
 												<table class="CTS_information00">
@@ -178,7 +180,7 @@
 
 												<h5 class="card-title st_session_pass">그룹</h5>
 												<div class="row">
-													<div class="col-lg-3 col-md-4 label classname000" style="font-weight: bold"> 
+													<div class="col-lg-4 col-md-4 label classname000" style="font-weight: bold"> 
 														<c:choose>
 															<c:when test="${not empty member.ticketCodeGroup1 }">
 																${ticketInfo['group'].tkName} <!-- 맵에서 티켓 정보만 추출 -->
@@ -188,7 +190,7 @@
 															</c:otherwise>
 														</c:choose>
 													</div>
-												</div><br>
+												</div>
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">기간</div>
@@ -307,7 +309,7 @@
 													<td><fmt:formatDate pattern="yyyy.MM.dd(E) a h:mm" var="formattedDate2" value="${qlist.qsRegdate}" />${formattedDate2 }</td>
 													<td>${qlist.qsTitle }</td>
 													<td>
-														<button type="submit" onclick="location.href='getQuestionReply.do?reTargetPostNumber=${qlist.qsNumber}' " class="btn btn-primary mb-3">${qlist.qsAnswerYn ? '답변대기' : '답변완료'}</button>
+														<button type="submit" onclick="location.href='getQuestionReply.do?reTargetPostNumber=${qlist.qsNumber}' " class="btn btn-primary btn-sm mb-3">${qlist.qsAnswerYn ? '답변대기' : '답변완료'}</button>
 													</td>
 												</tr>
 											</c:forEach>

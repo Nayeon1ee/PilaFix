@@ -93,11 +93,11 @@
 									<tr>
 										<td>${list.shSendCode }</td>
 										<td>${list.shSendCenterName}</td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSendDatetime }"/>
+										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSendDatetime }" /></td>
 										<c:choose>
 											<c:when test="${list.shSuccessYn }">
 												<td>성공</td>
-												<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSuccessDatetime }"/></td>
+												<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.shSuccessDatetime }" /></td>
 											</c:when>
 											<c:otherwise>
 												<td>실패</td>

@@ -171,7 +171,7 @@ function generatePIN() {
 <!-- 아이디 중복확인 -->
 $(function(){
     $("#ctIdCheck").click(function(){
-    	let emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    	let idFormat = /^(01[016789]{1})[0-9]{3,4}[0-9]{4}$/;
         let ctId = $("#ctId").val();  //아이디
         $.ajax({
             type: 'post', 
@@ -179,13 +179,13 @@ $(function(){
             data: {"ctId": ctId}, 
             success: function(data){ 
                 let messageDiv = $("#ctIdCheckMessage");
-                if(emailFormat.test(ctId)){ 
+                if(idFormat.test(ctId)){ 
                     // 사용 가능한 아이디인 경우 메시지 표시
                     messageDiv.html("사용 가능한 아이디입니다.");
                     messageDiv.css("color", "green");
                     $("#uploadFile").prop("disabled", false);
-                } else if(!emailFormat.test(ctId) || emailFormat.test(ctId) == 0) {
-	               	 messageDiv.html("옳바르지 않은 이메일 형식입니다. 다시 입력해주세요.");
+                } else if(!idFormat.test(ctId) || idFormat.test(ctId) == 0) {
+	               	 messageDiv.html("옳바르지 않은 아이디 형식입니다. 다시 입력해주세요.");
 	                 messageDiv.css("color", "red");
           		} else { 
                     // 중복된 아이디인 경우 메시지 표시

@@ -67,7 +67,7 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
@@ -125,7 +125,7 @@
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-4">
 						<div class="content border rounded p-3"
-							style="min-height: 600px; max-height: 600px; overflow-y: auto;">
+							style="min-height: 648px; max-height: 648px; overflow-y: auto;">
 
 							<!-- 셀렉트 박스 - 연동된 센터의 목록 -->
 							<div class="custom-select-wrapper text-center mt-3">
@@ -381,6 +381,8 @@
 						</div>
 					</div>
 				</div>
+				
+				
 				<!-- 예약 완료 Modal -->
 				<div class="modal fade" id="reservationSuccessModal"
 					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -409,6 +411,63 @@
 						</div>
 					</div>
 				</div>
+				
+				
+				<!-- 기 예약건 존재로 인한 예약 불가 모달  -->
+				<div class="modal fade" id="alreadyReserveModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										<b>이미 예약이 완료된 수업입니다!</b>
+										<br><br>
+										<a href="schedule.do">내스케줄 확인하러가기</a>
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 수강권 미소유로 인한 예약 불가 모달  -->
+				<div class="modal fade" id="noTicketModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										<b>해당 수업 예약에 사용할 수강권이 존재하지 않습니다!</b><br>
+										수강권 구매 후 이용하여 주시기 바랍니다.<br><br>
+										<a href="ticketPage.do">수강권 구매하러가기</a>
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<!-- 모달 끝 -->
 
 				<!-- 내용 -->
@@ -581,13 +640,8 @@
 							            	// 시간이 지나지 않았으면 예약하기 버튼 표시
 							                gstr += '<div class="mymodal">';
 							                
-							                var lsCode = item.lsCode;
-
-							                if (!checkReservation(lsCode)) {
-							                    gstr += '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
-							                } else {
-							                    gstr += '<button type="button" class="btn btn-outline-primary" disabled>예약완료</button>';
-							                }
+							                gstr += '<button type="button" class="btn btn-primary"  onclick="checkReservation(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
+							                //gstr += '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservModal" onclick="getReservationInfo(\'' + item.lsCode + '\', \'' + item.centerCode + '\')">예약하기</button>';
 							                
 							            }
 
@@ -626,6 +680,39 @@
 						}
 					});
 		}
+		
+	<!-- 현재 사용자 예약 가능 여부를 불러옴 -->
+	function checkReservation(lsCode, centerCode) {
+		
+	    $.ajax({
+	        url: 'checkReservation.do',
+	        method: 'POST',
+	        data: { 
+	        	lsCode: lsCode,
+	        	centerCode : centerCode
+	        	}, 
+	        success: function(response) {
+	        	
+	        	console.log("예약 가능 여부 체크 ");
+	        	if(response.checkTicket === 0){ //수강권 미소유
+	        		console.log(1);
+	        		$('#noTicketModal').modal('show');
+	        	}else if(response.checkReservation !== 0){ // 이미 예약 했다면 
+	        		console.log(2);
+	        		$('#alreadyReserveModal').modal('show');
+	        	}else{
+	        		console.log(3);
+	        		getReservationInfo(lsCode, centerCode);
+	        	}
+	        	
+	        },
+	        error: function(error) {
+	            console.error('AJAX 요청 시 에러', error);
+	            return false;
+	        }
+	    });
+	}
+		
 		
 	<!-- 예약하기 버튼 클릭 시 수업 정보, 수강권 정보, 이용정책 Map으로 받아옴 -->
 	function getReservationInfo(lsCode, ctCode) {
@@ -691,6 +778,8 @@
 		                    ticketCode: myTicket.ticketCodeGroup1, // 수강권 코드
 		                    lsCode: lsCode // 수업코드  
 		            };
+					
+					$('#reservModal').modal('show');
 					
 	            } else {
 	                console.error("서버 응답 데이터가 비어있거나 유효하지 않습니다.");
@@ -786,57 +875,6 @@
 	    }
 	}
 	
-
-    <!-- 버튼 처리를 위한 함수 -->
-    function calculateTimeRemaining(lessonDateTime) {
-        var lessonDate = new Date(); // 파라미터로 받기 
-        console.log(lessonDate);
-        var now = new Date();
-
-        // 당일 취소 불가인 경우
-        if (lessonDate.getDate() === now.getDate() && lessonDate.getMonth() === now.getMonth() && lessonDate.getFullYear() === now.getFullYear()) {
-            document.getElementById('timeRemaining').innerHTML = '당일 취소는 불가능합니다.';
-            return;
-        }
-
-        var cancelDate = calculateCancellationDate(lessonDate);
-
-        // 당일 취소가 아닌 경우에만 남은 시간 계산
-        if (now < cancelDate) {
-            var timeDifference = cancelDate - now;
-
-            // 시간, 분, 초 계산
-            var hours = Math.floor(timeDifference / (1000 * 60 * 60));
-            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-            // 결과를 페이지에 반영
-            document.getElementById('timeRemaining').innerHTML = hours + '시간 ' + minutes + '분 ' + seconds + '초';
-        } else {
-            document.getElementById('timeRemaining').innerHTML = '취소 가능한 시간이 지났습니다.';
-        }
-    }
-
-<!-- 현재 사용자 예약 가능 여부를 불러옴 -->
-function checkReservation(lsCode) {
-    $.ajax({
-        url: 'checkReservation.do',
-        method: 'POST',
-        data: { lsCode: lsCode }, 
-        success: function(response) {
-        	if(response){
-        		return true;
-        	}else{
-        		return false;
-        	}
-        },
-        error: function(error) {
-            console.error('AJAX 요청 시 에러', error);
-            return false;
-        }
-    });
-}
-
 	
 </script>
 

@@ -23,7 +23,7 @@
               <h5 class="card-title">중제목 작성</h5>
               <p>간략한 설명</p>
 
-				<div class="terms-btn">
+				<div class="terms-btn my-3 me-2">
 				<span class="terms-reg-btn">
 					<button type="button" class="btn btn-primary" onclick="location.href='insertUserguide.do'">이용정책 등록</button>
 				</span>

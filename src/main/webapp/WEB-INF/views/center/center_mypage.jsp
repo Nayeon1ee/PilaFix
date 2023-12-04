@@ -4,10 +4,10 @@
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>센터의 마이페이지</h1>
+			<h1>센터정보관리</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">필요 시 작성</li>
+<!-- 					<li class="breadcrumb-item">필요 시 작성</li> -->
 					<!-- 기존에는 현재 위치 표시였음 Depth1>Depth2>Depth3 표시 -->
 				</ol>
 			</nav>
@@ -19,9 +19,9 @@
 
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">센터의 상세정보 페이지</h5>
-							<p>센터의 상세정보를 조회하고 비밀번호 변경이 가능한 페이지</p>
-
+							<h5 class="card-title">${centerInfo.ctName}</h5>
+<label for="inputAddress5" class="form-label">현재 페이지에서 센터의 상세 정보를 확인하고 비밀번호를 변경할 수 있습니다.</label>
+<br>
 							<p style="magin-top: 1%;"></p>
 							<!--  
 							<div class="row mb-300" style="width: 122%; margin-top: 1%;">
@@ -34,19 +34,23 @@
 							<form name="admin_info">
 
 
-
 								<div class="col-120">
-									<label for="inputAddress5" class="form-label">아이디</label>
-								</div>
-								<div class="col-120">
-									<input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerEmail }" 
+								<label for="inputAddress5" class="form-label">센터아이디</label>
+									<input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ctId }" 
 										 style="width: 93%;" disabled>
 									<div class="row mb-3"></div>
 								</div>
+<%-- 								<div class="col-120">
+								<label for="inputAddress5" class="form-label">대표자 이메일</label>
+									<input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerEmail }" 
+										 style="width: 93%;" disabled>
+									<div class="row mb-3"></div>
+								</div> --%>
 
 
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">대표자 이름</label> <input
+									<label for="inputAddress5" class="form-label">대표자 이름</label> 
+									<input
 										type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerName }" 
 										placeholder="1234 Main St" disabled>
 								</div>
@@ -122,8 +126,8 @@
 
 							</form>
 							<!-- End General Form Elements -->
-
-							<h5 class="card-title">비밀번호 변경</h5>
+<br>
+<!-- 							<h5 class="card-title">비밀번호 변경</h5> -->
 							<p>비밀번호 변경을 원하면 아래 버튼을 클릭하세요.</p>
 							<!-- Basic Modal -->
 							<button type="button" class="btn btn-primary"

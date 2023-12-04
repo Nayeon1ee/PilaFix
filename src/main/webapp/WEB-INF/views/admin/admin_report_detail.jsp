@@ -78,7 +78,7 @@
 								        <div class="btn-toolbar justify-content-end d-flex" role="toolbar">
 								            <div class="btn-group me-2">
 								                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModa20">신고글처리</button>
-								                <button type="button" class="btn btn-secondary" onclick="location.href='getComplaintsInfoList.do'">취소</button>
+								                <button type="button" class="btn btn-secondary" onclick="location.href='getTargetComplaintsList.do'">취소</button>
 								            </div>
 								        </div>
 								    </div>
@@ -124,7 +124,7 @@
 				if (!response.ok) {
 					throw new Error('error');
 				}
-				window.location.href = 'getComplaintsInfoList.do'; // 에러나면 목록 페이지로 리다이렉트
+				window.location.href = 'getTargetComplaintsList.do'; // 에러나면 목록 페이지로 리다이렉트
 			})
 			.catch(error => {
 				console.error(error);

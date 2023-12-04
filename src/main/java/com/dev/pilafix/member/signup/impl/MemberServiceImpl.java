@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.signup.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -10,6 +11,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -133,12 +136,13 @@ public class MemberServiceImpl implements MemberService {
 		email.setMhEmailSendType("회원가입 인증");
 		email.setMhRecipientName(csEmailId); //회원가입시 이름입력보다 이메일 전송을 먼저해서 회원은 이름이 없음 그래서 이력 쌓을 때 이름대신 email넣어줌
 		email.setMhRecipientTitle(title);
-		email.setMhRecipientContent(content.toString());
+		Document doc = Jsoup.parse(content.toString());//html 태그 파싱 
+		email.setMhRecipientContent(doc.text());
 		email.setMhRecipientEmail(toSend);
 
 		if(flag == 1) {
 			email.setMhSuccessYN(true);
-			email.setMhSuccessDate(java.time.LocalDateTime.now());
+			email.setMhSuccessDate(Timestamp.valueOf(java.time.LocalDateTime.now()));
 		}else {
 			email.setMhSuccessYN(false);
 			email.setMhFailReason(errorMessage);

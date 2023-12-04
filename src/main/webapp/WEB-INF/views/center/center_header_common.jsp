@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_common_1.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_centerReg.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_admin_info_getboard.css">
-  
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style_center_header.css">
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <!-- =======================================================
   * Template Name: PilaAdmin
@@ -54,9 +54,9 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="centerMain.do" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">PilaFix</span>
+        <span class="d-none d-lg-block">PILAFIX</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -81,71 +81,35 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
+            <span class="badge bg-primary badge-number" id="memberCountM"></span>
           </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              <div>회원 연동 요청
+              <a href="getMemberManageList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a></div>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
+ <c:forEach var="member" items="${memberList}" begin="0" end="2">
+        <li class="notification-item">
+            <i class="bi bi-check-circle text-success"></i>
+            <div>
+                <h4>${member.csName}</h4>
+                <p>${member.csGenderMw} / ${member.csBirth}</p>  
+            </div>
+        </li>
+</c:forEach>
 
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+ 
             <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
+              <a href="getMemberManageList.do">회원연동요청 바로가기</a>
             </li>
 
           </ul><!-- End Notification Dropdown Items -->
@@ -156,62 +120,37 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
+            <span class="badge bg-success badge-number" id="questionCountQ"></span>
           </a><!-- End Messages Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              새로운 문의사항 확인
+              <a href="getCTQuestionList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li class="message-item">
-              <a href="#">
+    <!-- 문의사항 목록을 forEach로 출력 -->
+    <c:forEach var="question" items="${questionList}" begin="0" end="3">
+        <li class="message-item">
+            <a href="#">
                 <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
                 <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
+                    <h4>${question.qsTitle}</h4>
+                    <p>${question.qsContent}</p>
+                    <p>${question.qsRegdate}</p>
                 </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            </a>
+        </li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+    </c:forEach>
 
             <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
+              <a href="getCTQuestionList.do">전체문의사항 보러가기</a>
             </li>
 
           </ul><!-- End Messages Dropdown Items -->
@@ -221,30 +160,30 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+<!--             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+            <span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.loginCenter.ctName}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6>${sessionScope.loginCenter.ctName}</h6>
+              <span>필라테스센터</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="centerMypage.do">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>센터정보관리</span>
               </a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+<!--             <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
@@ -262,12 +201,12 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
+            </li> -->
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="centerLogout.do">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>로그아웃</span>
               </a>
             </li>
 
@@ -429,15 +368,15 @@
 			<li class="nav-heading">Pages</li>
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="users-profile.html"> 
+				<a class="nav-link collapsed" href="centerMypage.do"> 
 					<i class="bi bi-person"></i> <span>Profile</span>
 				</a>
 			</li>
 			<!-- End Profile Page Nav -->
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="centerLogin.do"> 
-					<i class="bi bi-box-arrow-in-right"></i><span>Login</span>
+				<a class="nav-link collapsed" href="centerLogout.do"> 
+					<i class="bi bi-box-arrow-in-right"></i><span>Logout</span>
 				</a>
 			</li>
 			<!-- End Login Page Nav -->
@@ -457,13 +396,25 @@
                 if (response.memberCount>0){
 					$('#memberCount').append(response.memberCount);
                 }
+                $('#memberCountM').html('');
+                if (response.memberCount>0){
+					$('#memberCountM').append(response.memberCount);
+                }                
                 $('#trainerCount').html('');
                 if (response.trainerCount>0){
 					$('#trainerCount').append(response.trainerCount);
                 }
+                $('#trainerCountT').html('');
+                if (response.trainerCount>0){
+					$('#trainerCountT').append(response.trainerCount);
+                }
                 $('#questionCount').html('');
                 if (response.questionCount>0){
 					$('#questionCount').append(response.questionCount);
+                }
+                $('#questionCountQ').html('');
+                if (response.questionCount>0){
+					$('#questionCountQ').append(response.questionCount);
                 }
                 
             },

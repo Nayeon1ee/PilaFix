@@ -63,7 +63,7 @@
 							</div>
 							<!-- 검색필터 끝 -->
 							<hr />
-							<div class="terms-btn">
+							<div class="terms-btn my-3 me-3">
 					              <span class="terms-reg-btn">
 									<button type="button" class="btn btn-primary" onclick="location.href='insertCenterLesson.do'">수업 등록</button>
 								</span>

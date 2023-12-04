@@ -26,11 +26,11 @@ public class MemberTrainerManageDAO {
 	}
 	
 	public MemberVO getMember(int csMemberCode) {
-		return sqlSessionTemplate.selectOne("MemberManageDAO.getMember", csMemberCode);
+		return sqlSessionTemplate.selectOne("MemberManageDAO.getMemberManage", csMemberCode);
 	}
 	
     public List<PaymentHistoryVO> getPaymentList(int csMemberCode) {
-        return sqlSessionTemplate.selectList("MemberManageDAO.getPaymentList", csMemberCode);
+        return sqlSessionTemplate.selectList("MemberManageDAO.getPaymentForManage", csMemberCode);
     }
 
     public List<CenterConnectHistoryVO> getConnectCenterList(int csMemberCode) {

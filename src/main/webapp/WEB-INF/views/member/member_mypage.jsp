@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -47,23 +50,18 @@
 
 </head>
 <!-- 내 css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap_Nayeon.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_memberpage.css">
+	href="${pageContext.request.contextPath}/resources/css/style_classlist.css" />
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-	integrity="sha384-qzj+YDlIk69ua5vUHwOs5J8HKAO1f7f1Z48fqA+0EdA+7W6f9X+MPeJ6XWN4KZET"
-	crossorigin="anonymous">
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common_0.css">
+
 
 <body>
-
 
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
 	<!-- End Header -->
-
 	<main id="main">
 
 		<!-- ======= Breadcrumbs ======= -->
@@ -71,7 +69,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
+					<li><a href="mainPage.do">Home</a></li>
 					<li>mypage</li>
 				</ol>
 				<h2>마이페이지</h2>
@@ -86,13 +84,13 @@
 
 				<div id="myPage" class="text-center">
 
-					<div id="userInfo"
-					class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
+					<div id="userInfo" class="d-flex align-items-center mb-2">
+						<div id="myInfoLink" class="ms-4 mr-2"
+							style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
+							<a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i> 내
+								정보 관리 
+						</div>
 					</div>
-				</div>
 
 					<section
 						class="my-passes container mt-5 d-flex justify-content-center"
@@ -100,69 +98,91 @@
 						<div class="text-center">
 							<h3>나의 수강권 현황</h3>
 							<div class="pass-box row">
-								<div class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
+								<div
+									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
 									<div class="icon-box mx-auto">
 										<div class="icon">
 											<i class="bx bx-file"></i>
 										</div>
-										<p>[지점이름] 개인수강권</p>
-										<p>기간: 2023.10.17~2023.12.08</p>
-										<p>수강권내역: 사용중</p>
-										<p>잔여일수: 126일 남음 / 총 150일</p>
-										<p>잔여횟수: 34회 남음 / 총 60회</p>
-										<p>사용가능지점: 1지점</p>
+										<c:choose>
+											<c:when test="${empty personalTicket.ticketNamePersonal1}">
+												<p>보유한 개인 수강권이 없습니다</p>
+											</c:when>
+											<c:otherwise>
+												<p>${personalTicket.ticketNamePersonal1}</p>
+												<p>${personalTicket.ticketStartDatePersonal1}~
+													${personalTicket.ticketExpiryDatePersonal1}</p>
+												<p>${personalTicket.ticketExpiryYnPersonal1 ? '만료' : '사용중' }</p>
+												<p>잔여횟수:
+													${personalTicket.ticketRemainingCountPersonal1}회 남음 / 총
+													${personalTicket.ticketUsageCountPersonal1}회</p>
+												<p>사용가능지점: ${personalTicket.centerNamePersonal1}</p>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 
-								<div class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
+								<div
+									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
 									<div class="icon-box mx-auto">
 										<div class="icon">
 											<i class="bx bx-file"></i>
 										</div>
-										<p>[지점이름] 그룹수강권</p>
-										<p>기간: 2023.10.17~2023.12.08</p>
-										<p>수강권내역: 사용중</p>
-										<p>잔여일수: 126일 남음 / 총 150일</p>
-										<p>잔여횟수: 34회 남음 / 총 60회</p>
-										<p>사용가능지점: 1지점</p>
+										<c:choose>
+											<c:when test="${empty groupTicket.ticketNameGroup1}">
+												<p>보유한 그룹 수강권이 없습니다</p>
+											</c:when>
+											<c:otherwise>
+												<p>${groupTicket.ticketNameGroup1}</p>
+												<p>${groupTicket.ticketStartDateGroup1}~
+													${groupTicket.ticketExpiryDateGroup1}</p>
+												<p>${groupTicket.ticketExpiryYnGroup1 ? '만료' : '사용중' }</p>
+												<p>잔여횟수: ${groupTicket.ticketRemainingCountGroup1}회 남음 /
+													총 ${groupTicket.ticketUsageCountGroup1}회</p>
+												<p>사용가능지점: ${groupTicket.centerNameGroup1}</p>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</div>
 						</div>
 					</section>
 
-					<section class="icon-list text-center py-3 mx-auto" style="max-width: 700px;">
+
+					<section class="icon-list text-center py-3 mx-auto"
+						style="max-width: 700px;">
 						<div class="icon-grid">
 							<div class="icon-row row">
 								<div class="icon-item col-md-4">
-									<a href="member_notice.do"> <i class="bi bi-megaphone"></i>
+									<a href="myNoticePage.do"> <i class="bi bi-megaphone"></i>
 										<p>공지사항</p>
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="paymentHistory.do"> <i class="bi bi-cash-coin"></i>
+									<a href="getPaymentHistory.do"> <i class="bi bi-cash-coin"></i>
 										<p>결제내역</p>
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="center_linkmanagement.do"> <i class="bi bi-gear"></i>
+									<a href="myConnectedCenter.do"> <i class="bi bi-gear"></i>
 										<p>연동센터관리</p>
 									</a>
 								</div>
 							</div>
 							<div class="icon-row row">
 								<div class="icon-item col-md-4">
-									<a href="FAQ.do"> <i class="bi bi-question"></i>
+									<a href="myFAQpage.do"> <i class="bi bi-question"></i>
 										<p>FAQ</p>
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="inquiry.do"> <i class="bi bi-chat"></i>
+									<a href="questionPage.do"> <i class="bi bi-chat"></i>
 										<p>문의사항</p>
 									</a>
 								</div>
 								<div class="icon-item col-md-4">
-									<a href="member_terms.do"> <i class="bi bi-file-earmark-text"></i>
+									<a href="myTermsPage.do"> <i
+										class="bi bi-file-earmark-text"></i>
 										<p>약관 및 정책</p>
 									</a>
 								</div>
@@ -188,9 +208,6 @@
 	<!-- 내 js -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 
 	<!-- Vendor JS Files -->
 	<script
@@ -209,8 +226,7 @@
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script
-		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+	<script src="assets/js/main.js"></script>
 
 </body>
 
