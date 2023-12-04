@@ -94,12 +94,14 @@
 							</div>
 						</div>
 						
-						<div class="text-end mt-3">
-							<button class="btn btn-danger withdraw-button me-2">탈퇴하기</button>
-						</div>
+						
 
 						<p class="error-message mt-2" id="error-message"></p>
 					</div>
+					
+					<div class="text-end mt-3">
+							<button class="btn btn-danger withdraw-button me-2">탈퇴하기</button>
+						</div>
 				</div>
 
 				<script>
