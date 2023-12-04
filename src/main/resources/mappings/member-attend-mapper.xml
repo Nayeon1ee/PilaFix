@@ -148,16 +148,27 @@ WHERE LESSON_CODE = #{lessonCode}
 
 <!-- <update id="updateAttendanceGroupLesson" parameterType="map">
     UPDATE TBL_ATTEND
-    SET 
-    AT_ATTENDANCE1_YN = CASE WHEN AT_MEMBER1_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE1_YN END,
-    AT_ATTENDANCE2_YN = CASE WHEN AT_MEMBER2_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE2_YN END,
-    AT_ATTENDANCE3_YN = CASE WHEN AT_MEMBER3_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE3_YN END,
-    AT_ATTENDANCE4_YN = CASE WHEN AT_MEMBER4_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE4_YN END,
-    AT_ATTENDANCE5_YN = CASE WHEN AT_MEMBER5_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE5_YN END,
-    AT_ATTENDANCE6_YN = CASE WHEN AT_MEMBER6_CODE = #{memberCode} THEN TRUE ELSE AT_ATTENDANCE6_YN END
+    <set>
+      <if test="member1Checked != null">
+        AT_ATTENDANCE1_YN = #{member1Checked},
+      </if>
+      <if test="member2Checked != null">
+        AT_ATTENDANCE2_YN = #{member2Checked},
+      </if>
+      <if test="member3Checked != null">
+        AT_ATTENDANCE3_YN = #{member3Checked},
+      </if>
+      <if test="member4Checked != null">
+        AT_ATTENDANCE4_YN = #{member4Checked},
+      </if>
+      <if test="member5Checked != null">
+        AT_ATTENDANCE5_YN = #{member5Checked},
+      </if>
+      <if test="member6Checked != null">
+        AT_ATTENDANCE6_YN = #{member6Checked},
+      </if>
+    </set>
     WHERE LESSON_CODE = #{lessonCode}
-    AND (AT_MEMBER1_CODE = #{memberCode} OR AT_MEMBER2_CODE = #{memberCode} OR AT_MEMBER3_CODE = #{memberCode}
-        OR AT_MEMBER4_CODE = #{memberCode} OR AT_MEMBER5_CODE = #{memberCode} OR AT_MEMBER6_CODE = #{memberCode});
 </update> -->
 
 	

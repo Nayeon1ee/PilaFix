@@ -615,10 +615,10 @@
 				                    	gstr += '<a class="list-group-item list-group-item-action">';
 				                    	gstr += '<p class="mb-1">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
 				                    	gstr += '<div class="d-flex w-100 justify-content-between">';
-									    gstr += '<h5 class="mb-1">'+ item.lsName +'</h5>';
+									    gstr += '<h5 class="mb-1"><b>'+ item.lsName +'</b></h5>';
 									    gstr += '</div>';
 									    gstr += '<p class="mb-1">' + item.trainerMemberName +'</p>';
-									    gstr += '<small class="text-muted">'+ (item.lsCapacity - item.lsCurrentApplicants)+'명 남음</small> | ';
+									    gstr += '<small class="text-muted"><font style="color:red; font-weight:bold;">'+ (item.lsCapacity - item.lsCurrentApplicants)+'</font>명 남음</small> | ';
 									    gstr += '<small class="text-muted"> 정원 '+ item.lsCapacity +'명</small>';
 									    
 
@@ -695,13 +695,10 @@
 	        	
 	        	console.log("예약 가능 여부 체크 ");
 	        	if(response.checkTicket === 0){ //수강권 미소유
-	        		console.log(1);
 	        		$('#noTicketModal').modal('show');
 	        	}else if(response.checkReservation !== 0){ // 이미 예약 했다면 
-	        		console.log(2);
 	        		$('#alreadyReserveModal').modal('show');
 	        	}else{
-	        		console.log(3);
 	        		getReservationInfo(lsCode, centerCode);
 	        	}
 	        	

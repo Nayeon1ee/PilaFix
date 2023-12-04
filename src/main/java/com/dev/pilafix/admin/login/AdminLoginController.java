@@ -65,8 +65,10 @@ public class AdminLoginController {
 //	        return "admin/admin_info"; //나와야할 화면 예상
 			
 			// 통계
+
 			model.addAttribute("count",service.getTotalMemberCount()) ;
 			System.out.println( model.getAttribute("count"));
+
 			return "admin/admin_index";
 
 		} else {

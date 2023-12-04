@@ -74,11 +74,13 @@
 				</a></li>
 				<!-- End Search Icon-->
 
-				<li class="nav-item dropdown"><a class="nav-link nav-icon"
+
+<!-- 알림 뜨는곳 일단 주석처리 -->
+				<!-- <li class="nav-item dropdown"><a class="nav-link nav-icon"
 					href="#" data-bs-toggle="dropdown"> <i class="bi bi-bell"></i>
 						<span class="badge bg-primary badge-number">4</span>
 				</a>
-				<!-- End Notification Icon -->
+				End Notification Icon
 
 					<ul
 						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
@@ -141,15 +143,15 @@
 								notifications</a></li>
 
 					</ul>
-					<!-- End Notification Dropdown Items --></li>
-				<!-- End Notification Nav -->
+					End Notification Dropdown Items</li>
+				End Notification Nav
 
 				<li class="nav-item dropdown"><a class="nav-link nav-icon"
 					href="#" data-bs-toggle="dropdown"> <i
 						class="bi bi-chat-left-text"></i> <span
 						class="badge bg-success badge-number">3</span>
 				</a>
-				<!-- End Messages Icon -->
+				End Messages Icon
 
 					<ul
 						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
@@ -204,58 +206,55 @@
 						</li>
 
 					</ul>
-					<!-- End Messages Dropdown Items --></li>
-				<!-- End Messages Nav -->
+					End Messages Dropdown Items</li>
+				End Messages Nav -->
 
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
-					href="#" data-bs-toggle="dropdown"> <img
-						src="assets/img/profile-img.jpg" alt="Profile"
-						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-				</a>
-				<!-- End Profile Iamge Icon -->
+					href="#" data-bs-toggle="dropdown"> 
+<!-- 					<img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">  -->
+<span class="d-none d-md-block dropdown-toggle ps-2">[관리자] ${sessionScope.loginAdmin.adName} 님</span>
+				</a> <!-- End Profile Iamge Icon -->
 
 					<ul
 						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 						<li class="dropdown-header">
-							<h6>Kevin Anderson</h6> <span>Web Designer</span>
+							<h6>${sessionScope.loginAdmin.adName}</h6> <span>${sessionScope.loginAdmin.adCode}</span>
 						</li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="users-profile.html"> <i class="bi bi-person"></i> <span>My
-									Profile</span>
+							href="adminMypage.do"> <i class="bi bi-person"></i> 
+							<span>비밀번호변경</span>
 						</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="users-profile.html"> <i class="bi bi-gear"></i> <span>Account
-									Settings</span>
+							href="insertAdminLoginInfo.do"> <i class="bi bi-gear"></i> 
+							<span>관리자 계정 생성</span>
 						</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
 
-						<li><a class="dropdown-item d-flex align-items-center"
+	<!-- 					<li><a class="dropdown-item d-flex align-items-center"
 							href="pages-faq.html"> <i class="bi bi-question-circle"></i>
 								<span>Need Help?</span>
 						</a></li>
 						<li>
 							<hr class="dropdown-divider">
-						</li>
+						</li> -->
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
-									Out</span>
+							href="adminLogout.do"> <i class="bi bi-box-arrow-right"></i> 
+							<span>로그아웃</span>
 						</a></li>
 
-					</ul>
-					<!-- End Profile Dropdown Items --></li>
+					</ul> <!-- End Profile Dropdown Items --></li>
 				<!-- End Profile Nav -->
 
 			</ul>
@@ -270,144 +269,139 @@
 
 		<ul class="sidebar-nav" id="sidebar-nav">
 
-			<li class="nav-item"><a class="nav-link " href="index.html">
+			<li class="nav-item"><a class="nav-link " href="adminMain.do">
 					<i class="bi bi-grid"></i> <span>Dashboard</span>
 			</a></li>
 			<!-- End Dashboard Nav -->
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
-					<i class="bi bi-person"></i>
-					<span>고객관리</span>
-					<i class="bi bi-chevron-down ms-auto"></i>
-				</a>
-				<ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-					<li>
-						<a href="getMemberList.do"><i class="bi bi-circle"></i>
-							<span>회원관리</span>
-						</a>
-					</li>
-					<li>
-						<a href="getTrainerList.do"><i class="bi bi-circle"></i>
-							<span>강사관리</span>
-						</a>
-					</li>
-					<li>
-						<a href="getCenterList.do"><i class="bi bi-circle"></i>
-							<span>센터관리</span>
-						</a>
-					</li>
-				</ul>
-			</li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#components-nav" data-bs-toggle="collapse"> <i
+					class="bi bi-person"></i> <span>고객관리</span> <i
+					class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="components-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a href="getMemberList.do"><i class="bi bi-circle"></i>
+							<span>회원관리</span> </a></li>
+					<li><a href="getTrainerList.do"><i class="bi bi-circle"></i>
+							<span>강사관리</span> </a></li>
+					<li><a href="getCenterList.do"><i class="bi bi-circle"></i>
+							<span>센터관리</span> </a></li>
+				</ul></li>
 			<!-- End 고객관리 Nav -->
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="getCommunityList.do">
-					<i class="bi bi-layout-text-window-reverse"></i> 
-						<span>커뮤니티 관리</span>
-				</a>
-			</li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="getCommunityList.do"> <i
+					class="bi bi-layout-text-window-reverse"></i> <span>커뮤니티 관리</span>
+			</a></li>
 			<!-- End 커뮤니티 관리 Nav -->
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="getComplaintsInfo.do">
-					<i class="bi bi-dash-circle"></i> 
-					<span>신고글 관리</span>
-				</a>
-			</li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="getTargetComplaintsList.do"> <i class="bi bi-dash-circle"></i> <span>신고글
+						관리</span>
+			</a></li>
 			<!-- End 신고글 관리 Nav -->
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" >
-					<i class="bi bi-question-circle"></i><span>FAQ관리</span>
-					<i class="bi bi-chevron-down ms-auto"></i>
-				</a>
-				<ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-					<li>
-						<a href="getFaqInfoList.do"> 
-							<i class="bi bi-circle"></i><span>전체 FAQ 목록 조회</span>
-						</a>
-					</li>
-					<li>
-						<a href="insertFaqInfo.do"> 
-							<i class="bi bi-circle"></i><span>FAQ 등록</span>
-						</a>
-					</li>
-				</ul>
-			</li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#forms-nav" data-bs-toggle="collapse"> <i
+					class="bi bi-question-circle"></i><span>FAQ관리</span> <i
+					class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="forms-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a href="getFaqInfoList.do"> <i class="bi bi-circle"></i><span>전체
+								FAQ 목록 조회</span>
+					</a></li>
+					<li><a href="insertFaqInfo.do"> <i class="bi bi-circle"></i><span>FAQ
+								등록</span>
+					</a></li>
+				</ul></li>
 			<!-- End FAQ관리 Nav -->
-			
-			
-			<li class="nav-item">
-				<a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" >
-					<i class="bi bi-shield-check"></i>
-						<span>이용약관</span>
-					<i class="bi bi-chevron-down ms-auto"></i>
-				</a>
-				<ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-					<li>
-						<a href="getTermsList.do"> 
-							<i class="bi bi-circle"></i><span>전체 약관 목록 조회</span>
-						</a>
-					</li>
-					<li>
-						<a href="insertTerms.do"> 
-							<i class="bi bi-circle"></i><span>약관 등록</span>
-						</a>
-					</li>
-				</ul>
-			</li>
+
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#tables-nav" data-bs-toggle="collapse"> <i
+					class="bi bi-shield-check"></i> <span>이용약관</span> <i
+					class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="tables-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a href="getTermsList.do"> <i class="bi bi-circle"></i><span>전체
+								약관 목록 조회</span>
+					</a></li>
+					<li><a href="insertTerms.do"> <i class="bi bi-circle"></i><span>약관
+								등록</span>
+					</a></li>
+				</ul></li>
 			<!-- End Tables Nav -->
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" >
-					<i class="bi bi-exclamation-circle"></i>
-						<span>공지사항관리</span>
-					<i class="bi bi-chevron-down ms-auto"></i>
-				</a>
-				<ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-					<li>
-						<a href="getAdminInfoList.do">
-							<i class="bi bi-circle"></i><span>전체 공지사항 목록</span>
-						</a>
-					</li>
-					<li>
-						<a href="insertAdminInfo.do">
-							<i class="bi bi-circle"></i><span>공지사항 등록</span>
-						</a>
-					</li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#icons-nav" data-bs-toggle="collapse"> <i
+					class="bi bi-exclamation-circle"></i> <span>공지사항관리</span> <i
+					class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="icons-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a href="getAdminInfoList.do"> <i class="bi bi-circle"></i><span>전체
+								공지사항 목록</span>
+					</a></li>
+					<li><a href="insertAdminInfo.do"> <i class="bi bi-circle"></i><span>공지사항
+								등록</span>
+					</a></li>
 				</ul></li>
 			<!-- End Icons Nav -->
 
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="/getSendEmailHistoryInfoList.do">
-					<i class="bi bi-bell-fill"></i><span>이메일 발송 이력 관리</span>
-				</a>
-			</li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="getSendEmailHistoryInfoList.do"> <i
+					class="bi bi-bell-fill"></i><span>이메일 발송 이력 관리</span>
+			</a></li>
 			<!-- End 이메일 발송이력 관리 Nav -->
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="getSendSmsHistoryListForAd.do">
-					<i class="bi bi-envelope"></i> <span>문자 발송 이력 관리</span>
-				</a>
-			</li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="getSendSmsHistoryListForAd.do"> <i
+					class="bi bi-envelope"></i> <span>문자 발송 이력 관리</span>
+			</a></li>
 			<!-- End 문자 발송이력 관리 Nav -->
 
 			<li class="nav-heading">Pages</li>
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="users-profile.html"> 
-					<i class="bi bi-person"></i> <span>Profile</span>
-				</a>
-			</li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="insertAdminLoginInfo.do"> <i class="bi bi-person"></i> <span>관리자계정생성</span>
+			</a></li>
 			<!-- End Profile Page Nav -->
+			
+			
+<li class="nav-item"><a class="nav-link collapsed"
+href="adminLogout.do"> <i class="bi bi-box-arrow-in-right"></i>
+<span>Logout</span>
+</a></li> 
+<%-- <c:choose>
+  <c:when test="${empty loginAdmin}">
+    <!-- 로그인 세션이 없는 경우 -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="adminLogin.do">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li>
+  </c:when>
+  <c:otherwise>
+    <!-- 로그인 세션이 있는 경우 -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="adminLogout.do">
+        <i class="bi bi-box-arrow-out-left"></i>
+        <span>Logout</span>
+      </a>
+    </li>
+  </c:otherwise>
+</c:choose> --%>
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="centerLogin.do"> 
-					<i class="bi bi-box-arrow-in-right"></i> <span>Login</span>
-				</a>
-			</li>
+<!-- 			
+<li class="nav-item"><a class="nav-link collapsed"
+href="adminLogin.do"> <i class="bi bi-box-arrow-in-right"></i>
+<span>Login</span>
+</a></li> -->
 			<!-- End Login Page Nav -->
 
 		</ul>

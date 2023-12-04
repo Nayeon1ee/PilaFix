@@ -30,9 +30,11 @@ public interface AdminLoginService {
 	boolean admincheckPassword(String adCode, String currentPassword);
 
 	int adPasswordCheck(String adPassword);
+
 	AdminVO getTotalMemberCount();
 	
 	Map<String,Object> getMonthlyContractCount();
+
 
 
 

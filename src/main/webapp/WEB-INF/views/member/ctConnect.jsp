@@ -149,7 +149,80 @@
 				</div>
 
 
+				<!-- 요청 모달-->
+				
+				<div class="modal fade" id="requestModal" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">센터 연동 요청</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body"><b><span id="ctName"></span></b> 센터로 고객님의 <b>성함과 연락처</b>가 전송됩니다.<br>연동 신청 하시겠습니까?</div>
+							<span hidden id="ctCode"></span> 
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+								<button type="button" class="btn btn-primary" onclick="connectRequest()">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 기 요청건 존재로 인한 요청 불가 모달  -->
+				<div class="modal fade" id="alreadyRequestModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										<b>이미 요청한 센터입니다!</b><br>
+										센터에서 회원님의 요청을 수락할 때까지 다소 시간이 소요될 수 있습니다.<br>
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 연동된 센터 한도 초과 시 예약 불가 모달  -->
+				<div class="modal fade" id="limitedConnectionModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="highlight-section">
+									<p class="hightlight-text" style="font-size: 18px;">
+										<b>센터 연동은 최대 3개까지 가능합니다.</b><br><br>
+										해당 센터과 연동을 원하신다면 <a href="myConnectedCenter.do">마이페이지-연동이력관리</a>에서 해제 후 
+										연동 요청하여 주시기 바랍니다.<br>
+										
+									</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 모달 끝 -->
 
 
 			</div>
@@ -217,7 +290,7 @@
     					str+='<i class="bx bx-map"></i>'
     					str += "<h3>"+item.ctName+"</h3>";
     					str+="<p>("+item.ctAddress+")</p><br>";
-    					str+='<input type="button" class="btn btn-primary" value="연동 신청" onclick="connectRequest(\'' + item.ctName + '\', \'' + item.ctCode + '\')">';
+    					str+='<input type="button" class="btn btn-primary" value="연동 신청" onclick="checkRequest(\'' + item.ctName + '\', \'' + item.ctCode + '\')">';
     					str+="</div>"
     					str+="</div>"
     					// insertCenterList라는 아이디를 가진 영역에 위의 내용 삽입해줌
@@ -231,33 +304,69 @@
         });
         
     });
-    
 
+// 요청 가능 여부 체크 
+function checkRequest(ctName, ctCode){
+	console.log("요청가능여부 체크");
+	console.log(ctCode);
+	
+	$.ajax({
+        url: 'checkRequest.do',
+        method: 'POST',
+        data: {ctCode: ctCode}, 
+        success: function(response) {
+        	
+        	console.log("예약 가능 여부 체크 ");
+        	if(response.checkMyCenter !== 0){ // 연동센터 한도 초과 
+        		$('#limitedConnectionModal').modal('show');
+        	}else if(response.checkRequest !== 0){ // 기 요청건 존재
+        		$('#alreadyRequestModal').modal('show');
+        	}else{
+        		$('#ctName').text(ctName);
+        		$('#ctCode').text(ctCode);
+        		$('#requestModal').modal('show');
+        	}
+        	
+        },
+        error: function(error) {
+            console.error('AJAX 요청 시 에러', error);
+            return false;
+        }
+    });
+	
+}
+
+    
 // 연동 요청 누르면 연동요청 테이블에 고객정보 입력
-function connectRequest(ctName,ctCode) {
-    if (window.confirm(ctName + ' 센터로 고객님의 성함과 연락처가 전송됩니다. \n연동 신청 하시겠습니까? ')) {
-        $.ajax({
-            type: 'post',
-            url: 'connectRequest.do',
-            data: {
-                'ctName': ctName,
-                'ctCode': ctCode
-            },
-            success: function(data) {
-            	console.log(data);
-            	var resultAsString = data.toString(); // int를 문자열로 변환
-                if (resultAsString === '1') {
-                    alert('연동 요청을 완료했습니다.');
-                } else {
-                	console.error(error); // 오류를 콘솔에 출력
-                    alert('연동요청 중 오류가 발생했습니다.');
-                }
-            },
-            error: function(error) {
-                alert('오류가 발생했습니다.');
-            }
-        });
-    }
+function connectRequest(ctCode) {
+	 var ctCode = $('#ctCode').text();
+	 
+	 console.log("연동요청센터");
+	 console.log(ctCode);
+	 
+	 
+      $.ajax({
+          type: 'post',
+          url: 'connectRequest.do',
+          data: {
+              ctCode: ctCode
+          },
+          success: function(data) {
+        	  
+          	console.log(data);
+          	var resultAsString = data.toString(); // int를 문자열로 변환
+              if (resultAsString === '1') {
+            	  window.location.href='mainPage.do';
+              } else {
+              	console.error(error); // 오류를 콘솔에 출력
+              		window.location.href='mainPage.do';
+              }
+          	
+          },
+          error: function(error) {
+              alert('오류가 발생했습니다.');
+          }
+      });
 }
 </script>
 

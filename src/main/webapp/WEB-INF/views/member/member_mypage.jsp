@@ -51,7 +51,7 @@
 </head>
 <!-- 내 css -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_classlist.css" />
+	href="${pageContext.request.contextPath}/resources/css/style_memberpage.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/style_bootstrap_common_0.css">
 
@@ -80,27 +80,28 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services py-4">
-			<div class="container" style="max-width: 1000px">
+			<div class="container" style="max-width: 900px">
 
 				<div id="myPage" class="text-center">
 
+
 					<div id="userInfo" class="d-flex align-items-center mb-2">
-						<div id="myInfoLink" class="ms-4 mr-2"
-							style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-							<a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i> 내
-								정보 관리 
-						</div>
+						<div id="myInfoLink" class="ps-4 ms-5"
+    style="font-size: 18px; color: #9b56e9; font-weight: bold; margin-left: 40px;">
+    <a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i> 내 정보 관리 </a>
+</div>
+
+
 					</div>
 
 					<section
-						class="my-passes container mt-5 d-flex justify-content-center"
-						style="max-width: 700px;">
-						<div class="text-center">
-							<h3>나의 수강권 현황</h3>
+						class="my-passes container mt-3 d-flex justify-content-center"
+						style="max-width: 720px; width: 100%;">
+						<div class="text-center" style="width: 650px;">
+							<h3 class="mt-3">나의 수강권 현황</h3>
 							<div class="pass-box row">
-								<div
-									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
-									<div class="icon-box mx-auto">
+								<div class="individual-pass col-lg-12 d-flex align-items-stretch mt-4 mt-md-2">
+									<div class="icon-box px-1 mx-1">
 										<div class="icon">
 											<i class="bx bx-file"></i>
 										</div>
@@ -122,11 +123,10 @@
 									</div>
 								</div>
 
-								<div
-									class="individual-pass col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-2">
-									<div class="icon-box mx-auto">
-										<div class="icon">
-											<i class="bx bx-file"></i>
+								<div class="individual-pass col-lg-12 d-flex align-items-stretch mt-4 mt-md-2">
+        <div class="icon-box mx-auto">
+            <div class="icon">
+                <i class="bx bx-file"></i>
 										</div>
 										<c:choose>
 											<c:when test="${empty groupTicket.ticketNameGroup1}">

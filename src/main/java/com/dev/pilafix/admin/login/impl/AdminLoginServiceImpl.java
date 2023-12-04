@@ -108,6 +108,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		return 0;
 	}
 
+
 	//통계 총 회원수&센터 계약수 세오기ㅣ
  	@Override
 	public AdminVO getTotalMemberCount() {
@@ -119,6 +120,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	public Map<String,Object> getMonthlyContractCount() {
 		return dao.getMonthlyContractCount();
 	}
+
 
 
 	
