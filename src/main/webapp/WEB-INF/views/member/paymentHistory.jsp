@@ -114,7 +114,7 @@
 										<c:set var="currentTime" value="<%=System.currentTimeMillis()%>" />
 										<c:set var="expiryDateTime" value="${paymentInfo.paDateTime.time + (24*60*60*1000)}" />
 										<c:if test="${expiryDateTime gt currentTime}">
-										    <button type="button" class="btn btn-sm btn-secondary mt-1" style="float:right" onclick="cancelPayment('${paymentInfo.paId}','${paymentInfo.tkLessonType}','${paymentInfo.tkUsageCount }')">결제취소</button>
+										    <button type="button" class="btn btn-sm btn-secondary" style="float:right" onclick="cancelPayment('${paymentInfo.paId}','${paymentInfo.tkLessonType}','${paymentInfo.tkUsageCount }')">결제취소</button>
 										</c:if>
 									</c:otherwise>
 								</c:choose>
