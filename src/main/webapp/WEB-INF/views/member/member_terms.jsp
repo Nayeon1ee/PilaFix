@@ -65,7 +65,7 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 700px">
+			<div class="container">
 
 				<ol>
 					<li><a href="mainPage.do">Home</a></li>
