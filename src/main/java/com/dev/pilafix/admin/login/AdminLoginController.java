@@ -1,6 +1,7 @@
 package com.dev.pilafix.admin.login;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -64,7 +65,10 @@ public class AdminLoginController {
 //	        return "admin/admin_info"; //나와야할 화면 예상
 			
 			// 통계
-//			service.getTotalMemberCount();
+
+			model.addAttribute("count",service.getTotalMemberCount()) ;
+			System.out.println( model.getAttribute("count"));
+
 			return "admin/admin_index";
 
 		} else {
@@ -220,4 +224,18 @@ public class AdminLoginController {
 		session.removeAttribute("loginAdmin");
 		return "redirect:/adminLogin.do";
 	}
+
+	
+	/**
+	 * 통계 계약건수 세오기
+	 * @return
+	 */
+	@PostMapping("getMonthlyContractCount.do")
+	@ResponseBody
+	public Map<String,Object> getMonthlyContractCount() {
+		
+		return service.getMonthlyContractCount();
+	}
+
+
 }

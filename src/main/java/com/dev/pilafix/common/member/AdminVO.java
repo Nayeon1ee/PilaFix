@@ -12,49 +12,50 @@ public class AdminVO {
 	private String accountUsageYn;
 	private String roleCode;
 	
-	private String memberCount;
-	private String trainerCount;
-	private String centerCount;
-	private String memberCountCumulated;
-	private String trainerCountCumulated;
-	private String centerCountCumulated;
+	private int memberCount;
+	private int trainerCount;
+	private int centerCount;
+	private int memberCountCumulated;
+	private int trainerCountCumulated;
+	private int centerCountCumulated;
+
 	
 	
-	
-	public String getMemberCount() {
+
+	public int getMemberCount() {
 		return memberCount;
 	}
-	public void setMemberCount(String memberCount) {
+	public void setMemberCount(int memberCount) {
 		this.memberCount = memberCount;
 	}
-	public String getTrainerCount() {
+	public int getTrainerCount() {
 		return trainerCount;
 	}
-	public void setTrainerCount(String trainerCount) {
+	public void setTrainerCount(int trainerCount) {
 		this.trainerCount = trainerCount;
 	}
-	public String getCenterCount() {
+	public int getCenterCount() {
 		return centerCount;
 	}
-	public void setCenterCount(String centerCount) {
+	public void setCenterCount(int centerCount) {
 		this.centerCount = centerCount;
 	}
-	public String getMemberCountCumulated() {
+	public int getMemberCountCumulated() {
 		return memberCountCumulated;
 	}
-	public void setMemberCountCumulated(String memberCountCumulated) {
+	public void setMemberCountCumulated(int memberCountCumulated) {
 		this.memberCountCumulated = memberCountCumulated;
 	}
-	public String getTrainerCountCumulated() {
+	public int getTrainerCountCumulated() {
 		return trainerCountCumulated;
 	}
-	public void setTrainerCountCumulated(String trainerCountCumulated) {
+	public void setTrainerCountCumulated(int trainerCountCumulated) {
 		this.trainerCountCumulated = trainerCountCumulated;
 	}
-	public String getCenterCountCumulated() {
+	public int getCenterCountCumulated() {
 		return centerCountCumulated;
 	}
-	public void setCenterCountCumulated(String centerCountCumulated) {
+	public void setCenterCountCumulated(int centerCountCumulated) {
 		this.centerCountCumulated = centerCountCumulated;
 	}
 	public String getAdCode() {
@@ -118,8 +119,9 @@ public class AdminVO {
 				+ ", accountUsageYn=" + accountUsageYn + ", roleCode=" + roleCode + ", memberCount=" + memberCount
 				+ ", trainerCount=" + trainerCount + ", centerCount=" + centerCount + ", memberCountCumulated="
 				+ memberCountCumulated + ", trainerCountCumulated=" + trainerCountCumulated + ", centerCountCumulated="
-				+ centerCountCumulated + "]";
+				+ centerCountCumulated +  "]";
 	}
+	
 	
 
 }

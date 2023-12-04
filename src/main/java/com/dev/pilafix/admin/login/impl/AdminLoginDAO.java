@@ -2,6 +2,7 @@ package com.dev.pilafix.admin.login.impl;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -70,8 +71,17 @@ public class AdminLoginDAO {
 
 	public AdminVO getTotalMemberCount() {
 		//회원,강사 수 
-		sqlSessionTemplate.selectOne("AdminLoginDAO.getTotalMemberCount");
-		return null;
+		
+		return sqlSessionTemplate.selectOne("AdminLoginDAO.getTotalMemberCount");
+	}
+
+
+	public Map<String,Object> getMonthlyContractCount() {
+		Map<String,Object> count = new HashMap<String, Object>();
+		count.put("contractCount", sqlSessionTemplate.selectList("AdminLoginDAO.getMonthlyContractCount"));
+		count.put("revokeCount", sqlSessionTemplate.selectList("AdminLoginDAO.getMonthlyRevokeCount"));
+		
+		return count;
 	}
 
 	

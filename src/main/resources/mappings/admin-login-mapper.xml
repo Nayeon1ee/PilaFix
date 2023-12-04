@@ -64,15 +64,48 @@
 	
 	<!-- 전체 회원,강사 수 /센터수 (현재&누적)-->
 	<select id="getTotalMemberCount" resultMap="adminloginResult">
-		<!-- 현재 -->
-		SELECT COUNT(*) AS member_count FROM tbl_cst WHERE cs_role_code = 'ME' AND cs_delete_yn='n';
-		SELECT COUNT(*) AS trainer_count FROM tbl_cst WHERE cs_role_code = 'TR' AND cs_delete_yn='n';
-		SELECT COUNT(*) AS center_count FROM tbl_center WHERE contract_revoke_yn='n' AND contract_expiry_yn='n';
-		<!-- 누적 -->
-		SELECT COUNT(*) AS member_count_cumulated FROM tbl_cst WHERE cs_role_code = 'ME';
-		SELECT COUNT(*) AS trainer_count_cumulated FROM tbl_cst WHERE cs_role_code = 'TR';
-		SELECT COUNT(*) AS center_count_cumulated FROM tbl_center;
+		SELECT
+		    (SELECT COUNT(*) FROM tbl_cst WHERE cs_role_code = 'ME' AND cs_delete_yn='n') AS member_count,
+		    (SELECT COUNT(*) FROM tbl_cst WHERE cs_role_code = 'TR' AND cs_delete_yn='n') AS trainer_count,
+		    (SELECT COUNT(*) FROM tbl_center WHERE contract_revoke_yn='n' AND contract_expiry_yn='n') AS center_count,
+		    (SELECT COUNT(*) FROM tbl_cst WHERE cs_role_code = 'ME') AS member_count_cumulated,
+		    (SELECT COUNT(*) FROM tbl_cst WHERE cs_role_code = 'TR') AS trainer_count_cumulated,
+		    (SELECT COUNT(*) FROM tbl_center) AS center_count_cumulated;
 	
+	</select>
+	
+	<!-- 통계 : 월별 센터 계약 건수 세오기-->
+	<select id="getMonthlyContractCount" resultType="int">
+		SELECT
+		    COALESCE(COUNT(c.CT_CODE), 0) AS contract_count
+		FROM
+		    generate_series(1, 12) m(month)
+		LEFT JOIN
+		    TBL_CENTER c ON EXTRACT(MONTH FROM c.contract_start_date) = m.month
+		WHERE
+		    EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM COALESCE(c.contract_start_date, CURRENT_DATE))
+		GROUP BY
+		    m.month
+		ORDER BY
+		    m.month;
+		    
+	</select>
+	<!-- 계약 해지된 센터 수 세오기 (1월부터 12까지 갯수 세옴)-->
+	<select id="getMonthlyRevokeCount" resultType="int">
+			SELECT
+		    COALESCE(COUNT(c.CT_CODE), 0) AS registration_count
+		FROM
+		    generate_series(1, 12) m(month)
+		LEFT JOIN
+		    TBL_CENTER c ON EXTRACT(MONTH FROM c.contract_start_date) = m.month
+		    AND c.contract_revoke_yn = 't'
+		WHERE
+		    EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM COALESCE(c.contract_start_date, CURRENT_DATE))
+		GROUP BY
+		    m.month
+		ORDER BY
+		    m.month;
+		    
 	</select>
 
 
