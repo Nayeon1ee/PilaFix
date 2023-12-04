@@ -37,6 +37,27 @@
 		VALUES
 		(concat('CC',nextval('seq_center_connect')),#{ctCode},#{csMemberCode},#{csName},#{csPhoneNumber},CURRENT_TIMESTAMP,'N')
 	</insert>
+	
+	<!-- 연동 요청 가능 여부 체크  -->
+	<!-- 1.연동센터 한도 초과  -->
+	<select id="checkMyCenter" parameterType="Integer" resultType="Integer">
+		SELECT COUNT(*) 
+		FROM TBL_CST
+		WHERE CS_MEMBER_CODE=#{csMemberCode}
+			AND CONNECTED_CENTER_CODE1!=0 
+			AND CONNECTED_CENTER_CODE2!=0 
+			AND CONNECTED_CENTER_CODE3!=0
+	</select>
 
+	<!-- 2. 기 요청건 존재 여부 확인  -->
+	<select id="checkRequest" parameterType="java.util.Map" resultType="Integer">
+	SELECT COUNT(*) 
+	FROM TBL_CENTER_REQUEST
+	WHERE CENTER_CODE=#{ctCode}
+		AND MEMBER_CODE=#{csMemberCode}
+		AND CR_CONNECTION_YN=FALSE
+		AND CR_CONNECTION_DATE IS NULL
+		AND CR_REJECT_DATE IS NULL;
+	</select>
 
 </mapper>

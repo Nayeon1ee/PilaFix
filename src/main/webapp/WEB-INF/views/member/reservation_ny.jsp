@@ -615,10 +615,10 @@
 				                    	gstr += '<a class="list-group-item list-group-item-action">';
 				                    	gstr += '<p class="mb-1">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
 				                    	gstr += '<div class="d-flex w-100 justify-content-between">';
-									    gstr += '<h5 class="mb-1">'+ item.lsName +'</h5>';
+									    gstr += '<h5 class="mb-1"><b>'+ item.lsName +'</b></h5>';
 									    gstr += '</div>';
 									    gstr += '<p class="mb-1">' + item.trainerMemberName +'</p>';
-									    gstr += '<small class="text-muted">'+ (item.lsCapacity - item.lsCurrentApplicants)+'명 남음</small> | ';
+									    gstr += '<small class="text-muted"><font style="color:red; font-weight:bold;">'+ (item.lsCapacity - item.lsCurrentApplicants)+'</font>명 남음</small> | ';
 									    gstr += '<small class="text-muted"> 정원 '+ item.lsCapacity +'명</small>';
 									    
 

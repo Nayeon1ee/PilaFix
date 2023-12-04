@@ -61,3 +61,8 @@ input[type="checkbox"].btn-check:not(:checked)+.btn {
   margin-right: 5px;
 }
 
+/*탭 선택 시*/
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+    border-color:#b283f1; /* 여기에 색상 코드를 입력하세요 */
+    --bs-nav-tabs-link-active-border-color: #b283f1; 
+}
