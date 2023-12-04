@@ -99,7 +99,7 @@
 					<div class="col-auto" style="width: 21%;">
 						<label for="inputPassword2" class="visually-hidden">Password</label>
 						<input type="email" class="form-control" id="csEmailId" name="csEmailId" placeholder="이메일 입력"
-							style="width: 220%; margin-left: 28%; border: 0px;">
+							style="width: 220%; margin-left: 28%; border: 0px;" required>
 					</div>
 					<div class="col-auto">
 						<button type="button" id="idCheck" class="btn btn-primary mb-3"
@@ -115,8 +115,8 @@
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
 							style="float: left; width: 20%;">인증요청</label>
-						<input type="text" class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6"
-							style="float: left; width: 80%; border: 0px; padding-top: 0px; pointer-events: none;" data-readonly required>
+						<input type="text" id="mailCheckInput" class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6"
+							style="float: left; width: 80%; border: 0px; padding-top: 0px;" required>
 							
 					</div>
 					<span id="mail-check-warn"></span>
@@ -126,13 +126,13 @@
 						<label for="inputAddress" class="form-label"
 							style="float: left; width: 20%;">비밀번호</label>
 						<input type="password" class="form-control" name="csPassword" id="csPassword" placeholder="영문, 숫자 포함 8글자 이상 입력"
-							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
+							style="float: left; width: 80%; border: 0px; padding-top: 0px;" required>
 					</div>
 					<div class="col-12" style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
 							style="float: left; width: 20%;">비밀번호 확인</label>
 						<input type="password" class="form-control" name="passwordConfirm" id="passwordConfirm" onkeyup="passConfirm()" placeholder="영문, 숫자 포함 8글자 이상 입력"
-							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
+							style="float: left; width: 80%; border: 0px; padding-top: 0px;" required>
 					</div>
 					<span id ="confirmMsg"></span>
 					<div class="col-12"
@@ -140,44 +140,44 @@
 						<label for="inputAddress" class="form-label" 
 							style="float: left; width: 20%;">이름</label>
 						<input type="text" class="form-control" name="csName" placeholder="이름을 입력해주세요"
-							style="float: left; width: 80%; border: 0px; padding-top: 0px;">
+							style="float: left; width: 80%; border: 0px; padding-top: 0px;" required>
 					</div>
 					<div class="col-12"
 						style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 						<label for="inputAddress" class="form-label"
 							style="float: left; width: 20%;">휴대전화 번호</label>
 						<input type="text" class="form-control" name="csPhoneNumber1" placeholder="3자리"
-							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
+							style="float: left; width: 25%; border: 0px; padding-top: 0px;" required>
 						<input type="text" class="form-control" name="csPhoneNumber2" placeholder="4자리"
-							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
+							style="float: left; width: 25%; border: 0px; padding-top: 0px;" required>
 						<input type="text" class="form-control" name="csPhoneNumber3" placeholder="4자리"
-							style="float: left; width: 25%; border: 0px; padding-top: 0px;">
+							style="float: left; width: 25%; border: 0px; padding-top: 0px;" required>
 					</div>
 					
 						<div class="col-12" style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 							<label for="inputAddress" class="form-label"
 								style="float: left; width: 20%;">생년월일</label>
 							<input type="date" class="form-control" name="csBirth"
-								style="float: left; width: 30%; border: 0px; padding-top: 0px;">
+								style="float: left; width: 30%; border: 0px; padding-top: 0px;" required>
 						</div>
 
 						<div class="col-12"
 							style="border-top: 1px solid; margin-top: 0px; padding-top: 20px;">
 							<label for="inputAddress" class="form-label" style="float: left; width: 21%;">성별</label>
-							<input class="form-check-input" type="radio" name="csGenderMw" value="남자">
+							<input class="form-check-input" type="radio" name="csGenderMw" value="남자" required>
 							<label class="form-check-label" for="flexRadioDefault1">남자</label>
 							
-							<input class="form-check-input" type="radio" name="csGenderMw" value="여자" >
+							<input class="form-check-input" type="radio" name="csGenderMw" value="여자" required>
 							<label class="form-check-labe2" for="flexRadioDefault2">여자</label>
 						</div>
 					
 					<div class="form-check">
 					    <input class="form-check-input overall-agreement" type="checkbox" value="" id="flexCheckDefault">
-					    <label class="form-check-label" for="flexCheckDefault">전체 동의합니다.</label>
+					    <label class="form-check-label" for="flexCheckDefault" required>전체 동의합니다.</label>
 					</div>
 					<c:forEach var="termsList" items="${termsList}" varStatus="num">
 					    <div class="form-check">
-					        <input class="form-check-input individual-agreement" type="checkbox" name="csAgreementYn${num.count}" id="csAgreementYn${num.count}" value="true">
+					        <input class="form-check-input individual-agreement" type="checkbox" name="csAgreementYn${num.count}" id="csAgreementYn${num.count}" value="true" required>
 					        <label class="form-check-label" for="csAgreementYn${num.count}">
 					            <c:choose>
 					                <c:when test="${termsList.tmRequiredYn eq true}">
@@ -284,14 +284,14 @@ $(function(){
 			//alert(" 버튼 클릭했습니다")
 			const csEmailId = $('#csEmailId').val(); // 이메일 주소값 얻어오기!
 			console.log('완성된 이메일 : ' + csEmailId); // 이메일 오는지 확인
-			const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+			//const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
 
 			$.ajax({
 				type : "GET",
 				url : "mailCheck.do?csEmailId=" + csEmailId,
 				success : function(data) {
 					console.log("data : " + data);
-					checkInput.attr('disabled', false);
+					//checkInput.attr('disabled', false);
 					alert('인증번호가 전송되었습니다.')
 					
 					// 컨트롤러에서 생성한 난수 data에 담겨옴 그래서 변수에 넣어줌
@@ -347,6 +347,7 @@ function passConfirm() {
 // 입력하지 않은 값이 있다면 해당 태그로 focus
 function validateForm() {
     var csEmailId = document.getElementById('csEmailId').value;
+	var mailCheck = document.getElementById('mailCheck').value;
     var csPassword = document.getElementById('csPassword').value;
     var passwordConfirm = document.getElementById('passwordConfirm').value;
     var csName = document.getElementsByName('csName')[0].value;
@@ -380,9 +381,14 @@ function validateForm() {
             break;
         }
     }
-
+    
     if (csEmailId === '') {
         document.getElementById('csEmailId').focus();
+        return false;
+    }
+ 
+    if (mailCheck === '') {
+        document.getElementById('mailCheckInput').focus();
         return false;
     }
     
