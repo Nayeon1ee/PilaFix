@@ -144,10 +144,9 @@
 									varStatus="status">
 									<div class="col-md-2">
 										<div class="member-check text-center">
-											<input type="checkbox" class="btn-check" id="btn-check-${status.index}" name="selectedMemberCodes"
-												value="${member.csMemberCode}" autocomplete="off"> 
-											<label class="btn" for="btn-check-${status.index}"> 
-											<img src="${pageContext.request.contextPath}/resources/images/user.png" alt="profile image" style="width: 70px; height: 70px;">
+<input type="checkbox" class="btn-check" id="btn-check-${status.index}" name="selectedMemberCodes" value="${member.csMemberCode}" autocomplete="off"> 
+<label class="btn" for="btn-check-${status.index}"> 
+<img src="${pageContext.request.contextPath}/resources/images/user.png" alt="profile image" style="width: 70px; height: 70px;">
 											<p>${member.csName}</p>
 											</label>
 										</div>
@@ -173,7 +172,7 @@
 <form action="updateAttendG.do" method="post" class="me-2">
     <input type="hidden" name="lessonCode" value="${lessonDetail.lsCode}">
     <c:forEach var="member" items="${reservedMembers}">
-        <input type="checkbox" name="selectedMemberCodes" value="${member.memberCode}">
+        <input type="checkbox" name="selectedMemberCodes" value="${member.csMemberCode}">
     </c:forEach>
     <button type="submit" class="btn btn-primary me-3">출석처리</button>
 </form>
