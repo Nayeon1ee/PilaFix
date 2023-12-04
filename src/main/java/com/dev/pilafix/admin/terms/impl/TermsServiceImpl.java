@@ -1,5 +1,6 @@
 package com.dev.pilafix.admin.terms.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.mail.AuthenticationFailedException;
@@ -137,7 +138,7 @@ public class TermsServiceImpl implements TermsService {
 
 		if (flag == 1) {
 			email.setMhSuccessYN(true);
-			email.setMhSuccessDate(java.time.LocalDateTime.now());
+			email.setMhSuccessDate(Timestamp.valueOf(java.time.LocalDateTime.now()));
 		} else {
 			email.setMhSuccessYN(false);
 			email.setMhFailReason(errorMessage);

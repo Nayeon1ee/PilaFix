@@ -30,7 +30,7 @@
 		<result property="regDate" column="IC_REGDATE" />
 		<result property="cnt" column="IC_VIEWS" />
 		<result property="openYN" column="IC_OPEN_YN" />
-		<result property="centerName" column="CT_NAME" />
+		<result property="ctName" column="CT_NAME" />
 	</resultMap>
 	<resultMap type="adminInfo" id="adminInfoResult">
 		<id property="iwNumber" column="IW_NUMBER"/>
@@ -41,7 +41,6 @@
 		<result property="regDate" column="IW_REGDATE" />
 		<result property="cnt" column="IW_VIEWS" />
 		<result property="openYN" column="IW_OPEN_YN" />
-		<result property="adminName" column="AD_NAME" />
 	</resultMap>	
 	<resultMap type="faqInfo" id="faqInfoResult">
 		<id property="fqNumber" column="FQ_NUMBER"/>
@@ -52,6 +51,15 @@
 		<result property="fqOpenYn" column="FQ_OPEN_YN" />
 		<result property="fqType" column="FQ_TYPE" />
 	</resultMap>	
+	<resultMap type="terms" id="termsResult">
+		<id property="tmCode" column="TM_CODE" />
+		<result property="tmName" column="TM_NAME" />
+		<result property="tmDetail" column="TM_DETAIL" />
+		<result property="tmRegdate" column="TM_REGDATE" />
+		<result property="tmModifiedDate" column="TM_MODIFIED_DATE" />
+		<result property="tmRequiredYn" column="TM_REQUIRED_YN" />
+		<result property="tmOpenYn" column="TM_OPEN_YN" />
+	</resultMap>
 	<resultMap type="member" id="memberResult">
 	    <id property="csMemberCode" column="CS_MEMBER_CODE"/>
 	    <result property="csEmailId" column="CS_EMAIL_ID"/>
@@ -86,6 +94,17 @@
 		<result property="ticketStartDateGroup1" column="TICKET_START_DATE_GROUP1" />
 		<result property="ticketExpiryDateGroup1" column="TICKET_EXPIRY_DATE_GROUP1" />
 		<result property="ticketExpiryYnGroup1" column="TICKET_EXPIRY_YN_GROUP1" />
+<result property="ticketUsageMonthPersonal1" column="TK_USAGE_NUM_MONTH" />
+<result property="ticketUsageCountPersonal1" column="TK_USAGE_COUNT" />
+<result property="centerNamePersonal1" column="CT_NAME" />
+<result property="ticketNamePersonal1" column="TK_NAME" />
+
+<result property="ticketUsageMonthGroup1" column="TK_USAGE_NUM_MONTH" />
+<result property="ticketUsageCountGroup1" column="TK_USAGE_COUNT" />
+<result property="centerNameGroup1" column="CT_NAME" />
+<result property="ticketNameGroup1" column="TK_NAME" />
+
+
 	</resultMap>	
 	<resultMap type="centerTicket" id="centerTicketResult">
 		<id property="tkCode" column="TK_CODE"/>
@@ -123,7 +142,7 @@
 	
 	<!-- 연동센터 이름, 코드 가져오기 -->
 	<select id="getConnectedCenterList" resultMap="centerResult" parameterType="int">
-		SELECT CT_NAME,CT_CODE
+		SELECT CT_NAME, CT_CODE
 		FROM TBL_CENTER
 		WHERE CT_CODE IN (
 	    		SELECT CONNECTED_CENTER_CODE1 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
@@ -134,22 +153,13 @@
 	</select>
 	<!-- 회원의 연동 센터 해제 -->
 	<update id="disconnectCenter" parameterType="map">
-        UPDATE TBL_CST
-        SET
-            CONNECTED_CENTER_CODE1 = CASE
-                WHEN CONNECTED_CENTER_CODE1 = #{selectedCenterCode} THEN 0
-                ELSE CONNECTED_CENTER_CODE1
-            END,
-            CONNECTED_CENTER_CODE2 = CASE
-                WHEN CONNECTED_CENTER_CODE2 = #{selectedCenterCode} THEN 0
-                ELSE CONNECTED_CENTER_CODE2
-            END,
-            CONNECTED_CENTER_CODE3 = CASE
-                WHEN CONNECTED_CENTER_CODE3 = #{selectedCenterCode} THEN 0
-                ELSE CONNECTED_CENTER_CODE3
-            END
-        WHERE
-            CS_MEMBER_CODE = #{csMemberCode};
+	UPDATE TBL_CST
+	SET 
+	    connected_center_code1 = CASE WHEN connected_center_code1 = #{selectedCenterCode} THEN 0 ELSE connected_center_code1 END,
+	    connected_center_code2 = CASE WHEN connected_center_code2 = #{selectedCenterCode} THEN 0 ELSE connected_center_code2 END,
+	    connected_center_code3 = CASE WHEN connected_center_code3 = #{selectedCenterCode} THEN 0 ELSE connected_center_code3 END
+	WHERE
+    cs_member_code = #{csMemberCode};
     </update>
 	
 	<!-- 회원탈퇴 -->
@@ -158,27 +168,43 @@
 		SET CS_DELETE_YN = TRUE
 		WHERE CS_MEMBER_CODE = #{csMemberCode}
 	</update>
-	
+
 	<!-- 회원의 개인수강권 정보 조회  -->
-	<select id="getPersonalTicketByMember" resultMap="centerTicketResult">
-		SELECT TK.*, CT.CT_NAME AS centerName
-		FROM TBL_TICKET TK
-		JOIN TBL_CST CST ON CST.TICKET_CODE_PERSONAL1 = TK.TK_CODE
-		JOIN TBL_CENTER CT ON TK.CENTER_CODE = CT.CT_CODE
-		WHERE CST.CS_MEMBER_CODE = #{csMemberCode};
+	<select id="getPersonalTicketByMember" resultMap="memberResult">
+		SELECT
+		    CS.*,
+		    TP.TK_NAME ,
+		    TP.TK_USAGE_NUM_MONTH ,
+		    TP.TK_USAGE_COUNT ,
+		    CT.CT_NAME 
+		FROM
+		    TBL_CST CS
+		LEFT JOIN
+		    TBL_TICKET TP ON CS.TICKET_CODE_PERSONAL1 = TP.TK_CODE
+		LEFT JOIN
+		    TBL_CENTER CT ON TP.CENTER_CODE = CT.CT_CODE
+		WHERE CS.CS_MEMBER_CODE = #{csMemberCode}
 	</select>	
 	<!-- 회원의 그룹수강권 정보 조회  -->
-	<select id="getGroupTicketByMember" resultMap="centerTicketResult">
-		SELECT TK.*, CT.CT_NAME AS centerName
-		FROM TBL_TICKET TK
-		JOIN TBL_CST CST ON CST.TICKET_CODE_GROUP1 = TK.TK_CODE
-		JOIN TBL_CENTER CT ON TK.CENTER_CODE = CT.CT_CODE
-		WHERE CST.CS_MEMBER_CODE = #{csMemberCode};
+	<select id="getGroupTicketByMember" resultMap="memberResult">
+		SELECT
+		    CS.*,
+		    TP.TK_NAME ,
+		    TP.TK_USAGE_NUM_MONTH ,
+		    TP.TK_USAGE_COUNT ,
+		    CT.CT_NAME 
+		FROM
+		    TBL_CST CS
+		LEFT JOIN
+		    TBL_TICKET TP ON CS.TICKET_CODE_GROUP1 = TP.TK_CODE
+		LEFT JOIN
+		    TBL_CENTER CT ON TP.CENTER_CODE = CT.CT_CODE
+		    WHERE CS.CS_MEMBER_CODE = #{csMemberCode};
 	</select>	
 
 	<!-- 회원의 센터 공지사항 리스트,상세 -->
 	<select id="getCenterInfoListByMember" resultMap="centerInfoResult" >
-	   SELECT n.*, c.CT_NAME as centerName
+	   SELECT n.ic_number, n.ic_title, n.ic_writer_member_code, n.ic_regdate, n.ic_views, c.CT_NAME
 	    FROM (
 	        SELECT CS_MEMBER_CODE, CONNECTED_CENTER_CODE1 AS CENTER_CODE FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}
 	        UNION ALL
@@ -192,33 +218,30 @@
 	    ORDER BY IC_NUMBER DESC; 
 	</select>
 	<select id="getCenterInfoByMember" resultMap="centerInfoResult">
-		SELECT I.*, C.CT_NAME as centerName
-		FROM TBL_INFO I
+		SELECT I.*, C.CT_NAME
+		FROM TBL_INFO_C I
 		LEFT JOIN TBL_CENTER C ON I.IC_WRITER_MEMBER_CODE = C.CT_CODE
 		WHERE I.IC_NUMBER = #{icNumber};
 	</select>	
 
 	<!-- 회원의 웹관리자 공지사항 리스트,상세 -->
 	<select id="getAdminInfoListByMember" resultMap="adminInfoResult" >
-		SELECT *
+		SELECT iw_number, iw_title, iw_writer_member_code, iw_regdate, iw_views
 		FROM TBL_INFO_W
 		WHERE IW_OPEN_YN = TRUE
 		ORDER BY IW_NUMBER DESC;
 	</select>
 	<select id="getAdminInfoByMember" resultMap="adminInfoResult">
-		SELECT * FROM TBL_INFO WHERE IW_NUMBER = #{iwNumber}
+		SELECT * FROM TBL_INFO_W WHERE IW_NUMBER = #{iwNumber}
 	</select>	
 	
 	<!-- FAQ 리스트, 상세 -->
 	<!-- FQ_WRITER_MEMBER_CODE int형식으로 되어있는데 수정해야함 -->
 	<select id="getFAQListByMember" resultMap="faqInfoResult">
-	    SELECT
-	        FQ.*,
-	        A.AD_NAME AS adminName
-	    FROM TBL_FAQ FQ
-	    LEFT JOIN TBL_ADMIN A ON FQ.FQ_WRITER_MEMBER_CODE = A.AD_CODE
-	    WHERE FQ.FQ_OPEN_YN = TRUE
-	    ORDER BY FQ.FQ_NUMBER DESC;
+	    SELECT *
+	    FROM TBL_FAQ 
+	    WHERE FQ_OPEN_YN = TRUE
+	    ORDER BY FQ_NUMBER DESC;
 	</select>
 	<select id="getFaqByMember" resultMap="faqInfoResult" >
 		SELECT * FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber} 
@@ -229,7 +252,16 @@
    		SELECT * FROM TBL_CST WHERE cs_member_code = #{csMemberCode}
 	</select> 
 	
+	<!-- 약관및정책 리스트, 상세 -->
+	<select id="getMyTermsListByMember" resultMap="termsResult">
+	    SELECT*
+	    FROM TBL_TERMS
+	    WHERE TM_OPEN_YN = TRUE
+	    ORDER BY TM_CODE DESC;
+	</select>
 
+	
+	
 	
 
 </mapper>

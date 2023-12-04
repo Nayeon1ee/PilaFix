@@ -191,38 +191,79 @@ document.getElementById('addButton').addEventListener('click', function() {
     }
 });
 
-
 /**
 var lsName = document.querySelector('input[name="lsName"]').value;
 var lsType= document.querySelector('input[name="lsType"]:checked').value;
 
 
-function insertLesson(){
+
+//데이터를 등록
+/** function insertLesson(){
 	console.log("insertLesson() 함수 호출됨");
-	console.log(lsName);
-	console.log(lsType);
-	console.log(dateTimeArray);
 	
-    $.ajax({
-        type : "Post",
-        url : "insertTest.do", 
-        data : {
+	//var dataList = []; // 리스트
+	
+	var lsName = document.getElementById('lsName').value;
+	console.log(lsName);
+	var lsType = document.getElementById('flexRadioDefault1').value;
+	console.log(lsType);
+	var trainerMemberCode = document.getElementById('trainerMemberCode').value;
+	console.log(trainerMemberCode);
+	var lsCapacity = document.getElementById('lsCapacity').value;
+	console.log(lsCapacity);
+	var lsContent = document.getElementById('lsContent').value;
+	console.log(lsContent);
+	var lsDate = document.getElementById('dateInput').value;
+	console.log(lsDate);
+	var lsTime = document.getElementById('timeSelect').value;
+	console.log(lsTime);
+	//var centerCode = document.getElementById('centerCode').value;
+	//console.log(centerCode);
+	
+	for (let i = 0; i < dateTimeArray.length; i++) {
+		// 해당 배열 길이에 속하는 날짜와 시간을 담는다.
+        const dateTime = dateTimeArray[i];
+        // 리스트에 담을 객체로 변환하여 추가
+        dataList.push({
         	lsName : lsName,
-        	lsType : lsType,
-        	dateTimeArray : dateTimeArray
-        },
-        success : function(response) {
-            console.log("insertLesson() 함수 호출됨");
-           	alert("수업 등록 완료 ");
-        },
-        error : function (xhr, status, error) {
-            console.error("Ajax 요청 실패");
-            console.error("상태 코드: ", xhr.status);
-            console.error("에러 메시지: ", error);
-        }
-    });
-}
-*/
+			lsType : lsType,
+			trainerMemberCode : trainerMemberCode,
+			lsCapacity : lsCapacity,
+			lsContent : lsContent,
+			lsDate : lsDate,
+			lsTime : lsTime
+        });
+    }
+
+	
+	for (let i = 0; i < dateTimeArray.length; i++) {
+		// 해당 배열 길이에 속하는 날짜와 시간을 담는다.
+        const dateTime = dateTimeArray[i];
+		$.ajax({
+			type : "POST",
+			url : "insertCenterLesson.do",
+			data: {
+				lsName : lsName,
+				lsType : lsType,
+				trainerMemberCode : trainerMemberCode,
+				lsCapacity : lsCapacity,
+				lsContent : lsContent,
+				lsDate : lsDate,
+				lsTime : lsTime
+			},
+			success : function(response) {
+				console.log("insertLesson() 함수 호출됨");
+				alert("수업 등록 완료 ");
+			},
+			error : function (xhr, status, error) {
+				console.error("Ajax 요청 실패");
+				console.error("상태 코드: ", xhr.status);
+				console.error("에러 메시지: ", error);
+	 		}
+		});
+	}
+}*/
+
 
 // 데이터를 등록
  document.querySelector('form').addEventListener('submit', async function(e) {

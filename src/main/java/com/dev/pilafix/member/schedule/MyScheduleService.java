@@ -18,4 +18,6 @@ public interface MyScheduleService {
 
 	Map<String, Object> getAllInfo(int csMemberCode);
 
+//	List<MyScheduleVO> getAttendanceList(int csMemberCode);
+
 }

@@ -1,16 +1,16 @@
 package com.dev.pilafix.common.sendsmshistory;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class SendSmsHistoryVO {
 	private String  shSendCode;
-	private Date shSendDatetime;
+	private Timestamp shSendDatetime;
 	private int shSendCenterCode;
 	private String shRecipientName;
 	private String shRecipientPhone;
 	private String shRecipientContent;
 	private boolean shSuccessYn;
-	private Date shSuccessDatetime;
+	private Timestamp shSuccessDatetime;
 	private String shFailReason;
 	private String shSendCenterName;
 	
@@ -20,12 +20,7 @@ public class SendSmsHistoryVO {
 	public void setShSendCode(String shSendCode) {
 		this.shSendCode = shSendCode;
 	}
-	public Date getShSendDatetime() {
-		return shSendDatetime;
-	}
-	public void setShSendDatetime(Date shSendDatetime) {
-		this.shSendDatetime = shSendDatetime;
-	}
+	
 	public int getShSendCenterCode() {
 		return shSendCenterCode;
 	}
@@ -56,10 +51,18 @@ public class SendSmsHistoryVO {
 	public void setShSuccessYn(boolean shSuccessYn) {
 		this.shSuccessYn = shSuccessYn;
 	}
-	public Date getShSuccessDatetime() {
+	
+	
+	public Timestamp getShSendDatetime() {
+		return shSendDatetime;
+	}
+	public void setShSendDatetime(Timestamp shSendDatetime) {
+		this.shSendDatetime = shSendDatetime;
+	}
+	public Timestamp getShSuccessDatetime() {
 		return shSuccessDatetime;
 	}
-	public void setShSuccessDatetime(Date shSuccessDatetime) {
+	public void setShSuccessDatetime(Timestamp shSuccessDatetime) {
 		this.shSuccessDatetime = shSuccessDatetime;
 	}
 	public String getShFailReason() {
@@ -73,14 +76,6 @@ public class SendSmsHistoryVO {
 	}
 	public void setShSendCenterName(String shSendCenterName) {
 		this.shSendCenterName = shSendCenterName;
-	}
-	@Override
-	public String toString() {
-		return "SendSmsHistoryVO [shSendCode=" + shSendCode + ", shSendDatetime=" + shSendDatetime
-				+ ", shSendCenterCode=" + shSendCenterCode + ", shRecipientName=" + shRecipientName
-				+ ", shRecipientPhone=" + shRecipientPhone + ", shRecipientContent=" + shRecipientContent
-				+ ", shSuccessYn=" + shSuccessYn + ", shSuccessDatetime=" + shSuccessDatetime + ", shFailReason="
-				+ shFailReason + ", shSendCenterName=" + shSendCenterName + "]";
 	}
 
 	

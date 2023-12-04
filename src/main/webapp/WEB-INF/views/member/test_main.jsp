@@ -180,7 +180,7 @@
 						<div class="icon-box">
 							<i class="bi bi-people"></i>
 							<h3>
-								<a href="getMemberCommunityList.do">커뮤니티 바로가기</a>
+								<a href="communityPage.do">커뮤니티 바로가기</a>
 							</h3>
 							<p>필라테스 세계에서 나만의 경험을 공유하세요. 다양한 리뷰와 정보가 당신을 기다리고 있어요!</p>
 						</div>
@@ -197,7 +197,7 @@
 
 				<div class="row">
 					<div class="col-lg-6">
-						<img src="${pageContext.request.contextPath }/resources/images/pilates-together.png"   class="img-fluid" alt="pilat">
+						<img src="${pageContext.request.contextPath }/resources/images/pilates-together.png"  class="img-fluid" alt="pilat">
 						
 					</div>
 					<div class="col-lg-6 pt-4 pt-lg-0 content">

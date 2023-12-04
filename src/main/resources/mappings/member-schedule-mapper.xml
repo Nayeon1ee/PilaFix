@@ -67,7 +67,7 @@
 </select>
 
 <!-- 당월에 출결 리스트불러오기 -->
-<!-- 출석 : step01 출석여부가 true인 값에 대해서 수업코드 가져옴 
+<!-- 출석 : step01 출석여부가 true인 값에 대해서 수업코드 가져옴 -->
 <select id="getAttendLessonCode" resultType="String">
 	SELECT
     LESSON_CODE
@@ -83,8 +83,8 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
     )
     AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
 	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);;
-</select>-->
-<!-- 결석 : step01 출석여부가 false인 값에 대해서 수업코드 가져옴 
+</select>
+<!-- 결석 : step01 출석여부가 false인 값에 대해서 수업코드 가져옴 --> 
 <select id="getAbsentLessonCode" resultType="String">
 	SELECT
     LESSON_CODE
@@ -100,8 +100,8 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
     )
     AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
 	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);;
-</select>-->
-<!-- step02 위에서 가져온 수업코드로 해당수업정보 뽑음 (출석결석 모두 이거 사용)
+</select>
+<!-- step02 위에서 가져온 수업코드로 해당수업정보 뽑음 (출석결석 모두 이거 사용) -->
 <select id="getAttendanceLessonInfo" parameterType="java.util.List" resultMap="myScheduleResult">
 	 SELECT 
         L.LS_NAME,
@@ -124,7 +124,7 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
     AND EXTRACT(MONTH FROM L.LS_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
     AND EXTRACT(YEAR FROM L.LS_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
    	ORDER BY COMBINED_DATETIME DESC
-</select>-->
+</select>
 
 <!-- ================================================출결리스트 불러오는 것 새로운거로 바꿔보기===================================== -->
 <select id="getAttendanceLessonCode" resultType="String">
@@ -168,8 +168,7 @@ WHERE T.LS_CODE IN
         #{attendancelsCode}
     </foreach>
 ORDER BY COMBINED_DATETIME DESC;
-   
-
+  
 </select>
 
 <!-- 당월의 예약 수 세오는 쿼리-->

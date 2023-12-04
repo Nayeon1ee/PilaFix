@@ -14,31 +14,16 @@
   * License: https://PilaFixmade.com/license/
   ======================================================== -->
 <style>
-        .tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  top: 20px;
-  left: 105%;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
+    
+        /* 툴팁 스타일 설정 */
+        #tooltip {
+            position: absolute;
+            display: none;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 </style>
 </head>
 <body>
@@ -127,34 +112,35 @@
 										
 									</tr>
 								</thead>
-								<c:if test="${ComplaintsInfoList == null }">
+								<c:if test="${targetComplaintsList == null }">
 									<tr>
 										<td colspan="6"> 신고 접수된 글이 없습니다.</td>
 									</tr>
 								</c:if>
 								<tbody>
-									<c:forEach var="ComplaintsInfo" items="${ComplaintsInfoList }">
+									<c:forEach var="list" items="${targetComplaintsList }">
 										<tr>
-											<td>${ComplaintsInfo.cmNumber }</td>
-											<td>${ComplaintsInfo.cmTitle }</td>
+											<td>${list.cmNumber }</td>
+											<td>${list.cmTitle }</td>
 											<td>커뮤니티</td>
-											<!-- 여기 목록으로 다시 받아야 함  -->
-											<!-- 
-											<td class="tooltip" colspan="2">
-											    <span>${ComplaintsInfo.cmBlameCount}</span>
-											    <div class="tooltip-text" title="${ComplaintsInfo.blameReasonName}">
-											        ${ComplaintsInfo.blameReasonName} 
-											    </div>
-											</td>
-											 -->
-											
-											<c:if test="${ComplaintsInfo.cmOpenYn}">
-												<td>처리 대기</td>
+																						
+										        <!-- cmNumber 파라미터를 전달하여 showTooltip 함수 호출 -->
+										        <td>
+											        <span id="targetElement" onmouseover="showTooltip('${list.cmNumber }')"  onmouseout="hideTooltip()">
+											        	${list.cmBlameCount}
+											        	<div id="tooltip" data-container="body" style="display: none;"></div>
+											        </span>
+										        </td>
+										        <!-- 툴팁을 표시할 엘리먼트 -->
+        
+        
+											<c:if test="${list.cmOpenYn}">
+												<td style="color:red">처리 대기</td>
 											</c:if>
-											<c:if test="${!ComplaintsInfo.cmOpenYn}">
-												<td>처리 완료</td>
+											<c:if test="${!list.cmOpenYn}">
+												<td >처리 완료</td>
 											</c:if>
-											<td><a href="getComplaintsInfo.do?cmCode=${ComplaintsInfo.cmCode }">원글보기</a></td>
+											<td><a href="getComplaintsDetail.do?cmNumber=${list.cmNumber}">원글보기</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -170,34 +156,46 @@
 	<!-- ======= Footer ======= -->
 	<%@ include file="admin_footer_common.jsp" %>
 	<script type="text/javascript">
-	document.addEventListener("DOMContentLoaded", function() {
-    const tooltips = document.querySelectorAll('.tooltip');
+    
+    function showTooltip(cmNumber) {
+        // blameReasonList.do를 호출하여 데이터를 가져옴
+        $.ajax({
+            url: "blameReasonList.do?cmNumber=" + cmNumber,
+            type: "GET",
+            success: function (data) {
+            	// 가져온 데이터를 툴팁으로 표시
+                var tooltipContent = "<ul>";
+                for (var i = 0; i < data.reasons.length; i++) {
+                    tooltipContent += "<li>" + data.reasons[i].blameReasonName + "</li>";
+                }
+                tooltipContent += "</ul>";
 
-    tooltips.forEach(tooltip => {
-        tooltip.addEventListener('mouseover', function(event) {
-            const cmBlameCount = this.querySelector('span').textContent; // cmBlameCount 가져오기
+                // 툴팁을 표시할 엘리먼트에 동적으로 HTML 추가
+                $("#tooltip").html(tooltipContent);
 
-            // Ajax 요청
-            fetch(`/getBlameReasons?cmCode=${cmCode}`)
-                .then(response => response.json())
-                .then(data => {
-                    // JSON 데이터를 툴팁에 표시
-                    const tooltipText = this.querySelector('.tooltip-text');
-                    tooltipText.textContent = JSON.stringify(data, null, 2);
+                // 툴팁을 보여줄 위치 설정 및 표시
+                 // 마우스 위치에 툴팁을 표시
+                var mouseX = event.clientX;
+                var mouseY = event.clientY;
 
-                    tooltipText.style.visibility = 'visible';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                $("#tooltip").css({
+                    top: mouseY + 10, // 위에서 10px 내리기
+                    left: mouseX + 10 // 왼쪽에서 10px 이동
+                }).show();
+                
+                
+            },
+            error: function () {
+                console.error("신고사유 가져오기 실패");
+            }
         });
+    }
 
-        tooltip.addEventListener('mouseout', function() {
-            const tooltipText = this.querySelector('.tooltip-text');
-            tooltipText.style.visibility = 'hidden'; // 툴팁 숨기기
-        });
-    });
-});
+    function hideTooltip() {
+        // 툴팁 숨김
+        $("#tooltip").html("");
+    }
+    
 	</script>
 	<!--내가 만든 JS File -->
 	<script

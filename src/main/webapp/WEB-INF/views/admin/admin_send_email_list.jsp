@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="admin_header_common.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ include file="admin_header_common.jsp"%>
 <html class="yourHtmlString">
   <main id="main" class="main">
     <div class="pagetitle">
@@ -102,8 +102,24 @@
 					<td><a href="getSendEmailHistoryInfo.do?mhEmailSendCode=${sendEmailHistoryInfo.mhEmailSendCode }">${sendEmailHistoryInfo.mhRecipientTitle }</a></td>
 					<td>${sendEmailHistoryInfo.mhRecipientEmail }</td>
 					<td>${sendEmailHistoryInfo.mhSuccessyn }</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhSuccessDatetime }"/></td>
-					<td>${sendEmailHistoryInfo.mhFailReason }</td>
+					<c:choose>
+						<c:when	test="${sendEmailHistoryInfo.mhSuccessDatetime eq null }">
+							<td>-</td>
+						</c:when>
+						<c:otherwise>
+							<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${sendEmailHistoryInfo.mhSuccessDatetime }"/></td>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when	test="${sendEmailHistoryInfo.mhFailReason eq null }">
+							<td>-</td>
+						</c:when>
+						<c:otherwise>
+							<td>${sendEmailHistoryInfo.mhFailReason }</td>
+						</c:otherwise>
+					</c:choose>
+						
+						
                   </tr>
                   </c:forEach>
                 </tbody>

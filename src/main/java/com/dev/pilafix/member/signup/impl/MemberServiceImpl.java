@@ -1,5 +1,6 @@
 package com.dev.pilafix.member.signup.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -141,7 +142,7 @@ public class MemberServiceImpl implements MemberService {
 
 		if(flag == 1) {
 			email.setMhSuccessYN(true);
-			email.setMhSuccessDate(java.time.LocalDateTime.now());
+			email.setMhSuccessDate(Timestamp.valueOf(java.time.LocalDateTime.now()));
 		}else {
 			email.setMhSuccessYN(false);
 			email.setMhFailReason(errorMessage);

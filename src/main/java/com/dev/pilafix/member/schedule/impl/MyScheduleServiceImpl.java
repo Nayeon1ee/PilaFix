@@ -47,4 +47,9 @@ public class MyScheduleServiceImpl implements MyScheduleService{
 		return dao.getAllInfo(csMemberCode);
 	}
 
+//	@Override
+//	public List<MyScheduleVO> getAttendanceList(int csMemberCode) {
+//		return dao.getAttendanceList(csMemberCode);
+//	}
+
 }

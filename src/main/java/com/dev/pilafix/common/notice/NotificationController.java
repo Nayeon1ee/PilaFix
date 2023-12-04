@@ -19,7 +19,6 @@ public class NotificationController {
 	 * 미확인 알림 개수 반환 
 	 * (화면에 동적으로 보여지기 위함) 
 	 * 
-	 * 비동기 통신 추가하기 !! 
 	 * 
 	 * @param csMemberCode
 	 * @return

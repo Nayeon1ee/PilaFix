@@ -30,7 +30,7 @@ $(document).ready(function() {
     	            console.error('AJAX 요청 시 에러', error);
     	        }
     	    });
-    	}, 3000); // 3초에 한 번씩 실행 추후에 3000으로 바꾸기
+    	}, 30000000); // 3초에 한 번씩 실행 추후에 3000으로 바꾸기
     }
 });
 
@@ -63,12 +63,15 @@ function handleNotificationClick() {
 	            	 response.forEach(function (item) {
 	                    let eventType = item.eventType; 
 						let ncId = item.ncId;
-						let ncReadYN = item.ncReadYN;
+						let ncReadYn = item.ncReadYn;
 						
-						if(ncReadYN){ //사용자가 확인했다면 
-							var gstr = '<a class="dropdown-item"  style="color: #3c3c3d; background-color: #515152;" onclick="requestView(\''+ eventType + '\')">'; 
+						console.log("읽음여부");
+						console.log(item.ncReadYn);
+						
+						if(ncReadYn){ //사용자가 확인했다면 
+							var gstr = '<a class="dropdown-item" style="background-color: #f8f9fa;"  onclick="requestView(\''+ eventType + '\')">'; 
 						}else{
-							var gstr = '<a class="dropdown-item" onclick="updateNoticeStatus(\'' + ncId + '\',\'' + eventType + '\')">'; //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
+							var gstr = '<a class="dropdown-item" style="background-color: #f8f4ff;" onclick="updateNoticeStatus(\'' + ncId + '\',\'' + eventType + '\')">'; //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
 						}
 						gstr += '<div>';
 	
@@ -126,7 +129,7 @@ function requestView(eventType){
 	if(eventType === '예약' || eventType  === '예약취소'){ //예약이거나 예약취소이면 내스케줄 페이지
 		window.location.href='schedule.do';
 	}else{
-		window.location.href='#'; //추후 공지사항으로 이동 
+		window.location.href='myNoticePage.do'; //추후 공지사항으로 이동 
 	}
 }
 

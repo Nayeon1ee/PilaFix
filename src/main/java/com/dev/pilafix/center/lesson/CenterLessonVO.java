@@ -40,12 +40,93 @@ public class CenterLessonVO {
 	private int reservedCount;
 	private int attendedCount;
 	private int absentCount;
-    private List<MemberVO> reservedMembers;
+	private List<MemberVO> reservedMembers;
 
 	private String atCode;
 	private String lessonCode;
 
 	private String lsStartTime;
+
+	private List<DataListVO> list;
+
+	public CenterLessonVO() {
+
+	}
+	
+	public CenterLessonVO(String lsCode, String lsName, String lsType, Date lsDate, String lsTime, int lsCapacity,
+			int trainerMemberCode, String lsContent, int centerCode) {
+		this.lsCode = lsCode;
+		this.lsName = lsName;
+		this.lsType = lsType;
+		this.lsDate = lsDate;
+		this.lsTime = lsTime;
+		this.lsCapacity = lsCapacity;
+		this.trainerMemberCode = trainerMemberCode;
+		this.lsContent = lsContent;
+		this.centerCode = centerCode;
+	}
+
+	public CenterLessonVO(String lsCode, String lsName, String lsType, Date lsDate, String lsTime, int lsCapacity,
+			int lsCurrentApplicants, int trainerMemberCode, String trainerMemberName, String lsContent, int centerCode,
+			String centerName, Date lsRegistrationDate, boolean lsCloseYN) {
+		this.lsCode = lsCode;
+		this.lsName = lsName;
+		this.lsType = lsType;
+		this.lsDate = lsDate;
+		this.lsTime = lsTime;
+		this.lsCapacity = lsCapacity;
+		this.lsCurrentApplicants = lsCurrentApplicants;
+		this.trainerMemberCode = trainerMemberCode;
+		this.trainerMemberName = trainerMemberName;
+		this.lsContent = lsContent;
+		this.centerCode = centerCode;
+		this.centerName = centerName;
+		this.lsRegistrationDate = lsRegistrationDate;
+		this.lsCloseYN = lsCloseYN;
+	}
+
+	public CenterLessonVO(String lsCode, String lsName, String lsType, Date lsDate, String lsTime, int lsCapacity,
+			int lsCurrentApplicants, int trainerMemberCode, String trainerMemberName, String lsContent, int centerCode,
+			String centerName, Date lsRegistrationDate, boolean lsCloseYN, String lsRegistrationDateToString,
+			Timestamp lsTimeDB, String lsEndTime, Timestamp lessonDatetime, int csMemberCode, String csName,
+			int groupCount, int personalCount, int closedGroupCount, int closedPersonalCount, String lsCenterName,
+			int reservedCount, int attendedCount, int absentCount, List<MemberVO> reservedMembers, String atCode,
+			String lessonCode, String lsStartTime, List<DataListVO> list) {
+		super();
+		this.lsCode = lsCode;
+		this.lsName = lsName;
+		this.lsType = lsType;
+		this.lsDate = lsDate;
+		this.lsTime = lsTime;
+		this.lsCapacity = lsCapacity;
+		this.lsCurrentApplicants = lsCurrentApplicants;
+		this.trainerMemberCode = trainerMemberCode;
+		this.trainerMemberName = trainerMemberName;
+		this.lsContent = lsContent;
+		this.centerCode = centerCode;
+		this.centerName = centerName;
+		this.lsRegistrationDate = lsRegistrationDate;
+		this.lsCloseYN = lsCloseYN;
+		this.lsRegistrationDateToString = lsRegistrationDateToString;
+		this.lsTimeDB = lsTimeDB;
+		this.lsEndTime = lsEndTime;
+		this.lessonDatetime = lessonDatetime;
+		this.csMemberCode = csMemberCode;
+		this.csName = csName;
+		this.groupCount = groupCount;
+		this.personalCount = personalCount;
+		this.closedGroupCount = closedGroupCount;
+		this.closedPersonalCount = closedPersonalCount;
+		this.lsCenterName = lsCenterName;
+		this.reservedCount = reservedCount;
+		this.attendedCount = attendedCount;
+		this.absentCount = absentCount;
+		this.reservedMembers = reservedMembers;
+		this.atCode = atCode;
+		this.lessonCode = lessonCode;
+		this.lsStartTime = lsStartTime;
+		this.list = list;
+	}
 
 	public String getLsCode() {
 		return lsCode;
@@ -303,6 +384,13 @@ public class CenterLessonVO {
 		this.lsStartTime = lsStartTime;
 	}
 
+	public List<DataListVO> getList() {
+		return list;
+	}
+
+	public void setList(List<DataListVO> list) {
+		this.list = list;
+	}
 	
 	public Timestamp getLessonEndDatetime() {
 		return lessonEndDatetime;
@@ -325,9 +413,9 @@ public class CenterLessonVO {
 				+ ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount=" + closedPersonalCount
 				+ ", lsCenterName=" + lsCenterName + ", reservedCount=" + reservedCount + ", attendedCount="
 				+ attendedCount + ", absentCount=" + absentCount + ", reservedMembers=" + reservedMembers + ", atCode="
-				+ atCode + ", lessonCode=" + lessonCode + ", lsStartTime=" + lsStartTime + "]";
+				+ atCode + ", lessonCode=" + lessonCode + ", lsStartTime=" + lsStartTime + ", list=" + list + "]";
 	}
 
 	
-	
+
 }
