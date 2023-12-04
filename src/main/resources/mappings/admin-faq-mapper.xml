@@ -25,7 +25,7 @@
 	
 	<insert id="insertFaqInfo" parameterType="faqInfo">
 		INSERT INTO TBL_FAQ(FQ_NUMBER, FQ_TITLE, FQ_CONTENT, FQ_WRITER_MEMBER_CODE, FQ_REGDATE, FQ_OPEN_YN, FQ_TYPE)
-		VALUES(nextval('seq_faq'), #{fqTitle}, #{fqContent}, #{fqWriterMemberCode}, CURRENT_TIMESTAMP, #{fqOpenYn} , #{fqType})
+		VALUES(nextval('seq_faq'), #{fqTitle}, #{fqContent}, #{fqWriterMemberCode}, CURRENT_TIMESTAMP, true , #{fqType})
 	</insert>
 	
 	<update id="updateFaqInfo" parameterType="faqInfo">

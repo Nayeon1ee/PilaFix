@@ -54,8 +54,7 @@
 										<!-- 연동요청 번호 대신 순번 -->
 										<td>${list.memberName }</td>
 										<td>${list.memberPhone }</td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm"
-												value="${list.crReqDate}" /></td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${list.crReqDate}" /></td>
 
 										<td>
 											<div class="d-grid gap-2 d-md-block">
