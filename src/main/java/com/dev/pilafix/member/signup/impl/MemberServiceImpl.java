@@ -131,7 +131,7 @@ public class MemberServiceImpl implements MemberService {
 		//====이메일 발송 이력 등록======
 		SendEmailHistoryVO email = new SendEmailHistoryVO();
 		email.setMhEmailSendType("회원가입 인증");
-		email.setMhRecipientName("회원"); //회원가입시 회원은 이름이 없음
+		email.setMhRecipientName(csEmailId); //회원가입시 이름입력보다 이메일 전송을 먼저해서 회원은 이름이 없음 그래서 이력 쌓을 때 이름대신 email넣어줌
 		email.setMhRecipientTitle(title);
 		email.setMhRecipientContent(content.toString());
 		email.setMhRecipientEmail(toSend);

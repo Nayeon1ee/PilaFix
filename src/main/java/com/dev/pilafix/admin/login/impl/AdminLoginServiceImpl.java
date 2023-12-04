@@ -1,5 +1,6 @@
 package com.dev.pilafix.admin.login.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -109,8 +110,14 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
 	//통계 총 회원수&센터 계약수 세오기ㅣ
  	@Override
-	public Map<String, Integer> getTotalMemberCount() {
+	public AdminVO getTotalMemberCount() {
 		return dao.getTotalMemberCount();
+	}
+ 	
+ 	// 통계 월별 계약수 가져오기
+	@Override
+	public Map<String,Object> getMonthlyContractCount() {
+		return dao.getMonthlyContractCount();
 	}
 
 
