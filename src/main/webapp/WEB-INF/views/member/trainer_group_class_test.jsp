@@ -87,17 +87,10 @@
 			<!-- 수업 상세 정보 -->
 				<section class="explanation text-center py-5">
 				    <div class="container">
-				    <p class="h3 mb-0">
-				    <strong class="text-primary" >
-                        ${lessonDetail.lsName}
-                    </strong></p>
-                    <br>
-
-				    <p class="lead">${lessonDetail.lsContent} </p> <!-- 수업 설명 -->
-
+				    
 				    <!-- 수업시간 --> 
 					<span  style="display: inline-block;">
-                        ${lessonDetail.lsDate} 
+                    ${lessonDetail.lsDate} 
                     </span>
                     <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
                     <c:choose>
@@ -111,6 +104,21 @@
                     <span  style="display: inline-block;">
                         ${fn:substring(lessonDetail.lsTime, 11, 16)}
                     </span>
+                    <br>
+                    <p class="h3 mb-0">
+				    <strong class="text-primary" >
+                        ${lessonDetail.lsName}
+                    </strong></p>
+                    <br>
+<%-- 				<div class="col-md-12">
+                	<label class="form-label" style="text-align: center;">수업 설명</label>
+                	 <textarea readonly class="form-control" style="height: 300px;" disabled>${lessonDetail.lsContent} 
+					</textarea>
+				</div> --%>
+				
+<div class="output-text" style="text-align:center; white-space: pre-line; ">
+    ${lessonDetail.lsContent}
+</div>
 				    </div>
 				</section>
 

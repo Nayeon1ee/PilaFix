@@ -88,7 +88,7 @@
 					class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2" style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i>
-						내 정보 관리
+						내 정보 관리</a>
 					</div>
 				</div>
 
