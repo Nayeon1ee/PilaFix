@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
+import com.dev.pilafix.center.lesson.DataListVO;
 
 @Repository
 public class CenterLessonDAO {
@@ -24,8 +25,14 @@ public class CenterLessonDAO {
 	}
 	
 	public int insertCenterLesson(CenterLessonVO vo) {
+		System.out.println("과연" + vo);
 		return sqlSessionTemplate.insert("CenterLessonDAO.insertCenterLesson", vo);
 	}
+	
+//	public int insertCenterLesson(dataListVO vo) {
+//		System.out.println("과연" + vo);
+//		return sqlSessionTemplate.insert("CenterLessonDAO.insertCenterLesson", vo);
+//	}
 	
 	public int deleteCenterLesson(String lsCode) {
 		return sqlSessionTemplate.delete("CenterLessonDAO.deleteCenterLesson", lsCode);
