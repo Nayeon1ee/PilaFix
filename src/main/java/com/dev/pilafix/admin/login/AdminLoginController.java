@@ -236,6 +236,33 @@ public class AdminLoginController {
 		
 		return service.getMonthlyContractCount();
 	}
-
+	/**
+	 * 통계 : 연령대별 회원 수 
+	 * @return
+	 */
+	@PostMapping("countMemberAge.do")
+	@ResponseBody
+	public Map<String,Object> countMemberAge() {
+		return service.countMemberAge();
+	}
+	
+	/**
+	 * 통계 : 성별 회원 수 
+	 * @return
+	 */
+	@PostMapping("countGenterRatio.do")
+	@ResponseBody
+	public Map<String,Integer> countGenterRatio() {
+		return service.countGenterRatio();
+	}
+	
+	/**
+	 * 통계 : 시도별 계약 건수
+	 */
+	@PostMapping("centerRegionCount.do")
+	@ResponseBody
+	public Map<String,Integer> centerRegionCount(){
+		return service.centerRegionCount();
+	}
 
 }
