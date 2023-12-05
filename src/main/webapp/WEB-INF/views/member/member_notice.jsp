@@ -168,7 +168,9 @@
 								<li
 									class="list-group-item d-flex justify-content-between align-items-start">
 									<div class="ms-2 me-auto">
-										<a href="noticeDetail.do?code=${noticeW.iwNumber}">${noticeW.title}</a>
+
+<a href="javascript:void(0);" class="notice-link" data-iwnumber="${noticeW.iwNumber}">${noticeW.title}</a>
+
 									</div> 조회수: ${noticeW.cnt}
 									<div class="badge rounded-pill my-auto ms-2"
 										style="background-color: #9b56e9;">${noticeW.regDate}</div>
@@ -189,7 +191,7 @@
 	</main>
 
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			// 페이지 로드시 센터 정보를 표시하고 필라픽스 정보는 숨깁니다.
@@ -208,6 +210,39 @@
 			});
 		});
 	</script>
+
+	
+	
+<!-- 조회수증가 -->	
+<script>
+$('.notice-link').on('click', function(e) {
+    var icNumber = $(this).data('icnumber');
+    var iwNumber = $(this).data('iwnumber');
+
+    // AJAX 요청을 통해 조회수 증가
+    $.ajax({
+        url: 'increaseInfoViewCount.do',
+        type: 'POST',
+        data: { icNumber: icNumber, iwNumber: iwNumber },
+        success: function(response) {
+            // 성공하면 상세 페이지로 이동
+            if(icNumber) {
+                window.location.href = 'noticeDetail.do?icNumber=' + icNumber;
+            } else if(iwNumber) {
+                window.location.href = 'noticeDetail.do?iwNumber=' + iwNumber;
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to increase view count:', error);
+        }
+    });
+});
+</script>	
+	
+	
+	
+=======
+
 	<!-- <script>
 $(document).ready(function() {
 /*     // 초기에 "센터" 탭이 선택되도록 설정

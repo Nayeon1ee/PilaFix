@@ -16,9 +16,15 @@
 		<div
 			class="container d-flex justify-content-center justify-content-md-between">
 			<div class="contact-info d-flex align-items-center">
+
+				<i class="bi bi-envelope d-flex align-items-center">
+				<a href="#" style="pointer-events: none;">${sessionScope.loginUser.csEmailId}</a></i> 
+
+
 				<i class="bi bi-envelope d-flex align-items-center"><a
 					href="mailto:contact@example.com">${sessionScope.loginUser.csEmailId}</a></i> 
 <!-- <i class="bi bi-phone d-flex align-items-center ms-4"><span>+102-1234-5678</span></i> -->
+
 			</div>
 			<ul>
 <!-- 				<li class="login"><a href="#">로그인</a></li>
@@ -87,12 +93,7 @@
 			<%-- 로그인/로그아웃 상태 확인 --%>
 
 			<c:set var="user" value="${sessionScope.loginUser}" />
-<%-- 			<%
-			// 로그인 상태 확인
-			boolean isLoggedIn = session.getAttribute("loginUser") != null;
-			String loginLogoutText = isLoggedIn ? "로그아웃" : "로그인";
-			String csRoleCode = (String) session.getAttribute("csRoleCode");
-			%> --%>
+
 			<!--  start nav -->
 			<nav id="navbar" class="navbar">
 				<ul>
@@ -130,7 +131,8 @@
 <li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
 		<i class="bi bi-chevron-down"></i></a>
 	<ul>
-		<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
+		<li class="dropdown"><a href="myInfoManage.do">
+		<span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
 		<li><a href="myNoticePage.do">공지사항</a></li>
 		<li><a href="myConnectedCenter.do">연동센터관리</a></li>
 		<li><a href="myFAQpage.do">FAQ</a></li>
@@ -138,81 +140,7 @@
 	</ul></li>
 </c:otherwise>
 </c:choose>					
-					
 
-<%-- <% if ("ME".equals((String)session.getAttribute("csRoleCode")))  { %>
-<li><a href="ticketPage.do">수강권 결제</a></li>
-<li><a href="reservPage.do">예약하기</a></li>
-<li><a href="communityPage.do">커뮤니티</a></li>
-<li><a href="member_notice.do">공지사항</a></li>
-<!-- <li><a href="member_mypage.do">마이페이지</a></li>  -->
-<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
-		<i class="bi bi-chevron-down"></i></a>
-	<ul>
-
-		<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
-		<li><a href="myNoticePage.do">공지사항</a></li>
-		<li><a href="getPaymentHistory.do">결제내역</a></li>
-		<li><a href="myConnectedCenter.do">연동센터관리</a></li>
-		<li><a href="myFAQpage.do">FAQ</a></li>
-		<li><a href="questionPage.do">문의사항</a></li>
-		<li><a href="myTermsPage.do">약관및정책</a></li>
-	</ul></li>
-
-<% } else { %>
-<!-- 강사인 경우 -->
-<li><a href="trainerLessonPage.do">수업관리</a></li>
-<li><a href="communityPage.do">커뮤니티</a></li>
-<li><a href="member_notice.do">공지사항</a></li>
-<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
-		<i class="bi bi-chevron-down"></i></a>
-	<ul>
-		<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
-		<li><a href="myNoticePage.do">공지사항</a></li>
-		<li><a href="myConnectedCenter.do">연동센터관리</a></li>
-		<li><a href="myFAQpage.do">FAQ</a></li>
-		<li><a href="myTermsPage.do">약관및정책</a></li>
-	</ul></li>
-<% } %> --%>
-
-
-
-<!-- 					<li><a href="ticketPage.do">수강권 결제</a></li>
-					<li><a href="reservPage.do">예약하기</a></li>
-					<li><a href="communityPage.do">커뮤니티</a></li>
-					<li><a href="member_notice.do">공지사항</a></li>
-					<li><a href="member_mypage.do">마이페이지</a></li> 
-					<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
-							<i class="bi bi-chevron-down"></i></a>
-						<ul>
-
-							<li class="dropdown"><a href="myInfoManage.do"><span>내정보관리</span><iclass="bi bi-chevron-right"></i></a></li>
-							<li><a href="myNoticePage.do">공지사항</a></li>
-							<li><a href="getPaymentHistory.do">결제내역</a></li>
-							<li><a href="myConnectedCenter.do">연동센터관리</a></li>
-							<li><a href="myFAQpage.do">FAQ</a></li>
-							<li><a href="questionPage.do">문의사항</a></li>
-							<li><a href="myTermsPage.do">약관및정책</a></li>
-						</ul></li> -->
-
-<%-- 					<%
-					if (isLoggedIn) {
-					%>
-					<!-- 로그아웃 처리를 위한 폼 -->
-					<li>
-						<form action="logout.do" method="post">
-							<button type="submit" class="nav-link"
-								style="background: none; border: none; padding: 5px; margin: 0; color: inherit; font-size: small; text-decoration: underline;">로그아웃</button>
-						</form>
-					</li>
-					<%
-					} else {
-					%>
-					<!-- 로그인 페이지 링크 -->
-					<li><a href="memberLogin.do">로그인</a></li>
-					<%
-					}
-					%> --%>
 
 					<!--  알림 부분-->
 					<li class="nav-item dropdown"><a

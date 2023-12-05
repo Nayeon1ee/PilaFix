@@ -47,7 +47,11 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
-
+<style>
+   input[disabled], textarea[disabled] {
+       background-color: white !important;
+   }
+</style>
 </head>
 <!-- 내 css -->
 <link rel="stylesheet"

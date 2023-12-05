@@ -55,6 +55,20 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 		return dao.withdrawMember(csMemberCode);
 	}
 
+	
+	
+	@Override
+    public boolean checkPassword(int csMemberCode, String currentPassword) {
+        MemberVO member = logindao.getMemberInfo(csMemberCode);
+        if (member != null && member.getCsPassword() != null) {
+            return encoder.matches(currentPassword, member.getCsPassword());
+        }
+        return false;
+    }
+
+
+
+
 	/**
 	 * 개인수강권
 	 */
@@ -96,11 +110,29 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	public AdminInfoVO getAdminInfoByMember(int iwNumber) {
 		return dao.getAdminInfoByMember(iwNumber);
 	}
+	
+	/**
+	 * 공지사항 조회수
+	 */
+	@Override
+	public void increaseCenterInfoViewCount(int icNumber) {
+		dao.increaseCenterInfoViewCount(icNumber);
+	}
+	@Override
+	public void increaseAdminInfoViewCount(int iwNumber) {
+		dao.increaseAdminInfoViewCount(iwNumber);
+	}
 
 	/**
 	 * 웹관리자의 FAQ 리스트 상세
 	 * 작성자 '필라픽스' 로 고정
 	 */
+	
+	//회원/강사 코드로 나눠서 가져오는 리스트
+	@Override
+	public List<FaqVO> selectFAQbyRole(String csRoleCode){
+		return dao.selectFAQbyRole(csRoleCode);
+	}
 	@Override
 	public List<FaqVO> getFAQListByMember() {
 		return dao.getFAQListByMember();
@@ -125,5 +157,7 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	public List<TermsVO> getMyTermsListByMember() {
 		return dao.getMyTermsListByMember();
 	}
+
+
 
 }

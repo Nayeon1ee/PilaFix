@@ -167,7 +167,10 @@
                             class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <strong>A</strong> <br> ${faq.fqContent}
+                            <strong>A</strong>
+	                        <div class="output-text" style="text-align:left; white-space: pre-line; ">     
+	                            ${faq.fqContent}
+	                        </div>    
                         </div>
                     </div>
                 </div>
