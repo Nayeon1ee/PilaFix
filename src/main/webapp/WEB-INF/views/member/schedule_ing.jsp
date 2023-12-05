@@ -78,7 +78,7 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
@@ -188,9 +188,11 @@
 	<!-- 내 js -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	
+	<!--  캘린더 js 1 -->
 
-<!-- 캘린더 js -->
+<!-- 캘린더 js 2-->
+
+
 <script>
    document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
@@ -205,6 +207,8 @@
             right: 'next'
          },
          
+
+
          selectable: true,
          themeSystem: 'bootstrap', // 부트스트랩 테마 사용
          bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함
@@ -230,11 +234,37 @@
             day: '일',
             list: '목록'
          },
-         eventContent: function(arg) {
-            return {
-               html: '<div style="background-color: #9b56e9; color: white; padding: 5px;">' + arg.event.title + '</div>'
-            };
-         },
+                 
+         
+         eventClick: function(info) {
+     	    var eventTitle = info.event.title;
+     	    var eventDescription = info.event.extendedProps.description;
+
+     	    var modalContent = '<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">';
+     	    modalContent += '<div class="modal-dialog">';
+     	    modalContent += '<div class="modal-content">';
+     	    modalContent += '<div class="modal-header">';
+     	    modalContent += '<h5 class="modal-title" id="eventModalLabel">' + eventTitle + '</h5>';
+     	    modalContent += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+     	    modalContent += '</div>';
+     	    modalContent += '<div class="modal-body">';
+     	    modalContent += '<p>' + eventDescription + '</p>';
+     	    modalContent += '</div>';
+     	    modalContent += '<div class="modal-footer">';
+     	    modalContent += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>';
+     	    modalContent += '</div>';
+     	    modalContent += '</div>';
+     	    modalContent += '</div>';
+     	    modalContent += '</div>';
+
+     	    
+     	    $('body').append(modalContent);
+
+     	    
+     	    var eventModal = new bootstrap.Modal(document.getElementById('eventModal'), {});
+     	    eventModal.show();
+     	},
+         
          
        // ajax로 캘린더에 일정 넣기
          eventSources: [{

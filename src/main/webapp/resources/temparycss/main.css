@@ -194,7 +194,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc {
 
   /* "primary" coloring 
-  	³¯Â¥ ¾ç ¿· È­»ìÇ¥
+  	ï¿½ï¿½Â¥ ï¿½ï¿½ ï¿½ï¿½ È­ï¿½ï¿½Ç¥
   */
 
 }
@@ -288,7 +288,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     align-items: center;
   }
 .fc .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 1.5em;
+    margin-bottom: 0.5em;
   }
 .fc .fc-toolbar.fc-footer-toolbar {
     margin-top: 1.5em;
@@ -713,7 +713,7 @@ A HORIZONTAL event
     position: relative;
     z-index: 1; /* container inner z-index's because <tr>s can't do it */
   }
-.fc .fc-daygrid-day.fc-day-today { /*¿À´Ã ³¯Â¥ »ö»ó*/
+.fc .fc-daygrid-day.fc-day-today { /*ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½*/
       background-color: #f0e9fd;
       background-color: var(--fc-today-bg-color, #f0e9fd);
     }
@@ -1133,7 +1133,7 @@ A VERTICAL event
   bottom: 0;
   left: 0;
   }
-.fc .fc-timegrid-col.fc-day-today { /*¿À´Ã ³¯Â¥ »ö»ó*/
+.fc .fc-timegrid-col.fc-day-today { /*ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½*/
       background-color: #f0e9fd;
       background-color: var(--fc-today-bg-color, #f0e9fd);
     }
