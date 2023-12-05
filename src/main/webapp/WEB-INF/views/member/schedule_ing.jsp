@@ -65,7 +65,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_myschedule.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
 
 <body>
 
@@ -97,14 +97,39 @@
 				<!-- 7:3 비율 잡기 위한 컨테이너 -->
 				<div class="container d-flex justify-content-center p-0 m-0">
 					<div class="row">
-					<div id='calendar'></div>
+					 <div>
+        <table class="Calendar">
+            <thead>
+                <tr>
+                    <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+                    <td colspan="5">
+                        <span id="calYear"></span>년
+                        <span id="calMonth"></span>월
+                    </td>
+                    <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+                </tr>
+                <tr>
+                    <td>일</td>
+                    <td>월</td>
+                    <td>화</td>
+                    <td>수</td>
+                    <td>목</td>
+                    <td>금</td>
+                    <td>토</td>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 					</div>
 					<!-- 7:3 비율 컨테이너 닫기 -->
 
 
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-4">
-							<div class="card rounded">
+							<div class="card rounded mt-4">
 								<div class="card-header bg-white" style="height: 100px;">
 									<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
 									<ul id="nav5" class="nav justify-content-around">
@@ -118,7 +143,7 @@
 								</div>
 							</div>
 						<div class="content border rounded p-3"
-							style="min-height: 500px; max-height: 500px; ">
+							style="min-height: 530px; max-height: 530px; ">
 
 
 
@@ -207,7 +232,6 @@
             right: 'next'
          },
          
-
 
          selectable: true,
          themeSystem: 'bootstrap', // 부트스트랩 테마 사용
@@ -598,6 +622,9 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+
+<script
+		src="${pageContext.request.contextPath}/resources/js/calendar.js"></script>
 
 </body>
 
