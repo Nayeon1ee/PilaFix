@@ -45,7 +45,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <!-- 내 css -->
 
@@ -153,39 +153,57 @@
 
 
 
-
-				<!-- 로그인 실패 메시지 표시 -->
-				<c:if test="${not empty message}">
-					<!-- <div class="alert alert-danger" role="alert"> -->
-            ${message}
-	<!-- </div> -->
-				</c:if>
-
-
-				<script type="text/javascript">
-    function validateLoginForm() {
-        var email = document.getElementById('csEmailId').value;
-        var password = document.getElementById('csPassword').value;
-        if (!email || !password) {
-            alert('아이디와 비밀번호를 모두 입력해주세요.');
-            return false;
-        }
-        return true;
-    }
-
-    //로그인실패
-    function loginFailed() {
-        alert('아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.');
-    }   
-    function passwordCertification(){
-    	let email = document.getElementById(elementId: '');   	
-    }
-
-</script>
 				<!-- End Our Skills Section -->
 			</div>
 		</section>
 	</main>
+<!-- 로그인 실패 메시지 모달 -->
+<div class="modal fade" id="loginFailureModal" tabindex="-1" role="dialog" aria-labelledby="loginFailureModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginFailureModalLabel">로그인 실패</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // 로그인 실패 메시지가 존재하는 경우 모달 표시
+        var loginError = '${loginError}';
+        if (loginError && loginError.trim() !== '') {
+            $('#loginFailureModal').modal('show');
+        }
+    });
+</script>
+<script>
+    function validateLoginForm() {
+        var emailInput = document.getElementById('floatingInput');
+        var passwordInput = document.getElementById('floatingPassword');
+
+        if (emailInput.value === '') {
+            // 이메일 입력란이 비어 있으면 이메일 입력란에 포커스
+            emailInput.focus();
+            return false;
+        }
+
+        if (passwordInput.value === '') {
+            // 비밀번호 입력란이 비어 있으면 비밀번호 입력란에 포커스
+            passwordInput.focus();
+            return false;
+        }
+
+        return true;
+    }
+</script>	
 
 	<!-- End #main -->
 

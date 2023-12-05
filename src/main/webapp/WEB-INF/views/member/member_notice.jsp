@@ -68,7 +68,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="mainPge.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>notice</li>
 				</ol>
 				<h2>공지사항</h2>
@@ -149,7 +149,11 @@
 								<li
 									class="list-group-item d-flex justify-content-between align-items-start">
 									<div class="ms-2 me-auto">
-										<a href="noticeDetail.do?code=${noticeC.icNumber}">${noticeC.title}</a>
+
+
+<%-- <a href="noticeDetail.do?icNumber=${noticeC.icNumber}">${noticeC.title}</a> --%>
+<a href="javascript:void(0);" class="notice-link" data-icnumber="${noticeC.icNumber}">${noticeC.title}</a>
+
 									</div> 조회수: ${noticeC.cnt}
 									<div class="badge rounded-pill my-auto ms-2"
 										style="background-color: #9b56e9;">${noticeC.regDate}</div>
@@ -168,7 +172,7 @@
 								<li
 									class="list-group-item d-flex justify-content-between align-items-start">
 									<div class="ms-2 me-auto">
-										<a href="noticeDetail.do?code=${noticeW.iwNumber}">${noticeW.title}</a>
+										<a href="noticeDetail.do?iwNumber=${noticeW.iwNumber}">${noticeW.title}</a>
 									</div> 조회수: ${noticeW.cnt}
 									<div class="badge rounded-pill my-auto ms-2"
 										style="background-color: #9b56e9;">${noticeW.regDate}</div>
@@ -208,6 +212,34 @@
 			});
 		});
 	</script>
+	
+<script>
+$(document).ready(function() {
+    $('.notice-link').on('click', function(e) {
+        e.preventDefault(); 
+        var icNumber = $(this).data('icnumber'); 
+
+        // Ajax 요청을 통해 조회수를 증가
+        $.ajax({
+            url: 'increaseViewCount.do', 
+            type: 'POST',
+            data: { icNumber: icNumber },
+            success: function(response) {
+                // 성공 처리: 사용자를 공지사항 상세 페이지로 리다이렉트
+                window.location.href = 'noticeDetail.do?icNumber=' + icNumber;
+            },
+            error: function(xhr, status, error) {
+                // 에러 처리
+                console.error('Failed to increase view count:', error);
+            }
+        });
+    });
+});
+
+</script>	
+	
+	
+	
 	<!-- <script>
 $(document).ready(function() {
 /*     // 초기에 "센터" 탭이 선택되도록 설정
