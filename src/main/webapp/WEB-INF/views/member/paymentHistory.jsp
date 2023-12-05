@@ -68,7 +68,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="myPage.do">마이페이지</a></li>
+					<li><a href="main.do">Home</a></li>
 					<li>payment History</li>
 				</ol>
 				<h2>결제내역</h2>
@@ -82,7 +82,12 @@
 			<!-- 결체취소 카드 부분 전체 영역 -->
 			<div class="container mx-auto" style="max-width: 700px;">
 
-
+				<div id="userInfo" class="d-flex align-items-center mb-2">
+					<div id="myInfoLink" class="ms-4 mr-2"
+						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
+						<i class="fas fa-cog mr-1"></i>내 정보 관리
+					</div>
+				</div>
 				<c:if test="${empty paymentInfo}">
 					<div class="payment-history">아직 결제하신 수강권이 없습니다.</div>
 				</c:if>
