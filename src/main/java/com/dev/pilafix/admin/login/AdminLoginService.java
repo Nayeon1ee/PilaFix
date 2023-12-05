@@ -34,6 +34,9 @@ public interface AdminLoginService {
 	AdminVO getTotalMemberCount();
 	
 	Map<String,Object> getMonthlyContractCount();
+	Map<String, Object> countMemberAge();
+	Map<String, Integer> countGenterRatio();
+	Map<String, Integer> centerRegionCount();
 
 
 
