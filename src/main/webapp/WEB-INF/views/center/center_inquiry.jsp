@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 	
 <%@ include file="center_header_common.jsp" %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style_center_bt_common.css">
 
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
