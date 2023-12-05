@@ -36,11 +36,15 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 	}
 
 	// 해당 센터의 수강권정보 가져옴
+//	@Override
+//	public List<CenterTicketVO> getCenterTicketInfo(int ctCode) {
+//		return dao.getCenterTicketInfo(ctCode);
+//	}
 	@Override
-	public List<CenterTicketVO> getCenterTicketInfo(int ctCode) {
-		return dao.getCenterTicketInfo(ctCode);
+	public List<CenterTicketVO> getCenterTicketInfo(int ctCode, String type) {
+		return dao.getCenterTicketInfo(ctCode,type);
 	}
-
+	
 	// 해당 센터의 해당 수강권의 상세정보 가져오는 메서드
 	@Override
 	public CenterTicketVO getTicketDetail(String tkCode) {
@@ -203,5 +207,7 @@ public class MemberTicketServiceImpl implements MemberTicketService {
 				public int checkTicketUsage(String tkLessonType, int csMemberCode) {
 					return dao.checkTicketUsage(tkLessonType,csMemberCode);
 				}
+
+				
 
 }

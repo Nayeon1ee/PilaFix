@@ -104,7 +104,7 @@
 							<!-- 센터 셀렉트 박스 -->
 								<!-- 로그인한 회원코드의 연동된 센터가 없으면 수강권 구매할 수 없으므로 연동센터없으면 연동센터없다고 뿌려주고 있으면 그 센터의 이름 셀렉박스 옵션으로 넣어줌 -->
 							<div class="text-center mt-3">
-								<select class="form-select p-1" id="centerSelect" onchange="getCenterInfo()">
+								<select class="form-select p-1" id="centerSelect" onchange="getCenterInfo('all')">
 									<c:choose>
 								<c:when test="${empty connCenterList}">
 									<option selected>연동센터 없음</option>
@@ -127,16 +127,16 @@
 									id="pills-tab" role="tablist">
 									<li class="nav-item flex-grow-1" role="presentation"><a
 										class="nav-link active" id="pills-all-tab"
-										data-toggle="pill" href="#pills-all" role="tab"
+										data-toggle="pill" role="tab"
 										aria-controls="pills-group" aria-selected="true">전체</a></li>
 									<li class="nav-item flex-grow-1" role="presentation"><a
 										class="nav-link px-auto" id="pills-individual-tab"
-										data-toggle="pill" href="#pills-individual" role="tab"
+										data-toggle="pill" role="tab"
 										aria-controls="pills-individual" aria-selected="false">개인</a>
 									</li>
 									<li class="nav-item flex-grow-1" role="presentation"><a
 										class="nav-link px-auto" id="pills-group-tab"
-										data-toggle="pill" href="#pills-group" role="tab"
+										data-toggle="pill" role="tab"
 										aria-controls="pills-group" aria-selected="false">그룹</a></li>
 								</ul>
 							</div>
@@ -359,14 +359,19 @@
 	
 <!-- 셀렉트박스에서 센터 선택하면 해당 센터의 수강권정보 가져오는 js  -->
 	<script>
-		function getCenterInfo() {
+		function getCenterInfo(ticketType) {
 			var selectedCenterCode = document.getElementById("centerSelect").value;
 			console.log("선택한 지점 코드 : " + selectedCenterCode);
+			
+			console.log(ticketType);
 			// Ajax 요청
 			$.ajax({
 						type : "Post",
-						url : "getCenterTicketInfo.do", // 적절한 URL로 변경
-						data : {ctCode : selectedCenterCode},
+						url : "getCenterTicketInfo.do", 
+						data : {
+							ctCode : selectedCenterCode,
+							type : ticketType
+						},
 						success : function(centerTicketInfo) {
 							// 성공 시 아래에 정보 업데이트
 							console.log("값 가져옴")
@@ -621,6 +626,26 @@
         });
       }
 	
+
+   
+    // #pills-all-tab 전체 탭 클릭 시 AJAX 요청
+   $('#pills-all-tab').click(function () {
+	  getCenterInfo("all");
+	  console.log("전체탭 클릭")
+	});
+   
+    // #pills-individual-tab 개인 탭 클릭 시 AJAX 요청
+   $('#pills-individual-tab').click(function () {
+	   getCenterInfo("individual");
+	   console.log("개인탭 클릭")
+	});
+   
+    // #pills-group-tab 그룹 탭 클릭 시 AJAX 요청
+   $('#pills-group-tab').click(function () {
+	   getCenterInfo("group");
+	   console.log("글자탭 클릭")
+	});
+   
     </script>	
 	<!-- 클릭하면 우측 화면 디폴트에서 상세화면으로 바뀌게 하는 js 
 		 왼쪽에 수강권 클릭하면 이 함수 실행
