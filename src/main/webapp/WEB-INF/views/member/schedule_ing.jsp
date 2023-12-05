@@ -463,8 +463,8 @@
                 	 	console.log("맵이 비어있음");
 						$('#allInfo').append('<p>이번달에 스케줄이 없습니다.</p>');
 					} else {
-						if (allInfo.reservInfo.length>0) {
-					        console.log("reservInfo 존재함");
+						if (allInfo.reservInfo) {
+					        console.log("reservInfo 존재함" + allInfo.reservInfo);
 					        allInfo.reservInfo.forEach(function(item) {
 					        	// lsDate를 월-일(요일) 형태로 포맷팅
 			                    var date = new Date(item.lsDate);
@@ -506,7 +506,7 @@
 					        }); //예약리스트 foreach문 끝
 						
 					}// 예약리스트에 정보 있는지 if문 끝
-					if (allInfo.attendanceInfo.length>0) {
+					if (allInfo.attendanceInfo) {
 						console.log("attendanceInfo 존재함");
 				        allInfo.attendanceInfo.forEach(function(item) {
 						// lsDate를 월-일(요일) 형태로 포맷팅

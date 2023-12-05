@@ -86,7 +86,7 @@ public class MyScheduleDAO {
 		List<String> reservlessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceLessonCode",csMemberCode);
 		
 		if (lessonCode.isEmpty()) {
-			allInfo.put("reservInfo", null);
+			//allInfo.put("reservInfo", null);
 			System.out.println("1 예약if문 null");
 		}else {
 			allInfo.put("reservInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode));
@@ -94,7 +94,7 @@ public class MyScheduleDAO {
 		}
 		
 		if (reservlessonCode.isEmpty()) {
-			allInfo.put("reservInfo", null);
+			//allInfo.put("attendanceInfo", null);
 			System.out.println("2 출결if문 null");
 		}else {
 			Map<String,Object> param = new HashMap<>();
