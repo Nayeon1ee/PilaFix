@@ -162,7 +162,7 @@
 							</c:otherwise>
 						</c:choose>
 					</div>
-                    </c:choose>
+
                     <span  style="display: inline-block;">
                         ${fn:substring(lessonDetail.lsTime, 11, 16)}
                     </span>
