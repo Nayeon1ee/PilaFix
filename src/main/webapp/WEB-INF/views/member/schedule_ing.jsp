@@ -130,8 +130,10 @@
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-2">
 							<div class="card rounded mt-4">
-								<div class="card-header bg-white" style="height: 100px;">
-									<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
+								<div class="card-header bg-light" style="height: 100px;">
+									<div class="text-center">
+										<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
+									</div>
 									<ul id="nav5" class="nav justify-content-around">
 										<li class="nav-item"><a class="nav-link active"
 											style="color: #0070c0; text-weight: bold; text-decoration: none;">예약&nbsp;${count.reservCount }건</a></li>
@@ -359,7 +361,7 @@
 		                    fourHoursBefore.setHours(lessonDatetime.getHours() - 4); // 수업시작시간에서 4시간 을 뺀 시간이 저장됌
 
 									var str = '<div class="card" style="border-radius: 0;">';
-									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
 									str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
@@ -420,7 +422,7 @@
 		                    }).format(date);
 		                    
 									var str = '<div class="card" style="border-radius: 0;">';
-									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
 									str += '<small class="text-muted"><strong id="attendColor">출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
@@ -468,7 +470,7 @@
 		                    }).format(date);
 		                    
 									var str = '<div class="card" style="border-radius: 0;">';
-									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
 									str += '<small class="text-muted"><strong id="absentColor">결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
@@ -535,7 +537,7 @@
 			                    fourHoursBefore.setHours(lessonDatetime.getHours() - 4); // 수업시작시간에서 4시간 을 뺀 시간이 저장됌
 
 								var str = '<div class="card" style="border-radius: 0;">';
-								str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+								str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 								str += '<div class="card-body">'
 								str += '<div class="mt-3" style="margin-top:0px!important">'
 								str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
@@ -572,7 +574,7 @@
 	                    }).format(date);
 	                    
 								var str = '<div class="card" style="border-radius: 0;">';
-								str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+								str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 								str += '<div class="card-body">'
 								str += '<div class="mt-3" style="margin-top:0px!important">'
 								if(item.atAttendanceYn === true){
