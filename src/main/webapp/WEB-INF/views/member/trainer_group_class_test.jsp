@@ -74,9 +74,9 @@
 				<li>Group Class Schedule</li>
 			</ol>
 			<h2>그룹 수업 스케줄</h2>
-			</div>
-		</section>
-		<!-- End Breadcrumbs -->
+		</div>
+	</section>
+	<!-- End Breadcrumbs -->
 
 
 
@@ -84,21 +84,84 @@
 	<section id="services" class="services">
 		<div class="container" style="max-width: 1000px">
 			<!-- 수업 상세 정보 -->
-				<section class="explanation text-center py-5">
-				    <div class="container">
-				    
-				    <!-- 수업시간 --> 
-					<span  style="display: inline-block;">
-                    ${lessonDetail.lsDate} 
-                    </span>
-                    <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
-                    <c:choose>
-                        <c:when test="${hour lt 12}"> <!-- 오전 확인 -->
+			<section class="explanation text-center py-5">
+				<div class="container">
+
+					<!-- 수업시간 -->
+					<span style="display: inline-block;"> ${lessonDetail.lsDate}
+					</span>
+					<c:set var="hour"
+						value="${fn:substring(lessonDetail.lsTime, 11, 13)}" />
+					<!-- 시간 추출 -->
+					<c:choose>
+						<c:when test="${hour lt 12}">
+							<!-- 오전 확인 -->
                             오전
                         </c:when>
-                        <c:otherwise>
+						<c:otherwise>
                             오후
                         </c:otherwise>
+					</c:choose>
+					<span style="display: inline-block;">
+						${fn:substring(lessonDetail.lsTime, 11, 16)} </span> <br>
+					<p class="h3 mb-0">
+						<strong class="text-primary"> ${lessonDetail.lsName} </strong>
+					</p>
+					<br>
+					<%-- 				<div class="col-md-12">
+                	<label class="form-label" style="text-align: center;">수업 설명</label>
+                	 <textarea readonly class="form-control" style="height: 300px;" disabled>${lessonDetail.lsContent} 
+					</textarea>
+				</div> --%>
+
+					<div class="output-text"
+						style="text-align: center; white-space: pre-line;">
+						${lessonDetail.lsContent}</div>
+				</div>
+			</section>
+
+
+			<!-- 출석 통계 -->
+			<div class="status py-5">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-md-4 text-center">예약:
+							${lessonDetail.reservedCount}</div>
+						<div class="col-md-4 text-center">출석: ${attendedCount}</div>
+						<div class="col-md-4 text-center">결석: ${absentCount}</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 수업 예약한 회원 목록 -->
+			<section class="member_list py-1 my-2">
+				<div class="container">
+					<div class="row justify-content-center">
+						<c:choose>
+							<c:when test="${not empty lessonDetail.reservedMembers}">
+								<c:forEach var="member" items="${lessonDetail.reservedMembers}"
+									varStatus="status">
+									<div class="col-md-2">
+										<div class="member-check text-center">
+											<input type="checkbox" class="btn-check"
+												id="btn-check-${status.index}" name="selectedMemberCodes"
+												value="${member.csMemberCode}" autocomplete="off"> <label
+												class="btn" for="btn-check-${status.index}"> <img
+												src="${pageContext.request.contextPath}/resources/images/user.png"
+												alt="profile image" style="width: 70px; height: 70px;">
+												<p>${member.csName}</p>
+											</label>
+										</div>
+									</div>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<div class="col-md-12">
+									<p class="text-center">현재 예약한 회원이 없습니다.</p>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>
                     </c:choose>
                     <span  style="display: inline-block;">
                         ${fn:substring(lessonDetail.lsTime, 11, 16)}
@@ -209,6 +272,19 @@
 			<div class="container">
 				<div class="d-flex justify-content-between align-items-center">
 					<!-- 목록 버튼 -->
+					<button type="button" class="btn btn-primary ms-3"
+						onclick="location.href='getTrainerLessonList.do'">목록</button>
+					<!-- 출석 처리 버튼 -->
+					<form action="updateAttendG.do" method="post" class="me-2">
+						<input type="hidden" name="lessonCode"
+							value="${lessonDetail.lsCode}">
+						<c:forEach var="member" items="${reservedMembers}">
+							<input type="checkbox" name="selectedMemberCodes"
+								value="${member.csMemberCode}">
+						</c:forEach>
+						<button type="submit" class="btn btn-primary me-3">출석처리</button>
+					</form>
+
 					<button type="button" class="btn btn-primary ms-3" onclick="location.href='getTrainerLessonList.do'">목록</button>
 
 <input type="hidden" id="atCode" name="atCode" value="${attendance.atCode}">

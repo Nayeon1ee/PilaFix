@@ -243,7 +243,6 @@
             right: 'next'
          },
          
-
          selectable: true,
          themeSystem: 'bootstrap', // 부트스트랩 테마 사용
          bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함
