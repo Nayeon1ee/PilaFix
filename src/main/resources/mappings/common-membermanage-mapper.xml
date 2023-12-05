@@ -132,17 +132,19 @@
 		<result property="rsDatetime" column="RS_DATETIME"/>	
 	</resultMap>	
 	
-	<!-- 센터 회원 목록 조회 -->
+	<!-- [센터] 회원 목록 조회 -->
 	<select id="getMemberList" resultMap="memberResult">
 		SELECT * FROM TBL_CST
 		WHERE CS_ROLE_CODE = 'ME'
 		AND (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
+		ORDER BY CS_REGISTRATION_DATE DESC
 	</select>
 	
-	<!-- 관리자 회원 목록 조회 -->
+	<!-- [관리자] 회원 목록 조회 -->
 	<select id="adminGetMemberList" resultMap="memberResult">
 		SELECT * FROM TBL_CST
 		WHERE CS_ROLE_CODE = 'ME'
+		ORDER BY CS_REGISTRATION_DATE DESC
 	</select>
 	
 	<!-- 상세 조회 -->
@@ -156,7 +158,10 @@
 	</select>
 	<!-- 문의사항 조회 -->
 	<select id="getQuestionForManage" resultMap="questionResult">
-		SELECT * FROM TBL_QUESTION WHERE QS_WRITER_MEMBER_CODE=#{csMemberCode}
+		SELECT * 
+		FROM TBL_QUESTION 
+		WHERE QS_WRITER_MEMBER_CODE=#{csMemberCode}
+		ORDER BY QS_REGDATE DESC
 	</select>
 	<!-- 결제 내역 조회 -->
 	<select id="getPaymentForManage" resultMap="paymentResult">
@@ -166,6 +171,7 @@
 		FROM TBL_PAYMENT pay
 		WHERE MEMBER_CODE=#{csMemberCode}
 			AND PA_CANCEL_YN=FALSE
+		ORDER BY PA_DATETIME DESC
 	</select>
 	<!-- 화면 출력에 필요한 수강권 정보 조회  -->
 	<select id="getTicketInfo" resultMap="ticketInfo">
@@ -200,12 +206,14 @@
 		SELECT * FROM TBL_CST 
 		WHERE CS_ROLE_CODE = 'TR'
 		AND (CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode})
+		ORDER BY CS_REGISTRATION_DATE DESC
 	</select>
 	
 	<!-- 웹관리자의 강사 목록 조회 -->
 	<select id="adminGetTrainerList" resultMap="memberResult">
 		SELECT * FROM TBL_CST 
 		WHERE CS_ROLE_CODE = 'TR'
+		ORDER BY CS_REGISTRATION_DATE DESC
 	</select>
 	
 	<!-- 회원 연동 요청 목록 조회  -->
@@ -267,7 +275,10 @@
 	
 	<!-- 회원/강사 목록 조회 -->
 	<select id="getMember" resultMap="memberResult" >
-		SELECT *  FROM TBL_CST WHERE CS_MEMBER_CODE=#{csMemberCode}
+		SELECT *  
+		FROM TBL_CST 
+		WHERE CS_MEMBER_CODE=#{csMemberCode}
+		ORDER BY CS_MEMBER_CODE DESC
 	</select>
 	
 	<!-- 강사의 그룹수업 조회(오늘날짜 수업만 가져옴) -->
