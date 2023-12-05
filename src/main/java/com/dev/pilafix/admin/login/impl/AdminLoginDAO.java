@@ -117,6 +117,7 @@ public class AdminLoginDAO {
 		regionCount.put("seoul", count.getSeoulCount());
 		regionCount.put("gg", count.getGgCount());
 		regionCount.put("gw", count.getGwCount());
+		regionCount.put("cc", count.getCcCount());
 		regionCount.put("jl", count.getJlCount());
 		regionCount.put("gs", count.getGsCount());
 		regionCount.put("jj", count.getJjCount());
