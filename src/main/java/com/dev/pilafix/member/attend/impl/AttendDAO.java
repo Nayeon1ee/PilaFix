@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.common.member.MemberVO;
+import com.dev.pilafix.member.attend.AttendVO;
 
 @Repository
 public class AttendDAO {
@@ -40,6 +41,17 @@ public class AttendDAO {
 	}
 	
 	
+	// 1204 수업코드로 가져오는 해당 AttnedVO
+	public AttendVO selectAttendanceByLessonCode(String lsCode) {
+        return sqlSessionTemplate.selectOne("AttendDAO.selectAttendanceByLessonCode", lsCode);
+    }
+	// atCode의 attendVO 출결처리
+	  public int updateMemberAttendance(String atCode, int memberCode) {
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("atCode", atCode);
+	        params.put("memberCode", memberCode);
+	        return sqlSessionTemplate.update("AttendDAO.updateMemberAttendance", params);
+	    }
 
 	/**
 	 * 수업상세
@@ -58,9 +70,9 @@ public class AttendDAO {
 	 * @param lessonCode
 	 * @param memberCode
 	 */
-	public void updateAttendancePersonalLesson(String lessonCode, int memberCode) {
+	public void updateAttendancePersonalLesson(String atCode, int memberCode) {
 		Map<String, Object> params = new HashMap<>();
-		params.put("lessonCode", lessonCode);
+		params.put("atCode", atCode);
 		params.put("selectedMemberCode", memberCode);
 		sqlSessionTemplate.update("AttendDAO.updateAttendancePersonalLesson", params);
 	}
@@ -114,15 +126,14 @@ public class AttendDAO {
 	/**
 	 * 출석한 회원 수
 	 */
-	public int getAttendedCountForLesson(String lessonCode) {
-	    Integer count = sqlSessionTemplate.selectOne("AttendDAO.getAttendedCountForLesson", lessonCode);
-	    return (count != null) ? count : 0;
-	}
+    public int getAttendedCountForLesson(String atCode) {
+        return sqlSessionTemplate.selectOne("AttendDAO.getAttendedCountForLesson", atCode);
+    }
+
 	/**
 	 * 결석한 회원 수
 	 */
-	public int getAbsentCountForLesson(String lessonCode) {
-	    Integer count = sqlSessionTemplate.selectOne("AttendDAO.getAbsentCountForLesson", lessonCode);
-	    return (count != null) ? count : 0;
-	}
+    public int getAbsentCountForLesson(String atCode) {
+        return sqlSessionTemplate.selectOne("AttendDAO.getAbsentCountForLesson", atCode);
+    }
 }
