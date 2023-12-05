@@ -324,7 +324,7 @@
             	 var chart = new ApexCharts(document.querySelector("#region"), {
             		 
 			          series: [{
-			          data: [data.seoul, data.gg, data.gw, data.jl, data.gs, data.jj]
+			          data: [data.seoul, data.gg, data.gw,data.cc, data.jl, data.gs, data.jj]
 			        }],
 			          chart: {
 			          type: 'bar',
@@ -341,7 +341,7 @@
 			          enabled: false
 			        },
 			        xaxis: {
-			          categories: ['서울', '경기', '강원', '전라', '경상', '제주'],
+			          categories: ['서울', '경기', '강원','충청', '전라', '경상', '제주'],
 			        }
             	 }).render();
             		 

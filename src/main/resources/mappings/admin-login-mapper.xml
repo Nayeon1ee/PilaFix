@@ -31,6 +31,7 @@
 		<result property="seoulCount" column="SEOUL_COUNT" />
 		<result property="ggCount" column="GG_COUNT" />
 		<result property="gwCount" column="GW_COUNT" />
+		<result property="ccCount" column="CC_COUNT" />
 		<result property="jlCount" column="JL_COUNT" />
 		<result property="gsCount" column="GS_COUNT" />
 		<result property="jjCount" column="JJ_COUNT" />
@@ -144,12 +145,14 @@
 	
 	<!-- 통계 : 시도별 센터 수 -->
 	<select id="centerRegionCount" resultMap="adminloginResult" > 
+
 		SELECT 
-			(SELECT COUNT(*) FROM TBL_CENTER WHERE ct_address2 LIKE '서울%') AS SEOUL_COUNT,
-			(SELECT COUNT(*) FROM TBL_CENTER WHERE ct_address2 LIKE '경기%') AS GG_COUNT,
-			(SELECT COUNT(*) FROM TBL_CENTER WHERE ct_address2 LIKE '강원%') AS GW_COUNT,
-			(SELECT COUNT(*) FROM TBL_CENTER WHERE ct_address2 LIKE '전라%') AS JL_COUNT,
-			(SELECT COUNT(*) FROM TBL_CENTER WHERE ct_address2 LIKE '경상%') AS GS_COUNT,
-			(SELECT COUNT(*) FROM TBL_CENTER WHERE ct_address2 LIKE '제주%') AS JJ_COUNT;
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '서울%') AS SEOUL_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '경기%' OR ct_address2 LIKE '인천%') AS GG_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '강원%') AS GW_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '충북%' OR ct_address2 LIKE '충남%' OR ct_address2 LIKE '세종%' OR ct_address2 LIKE '대전%') AS CC_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '전라%' OR ct_address2 LIKE '광주%') AS JL_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '경남%' OR ct_address2 LIKE '경북%' OR ct_address2 LIKE '부산%' OR ct_address2 LIKE '울산%' OR ct_address2 LIKE '대구%') AS GS_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '제주%') AS JJ_COUNT;
 	</select>
 </mapper>
