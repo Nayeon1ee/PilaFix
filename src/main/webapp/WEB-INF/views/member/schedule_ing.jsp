@@ -66,7 +66,16 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_myschedule.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
-
+<style>
+.circleMarker {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%; 
+    margin-top: 5px; 
+    display: block; 
+    margin: 0 auto; 
+}
+</style>
 <body>
 
 
@@ -234,7 +243,6 @@
             right: 'next'
          },
          
-
          selectable: true,
          themeSystem: 'bootstrap', // 부트스트랩 테마 사용
          bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함

@@ -51,11 +51,6 @@ public class MemberMypageDAO {
 		return sqlSessionTemplate.update("MemberMypageDAO.withdrawMember",csMemberCode);
 	}
 	
-	public MemberVO getMemberInfo(int csMemberCode) {
-        return sqlSessionTemplate.selectOne("MemberLoginDAO.getMemberInfo", csMemberCode);
-    }
-	
-	
 	/**
 	 * 회원의 수강권 정보조회 (개인/그룹)
 	 */

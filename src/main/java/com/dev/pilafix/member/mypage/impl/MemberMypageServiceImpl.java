@@ -3,7 +3,6 @@ package com.dev.pilafix.member.mypage.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.faq.FaqVO;
@@ -12,16 +11,12 @@ import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.center.info.CenterInfoVO;
 import com.dev.pilafix.common.member.CenterVO;
 import com.dev.pilafix.common.member.MemberVO;
-import com.dev.pilafix.member.login.impl.MemberLoginDAO;
 import com.dev.pilafix.member.mypage.MemberMypageVO;
 
 @Service
 public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.MemberMypageService {
 	@Autowired
 	private MemberMypageDAO dao;
-	@Autowired
-	private MemberLoginDAO logindao;
-	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	/**
 	 * 마이페이지에서 결제내역 가져오는 것
@@ -59,6 +54,7 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	public int withdrawMember(int csMemberCode) {
 		return dao.withdrawMember(csMemberCode);
 	}
+
 	
 	
 	@Override
@@ -69,6 +65,8 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
         }
         return false;
     }
+
+
 
 
 	/**
