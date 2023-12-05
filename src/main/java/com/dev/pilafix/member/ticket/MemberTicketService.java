@@ -11,7 +11,8 @@ public interface MemberTicketService {
 
 	List<CenterVO> getConnCenterList(int csMemberCode);
 
-	List<CenterTicketVO> getCenterTicketInfo(int ctCode);
+	//List<CenterTicketVO> getCenterTicketInfo(int ctCode);
+	List<CenterTicketVO> getCenterTicketInfo(int ctCode, String type);
 
 	CenterTicketVO getTicketDetail(String tkCode);
 
