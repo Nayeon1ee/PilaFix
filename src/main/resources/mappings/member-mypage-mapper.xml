@@ -235,19 +235,29 @@
 		SELECT * FROM TBL_INFO_W WHERE IW_NUMBER = #{iwNumber}
 	</select>	
 	<!-- 공지사항 조회수증가 -->
-	<update id="updateAdminInfoViewCnt" >
+	<update id="increaseAdminInfoViewCount" >
 		UPDATE TBL_INFO_W SET IW_VIEWS = IW_VIEWS + 1 WHERE IW_NUMBER=#{iwNumber}
 	</update>
-	
+	<update id="increaseCenterInfoViewCount" >
+	UPDATE TBL_INFO_C SET IC_VIEWS = IC_VIEWS + 1 WHERE IC_NUMBER = #{icNumber}
+	</update>
+
 	
 	<!-- FAQ 리스트, 상세 -->
-	<!-- FQ_WRITER_MEMBER_CODE int형식으로 되어있는데 수정해야함 -->
+	<!-- FQ_WRITER_MEMBER_CODE int형식으로 되어있는데 수정해야함 RoleCode에 따라 리스트 다르게 보여져야함 -->
 	<select id="getFAQListByMember" resultMap="faqInfoResult">
 	    SELECT *
 	    FROM TBL_FAQ 
 	    WHERE FQ_OPEN_YN = TRUE
 	    ORDER BY FQ_NUMBER DESC;
 	</select>
+<!-- roleCode에 따라 리스트분기 -->
+<select id="selectFAQbyRole" parameterType="string" resultMap="faqInfoResult">
+    SELECT * FROM TBL_FAQ 
+    WHERE FQ_TYPE IN ('COMMON', #{csRoleCode})
+    AND FQ_OPEN_YN = TRUE
+    ORDER BY FQ_NUMBER DESC;
+</select>
 	<select id="getFaqByMember" resultMap="faqInfoResult" >
 		SELECT * FROM TBL_FAQ WHERE FQ_NUMBER = #{fqNumber} 
 	</select>	

@@ -28,5 +28,11 @@ public interface MemberMypageService {
 	MemberVO getMypageMemberInfo(int csMemberCode);
 	List<TermsVO> getMyTermsListByMember();
 	boolean checkPassword(int csMemberCode, String currentPassword);
+	void increaseCenterInfoViewCount(int icNumber);
+	void increaseAdminInfoViewCount(int iwNumber);
+	List<FaqVO> selectFAQbyRole(String csRoleCode);
+	
+	
+
 	
 }

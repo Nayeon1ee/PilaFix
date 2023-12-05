@@ -87,6 +87,27 @@ public class MemberMypageDAO {
 	}
 	
 	/**
+	 * 공지사항 조회수
+	 */
+	public void increaseCenterInfoViewCount(int icNumber) {
+        sqlSessionTemplate.update("MemberMypageDAO.increaseCenterInfoViewCount", icNumber);
+    }
+	public void increaseAdminInfoViewCount(int iwNumber) {
+        sqlSessionTemplate.update("MemberMypageDAO.increaseAdminInfoViewCount", iwNumber);
+    }
+
+	
+	
+	
+	/**
+	 * FAQ 회원/강사에 따른 리스트
+	 * @param csRoleCode
+	 */
+	public List<FaqVO> selectFAQbyRole(String csRoleCode){
+		return sqlSessionTemplate.selectList("MemberMypageDAO.selectFAQbyRole",csRoleCode);
+	};
+
+	/**
 	 * FAQ 리스트, 상세 조회
 	 * 작성자 '필라픽스'로 고정
 	 */

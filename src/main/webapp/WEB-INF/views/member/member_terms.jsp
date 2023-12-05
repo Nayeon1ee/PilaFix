@@ -81,25 +81,6 @@
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
 
-<!-- 				<div id="userInfo"
-					class="d-flex align-items-center justify-content-center mb-2">
-					<div id="myInfoLink" class="mr-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
-					</div>
-					<div class="col-7"></div>
-					<div id="userName"
-						style="font-size: 18px; margin-right: 10px; color: #9b56e9; font-weight: bold;">
-						<i class="fas fa-user mr-1"></i>*** 회원님
-					</div>
-					<div id="userlogout" class="text-center">
-						<a href="#" class="btn"
-							style="text-decoration: none; background-color: #9b56e9; color: #fff;">
-							<i class="fas fa-user mr-1"></i>로그아웃
-						</a>
-					</div>
-				</div> -->
-
 
 				<div class="card mt-3">
 					<div class="card-body">

@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -148,22 +150,31 @@ public class MemberMypageController {
     }
 	}
 	
-//	
-//	/**
-//	 * 조회수증가
-//	 * @param icNumber
-//	 */
-//	@PostMapping("/increaseViewCount.do")
-//	public ResponseEntity<?> increaseViewCount(@RequestParam("icNumber") int icNumber) {
-//	    try {
-//	        service.increaseViewCount(icNumber); // 조회수를 증가시키는 서비스 메서드 호출
-//	        return ResponseEntity.ok().build();
-//	    } catch (Exception e) {
-//	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//	    }
-//	}
-//	
-	
+
+	/**
+	 * 조회수증가
+	 * @param icNumber
+	 */
+	@PostMapping("/increaseInfoViewCount.do")
+	public ResponseEntity<?> increaseViewCount(
+		    @RequestParam(name = "icNumber", required = false, defaultValue = "0") int icNumber,
+		    @RequestParam(name = "iwNumber", required = false, defaultValue = "0") int iwNumber) {
+		try {
+	        // 서비스 메서드를 호출하여 조회수를 증가시킵니다.
+	        if(icNumber > 0) {
+	        	service.increaseCenterInfoViewCount(icNumber);
+	        } else if(iwNumber > 0) {
+	        	service.increaseAdminInfoViewCount(iwNumber);
+	        }
+	        
+	        // 성공적으로 조회수가 증가되었을 때의 처리를 작성합니다.
+	        return ResponseEntity.ok().build();
+	    } catch (Exception e) {
+	        // 오류 발생 시 처리를 작성합니다.
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
+
 	/**
 	 * 공지사항 상세
 	 * 센터 공지사항 / 필라픽스 공지사항에 따라 화면 분기
@@ -207,14 +218,20 @@ public class MemberMypageController {
 
 	/**
 	 * FAQ 
-	 * 로그인 안해도 보이게? ?
+	 * 회원/강사에 따라 다르게보임
 	 */
 	@GetMapping("/myFAQpage.do")
 	public String showMyFAQ(HttpSession session, Model model) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
-	    List<FaqVO> faqList = service.getFAQListByMember();
+		if(user != null) {
+		String csRoleCode = (String)user.get("csRoleCode");	
+	    List<FaqVO> faqList = service.selectFAQbyRole(csRoleCode);
 	    model.addAttribute("FAQlist", faqList);
 	    return "member/FAQ";
+		
+		} else {
+			return "member/login";
+		}
 	}
 
 	/**
