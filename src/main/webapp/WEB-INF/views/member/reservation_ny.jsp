@@ -205,7 +205,7 @@
 										<div class="list-group">
 											<c:forEach var="item" items="${lessonList}">
 												<a class="list-group-item list-group-item-action">
-													<p class="mb-1">${item.lsTime }~${item.lsEndTime }</p>
+													<p class="mb-1" style="color:#841dff;">${item.lsTime }~${item.lsEndTime }</p>
 													<div class="d-flex w-100 justify-content-between">
 														<h5 class="mb-1">${ item.lsName }</h5>
 													</div>
@@ -613,7 +613,7 @@
 				                    lessonList.forEach(function (item) {
 				                    	gstr = '<div class="list-group">';
 				                    	gstr += '<a class="list-group-item list-group-item-action">';
-				                    	gstr += '<p class="mb-1">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
+				                    	gstr += '<p class="mb-1" style="color:#841dff;">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
 				                    	gstr += '<div class="d-flex w-100 justify-content-between">';
 									    gstr += '<h5 class="mb-1"><b>'+ item.lsName +'</b></h5>';
 									    gstr += '</div>';
