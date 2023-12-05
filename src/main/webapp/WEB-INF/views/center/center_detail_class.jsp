@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="center_header_common.jsp"%>
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style_center_bt_common.css">
 <main id="main" class="main">
 	<div class="pagetitle">
 		<h1>수업 상세 페이지</h1>
@@ -79,7 +79,7 @@
 </main>
 <!-- End #main -->
 <div class="modal fade" id="basicModal" tabindex="-1">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">정말 삭제하시겠습니까?</h5>

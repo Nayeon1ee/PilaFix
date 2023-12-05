@@ -30,12 +30,19 @@ public class AdminVO {
 	private int seoulCount; //서울
 	private int ggCount; //경기
 	private int gwCount; //강원
+	private int ccCount; //충청
 	private int jlCount; //전라도
 	private int gsCount; //경상도
 	private int jjCount; //제주도
 
 	
 	
+	public int getCcCount() {
+		return ccCount;
+	}
+	public void setCcCount(int ccCount) {
+		this.ccCount = ccCount;
+	}
 	public int getSeoulCount() {
 		return seoulCount;
 	}
@@ -195,8 +202,10 @@ public class AdminVO {
 				+ memberCountCumulated + ", trainerCountCumulated=" + trainerCountCumulated + ", centerCountCumulated="
 				+ centerCountCumulated + ", ageGroup=" + ageGroup + ", ageCount=" + ageCount + ", menCount=" + menCount
 				+ ", womenCount=" + womenCount + ", seoulCount=" + seoulCount + ", ggCount=" + ggCount + ", gwCount="
-				+ gwCount + ", jlCount=" + jlCount + ", gsCount=" + gsCount + ", jjCount=" + jjCount + "]";
+				+ gwCount + ", ccCount=" + ccCount + ", jlCount=" + jlCount + ", gsCount=" + gsCount + ", jjCount="
+				+ jjCount + "]";
 	}
+	
 	
 	
 	

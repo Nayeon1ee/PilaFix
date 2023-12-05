@@ -234,11 +234,6 @@
 	<select id="getAdminInfoByMember" resultMap="adminInfoResult">
 		SELECT * FROM TBL_INFO_W WHERE IW_NUMBER = #{iwNumber}
 	</select>	
-	<!-- 공지사항 조회수증가 -->
-	<update id="updateAdminInfoViewCnt" >
-		UPDATE TBL_INFO_W SET IW_VIEWS = IW_VIEWS + 1 WHERE IW_NUMBER=#{iwNumber}
-	</update>
-	
 	
 	<!-- FAQ 리스트, 상세 -->
 	<!-- FQ_WRITER_MEMBER_CODE int형식으로 되어있는데 수정해야함 -->
@@ -264,5 +259,9 @@
 	    WHERE TM_OPEN_YN = TRUE
 	    ORDER BY TM_CODE DESC;
 	</select>
+
+	
+	
+	
 
 </mapper>

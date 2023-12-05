@@ -28,7 +28,7 @@
 	
 	<!-- Template Main CSS File -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/admin/assets/css/style.css">
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style_center_bt_common.css">
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
