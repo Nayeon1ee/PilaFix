@@ -91,44 +91,70 @@
 							
 									<!-- Multi Columns Form -->
 									<form class="row g-3" id="registrationForm000">
+									
+<c:choose>
+<c:when test="${type == 'center'}">
 										<div class="col-md-4">
-											<label class="form-label">제목</label> <input type="text"
-												class="form-control" id="titleInput000"
-												value="${centerInfo.title }" disabled>
-										</div>
-										<div class="col-md-4">
-											<label class="form-label">작성자</label> <input type="text"
-												readonly disabled class="form-control"
-												value="<fmt:formatDate pattern='yyyy-MM-dd' value='${centerInfo.regDate }'/>">
+											<label class="form-label">센터명</label> <input type="text" readonly disabled class="form-control"
+												value="${centerNotice.ctName }">
 										</div>
 										<div class="col-md-4">
 											<label class="form-label">작성일자</label> <input type="text"
 												readonly disabled class="form-control"
-												value="<fmt:formatDate pattern='yyyy-MM-dd' value='${centerInfo.regDate }'/>">
+												value="<fmt:formatDate pattern='yyyy-MM-dd' value='${centerNotice.regDate }'/>">
 										</div>
+										<div class="col-md-4">
+											<label class="form-label">조회수</label> <input type="text" readonly disabled class="form-control"
+												value="${centerNotice.cnt }">
+										</div>										
+										<div class="col-md-12">
+											<label class="form-label">제목</label> <input type="text" class="form-control" id="titleInput000"
+												value="${centerNotice.title }" disabled>
+										</div>										
 										<div class="col-md-12">
 											<label class="form-label">내용</label>
-											<textarea class="form-control" id="contentInput000"
-												style="height: 300px" disabled>${centerInfo.content }</textarea>
+											<textarea class="form-control" id="contentInput000" style="height: 300px" disabled>${centerNotice.content }</textarea>
 										</div>
-										
-											
-										
-
+			
 										<div class="text-center">
-
-											<div class="btn-toolbar justify-content-end d-flex"
-												role="toolbar">
+											<div class="btn-toolbar justify-content-end d-flex" role="toolbar">
 												<div class="me-auto ms-3">
-													<button type="button" class="btn btn-secondary"
-														onclick="location.href='getCenterInfoList.do'">목록</button>
+													<button type="button" class="btn btn-secondary" onclick="location.href='myNoticePage.do'">목록</button>
 												</div>
-
-											
 											</div>
 										</div>
+</c:when>										
+<c:when test="${type == 'pilafix'}">										
+<div class="col-md-4">
+	<label class="form-label"></label> <input type="text" readonly disabled class="form-control"
+		value="필라픽스 공지사항">
+</div>
+<div class="col-md-4">
+	<label class="form-label">작성일자</label> <input type="text" readonly disabled class="form-control"
+		value="<fmt:formatDate pattern='yyyy-MM-dd' value='${webNotice.regDate }'/>">
+</div>
+<div class="col-md-4">
+	<label class="form-label">조회수</label> <input type="text" readonly disabled class="form-control"
+		value="${webNotice.cnt }">
+</div>										
+<div class="col-md-12">
+	<label class="form-label">제목</label> <input type="text" class="form-control" id="titleInput000"
+		value="${webNotice.title }" disabled>
+</div>										
+<div class="col-md-12">
+	<label class="form-label">내용</label>
+	<textarea class="form-control" id="contentInput000" style="height: 300px" disabled>${webNotice.content }</textarea>
+</div>
 
-
+<div class="text-center">
+	<div class="btn-toolbar justify-content-end d-flex" role="toolbar">
+		<div class="me-auto ms-3">
+			<button type="button" class="btn btn-secondary" onclick="location.href='myNoticePage.do'">목록</button>
+		</div>
+	</div>
+</div>										
+</c:when>
+</c:choose>										
 									</form>
 									<!-- End Multi Columns Form -->
 								</div>

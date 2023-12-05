@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dev.pilafix.admin.faq.FaqVO;
 import com.dev.pilafix.admin.info.AdminInfoVO;
@@ -146,10 +148,61 @@ public class MemberMypageController {
     }
 	}
 	
+//	
+//	/**
+//	 * 조회수증가
+//	 * @param icNumber
+//	 */
+//	@PostMapping("/increaseViewCount.do")
+//	public ResponseEntity<?> increaseViewCount(@RequestParam("icNumber") int icNumber) {
+//	    try {
+//	        service.increaseViewCount(icNumber); // 조회수를 증가시키는 서비스 메서드 호출
+//	        return ResponseEntity.ok().build();
+//	    } catch (Exception e) {
+//	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//	    }
+//	}
+//	
 	
 	/**
 	 * 공지사항 상세
+	 * 센터 공지사항 / 필라픽스 공지사항에 따라 화면 분기
 	 */
+	@GetMapping("/noticeDetail.do")
+    public String showNoticeDetail(@RequestParam(value = "icNumber", required = false) Integer icNumber,
+                                   @RequestParam(value = "iwNumber", required = false) Integer iwNumber,
+                                   Model model) {
+        // 센터 공지사항
+        if (icNumber != null) {
+            CenterInfoVO centerNotice = service.getCenterInfoByMember(icNumber);
+            model.addAttribute("centerNotice", centerNotice);
+            model.addAttribute("type", "center");
+            return "member/member_notice_detail";
+        }
+        // 웹(필라픽스)공지사항
+        else if (iwNumber != null) {
+            AdminInfoVO webNotice = service.getAdminInfoByMember(iwNumber);
+            model.addAttribute("webNotice", webNotice);
+            model.addAttribute("type", "pilafix");
+            return "member/member_notice_detail";
+        }
+        else {
+        	System.out.println("공지사항 번호가 없는 경우");
+        	return "member/member_notice"; 
+        }
+
+    }	
+	
+//	@GetMapping("/myNoticeDetail.do")
+//	public String showNotiveDetail(@RequestParam("icNumber") int icNumber,@RequestParam("iwNumber") int iwNumber, HttpSession session,Model model) {
+//		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+//			CenterInfoVO centerInfo;
+//			AdminInfoVO adminInfo;
+//			model.addAttribute("centerInfo", service.getCenterInfoByMember(icNumber));
+//			model.addAttribute("adminInfo", service.getAdminInfoByMember(iwNumber));
+//			return "member/member_notice_detail";
+//		}
+
 
 
 	/**
@@ -209,5 +262,34 @@ public class MemberMypageController {
 			return "member/login";
 		}
 	}
+	
+	
+	// 회원 탈퇴 요청 처리
+	@PostMapping("/withdrawal.do")
+	@ResponseBody
+	public String withdraw(@RequestBody Map<String, String> payload, HttpSession session) {
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+	    if (user != null) {
+	        String password = payload.get("password");
+	        int csMemberCode = (int) user.get("csMemberCode");
+
+	        // 비밀번호 확인 로직
+	        boolean isPasswordValid = service.checkPassword(csMemberCode, password);
+
+	        if (isPasswordValid) {
+	            service.withdrawMember(csMemberCode);
+	            session.invalidate(); // 세션 무효화
+	            return "{\"status\":\"success\"}";
+	        } else {
+	            // 비밀번호가 틀렸을 경우
+	            return "{\"status\":\"error\", \"message\":\"Invalid password\"}";
+	        }
+	    } else {
+	        // 로그인하지 않은 경우
+	        return "{\"status\":\"error\", \"message\":\"Not logged in\"}";
+	    }
+
+	
+	}	
 
 }

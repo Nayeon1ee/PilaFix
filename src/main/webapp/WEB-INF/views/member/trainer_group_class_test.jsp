@@ -109,7 +109,7 @@
                         ${lessonDetail.lsName}
                     </strong></p>
                     <br>			
-		<div class="output-text" style="text-align:center; white-space: pre-line; ">
+		<div class="output-text" style="text-align:left; white-space: pre-line; ">
 		    ${lessonDetail.lsContent}
 		</div>
 	</div>
@@ -128,9 +128,11 @@
 </div>
 
 <!-- 수업 예약한 회원 목록 -->
+<div class="output-text" style="text-align:center; white-space: pre-line; ">예약한 회원 목록</div>
 <section class="member_list py-1 my-2">
 	<div class="container">
 		<div class="row justify-content-center">
+
 			<c:choose>
 <%-- 			<c:when test="${not empty lessonDetail.reservedMembers}"> --%>
 			<c:when test="${not empty attendance}">

@@ -67,7 +67,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>withdrawal</li>
 				</ol>
 				<h2>회원탈퇴</h2>
@@ -93,47 +93,96 @@
 									name="password">
 							</div>
 						</div>
-						
-						
-
-						<p class="error-message mt-2" id="error-message"></p>
+					<p class="error-message mt-2" id="error-message"></p>
 					</div>
-					
-					<div class="text-end mt-3">
+						<div class="text-end mt-3">
 							<button class="btn btn-danger withdraw-button me-2">탈퇴하기</button>
 						</div>
 				</div>
 
-				<script>
-					document
-							.querySelector('.withdraw-button')
-							.addEventListener(
-									'click',
-									function() {
-										var passwordInput = document
-												.getElementById('password');
-
-										// 비밀번호 검사 (일단 비밀번호 password1)
-										if (passwordInput.value !== "password1") {
-											alert("올바른 비밀번호가 아닙니다.");
-										} else {
-											var confirmation = confirm("김영우 회원님, 정말로 탈퇴하시겠습니까?");
-											if (confirmation) {
-												// 탈퇴 로직 추가
-												alert("탈퇴가 완료되었습니다.");
-											}
-										}
-									});
-				</script>
 
 
 			</div>
 
-			</div>
 		</section>
 
 	</main>
+<!-- 탈퇴 확인 모달 -->
+<div class="modal fade" id="confirmWithdrawalModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">회원 탈퇴 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                계속 진행하시면 회원정보가 사라집니다. 정말 탈퇴하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-danger" onclick="confirmWithdrawal()">확인</button>
+            </div>
+        </div>
+    </div>
+</div>	
+	
+	
+	
+<script>
+function confirmWithdrawal() {
+    var password = $('#password').val();
+    if (password === '') {
+        alert('비밀번호를 입력하세요.');
+        return;
+    }
 
+    // AJAX 요청을 통해 비밀번호 일치 여부 확인
+    $.ajax({
+        url: 'checkPassword.do',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ currentPassword: password }),
+        success: function(response) {
+            // 비밀번호가 일치할 경우 회원 탈퇴 처리
+            if (response.status === 'success') {
+                proceedWithWithdrawal(password); // 회원 탈퇴 진행
+            } else {
+                // 비밀번호 불일치 시 오류 메시지 표시
+                $('#error-message').text('비밀번호가 일치하지 않습니다.');
+            }
+        },
+        error: function(xhr, status, error) {
+            // 오류 발생 시 처리
+            alert('비밀번호 확인 중 오류가 발생했습니다.');
+        }
+    });
+}
+
+function proceedWithWithdrawal(password) {
+    // AJAX 요청을 통해 실제 회원 탈퇴 처리
+    $.ajax({
+        url: 'withdrawal.do',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ password: password }),
+        success: function(response) {
+            $('#confirmWithdrawalModal').modal('hide'); // 모달 숨기기
+            if (response.status === 'success') {
+                alert('성공적으로 탈퇴되었습니다.');
+                window.location.href = 'memberLogin.do'; // 로그인 페이지로 리다이렉트
+            } else {
+                // 오류 메시지 표시
+                $('#error-message').text(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            // 오류 발생 시 처리
+            alert('탈퇴 처리 중 오류가 발생했습니다.');
+        }
+    });
+}
+
+</script>
 
 	<!-- ======= Footer ======= -->
 	<%@ include file="member_footer_common.jsp"%>

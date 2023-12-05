@@ -105,7 +105,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>inquiry</li>
 				</ol>
 				<h2>문의사항</h2>
@@ -120,12 +120,12 @@
 
 
 
-				<div id="userInfo" class="d-flex align-items-center mb-2">
+<!-- 				<div id="userInfo" class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-2 mr-2"
 						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-cog mr-1"></i>내 정보 관리
 					</div>
-				</div>
+				</div> -->
 
 					<div class="inquiry">
 						<div class="inquiry-header mb-3">
@@ -162,8 +162,8 @@
              aria-labelledby="heading${status.index}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
             <div class="inquiry-body">
-                <strong>문의내역</strong><br> ${question.qsContent}
-</div>
+               <!--  <strong>문의내역</strong><br> -->${question.qsContent}
+			</div>
                 <div class="text-center d-flex justify-content-end mt-2">
                     <!-- 삭제 -->
                     <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button> -->
@@ -178,11 +178,17 @@
                 <!-- 답변 섹션 -->
                 <div class="reply-content" id="replySection${status.index}">
                     <c:if test="${question.qsAnswerYn}">
-                        <strong>답변 제목:</strong>
-                        <p>${questionReply.reTitle}</p>
-                        <hr>
-                        <strong>답변 내용:</strong>
-                        <p>${questionReply.reContent}</p>
+                        <strong>[답변제목]</strong>
+                        <br>
+                        
+ <div class="output-text" style="text-align:left; white-space: pre-line; ">
+ ${questionReply.reTitle}
+ </div><br>
+                        
+                        <strong>[답변내용]</strong><br>
+<div class="output-text" style="text-align:left; white-space: pre-line; ">                        
+${questionReply.reContent}
+</div>                        
                     </c:if>
                     <c:if test="${!question.qsAnswerYn}">
                         <p>등록된 답변이 없습니다.</p>

@@ -67,7 +67,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>manage my information</li>
 				</ol>
 				<h2>내 정보 관리</h2>
@@ -116,7 +116,7 @@
 					</section>
 
 					<div class="info-box03 d-flex justify-content-end me-3">
-						<a class="btn btn-danger withdraw-button" href="withdrawal.do">회원탈퇴</a>
+						<a class="btn btn-secondary withdraw-button" href="withdrawal.do">회원탈퇴</a>
 					</div>
 
 
