@@ -20,7 +20,7 @@ public interface AttendService {
 
 	List<String> getReservedNameForLesson(String lessonCode);
 
-	boolean isAttendanceProcessed(String lessonCode);
+//	boolean isAttendanceProcessed(String lessonCode);
 
 	void updateAttendancePersonalLesson(String lessonCode, int memberCode);
 
@@ -28,9 +28,8 @@ public interface AttendService {
 
 	int getReservedCountForLesson(String lessonCode);
 
-	int getAttendedCountForLesson(String lessonCode);
-
-	int getAbsentCountForLesson(String lessonCode);
+    int getAttendedCountForLesson(String atCode);
+    int getAbsentCountForLesson(String atCode);
 
 	Map<String, Integer> getCountAttendanceForLesson(String lessonCode);
 
@@ -42,5 +41,8 @@ public interface AttendService {
 
 	// 폐강
 	List<CenterLessonVO> getClosedTrainerLessons(int csMemberCode);
-
+	
+    AttendVO getAttendanceByLessonCode(String lsCode);
+//    int updateMemberAttendance(List<Integer> selectedMemberCodes);
+    int updateAttendance(String atCode, List<Integer> memberCodes);
 }

@@ -120,6 +120,23 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	public Map<String,Object> getMonthlyContractCount() {
 		return dao.getMonthlyContractCount();
 	}
+	
+	// 통계 연령별 회원수 세오기
+	@Override
+	public Map<String, Object> countMemberAge() {
+		return dao.countMemberAge();
+	}
+	
+	//통계 성별 회원수 세오기
+	@Override
+	public Map<String, Integer> countGenterRatio() {
+		return dao.countGenterRatio();
+	}
+
+	@Override
+	public Map<String, Integer> centerRegionCount() {
+		return dao.centerRegionCount();
+	}
 
 
 

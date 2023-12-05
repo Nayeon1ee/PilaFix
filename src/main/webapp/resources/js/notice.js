@@ -65,13 +65,10 @@ function handleNotificationClick() {
                   let ncId = item.ncId;
                   let ncReadYn = item.ncReadYn;
                   
-                  console.log("읽음여부");
-                  console.log(item.ncReadYn);
-                  
                   if(ncReadYn){ //사용자가 확인했다면 
-                     var gstr = '<a class="dropdown-item" style="background-color: #f8f9fa;"  onclick="requestView(\''+ eventType + '\')">'; 
+                     var gstr = '<a class="dropdown-item" style="background-color: #f8f9fa; border-bottom:1px solid #f0f0f0;"  onclick="requestView(\''+ eventType + '\')">'; 
                   }else{
-                     var gstr = '<a class="dropdown-item" style="background-color: #f8f4ff;" onclick="updateNoticeStatus(\'' + ncId + '\',\'' + eventType + '\')">'; //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
+                     var gstr = '<a class="dropdown-item" style="background-color: #f8f4ff; border-bottom:1px solid #f0f0f0;" onclick="updateNoticeStatus(\'' + ncId + '\',\'' + eventType + '\')">'; //여기서 onclick 시에 화면이동+함수호출해야 함 호출 시 item.ncId 넣어야 함
                   }
                   gstr += '<div>';
    
@@ -82,7 +79,7 @@ function handleNotificationClick() {
                        }
    
                        gstr += '<div class="d-flex w-100 justify-content-between">';
-                       gstr += '<h5 class="mb-1">' + item.ncNoticeContent + '</h5>';
+                       gstr += '<h5 class="mb-1"><font style="font-weight:bold;">' + item.ncNoticeContent + '</font></h5>';
                        gstr += '</div>';
                        gstr += '<small class="text-muted">' + formatTimestamp(item.eventDatetime) + '</small>';
                        gstr += '</div>';
@@ -128,8 +125,10 @@ function updateNoticeStatus(ncId, eventType){
 function requestView(eventType){
    if(eventType === '예약' || eventType  === '예약취소'){ //예약이거나 예약취소이면 내스케줄 페이지
       window.location.href='schedule.do';
+   }else if(eventType === '답변등록'){
+      window.location.href='questionPage.do'; //문의사항
    }else{
-      window.location.href='myNoticePage.do'; //추후 공지사항으로 이동 
+      window.location.href='myNoticePage.do'; //공지사항 
    }
 }
 

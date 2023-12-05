@@ -25,7 +25,6 @@ public class CenterLessonDAO {
 	}
 	
 	public int insertCenterLesson(CenterLessonVO vo) {
-		System.out.println("과연" + vo);
 		return sqlSessionTemplate.insert("CenterLessonDAO.insertCenterLesson", vo);
 	}
 	

@@ -30,11 +30,6 @@ public class CenterLessonServiceImpl implements CenterLessonService {
 		return dao.insertCenterLesson(vo);
 	}
 	
-//	@Override
-//	public int insertCenterLesson(dataListVO vo) {
-//		return dao.insertCenterLesson(vo);
-//	}
-
 	@Override
 	public int deleteCenterLesson(String lsCode) {
 		return dao.deleteCenterLesson(lsCode);
@@ -45,11 +40,10 @@ public class CenterLessonServiceImpl implements CenterLessonService {
 		return dao.getTrainerCode(centerCode);
 	}
 
-//	@Override
-//	public void insertCenterLesson(CenterLessonVO[] lessons) {
-//		for(int i=0; i<lessons.length; i++) {
-//			dao.insertCenterLesson(lessons[i]);
-//		}
-//	}
-
+	@Override
+	public void insertCenterLesson(List<CenterLessonVO> centerLessonList) {
+		for(CenterLessonVO lesson : centerLessonList) {
+			dao.insertCenterLesson(lesson);
+		}
+	}
 }

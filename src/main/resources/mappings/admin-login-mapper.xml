@@ -21,6 +21,21 @@
 		<result property="memberCountCumulated" column="member_count_cumulated" />
 		<result property="trainerCountCumulated" column="trainer_count_cumulated" />
 		<result property="centerCountCumulated" column="center_count_cumulated" />
+		
+		<result property="ageGroup" column="AGE_GROUP" />
+		<result property="ageCount" column="AGE_COUNT" />
+
+		<result property="menCount" column="MEN_COUNT" />
+		<result property="womenCount" column="WOMEN_COUNT" />
+		
+		<result property="seoulCount" column="SEOUL_COUNT" />
+		<result property="ggCount" column="GG_COUNT" />
+		<result property="gwCount" column="GW_COUNT" />
+		<result property="ccCount" column="CC_COUNT" />
+		<result property="jlCount" column="JL_COUNT" />
+		<result property="gsCount" column="GS_COUNT" />
+		<result property="jjCount" column="JJ_COUNT" />
+
 	</resultMap>
 
 
@@ -62,7 +77,7 @@
 		SELECT COUNT(*) FROM TBL_ADMIN WHERE AD_ID=#{adId}
 	</select>
 	
-	<!-- 전체 회원,강사 수 /센터수 (현재&누적)-->
+	<!-- 통계 : 전체 회원,강사 수 /센터수 (현재&누적)-->
 	<select id="getTotalMemberCount" resultMap="adminloginResult">
 		SELECT
 		    (SELECT COUNT(*) FROM tbl_cst WHERE cs_role_code = 'ME' AND cs_delete_yn='n') AS member_count,
@@ -81,32 +96,63 @@
 		FROM
 		    generate_series(1, 12) m(month)
 		LEFT JOIN
-		    TBL_CENTER c ON EXTRACT(MONTH FROM c.contract_start_date) = m.month
-		WHERE
-		    EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM COALESCE(c.contract_start_date, CURRENT_DATE))
+		    TBL_CENTER c ON EXTRACT(MONTH FROM COALESCE(c.contract_start_date, CURRENT_DATE)) = m.month
+		    AND EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM COALESCE(c.contract_start_date, CURRENT_DATE))
 		GROUP BY
 		    m.month
 		ORDER BY
 		    m.month;
 		    
 	</select>
-	<!-- 계약 해지된 센터 수 세오기 (1월부터 12까지 갯수 세옴)-->
+	<!-- 통계 : 계약 해지되었거나 해지 될 센터 수 세오기 (1월부터 12까지 갯수 세옴)-->
 	<select id="getMonthlyRevokeCount" resultType="int">
-			SELECT
-		    COALESCE(COUNT(c.CT_CODE), 0) AS registration_count
+		SELECT
+		    COALESCE(COUNT(c.CT_CODE), 0) AS contract_count
 		FROM
 		    generate_series(1, 12) m(month)
 		LEFT JOIN
-		    TBL_CENTER c ON EXTRACT(MONTH FROM c.contract_start_date) = m.month
-		    AND c.contract_revoke_yn = 't'
-		WHERE
-		    EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM COALESCE(c.contract_start_date, CURRENT_DATE))
+		    TBL_CENTER c ON EXTRACT(MONTH FROM COALESCE(c.contract_end_date, CURRENT_DATE)) = m.month
+		    AND EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM COALESCE(c.contract_end_date, CURRENT_DATE))
 		GROUP BY
 		    m.month
 		ORDER BY
 		    m.month;
 		    
 	</select>
+	
+	<!-- 통계 : 연령대별 가입자 수 -->
+	<select id="countMemberAge" resultMap="adminloginResult">
+		SELECT
+		  CASE
+		    WHEN EXTRACT(YEAR FROM AGE(NOW(), CS_BIRTH)) &lt;=19 THEN '0-10대'
+		    WHEN EXTRACT(YEAR FROM AGE(NOW(), CS_BIRTH)) BETWEEN 20 AND 29 THEN '20대'
+		    WHEN EXTRACT(YEAR FROM AGE(NOW(), CS_BIRTH)) BETWEEN 30 AND 39 THEN '30대'
+		    WHEN EXTRACT(YEAR FROM AGE(NOW(), CS_BIRTH)) BETWEEN 40 AND 49 THEN '40대'
+		    WHEN EXTRACT(YEAR FROM AGE(NOW(), CS_BIRTH)) &gt;= 50 THEN '50대 이상'
+		  END AS age_group,
+		  COUNT(*) AS AGE_COUNT
+		FROM TBL_CST
+		GROUP BY age_group
+		ORDER BY age_group;
+	</select>
 
+	<!-- 통계 : 성별 가입자 수  -->
+	<select id="countGenterRatio" resultMap="adminloginResult">
+		SELECT 
+			(SELECT COUNT(*) FROM TBL_CST WHERE cs_gender_mw='남자') AS MEN_COUNT,
+			(SELECT COUNT(*) FROM TBL_CST WHERE cs_gender_mw='여자') AS WOMEN_COUNT;
+	</select>
+	
+	<!-- 통계 : 시도별 센터 수 -->
+	<select id="centerRegionCount" resultMap="adminloginResult" > 
 
+		SELECT 
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '서울%') AS SEOUL_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '경기%' OR ct_address2 LIKE '인천%') AS GG_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '강원%') AS GW_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '충북%' OR ct_address2 LIKE '충남%' OR ct_address2 LIKE '세종%' OR ct_address2 LIKE '대전%') AS CC_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '전라%' OR ct_address2 LIKE '광주%') AS JL_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '경남%' OR ct_address2 LIKE '경북%' OR ct_address2 LIKE '부산%' OR ct_address2 LIKE '울산%' OR ct_address2 LIKE '대구%') AS GS_COUNT,
+		  (SELECT COUNT(DISTINCT CT_CODE) FROM TBL_CENTER WHERE ct_address2 LIKE '제주%') AS JJ_COUNT;
+	</select>
 </mapper>

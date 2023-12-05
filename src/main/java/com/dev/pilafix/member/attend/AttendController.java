@@ -1,16 +1,19 @@
 package com.dev.pilafix.member.attend;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
@@ -20,8 +23,6 @@ public class AttendController {
 	@Autowired
 	private AttendService service;
 
-	
-	
 	
 	/**
 	 * 수업 상태별로 가져오는 전체 수업 리스트
@@ -61,13 +62,7 @@ public class AttendController {
 		}
 
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * 로그인한 강사의 csMemberCode로 가져오는 전체 수업 리스트(그룹/개인)
 	 * 
@@ -92,39 +87,90 @@ public class AttendController {
 			return "member/login";
 		}
 	}
-	
-
 
 	/**
 	 * 수업 상세 가져오기
+	 * 
 	 */
 	@GetMapping("/getTrainerLesson.do")
-	public String getLessonDetail(@RequestParam("lsCode") String lsCode, HttpSession session, Model model) {
-	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+	public String getLessonDetails(Model model, HttpSession session, @RequestParam String lsCode) {
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 
-	    if (user != null) {
-	        CenterLessonVO lessonDetail = service.getTrainerLessonDetail(lsCode);
+		if (user != null) {
+			CenterLessonVO lessonDetail = service.getTrainerLessonDetail(lsCode);
+			AttendVO attendVO = service.getAttendanceByLessonCode(lsCode);
+			model.addAttribute("attendance", attendVO);
+			model.addAttribute("lessonDetail", lessonDetail);
 
-	        // 출석 처리 여부 확인 및 통계 추가
-//	        boolean isAttendanceProcessed = service.isAttendanceProcessed(lsCode);
-//	        if (isAttendanceProcessed) {
-	            int attendedCount = service.getAttendedCountForLesson(lsCode);
-	            int absentCount = service.getAbsentCountForLesson(lsCode);
-	            model.addAttribute("attendedCount", attendedCount);
-	            model.addAttribute("absentCount", absentCount);
-//	        }
-
-	        model.addAttribute("lessonDetail", lessonDetail);
-
-	        if (lessonDetail.getLsType().equals("그룹")) {
-	            return "member/trainer_group_class_test";
-	        } else {
-	            return "member/trainer_personal_class_test";
-	        }
-	    } else {
-	        return "member/login";
+			if (lessonDetail.getLsType().equals("그룹")) {
+				return "member/trainer_group_class_test";
+			} else {
+				return "member/trainer_personal_class_test";
+			}
+		} else {
+			return "member/login";
+		}
+	}
+	
+	@GetMapping("/getAttendanceCounts.do")
+    public ResponseEntity<?> getAttendanceCounts(@RequestParam String atCode) {
+        int attendedCount = service.getAttendedCountForLesson(atCode);
+        int absentCount = service.getAbsentCountForLesson(atCode);
+        Map<String, Integer> counts = new HashMap<>();
+        counts.put("attendedCount", attendedCount);
+        counts.put("absentCount", absentCount);
+        return ResponseEntity.ok(counts);
+    }
+	
+	
+    //Ajax처리하는 출석 처리 메서드
+	@PostMapping("/updateAttendanceG.do")
+	public ResponseEntity<?> updateAttendance(@RequestParam String atCode, @RequestBody List<Integer> memberCodes) {
+	    try {
+	        int updatedRows = service.updateAttendance(atCode, memberCodes);
+	        return ResponseEntity.ok().body(updatedRows); // 처리된 행의 수를 반환
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	    }
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	1204 주석처리
+//	@GetMapping("/getTrainerLesson.do")
+//	public String getLessonDetail(@RequestParam("lsCode") String lsCode, HttpSession session, Model model) {
+//	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+//
+//	    if (user != null) {
+//	        CenterLessonVO lessonDetail = service.getTrainerLessonDetail(lsCode);
+//
+//	        // 출석 처리 여부 확인 및 통계 추가
+////	        boolean isAttendanceProcessed = service.isAttendanceProcessed(lsCode);
+////	        if (isAttendanceProcessed) {
+//	            int attendedCount = service.getAttendedCountForLesson(lsCode);
+//	            int absentCount = service.getAbsentCountForLesson(lsCode);
+//	            model.addAttribute("attendedCount", attendedCount);
+//	            model.addAttribute("absentCount", absentCount);
+////	        }
+//
+//	        model.addAttribute("lessonDetail", lessonDetail);
+//
+//	        if (lessonDetail.getLsType().equals("그룹")) {
+//	            return "member/trainer_group_class_test";
+//	        } else {
+//	            return "member/trainer_personal_class_test";
+//	        }
+//	    } else {
+//	        return "member/login";
+//	    }
+//	}
+	
 	/**
 	 * 개인수업 출석 업데이트
 	 * 
@@ -149,45 +195,37 @@ public class AttendController {
 
 	/**
 	 * 그룹수업 출석 업데이트
-	 * 
-	 * @return
 	 */
-	@PostMapping("/updateAttendG.do")
-	public String updateGroupAttend(@RequestParam("lessonCode") String lessonCode, Model model,
-	                                @RequestParam(name = "selectedMemberCodes", required = false) List<Integer> selectedMemberCodes) {
-		
-		System.out.println("선택된 멤버 코드"+selectedMemberCodes);
-	    try {
-	        if (selectedMemberCodes != null && !selectedMemberCodes.isEmpty()) {
-	            // 선택된 회원에 대한 출석 처리
-	            service.updateAttendanceGroupLesson(lessonCode, selectedMemberCodes);
-	            System.out.println("출결 업데이트 성공: " + lessonCode + " " + selectedMemberCodes);
-	            
-	        	Map<String, Integer> attendanceCounts = service.getCountAttendanceForLesson(lessonCode);
-	        	int attendedCount = attendanceCounts.get("attendedCount");
-	        	int absentCount = attendanceCounts.get("absentCount");
-	        	
-	        	model.addAttribute("attendedCount",attendanceCounts.get("attendedCount"));
-	        	model.addAttribute("absentCount",attendanceCounts.get("absentCount"));
-	        	
-	        } else {
-	            // 아무것도 선택되지 않았을 경우 별도의 처리가 필요 없음
-	            System.out.println("선택된 회원 없음: " + lessonCode);
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        System.out.println("출결 업데이트 실패: " + lessonCode + " " + selectedMemberCodes);
-	    }
-
-	    return "redirect:/getTrainerLesson.do?lsCode=" + lessonCode;
-	}
-
-
-	
-	
-
-
-
+// 1204 주석처리	
+//	@PostMapping("/updateAttendG.do")
+//	public String updateGroupAttend(@RequestParam("lessonCode") String lessonCode, Model model,
+//	                                @RequestParam(name = "selectedMemberCodes", required = false) List<Integer> selectedMemberCodes) {
+//		
+//		System.out.println("선택된 멤버 코드"+selectedMemberCodes);
+//	    try {
+//	        if (selectedMemberCodes != null && !selectedMemberCodes.isEmpty()) {
+//	            // 선택된 회원에 대한 출석 처리
+//	            service.updateAttendanceGroupLesson(lessonCode, selectedMemberCodes);
+//	            System.out.println("출결 업데이트 성공: " + lessonCode + " " + selectedMemberCodes);
+//	            
+//	        	Map<String, Integer> attendanceCounts = service.getCountAttendanceForLesson(lessonCode);
+//	        	int attendedCount = attendanceCounts.get("attendedCount");
+//	        	int absentCount = attendanceCounts.get("absentCount");
+//	        	
+//	        	model.addAttribute("attendedCount",attendanceCounts.get("attendedCount"));
+//	        	model.addAttribute("absentCount",attendanceCounts.get("absentCount"));
+//	        	
+//	        } else {
+//	            // 아무것도 선택되지 않았을 경우 별도의 처리가 필요 없음
+//	            System.out.println("선택된 회원 없음: " + lessonCode);
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	        System.out.println("출결 업데이트 실패: " + lessonCode + " " + selectedMemberCodes);
+//	    }
+//
+//	    return "redirect:/getTrainerLesson.do?lsCode=" + lessonCode;
+//	}
 
 
 }

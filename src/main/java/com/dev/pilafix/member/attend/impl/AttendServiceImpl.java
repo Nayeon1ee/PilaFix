@@ -13,6 +13,8 @@ import com.dev.pilafix.center.lesson.CenterLessonVO;
 import com.dev.pilafix.center.lesson.impl.CenterLessonDAO;
 import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.attend.AttendService;
+import com.dev.pilafix.member.attend.AttendVO;
+import com.dev.pilafix.member.attend.AttendVO;
 import com.dev.pilafix.member.reserve.impl.ReservDAO;
 
 @Service
@@ -34,11 +36,48 @@ public class AttendServiceImpl implements AttendService {
 		return dao.getTrainerLessonListWithCtName(csMemberCode);
 	}
 
+//	@Override
+//	public boolean isAttendanceProcessed(String lessonCode) {
+//	    int attendedCount = dao.getAttendedCountForLesson(lessonCode);
+//	    return attendedCount > 0;
+//	}
+	
+	//1204 lsCode=lessonCode 갖고오는 AttendVO
+    @Override
+    public AttendVO getAttendanceByLessonCode(String lsCode) {
+        return dao.selectAttendanceByLessonCode(lsCode);
+    }
+    //출결처리
+    @Override
+    public int updateAttendance(String atCode, List<Integer> memberCodes) {
+        int updatedRows = 0;
+        for (Integer memberCode : memberCodes) {
+            updatedRows += dao.updateMemberAttendance(atCode, memberCode);
+        }
+        return updatedRows;
+    }
+    
+
+	
+	//예약수
 	@Override
-	public boolean isAttendanceProcessed(String lessonCode) {
-	    int attendedCount = dao.getAttendedCountForLesson(lessonCode);
-	    return attendedCount > 0;
+	public int getReservedCountForLesson(String lsCode) {
+		return dao.getReservedCountForLesson(lsCode);
 	}
+	//출석수
+    @Override
+    public int getAttendedCountForLesson(String atCode) {
+        return dao.getAttendedCountForLesson(atCode);
+    }
+    //결석수
+    @Override
+    public int getAbsentCountForLesson(String atCode) {
+        return dao.getAbsentCountForLesson(atCode);
+    }
+    
+    
+    
+    
 	/**
 	 * 수업상세
 	 */
@@ -183,18 +222,6 @@ public class AttendServiceImpl implements AttendService {
 		return dao.getReservedNameForLesson(lessonCode);
 	}
 
-	@Override
-	public int getReservedCountForLesson(String lsCode) {
-		return dao.getReservedCountForLesson(lsCode);
-	}
-	@Override
-	public int getAttendedCountForLesson(String lsCode) {
-		return dao.getAttendedCountForLesson(lsCode);
-	}
-	@Override
-	public int getAbsentCountForLesson(String lsCode) {
-		return dao.getAbsentCountForLesson(lsCode);
-	}
 
 	@Override
 	public List<CenterLessonVO> getOngoingTrainerLessons(int csMemberCode) {

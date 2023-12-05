@@ -168,8 +168,10 @@
 
 
 							<div class="card rounded">
-								<div class="card-header bg-white" style="height: 100px;">
-									<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
+								<div class="card-header bg-light" style="height: 100px;">
+									<div class="text-center">
+										<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
+									</div>
 									<ul id="nav5" class="nav justify-content-around">
 										<li class="nav-item"><a class="nav-link active"
 											style="color: #0070c0; text-weight: bold; text-decoration: none;">예약</a></li>

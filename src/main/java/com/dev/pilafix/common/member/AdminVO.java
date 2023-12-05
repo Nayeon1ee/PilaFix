@@ -12,6 +12,7 @@ public class AdminVO {
 	private String accountUsageYn;
 	private String roleCode;
 	
+	//통계
 	private int memberCount;
 	private int trainerCount;
 	private int centerCount;
@@ -19,9 +20,89 @@ public class AdminVO {
 	private int trainerCountCumulated;
 	private int centerCountCumulated;
 
+	private String ageGroup;
+	private int ageCount;
 	
+	private int menCount;
+	private int womenCount;
 	
+	//지역별 계약 수
+	private int seoulCount; //서울
+	private int ggCount; //경기
+	private int gwCount; //강원
+	private int ccCount; //충청
+	private int jlCount; //전라도
+	private int gsCount; //경상도
+	private int jjCount; //제주도
 
+	
+	
+	public int getCcCount() {
+		return ccCount;
+	}
+	public void setCcCount(int ccCount) {
+		this.ccCount = ccCount;
+	}
+	public int getSeoulCount() {
+		return seoulCount;
+	}
+	public void setSeoulCount(int seoulCount) {
+		this.seoulCount = seoulCount;
+	}
+	public int getGgCount() {
+		return ggCount;
+	}
+	public void setGgCount(int ggCount) {
+		this.ggCount = ggCount;
+	}
+	public int getGwCount() {
+		return gwCount;
+	}
+	public void setGwCount(int gwCount) {
+		this.gwCount = gwCount;
+	}
+	public int getJlCount() {
+		return jlCount;
+	}
+	public void setJlCount(int jlCount) {
+		this.jlCount = jlCount;
+	}
+	public int getGsCount() {
+		return gsCount;
+	}
+	public void setGsCount(int gsCount) {
+		this.gsCount = gsCount;
+	}
+	public int getJjCount() {
+		return jjCount;
+	}
+	public void setJjCount(int jjCount) {
+		this.jjCount = jjCount;
+	}
+	public int getMenCount() {
+		return menCount;
+	}
+	public void setMenCount(int menCount) {
+		this.menCount = menCount;
+	}
+	public int getWomenCount() {
+		return womenCount;
+	}
+	public void setWomenCount(int womenCount) {
+		this.womenCount = womenCount;
+	}
+	public String getAgeGroup() {
+		return ageGroup;
+	}
+	public void setAgeGroup(String ageGroup) {
+		this.ageGroup = ageGroup;
+	}
+	public int getAgeCount() {
+		return ageCount;
+	}
+	public void setAgeCount(int ageCount) {
+		this.ageCount = ageCount;
+	}
 	public int getMemberCount() {
 		return memberCount;
 	}
@@ -119,8 +200,14 @@ public class AdminVO {
 				+ ", accountUsageYn=" + accountUsageYn + ", roleCode=" + roleCode + ", memberCount=" + memberCount
 				+ ", trainerCount=" + trainerCount + ", centerCount=" + centerCount + ", memberCountCumulated="
 				+ memberCountCumulated + ", trainerCountCumulated=" + trainerCountCumulated + ", centerCountCumulated="
-				+ centerCountCumulated +  "]";
+				+ centerCountCumulated + ", ageGroup=" + ageGroup + ", ageCount=" + ageCount + ", menCount=" + menCount
+				+ ", womenCount=" + womenCount + ", seoulCount=" + seoulCount + ", ggCount=" + ggCount + ", gwCount="
+				+ gwCount + ", ccCount=" + ccCount + ", jlCount=" + jlCount + ", gsCount=" + gsCount + ", jjCount="
+				+ jjCount + "]";
 	}
+	
+	
+	
 	
 	
 

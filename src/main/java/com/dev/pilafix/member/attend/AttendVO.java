@@ -18,10 +18,75 @@ public class AttendVO {
 	private boolean atAttendance5Yn;	
 	private int atMember6Code;
 	private boolean atAttendance6Yn;
+    private String member1Name;
+    private String member2Name;
+    private String member3Name;
+    private String member4Name;
+    private String member5Name;
+    private String member6Name;
+	private boolean atCheckYn;
+	
+	
+	public boolean isAtCheckYn() {
+		return atCheckYn;
+	}
+	public void setAtCheckYn(boolean atCheckYn) {
+		this.atCheckYn = atCheckYn;
+	}
+	private int csMemberCode;
+	private String csName;
 	
 	
 	
 	
+	public String getMember1Name() {
+		return member1Name;
+	}
+	public void setMember1Name(String member1Name) {
+		this.member1Name = member1Name;
+	}
+	public String getMember2Name() {
+		return member2Name;
+	}
+	public void setMember2Name(String member2Name) {
+		this.member2Name = member2Name;
+	}
+	public String getMember3Name() {
+		return member3Name;
+	}
+	public void setMember3Name(String member3Name) {
+		this.member3Name = member3Name;
+	}
+	public String getMember4Name() {
+		return member4Name;
+	}
+	public void setMember4Name(String member4Name) {
+		this.member4Name = member4Name;
+	}
+	public String getMember5Name() {
+		return member5Name;
+	}
+	public void setMember5Name(String member5Name) {
+		this.member5Name = member5Name;
+	}
+	public String getMember6Name() {
+		return member6Name;
+	}
+	public void setMember6Name(String member6Name) {
+		this.member6Name = member6Name;
+	}
+	public int getCsMemberCode() {
+		return csMemberCode;
+	}
+	public void setCsMemberCode(int csMemberCode) {
+		this.csMemberCode = csMemberCode;
+	}
+	public String getCsName() {
+		return csName;
+	}
+	public void setCsName(String csName) {
+		this.csName = csName;
+	}
 	public String getAtCode() {
 		return atCode;
 	}
@@ -116,14 +181,20 @@ public class AttendVO {
 	}
 	@Override
 	public String toString() {
-		return "AttendVO [atCode=" + atCode + ", lessonCode=" + lessonCode + ", atMember1Code=" + atMember1Code
-				+ ", atAttendance1Yn=" + atAttendance1Yn + ", atMember2Code=" + atMember2Code + ", atAttendance2Yn="
-				+ atAttendance2Yn + ", atMember3Code=" + atMember3Code + ", atAttendance3Yn=" + atAttendance3Yn
-				+ ", atMember4Code=" + atMember4Code + ", atAttendance4Yn=" + atAttendance4Yn + ", atMember5Code="
-				+ atMember5Code + ", atAttendance5Yn=" + atAttendance5Yn + ", atMember6Code=" + atMember6Code
-				+ ", atAttendance6Yn=" + atAttendance6Yn + ", atDate=" + atDate + "]";
+		return "AttendVO [atCode=" + atCode + ", lessonCode=" + lessonCode + ", atDate=" + atDate + ", atMember1Code="
+				+ atMember1Code + ", atAttendance1Yn=" + atAttendance1Yn + ", atMember2Code=" + atMember2Code
+				+ ", atAttendance2Yn=" + atAttendance2Yn + ", atMember3Code=" + atMember3Code + ", atAttendance3Yn="
+				+ atAttendance3Yn + ", atMember4Code=" + atMember4Code + ", atAttendance4Yn=" + atAttendance4Yn
+				+ ", atMember5Code=" + atMember5Code + ", atAttendance5Yn=" + atAttendance5Yn + ", atMember6Code="
+				+ atMember6Code + ", atAttendance6Yn=" + atAttendance6Yn + ", member1Name=" + member1Name
+				+ ", member2Name=" + member2Name + ", member3Name=" + member3Name + ", member4Name=" + member4Name
+				+ ", member5Name=" + member5Name + ", member6Name=" + member6Name + ", atCheckYn=" + atCheckYn
+				+ ", csMemberCode=" + csMemberCode + ", csName=" + csName + "]";
 	}
 
 	
+	
+	
+
 
 }

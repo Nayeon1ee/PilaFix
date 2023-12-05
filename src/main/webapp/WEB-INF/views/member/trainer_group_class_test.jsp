@@ -49,6 +49,7 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.15.0/font/bootstrap-icons.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>	
 </head>
 <!-- 내 css -->
 
@@ -82,8 +83,6 @@
 	<!-- ======= Services Section ======= -->
 	<section id="services" class="services">
 		<div class="container" style="max-width: 1000px">
-
-
 			<!-- 수업 상세 정보 -->
 			<section class="explanation text-center py-5">
 				<div class="container">
@@ -163,8 +162,112 @@
 							</c:otherwise>
 						</c:choose>
 					</div>
+                    </c:choose>
+                    <span  style="display: inline-block;">
+                        ${fn:substring(lessonDetail.lsTime, 11, 16)}
+                    </span>
+                    <br>
+                    <p class="h3 mb-0">
+				    <strong class="text-primary" >
+                        ${lessonDetail.lsName}
+                    </strong></p>
+                    <br>			
+		<div class="output-text" style="text-align:center; white-space: pre-line; ">
+		    ${lessonDetail.lsContent}
+		</div>
+	</div>
+	</section>
+
+
+<!-- 출석 통계 -->
+<div class="status py-5">
+	<div class="container">
+		<div class="row justify-content-center">
+            <div class="col-md-4 text-center">예약: ${lessonDetail.reservedCount}</div>
+			<div class="col-md-4 text-center">출석: <span id="presentCount">${attendedCount}</span></div>
+			<div class="col-md-4 text-center">결석: <span id="absentCount">${absentCount}</span></div>
+		</div>
+	</div>
+</div>
+
+<!-- 수업 예약한 회원 목록 -->
+<section class="member_list py-1 my-2">
+	<div class="container">
+		<div class="row justify-content-center">
+			<c:choose>
+<%-- 			<c:when test="${not empty lessonDetail.reservedMembers}"> --%>
+			<c:when test="${not empty attendance}">
+<c:if test="${attendance.member1Name != null}">
+<div class="col-md-2">
+    <div class="member-check text-center">
+        <input type="checkbox" class="btn-check" id="btn-check-1" name="selectedMemberCodes" value="${attendance.atMember1Code}" autocomplete="off"> 
+        <label class="btn" for="btn-check-1">
+            <p>${attendance.member1Name}</p>
+        </label>
+    </div>
+</div>
+</c:if>
+<c:if test="${attendance.member2Name != null}">
+<div class="col-md-2">
+    <div class="member-check text-center">
+        <input type="checkbox" class="btn-check" id="btn-check-2" name="selectedMemberCodes" value="${attendance.atMember2Code}" autocomplete="off"> 
+        <label class="btn" for="btn-check-2"> 
+            <p>${attendance.member2Name}</p>
+        </label>
+    </div>
+</div>    
+</c:if>
+<c:if test="${attendance.member3Name != null}">
+<div class="col-md-2">
+    <div class="member-check text-center">
+        <input type="checkbox" class="btn-check" id="btn-check-3" name="selectedMemberCodes" value="${attendance.atMember3Code}" autocomplete="off"> 
+        <label class="btn" for="btn-check-3"> 
+            <p>${attendance.member3Name}</p>
+        </label>
+    </div>
+</div>    
+</c:if>
+<c:if test="${attendance.member4Name != null}">
+<div class="col-md-2">
+    <div class="member-check text-center">
+        <input type="checkbox" class="btn-check" id="btn-check-4" name="selectedMemberCodes" value="${attendance.atMember4Code}" autocomplete="off"> 
+        <label class="btn" for="btn-check-4">
+            <p>${attendance.member4Name}</p>
+        </label>
+    </div>
+</div>    
+</c:if>
+<c:if test="${attendance.member5Name != null}">
+<div class="col-md-2">
+    <div class="member-check text-center">
+        <input type="checkbox" class="btn-check" id="btn-check-5" name="selectedMemberCodes" value="${attendance.atMember5Code}" autocomplete="off"> 
+        <label class="btn" for="btn-check-5"> 
+            <p>${attendance.member5Name}</p>
+        </label>
+    </div>
+</div>    
+</c:if>
+<c:if test="${attendance.member6Name != null}">
+<div class="col-md-2">
+    <div class="member-check text-center">
+        <input type="checkbox" class="btn-check" id="btn-check-6" name="selectedMemberCodes" value="${attendance.atMember6Code}" autocomplete="off"> 
+        <label class="btn" for="btn-check-6">
+            <p>${attendance.member6Name}</p>
+        </label>
+    </div>
+</div>    
+</c:if>
+
+</c:when>
+			<c:otherwise>
+				<div class="col-md-12">
+					<p class="text-center">현재 예약한 회원이 없습니다.</p>
 				</div>
-			</section>
+			</c:otherwise>
+		</c:choose>
+		</div>
+	</div>
+</section>
 
 			<div class="container">
 				<div class="d-flex justify-content-between align-items-center">
@@ -182,7 +285,10 @@
 						<button type="submit" class="btn btn-primary me-3">출석처리</button>
 					</form>
 
+					<button type="button" class="btn btn-primary ms-3" onclick="location.href='getTrainerLessonList.do'">목록</button>
 
+<input type="hidden" id="atCode" name="atCode" value="${attendance.atCode}">
+<button type="button" id="attendanceSubmitButton" class="btn btn-primary me-3">출석처리</button>
 				</div>
 			</div>
 
@@ -192,7 +298,54 @@
 	</section>
 </main>
 
+<script>
+    // 출석 및 결석 회원 수 조회 함수
+    function getAttendanceCounts(atCode) {
+        $.ajax({
+            url: 'getAttendanceCounts.do',
+            type: 'GET',
+            data: {atCode: atCode},
+            success: function(counts) {
+                $("#presentCount").text(counts.attendedCount);
+                $("#absentCount").text(counts.absentCount);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error occurred: ", status, error);
+            }
+        });
+    }
 
+    $(document).ready(function() {
+        var atCode = $("#atCode").val();
+
+        // 페이지 로드 시 출석 및 결석 회원 수 조회
+        getAttendanceCounts(atCode);
+
+        $("#attendanceSubmitButton").click(function(e) {
+            e.preventDefault();
+            var selectedMemberCodes = $("input[name='selectedMemberCodes']:checked").map(function() {
+                return $(this).val();
+            }).get();
+
+            // 출석 처리 요청
+            $.ajax({
+                url: 'updateAttendanceG.do?atCode=' + encodeURIComponent(atCode),
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(selectedMemberCodes),
+                success: function(response) {
+                    // 출석 처리 후에도 출석 및 결석 회원 수 조회
+                    getAttendanceCounts(atCode);
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = "출석 처리 중 오류가 발생했습니다: " + error;
+                    alert(errorMessage);
+                    console.error("Error occurred: ", status, error);
+                }
+            });
+        });
+    });
+</script>
 <!-- End #main -->
 
 <!-- ======= Footer ======= -->
@@ -229,7 +382,6 @@
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
-
 </body>
 
 </html>
