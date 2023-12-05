@@ -260,7 +260,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">닫기</button>
-										<button type="button" class="btn btn-primary" onclick="location.href='/pilafix/ct.do'" >마이페이지 이동</button>
+										<button type="button" class="btn btn-primary" onclick="location.href='/pilafix/myPage.do'" >마이페이지 이동</button>
 								</div>
 							</div>
 						</div>
