@@ -93,7 +93,7 @@
 
 <c:if test="${type ne 'T' }">
 				<!-- 강사의 경우 해당 화면이 보이지 않음  -->
-		<div class="card card_box_shadow">
+		<div class="card card_box_shadow mt-4">
             <div class="card-body">
               <h5 class="card-title">수강권결제내역</h5>
               <p>회원이 최근에 결제한 수강권내역입니다.</p>
@@ -140,7 +140,7 @@
 
 
 
-		<div class="card card_box_shadow">
+		<div class="card card_box_shadow mt-4">
             <div class="card-body">
               <h5 class="card-title">연동센터이력</h5>
               <p>연동한 센터들이 보여집니다.</p>
