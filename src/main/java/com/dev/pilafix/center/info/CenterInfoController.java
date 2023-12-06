@@ -35,7 +35,7 @@ public class CenterInfoController {
 		}
 		return "redirect:centerLogin.do";
 	}
-
+	
 	/**
 	 * 상세 공지사항 조회 
 	 * (클릭 시 조회수 증가)
@@ -46,12 +46,11 @@ public class CenterInfoController {
 	 */
 	@GetMapping("/getCenterInfo.do")
 	public String getCenterInfo(@RequestParam("icNumber") Integer icNumber, Model model) {
-		// 조회수 증가
-		service.updateCenterInfoViewCnt(icNumber);
+		
 		model.addAttribute("centerInfo", service.getCenterInfo(icNumber));
 		return "center/center_info_board_detail";
 	}
-
+	
 	@GetMapping("/insertCenterInfo.do")
 	public String insertCenterInfo() {
 		return "center/center_info_board_register";

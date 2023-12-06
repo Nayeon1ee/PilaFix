@@ -46,9 +46,12 @@
 		SELECT CM_NUMBER, CM_TITLE, CM_CONTENT, (SELECT CS_NAME FROM TBL_CST WHERE CS_MEMBER_CODE=CM_WRITER_MEMBER_CODE) as CS_NAME, CM_REGDATE, CM_VIEWS, CM_WRITER_MEMBER_CODE, CM_WRITER_IP
 		FROM TBL_COMMUNITY WHERE CM_NUMBER=#{memberCmNumber}
 	</select>
+	
+	<!-- 조회수 증가 -->
 	<update id="updateMemberCommunityViewCnt" parameterType="memberCommunity">
 		UPDATE TBL_COMMUNITY SET CM_VIEWS = CM_VIEWS + 1 WHERE CM_NUMBER=#{memberReTargetPostNumber}
 	</update>
+	<!-- 신고수 증가 -->
 	<update id="updateMemberCommunityBlameCnt" parameterType="memberCommunity">
 		UPDATE TBL_COMMUNITY SET CM_BLAME_COUNT = CM_BLAME_COUNT + 1 WHERE CM_NUMBER=#{memberCmNumber}
 	</update>

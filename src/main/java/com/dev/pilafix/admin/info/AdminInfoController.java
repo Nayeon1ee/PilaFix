@@ -34,7 +34,7 @@ public class AdminInfoController {
 		}
 		return "redirect:adminLogin.do";
 	}
-
+	
 	/**
 	 * 상세 공지사항 조회 
 	 * (클릭 시 조회수 증가)
@@ -45,8 +45,6 @@ public class AdminInfoController {
 	 */
 	@GetMapping("/getAdminInfo.do")
 	public String getAdminInfo(@RequestParam("iwNumber") Integer iwNumber, Model model) {
-	    // 조회수 증가
-	    service.updateAdminInfoViewCnt(iwNumber);
 	    model.addAttribute("adminInfo", service.getInfo(iwNumber));
 		return "admin/admin_info_board_detail";
 	}
