@@ -154,7 +154,7 @@
 								</div>
 							</div>
 						<div class="content border rounded p-3"
-							style="min-height: 530px; max-height: 530px; ">
+							style="min-height: 565px; max-height: 565px; ">
 
 
 
