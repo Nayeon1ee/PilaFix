@@ -90,11 +90,17 @@
 							<c:forEach items="${centerList}" var="center">
 								<div class="card mt-3">
 									<div class="card-body">
-										<h5 class="card-title">그룹수업</h5>
+										<h5 class="card-title"><strong>${center.ctName}</strong></h5>
 
 										<p class="card-text mt-3">
-											<strong>센터 정보:</strong> ${center.ctName}
+<img alt="bar" src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
+${center.ctPhoneNumber1}-${center.ctPhoneNumber2}-${center.ctPhoneNumber3}
+<br>
+<img alt="bar" src="${pageContext.request.contextPath}/resources/images/purple_bar.png">										
+${center.ctAddress2} ${center.ctAddress3}
 										</p>
+										
+										
 
 										<!-- 해제 버튼을 눌렀을 때 모달 띄우기 -->
 										<div class="d-flex justify-content-end">
