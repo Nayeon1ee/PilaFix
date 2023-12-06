@@ -101,7 +101,7 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container mx-auto" style="max-width: 1000px;">
+			<div class="container mx-auto" style="max-width: 1100px;">
 
 				<!-- 7:3 비율 잡기 위한 컨테이너 -->
 				<div class="container d-flex justify-content-center p-0 m-0">
