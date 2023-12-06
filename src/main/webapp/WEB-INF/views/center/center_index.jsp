@@ -24,8 +24,8 @@
           <div class="row">
 
             <!-- 판매횟수 Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
+            <div class="col-xxl-4 col-xl-12">
+              <div class="card info-card customers-card">
                 <div class="card-body">
                   <h5 class="card-title">판매횟수</h5>
                   <div class="d-flex align-items-center">
@@ -41,8 +41,8 @@
             </div><!-- 판매횟수 Card -->
 
             <!-- 판매금액 Card -->
-            <div class="col-xxl-4 col-md-6" style="width">
-              <div class="card info-card revenue-card">
+            <div class="col-xxl-4 col-xl-12">
+              <div class="card info-card customers-card">
                 <div class="card-body">
                   <h5 class="card-title">매출액</h5>
                   <div class="d-flex align-items-center">
@@ -56,10 +56,10 @@
                 </div>
               </div>
             </div><!-- 판매금액 Card -->
-
+            
             <!-- 회원수 Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card customers-card">
+            <div class="col-xxl-4 col-xl-12">
+              <div class="card info-card revenue-card">
                 <div class="card-body">
                   <h5 class="card-title">회원수</h5>
                   <div class="d-flex align-items-center">
@@ -86,7 +86,7 @@
                  <script>
                     document.addEventListener("DOMContentLoaded", () => {
                     	 $.ajax({
-	                  	        url: "monthlyContractCount.do", 
+	                  	        url: "monthlyAmount.do", 
 	                  	        type: 'POST',  
 	                  	        success: function(data) {
 	                  	            console.log('yn' + data);
