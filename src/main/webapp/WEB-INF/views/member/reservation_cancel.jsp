@@ -355,9 +355,14 @@
 	                
 	                if(response){
    	                console.log("cancelReservation() 호출 성공");
-	              	// 추후 내스케줄 확인으로 이동
+   	                
+   	                // 문자발송 
+   	                sendCancelSMS(response, lsCode); //문자 발송 호출
+   	                
+	              	// 내스케줄 확인으로 이동
 	   	            window.location.href = 'schedule.do';
 	                }
+	                
 	            },
 	            error : function (xhr, status, error) {
 	                console.error("Ajax 요청 실패");
@@ -367,6 +372,40 @@
 	        });
 
 	    }
+	<!-- 문자 발송  -->
+	function sendCancelSMS(response, lsCode) {
+        
+	    // 성공 여부에 따라 처리
+	    if (response.success) {
+	        console.log("문자발송 성공");
+	        // 성공 화면으로 이동 또는 다른 작업 수행
+	        
+	        $.ajax({
+	            type : "Post",
+	            url : "sendSms.do", 
+	            data : {
+	    			lsCode: lsCode,
+	    			isCancel: true
+	    		},
+	            success : function(response) {
+	                console.log("메시지 전송 성공");
+	                //여기서 성공 화면으로 보내기 
+	            },
+	            error : function (xhr, status, error) {
+	                console.error("Ajax 요청 실패");
+	                console.error("상태 코드: ", xhr.status);
+	                console.error("에러 메시지: ", error);
+	            }
+	        }); 
+	        
+	        
+	    } else {
+	        console.error("문자발송 실패");
+	        alert(response.message); // 실패 메시지
+	    }
+	}	
+	
+	
 	</script>
 
 

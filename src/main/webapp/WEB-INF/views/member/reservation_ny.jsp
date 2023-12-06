@@ -852,7 +852,7 @@
 	            url : "sendSms.do", 
 	            data : {
 	    			lsCode: reservationData.lsCode,
-	    			rsCode: response.rsCode
+	    			isCancel: false
 	    		},
 	            success : function(response) {
 	                console.log("메시지 전송 성공");

@@ -43,9 +43,10 @@ public class SMSService {
      * STEP03. 문자발송 이력 등록 
      * 
      * @param lsCode
+     * @param isCancel 
      * @param session
      */
-    public void sendReservationConfirmation(String lsCode, HttpSession session) {
+    public void sendReservationConfirmation(String lsCode, boolean isCancel, HttpSession session) {
     	Map<String, Object> loginUser = (Map<String, Object>) session.getAttribute("loginUser");
         String memberName = (String) loginUser.get("csName");
         String memberPhone = (String) loginUser.get("csPhoneNumber");
@@ -59,7 +60,11 @@ public class SMSService {
         text.append(convertToKoreanTime(reservLesson.getLsTime()));
         text.append(" ");
         text.append(reservLesson.getLsName());
-        text.append("수업 예약이 완료되었습니다.");
+        if(isCancel) { //예약 취소라면 
+        	text.append(" 수업이 취소되었습니다.");
+        }else {
+        	text.append(" 수업 예약이 완료되었습니다.");
+        }
         String smsContent = text.toString();
         
        
@@ -71,8 +76,12 @@ public class SMSService {
 		params.put("from", "01051275264");
 		params.put("type", "LMS");
         params.put("country", "82");
-        params.put("subject", "[필라픽스] 예약 완료 안내");
-		params.put("text", smsContent);
+        if(isCancel) {
+        	params.put("subject", "[필라픽스] 예약 취소 안내");
+        }else {
+        	params.put("subject", "[필라픽스] 예약 완료 안내");
+        }
+        params.put("text", smsContent);
 		params.put("app_version", "test app 1.2"); 
 		
 		JSONObject obj = null;
@@ -131,6 +140,11 @@ public class SMSService {
 
         return String.format("%s %d:%02d", timeOfDay, hour, minute);
     }
+
+	public void sendCancelConfirmation(String lsCode, HttpSession session) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 
