@@ -169,6 +169,7 @@ WHERE T.LS_CODE IN
  <foreach collection="reservlessonCode" item="attendancelsCode" open="(" separator="," close=")">
         #{attendancelsCode}
     </foreach>
+AND at_check_yn='t'
 ORDER BY COMBINED_DATETIME DESC;
   
 </select>

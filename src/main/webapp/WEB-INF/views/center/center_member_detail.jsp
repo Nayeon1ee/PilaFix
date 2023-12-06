@@ -225,24 +225,8 @@
 													<div class="col-lg-9 col-md-8"> 
 														<c:choose>
 															<c:when test="${not empty member.ticketCodeGroup1 }">
-												                <%-- 시작일과 만료일을 Date 객체로 변환 
-												                <fmt:parseDate var="startDate" value="${member.ticketStartDateGroup1}" pattern="yyyy-MM-dd" />
-												                <fmt:parseDate var="expiryDate" value="${member.ticketExpiryDateGroup1}" pattern="yyyy-MM-dd" />
-												                 --%>
-												                <%-- 총 일수 계산 
-												                <c:set var="totalDays" value="${fn:substring((expiryDate.time - startDate.time) / (24 * 60 * 60 * 1000), 0, fn:length((expiryDate.time - startDate.time) / (24 * 60 * 60 * 1000)) - 2)}" />
-												                --%>
-												                <%-- 현재 날짜를 가져오기 
-												                <fmt:formatDate pattern="yyyy-MM-dd" var="currentDate" value="${now}" />
-												                --%>
-												                <%-- 남은 일수 계산 
-												                <c:set var="remainingDays" value="${fn:substring((expiryDate.time - currentDate.time) / (24 * 60 * 60 * 1000), 0, fn:length((expiryDate.time - currentDate.time) / (24 * 60 * 60 * 1000)) - 2)}" />
-												                ${remainingDays}일 남음 / 총 ${totalDays}일
-												                --%>
-												                
 												                <fmt:parseDate var="startDate2" value="${member.ticketStartDateGroup1}" pattern="yyyy-MM-dd" />
 															    <fmt:parseDate var="endDate2" value="${member.ticketExpiryDateGroup1}" pattern="yyyy-MM-dd" />
-																												    
 																<fmt:parseNumber value="${endDate.time / (1000*60*60*24)}" integerOnly="true" var="resultEndDate2" />
 																<fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="resultStartDate2" />
 																
@@ -309,7 +293,22 @@
 													<td><fmt:formatDate pattern="yyyy.MM.dd(E) a h:mm" var="formattedDate2" value="${qlist.qsRegdate}" />${formattedDate2 }</td>
 													<td>${qlist.qsTitle }</td>
 													<td>
-														<button type="submit" onclick="location.href='getQuestionReply.do?reTargetPostNumber=${qlist.qsNumber}' " class="btn btn-primary btn-sm mb-3">${qlist.qsAnswerYn ? '답변대기' : '답변완료'}</button>
+														<c:choose>
+															<c:when test="${qlist.qsAnswerYn}">
+																<!-- 답변완료 상태인 경우 -->
+																<button type="button" class="btn btn-primary mb-3" style="font-size: 10px; background: dimgray; border-color: dimgray;"
+																		onclick="window.location.href='insertQuestionReply.do?qsNumber=${qlist.qsNumber}'">
+																답변완료
+																</button>
+															</c:when>
+															<c:otherwise>
+																<!-- 답변대기 상태인 경우 -->
+																<button type="button" class="btn btn-primary mb-3" style="font-size: 10px; background: red; border-color: red;"
+																		onclick="window.location.href='insertQuestionReply.do?qsNumber=${qlist.qsNumber}'">
+																답변대기
+																</button>
+															</c:otherwise>
+														</c:choose>
 													</td>
 												</tr>
 											</c:forEach>

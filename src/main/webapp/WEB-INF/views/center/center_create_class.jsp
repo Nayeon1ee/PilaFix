@@ -160,7 +160,24 @@ var lessonsArray = []; // 수업 객체 담을 배열
 // '날짜 및 시간 등록' 버튼 클릭 시 실행되는 함수
 document.getElementById('addButton').addEventListener('click', function() {
 	
-	var lsType = document.getElementById('flexRadioDefault1').value;
+	var selectedType;
+
+	// 라디오 박스 그룹 이름을 기반으로 선택된 값을 찾음
+	var radioButtons = document.getElementsByName('lsType');
+
+	// 반복문을 통해 체크된 라디오 박스의 값을 확인
+	for (var i = 0; i < radioButtons.length; i++) {
+	    if (radioButtons[i].checked) {
+	        selectedType = radioButtons[i].value;
+	        break; // 체크된 것을 찾았으면 반복문을 종료
+	    }
+	}
+
+	// 선택된 값 출력 또는 활용
+	console.log(selectedType);
+
+	
+	var lsType = selectedType;
 	var lsName = document.getElementById('lsName').value;
 	var trainerMemberCode = document.getElementById('trainerMemberCode').value;
 	var lsCapacity = document.getElementById('lsCapacity').value;
