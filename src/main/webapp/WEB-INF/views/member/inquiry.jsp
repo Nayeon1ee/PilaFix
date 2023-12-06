@@ -345,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 accordionButtons.forEach(function (otherButton) {
                     if (otherButton !== button) {
                         otherButton.classList.add('collapsed');
-                        var otherAccordionBody = otherButton.closest('.accordion-item').querySelector('.reply-content');
+                        var otherAccordionBody = otherButton.closest('.reply-item').querySelector('.reply-content');
                         accordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
 
                     }

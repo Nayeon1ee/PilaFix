@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 현재 버튼의 아코디언 바디에 색상 적용
             var accordionBody = this.closest('.accordion-item').querySelector('.accordion-body');
-            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? 'rgba(241, 243, 244, 0.5)' : '#fff';
+            accordionBody.style.backgroundColor = this.classList.contains('collapsed') 'rgba(241, 243, 244, 0.5)' : '#fff';
 
             // 클릭한 버튼이 이미 열린 상태라면 닫음
             if (!this.classList.contains('collapsed')) {
