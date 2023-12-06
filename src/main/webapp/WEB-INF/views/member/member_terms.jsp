@@ -52,7 +52,8 @@
 <!-- 내 css -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common_0.css">
-
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style_member_terms.css">
 <body>
 
 
