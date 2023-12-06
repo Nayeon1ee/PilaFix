@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.accordion-body {
+	padding: 10px;
+	margin-top: 10px;
+	background-color: #fff;
+	border-radius: 5px;
+}
+
+.inquiry-title {
+	color: #000000 !important;
+}
+
+.accordion-button {
+	background-color: rgba(192, 192, 192, 0.3) !important;
+}
+
+.accordion-button:hover {
+	background-color: rgba(192, 192, 192, 0.4) !important;
+}
+
+a[data-toggle="modal"] {
+	font-weight: bold;
+	font-size: 1.2em;
+	color: #434343;
+}

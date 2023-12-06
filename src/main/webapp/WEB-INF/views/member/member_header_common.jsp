@@ -16,11 +16,7 @@
 		<div
 			class="container d-flex justify-content-center justify-content-md-between">
 			<div class="contact-info d-flex align-items-center">
-
-				<i class="bi bi-envelope d-flex align-items-center">
-				<a href="#" style="pointer-events: none;">${sessionScope.loginUser.csEmailId}</a></i> 
-
-
+ 
 				<i class="bi bi-envelope d-flex align-items-center"><a
 					href="mailto:contact@example.com">${sessionScope.loginUser.csEmailId}</a></i> 
 <!-- <i class="bi bi-phone d-flex align-items-center ms-4"><span>+102-1234-5678</span></i> -->
