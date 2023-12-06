@@ -76,6 +76,16 @@ public class AdminLoginController {
 			return "admin/admin_login";
 		}
 	}
+	
+	// 대시보드 누르면 다시 메인 화면 뿌려줌
+	@GetMapping("/adminDashboard.do")
+	public String adminDashboard(Model model) {
+
+			// 통계			
+			model.addAttribute("count",service.getTotalMemberCount()) ;
+			System.out.println( model.getAttribute("count"));
+			return "admin/admin_index";
+	}
 
 	/**
 	 * 관리자 비밀번호 변경 가능한 페이지
