@@ -272,7 +272,7 @@ function loadReply(qsNumber) {
         })
         .then(data => {
             // 여기서 답변 내용을 업데이트
-            replyContent.innerHTML = '<strong>답변 제목:</strong> ' + data.replyTitle + '<br><strong>답변 내용:</strong> ' + data.replyContent;
+            replyContent.innerHTML = '<strong>[답변제목]</strong> ' + data.replyTitle + '<br><strong>[답변내용]</strong> ' + data.replyContent;
         })
         .catch(error => {
             console.error('Error:', error);
