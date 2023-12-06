@@ -72,7 +72,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="index.html">Home</a></li>
+					<li><a href="mainPage.do">home</a></li>
 					<li>Community</li>
 				</ol>
 				<h2>커뮤니티</h2>
@@ -88,11 +88,16 @@
 				<div class="row justify-content-center my-3">
 					<div class="col-md-12 my-3">
 						<div class="text-center">
-							<h2 class="mb-4">자유게시판 작성</h2>
+						
+							<h3 class="mb-4">
+							<img alt="bar" src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
+							<strong>자유게시판</strong></h3>
 						</div>
 						<div class="mt-3">
-							<div class="alert alert-info border-0" role="alert">
-								<strong>안내:</strong> 자유롭게 의견을 게시하는 공간입니다. 개인 정보가 포함되지 않도록 유의하시고,
+							<div class="alert alert-info border-0" >
+								<strong>안내:</strong> 
+								자유롭게 의견을 게시하는 공간입니다. 
+								개인 정보가 포함되지 않도록 유의하시고,
 								아래와 같은 규정에 따라 삭제될 수 있습니다.
 							</div>
 							<ul class="list-group border-0">

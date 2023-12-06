@@ -83,8 +83,8 @@ public class QuestionController {
 	        resultMap.put("replyTitle", questionReply.getReTitle());
 	        resultMap.put("replyContent", questionReply.getReContent());
 	    } else {
-	        resultMap.put("replyTitle", "답변 없음");
-	        resultMap.put("replyContent", "등록된 답변이 없습니다.");
+	        resultMap.put("replyTitle", "");
+	        resultMap.put("replyContent", "아직 답변이 등록되지 않았습니다.");
 	    }
 
 	    return resultMap;

@@ -86,7 +86,9 @@
 						class="d-flex align-items-center justify-content-center mb-2">
 						<div id="myInfoLink" class="mr-2"
 							style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-							<i class="fas fa-cog mr-1"></i>내 정보 관리
+							<i class="fas fa-cog mr-1"></i>
+							<img alt="bar" src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
+							내 정보
 						</div>
 						<div class="col-10"></div>
 			

@@ -88,7 +88,9 @@
 					<div id="userInfo" class="d-flex align-items-center mb-2">
 						<div id="myInfoLink" class="ps-4 ms-5"
     style="font-size: 18px; color: #9b56e9; font-weight: bold; margin-left: 40px;">
-    <a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i> 내 정보 관리 </a>
+    <a href="myInfoManage.do"><i class="fas fa-cog mr-1"></i>
+    <img alt="bar" src="${pageContext.request.contextPath}/resources/images/purple_bar.png"> 
+    내 정보 관리 </a>
 </div>
 
 
@@ -98,7 +100,7 @@
 						class="my-passes container mt-3 d-flex justify-content-center"
 						style="max-width: 720px; width: 100%;">
 						<div class="text-center" style="width: 650px;">
-							<h3 class="mt-3">나의 수강권 현황</h3>
+							<h4 class="mt-3" style="margin:20px;"><Strong>나의 수강권 현황</Strong></h4>
 							<div class="pass-box row">
 								<div class="individual-pass col-lg-12 d-flex align-items-stretch mt-4 mt-md-2">
 									<div class="icon-box px-1 mx-1">

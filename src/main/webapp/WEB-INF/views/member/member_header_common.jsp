@@ -5,10 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>PILAFIX|필라픽스</title>
 </head>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style_header.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_header.css"/>
 
 <body>
 	<!-- ======= Top Bar ======= -->

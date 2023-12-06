@@ -123,6 +123,13 @@
 		<resultMap type="com.dev.pilafix.common.member.CenterVO" id="centerResult">
 		<result property="ctName" column="CT_NAME" />
 		<result property="ctCode" column="CT_CODE" />
+		<result property="ctPhoneNumber1" column="CT_PHONE_NUMBER1" />
+		<result property="ctPhoneNumber2" column="CT_PHONE_NUMBER2" />
+		<result property="ctPhoneNumber3" column="CT_PHONE_NUMBER3" />
+		<result property="ctAddress1" column="CT_ADDRESS1" />
+		<result property="ctAddress2" column="CT_ADDRESS2" />
+		<result property="ctAddress3" column="CT_ADDRESS3" />
+		<result property="ownerName" column="OWNER_NAME" />
 	</resultMap>
 	
 	
@@ -142,7 +149,7 @@
 	
 	<!-- 연동센터 이름, 코드 가져오기 -->
 	<select id="getConnectedCenterList" resultMap="centerResult" parameterType="int">
-		SELECT CT_NAME, CT_CODE
+		SELECT *
 		FROM TBL_CENTER
 		WHERE CT_CODE IN (
 	    		SELECT CONNECTED_CENTER_CODE1 FROM TBL_CST WHERE CS_MEMBER_CODE = #{csMemberCode}

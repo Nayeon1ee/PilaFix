@@ -109,7 +109,7 @@ public class MemberCommunityController {
 	    vo.setCmWriterIp(cmWriterIp);
 		
 	    service.insertMemberCommunity(vo);
-		return "redirect:getMemberCommunityList.do";
+		return "redirect:communityPage.do";
 	}
 
 	// 수정 페이지
@@ -125,14 +125,14 @@ public class MemberCommunityController {
 		service.updateMemberCommunity(vo);
 		int memberCmNumber = vo.getMemberCmNumber();
 		System.out.println("확인" + memberCmNumber);
-		return "redirect:getMemberCommunityList.do";
+		return "redirect:communityPage.do";
 	}
 
 	// 삭제 기능
 	@GetMapping("/deleteMemberCommunity.do")
 	public String delete(int memberCmNumber) {
 		service.deleteMemberCommunity(memberCmNumber);
-		return "redirect:getMemberCommunityList.do";
+		return "redirect:communityPage.do";
 	}
 
 	// 답글 쓰기

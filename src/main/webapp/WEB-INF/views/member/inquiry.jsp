@@ -133,7 +133,9 @@
 						</div>
 
 						<div class="inquiry-history">
-							<h2>나의 문의 내역</h2>
+							<h4>
+						<img alt="bar" src="${pageContext.request.contextPath}/resources/images/purple_bar.png">	
+							<strong>나의 문의 내역</strong></h4>
 							<hr>
 
 							<div class="accordion mt-4" id="accordionExample">
@@ -272,7 +274,7 @@ function loadReply(qsNumber) {
         })
         .then(data => {
             // 여기서 답변 내용을 업데이트
-            replyContent.innerHTML = '<strong>답변 제목:</strong> ' + data.replyTitle + '<br><strong>답변 내용:</strong> ' + data.replyContent;
+            replyContent.innerHTML = '<strong>[문의답변]</strong><br>' +data.replyTitle + '<br>' + data.replyContent + '<br>';
         })
         .catch(error => {
             console.error('Error:', error);
@@ -330,26 +332,26 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Button clicked!');
 
             // 현재 버튼의 아코디언 바디에 색상 적용
-            var accordionBody = this.closest('.accordion-item').querySelector('.accordion-body');
-            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? '#f5f3ff' : '#fff';
+            var accordionBody = this.closest('.accordion-item').querySelector('.reply-content');
+            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? '#F5F5F5' : '#fff';
 
             // 클릭한 버튼이 이미 열린 상태라면 닫음
             if (!this.classList.contains('collapsed')) {
                 this.classList.add('collapsed');
-                accordionBody.style.backgroundColor = '#f5f3ff';
+                accordionBody.style.backgroundColor = '#F5F5F5';
             } else {
                 // 클릭 시 다른 아코디언 버튼들을 닫음
                 accordionButtons.forEach(function (otherButton) {
                     if (otherButton !== button) {
                         otherButton.classList.add('collapsed');
-                        var otherAccordionBody = otherButton.closest('.accordion-item').querySelector('.accordion-body');
-                        otherAccordionBody.style.backgroundColor = '#f5f3ff';
+                        var otherAccordionBody = otherButton.closest('.accordion-item').querySelector('.reply-content');
+                        otherAccordionBody.style.backgroundColor = '#F5F5F5';
                     }
                 });
 
                 // 현재 버튼 열기
                 this.classList.remove('collapsed');
-                accordionBody.style.backgroundColor = '#fff';
+                accordionBody.style.backgroundColor = '#F5F5F5';
             }
         });
     });
