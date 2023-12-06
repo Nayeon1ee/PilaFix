@@ -204,6 +204,43 @@
 		src="${pageContext.request.contextPath}/resources/js/quiry_FAQ.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/bootstrap/js_bootstrap_common.js"></script>
+<!-- 아코디언 스크립트 -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var accordionButtons = document.querySelectorAll('.accordion-button');
+
+    accordionButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            console.log('Button clicked!');
+
+            // 현재 버튼의 아코디언 바디에 색상 적용
+            var accordionBody = this.closest('.accordion-item').querySelector('.accordion-body');
+            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? 'rgba(241, 243, 244, 0.5)' : '#fff';
+
+            // 클릭한 버튼이 이미 열린 상태라면 닫음
+            if (!this.classList.contains('collapsed')) {
+                this.classList.add('collapsed');
+                accordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
+            } else {
+                // 클릭 시 다른 아코디언 버튼들을 닫음
+                accordionButtons.forEach(function (otherButton) {
+                    if (otherButton !== button) {
+                        otherButton.classList.add('collapsed');
+                        var otherAccordionBody = otherButton.closest('.accordion-item').querySelector('.accordion-body');
+                        otherAccordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
+                    }
+                });
+
+                // 현재 버튼 열기
+                this.classList.remove('collapsed');
+                accordionBody.style.backgroundColor = '#fff';
+            }
+        });
+    });
+});
+</script>
+
+
 
 	<!-- Vendor JS Files -->
 	<script

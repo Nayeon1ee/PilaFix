@@ -164,7 +164,7 @@
              aria-labelledby="heading${status.index}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
             <div class="inquiry-body">
-               <!--  <strong>문의내역</strong><br> -->${question.qsContent}
+                 <strong>문의내역</strong> ${question.qsContent}
 			</div>
                 <div class="text-center d-flex justify-content-end mt-2">
                     <!-- 삭제 -->
@@ -333,7 +333,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 현재 버튼의 아코디언 바디에 색상 적용
             var accordionBody = this.closest('.accordion-item').querySelector('.reply-content');
-            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? '#F5F5F5' : '#fff';
+            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? 'rgba(241, 243, 244, 0.5)' : '#fff';
+
 
             // 클릭한 버튼이 이미 열린 상태라면 닫음
             if (!this.classList.contains('collapsed')) {
@@ -345,13 +346,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (otherButton !== button) {
                         otherButton.classList.add('collapsed');
                         var otherAccordionBody = otherButton.closest('.accordion-item').querySelector('.reply-content');
-                        otherAccordionBody.style.backgroundColor = '#F5F5F5';
+                        accordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
+
                     }
                 });
 
                 // 현재 버튼 열기
                 this.classList.remove('collapsed');
-                accordionBody.style.backgroundColor = '#F5F5F5';
+                otherAccordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
+
             }
         });
     });

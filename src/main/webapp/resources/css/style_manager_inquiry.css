@@ -117,13 +117,7 @@
 	display: block;
 }
 
-.inquiry-body {
-       
-        border-radius: 8px; 
-        padding: 15px; 
-        margin-top: 15px; 
-        background-color: #fff; 
-    }
+
 
     .inquiry-body strong {
         display: block; 
@@ -169,5 +163,7 @@
     background-color: rgba(138, 43, 226, 0.05) !important;
     border-color: rgba(138, 43, 226, 0.05) !important;
 }
+
+   
 
    
