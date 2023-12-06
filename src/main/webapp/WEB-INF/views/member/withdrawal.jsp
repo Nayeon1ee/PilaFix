@@ -124,61 +124,44 @@
 	
 	
 	
+	
 <script>
-function confirmWithdrawal() {
-    var password = $('#password').val();
-    if (password === '') {
-        alert('비밀번호를 입력하세요.');
-        return;
-    }
-
-    // AJAX 요청을 통해 비밀번호 일치 여부 확인
+function validateAndWithdraw() {
+    var password = document.getElementById('password').value;
+    
+    // AJAX 요청을 보내 비밀번호 검증
     $.ajax({
-        url: 'checkPassword.do',
+        url: 'validatePassword.do',
         type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ currentPassword: password }),
+        data: { password: password },
         success: function(response) {
-            // 비밀번호가 일치할 경우 회원 탈퇴 처리
-            if (response.status === 'success') {
-                proceedWithWithdrawal(password); // 회원 탈퇴 진행
+            if(response.isValid) {
+                $('#confirmWithdrawalModal').modal('show');
             } else {
-                // 비밀번호 불일치 시 오류 메시지 표시
-                $('#error-message').text('비밀번호가 일치하지 않습니다.');
+                alert('비밀번호가 일치하지 않습니다');
             }
-        },
-        error: function(xhr, status, error) {
-            // 오류 발생 시 처리
-            alert('비밀번호 확인 중 오류가 발생했습니다.');
         }
     });
 }
 
-function proceedWithWithdrawal(password) {
-    // AJAX 요청을 통해 실제 회원 탈퇴 처리
+function confirmWithdrawal() {
+    // AJAX 요청을 보내 탈퇴 처리
     $.ajax({
         url: 'withdrawal.do',
         type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ password: password }),
         success: function(response) {
-            $('#confirmWithdrawalModal').modal('hide'); // 모달 숨기기
-            if (response.status === 'success') {
-                alert('성공적으로 탈퇴되었습니다.');
-                window.location.href = 'memberLogin.do'; // 로그인 페이지로 리다이렉트
-            } else {
-                // 오류 메시지 표시
-                $('#error-message').text(response.message);
+            if(response.withdrawalSuccess) {
+                alert('회원 탈퇴 처리되었습니다.');
+                window.location.href = 'memberLogin.do'; // 홈페이지나 로그인 페이지로 리다이렉트
             }
-        },
-        error: function(xhr, status, error) {
-            // 오류 발생 시 처리
-            alert('탈퇴 처리 중 오류가 발생했습니다.');
         }
     });
 }
 
-</script>
+document.querySelector('.withdraw-button').addEventListener('click', validateAndWithdraw);
+document.querySelector('#confirmWithdrawal .btn-danger').addEventListener('click', confirmWithdrawal);
+</script>	
+
 
 	<!-- ======= Footer ======= -->
 	<%@ include file="member_footer_common.jsp"%>
