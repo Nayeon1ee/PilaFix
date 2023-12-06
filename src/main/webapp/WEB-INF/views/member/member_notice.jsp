@@ -52,6 +52,7 @@
 <!-- 내 css -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_membernotice.css">
+
 <body>
 
 

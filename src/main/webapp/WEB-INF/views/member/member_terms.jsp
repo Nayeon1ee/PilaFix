@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -52,8 +52,6 @@
 <!-- 내 css -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common_0.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_member_terms.css">
 
 <body>
 
@@ -100,41 +98,39 @@
 					</div>
 				</div>
 
-				<div class="accordion" id="accordionExample">
-					<c:choose>
-						<c:when test="${empty termsList}">
-							<p>아직 등록된 글이 없습니다.</p>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${termsList}" var="terms">
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button" type="button"
-											data-bs-toggle="collapse"
-											data-bs-target="#faqCollapse${terms.tmCode}"
-											aria-expanded="true"
-											aria-controls="faqCollapse${terms.tmCode}">
-											<div class="inquiry-item">
-												<div class="inquiry-details">
-													<div class="inquiry-title">
-														<strong>Q</strong> ${terms.tmName}
-													</div>
-												</div>
-											</div>
-										</button>
-									</h2>
-									<div id="faqCollapse${terms.tmCode}"
-										class="accordion-collapse collapse"
-										data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>A</strong> <br> ${terms.tmDetail}
-										</div>
-									</div>
-								</div>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</div>
+<div class="accordion" id="accordionExample">
+    <c:choose>
+        <c:when test="${empty termsList}">
+            <p>아직 등록된 글이 없습니다.</p>
+        </c:when>
+        <c:otherwise>
+            <c:forEach items="${termsList}" var="terms">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#faqCollapse${terms.tmCode}"
+                                aria-expanded="true" aria-controls="faqCollapse${terms.tmCode}">
+                            <div class="inquiry-item">
+                                <div class="inquiry-details">
+                                    <div class="inquiry-title">
+                                        <strong>Q</strong> ${terms.tmName}
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="faqCollapse${terms.tmCode}"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>A</strong> <br> ${terms.tmDetail}
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+</div>
 
 
 
@@ -165,63 +161,6 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<script>
-		document
-				.addEventListener(
-						"DOMContentLoaded",
-						function() {
-							var accordionButtons = document
-									.querySelectorAll('.accordion-button, .another-accordion-button');
-
-							accordionButtons
-									.forEach(function(button) {
-										button
-												.addEventListener(
-														'click',
-														function() {
-															// 현재 버튼의 아코디언 바디에 색상 적용
-															var accordionBody = this
-																	.closest(
-																			'.accordion-item')
-																	.querySelector(
-																			'.accordion-body');
-															accordionBody.style.backgroundColor = this.classList
-																	.contains('collapsed') ? 'rgba(241, 243, 244, 0.5)'
-																	: '#fff';
-
-															// 클릭한 버튼이 이미 열린 상태라면 닫음
-															if (!this.classList
-																	.contains('collapsed')) {
-																this.classList
-																		.add('collapsed');
-																accordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
-															} else {
-																// 클릭 시 다른 아코디언 버튼들을 닫음
-																accordionButtons
-																		.forEach(function(
-																				otherButton) {
-																			if (otherButton !== button) {
-																				otherButton.classList
-																						.add('collapsed');
-																				var otherAccordionBody = otherButton
-																						.closest(
-																								'.accordion-item')
-																						.querySelector(
-																								'.accordion-body');
-																				otherAccordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
-																			}
-																		});
-
-																// 현재 버튼 열기
-																this.classList
-																		.remove('collapsed');
-																accordionBody.style.backgroundColor = '#fff';
-															}
-														});
-									});
-						});
-	</script>
 	<!-- Vendor JS Files -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/purecounter/purecounter_vanilla.js"></script>
