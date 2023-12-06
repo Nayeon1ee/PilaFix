@@ -197,7 +197,7 @@
 
 				<div class="row">
 					<div class="col-lg-6">
-						<img src="${pageContext.request.contextPath }/resources/images/pilates-together.png"  class="img-fluid" alt="pilat">
+						<img src="${pageContext.request.contextPath }/resources/images/pilates-together700.png"  class="img-fluid" alt="pilat">
 						
 					</div>
 					<div class="col-lg-6 pt-4 pt-lg-0 content">
