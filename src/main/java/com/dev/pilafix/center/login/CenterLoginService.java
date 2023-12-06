@@ -1,5 +1,7 @@
 package com.dev.pilafix.center.login;
 
+import java.util.Map;
+
 import com.dev.pilafix.common.member.CenterVO;
 
 public interface CenterLoginService {
@@ -15,4 +17,7 @@ public interface CenterLoginService {
 	void updatePassword(int ctCode, String newPassword);
 	CenterVO countForBadge(int ctCode);
 	
+	CenterVO getTotalCenterCount(int ctCode);
+	Map<String, Object> getMonthlyAmount(int ctCode);
+	Map<String, Object> getPopularLesson(int ctCode);
 }

@@ -1,5 +1,7 @@
 package com.dev.pilafix.center.login.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -71,5 +73,23 @@ public class CenterLoginServiceImpl implements CenterLoginService {
 	public CenterVO countForBadge(int ctCode) {
 		return dao.countForBadge(ctCode);
 	}
+
+	@Override
+	public CenterVO getTotalCenterCount(int ctCode) {
+		return dao.getTotalCenterCount(ctCode);
+	}
+	
+	// 통계 월별 계약수 가져오기
+	@Override
+	public Map<String,Object> getMonthlyAmount(int ctCode) {
+		return dao.getMonthlyAmount(ctCode);
+	}
+	
+	// 통계 수업 예약수 가져오기
+	@Override
+	public Map<String,Object> getPopularLesson(int ctCode) {
+		return dao.getPopularLesson(ctCode);
+	}
+		
 
 }

@@ -1,6 +1,7 @@
 package com.dev.pilafix.common.member;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,8 +36,16 @@ public class CenterVO {
 	private String trainerCount;
 	private String questionCount;
 	
+	// 통계에서 사용
+	private int paymentCount;
+	private String amountCount;
+	private String centerMemberCount;
+	private String lsName;
 	
-	
+	// 수업명
+	private String category;
+	private int totalCount;
+
 	
 	public String getMemberCount() {
 		return memberCount;
@@ -200,6 +209,48 @@ public class CenterVO {
 	public void setBusinessRegistrationFilePath(String businessRegistrationFilePath) {
 		this.businessRegistrationFilePath = businessRegistrationFilePath;
 	}
+	
+	public int getPaymentCount() {
+		return paymentCount;
+	}
+	public void setPaymentCount(int paymentCount) {
+		this.paymentCount = paymentCount;
+	}
+	public String getAmountCount() {
+		return amountCount;
+	}
+	public void setAmountCount(String amountCount) {
+		this.amountCount = amountCount;
+	}
+	
+	public String getCenterMemberCount() {
+		return centerMemberCount;
+	}
+	public void setCenterMemberCount(String centerMemberCount) {
+		this.centerMemberCount = centerMemberCount;
+	}
+	
+	public String getLsName() {
+		return lsName;
+	}
+	public void setLsName(String lsName) {
+		this.lsName = lsName;
+	}
+	
+
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
 	@Override
 	public String toString() {
 		return "CenterVO [ctCode=" + ctCode + ", ctName=" + ctName + ", ctPhoneNumber1=" + ctPhoneNumber1
@@ -212,8 +263,12 @@ public class CenterVO {
 				+ ", contractRevokeYn=" + contractRevokeYn + ", ctRegistrationDate=" + ctRegistrationDate + ", ctId="
 				+ ctId + ", ctPassword=" + ctPassword + ", roleCode=" + roleCode + ", multipart=" + multipart
 				+ ", businessRegistrationFilePath=" + businessRegistrationFilePath + ", memberCount=" + memberCount
-				+ ", trainerCount=" + trainerCount + ", questionCount=" + questionCount + "]";
+				+ ", trainerCount=" + trainerCount + ", questionCount=" + questionCount + ", paymentCount="
+				+ paymentCount + ", amountCount=" + amountCount + ", centerMemberCount=" + centerMemberCount
+				+ ", lsName=" + lsName + ", category=" + category + ", totalCount=" + totalCount
+				+ "]";
 	}
+	
 	
 	
 	

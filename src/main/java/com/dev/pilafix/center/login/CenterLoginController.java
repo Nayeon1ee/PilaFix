@@ -77,6 +77,12 @@ public class CenterLoginController {
 	        // 세션에 Map 저장 
 	        session.setAttribute("loginCenter", loginCenter);
 //	        return "redirect:/centerInfo.do"; // 테스트화면
+	        
+	        Map<String, Object> loginCenter1 = (Map<String, Object>) session.getAttribute("loginCenter");
+	        int ctCode = (int) loginCenter1.get("ctCode");
+	        model.addAttribute("count",service.getTotalCenterCount(ctCode));
+	        System.out.println( model.getAttribute("count"));
+	       	        
 	        return "center/center_index";
 	        
 		}else {
@@ -104,10 +110,6 @@ public class CenterLoginController {
 		}
 
 	}
-	
-	
-	
-	
 	
 	/**
 	 * 비밀번호 변경 모달에서 현재 비밀번호 확인
@@ -156,10 +158,6 @@ public class CenterLoginController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
 		}
 	}	
-
-	
-	
-	
 	
 	/**
      * 로그아웃
@@ -172,5 +170,28 @@ public class CenterLoginController {
 	    return "redirect:/centerLogin.do";
 	}
 	
+	/**
+	 * 통계 : 월별 수강권 판매 금액
+	 * @return
+	 */
+	@PostMapping("getMonthlyContractCount.do")
+	@ResponseBody
+	public Map<String,Object> getMonthlyAmount(HttpSession session) {
+		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+		int ctCode = (int) loginCenter.get("ctCode");
+		return service.getMonthlyAmount(ctCode);
+	}
+	
+	/**
+	 * 통계 : 월별 수강권 판매 금액
+	 * @return
+	 */
+	@PostMapping("getPopularLesson.do")
+	@ResponseBody
+	public Map<String,Object> getPopularLesson(HttpSession session) {
+		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+		int ctCode = (int) loginCenter.get("ctCode");
+		return service.getPopularLesson(ctCode);
+	}
 	
 }

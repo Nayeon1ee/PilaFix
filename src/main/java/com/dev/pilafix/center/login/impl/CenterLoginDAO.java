@@ -2,6 +2,7 @@ package com.dev.pilafix.center.login.impl;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -49,5 +50,29 @@ public class CenterLoginDAO {
 	public CenterVO countForBadge(int ctCode){
 		return sqlSessionTemplate.selectOne("CenterLoginDAO.countForBadge", ctCode);
 		
+	}
+	
+	// 통계 - 판매 횟수
+	public CenterVO getTotalCenterCount(int ctCode) {
+		return sqlSessionTemplate.selectOne("CenterLoginDAO.getTotalCenterCount", ctCode);
+	}
+	
+	public Map<String,Object> getMonthlyAmount(int ctCode) {
+		Map<String,Object> count = new HashMap<String, Object>();
+		count.put("getMonthlyAmount", sqlSessionTemplate.selectList("CenterLoginDAO.getMonthlyAmount", ctCode));
+		return count;
+	}
+	
+	public Map<String,Object> getPopularLesson(int ctCode) {
+		List<CenterVO> lessonNameCount = sqlSessionTemplate.selectList("CenterLoginDAO.getPopularLesson", ctCode);
+		Map<String,Object> nameCount = new HashMap<String, Object>();
+		nameCount.put("diet", lessonNameCount.get(0));
+		nameCount.put("bodyShaoe", lessonNameCount.get(1));
+		nameCount.put("stretching", lessonNameCount.get(2));
+		nameCount.put("balance", lessonNameCount.get(3));
+		nameCount.put("rehabilitation", lessonNameCount.get(4));
+		
+		System.out.println("확인" + nameCount.get("diet"));
+		return nameCount;
 	}
 }
