@@ -172,7 +172,7 @@
 							</div>
 							
 							<!-- 카드영역 -->
-							<div class="schedule-card" style=" max-height: 400px;">
+							<div class="schedule-card" style=" min-height: 450px; max-height: 450px;">
 								
 								<!-- 전체 스케줄 -->
 								<div id="allInfo">

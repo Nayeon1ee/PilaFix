@@ -83,7 +83,7 @@
 					<li><a href="main.do">Home</a></li>
 					<li>ticket</li>
 				</ol>
-				<h2>수강권 신청</h2>
+				<h2>수강권 구매</h2>
 
 			</div>
 		</section>
