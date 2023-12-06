@@ -12,11 +12,11 @@
 }
 
 .accordion-button {
-	background-color: rgba(192, 192, 192, 0.3) !important;
+	background-color: rgba(192, 192, 192, 0.1) !important;
 }
 
 .accordion-button:hover {
-	background-color: rgba(192, 192, 192, 0.4) !important;
+	background-color: rgba(192, 192, 192, 0.2) !important;
 }
 
 a[data-toggle="modal"] {

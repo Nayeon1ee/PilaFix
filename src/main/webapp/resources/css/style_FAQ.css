@@ -54,7 +54,6 @@
     margin-top: 20px;
     max-width: 600px;
     margin: 50px auto;
-
 }
 
 .navbar{
@@ -68,6 +67,11 @@
 	padding: 15px;
 	margin-top: 15px;
 	background-color: #fff;
+}
+
+
+.accordion-button {
+	background-color: rgba(192, 192, 192, 0.05) !important;
 }
 
 
