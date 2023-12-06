@@ -68,7 +68,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="mainPage.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>Terms of Use and Policies</li>
 				</ol>
 				<h2>이용약관 및 정책</h2>
@@ -113,7 +113,7 @@
                             <div class="inquiry-item">
                                 <div class="inquiry-details">
                                     <div class="inquiry-title">
-                                        <strong>Q</strong> ${terms.tmName}
+                                    ${terms.tmName}
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +123,10 @@
                             class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <strong>A</strong> <br> ${terms.tmDetail}
+                        
+                        <div class="output-text" style="text-align:left; white-space: pre-line; ">   
+                            ${terms.tmDetail}
+                        </div>
                         </div>
                     </div>
                 </div>

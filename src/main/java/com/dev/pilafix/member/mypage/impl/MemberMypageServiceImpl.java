@@ -19,6 +19,7 @@ import com.dev.pilafix.member.mypage.MemberMypageVO;
 public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.MemberMypageService {
 	@Autowired
 	private MemberMypageDAO dao;
+	
 	@Autowired
 	private MemberLoginDAO logindao;
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -59,7 +60,6 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	public int withdrawMember(int csMemberCode) {
 		return dao.withdrawMember(csMemberCode);
 	}
-
 	
 	
 	@Override
@@ -70,8 +70,6 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
         }
         return false;
     }
-
-
 
 
 	/**

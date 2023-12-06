@@ -234,7 +234,6 @@
 	<select id="getAdminInfoByMember" resultMap="adminInfoResult">
 		SELECT * FROM TBL_INFO_W WHERE IW_NUMBER = #{iwNumber}
 	</select>	
-
 	<!-- 공지사항 조회수증가 -->
 	<update id="increaseAdminInfoViewCount" >
 		UPDATE TBL_INFO_W SET IW_VIEWS = IW_VIEWS + 1 WHERE IW_NUMBER=#{iwNumber}
@@ -242,8 +241,6 @@
 	<update id="increaseCenterInfoViewCount" >
 	UPDATE TBL_INFO_C SET IC_VIEWS = IC_VIEWS + 1 WHERE IC_NUMBER = #{icNumber}
 	</update>
-
-
 
 	
 	<!-- FAQ 리스트, 상세 -->
@@ -277,9 +274,5 @@
 	    WHERE TM_OPEN_YN = TRUE
 	    ORDER BY TM_CODE DESC;
 	</select>
-
-	
-	
-	
 
 </mapper>
