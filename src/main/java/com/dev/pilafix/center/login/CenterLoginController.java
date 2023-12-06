@@ -41,11 +41,13 @@ public class CenterLoginController {
 		
 	}
 	
-	@GetMapping("/centerMain.do")
-	public String centerMainPage(HttpSession session, Model model) {
+	@GetMapping("/centerDashboard.do")
+	public String centerMainPage(@ModelAttribute CenterVO centerVO, HttpSession session, Model model) {
 		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
 		if (loginCenter != null) {
-			return "center/center_index";
+			int ctCode = (int) loginCenter.get("ctCode");
+	        model.addAttribute("count",service.getTotalCenterCount(ctCode));
+	        return "center/center_index";
 		} else {
 			// 로그인 실패
 			return "center/center_login";
@@ -81,7 +83,6 @@ public class CenterLoginController {
 	        Map<String, Object> loginCenter1 = (Map<String, Object>) session.getAttribute("loginCenter");
 	        int ctCode = (int) loginCenter1.get("ctCode");
 	        model.addAttribute("count",service.getTotalCenterCount(ctCode));
-	        System.out.println( model.getAttribute("count"));
 	       	        
 	        return "center/center_index";
 	        
