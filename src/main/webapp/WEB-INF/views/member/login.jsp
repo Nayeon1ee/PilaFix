@@ -46,9 +46,10 @@
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
-</head>
-<!-- 내 css -->
+<!-- 네아로 SDK -->
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 
+</head>
 
 
 
@@ -75,6 +76,7 @@
 		<!-- End Breadcrumbs -->
 
 		<!-- ======= Services Section ======= -->
+		
 		<section id="services" class="services">
 			<div class="container" style="max-width: 1000px">
 
@@ -119,13 +121,14 @@
 				<div id="socialButtons"
 					style="display: flex; justify-content: center;">
 
-					<div
-						style="width: 150px; height: 40px; background: white; display: inline-block; margin-right: 10px;">
-						<a href="[네이버 로그인 링크]"> <img
+					<div style="width: 150px; height: 40px; background: white; display: inline-block; margin-right: 40px;">
+						<!--  <a href="[네이버 로그인 링크]"> <img
 							src="${pageContext.request.contextPath}/resources/images/naver_login_b.png"
 							alt="네이버 로그인"
-							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
-						</a>
+							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;"> 
+						</a> -->
+						 <!-- 네이버 로그인 버튼 생성 위치 -->
+   						 <div id="naverIdLogin" ></div>
 					</div>
 
 					<div
@@ -160,7 +163,21 @@
             ${message}
 	<!-- </div> -->
 				</c:if>
-
+<!-- 네이버 로그인 스크립트 -->
+<script type="text/javascript">
+    var naverLogin = new naver.LoginWithNaverId(
+        {
+            clientId: "glOsBPVhLHxSw_eaBO2D",
+              // 본인의 Client ID로 수정, 띄어쓰기는 사용하지 마세요.
+            callbackUrl: "http://localhost:8080/pilafix/callback.do",
+              // 본인의 callBack url로 수정하세요.
+            isPopup: false,
+            loginButton: {color: "green", type: 3, height: 40}
+              // 네이버 로그인버튼 디자인 설정. 한번 바꿔보세요:D
+        }
+    );
+naverLogin.init();
+</script>
 
 				<script type="text/javascript">
     function validateLoginForm() {
@@ -180,7 +197,7 @@
     function passwordCertification(){
     	let email = document.getElementById(elementId: '');   	
     }
-
+    
 </script>
 				<!-- End Our Skills Section -->
 			</div>

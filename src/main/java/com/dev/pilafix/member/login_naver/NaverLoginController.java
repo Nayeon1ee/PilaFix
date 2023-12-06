@@ -67,11 +67,12 @@ public class NaverLoginController {
 
 			if (member != null && "TR".equals(member.getCsRoleCode())) {
 				System.out.println("강사 페이지메인 url써야함");
-				return "main.do";
+				return "mainPage.do";
 			} else {
 				System.out.println("회원 페이지메인 url써야함");
-				return "main.do";
+				return "mainPage.do";
 			}
+			//return "memberLogin.do";
 
 			// 디비에 정보 없으면(기존회원이 아니면) 강사/회원강사 선택하는 화면으로 넘김
 		} else {
@@ -85,15 +86,15 @@ public class NaverLoginController {
 
 	// 네이버 로그인시 기존에 회원가입 되어있는 사람일경우 메인 뿌려줌
 	// 리턴 값 나중에 메인 주소로 변경해야함
-	@GetMapping("/main.do")
-	public String main() {
-		return "member/testMain";
-	}
+//	@GetMapping("/main.do")
+//	public String main() {
+//		return "member/test_main";
+//	}
 
 	// 기존에 회원가입 안된사람은 회원/강사 선택하는 화면으로 보냄
 	@GetMapping("/choose.do")
 	public String choose() {
-		return "member/chooseRole";
+		return "member/chooseRole2";
 	}
 
 	// 회원 강사 선택 화면에서 선택하고 확인누르면 이제 디비에 저장
@@ -151,7 +152,7 @@ public class NaverLoginController {
 
 		session.setAttribute("loginUser", loginUser);
 
-		return "main.do";
+		return "mainPage.do";
 	}
 
 	// 문자열인 combinedBirth를 sql의 Date타입으로 변환
