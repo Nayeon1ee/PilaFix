@@ -51,50 +51,56 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="adminMain.do" class="logo d-flex align-items-center w-auto">
+              <img src="${pageContext.request.contextPath}/resources/images/logo_sample330w.png" alt="logo330">
+<!--                 <a href="adminMain.do" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">NiceAdmin</span>
-                </a>
-              </div><!-- End Logo -->
+                </a>-->
+              </div>
+              <!--End Logo -->
 
               <div class="card mb-3">
 
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                  <div style="text-align:center; margin:30px;">효율적인 운영으로 <br>더 나은 서비스를 제공합니다!</div>
+<!--                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                    <p class="text-center small">Enter your username & password to login</p> -->
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate action="adminLogin.do" method="post" >
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                    <img alt="bar" src="${pageContext.request.contextPath}/resources/images/blue_bar.png">
+                      <label for="yourUsername" class="form-label" style="margin-left:6px;"><strong>아이디</strong></label>
                       <div class="input-group has-validation">
                         <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                        <input type="text" name="adId" class="form-control" id="adId" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <input type="text" name="adId" class="form-control" id="adId" required placeholder="아이디를 입력하세요">
+                        <div class="invalid-feedback">아이디를 입력해주세요.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="adPassword" class="form-control" id="adPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                    <img alt="bar" src="${pageContext.request.contextPath}/resources/images/blue_bar.png">
+                      <label for="yourPassword" class="form-label" style="margin-left:6px;"><strong>비밀번호</strong></label>
+                      <input type="password" name="adPassword" class="form-control" id="adPassword" required placeholder="비밀번호를 입력하세요">
+                      <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
                     </div>
 
-                    <div class="col-12">
+<!--                     <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                       </div>
+                    </div> -->
+                    <div class="col-12" style="margin-top:40px; margin-bottom:40px">
+                      <button class="btn btn-primary w-100" type="submit" style="padding:12px">
+                      로그인</button>
                     </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit" >Login</button>
-                    </div>
-                    <div class="col-12">
+<!--                     <div class="col-12">
                       <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
-                    </div>
+                    </div> -->
                   </form>
 
                 </div>
@@ -105,7 +111,7 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                <!-- Designed by <a href="https://bootstrapmade.com/" style="pointer-events: none;">BootstrapMade</a> -->
               </div>
 
             </div>

@@ -61,7 +61,7 @@
 
 
 	<!-- ======= Header ======= -->
-	<%@ include file="member_header_common_tr.jsp"%>
+	<%@ include file="member_header_common.jsp"%>
 	<!-- End Header -->
 
 	<main id="main">
