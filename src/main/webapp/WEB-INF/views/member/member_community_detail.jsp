@@ -52,7 +52,9 @@
 
 
 <!--  내 css -->
-<link href="${pageContext.request.contextPath}/resources/css/style_member_community_reply.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/style_member_community_detail.css"
+	rel="stylesheet">
 
 
 </head>
@@ -126,18 +128,28 @@
                                 <input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmViews }">
                             </div>
 							<div class="text-center">
-                                <div class="btn-toolbar justify-content-end d-flex" role="toolbar">
+							
+                                <div class="btn-toolbar justify-content-between d-flex" role="toolbar">
+                                <div class="btn-group ms-3">
 									<button type="button" class="btn btn-secondary" onclick="location.href='communityPage.do'">목록</button>
-								</div>
-								<c:if test="${sessionScope.loginUser['csMemberCode'] eq memberCommunity.memberCmWriterMemberCode}">
-                                   <div class="btn-group me-2">
+									</div>
+									<div class="col-md-9"></div>
+									<c:if test="${sessionScope.loginUser['csMemberCode'] eq memberCommunity.memberCmWriterMemberCode}">
+									 <div class="btn-group me-2">
                                        <button type="button" class="btn btn-primary" onclick="location.href='updateMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber }'">수정</button>
                                    </div>
                                    <div class="btn-group me-3">
                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="deleteMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber}">삭제</button>
                                    </div>
-                                </c:if>
+                                   </c:if>
+								</div>
+								
+                                 
+                                   
+                                
 							</div>
+
+
 
 						</form>
 

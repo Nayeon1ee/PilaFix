@@ -126,8 +126,8 @@
 
 				<!-- 수업 상세 정보 -->
 				<section class="explanation text-center py-5">
-					<div class="container">
-						<p class="h3 mb-0">${lessonDetail.lsName}</p>
+					<div class="lesson container">
+						<strong class="text-primary" style="font-size: 27.07px;">${lessonDetail.lsName}</strong>
 						<!-- 수업 제목 -->
 						<p class="lead">${lessonDetail.lsContent}</p>
 						<!-- 수업 설명 -->
@@ -165,7 +165,7 @@
 						<div class="row align-items-center">
 							<div class="col-md-4">
 								<div class="image text-center">
-									<!--     <i class="bi bi-person fs-1"></i> -->
+									<!--     <i class="bi bi-person fs-1"></i> --> 
 								</div>
 							</div>
 							<div class="col-md-4">

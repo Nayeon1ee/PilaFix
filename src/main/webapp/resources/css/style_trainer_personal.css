@@ -32,8 +32,80 @@
 .member-check {
   margin: 10px; /* 각 .member-check 사이의 간격 조절 (원하는 값으로 조정) */
 }
-
-.member-check img {
-  width: 70px;
-  height: 70px;
+.col-md-2 .member-check .btn {
+	height: 120px;
+	width: 120px;
+	color: #78787b;
+	box-shadow: 0 0 0 0.25rem rgba(155, 86, 233, 0.25);
+	font-weight: 600; 
+	text-align: center; 
+	padding: 10px; 
 }
+
+
+
+.btn-check:focus+.btn {
+	box-shadow: 0 0 0 0.25rem rgba(155, 86, 233, 0.25);
+}
+
+.col-md-2 .member-check .btn-check:checked + .btn {
+    color: #8717fc; /* 체크된 경우의 텍스트 색상 변경 */
+}
+
+.col-md-2 .member-check .btn:hover {
+    transform: scale(1.03);
+    background-color: #e6e0ee; 
+    color: #333; 
+}
+
+.member-check .btn img {
+	width: 80px;
+	height: auto; 
+}
+
+.explanation {
+    background-color: #f9f9f9;
+    padding: 30px 0;
+  }
+
+  .lesson {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .lesson strong.text-primary {
+    color: #0070c0;
+    font-size: 27.07px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .lesson p.lead {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #333;
+  }
+
+  .lesson .time-info {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+
+.private_status {
+    margin: 20px;
+    padding: 20px;
+    
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+
+
+
