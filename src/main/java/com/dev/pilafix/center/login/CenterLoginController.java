@@ -41,8 +41,8 @@ public class CenterLoginController {
 		
 	}
 	
-	@GetMapping("/centerDashboard.do")
-	public String centerMainPage(@ModelAttribute CenterVO centerVO, HttpSession session, Model model) {
+	@GetMapping("/centerMain.do")
+	public String centerMainPage(HttpSession session, Model model) {
 		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
 		if (loginCenter != null) {
 			int ctCode = (int) loginCenter.get("ctCode");
