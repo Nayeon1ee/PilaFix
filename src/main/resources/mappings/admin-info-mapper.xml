@@ -43,9 +43,4 @@
 		DELETE FROM TBL_INFO_W WHERE IW_NUMBER = #{iwNumber}
 	</delete>
 	
-	<!-- 조회수 증가  -->
-	<update id="updateAdminInfoViewCnt" >
-		UPDATE TBL_INFO_W SET IW_VIEWS = IW_VIEWS + 1 WHERE IW_NUMBER=#{iwNumber}
-	</update>
-
 </mapper>

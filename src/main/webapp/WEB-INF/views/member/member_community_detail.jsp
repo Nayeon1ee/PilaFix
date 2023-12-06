@@ -207,7 +207,7 @@
 									</c:forEach>
 									<form action="insertMemberCommunityReply.do" method="post">
 										<input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
-										<c:out value="${memberCommunity.memberCsName}" />
+										<p>댓글</p>
 										<textarea class="form-control" style="height: 80px; margin-top: 10px;" name="memberReContent"></textarea>
 										<input type="submit" style="margin-top: 10px; margin-left: 90%;" class="btn btn-primary" value="답변등록">
 									</form>

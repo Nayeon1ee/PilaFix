@@ -124,8 +124,8 @@ public class CenterInfoController {
 	 * @return
 	 */
 	@GetMapping("/deleteCenterInfo.do")
-	public String delete(int seq) {
-		service.deleteCenterInfo(seq);
+	public String delete(int icNumber) {
+		service.deleteCenterInfo(icNumber);
 		return "redirect:getCenterInfoList.do";
 	}
 }
