@@ -143,10 +143,9 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 	public int deleteAdminInfo(int iwNumber) {
 		return dao.deleteAdminInfo(iwNumber);
 	}
-
+	
 	@Override
 	public void updateAdminInfoViewCnt(int iwNumber) {
 		dao.updateAdminInfoViewCnt(iwNumber);
 	}
-
 }

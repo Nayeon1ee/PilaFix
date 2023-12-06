@@ -38,5 +38,4 @@ public class CenterInfoDAO {
 	public int updateCenterInfoViewCnt(int icNumber) {
 		return sqlSessionTemplate.update("CenterInfoDAO.updateCenterInfoViewCnt", icNumber);
 	}
-
 }

@@ -37,10 +37,15 @@ public class MemberCommunityController {
 	// 상세보기
 	@GetMapping("getMemberCommunity.do")
 	public String getMemberCommunity(@RequestParam("memberCmNumber") Integer memberCmNumber, HttpSession session, Model model) {
+		//조회수 증가
+		service.updateMemberCommunityViewCnt(memberCmNumber);
 		MemberCommunityVO memberCommunity = service.getMemberCommunity(memberCmNumber);
 		
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 		if(user != null && !user.isEmpty()) {
+			// 리스트 불러오기
+			model.addAttribute("memberCommunity", memberCommunity);
+			
 			int memberCsNumberCode = (Integer)user.get("csMemberCode");
 			model.addAttribute("csNumberCode", memberCsNumberCode);
 			// 답글 불러오기
@@ -50,13 +55,6 @@ public class MemberCommunityController {
 			model.addAttribute("csNumberCode", 0);
 		}
 		
-		//조회수 증가
-		service.updateMemberCommunityViewCnt(memberCmNumber);
-		int updatedList = service.updateMemberCommunityViewCnt(memberCommunity.getMemberCmViews());
-		
-		
-		model.addAttribute("memberCommunity", memberCommunity);
-		model.addAttribute("updatedList", updatedList);
 		return "member/member_community_detail";
 	}
 	

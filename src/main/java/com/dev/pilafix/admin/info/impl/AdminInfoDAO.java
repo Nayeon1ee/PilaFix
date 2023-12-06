@@ -36,4 +36,5 @@ public class AdminInfoDAO {
 	public void updateAdminInfoViewCnt(int iwNumber) {
 		sqlSessionTemplate.update("AdminInfoDAO.updateAdminInfoViewCnt", iwNumber);
 	}
+	
 }

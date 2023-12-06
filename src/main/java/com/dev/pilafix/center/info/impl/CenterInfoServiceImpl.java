@@ -141,19 +141,13 @@ public class CenterInfoServiceImpl implements CenterInfoService {
 		
 	}
 	
-	
-	
-	
 	@Override
 	public int deleteCenterInfo(int icNumber) {
 		return dao.deleteCenterInfo(icNumber);
 	}
-
+	
 	@Override
 	public int updateCenterInfoViewCnt(int icNumber) {
 		return dao.updateCenterInfoViewCnt(icNumber);
 	}
-
-
-
 }
