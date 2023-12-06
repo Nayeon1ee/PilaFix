@@ -181,7 +181,7 @@ public class CenterLoginController {
 	 * 통계 : 월별 수강권 판매 금액
 	 * @return
 	 */
-	@PostMapping("monthlyContractCount.do")
+	@PostMapping("monthlyAmount.do")
 	@ResponseBody
 	public Map<String,Object> monthlyAmount(HttpSession session) {
 		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");

@@ -105,7 +105,7 @@
 		AND CS_ROLE_CODE = 'ME') AS CENTRER_MEMBER_COUNT
 	</select>
 	
-	<select id="getMonthlyAmount" resultType="int">
+	<select id="monthlyAmount" resultType="int">
 		SELECT COALESCE(SUM(p.PA_AMOUNT), 0) AS contract_count
 		FROM generate_series(1, 12) m(month)
 		LEFT JOIN (
