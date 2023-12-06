@@ -272,41 +272,52 @@ public class MemberMypageController {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 		if (user != null) {
 			int csMemberCode = (int) user.get("csMemberCode");
-			service.withdrawMember(csMemberCode);
 			return "member/withdrawal";
 			
 		} else {
 			return "member/login";
 		}
 	}
+
+	// 비밀번호 검증
+	@PostMapping("/validatePassword.do")
+	@ResponseBody
+	public ResponseEntity<?> validatePassword(@RequestParam("password") String password, HttpSession session) {
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+	    if (user != null) {
+	        int csMemberCode = (int) user.get("csMemberCode");
+	        boolean isValid = service.validatePassword(password, csMemberCode);
+
+	        return isValid ? ResponseEntity.ok(Map.of("isValid", true)) 
+	                       : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("isValid", false));
+	    } else {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("isValid", false, "message", "로그인되어 있지 않습니다."));
+	    }
+	}
 	
 	
 	// 회원 탈퇴 요청 처리
 	@PostMapping("/withdrawal.do")
 	@ResponseBody
-	public String withdraw(@RequestBody Map<String, String> payload, HttpSession session) {
+	public ResponseEntity<?> withdraw(HttpSession session) {
 	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 	    if (user != null) {
-	        String password = payload.get("password");
-	        int csMemberCode = (int) user.get("csMemberCode");
+	        int csMemberCode = (int) user.get("csMemberCode"); // 회원의 기본키(멤버코드)
+	        int result = service.withdrawMember(csMemberCode); // 회원 탈퇴 로직
 
-	        // 비밀번호 확인 로직
-	        boolean isPasswordValid = service.checkPassword(csMemberCode, password);
-
-	        if (isPasswordValid) {
-	            service.withdrawMember(csMemberCode);
+	        if (result > 0) {
 	            session.invalidate(); // 세션 무효화
-	            return "{\"status\":\"success\"}";
+	            return ResponseEntity.ok(Map.of("withdrawalSuccess", true));
 	        } else {
-	            // 비밀번호가 틀렸을 경우
-	            return "{\"status\":\"error\", \"message\":\"Invalid password\"}";
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("withdrawalSuccess", false, "message", "탈퇴 처리 중 오류가 발생했습니다."));
 	        }
 	    } else {
-	        // 로그인하지 않은 경우
-	        return "{\"status\":\"error\", \"message\":\"Not logged in\"}";
+	        // 로그인된 사용자가 없을 경우
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("withdrawalSuccess", false, "message", "사용자가 로그인되어 있지 않습니다."));
 	    }
-
-	
 	}	
+	
+	
+
 
 }

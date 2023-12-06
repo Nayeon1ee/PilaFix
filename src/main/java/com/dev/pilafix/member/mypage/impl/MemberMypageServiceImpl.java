@@ -19,9 +19,9 @@ import com.dev.pilafix.member.mypage.MemberMypageVO;
 public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.MemberMypageService {
 	@Autowired
 	private MemberMypageDAO dao;
-	
 	@Autowired
 	private MemberLoginDAO logindao;
+
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	/**
@@ -60,16 +60,18 @@ public class MemberMypageServiceImpl implements com.dev.pilafix.member.mypage.Me
 	public int withdrawMember(int csMemberCode) {
 		return dao.withdrawMember(csMemberCode);
 	}
-	
-	
+
 	@Override
-    public boolean checkPassword(int csMemberCode, String currentPassword) {
-        MemberVO member = logindao.getMemberInfo(csMemberCode);
-        if (member != null && member.getCsPassword() != null) {
-            return encoder.matches(currentPassword, member.getCsPassword());
-        }
-        return false;
-    }
+	public boolean validatePassword(String inputPassword, int csMemberCode) {
+	    // 회원 정보 가져오기
+	    MemberVO member = logindao.getMemberInfo(csMemberCode);
+	    if (member != null) {
+	        String storedPassword = member.getCsPassword(); // 저장된 암호화된 비밀번호
+	        // 입력된 비밀번호와 저장된 비밀번호 비교
+	        return encoder.matches(inputPassword, storedPassword);
+	    }
+	    return false;
+	}
 
 
 	/**
