@@ -44,10 +44,7 @@
 	<delete id="deleteCenterInfo" parameterType="Integer">
 		DELETE FROM TBL_INFO_C WHERE IC_NUMBER = #{icNumber}
 	</delete>
-	<update id="updateCenterInfoViewCnt" >
-		UPDATE TBL_INFO_C SET IC_VIEWS = IC_VIEWS + 1 WHERE IC_NUMBER=#{icNumber}
-	</update>
-	
+
 	
 	
 	
