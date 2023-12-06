@@ -50,7 +50,7 @@
 <script
 	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
 	charset="utf-8"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 
@@ -191,7 +191,8 @@
 				<div class="modal fade" id="loginFailureModal" tabindex="-1"
 					role="dialog" aria-labelledby="loginFailureModalLabel"
 					aria-hidden="true">
-					<div class="modal-dialog" role="document">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+					<!-- <div class="modal-dialog" role="document"> -->
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="loginFailureModalLabel">로그인 실패</h5>
@@ -209,27 +210,6 @@
 					</div>
 				</div>
 
-				<!-- 로그인 실패 메시지 모달 -->
-				<div class="modal fade" id="loginFailureModal" tabindex="-1"
-					role="dialog" aria-labelledby="loginFailureModalLabel"
-					aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="loginFailureModalLabel">로그인 실패</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<p>로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">닫기</button>
-							</div>
-						</div>
-					</div>
-				</div>
 
 				<script>
 					$(document).ready(function() {
