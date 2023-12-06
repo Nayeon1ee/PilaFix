@@ -18,6 +18,6 @@ public interface CenterLoginService {
 	CenterVO countForBadge(int ctCode);
 	
 	CenterVO getTotalCenterCount(int ctCode);
-	Map<String, Object> getMonthlyAmount(int ctCode);
+	Map<String, Object> monthlyAmount(int ctCode);
 	Map<String, Object> getPopularLesson(int ctCode);
 }

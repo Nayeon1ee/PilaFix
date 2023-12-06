@@ -86,7 +86,7 @@
                  <script>
                     document.addEventListener("DOMContentLoaded", () => {
                     	 $.ajax({
-	                  	        url: "getMonthlyContractCount.do", 
+	                  	        url: "monthlyContractCount.do", 
 	                  	        type: 'POST',  
 	                  	        success: function(data) {
 	                  	            console.log('yn' + data);
@@ -94,7 +94,7 @@
 		                      new ApexCharts(document.querySelector("#reportsChart"), {
 		                        series: [{
 		                        	name: '판매횟수',
-		                        	data: data.getMonthlyAmount
+		                        	data: data.monthlyAmount
 		                        }],
 		                        
 		                        chart: {
