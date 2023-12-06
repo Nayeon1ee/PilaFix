@@ -2,7 +2,6 @@ package com.dev.pilafix.member.signup;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.common.member.MemberVO;
-
 
 @Controller
 public class MemberController {

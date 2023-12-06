@@ -2,15 +2,14 @@ package com.dev.pilafix.member.signup.impl;
 
 import java.util.List;
 
-
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
+import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.common.member.MemberVO;
-import com.dev.pilafix.member.signup.TermsVO;
+
 
 @Repository
 public class MemberDAO {
