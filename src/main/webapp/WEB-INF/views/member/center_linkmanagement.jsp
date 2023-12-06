@@ -66,7 +66,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>Link Center Management</li>
 				</ol>
 				<h2>연동 센터 관리</h2>
@@ -78,14 +78,6 @@
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
-
-				<!-- 				<div id="userInfo" class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
-					</div>
-				</div> -->
-
 
 				<div class="container">
 

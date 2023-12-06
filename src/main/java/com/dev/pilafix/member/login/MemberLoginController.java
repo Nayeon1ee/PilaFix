@@ -67,6 +67,15 @@ public class MemberLoginController {
 	public String memberLogin(@ModelAttribute MemberVO memberVO, HttpSession session, Model model) {
 		MemberVO member = service.loginAndGetMember(memberVO.getCsEmailId(), memberVO.getCsPassword());
 		if (member != null) {
+			
+			// 회원이 탈퇴한 경우 (cs_delete_yn이 true인 경우)
+	        if (member.isCsDeleteYn()) {
+	            // 탈퇴한 회원에게는 로그인을 허용하지 않고, 로그인 페이지로 리다이렉트
+	            model.addAttribute("loginError", "회원정보가 존재하지 않습니다.");
+	        	System.out.println("로그인 실패 : 탈퇴한 회원인 경우" + member.isCsDeleteYn());
+	            return "member/login";
+	        }else {
+
 			// 로그인 성공, 세션에 사용자 정보 저장
 			System.out.println("로그인성공: " + memberVO.getCsEmailId());
 
@@ -124,9 +133,11 @@ public class MemberLoginController {
 					return "member/ctConnect"; // 센터 연동 페이지
 				}
 			}
+	        }
 		} else {
 			// 로그인 실패 메시지와 함께 로그인 페이지로 이동
 			model.addAttribute("loginError", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			System.out.println("로그인 실패 : 비밀번호나 아이디가 일치하지 않는경우");
 			return "member/login";
 		}
 	}

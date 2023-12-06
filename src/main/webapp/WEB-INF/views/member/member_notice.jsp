@@ -68,7 +68,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="mainPge.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>notice</li>
 				</ol>
 				<h2>공지사항</h2>
@@ -149,7 +149,11 @@
 								<li
 									class="list-group-item d-flex justify-content-between align-items-start">
 									<div class="ms-2 me-auto">
-										<a href="noticeDetail.do?code=${noticeC.icNumber}">${noticeC.title}</a>
+
+
+<%-- <a href="noticeDetail.do?icNumber=${noticeC.icNumber}">${noticeC.title}</a> --%>
+<a href="javascript:void(0);" class="notice-link" data-icnumber="${noticeC.icNumber}">${noticeC.title}</a>
+
 									</div> 조회수: ${noticeC.cnt}
 									<div class="badge rounded-pill my-auto ms-2"
 										style="background-color: #9b56e9;">${noticeC.regDate}</div>
@@ -168,9 +172,7 @@
 								<li
 									class="list-group-item d-flex justify-content-between align-items-start">
 									<div class="ms-2 me-auto">
-
 <a href="javascript:void(0);" class="notice-link" data-iwnumber="${noticeW.iwNumber}">${noticeW.title}</a>
-
 									</div> 조회수: ${noticeW.cnt}
 									<div class="badge rounded-pill my-auto ms-2"
 										style="background-color: #9b56e9;">${noticeW.regDate}</div>
@@ -210,7 +212,6 @@
 			});
 		});
 	</script>
-
 	
 	
 <!-- 조회수증가 -->	
@@ -241,8 +242,6 @@ $('.notice-link').on('click', function(e) {
 	
 	
 	
-=======
-
 	<!-- <script>
 $(document).ready(function() {
 /*     // 초기에 "센터" 탭이 선택되도록 설정

@@ -27,7 +27,6 @@ public interface MemberMypageService {
 	FaqVO getFaqByMember(int fqNumber);
 	MemberVO getMypageMemberInfo(int csMemberCode);
 	List<TermsVO> getMyTermsListByMember();
-
 	boolean checkPassword(int csMemberCode, String currentPassword);
 	void increaseCenterInfoViewCount(int icNumber);
 	void increaseAdminInfoViewCount(int iwNumber);

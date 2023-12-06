@@ -71,7 +71,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>faq</li>
 				</ol>
 				<h2>FAQ</h2>
