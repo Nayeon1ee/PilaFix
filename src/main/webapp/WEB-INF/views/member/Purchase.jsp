@@ -218,9 +218,8 @@
 		<!-- Modal 보유 수강권 있으면 구매 못하게 하는  -->
 				<div class="modal fade" id="exampleModal" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div
-							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-dialog modal-dialog-centered">
+					
 							<div class="modal-content">
 								<div class="modal-header">
 									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
@@ -236,15 +235,14 @@
 										data-bs-dismiss="modal">확인</button>
 								</div>
 							</div>
-						</div>
+						
 					</div>
 				</div>
 		<!-- 결제 완료시 보이는 모달  -->
 				<div class="modal fade" id="purchaseModal" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div
-							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-dialog modal-dialog-centered">
+						
 							<div class="modal-content">
 								<div class="modal-header">
 									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
@@ -263,15 +261,14 @@
 										<button type="button" class="btn btn-primary" onclick="location.href='/pilafix/myPage.do'" >마이페이지 이동</button>
 								</div>
 							</div>
-						</div>
+						
 					</div>
 				</div>
 		<!-- 결제 실패시 보이는 모달  -->
 				<div class="modal fade" id="failModal" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div
-							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-dialog  modal-dialog-centered">
+					
 							<div class="modal-content">
 								<div class="modal-header">
 									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
@@ -289,15 +286,14 @@
 										data-bs-dismiss="modal">확인</button>
 								</div>
 							</div>
-						</div>
+						
 					</div>
 				</div>
 		<!-- 서버 로직처리실패시(디비에 정보저장 트랜잭션처리시 오류로 롤백되었을 때)보이는 모달  -->
 				<div class="modal fade" id="failModal" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div
-							class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-dialog modal-dialog-centered">
+					
 							<div class="modal-content">
 								<div class="modal-header">
 									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
@@ -315,7 +311,32 @@
 										data-bs-dismiss="modal">확인</button>
 								</div>
 							</div>
-						</div>
+						
+					</div>
+				</div>
+		
+		<!-- 이용정책 체크 안하고 결제 시도 시 보이는 모달  -->
+				<div class="modal fade" id="checkModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+					
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>이용정책에 동의해주시기 바랍니다.<br>
+									</p>
+									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary"
+										data-bs-dismiss="modal">확인</button>
+								</div>
+							</div>
+						
 					</div>
 				</div>
 		</section>
@@ -459,11 +480,11 @@
 					str = '<div class="card-footer text-muted">'+ticket.ticketDetail.tkName+'</div>'
 					str += '<div class="card-body-detail ticket">'
 					str += '<ul>'
-					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수업 유형 :'+ ticket.ticketDetail.tkCapacity+':1'+ticket.ticketDetail.tkLessonType+'레슨</li>'
-					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수업 횟수 :'+ ticket.ticketDetail.tkUsageCount +'회</li>'
-					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 사용 기간 :'+ nowDate+'~'+ticketEndDate +'</li>'
-					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 금액 :'+ ticket.ticketDetail.tkPriceAddDot +'원</li>'
-					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수강권 설명 :'+ ticket.ticketDetail.tkDescription +'</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수업 유형 : '+ ticket.ticketDetail.tkCapacity+':1'+ticket.ticketDetail.tkLessonType+'레슨</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수업 횟수 : '+ ticket.ticketDetail.tkUsageCount +'회</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 사용 기간 : '+ nowDate+'~'+ticketEndDate +'</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 금액 : '+ ticket.ticketDetail.tkPriceAddDot +'원</li>'
+					str += '<li class="ticket-list-li"><img class="bar-icon" alt="bar Image"> 수강권 설명 :<br><span class="output-text" style="text-align:left; white-space: pre-line; margin-left:10px">'+ ticket.ticketDetail.tkDescription +'</span></li>'
 					str += "</ul>"
 					str += '</div>'
 					$('#ticket-detail-info').append(str);
@@ -492,8 +513,16 @@
 					
 					// 버튼 클릭 시 requestPay 함수 호출
 		             $('#ticketBuy').off('click').on('click', function () {
-		            	ticketCheck(tkPrice, tkName,tkCode,tkLessonType,tkCount,tkStartDate,tkEndDate,csName, csEmail, csNumber, csCode);
-		                //requestPay(tkPrice, tkName,tkCode,tkLessonType, csName, csEmail, csNumber, csCode);
+		            	 
+	            	 // 체크박스 체크여부 확인
+	            	    if ($('#flexCheckDefault').prop('checked')) {
+	            	        // 체크박스가 체크되어 있으면 함수 실행
+	            	        ticketCheck(tkPrice, tkName, tkCode, tkLessonType, tkCount, tkStartDate, tkEndDate, csName, csEmail, csNumber, csCode);
+	            	    } else {
+	            	        // 체크박스가 체크되어 있지 않으면 포커스 주기
+	            	        $('#flexCheckDefault').focus();
+	            	        $('#checkModal').modal('show');
+	            	    }
 		            });
 					
 		        },
@@ -646,6 +675,8 @@
 	   console.log("글자탭 클릭")
 	});
    
+ 
+
     </script>	
 	<!-- 클릭하면 우측 화면 디폴트에서 상세화면으로 바뀌게 하는 js 
 		 왼쪽에 수강권 클릭하면 이 함수 실행
