@@ -17,7 +17,9 @@
 
 					<div class="card">
 						<div class="card-body">
-                    <p>문의사항 답변등록</p>
+	                <div class="area1">
+						<p>문의사항</p>
+					</div>
          
     <!-- 센터가 조회해오는 회원의 문의사항 (작성자이름) -->            
 	<form class="row g-3">
@@ -48,8 +50,11 @@
 	        <textarea readonly disabled class="form-control" rows="5">${question.qsContent}</textarea>
 	    </div>
 	</form>
-
-
+    <br>
+    <hr>
+<div class="area1">
+	<p>답변</p>
+</div>
 
 <c:choose>
     <c:when test="${question.qsAnswerYn == true && not empty questionReply}">

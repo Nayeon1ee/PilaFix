@@ -238,8 +238,8 @@
 		<ul class="sidebar-nav" id="sidebar-nav">
 
 			<li class="nav-item">
-				<a class="nav-link " href="#"> 
-					<i class="bi bi-grid"></i> <span> 정보</span>
+				<a class="nav-link " href="centerDashboard.do"> 
+					<i class="bi bi-bar-chart-line-fill"></i> <span> 정보</span>
 				</a>
 			</li>
 			<!-- End Dashboard Nav -->
