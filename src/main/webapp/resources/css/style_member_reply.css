@@ -84,7 +84,21 @@
     cursor: pointer;
 }
 
+
+
 small {
     color: #777;
     font-size: 12px;
 }
+
+
+.radio-box {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .radio-box input[type="radio"] {
+        margin-bottom: 10px; /* 라디오 버튼 간격 조절 */
+    }
+    
+    

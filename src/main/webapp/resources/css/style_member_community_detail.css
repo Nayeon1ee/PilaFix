@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+.form-control:disabled {
+    background-color: #e9ecef33 !important;
+    opacity: 1 !important;
+}
