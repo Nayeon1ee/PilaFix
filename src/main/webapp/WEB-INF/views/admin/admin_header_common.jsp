@@ -272,8 +272,8 @@
 
 		<ul class="sidebar-nav" id="sidebar-nav">
 
-			<li class="nav-item"><a class="nav-link " href="adminMain.do">
-					<i class="bi bi-grid"></i> <span>Dashboard</span>
+			<li class="nav-item"><a class="nav-link " href="adminDashboard.do">
+					<i class="bi bi-bar-chart-line-fill"></i> <span>Dashboard</span>
 			</a></li>
 			<!-- End Dashboard Nav -->
 

@@ -93,14 +93,15 @@
 										<option value="21">21시</option>
 										<option value="22">22시</option>
 									</select>
-
+									
+									<div class="col-md-3 mt-2 d-flex align-items-end">
+										<button type="button" class="btn btn-primary btn-sm" id="addButton"> + </button>
+									</div>
+								
 									<div id="dateTimeContainer"></div>
 
-
 								</div>
-								<div class="col-md-3 mt-2 d-flex align-items-end">
-									<button type="button" class="btn btn-primary btn-sm" id="addButton"> + </button>
-								</div>
+								
 							</div>
 
 							<div class="text d-flex justify-content-end">
