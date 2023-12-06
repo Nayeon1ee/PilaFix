@@ -197,15 +197,17 @@ public class ReservController {
 	 */
 	@PostMapping("/sendSms.do")
 	@ResponseBody
-	public Map<String, Object> sendSms(String lsCode, HttpSession session) {
+	public Map<String, Object> sendSms(String lsCode, boolean isCancel,HttpSession session) {
 		Map<String, Object> response = new HashMap<>();
 		
 		System.out.println("sendSMS.do 호출됨");
-
+		
+		System.out.println(lsCode);
+		System.out.println(isCancel);
 		// 예약된 수업 정보 조회 
 		CenterLessonVO reservLesson = service.getLessonDetail(lsCode);
 		
-		smsService.sendReservationConfirmation(lsCode, session);
+		smsService.sendReservationConfirmation(lsCode,isCancel, session);
 
 		return response;
 	}
@@ -271,6 +273,7 @@ public class ReservController {
 	 * STEP03. 예약 테이블의 취소 여부 true
 	 * STEP04. 출결 테이블의 회원코드 지우기 
 	 * STEP05. insert 알림 테이블 이력 
+	 * STEP06. 문자발송 
 	 * 
 	 * @param rsCode
 	 * @param lsCode
