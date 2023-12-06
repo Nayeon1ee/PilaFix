@@ -1,6 +1,8 @@
 package com.dev.pilafix.admin.center_manage.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
 import com.dev.pilafix.common.member.CenterVO;
-import com.dev.pilafix.common.sendsmshistory.SendSmsHistoryVO;
 
 @Repository
 public class CenterDAO {
@@ -47,8 +48,12 @@ public class CenterDAO {
 		sqlSessionTemplate.update("CenterDAO.updateContractRevokeYN", ctCode);
 	}
 
-	public void resetPassword(int ctCode) {
-		sqlSessionTemplate.update("CenterDAO.resetPassword", ctCode);
+	public void resetPassword(String pw, int ctCode) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("pw", pw);
+		params.put("ctCode", ctCode);
+		
+		sqlSessionTemplate.update("CenterDAO.resetPassword", params);
 	}
 
 	public int emailCheck(String ownerEmail) {

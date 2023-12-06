@@ -204,7 +204,9 @@ public class CenterServiceImpl implements CenterService {
 	 */
 	@Override
 	public void resetPassword(int ctCode) {
-		dao.resetPassword(ctCode);
+    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    	String pw = encoder.encode("1111");
+		dao.resetPassword(pw, ctCode);
 	}	
 	
 	/**

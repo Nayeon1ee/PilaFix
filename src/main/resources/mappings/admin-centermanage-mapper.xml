@@ -83,8 +83,10 @@
 	</update>
 	
 	<!-- 비밀번호 초기화  -->
-	<update id="resetPassword" parameterType="Integer">
-		UPDATE TBL_CENTER set CT_PASSWORD='1111' WHERE ct_code=#{ctCode};
+	<update id="resetPassword" parameterType="java.util.Map">
+		UPDATE TBL_CENTER 
+		SET CT_PASSWORD=#{pw}
+		WHERE CT_CODE=#{ctCode};
 	</update>
 	
 	<!-- 센터 엑셀 다운로드  -->
