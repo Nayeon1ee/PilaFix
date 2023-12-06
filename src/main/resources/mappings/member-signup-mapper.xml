@@ -21,9 +21,12 @@
 		<result property="csRoleCode" column="CS_ROLE_CODE" />
 	</resultMap>
 
-	<resultMap type="com.dev.pilafix.member.signup.TermsVO" id="termsResult1">
+	<resultMap type="terms" id="termsResult">
+		<id property="tmCode" column="TM_CODE" />
 		<result property="tmName" column="TM_NAME" />
 		<result property="tmDetail" column="TM_DETAIL" />
+		<result property="tmRegdate" column="TM_REGDATE" />
+		<result property="tmModifiedDate" column="TM_MODIFIED_DATE" />
 		<result property="tmRequiredYn" column="TM_REQUIRED_YN" />
 		<result property="tmOpenYn" column="TM_OPEN_YN" />
 	</resultMap>
@@ -65,7 +68,7 @@
 	</insert>
 
 	<!-- 약관 가져오기 -->
-	<select id="getTermsList" resultMap="termsResult1">
+	<select id="getTermsList" resultMap="termsResult">
 		select TM_NAME,TM_DETAIL,TM_REQUIRED_YN FROM TBL_TERMS WHERE TM_OPEN_YN=true
 	</select>
 

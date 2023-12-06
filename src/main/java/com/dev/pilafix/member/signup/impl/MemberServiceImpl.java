@@ -2,14 +2,11 @@ package com.dev.pilafix.member.signup.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
-
-
 import java.util.Random;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,9 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.admin.center_manage.SendEmailHistoryVO;
+import com.dev.pilafix.admin.terms.TermsVO;
 import com.dev.pilafix.common.member.MemberVO;
 import com.dev.pilafix.member.signup.MemberService;
-import com.dev.pilafix.member.signup.TermsVO;
+
 
 
 @Service
