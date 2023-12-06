@@ -30,6 +30,15 @@
 		<result property="memberCount" column="MEMBER_REQUEST_COUNT" />
 		<result property="trainerCount" column="TRAINER_REQUEST_COUNT" />
 		<result property="questionCount" column="UNANSWERED_QUESTION_COUNT" />
+		
+		<result property="paymentCount" column="PAYMENT_COUNT" />
+		<result property="amountCount" column="AMOUNT_COUNT" />
+		<result property="centerMemberCount" column="CENTRER_MEMBER_COUNT" />
+		<result property="lsName" column="LS_NAME" />
+		
+		<result property="category" column="CATEGOTY" />
+		<result property="totalCount" column="TOTAL_COUNT" />
+		
 	</resultMap>
 	
 
@@ -79,6 +88,83 @@
 		    (SELECT COUNT(*) FROM tbl_question
 		        WHERE center_code = #{ctCode}
 		        AND qs_answer_yn = 'f') AS UNANSWERED_QUESTION_COUNT;
+	</select>
+	
+	<!-- 판매횟수 -->
+	<select id="getTotalCenterCount" resultMap="centerloginResult">
+	SELECT
+	(SELECT COUNT(PA_ID) 
+		FROM TBL_PAYMENT JOIN TBL_TICKET ON (TBL_PAYMENT.TICKET_CODE = TBL_TICKET.TK_CODE)
+		WHERE TBL_TICKET.CENTER_CODE = #{ctCode} ) AS PAYMENT_COUNT,
+		(SELECT TO_CHAR(SUM(PA_AMOUNT), '999,999,999')
+		FROM TBL_PAYMENT JOIN TBL_TICKET ON (TBL_PAYMENT.TICKET_CODE = TBL_TICKET.TK_CODE)
+		WHERE TBL_TICKET.CENTER_CODE = #{ctCode}) AS AMOUNT_COUNT,
+		(SELECT COUNT(*) 
+		FROM TBL_CST
+		WHERE CONNECTED_CENTER_CODE1 = #{ctCode} OR CONNECTED_CENTER_CODE2 = #{ctCode} OR CONNECTED_CENTER_CODE3 = #{ctCode}
+		AND CS_ROLE_CODE = 'ME') AS CENTRER_MEMBER_COUNT
+	</select>
+	
+	<select id="getMonthlyAmount" resultType="int">
+		SELECT COALESCE(SUM(p.PA_AMOUNT), 0) AS contract_count
+		FROM generate_series(1, 12) m(month)
+		LEFT JOIN (
+		    SELECT 
+		        DATE_TRUNC('month', p.PA_DATETIME) AS month,
+		        p.PA_AMOUNT,
+		        t.CENTER_CODE
+		    FROM TBL_PAYMENT p
+		    LEFT JOIN TBL_TICKET t ON p.TICKET_CODE = t.TK_CODE
+		    WHERE t.CENTER_CODE = #{ctCode}
+		) AS p ON EXTRACT(MONTH FROM COALESCE(p.month, CURRENT_DATE)) = m.month
+		    AND EXTRACT(YEAR FROM COALESCE(p.month, CURRENT_DATE)) = EXTRACT(YEAR FROM CURRENT_DATE)
+		LEFT JOIN TBL_CENTER c ON p.CENTER_CODE = c.CT_CODE
+		GROUP BY m.month
+		ORDER BY m.month;
+	</select>
+	
+	<select id="getPopularLesson" resultMap="centerloginResult">
+		SELECT Category, SUM(Count) AS TOTAL_COUNT
+		FROM (
+		    SELECT '다이어트' AS Category,
+		        SUM(CASE WHEN LS_NAME LIKE '%다이어트%' THEN 1 ELSE 0 END) AS Count
+		    FROM TBL_LESSON 
+		    JOIN TBL_RESERV ON TBL_RESERV.Lesson_CODE = TBL_LESSON.LS_CODE
+		    WHERE TBL_RESERV.CENTER_CODE = #{ctCode} AND TBL_RESERV.RS_CODE IS NOT NULL
+		
+		    UNION ALL
+		
+		    SELECT '체형교정' AS Category,
+		        SUM(CASE WHEN LS_NAME LIKE '%체형교정%' THEN 1 ELSE 0 END) AS Count
+		    FROM TBL_LESSON 
+		    JOIN TBL_RESERV ON TBL_RESERV.Lesson_CODE = TBL_LESSON.LS_CODE
+		    WHERE TBL_RESERV.CENTER_CODE = #{ctCode} AND TBL_RESERV.RS_CODE IS NOT NULL
+		
+		    UNION ALL
+		
+		    SELECT '스트레칭' AS Category,
+		        SUM(CASE WHEN LS_NAME LIKE '%스트레칭%' THEN 1 ELSE 0 END) AS Count
+		    FROM TBL_LESSON 
+		    JOIN TBL_RESERV ON TBL_RESERV.Lesson_CODE = TBL_LESSON.LS_CODE
+		    WHERE TBL_RESERV.CENTER_CODE = #{ctCode} AND TBL_RESERV.RS_CODE IS NOT NULL
+		
+		    UNION ALL
+		
+		    SELECT '밸런스' AS Category,
+		        SUM(CASE WHEN LS_NAME LIKE '%밸런스%' THEN 1 ELSE 0 END) AS Count
+		    FROM TBL_LESSON 
+		    JOIN TBL_RESERV ON TBL_RESERV.Lesson_CODE = TBL_LESSON.LS_CODE
+		    WHERE TBL_RESERV.CENTER_CODE = #{ctCode} AND TBL_RESERV.RS_CODE IS NOT NULL
+		
+		    UNION ALL
+		
+		    SELECT '재활' AS Category,
+		        SUM(CASE WHEN LS_NAME LIKE '%재활%' THEN 1 ELSE 0 END) AS Count
+		    FROM TBL_LESSON 
+		    JOIN TBL_RESERV ON TBL_RESERV.Lesson_CODE = TBL_LESSON.LS_CODE
+		    WHERE TBL_RESERV.CENTER_CODE = #{ctCode} AND TBL_RESERV.RS_CODE IS NOT NULL
+		) AS NAME_CATEGORY
+		GROUP BY CATEGORY;
 	</select>
 	
 	
