@@ -181,12 +181,12 @@ public class CenterLoginController {
 	 * 통계 : 월별 수강권 판매 금액
 	 * @return
 	 */
-	@PostMapping("getMonthlyContractCount.do")
+	@PostMapping("monthlyContractCount.do")
 	@ResponseBody
-	public Map<String,Object> getMonthlyAmount(HttpSession session) {
+	public Map<String,Object> monthlyAmount(HttpSession session) {
 		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
 		int ctCode = (int) loginCenter.get("ctCode");
-		return service.getMonthlyAmount(ctCode);
+		return service.monthlyAmount(ctCode);
 	}
 	
 	/**

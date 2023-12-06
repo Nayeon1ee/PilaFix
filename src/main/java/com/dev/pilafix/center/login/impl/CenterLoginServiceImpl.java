@@ -81,8 +81,8 @@ public class CenterLoginServiceImpl implements CenterLoginService {
 	
 	// 통계 월별 계약수 가져오기
 	@Override
-	public Map<String,Object> getMonthlyAmount(int ctCode) {
-		return dao.getMonthlyAmount(ctCode);
+	public Map<String,Object> monthlyAmount(int ctCode) {
+		return dao.monthlyAmount(ctCode);
 	}
 	
 	// 통계 수업 예약수 가져오기

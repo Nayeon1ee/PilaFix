@@ -57,9 +57,9 @@ public class CenterLoginDAO {
 		return sqlSessionTemplate.selectOne("CenterLoginDAO.getTotalCenterCount", ctCode);
 	}
 	
-	public Map<String,Object> getMonthlyAmount(int ctCode) {
+	public Map<String,Object> monthlyAmount(int ctCode) {
 		Map<String,Object> count = new HashMap<String, Object>();
-		count.put("getMonthlyAmount", sqlSessionTemplate.selectList("CenterLoginDAO.getMonthlyAmount", ctCode));
+		count.put("monthlyAmount", sqlSessionTemplate.selectList("CenterLoginDAO.monthlyAmount", ctCode));
 		return count;
 	}
 	
