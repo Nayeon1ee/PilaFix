@@ -52,27 +52,19 @@
 <!-- 내 css -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
+<style>
+    #teacherCard {
+        width: 350px; /* 넓이를 조절할 수 있는 원하는 값으로 변경하세요 */
+        /* 다른 스타일 속성도 필요하다면 여기에 추가하세요 */
+    }
+    
+    #memberCard {
+    width: 350px;
+    }
+</style>
 
 <body>
 
-	<!-- ======= Top Bar ======= -->
-	<section id="topbar" class="d-flex align-items-center">
-		<div
-			class="container d-flex justify-content-center justify-content-md-between">
-			<div class="contact-info d-flex align-items-center">
-				<i class="bi bi-envelope d-flex align-items-center"><a
-					href="mailto:contact@example.com">contact@example.com</a></i> <i
-					class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-						5589 55488 55</span></i>
-			</div>
-			<div class="social-links d-none d-md-flex align-items-center">
-				<a href="#" class="twitter"><i class="bi bi-twitter"></i></a> <a
-					href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-					href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-					href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-			</div>
-		</div>
-	</section>
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -102,9 +94,9 @@
 
 
 
-				<div class="row">
+				<div class="row justify-content-center">
 					<!-- 강사 선택 카드 -->
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<div class="icon-box" id="teacherCard">
 							<div class="icon">
 								<i class="bi bi-person-check"></i>
@@ -112,12 +104,12 @@
 							<h4>
 								<label> 강사 </label>
 							</h4>
-							<p style="font-size: 16px;">강사로 가입하시고 싶으시면 강사를 선택하세요.</p>
+							<p style="font-size: 16px; font-weight: 500;">강사로 가입하시고 싶으시면 강사를 선택하세요.</p>
 						</div>
 					</div>
 
 					<!-- 회원 선택 카드 -->
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<div class="icon-box" id="memberCard">
 							<div class="icon">
 								<i class="bi bi-person"></i>
@@ -125,7 +117,7 @@
 							<h4>
 								<label> 회원</label>
 							</h4>
-							<p style="font-size: 16px;">회원으로 가입하고 싶으시면 회원을 선택하세요.</p>
+							<p style="font-size: 16px; font-weight: 500;">회원으로 가입하고 싶으시면 회원을 선택하세요.</p>
 						</div>
 					</div>
 				</div>

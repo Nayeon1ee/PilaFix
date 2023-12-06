@@ -2,6 +2,7 @@ package com.dev.pilafix.admin.login.impl;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -66,6 +67,65 @@ public class AdminLoginDAO {
 	public int adPasswordCheck(String adPassword) {
 		return sqlSessionTemplate.selectOne("AdminLoginDAO.adPasswordCheck",adPassword);
 	}
+
+	
+	//=================================통계==============================================
+	public AdminVO getTotalMemberCount() {
+		//회원,강사 수 
+		
+		return sqlSessionTemplate.selectOne("AdminLoginDAO.getTotalMemberCount");
+	}
+
+
+	public Map<String,Object> getMonthlyContractCount() {
+		Map<String,Object> count = new HashMap<String, Object>();
+		count.put("contractCount", sqlSessionTemplate.selectList("AdminLoginDAO.getMonthlyContractCount"));
+		count.put("revokeCount", sqlSessionTemplate.selectList("AdminLoginDAO.getMonthlyRevokeCount"));
+		
+		return count;
+	}
+
+
+	public Map<String, Object> countMemberAge() {
+		List<AdminVO> memberAgeCount = sqlSessionTemplate.selectList("AdminLoginDAO.countMemberAge");
+		
+		Map<String,Object> ageCount = new HashMap<String, Object>();
+		ageCount.put("teenage", memberAgeCount.get(0));
+		ageCount.put("twenty", memberAgeCount.get(1));
+		ageCount.put("thirty", memberAgeCount.get(2));
+		ageCount.put("fourty", memberAgeCount.get(3));
+		ageCount.put("overFifty", memberAgeCount.get(4));
+		
+		System.out.println(ageCount.get("teenage"));
+		return ageCount;
+	}
+	
+	public Map<String,Integer> countGenterRatio(){
+		AdminVO count = sqlSessionTemplate.selectOne("AdminLoginDAO.countGenterRatio");
+		
+		Map<String,Integer> genderCount = new HashMap<String, Integer>();
+		genderCount.put("men", count.getMenCount());
+		genderCount.put("women", count.getWomenCount());
+		
+		return genderCount;
+	}
+	
+	public Map<String,Integer> centerRegionCount(){
+		AdminVO count = sqlSessionTemplate.selectOne("AdminLoginDAO.centerRegionCount");
+		
+		Map<String,Integer> regionCount = new HashMap<String, Integer>();
+		regionCount.put("seoul", count.getSeoulCount());
+		regionCount.put("gg", count.getGgCount());
+		regionCount.put("gw", count.getGwCount());
+		regionCount.put("cc", count.getCcCount());
+		regionCount.put("jl", count.getJlCount());
+		regionCount.put("gs", count.getGsCount());
+		regionCount.put("jj", count.getJjCount());
+		
+		return regionCount;
+	}
+	
+
 
 	
 }

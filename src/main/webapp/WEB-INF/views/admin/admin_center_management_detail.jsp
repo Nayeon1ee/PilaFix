@@ -150,7 +150,7 @@
   
 <!-- 삭제 버튼 모달 -->
 <div class="modal fade" id="basicModal" tabindex="-1">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-dialog-centered ">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">정말 삭제하시겠습니까?</h5>
@@ -168,7 +168,7 @@
 
 <!-- 계약 해지 버튼 모달 -->
 <div class="modal fade" id="basicModal2" tabindex="-1">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">정말로 해지하시겠습니까?</h5>
@@ -186,13 +186,13 @@
 
 <!-- 비밀번호 초기화 버튼 모달 -->
 <div class="modal fade" id="basicModal3" tabindex="-1">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">비밀번호를 초기화하시겠습니까?</h5>
+				<h5 class="modal-title">비밀번호 초기화</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body">초기 비밀번호 : 1111</div>
+			<div class="modal-body">비밀번호를 초기화하시겠습니까?<br>초기 비밀번호 : 1111</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 				<button type="button" class="btn btn-primary" onclick="resetPassword(${center.ctCode })">확인</button>

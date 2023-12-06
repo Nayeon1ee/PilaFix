@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Services - PILAFIX Bootstrap Template</title>
+<title>강사/회원 선택화면</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -45,12 +45,26 @@
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
 
+<!-- 내가 넣은 js -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 <!-- 내 css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style_paymentHistorydetail.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
+<style>
+    #teacherCard {
+        width: 350px; /* 넓이를 조절할 수 있는 원하는 값으로 변경하세요 */
+        /* 다른 스타일 속성도 필요하다면 여기에 추가하세요 */
+    }
+    
+    #memberCard {
+    width: 350px;
+    }
+</style>
 
 <body>
+
 
 	<!-- ======= Header ======= -->
 	<%@ include file="member_header_common.jsp"%>
@@ -64,58 +78,56 @@
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
-					<li>payment History</li>
+					<li>select trainer & member</li>
 				</ol>
-				<h2>결제내역</h2>
+				<h2>회원 & 강사 선택</h2>
 
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
 
 		<!-- ======= Services Section ======= -->
-		<section id="services" class="services">
-			<div class="container mx-auto" style="max-width: 700px;">
+		<section id="services" class="services py-4">
+			<div class="container" style="max-width: 1000px">
 
 
-				<div id="userInfo"
-					class="d-flex align-items-center mb-2">
-					<div id="myInfoLink" class="ms-4 mr-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
-					</div>
-				</div>
-				
 
-				<div class="payment-detail mt-4">
 
-					<div class="payment-details">
-						<div class="payment-status">결제완료</div>
-						<div class="payment-description">그룹수업-상봉점 [카드결제]</div>
-						<div class="payment-description">6:1 그룹 레슨 36회(3개월)</div>
-						<div class="payment-date">2023.10.17 오전 11:08</div>
-						<div class="payment-amount">533,500원</div>
-					</div>
 
-					<hr class="line">
-					<div class="order-info">
-						<div class="order-title">주문정보</div>
-						<div class="order-detail">
-							주문번호<span class="order-value">417770</span>
+				<div class="row justify-content-center">
+					<!-- 강사 선택 카드 -->
+					<div class="col-md-5">
+						<div class="icon-box" id="teacherCard">
+							<div class="icon">
+								<i class="bi bi-person-check"></i>
+							</div>
+							<h4>
+								<label> 강사 </label>
+							</h4>
+							<p style="font-size: 16px; font-weight: 500;">강사로 가입하시고 싶으시면 강사를 선택하세요.</p>
 						</div>
 					</div>
-					<hr class="line">
-					<div class="payment-info">
-						<div class="payment-title">결제정보</div>
-						<div class="payment-option">
-							결제방식<span class="payment-value">00카드 / 3개월</span>
+
+					<!-- 회원 선택 카드 -->
+					<div class="col-md-5">
+						<div class="icon-box" id="memberCard">
+							<div class="icon">
+								<i class="bi bi-person"></i>
+							</div>
+							<h4>
+								<label> 회원</label>
+							</h4>
+							<p style="font-size: 16px; font-weight: 500;">회원으로 가입하고 싶으시면 회원을 선택하세요.</p>
 						</div>
 					</div>
 				</div>
 
 
 				<!-- End Our Skills Section -->
+
 			</div>
 		</section>
+
 	</main>
 
 	<!-- End #main -->
@@ -129,7 +141,6 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
-
 
 
 	<!-- Vendor JS Files -->
@@ -151,6 +162,51 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+
+<!-- 강사/회원 클릭하면 각자 다른 파라미터값 물고 회원가입화면으로 넘어감 -->
+<script>
+    $(document).ready(function () {
+        // 강사 선택 카드 클릭 이벤트
+        $("#teacherCard").click(function () {
+            // 리다이렉션
+            var selectedRole = "TR";
+            //window.location.href = "getUserRole.do?csRoleCode=TR";
+            $.ajax({
+                type: 'POST',
+                url: 'insertNaverMember.do', // 실제 서버 엔드포인트로 변경
+                contentType: 'application/json',
+                data: JSON.stringify({ role: selectedRole }),
+                success: function (response) {
+                    console.log('Role data sent to server successfully:', response);
+                    window.location.href = response;
+                },
+                error: function (error) {
+                    console.error('Error sending role data to server:', error);
+                }
+            });
+        });
+
+        // 회원 선택 카드 클릭 이벤트
+        $("#memberCard").click(function () {
+            // 리다이렉션
+           // window.location.href = "getUserRole.do?csRoleCode=ME";
+           var selectedRole = "ME";
+            $.ajax({
+                type: 'POST',
+                url: 'insertNaverMember.do', // 실제 서버 엔드포인트로 변경
+                contentType: 'application/json',
+                data: JSON.stringify({ role: selectedRole }),
+                success: function (response) {
+                    console.log('Role data sent to server successfully:', response);
+                    window.location.href = response;
+                },
+                error: function (error) {
+                    console.error('Error sending role data to server:', error);
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 

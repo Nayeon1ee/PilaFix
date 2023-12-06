@@ -40,8 +40,8 @@
 .payment-detail {
     border: 1px solid #ddd;
     max-width: 600px;
-    margin: 60px auto 0;
-    padding: 20px;
+    margin: 20px;
+    padding: 10px;
     background-color: transparent;
     border-radius: 30px; 
 }

@@ -125,7 +125,7 @@
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-4">
 						<div class="content border rounded p-3"
-							style="min-height: 648px; max-height: 648px;">
+							style="min-height: 648px; max-height: 648px; overflow-y: auto;">
 
 							<!-- 셀렉트 박스 - 연동된 센터의 목록 -->
 							<div class="custom-select-wrapper text-center mt-3">
@@ -205,7 +205,7 @@
 										<div class="list-group">
 											<c:forEach var="item" items="${lessonList}">
 												<a class="list-group-item list-group-item-action">
-													<p class="mb-1">${item.lsTime }~${item.lsEndTime }</p>
+													<p class="mb-1" style="color:#841dff;">${item.lsTime }~${item.lsEndTime }</p>
 													<div class="d-flex w-100 justify-content-between">
 														<h5 class="mb-1">${ item.lsName }</h5>
 													</div>
@@ -454,7 +454,7 @@
 							<div class="modal-body">
 								<div class="highlight-section">
 									<p class="hightlight-text" style="font-size: 18px;">
-										<b>구매가능한 수강권이 존재하지 않습니다!</b><br>
+										<b>해당 수업 예약에 사용할 수강권이 존재하지 않습니다!</b><br>
 										수강권 구매 후 이용하여 주시기 바랍니다.<br><br>
 										<a href="ticketPage.do">수강권 구매하러가기</a>
 									</p>
@@ -613,12 +613,12 @@
 				                    lessonList.forEach(function (item) {
 				                    	gstr = '<div class="list-group">';
 				                    	gstr += '<a class="list-group-item list-group-item-action">';
-				                    	gstr += '<p class="mb-1">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
+				                    	gstr += '<p class="mb-1" style="color:#841dff;">'+ item.lsTime +'~'+ item.lsEndTime +'</p>';
 				                    	gstr += '<div class="d-flex w-100 justify-content-between">';
-									    gstr += '<h5 class="mb-1">'+ item.lsName +'</h5>';
+									    gstr += '<h5 class="mb-1"><b>'+ item.lsName +'</b></h5>';
 									    gstr += '</div>';
 									    gstr += '<p class="mb-1">' + item.trainerMemberName +'</p>';
-									    gstr += '<small class="text-muted">'+ (item.lsCapacity - item.lsCurrentApplicants)+'명 남음</small> | ';
+									    gstr += '<small class="text-muted"><font style="color:red; font-weight:bold;">'+ (item.lsCapacity - item.lsCurrentApplicants)+'</font>명 남음</small> | ';
 									    gstr += '<small class="text-muted"> 정원 '+ item.lsCapacity +'명</small>';
 									    
 
@@ -695,13 +695,10 @@
 	        	
 	        	console.log("예약 가능 여부 체크 ");
 	        	if(response.checkTicket === 0){ //수강권 미소유
-	        		console.log(1);
 	        		$('#noTicketModal').modal('show');
 	        	}else if(response.checkReservation !== 0){ // 이미 예약 했다면 
-	        		console.log(2);
 	        		$('#alreadyReserveModal').modal('show');
 	        	}else{
-	        		console.log(3);
 	        		getReservationInfo(lsCode, centerCode);
 	        	}
 	        	
@@ -875,39 +872,6 @@
 	    }
 	}
 	
-
-    <!-- 버튼 처리를 위한 함수 -->
-    function calculateTimeRemaining(lessonDateTime) {
-        var lessonDate = new Date(); // 파라미터로 받기 
-        console.log(lessonDate);
-        var now = new Date();
-
-        // 당일 취소 불가인 경우
-        if (lessonDate.getDate() === now.getDate() && lessonDate.getMonth() === now.getMonth() && lessonDate.getFullYear() === now.getFullYear()) {
-            document.getElementById('timeRemaining').innerHTML = '당일 취소는 불가능합니다.';
-            return;
-        }
-
-        var cancelDate = calculateCancellationDate(lessonDate);
-
-        // 당일 취소가 아닌 경우에만 남은 시간 계산
-        if (now < cancelDate) {
-            var timeDifference = cancelDate - now;
-
-            // 시간, 분, 초 계산
-            var hours = Math.floor(timeDifference / (1000 * 60 * 60));
-            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-            // 결과를 페이지에 반영
-            document.getElementById('timeRemaining').innerHTML = hours + '시간 ' + minutes + '분 ' + seconds + '초';
-        } else {
-            document.getElementById('timeRemaining').innerHTML = '취소 가능한 시간이 지났습니다.';
-        }
-    }
-
-
-
 	
 </script>
 

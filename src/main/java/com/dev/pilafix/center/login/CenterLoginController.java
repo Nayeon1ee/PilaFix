@@ -170,7 +170,14 @@ public class CenterLoginController {
 	    return "redirect:/centerLogin.do";
 	}
 	
-	/**
+	
+	@GetMapping("/centerLogout.do")
+	public String getlogout(HttpSession session) {
+	    session.removeAttribute("loginCenter");
+	    return "redirect:/centerLogin.do";
+	}
+	
+  /**
 	 * 통계 : 월별 수강권 판매 금액
 	 * @return
 	 */

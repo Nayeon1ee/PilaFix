@@ -47,15 +47,13 @@
 }
 
 .payment-item {
-	border: 1px solid #ddd;
-	margin: 10px 0;
-	padding: 20px;
-	background-color: transparent;
-	border-radius: 30px;
+    border: 1px solid #ddd;
+    max-width: 680px; 
+    margin: 10px 0;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 30px;
 }
-
-
-
 
 .payment-status {
 	font-weight: bold;
@@ -76,7 +74,9 @@
 
 .payment-date {
 	color: #555;
-	float: right;
+	
+    text-align: right;
+    
 }
 
 .payment-amount {
@@ -85,13 +85,9 @@
 	margin-top: 10px;
 }
 
-a {
-	text-decoration: none;
-	color: inherit;
-	text-decoration : underline;
-	text-underline-position : under;
-}
 .payment-id{
 	font-size:14px;
 	color:#212529BF;
 }
+
+

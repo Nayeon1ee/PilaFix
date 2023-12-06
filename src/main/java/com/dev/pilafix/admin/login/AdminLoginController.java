@@ -1,6 +1,7 @@
 package com.dev.pilafix.admin.login;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -62,6 +63,12 @@ public class AdminLoginController {
 			session.setAttribute("loginAdmin", loginAdmin);
 //			return "redirect:/adminInfo.do"; // 테스트화면
 //	        return "admin/admin_info"; //나와야할 화면 예상
+			
+			// 통계
+
+			model.addAttribute("count",service.getTotalMemberCount()) ;
+			System.out.println( model.getAttribute("count"));
+
 			return "admin/admin_index";
 
 		} else {
@@ -206,10 +213,56 @@ public class AdminLoginController {
 	/**
 	 * 로그아웃
 	 */
+	@GetMapping("/adminLogout.do")
+	public String getlogout(HttpSession session) {
+		session.removeAttribute("loginAdmin");
+		return "redirect:/adminLogin.do";
+	}
+
 	@PostMapping("/adminLogout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginAdmin");
 		return "redirect:/adminLogin.do";
+	}
+
+	
+	/**
+	 * 통계 계약건수 세오기
+	 * @return
+	 */
+	@PostMapping("getMonthlyContractCount.do")
+	@ResponseBody
+	public Map<String,Object> getMonthlyContractCount() {
+		
+		return service.getMonthlyContractCount();
+	}
+	/**
+	 * 통계 : 연령대별 회원 수 
+	 * @return
+	 */
+	@PostMapping("countMemberAge.do")
+	@ResponseBody
+	public Map<String,Object> countMemberAge() {
+		return service.countMemberAge();
+	}
+	
+	/**
+	 * 통계 : 성별 회원 수 
+	 * @return
+	 */
+	@PostMapping("countGenterRatio.do")
+	@ResponseBody
+	public Map<String,Integer> countGenterRatio() {
+		return service.countGenterRatio();
+	}
+	
+	/**
+	 * 통계 : 시도별 계약 건수
+	 */
+	@PostMapping("centerRegionCount.do")
+	@ResponseBody
+	public Map<String,Integer> centerRegionCount(){
+		return service.centerRegionCount();
 	}
 
 }

@@ -6,6 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style_center_bt_common.css">
 	<main id="main" class="main">
 
 		<div class="pagetitle">
@@ -190,70 +191,6 @@
 							<!-- 현재 날자 포맷지정 (오늘 날짜 mm-dd만 나오게)-->
 							<fmt:formatDate value="${now}" pattern="MM월dd일" var="todayDate" />
 
-							<div class="card card_box_shadow">
-								<div class="card-body">
-									<h5 class="card-title">개인 수업 (${todayDate})</h5>
-									<p>오늘 강사가 진행하고있는 개인수업 내역입니다.</p>
-
-									<!-- Table with stripped rows -->
-									<table class="table datatable">
-										<thead>
-											<tr>
-												<th scope="col">수업일자</th>
-												<th scope="col">수업시작시간</th>
-												<th scope="col">수업종료시간</th>
-												<th scope="col">수업명</th>
-												<th scope="col">상태</th>
-											</tr>
-										</thead>
-
-										<tbody>
-											<c:if test="${empty personalLesson}">
-											<tr>
-												<td colspan="5" >오늘 진행할 개인수업이 없습니다.</td>
-											</tr>
-										</c:if>
-										<c:forEach var="personal" items="${personalLesson}">
-											<!-- 요일 구하기 (그룹/개인수업 리스트에서 사용) -->
-											<c:set var="formattedDate">
-											    <fmt:formatDate value="${personal.lsDate}" pattern="yyyy-MM-dd"/>
-											</c:set>
-											<fmt:parseDate value="${formattedDate}" pattern="yyyy-MM-dd" var="parsedDate" />
-											<fmt:formatDate value="${parsedDate}" pattern="E" var="dayOfWeek" />
-											
-											<tr>
-												<td>${personal.lsDate}&nbsp; (${dayOfWeek})</td>
-												<td>${personal.lsTime}</td>
-												<td>${personal.lsEndTime}</td>
-												<td class="truncate-text">${personal.lsName}</td>
-												<td>
-												<c:choose>
-													<c:when test="${ personal.lsCloseYN eq true}"><strong style="color:#FE2E2E">폐강</strong></c:when>
-													<c:otherwise>
-											            <!-- 현재 시간이 수업 시작시간보다 빠를 때 -->
-											            <c:if test="${now lt personal.lessonDatetime}">
-											                수업예정
-											            </c:if>
-											            <!-- 현재 시간이 수업 시작시간과 종료시간 사이에 있을 때 -->
-											            <c:if test="${now gt personal.lessonDatetime and now lt personal.lessonEndDatetime}">
-											                <strong style="color:#0D6EFD">진행중</strong>
-											            </c:if>
-											            <!-- 현재 시간이 수업 종료시간보다 늦을 때 -->
-											            <c:if test="${now gt personal.lessonEndDatetime}">
-											                수업종료
-											            </c:if>
-													</c:otherwise>
-												</c:choose>
-												</td>
-											</tr>
-										</c:forEach>
-										</tbody>
-									</table>
-									<!-- End Table with stripped rows -->
-	
-								</div>
-							</div>
-
 
 
 							<div class="card card_box_shadow">
@@ -320,6 +257,70 @@
 							</div>
 
 
+
+							<div class="card card_box_shadow">
+								<div class="card-body">
+									<h5 class="card-title">개인 수업 (${todayDate})</h5>
+									<p>오늘 강사가 진행하고있는 개인수업 내역입니다.</p>
+
+									<!-- Table with stripped rows -->
+									<table class="table datatable">
+										<thead>
+											<tr>
+												<th scope="col">수업일자</th>
+												<th scope="col">수업시작시간</th>
+												<th scope="col">수업종료시간</th>
+												<th scope="col">수업명</th>
+												<th scope="col">상태</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<c:if test="${empty personalLesson}">
+											<tr>
+												<td colspan="5" >오늘 진행할 개인수업이 없습니다.</td>
+											</tr>
+										</c:if>
+										<c:forEach var="personal" items="${personalLesson}">
+											<!-- 요일 구하기 (그룹/개인수업 리스트에서 사용) -->
+											<c:set var="formattedDate">
+											    <fmt:formatDate value="${personal.lsDate}" pattern="yyyy-MM-dd"/>
+											</c:set>
+											<fmt:parseDate value="${formattedDate}" pattern="yyyy-MM-dd" var="parsedDate" />
+											<fmt:formatDate value="${parsedDate}" pattern="E" var="dayOfWeek" />
+											
+											<tr>
+												<td>${personal.lsDate}&nbsp; (${dayOfWeek})</td>
+												<td>${personal.lsTime}</td>
+												<td>${personal.lsEndTime}</td>
+												<td class="truncate-text">${personal.lsName}</td>
+												<td>
+												<c:choose>
+													<c:when test="${ personal.lsCloseYN eq true}"><strong style="color:#FE2E2E">폐강</strong></c:when>
+													<c:otherwise>
+											            <!-- 현재 시간이 수업 시작시간보다 빠를 때 -->
+											            <c:if test="${now lt personal.lessonDatetime}">
+											                수업예정
+											            </c:if>
+											            <!-- 현재 시간이 수업 시작시간과 종료시간 사이에 있을 때 -->
+											            <c:if test="${now gt personal.lessonDatetime and now lt personal.lessonEndDatetime}">
+											                <strong style="color:#0D6EFD">진행중</strong>
+											            </c:if>
+											            <!-- 현재 시간이 수업 종료시간보다 늦을 때 -->
+											            <c:if test="${now gt personal.lessonEndDatetime}">
+											                수업종료
+											            </c:if>
+													</c:otherwise>
+												</c:choose>
+												</td>
+											</tr>
+										</c:forEach>
+										</tbody>
+									</table>
+									<!-- End Table with stripped rows -->
+	
+								</div>
+							</div>
 
 							<div class="card card_box_shadow">
 								<div class="card-body">

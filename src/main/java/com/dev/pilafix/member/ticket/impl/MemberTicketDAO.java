@@ -23,9 +23,18 @@ public class MemberTicketDAO {
 		return sqlSessionTemplate.selectList("MemberTicketDAO.getConnCenterList",csMemberCode );
 	}
 
-	public List<CenterTicketVO> getCenterTicketInfo(int ctCode) {
-		return sqlSessionTemplate.selectList("MemberTicketDAO.getCenterTicketInfo",ctCode );
+//	public List<CenterTicketVO> getCenterTicketInfo(int ctCode) {
+//		return sqlSessionTemplate.selectList("MemberTicketDAO.getCenterTicketInfo",ctCode );
+//	}
+	public List<CenterTicketVO> getCenterTicketInfo(int ctCode, String type) {
+		
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("ctCode", ctCode);
+		param.put("type", type);
+		
+		return sqlSessionTemplate.selectList("MemberTicketDAO.getCenterTicketInfo",param );
 	}
+
 
 	public CenterTicketVO getTicketDetail(String tkCode) {
 		return sqlSessionTemplate.selectOne("MemberTicketDAO.getTicketDetail",tkCode);
@@ -66,6 +75,8 @@ public class MemberTicketDAO {
 		
 		return sqlSessionTemplate.update("MemberTicketDAO.cancelMemberTicketInfo",paymentInfo);
 	}
+
+
 
 //	@Transactional(rollbackFor = Exception.class)
 //	public boolean insertPaymentAndUpdateMemberTicketInfo(MemberTicketVO vo) {

@@ -58,7 +58,7 @@
  
 <script>
 var naverLogin = new naver.LoginWithNaverId({
-	clientId: "glOsBPVhLHxSw_eaBO2D", // 본인걸로 수정, 띄어쓰기 금지.
+	clientId: "glOsBPVhLHxSw_eaBO2D", 
 	callbackUrl: "http://localhost:8080/pilafix/callback.do", // 아무거나 설정
 	isPopup: false,
 	callbackHandle: true

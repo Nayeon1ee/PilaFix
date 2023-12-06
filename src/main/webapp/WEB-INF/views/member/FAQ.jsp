@@ -71,7 +71,7 @@
 			<div class="container">
 
 				<ol>
-					<li><a href="main.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>faq</li>
 				</ol>
 				<h2>FAQ</h2>
@@ -157,7 +157,7 @@
                             <div class="inquiry-item">
                                 <div class="inquiry-details">
                                     <div class="inquiry-title">
-                                        <strong>Q</strong> ${faq.fqTitle}
+                                        <strong>Q ${faq.fqTitle}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +167,10 @@
                             class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <strong>A</strong> <br> ${faq.fqContent}
+                            <strong>A</strong>
+	                        <div class="output-text" style="text-align:left; white-space: pre-line; ">     
+	                            ${faq.fqContent}
+	                        </div>    
                         </div>
                     </div>
                 </div>

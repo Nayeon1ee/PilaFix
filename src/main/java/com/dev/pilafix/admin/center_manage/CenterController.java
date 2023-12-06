@@ -115,49 +115,6 @@ public class CenterController {
     }
 	
     
-    //======================================================================================
-//    @GetMapping("/uploadTest.do")
-//    public String uploadTest() {
-//    	return "admin/uploadTest";
-//    }
-//    
-//	// 이미지 업로드 테스트 
-//	@PostMapping("/uploadTest.do")
-//	public String uploadTest(@ModelAttribute("businessRegistrationFile")MultipartFile businessRegistrationFile) {
-//		System.out.println("upload 호출");
-//		
-//		String fileRealName = businessRegistrationFile.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드
-//		long size = businessRegistrationFile.getSize(); //파일 사이즈
-//		
-//		System.out.println("파일명 : "  + fileRealName);
-//		System.out.println("용량크기(byte) : " + size);
-//		//서버에 저장할 파일이름 fileextension으로 .jsp이런식의  확장자 명을 구함
-//		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-//		String uploadFolder = "D:\\test\\upload";
-//		
-//		UUID uuid = UUID.randomUUID();
-//		System.out.println(uuid.toString());
-//		String[] uuids = uuid.toString().split("-");
-//		
-//		String uniqueName = uuids[0];
-//		System.out.println("생성된 고유문자열" + uniqueName);//사업자등록증_센터명_센터코드.으로 변경 
-//		System.out.println("확장자명" + fileExtension);
-//		
-//		
-//		File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // 적용 후
-//		try {
-//			businessRegistrationFile.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
-//		} catch (IllegalStateException e) {
-//			System.out.println("파일 저장 실패");
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			System.out.println("파일 저장 실패");
-//			e.printStackTrace();
-//		}
-//		
-//		return "redirect:getCenterList.do";
-//	}
-	//======================================================================================
 	
 	
 	/**

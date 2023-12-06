@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="admin_header_common.jsp" %>
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <main id="main" class="main">
 
     <div class="pagetitle">
@@ -21,7 +21,7 @@
         <div class="col-lg-8">
           <div class="row">
 
-            <!-- Sales Card -->
+            <!-- Sales Card 
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
 
@@ -56,7 +56,7 @@
               </div>
             </div><!-- End Sales Card -->
 
-            <!-- Revenue Card -->
+            <!-- Revenue Card -
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card revenue-card">
 
@@ -89,8 +89,7 @@
                 </div>
 
               </div>
-            </div><!-- End Revenue Card -->
-
+            </div><!-- End Revenue Card --> 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-xl-12">
 
@@ -110,15 +109,87 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Customers <span>| This Year</span></h5>
+                  <h5 class="card-title" >회원 수 </h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                      <h6>${count.memberCount} 명</h6>
+                      <span class="text-danger small pt-1 fw-bold">누적 회원 수 : </span> <span class="text-muted small pt-2 ps-1">${count.memberCountCumulated} 명</span>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- End Customers Card -->
+			<!-- Customers Card -->
+            <div class="col-xxl-4 col-xl-12">
+
+              <div class="card info-card customers-card">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">강사 수 </h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>${count.trainerCount} 명</h6>
+                      <span class="text-danger small pt-1 fw-bold">누적 강사 수 :</span> <span class="text-muted small pt-2 ps-1">${count.trainerCount} 명</span>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- End Customers Card -->
+            <!-- Customers Card -->
+            <div class="col-xxl-4 col-xl-12">
+
+              <div class="card info-card revenue-card">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">현재 계약건수 </h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>${count.centerCount} 건</h6>
+                      <span class="text-success small pt-1 fw-bold">누적 계약건수:</span> <span class="text-muted small pt-2 ps-1">${count.centerCountCumulated} 건</span>
 
                     </div>
                   </div>
@@ -146,61 +217,72 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Reports <span>/Today</span></h5>
+                  <h5 class="card-title">계약 현황 <span>/This Year</span></h5>
 
                   <!-- Line Chart -->
                   <div id="reportsChart"></div>
 
                   <script>
                     document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                          name: 'Sales',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }, {
-                          name: 'Revenue',
-                          data: [11, 32, 45, 32, 34, 52, 41]
-                        }, {
-                          name: 'Customers',
-                          data: [15, 11, 32, 18, 9, 24, 11]
-                        }],
-                        chart: {
-                          height: 350,
-                          type: 'area',
-                          toolbar: {
-                            show: false
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
+                    	 $.ajax({
+	                  	        url: "getMonthlyContractCount.do", 
+	                  	        type: 'POST',  
+	                  	        success: function(data) {
+	                  	            console.log(data);
+	                  	      
+		                      new ApexCharts(document.querySelector("#reportsChart"), {
+		                        series: [{
+		                          name: '계약 건수',
+		                          data: data.contractCount
+		                        },
+		                        {
+		                            name: '해지 건수',
+		                            data: data.revokeCount
+		                          }],
+		                        chart: {
+		                          height: 320,
+		                          type: 'area',
+		                          toolbar: {
+		                            show: false
+		                          },
+		                        },
+		                        markers: {
+		                          size: 4
+		                        },
+		                        colors: ['#4154f1', '#ff771d', '#2eca6a'],
+		                        fill: {
+		                          type: "gradient",
+		                          gradient: {
+		                            shadeIntensity: 1,
+		                            opacityFrom: 0.3,
+		                            opacityTo: 0.4,
+		                            stops: [0, 25, 50]
+		                          }
+		                        },
+		                        dataLabels: {
+		                          enabled: false
+		                        },
+		                        stroke: {
+		                          curve: 'smooth',
+		                          width: 1
+		                        },
+		                        xaxis: {
+		                          
+		                          categories: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+		                        },
+		                        tooltip: {
+		                          x: {
+		                            format: ''
+		                          },
+		                        }
+		                      }).render();
+                      
+	                  	      },
+	                  	        error: function(jqXHR, textStatus, errorThrown) {
+	                  	            console.error('AJAX 오류:', textStatus, errorThrown);
+	                  	        }
+	                  	    });
+                 
                     });
                   </script>
                   <!-- End Line Chart -->
@@ -209,10 +291,10 @@
 
               </div>
             </div><!-- End Reports -->
-
-            <!-- Recent Sales -->
+           
+            <!-- 시도별 계약현황 -->
             <div class="col-12">
-              <div class="card recent-sales overflow-auto">
+              <div class="card">
 
                 <div class="filter">
                   <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -228,143 +310,66 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+                  <h5 class="card-title">시도별 계약현황 <span>/Total</span></h5>
 
-                  <table class="table table-borderless datatable">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>Brandon Jacob</td>
-                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                        <td>$64</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pending</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>Ashleigh Langosh</td>
-                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                        <td>$147</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Angus Grady</td>
-                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                        <td>$67</td>
-                        <td><span class="badge bg-danger">Rejected</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Raheem Lehner</td>
-                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                        <td>$165</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <!-- Line Chart -->
+                  <div id="region"></div>
+            <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", () => {
+            	$.ajax({
+           	        url: "centerRegionCount.do", 
+           	        type: 'POST',  
+           	        success: function(data) {
+           	            console.log(data);
+            	 var chart = new ApexCharts(document.querySelector("#region"), {
+            		 
+			          series: [{
+			          data: [data.seoul, data.gg, data.gw,data.cc, data.jl, data.gs, data.jj]
+			        }],
+			          chart: {
+			          type: 'bar',
+			          height: 250,
+			          background: '#ffffff'
+			        },
+			        plotOptions: {
+			          bar: {
+			            borderRadius: 4,
+			            horizontal: true,
+			          }
+			        },
+			        dataLabels: {
+			          enabled: false
+			        },
+			        xaxis: {
+			          categories: ['서울', '경기', '강원','충청', '전라', '경상', '제주'],
+			        }
+            	 }).render();
+            		 
+            		 },
+           	        error: function(jqXHR, textStatus, errorThrown) {
+           	            console.error('AJAX 오류:', textStatus, errorThrown);
+           	        }
+           	    });
+            });
+        </script>
+                  <!-- End Line Chart -->
 
                 </div>
 
               </div>
-            </div><!-- End Recent Sales -->
+            </div><!-- 시도별 계약현황 -->
 
-            <!-- Top Selling -->
-            <div class="col-12">
-              <div class="card top-selling overflow-auto">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Top Selling <span>| Today</span></h5>
-
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col">Preview</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Sold</th>
-                        <th scope="col">Revenue</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                        <td>$64</td>
-                        <td class="fw-bold">124</td>
-                        <td>$5,828</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                        <td>$46</td>
-                        <td class="fw-bold">98</td>
-                        <td>$4,508</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                        <td>$59</td>
-                        <td class="fw-bold">74</td>
-                        <td>$4,366</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                        <td>$32</td>
-                        <td class="fw-bold">63</td>
-                        <td>$2,016</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                        <td>$79</td>
-                        <td class="fw-bold">41</td>
-                        <td>$3,239</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-
-              </div>
-            </div><!-- End Top Selling -->
-
+          
+            
+  
+        
           </div>
         </div><!-- End Left side columns -->
 
-        <!-- Right side columns -->
+        <!-- 오른쪽 차트 영역 -->
         <div class="col-lg-4">
 
-          <!-- Recent Activity -->
+          <!-- Recent Activity 
           <div class="card">
             <div class="filter">
               <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -390,7 +395,7 @@
                   <div class="activity-content">
                     Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
                   </div>
-                </div><!-- End activity item-->
+                </div><!-- End activity item 
 
                 <div class="activity-item d-flex">
                   <div class="activite-label">56 min</div>
@@ -398,7 +403,7 @@
                   <div class="activity-content">
                     Voluptatem blanditiis blanditiis eveniet
                   </div>
-                </div><!-- End activity item-->
+                </div><!-- End activity item 
 
                 <div class="activity-item d-flex">
                   <div class="activite-label">2 hrs</div>
@@ -406,7 +411,7 @@
                   <div class="activity-content">
                     Voluptates corrupti molestias voluptatem
                   </div>
-                </div><!-- End activity item-->
+                </div><!-- End activity item 
 
                 <div class="activity-item d-flex">
                   <div class="activite-label">1 day</div>
@@ -414,7 +419,7 @@
                   <div class="activity-content">
                     Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
                   </div>
-                </div><!-- End activity item-->
+                </div><!-- End activity item 
 
                 <div class="activity-item d-flex">
                   <div class="activite-label">2 days</div>
@@ -422,22 +427,22 @@
                   <div class="activity-content">
                     Est sit eum reiciendis exercitationem
                   </div>
-                </div><!-- End activity item-->
-
+                </div>
+                <!-- End activity item 
                 <div class="activity-item d-flex">
                   <div class="activite-label">4 weeks</div>
                   <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
                   <div class="activity-content">
                     Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
                   </div>
-                </div><!-- End activity item-->
+                </div><!-- End activity item 
 
               </div>
 
             </div>
           </div><!-- End Recent Activity -->
 
-          <!-- Budget Report -->
+          <!-- Budget Report 
           <div class="card">
             <div class="filter">
               <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -527,13 +532,19 @@
             </div>
 
             <div class="card-body pb-0">
-              <h5 class="card-title">Website Traffic <span>| Today</span></h5>
+              <h5 class="card-title">연령대별 사용자 현황 <span>| total</span></h5>
 
-              <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+              <div id="ageChart" style="min-height: 400px;" class="echart"></div>
 
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                  echarts.init(document.querySelector("#trafficChart")).setOption({
+                	 $.ajax({
+               	        url: "countMemberAge.do", 
+               	        type: 'POST',  
+               	        success: function(data) {
+               	            console.log(data);
+               	            
+                  echarts.init(document.querySelector("#ageChart")).setOption({
                     tooltip: {
                       trigger: 'item'
                     },
@@ -544,7 +555,7 @@
                     series: [{
                       name: 'Access From',
                       type: 'pie',
-                      radius: ['40%', '70%'],
+                      radius: ['35%', '70%'], //앞에 30%은 도넛 안 원의 크기,뒤의 70은 도넛 전체크기
                       avoidLabelOverlap: false,
                       label: {
                         show: false,
@@ -553,7 +564,7 @@
                       emphasis: {
                         label: {
                           show: true,
-                          fontSize: '18',
+                          fontSize: '20', //차트에 마우스 올리면 원 가운데 숫자의 크기
                           fontWeight: 'bold'
                         }
                       },
@@ -561,35 +572,123 @@
                         show: false
                       },
                       data: [{
-                          value: 1048,
-                          name: 'Search Engine'
+                          value: data.teenage.ageCount,
+                          name: data.teenage.ageGroup
                         },
                         {
-                          value: 735,
-                          name: 'Direct'
+                          value: data.twenty.ageCount,
+                          name: data.twenty.ageGroup
                         },
                         {
-                          value: 580,
-                          name: 'Email'
+                          value: data.thirty.ageCount,
+                          name: data.thirty.ageGroup
                         },
                         {
-                          value: 484,
-                          name: 'Union Ads'
+                          value: data.fourty.ageCount,
+                          name: data.fourty.ageGroup
                         },
                         {
-                          value: 300,
-                          name: 'Video Ads'
+                          value: data.overFifty.ageCount,
+                          name: data.overFifty.ageGroup
                         }
                       ]
                     }]
                   });
+               	     },
+           	        error: function(jqXHR, textStatus, errorThrown) {
+           	            console.error('AJAX 오류:', textStatus, errorThrown);
+           	        }
+           	    });
+                });
+              </script>
+
+            </div>
+          </div><!-- End Website Traffic -->
+         
+          <!-- 성별 회원 수 -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+
+                <li><a class="dropdown-item" href="#">Today</a></li>
+                <li><a class="dropdown-item" href="#">This Month</a></li>
+                <li><a class="dropdown-item" href="#">This Year</a></li>
+              </ul>
+            </div>
+
+            <div class="card-body pb-0">
+              <h5 class="card-title">성별 사용자 현황 <span>| total</span></h5>
+
+              <div id="genderChart" style="min-height: 400px;" class="echart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                	 $.ajax({
+               	        url: "countGenterRatio.do", 
+               	        type: 'POST',  
+               	        success: function(data) {
+               	            console.log(data);
+               	            
+                  echarts.init(document.querySelector("#genderChart")).setOption({
+                    tooltip: {
+                      trigger: 'item'
+                    },
+                    legend: {
+                      top: '5%',
+                      left: 'center'
+                    },
+                    series: [{
+                      name: 'Access From',
+                      type: 'pie',
+                      radius: ['0%', '70%'], //앞에 30%은 도넛 안 원의 크기,뒤의 70은 도넛 전체크기
+                      avoidLabelOverlap: false,
+                      label: {
+                        show: false,
+                        position: 'center'
+                      },
+                      emphasis: {
+                        label: {
+                          show: true,
+                          fontSize: '20', //차트에 마우스 올리면 원 가운데 숫자의 크기
+                          fontWeight: 'bold'
+                        }
+                      },
+                      labelLine: {
+                        show: false
+                      },
+                      data: [{
+                          value: data.men,
+                          name: '남자',
+                       	  itemStyle: {
+                                 color: '#A8CEFA'  // 남자 데이터의 색상을 변경할 수 있습니다.
+                          }
+                        },
+                        {
+                          value: data.women,
+                          name: '여자',
+                          itemStyle: {
+                              color: '#F98E9F'  // 남자 데이터의 색상을 변경할 수 있습니다.
+                       }
+                        }
+                      ]
+                    }]
+                  });
+               	     },
+           	        error: function(jqXHR, textStatus, errorThrown) {
+           	            console.error('AJAX 오류:', textStatus, errorThrown);
+           	        }
+           	    });
                 });
               </script>
 
             </div>
           </div><!-- End Website Traffic -->
 
-          <!-- News & Updates Traffic -->
+          <!-- News & Updates Traffic 
           <div class="card">
             <div class="filter">
               <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -638,12 +737,12 @@
                   <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
                 </div>
 
-              </div><!-- End sidebar recent posts-->
+              </div><!-- End sidebar recent posts
 
             </div>
           </div><!-- End News & Updates -->
 
-        </div><!-- End Right side columns -->
+        </div><!-- 오른쪽 차트 영역 끝 -->
 
       </div>
     </section>

@@ -84,12 +84,24 @@
 			)
 </select>
 
-<!-- 수강권구매시 연동된 센터 클릭시 해당 센터의 수강권정보 가져오기 -->
+<!-- 수강권구매시 연동된 센터 클릭시 해당 센터의 수강권정보 가져오기 
 <select id="getCenterTicketInfo" parameterType="int" resultMap="centerTicketResult">
 	SELECT TK_CODE,CENTER_CODE,TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price
 	FROM tbl_ticket
 	WHERE center_code = #{ctCode} AND PURCHASE_AVAILABLE_YN = 't'
+</select> -->
+<select id="getCenterTicketInfo" parameterType="java.util.Map" resultMap="centerTicketResult">
+	SELECT TK_CODE,CENTER_CODE,TK_NAME,TK_LESSON_TYPE,TK_CAPACITY,TK_USAGE_NUM_MONTH,TK_USAGE_COUNT,TO_CHAR(tk_price,'999,999,999') AS tk_price
+	FROM tbl_ticket
+	WHERE center_code = #{ctCode} AND PURCHASE_AVAILABLE_YN = 't'
+		<if test="type == 'individual'">
+		AND tk_lesson_type='개인'
+		</if>
+		<if test="type == 'group'">
+		AND tk_lesson_type='그룹'
+		</if>
 </select>
+
 
 <!-- 해당 코드의 수강권 상세정보 가져옴 -->
 <select id="getTicketDetail" parameterType="String" resultMap="centerTicketResult">

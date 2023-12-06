@@ -26,7 +26,7 @@
             callbackUrl: "http://localhost:8080/pilafix/callback.do",
               // 본인의 callBack url로 수정하세요.
             isPopup: false,
-            loginButton: {color: "white", type: 3, height: 60}
+            loginButton: {color: "white", type: 3, height: 40}
               // 네이버 로그인버튼 디자인 설정. 한번 바꿔보세요:D
         }
     );

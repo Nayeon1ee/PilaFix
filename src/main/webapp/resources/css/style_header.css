@@ -46,6 +46,15 @@
         font-weight: bold;
     }
 
-
+#NotificationBadge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #DC3545;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2em 0.4em;
+    font-size: 11px;
+}
 
   

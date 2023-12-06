@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/test_calendar.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap_common.css">
 
+
+<style> 
+
+</style>
 <body>
     <div>
         <table class="Calendar">

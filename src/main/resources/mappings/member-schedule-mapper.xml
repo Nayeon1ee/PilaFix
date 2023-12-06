@@ -82,7 +82,8 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
         OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = true)
     )
     AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
-	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);;
+	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+	AND at_check_yn='t';
 </select>
 <!-- 결석 : step01 출석여부가 false인 값에 대해서 수업코드 가져옴 --> 
 <select id="getAbsentLessonCode" resultType="String">
@@ -99,7 +100,8 @@ WHERE #{csMemberCode} IN (AT_MEMBER1_CODE, AT_MEMBER2_CODE, AT_MEMBER3_CODE, AT_
         OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = false)
     )
     AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
-	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);;
+	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+	AND at_check_yn='t';
 </select>
 <!-- step02 위에서 가져온 수업코드로 해당수업정보 뽑음 (출석결석 모두 이거 사용) -->
 <select id="getAttendanceLessonInfo" parameterType="java.util.List" resultMap="myScheduleResult">
@@ -167,6 +169,7 @@ WHERE T.LS_CODE IN
  <foreach collection="reservlessonCode" item="attendancelsCode" open="(" separator="," close=")">
         #{attendancelsCode}
     </foreach>
+AND at_check_yn='t'
 ORDER BY COMBINED_DATETIME DESC;
   
 </select>
@@ -211,7 +214,8 @@ ORDER BY COMBINED_DATETIME DESC;
 	        OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = true)
 	    )
 		AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
-	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);
+	AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+	AND at_check_yn='t';
 </select>
 <!-- 당월의 결석 수 세오는 결석 -->
 <select id="countAbsent" resultType="int">
@@ -228,7 +232,8 @@ ORDER BY COMBINED_DATETIME DESC;
 		        OR (AT_MEMBER6_CODE = #{csMemberCode} AND AT_ATTENDANCE6_YN = false)
 		    )
 			AND EXTRACT(MONTH FROM AT_DATE) = EXTRACT(MONTH FROM CURRENT_DATE)
-		AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE);
+		AND EXTRACT(YEAR FROM AT_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+		AND at_check_yn='t';
 </select>
 
 <!-- 캘린더 날짜에 해당하는 모든 예약 리스트 가져오는 쿼리 -->

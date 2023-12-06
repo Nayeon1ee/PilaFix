@@ -123,13 +123,23 @@ public class MemberTicketController {
 	}
 	
 	//수강권 상세조회
+//	@PostMapping("/getCenterTicketInfo.do")
+//	@ResponseBody
+//	public List<CenterTicketVO> getCenterTicketInfo(int ctCode,Model model){
+//		System.out.println("컨트롤러로 넘어온 센터코드: " + ctCode);
+//		List<CenterTicketVO> centerTicketInfo = service.getCenterTicketInfo(ctCode);
+//		return centerTicketInfo;
+//	}
+	//수강권 상세조회 - 전체
 	@PostMapping("/getCenterTicketInfo.do")
 	@ResponseBody
-	public List<CenterTicketVO> getCenterTicketInfo(int ctCode,Model model){
+	public List<CenterTicketVO> getCenterTicketInfo(int ctCode,String type,Model model){
 		System.out.println("컨트롤러로 넘어온 센터코드: " + ctCode);
-		List<CenterTicketVO> centerTicketInfo = service.getCenterTicketInfo(ctCode);
+		System.out.println("컨트롤러로 넘어온 타입: " + type);
+		List<CenterTicketVO> centerTicketInfo = service.getCenterTicketInfo(ctCode,type);
 		return centerTicketInfo;
 	}
+
 	
 	// 수강권누르면 수강권상세정보랑 이용정책 뿌려줌
 	@GetMapping("/getTicketDetail.do")

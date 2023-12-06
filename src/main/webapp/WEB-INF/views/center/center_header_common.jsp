@@ -77,141 +77,94 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+<%-- 
+<!-- 헤더 상단의 회원 연동요청 확인 -->
+<li class="nav-item dropdown"><a class="nav-link nav-icon"
+    href="#" data-bs-toggle="dropdown"> <i class="bi bi-bell"></i>
+    <span class="badge bg-primary badge-number" id="totalCount"></span>
+</a>
+<!-- End Notification Icon -->
+<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+    <li class="dropdown-header">
+<c:set var="currentURI" value="${pageContext.request.requestURI}" />
+        <c:choose>
 
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
+            <c:when test="${currentURI == 'getMemberManageList.do'}">
+                <div>회원 연동 요청 <a href="getMemberManageList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a></div>
+            </c:when>
+ 
+            <c:when test="${currentURI == 'getTrainerManageList.do'}">
+                <div>강사 연동 요청 <a href="getTrainerManageList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a></div>
+            </c:when>
 
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
+            <c:otherwise></c:otherwise>
+        </c:choose>
+    </li>
+    <li>
+        <hr class="dropdown-divider">
+    </li>
+    <!-- 연동요청 목록을 forEach로 출력 -->
+    <c:forEach var="member" items="${request}" begin="0" end="3">
+        <li class="message-item">
+            <a href="#">
                 <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
                 <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
+                    <strong>${member.memberName}</strong>
+                    <p>${member.memberPhone}</p>
                 </div>
-              </a>
+            </a>
+        </li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+    </c:forEach>
+
+    <li class="dropdown-footer"><a href="getMemberManageList.do">회원관리 바로가기</a></li>
+<!--     <li class="dropdown-footer"><a href="getTrainerManageList.do">강사관리 바로가기</a></li> -->
+</ul>
+<!-- End Notification Dropdown Items -->
+</li>
+<!-- End Notification Nav --> --%>
+
+
+
+
+<!-- 헤더 상단의 문의사항 확인 -->
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number" id="questionCountQ"></span>
+          </a><!-- End Messages Icon -->
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              새로운 문의사항 확인
+              <a href="getCTQuestionList.do"><span class="badge rounded-pill bg-primary p-2 ms-2">전체보기</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
+    <!-- 문의사항 목록을 forEach로 출력 -->
+    <c:forEach var="question" items="${questionList}" begin="0" end="3">
+        <li class="message-item">
+            <a href="#">
+                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
                 <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
+                    <strong>${question.qsTitle}</strong>
+                    <p>${question.qsContent}</p>
+                    <p>${question.qsRegdate}</p>
                 </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            </a>
+        </li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+    </c:forEach>
 
             <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
+              <a href="getCTQuestionList.do">전체문의사항 보러가기</a>
             </li>
 
           </ul><!-- End Messages Dropdown Items -->
@@ -221,7 +174,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+<!--             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
             <span class="d-none d-md-block dropdown-toggle ps-2">${sessionScope.loginCenter.ctName}</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -436,8 +389,8 @@
 			<!-- End Profile Page Nav -->
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="centerLogin.do"> 
-					<i class="bi bi-box-arrow-in-right"></i><span>Login</span>
+				<a class="nav-link collapsed" href="centerLogout.do"> 
+					<i class="bi bi-box-arrow-in-right"></i><span>Logout</span>
 				</a>
 			</li>
 			<!-- End Login Page Nav -->
@@ -457,14 +410,36 @@
                 if (response.memberCount>0){
 					$('#memberCount').append(response.memberCount);
                 }
+                $('#memberCountM').html('');
+                if (response.memberCount>0){
+					$('#memberCountM').append(response.memberCount);
+                }                
                 $('#trainerCount').html('');
                 if (response.trainerCount>0){
 					$('#trainerCount').append(response.trainerCount);
+                }
+                $('#trainerCountT').html('');
+                if (response.trainerCount>0){
+					$('#trainerCountT').append(response.trainerCount);
                 }
                 $('#questionCount').html('');
                 if (response.questionCount>0){
 					$('#questionCount').append(response.questionCount);
                 }
+                $('#questionCountQ').html('');
+                if (response.questionCount>0){
+					$('#questionCountQ').append(response.questionCount);
+                }
+                
+                
+                var memberCount = parseInt(response.memberCount, 10) || 0;
+                var trainerCount = parseInt(response.trainerCount, 10) || 0;
+                var total = memberCount + trainerCount;
+                var totalDisplay = total.toString();
+                if (totalDisplay.length === 2 && totalDisplay.charAt(0) === '0') {
+                    totalDisplay = totalDisplay.charAt(1); // 2자리 수 중 첫 번째 문자(0 제거)
+                }
+                $('#totalCount').html(totalDisplay);
                 
             },
             error: function(error) {

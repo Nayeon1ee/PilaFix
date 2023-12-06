@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="kor">
 
@@ -65,10 +65,10 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
-					<li><a href="mainPge.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>notice</li>
 				</ol>
 				<h2>공지사항</h2>
@@ -81,7 +81,7 @@
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
 
-<!-- 
+				<!-- 
 				<div id="userInfo"
 					class="d-flex align-items-center mb-2">
 					<div id="myInfoLink" class="ms-4 mr-2"
@@ -90,14 +90,19 @@
 					</div>
 				</div> -->
 
-<section class="section000 pb-5 mb-5">
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="btnradio1" data-target="centerInfo">센터</label>
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio2" data-target="pilafixInfo">필라픽스</label>
-    </div>
-</section>
+				<section class="section000 pb-5 mb-5">
+					<div class="btn-group" role="group"
+						aria-label="Basic radio toggle button group">
+						<input type="radio" class="btn-check" name="btnradio"
+							id="btnradio1" autocomplete="off" checked> <label
+							class="btn btn-outline-primary" for="btnradio1"
+							data-target="centerInfo">센터</label> <input type="radio"
+							class="btn-check" name="btnradio" id="btnradio2"
+							autocomplete="off"> <label
+							class="btn btn-outline-primary" for="btnradio2"
+							data-target="pilafixInfo">필라픽스</label>
+					</div>
+				</section>
 
 				<section class="section002 py-3 my-3">
 					<nav class="navbar navbar-expand-lg">
@@ -136,72 +141,108 @@
 				</section>
 
 
-				
-<div id="centerInfo" class="tab-content">
-    <form class="row g-3">
-        <ul class="list-group list-group-numbered w-100">
-            <c:forEach items="${centerInfoList}" var="noticeC">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <a href="noticeDetail.do?code=${noticeC.icNumber}">${noticeC.title}</a>
-                    </div>
-                    조회수: ${noticeC.cnt}
-                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeC.regDate}</div>
-                </li>
-                <hr class="my-1">
-            </c:forEach>
-        </ul>
-    </form>
-</div>
 
-<div id="pilafixInfo" class="tab-content">
-    <!-- 필라픽스 정보를 표시할 내용 -->
-    <form class="row g-3">
-        <ul class="list-group list-group-numbered w-100">
-            <c:forEach items="${pilafixInfoList}" var="noticeW">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <a href="noticeDetail.do?code=${noticeW.iwNumber}">${noticeW.title}</a>
-                    </div>
-                    조회수: ${noticeW.cnt}
-                    <div class="badge rounded-pill my-auto" style="background-color: #9b56e9;">${noticeW.regDate}</div>
-                </li>
-                <hr class="my-1">
-            </c:forEach>
-        </ul>
-    </form>
-</div>
-							
-	
-</div>		
+				<div id="centerInfo" class="tab-content">
+					<form class="row g-3">
+						<ul class="list-group list-group-numbered w-100">
+							<c:forEach items="${centerInfoList}" var="noticeC">
+								<li
+									class="list-group-item d-flex justify-content-between align-items-start">
+									<div class="ms-2 me-auto">
 
 
+<%-- <a href="noticeDetail.do?icNumber=${noticeC.icNumber}">${noticeC.title}</a> --%>
+<a href="javascript:void(0);" class="notice-link" data-icnumber="${noticeC.icNumber}">${noticeC.title}</a>
 
-				<!-- End Our Skills Section -->
+									</div> 조회수: ${noticeC.cnt}
+									<div class="badge rounded-pill my-auto ms-2"
+										style="background-color: #9b56e9;">${noticeC.regDate}</div>
+								</li>
+								<hr class="my-1 mb-2">
+							</c:forEach>
+						</ul>
+					</form>
+				</div>
+
+				<div id="pilafixInfo" class="tab-content">
+					<!-- 필라픽스 정보를 표시할 내용 -->
+					<form class="row g-3">
+						<ul class="list-group list-group-numbered w-100">
+							<c:forEach items="${pilafixInfoList}" var="noticeW">
+								<li
+									class="list-group-item d-flex justify-content-between align-items-start">
+									<div class="ms-2 me-auto">
+<a href="javascript:void(0);" class="notice-link" data-iwnumber="${noticeW.iwNumber}">${noticeW.title}</a>
+									</div> 조회수: ${noticeW.cnt}
+									<div class="badge rounded-pill my-auto ms-2"
+										style="background-color: #9b56e9;">${noticeW.regDate}</div>
+								</li>
+								<hr class="my-1 mb-2">
+							</c:forEach>
+						</ul>
+					</form>
+				</div>
+
+
+			</div>
+
+
+
+			<!-- End Our Skills Section -->
 		</section>
 	</main>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			// 페이지 로드시 센터 정보를 표시하고 필라픽스 정보는 숨깁니다.
+			$("#centerInfo").show();
+			$("#pilafixInfo").hide();
+
+			// 라디오 버튼 클릭 처리
+			$("#btnradio1").click(function() {
+				$("#centerInfo").show();
+				$("#pilafixInfo").hide();
+			});
+
+			$("#btnradio2").click(function() {
+				$("#centerInfo").hide();
+				$("#pilafixInfo").show();
+			});
+		});
+	</script>
+	
+	
+<!-- 조회수증가 -->	
 <script>
-$(document).ready(function() {
-    // 페이지 로드시 센터 정보를 표시하고 필라픽스 정보는 숨깁니다.
-    $("#centerInfo").show();
-    $("#pilafixInfo").hide();
+$('.notice-link').on('click', function(e) {
+    var icNumber = $(this).data('icnumber');
+    var iwNumber = $(this).data('iwnumber');
 
-    // 라디오 버튼 클릭 처리
-    $("#btnradio1").click(function() {
-        $("#centerInfo").show();
-        $("#pilafixInfo").hide();
-    });
-
-    $("#btnradio2").click(function() {
-        $("#centerInfo").hide();
-        $("#pilafixInfo").show();
+    // AJAX 요청을 통해 조회수 증가
+    $.ajax({
+        url: 'increaseInfoViewCount.do',
+        type: 'POST',
+        data: { icNumber: icNumber, iwNumber: iwNumber },
+        success: function(response) {
+            // 성공하면 상세 페이지로 이동
+            if(icNumber) {
+                window.location.href = 'noticeDetail.do?icNumber=' + icNumber;
+            } else if(iwNumber) {
+                window.location.href = 'noticeDetail.do?iwNumber=' + iwNumber;
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to increase view count:', error);
+        }
     });
 });
-</script>
- <!-- <script>
+</script>	
+	
+	
+	
+	<!-- <script>
 $(document).ready(function() {
 /*     // 초기에 "센터" 탭이 선택되도록 설정
     $("input[name='btnradio'][data-target='centerInfo']").prop("checked", true);

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="center_header_common.jsp"%>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style_center_bt_common.css">
 <main id="main" class="main">
 	<div class="pagetitle">
 		<h1>수강권 상세 페이지</h1>

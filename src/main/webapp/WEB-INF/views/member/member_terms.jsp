@@ -65,10 +65,10 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 700px">
+			<div class="container">
 
 				<ol>
-					<li><a href="mainPage.do">Home</a></li>
+					<li><a href="myPage.do">마이페이지</a></li>
 					<li>Terms of Use and Policies</li>
 				</ol>
 				<h2>이용약관 및 정책</h2>
@@ -80,25 +80,6 @@
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
 			<div class="container mx-auto" style="max-width: 700px;">
-
-<!-- 				<div id="userInfo"
-					class="d-flex align-items-center justify-content-center mb-2">
-					<div id="myInfoLink" class="mr-2"
-						style="font-size: 18px; color: #9b56e9; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-cog mr-1"></i>내 정보 관리
-					</div>
-					<div class="col-7"></div>
-					<div id="userName"
-						style="font-size: 18px; margin-right: 10px; color: #9b56e9; font-weight: bold;">
-						<i class="fas fa-user mr-1"></i>*** 회원님
-					</div>
-					<div id="userlogout" class="text-center">
-						<a href="#" class="btn"
-							style="text-decoration: none; background-color: #9b56e9; color: #fff;">
-							<i class="fas fa-user mr-1"></i>로그아웃
-						</a>
-					</div>
-				</div> -->
 
 
 				<div class="card mt-3">
@@ -132,7 +113,7 @@
                             <div class="inquiry-item">
                                 <div class="inquiry-details">
                                     <div class="inquiry-title">
-                                        <strong>Q</strong> ${terms.tmName}
+                                    ${terms.tmName}
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +123,10 @@
                             class="accordion-collapse collapse"
                             data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <strong>A</strong> <br> ${terms.tmDetail}
+                        
+                        <div class="output-text" style="text-align:left; white-space: pre-line; ">   
+                            ${terms.tmDetail}
+                        </div>
                         </div>
                     </div>
                 </div>

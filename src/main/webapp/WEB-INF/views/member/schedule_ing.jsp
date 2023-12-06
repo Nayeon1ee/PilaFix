@@ -65,8 +65,17 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style_myschedule.css">
-
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style_insert_calendar.css">
+<style>
+.circleMarker {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%; 
+    margin-top: 5px; 
+    display: block; 
+    margin: 0 auto; 
+}
+</style>
 <body>
 
 
@@ -78,7 +87,7 @@
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
-			<div class="container" style="max-width: 1000px">
+			<div class="container">
 
 				<ol>
 					<li><a href="main.do">Home</a></li>
@@ -97,16 +106,43 @@
 				<!-- 7:3 비율 잡기 위한 컨테이너 -->
 				<div class="container d-flex justify-content-center p-0 m-0">
 					<div class="row">
-					<div id='calendar'></div>
+					 <div>
+        <table class="Calendar">
+            <thead>
+                <tr>
+                    <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+                    <td colspan="5">
+                        <span id="calYear"></span>년
+                        <span id="calMonth"></span>월
+                    </td>
+                    <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+                </tr>
+                <tr>
+                    <td>일</td>
+                    <td>월</td>
+                    <td>화</td>
+                    <td>수</td>
+                    <td>목</td>
+                    <td>금</td>
+                    <td>토</td>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 					</div>
 					<!-- 7:3 비율 컨테이너 닫기 -->
 
 
 					<!-- 두 번째 컬럼 (7:3) -->
-					<div class="col-md-5 content1 ms-4">
-							<div class="card rounded">
-								<div class="card-header bg-white" style="height: 100px;">
-									<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
+					<div class="col-md-5 content1 ms-2">
+							<div class="card rounded mt-4">
+								<div class="card-header bg-light" style="height: 100px;">
+									<div class="text-center">
+										<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
+									</div>
 									<ul id="nav5" class="nav justify-content-around">
 										<li class="nav-item"><a class="nav-link active"
 											style="color: #0070c0; text-weight: bold; text-decoration: none;">예약&nbsp;${count.reservCount }건</a></li>
@@ -118,7 +154,7 @@
 								</div>
 							</div>
 						<div class="content border rounded p-3"
-							style="min-height: 500px; max-height: 500px; ">
+							style="min-height: 530px; max-height: 530px; ">
 
 
 
@@ -188,9 +224,11 @@
 	<!-- 내 js -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	
+	<!--  캘린더 js 1 -->
 
-<!-- 캘린더 js -->
+<!-- 캘린더 js 2-->
+
+
 <script>
    document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
@@ -230,11 +268,37 @@
             day: '일',
             list: '목록'
          },
-         eventContent: function(arg) {
-            return {
-               html: '<div style="background-color: #9b56e9; color: white; padding: 5px;">' + arg.event.title + '</div>'
-            };
-         },
+                 
+         
+         eventClick: function(info) {
+     	    var eventTitle = info.event.title;
+     	    var eventDescription = info.event.extendedProps.description;
+
+     	    var modalContent = '<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">';
+     	    modalContent += '<div class="modal-dialog">';
+     	    modalContent += '<div class="modal-content">';
+     	    modalContent += '<div class="modal-header">';
+     	    modalContent += '<h5 class="modal-title" id="eventModalLabel">' + eventTitle + '</h5>';
+     	    modalContent += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
+     	    modalContent += '</div>';
+     	    modalContent += '<div class="modal-body">';
+     	    modalContent += '<p>' + eventDescription + '</p>';
+     	    modalContent += '</div>';
+     	    modalContent += '<div class="modal-footer">';
+     	    modalContent += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>';
+     	    modalContent += '</div>';
+     	    modalContent += '</div>';
+     	    modalContent += '</div>';
+     	    modalContent += '</div>';
+
+     	    
+     	    $('body').append(modalContent);
+
+     	    
+     	    var eventModal = new bootstrap.Modal(document.getElementById('eventModal'), {});
+     	    eventModal.show();
+     	},
+         
          
        // ajax로 캘린더에 일정 넣기
          eventSources: [{
@@ -305,7 +369,7 @@
 		                    fourHoursBefore.setHours(lessonDatetime.getHours() - 4); // 수업시작시간에서 4시간 을 뺀 시간이 저장됌
 
 									var str = '<div class="card" style="border-radius: 0;">';
-									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
 									str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
@@ -366,7 +430,7 @@
 		                    }).format(date);
 		                    
 									var str = '<div class="card" style="border-radius: 0;">';
-									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
 									str += '<small class="text-muted"><strong id="attendColor">출석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
@@ -414,7 +478,7 @@
 		                    }).format(date);
 		                    
 									var str = '<div class="card" style="border-radius: 0;">';
-									str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+									str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 									str += '<div class="card-body">'
 									str += '<div class="mt-3" style="margin-top:0px!important">'
 									str += '<small class="text-muted"><strong id="absentColor">결석</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
@@ -463,8 +527,8 @@
                 	 	console.log("맵이 비어있음");
 						$('#allInfo').append('<p>이번달에 스케줄이 없습니다.</p>');
 					} else {
-						if (allInfo.reservInfo.length>0) {
-					        console.log("reservInfo 존재함");
+						if (allInfo.reservInfo) {
+					        console.log("reservInfo 존재함" + allInfo.reservInfo);
 					        allInfo.reservInfo.forEach(function(item) {
 					        	// lsDate를 월-일(요일) 형태로 포맷팅
 			                    var date = new Date(item.lsDate);
@@ -481,7 +545,7 @@
 			                    fourHoursBefore.setHours(lessonDatetime.getHours() - 4); // 수업시작시간에서 4시간 을 뺀 시간이 저장됌
 
 								var str = '<div class="card" style="border-radius: 0;">';
-								str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+								str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 								str += '<div class="card-body">'
 								str += '<div class="mt-3" style="margin-top:0px!important">'
 								str += '<small class="text-muted"><strong id="reservColor">예약</strong> &nbsp; '+item.lsTime+' ~ '+item.lsEndTime+'</small>'
@@ -506,7 +570,7 @@
 					        }); //예약리스트 foreach문 끝
 						
 					}// 예약리스트에 정보 있는지 if문 끝
-					if (allInfo.attendanceInfo.length>0) {
+					if (allInfo.attendanceInfo) {
 						console.log("attendanceInfo 존재함");
 				        allInfo.attendanceInfo.forEach(function(item) {
 						// lsDate를 월-일(요일) 형태로 포맷팅
@@ -518,7 +582,7 @@
 	                    }).format(date);
 	                    
 								var str = '<div class="card" style="border-radius: 0;">';
-								str += '<div class="card-header bg-white">'+formattedDate+'</div>';
+								str += '<div class="card-header bg-light">'+formattedDate+'</div>';
 								str += '<div class="card-body">'
 								str += '<div class="mt-3" style="margin-top:0px!important">'
 								if(item.atAttendanceYn === true){
@@ -568,6 +632,9 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+
+<script
+		src="${pageContext.request.contextPath}/resources/js/calendar.js"></script>
 
 </body>
 
