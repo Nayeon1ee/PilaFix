@@ -290,6 +290,8 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js" ></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/test_calendar.js"></script> 	
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
+
 </body>
 
 </html>

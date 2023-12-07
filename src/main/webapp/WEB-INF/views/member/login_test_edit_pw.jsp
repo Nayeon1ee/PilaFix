@@ -17,5 +17,6 @@
 		<input type="submit" value="전송">
 	</form>
 </div>
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 </html>

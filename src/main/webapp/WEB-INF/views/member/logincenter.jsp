@@ -29,5 +29,6 @@
 	<p style="text-align: center; margin-top: 30%;">
 		<a href="#" class="link-dark" style="margin-top: 40%;">센터등록하기</a>
 	</p>
+		<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 </html>

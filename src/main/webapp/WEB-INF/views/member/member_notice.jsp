@@ -326,7 +326,7 @@ $(document).ready(function() {
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
-
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 
 </html>

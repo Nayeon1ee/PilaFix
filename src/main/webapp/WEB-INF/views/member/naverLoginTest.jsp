@@ -33,5 +33,5 @@
 naverLogin.init();
 </script>
 
-
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </html>
