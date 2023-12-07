@@ -57,7 +57,7 @@
         .reply-content {
             padding: 10px;
             margin-top: 10px;
-            background-color: #f9f9f9;
+           
             border-radius: 5px;
         }
 
@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // 현재 버튼의 아코디언 바디에 색상 적용
             var accordionBody = this.closest('.accordion-item').querySelector('.reply-content');
-            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? 'rgba(241, 243, 244, 0.5)' : '#fff';
+            accordionBody.style.backgroundColor = this.classList.contains('collapsed') ? '#ffffff' : '#fff';
 
 
             // 클릭한 버튼이 이미 열린 상태라면 닫음
@@ -346,14 +346,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (otherButton !== button) {
                         otherButton.classList.add('collapsed');
                         var otherAccordionBody = otherButton.closest('.reply-item').querySelector('.reply-content');
-                        accordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
+                        accordionBody.style.backgroundColor = '#ffffff';
 
                     }
                 });
 
                 // 현재 버튼 열기
                 this.classList.remove('collapsed');
-                otherAccordionBody.style.backgroundColor = 'rgba(241, 243, 244, 0.5)';
+                otherAccordionBody.style.backgroundColor = '#ffffff';
 
             }
         });
