@@ -324,10 +324,7 @@
          }
       });
 
-      // 전체 텍스트 색상 변경
-      calendarEl.style.color = '#333';
-
-      calendar.render();
+    
    });
 
  
