@@ -54,7 +54,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="centerMain.do" class="logo d-flex align-items-center">
+      <a class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">PILAFIX</span>
       </a>
@@ -238,8 +238,8 @@
 		<ul class="sidebar-nav" id="sidebar-nav">
 
 			<li class="nav-item">
-				<a class="nav-link " href="centerDashboard.do"> 
-					<i class="bi bi-bar-chart-line-fill"></i> <span> 정보</span>
+				<a class="nav-link " href="centerMain.do"> 
+					<i class="bi bi-bar-chart-line-fill"></i> <span>Dashboard</span>
 				</a>
 			</li>
 			<!-- End Dashboard Nav -->
