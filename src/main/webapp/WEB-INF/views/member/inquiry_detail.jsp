@@ -184,7 +184,7 @@ function getQuestionInfo() {
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 
 </html>

@@ -179,7 +179,7 @@
         });
     });
 </script>
-
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 
 </html>

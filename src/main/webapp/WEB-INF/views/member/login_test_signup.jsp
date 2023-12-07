@@ -192,6 +192,6 @@ function moveToLogin(){
 	alert ("회원가입이 완료되었습니다. 로그인페이지로 이동합니다.")
 }
 </script>
-
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 </html>

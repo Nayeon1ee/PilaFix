@@ -12,5 +12,6 @@
 	비밀번호<input type="password" name="pw">
 	<input type="submit" value="로그인"> 
 </form>
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 </html>

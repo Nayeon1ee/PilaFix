@@ -11,5 +11,6 @@
 	<h1>로그인 실패 </h1>
 	<hr>
 </div>
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 </html>

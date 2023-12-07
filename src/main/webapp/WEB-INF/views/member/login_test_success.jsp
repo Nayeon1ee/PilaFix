@@ -12,6 +12,6 @@
 	<hr>
 	<a href="pwTest.do">비밀번호 변경</a>
 </div>
-
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 </html>
