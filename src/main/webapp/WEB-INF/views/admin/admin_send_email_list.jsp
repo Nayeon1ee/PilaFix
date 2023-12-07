@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@ include file="admin_header_common.jsp"%>
 <html class="yourHtmlString">
   <main id="main" class="main">
@@ -115,11 +116,9 @@
 							<td>-</td>
 						</c:when>
 						<c:otherwise>
-							<td>${sendEmailHistoryInfo.mhFailReason }</td>
+						    <td>${fn:substring(sendEmailHistoryInfo.mhFailReason, 0, 25)}${fn:length(sendEmailHistoryInfo.mhFailReason) > 20 ? '...' : ''}</td>
 						</c:otherwise>
 					</c:choose>
-						
-						
                   </tr>
                   </c:forEach>
                 </tbody>
