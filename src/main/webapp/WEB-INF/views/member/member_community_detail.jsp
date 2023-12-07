@@ -135,7 +135,7 @@
 									</div>
 									<div class="col-md-9"></div>
 									<c:if test="${sessionScope.loginUser['csMemberCode'] eq memberCommunity.memberCmWriterMemberCode}">
-									 <div class="btn-group me-2">
+									 <div class="btn-group ms-4 me-2">
                                        <button type="button" class="btn btn-primary" onclick="location.href='updateMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber }'">수정</button>
                                    </div>
                                    <div class="btn-group me-3">
