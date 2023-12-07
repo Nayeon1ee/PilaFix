@@ -109,20 +109,15 @@
 								</div>
 								
 								<div class="text d-flex justify-content-end">
-									<button type="submit" class="btn btn-primary me-2">등록</button>
-									<button type="reset" class="btn btn-secondary me-3" onclick="location.href='getCenterTicketList.do'">취소</button>
-								</div>
+					<button type="submit" class="btn btn-primary me-2">등록</button>
+					<button type="reset" class="btn btn-secondary me-3"
+						onclick="location.href='getCenterTicketList.do'">취소</button>
+				</div>
 							</form>
 							<!-- End Multi Columns Form -->
 						</div>
 					</div>
 					</fieldset>
-				</div>
-
-				<div class="text d-flex justify-content-end">
-					<button type="submit" class="btn btn-primary me-2">등록</button>
-					<button type="reset" class="btn btn-secondary me-3"
-						onclick="location.href='getCenterTicketList.do'">취소</button>
 				</div>
 				</form>
 				<!-- End Multi Columns Form -->
