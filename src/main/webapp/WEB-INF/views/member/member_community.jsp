@@ -284,6 +284,7 @@
 	<!--  내 js -->
 	<script
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+		
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>

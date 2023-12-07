@@ -181,9 +181,7 @@
 														id="btn-check-${status.index}" name="selectedMemberCodes"
 														value="${member.csMemberCode}" autocomplete="off">
 													<label class="btn" for="btn-check-${status.index}">
-														<img
-														src="${pageContext.request.contextPath}/resources/images/user.png"
-														alt="profile image" style="width: 70px; height: 70px;">
+														<img src="${pageContext.request.contextPath}/resources/images/user.png" alt="user">
 														<p class="h6 mb-0">${member.csName}</p>
 
 													</label>

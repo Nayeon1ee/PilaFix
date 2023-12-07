@@ -88,8 +88,8 @@
 
 
 <!-- 검색창 -->
-<div class="container" style="max-width: 900px; margin-right: 0px;">
-	<div class="search-filter mx-auto">
+<div class="container" style="max-width: 900px;">
+	<div class="search-filter mr-auto">
 		<div class="search-filter-inner">
 			<div class="serch-filter-content">
 				<div class="row py-2 my-4">
@@ -255,6 +255,8 @@
                 <td colspan="8">폐강된 수업이 없습니다.</td>
             </tr>
         </c:if>
+        
+        
         <c:forEach var="lesson" items="${closedLessons}">
             <tr>
                 <td>${lesson.lsCode}</td>
@@ -464,6 +466,7 @@
 	<!-- 내 js -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+
 
 	<!-- Vendor JS Files -->
 	<script
