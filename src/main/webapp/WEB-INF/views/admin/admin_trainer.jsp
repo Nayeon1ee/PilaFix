@@ -83,10 +83,9 @@
 <!-- 검색필터 끝 -->
 
 
-
-             <div class="table-summary">
-             	  <!-- 엑셀다운 -->
-				  <button onclick="window.open('<c:url value='/trainerExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
+ <!-- 엑셀다운 -->
+             <div class="table-summary d-flex justify-content-end my-3">
+				  <button onclick="window.open('<c:url value='/trainerExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default me-3" id="excelDown">엑셀다운</button>
 			 </div>
              	 
              	 <table class="table datatable">

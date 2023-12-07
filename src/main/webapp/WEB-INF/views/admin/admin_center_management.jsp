@@ -74,17 +74,15 @@
 				</div>
 			<!-- 검색끝 -->
 			
-			<div class="terms-btn">
-				<span class="terms-reg-btn">
-					<button type="button" class="btn btn-primary" onclick="location.href='insertCenter.do'">센터 등록</button>
-				</span>
-				<span class="excel-down-btn">
-					<button onclick="window.open('<c:url value='/excelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
-				</span>
+			<div class="terms-btn d-flex jutify-content-between my-3">
+				
+					<button type="button" class="btn btn-primary ms-3" onclick="location.href='insertCenter.do'">센터 등록</button>
+					<button onclick="window.open('<c:url value='/excelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default me-3" id="excelDown">엑셀다운</button>
+				
 			</div>
 
 			<!-- 게시판 시작 -->
-   			 <h5 class="card-title"></h5>
+   			 
 		    <!-- Table with stripped rows -->
 				<table class="table datatable">
 					<thead>
