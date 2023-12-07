@@ -162,7 +162,7 @@
         <h2>회원의 출석처리를 진행해주세요</h2>
     </div>
 </div>
-<table class="table datatable">
+<table class="table datatable mb-5">
     <caption style="caption-side: top; font-weight: bold;">진행중인 수업</caption>    
     <thead>
         <tr>
@@ -199,7 +199,7 @@
 
 
 
-<table class="table datatable">
+<table class="table datatable mb-5">
     <caption style="caption-side: top; font-weight: bold;">완료된 수업</caption>   
     <thead>
         <tr>
