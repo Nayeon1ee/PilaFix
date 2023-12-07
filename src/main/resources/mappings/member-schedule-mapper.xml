@@ -38,7 +38,7 @@
 
 <!-- step02 위에서 가져온 예약코드로 수업시간이 현재시간보다 늦은데이터만 뽑음 -->
 <select id="getLessonInfo" parameterType="java.util.List" resultMap="myScheduleResult">
-	 SELECT 
+	 SELECT DISTINCT
         L.LS_NAME,
         L.LS_CODE,
         L.LS_TYPE,
@@ -49,8 +49,7 @@
         L.TRAINER_MEMBER_CODE,
         M.CS_NAME AS TRAINER_MEMBER_NAME,  
         L.CENTER_CODE,
-        C.ct_name AS CENTER_NAME,
-        R.rs_code
+        C.ct_name AS CENTER_NAME
     FROM TBL_LESSON L
     LEFT JOIN TBL_cst M ON L.TRAINER_MEMBER_CODE = M.CS_MEMBER_CODE
     LEFT JOIN TBL_CENTER C ON L.CENTER_CODE = C.CT_CODE
