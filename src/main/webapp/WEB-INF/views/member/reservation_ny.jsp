@@ -493,7 +493,6 @@
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/test_calendar.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 	<script
@@ -520,6 +519,8 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 
 	<script>
 	<!-- 모달이 닫힌 후에 modal-backdrop을 수동으로 제거 -->
@@ -875,7 +876,6 @@
 	
 </script>
 
-	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 
 </html>

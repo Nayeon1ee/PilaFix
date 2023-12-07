@@ -155,7 +155,7 @@
 
 						<!--  삭제 버튼 모달 -->
 						<div class="modal fade" id="basicModal" tabindex="-1">
-							<div class="modal-dialog">
+							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title">정말 삭제하시겠습니까?</h5>
@@ -173,7 +173,7 @@
 						<!-- End Multi Columns Form -->
 						<!-- 게시글 신고 모달 -->
 						<div class="modal fade" id="reportModal" tabindex="-1">
-							<div class="modal-dialog">
+							<div class="modal-dialog modal-dialog-centered ">
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title">게시글 신고</h5>
@@ -182,14 +182,17 @@
 									<div class="modal-body">
                                         <form action="insertBlamer.do" method="post">
 											<div class="mb-3">
-												<label for="reportReason" class="form-label">신고 내용</label>
+												<label for="reportReason" class="form-label"><font style="text-weight:bold; font-size:18px;">신고 사유를 선택하세요.</font>
+												<br>
+												<font style="color:grey;">허위 신고 시, 법적 처벌 대상이 될 수 있습니다. </font></label>
+												<br><br>
                                                 <input type="hidden" name="memberCmNumber" value="${memberCommunity.memberCmNumber}">
                                                 <input type="hidden" name="memberCmWriterMemberCode" value="${memberCommunity.memberCmWriterMemberCode}">
                                                 <input type="hidden" name="memberBlamerMemberCode" value="${user}">
                                                 <input type="hidden" name="memberBlamerIp" value="${memberCommunity.cmWriterIp}">
                                                 <div class="radio-box">
                                                     <c:forEach items="${blameList}" var="blameList">
-                                                        <input type="radio" name="memberBlameReasonCode" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br>
+                                                        <input type="radio" name="memberBlameReasonCode" value="${blameList.memberBlameReasonCode}">${blameList.memberBlameReasonName}<br><br>
                                                     </c:forEach>
                                                 </div>
                                             </div>

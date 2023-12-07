@@ -47,6 +47,8 @@ const DEFAULT_CENTER_NAME = '필라픽스';
 function handleNotificationClick() {
    csMemberCode = document.getElementById('csMemberCode').getAttribute('data-cs-member-code'); //세션에서 코드 가져옴 
    
+   console.log("handleNotificationClick 호출됨");
+   
    $.ajax({
            url: 'getUnReadNotification.do',
            method: 'POST',
