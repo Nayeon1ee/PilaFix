@@ -121,8 +121,28 @@
 	<div class="container">
 		<div class="row justify-content-center">
             <div class="col-md-4 text-center">예약: ${lessonDetail.reservedCount}</div>
-			<div class="col-md-4 text-center">출석: <span id="presentCount">${attendedCount}</span></div>
-			<div class="col-md-4 text-center">결석: <span id="absentCount">${absentCount}</span></div>
+			<div class="col-md-4 text-center">출석: 
+				<c:choose>
+					<c:when test="${attendance.atCheckYn }">
+						<span id="presentCount">${attendedCount}</span>		
+					</c:when>
+					<c:otherwise>
+						0
+					</c:otherwise>
+				</c:choose>
+				
+			</div>
+			<div class="col-md-4 text-center">결석: 
+				<c:choose>
+					<c:when test="${attendance.atCheckYn }">
+						<span id="absentCount">${absentCount}</span>	
+					</c:when>
+					<c:otherwise>
+						0
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -217,7 +237,7 @@
 			<div class="container">
 				<div class="d-flex justify-content-between align-items-center">
 					<!-- 목록 버튼 -->
-					<button type="button" class="btn btn-primary ms-3" onclick="location.href='getTrainerLessonList.do'">목록</button>
+					<button type="button" class="btn btn-primary ms-3" onclick="location.href='trainerLessonPage.do'">목록</button>
 
 <input type="hidden" id="atCode" name="atCode" value="${attendance.atCode}">
 <button type="button" id="attendanceSubmitButton" class="btn btn-primary me-3">출석처리</button>
@@ -229,6 +249,25 @@
 		</div>
 	</section>
 </main>
+
+<!-- 출석 성공 모달 -->
+<div class="modal fade" id="attendanceSuccessModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">출석 처리 완료</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                출석 처리가 완료되었습니다.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     // 출석 및 결석 회원 수 조회 함수
@@ -268,6 +307,12 @@
                 success: function(response) {
                     // 출석 처리 후에도 출석 및 결석 회원 수 조회
                     getAttendanceCounts(atCode);
+                    // 성공모달
+                    $('#attendanceSuccessModal').modal('show');
+                    // 출석 처리 후 페이지 새로고침
+                    $('#attendanceSuccessModal').on('hidden.bs.modal', function (e) {
+                        location.reload();
+                    });
                 },
                 error: function(xhr, status, error) {
                     var errorMessage = "출석 처리 중 오류가 발생했습니다: " + error;
@@ -278,6 +323,8 @@
         });
     });
 </script>
+
+
 <!-- End #main -->
 
 <!-- ======= Footer ======= -->
