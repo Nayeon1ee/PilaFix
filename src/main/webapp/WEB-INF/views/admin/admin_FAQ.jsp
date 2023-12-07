@@ -66,15 +66,15 @@
 							</div>
 						</div>
 						<!-- 검색 필터 끝 -->
-						<div class="terms-btn">
+						<div class="terms-btn my-3">
 							<span class="terms-reg-btn">
 								<button type="button" onclick="location.href='insertFaqInfo.do'"
-									class="btn btn-primary">FAQ등록</button>
+									class="btn btn-primary me-3">FAQ등록</button>
 							</span>
 						</div>
 
 						<!-- 게시판 시작 -->
-						<h5 class="card-title"></h5>
+						
 						<!-- Table with stripped rows -->
 						<table class="table datatable">
 							<thead>
