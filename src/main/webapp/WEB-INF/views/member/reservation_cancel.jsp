@@ -89,7 +89,7 @@
 						<div class="section_0"
 							style="border: border-radius: 5px; margin-bottom: 20px; position: relative; overflow: hidden; width: 970px;">
 							<div class="time" id="cancelTime">
-								<p class="fw-bold mb-0" style="color: #e44d26;">
+								<p class="fw-bold mb-0" style=" font-size: 32px; color: #333;">
 									취소 가능한 시간까지 <span id="timeRemaining"></span> 남았어요!
 								</p>
 							</div>
