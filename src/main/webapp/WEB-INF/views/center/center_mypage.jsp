@@ -61,7 +61,7 @@
 										placeholder="Apartment, studio, or floor" disabled>
 								</div>
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">대표자 이메일</label> <input
+									<label for="inputAddress5" class="form-label my-2">대표자 이메일</label> <input
 										type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerEmail }"
 										placeholder="이메일을 입력하세요" disabled>
 									<!-- <div class="col-sm-10">
@@ -69,13 +69,13 @@
 									</div> -->
 								</div>
 								<div class="col-40">
-									<label for="inputAddress5" class="form-label">대표자 번호</label>
-									<div class="col-400" style="display: flex;" >
-										<select class="project_title" name="type" id="project_title" disabled="disabled">
+									<label for="inputAddress5" class="form-label my-2">대표자 번호</label>
+									<div class="col-400 mt-1" style="display: flex;" >
+										<select class="project_title me-2" name="type" id="project_title" disabled="disabled">
 											<option selected >${centerInfo.ownerPhoneNumber1 }</option>
 											<option value="010">010</option>
 											<option value="011">011</option>
-										</select> <input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ownerPhoneNumber2 }"
+										</select> <input type="text" class="form-control me-2" id="inputAddres5s" value="${centerInfo.ownerPhoneNumber2 }"
 											disabled> <input type="text" class="form-control" value="${centerInfo.ownerPhoneNumber3 }"
 											id="inputAddres5s" disabled>
 										<!-- <div class="col-sm-10">
@@ -89,13 +89,13 @@
 										placeholder="센터명" disabled>
 								</div>
 								<div class="col-40" >
-									<label for="inputAddress5" class="form-label">센터 번호</label>
-									<div class="col-400" style="display: flex;" >
+									<label for="inputAddress5" class="form-label mt-2">센터 번호</label>
+									<div class="col-400 mt-1" style="display: flex;" >
 										<select disabled >
 											<option selected >${centerInfo.ctPhoneNumber1 }</option>
 											<option>010</option>
 											<option>011</option>
-										</select> <input type="text" class="form-control" id="inputAddres5s" value="${centerInfo.ctPhoneNumber2 }"
+										</select> <input type="text" class="form-control ms-2 me-2" id="inputAddres5s" value="${centerInfo.ctPhoneNumber2 }"
 											disabled> <input type="text" class="form-control" value="${centerInfo.ctPhoneNumber3 }"
 											id="inputAddres5s" disabled>
 										<!-- <div class="col-sm-10">
@@ -105,7 +105,7 @@
 								</div>
 
 								<div class="col-6">
-									<label for="inputAddress5" class="form-label">센터주소</label>
+									<label for="inputAddress5" class="form-label mt-2">센터주소</label>
 								</div>
 								<div class="col-120">
 									<input type="text" class="form-control" id="inputAddres5s"
@@ -129,11 +129,14 @@
 							<!-- End General Form Elements -->
 <br>
 <!-- 							<h5 class="card-title">비밀번호 변경</h5> -->
-							<p>비밀번호 변경을 원하면 아래 버튼을 클릭하세요.</p>
+							
+							
 							<!-- Basic Modal -->
-							<button type="button" class="btn btn-primary"
+							<div class="text d-flex justify-content-end">
+							<button type="button" class="btn btn-primary me-3"
 								data-bs-toggle="modal" data-bs-target="#basicModal">
 								비밀번호 변경</button>
+								</div>
 							<div class="modal fade" id="basicModal" tabindex="-1">
 								<div class="modal-dialog">
 									<div class="modal-content">
