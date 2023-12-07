@@ -25,7 +25,10 @@ public class MyScheduleDAO {
 		if(lessonCode.isEmpty()) {
 			return 	Collections.emptyList();
 		}else {
-			return sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode);
+			Map<String,Object> param = new HashMap<>();
+			param.put("csMemberCode", csMemberCode);
+			param.put("lessonCode", lessonCode);
+			return sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", param);
 		}
 	}
 	
@@ -89,7 +92,11 @@ public class MyScheduleDAO {
 			//allInfo.put("reservInfo", null);
 			System.out.println("1 예약if문 null");
 		}else {
-			allInfo.put("reservInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", lessonCode));
+			Map<String,Object> param = new HashMap<>();
+			param.put("csMemberCode", csMemberCode);
+			param.put("lessonCode", lessonCode);
+			
+			allInfo.put("reservInfo", sqlSessionTemplate.selectList("MyScheduleDAO.getLessonInfo", param));
 			System.out.println("1 예약if문 값o");
 		}
 		
