@@ -50,7 +50,8 @@
 <script
 	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
 	charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 
@@ -126,7 +127,7 @@
 					style="display: flex; justify-content: center;">
 
 					<div
-						style="width: 150px; height: 40px; background: white; display: inline-block; margin-right: 40px;">
+						style="width: 185px; height: 40px; background: white; display: inline-block; margin-left: 15px;">
 						<!--  <a href="[네이버 로그인 링크]"> <img
                      src="${pageContext.request.contextPath}/resources/images/naver_login_b.png"
                      alt="네이버 로그인"
@@ -137,17 +138,20 @@
 					</div>
 
 					<div
-						style="width: 150px; height: 40px; background: white; display: inline-block; margin-right: 10px;">
-						<a href="[카카오 로그인 링크]"> <img
+						style="width: 185px; height: 40px; background: white; display: inline-block; margin-right: 10px;">
+						<!-- <a href="getkakaologin.do"> <img
 							src="${pageContext.request.contextPath}/resources/images/kakao_login_b.png"
 							alt="카카오 로그인"
 							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
-						</a>
+						</a> --> <a class="p-2"
+							href="https://kauth.kakao.com/oauth/authorize?client_id=35a67dedd55982379da441c8c23e2904&redirect_uri=http://localhost:8080/pilafix/kakaoLoginTest.do&response_type=code">
+							<img
+							src="${pageContext.request.contextPath}/resources/images/kakao_login_b.png"
+							alt="카카오 로그인"
+							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;"></a>
 					</div>
 
 				</div>
-
-
 
 
 				<div
@@ -192,7 +196,7 @@
 					role="dialog" aria-labelledby="loginFailureModalLabel"
 					aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
-					<!-- <div class="modal-dialog" role="document"> -->
+						<!-- <div class="modal-dialog" role="document"> -->
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="loginFailureModalLabel">로그인 실패</h5>
@@ -242,6 +246,8 @@
 						return true;
 					}
 				</script>
+				
+				
 				<!-- End Our Skills Section -->
 			</div>
 		</section>
@@ -283,7 +289,8 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
+	<script
+		src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 
 </html>
