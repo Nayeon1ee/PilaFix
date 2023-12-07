@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dev.pilafix.center.lesson.CenterLessonVO;
-import com.dev.pilafix.center.lesson.DataListVO;
 
 @Repository
 public class CenterLessonDAO {

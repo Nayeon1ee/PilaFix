@@ -47,7 +47,6 @@ public class CenterLessonVO {
 
 	private String lsStartTime;
 
-	private List<DataListVO> list;
 
 
 
@@ -307,13 +306,7 @@ public class CenterLessonVO {
 		this.lsStartTime = lsStartTime;
 	}
 
-	public List<DataListVO> getList() {
-		return list;
-	}
 
-	public void setList(List<DataListVO> list) {
-		this.list = list;
-	}
 	
 	public Timestamp getLessonEndDatetime() {
 		return lessonEndDatetime;
@@ -331,13 +324,16 @@ public class CenterLessonVO {
 				+ ", lsContent=" + lsContent + ", centerCode=" + centerCode + ", centerName=" + centerName
 				+ ", lsRegistrationDate=" + lsRegistrationDate + ", lsCloseYN=" + lsCloseYN
 				+ ", lsRegistrationDateToString=" + lsRegistrationDateToString + ", lsTimeDB=" + lsTimeDB
-				+ ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime + ", csMemberCode=" + csMemberCode
-				+ ", csName=" + csName + ", groupCount=" + groupCount + ", personalCount=" + personalCount
-				+ ", closedGroupCount=" + closedGroupCount + ", closedPersonalCount=" + closedPersonalCount
-				+ ", lsCenterName=" + lsCenterName + ", reservedCount=" + reservedCount + ", attendedCount="
-				+ attendedCount + ", absentCount=" + absentCount + ", reservedMembers=" + reservedMembers + ", atCode="
-				+ atCode + ", lessonCode=" + lessonCode + ", lsStartTime=" + lsStartTime + ", list=" + list + "]";
+				+ ", lsEndTime=" + lsEndTime + ", lessonDatetime=" + lessonDatetime + ", lessonEndDatetime="
+				+ lessonEndDatetime + ", csMemberCode=" + csMemberCode + ", csName=" + csName + ", groupCount="
+				+ groupCount + ", personalCount=" + personalCount + ", closedGroupCount=" + closedGroupCount
+				+ ", closedPersonalCount=" + closedPersonalCount + ", lsCenterName=" + lsCenterName + ", reservedCount="
+				+ reservedCount + ", attendedCount=" + attendedCount + ", absentCount=" + absentCount
+				+ ", reservedMembers=" + reservedMembers + ", atCode=" + atCode + ", lessonCode=" + lessonCode
+				+ ", lsStartTime=" + lsStartTime + "]";
 	}
+
+
 
 	
 
