@@ -49,7 +49,8 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
-
+<link
+	href="${pageContext.request.contextPath}/resources/css/style_member_community.css" rel="stylesheet">
 <!-- =======================================================
   * Template Name: Eterna
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -90,7 +91,7 @@
 						<div class="text-center">
 						
 							<h3 class="mb-4">
-							<img alt="bar" src="${pageContext.request.contextPath}/resources/images/purple_bar.png">
+							<img alt="bar" src="${pageContext.request.contextPath}/resources/images/purple_bar.png" style="width: 7px; height: 27px;">
 							<strong>자유게시판</strong></h3>
 						</div>
 						<div class="mt-3">
