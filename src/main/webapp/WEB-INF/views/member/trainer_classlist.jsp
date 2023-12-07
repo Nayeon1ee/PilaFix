@@ -84,7 +84,7 @@
 
 
 				<!-- 검색창 -->
-				<div class="container" style="max-width: 900px; margin-right: 0px;">
+				<div class="container">
 					<div class="search-filter mx-auto">
 						<div class="search-filter-inner">
 							<div class="serch-filter-content">
@@ -251,7 +251,46 @@
 	<!-- 내 js -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Pagination for the first table
+    var itemsPerPage1 = 5;
+    var currentPage1 = 1;
 
+    showItems(currentPage1, itemsPerPage1);
+
+    var paginationContainer1 = document.querySelector(".pagination-container1");
+    var pageLinks1 = paginationContainer1.querySelectorAll("ul li a");
+
+    // Add event listeners and update functions for the first table...
+
+    // Pagination for the second table
+    var itemsPerPage2 = 5; // Change the number of items per page for the second table
+    var currentPage2 = 1;
+
+    showItems(currentPage2, itemsPerPage2);
+
+    var paginationContainer2 = document.querySelector(".pagination-container2");
+    var pageLinks2 = paginationContainer2.querySelectorAll("ul li a");
+
+    // Add event listeners and update functions for the second table...
+
+    // Pagination for the third table
+    var itemsPerPage3 = 5; // Change the number of items per page for the third table
+    var currentPage3 = 1;
+
+    showItems(currentPage3, itemsPerPage3);
+
+    var paginationContainer3 = document.querySelector(".pagination-container3");
+    var pageLinks3 = paginationContainer3.querySelectorAll("ul li a");
+
+    // Add event listeners and update functions for the third table...
+});
+
+function showItems(page, itemsPerPage) {
+    // Update the showItems function to handle pagination for each table separately...
+}
+		</script>
 	<!-- Vendor JS Files -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/purecounter/purecounter_vanilla.js"></script>

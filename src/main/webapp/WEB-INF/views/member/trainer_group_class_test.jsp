@@ -141,7 +141,7 @@
     <div class="member-check text-center">
         <input type="checkbox" class="btn-check" id="btn-check-1" name="selectedMemberCodes" value="${attendance.atMember1Code}" autocomplete="off"> 
         <label class="btn" for="btn-check-1">
-         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="대체 텍스트">
+         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="user">
             <p>${attendance.member1Name}</p>
         </label>
     </div>
@@ -152,7 +152,7 @@
     <div class="member-check text-center">
         <input type="checkbox" class="btn-check" id="btn-check-2" name="selectedMemberCodes" value="${attendance.atMember2Code}" autocomplete="off"> 
         <label class="btn" for="btn-check-2"> 
-         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="대체 텍스트">
+         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="user">
             <p>${attendance.member2Name}</p>
         </label>
     </div>
@@ -163,7 +163,7 @@
     <div class="member-check text-center">
         <input type="checkbox" class="btn-check" id="btn-check-3" name="selectedMemberCodes" value="${attendance.atMember3Code}" autocomplete="off"> 
         <label class="btn" for="btn-check-3"> 
-         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="대체 텍스트">
+         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="user">
             <p>${attendance.member3Name}</p>
         </label>
     </div>
@@ -174,7 +174,7 @@
     <div class="member-check text-center">
         <input type="checkbox" class="btn-check" id="btn-check-4" name="selectedMemberCodes" value="${attendance.atMember4Code}" autocomplete="off"> 
         <label class="btn" for="btn-check-4">
-         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="대체 텍스트">
+         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="user">
            <p class="lead">${attendance.member4Name}</p>
         </label>
     </div>
@@ -185,7 +185,7 @@
     <div class="member-check text-center">
         <input type="checkbox" class="btn-check" id="btn-check-5" name="selectedMemberCodes" value="${attendance.atMember5Code}" autocomplete="off"> 
         <label class="btn" for="btn-check-5"> 
-         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="대체 텍스트">
+         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="user">
             <p>${attendance.member5Name}</p>
         </label>
     </div>
@@ -196,7 +196,7 @@
     <div class="member-check text-center">
         <input type="checkbox" class="btn-check" id="btn-check-6" name="selectedMemberCodes" value="${attendance.atMember6Code}" autocomplete="off"> 
         <label class="btn" for="btn-check-6">
-         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="대체 텍스트">
+         <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="user">
             <p>${attendance.member6Name}</p>
         </label>
     </div>

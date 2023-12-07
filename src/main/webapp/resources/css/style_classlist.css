@@ -116,9 +116,99 @@ hr {
 	top: 18px;
 }
 
-.datesearch > div > form > p {
-	position: relative;
-	top: 16px;
-}
 
 /* 검색창 끝*/
+
+
+
+.search-filter {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-left: 150px;
+}
+
+
+.search-filter input,
+.search-filter select,
+.search-filter button {
+    margin-bottom: 10px;
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+.table th {
+    background-color: #f1f3f4; /* Purple color */
+    color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style for the table rows */
+.table td,
+.table th {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Style for the alternate row color */
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Style for the caption above each table */
+.table caption {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Style for the message when no data is available */
+.table tbody tr.no-data td {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
+
+/* Style for the container */
+.container {
+    margin: 0 auto;
+}
+
+/* Style for the page title */
+.text-center h2 {
+    color: #6b16f2; /* Purple color */
+}
+
+
+@media (max-width: 767px) {
+    .table thead {
+        display: none;
+    }
+
+    .table tbody,
+    .table tr,
+    .table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .table td {
+        text-align: left;
+        padding: 10px;
+    }
+
+    /* Style for the caption in mobile view */
+    .table caption {
+        text-align: left;
+    }
+}
+

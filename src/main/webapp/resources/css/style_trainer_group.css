@@ -84,12 +84,12 @@
 }
 
 .col-md-2 .member-check .btn-check:checked + .btn {
-    color: #8717fc; /* 체크된 경우의 텍스트 색상 변경 */
+    color: #8717fc; 
+     background-color: rgba(107, 22, 242, 0.2); 
 }
-
 .col-md-2 .member-check .btn:hover {
     transform: scale(1.03);
-    background-color: #e6e0ee; 
+   background-color: rgba(211, 204, 231, 0.4);
     color: #333; 
 }
 
