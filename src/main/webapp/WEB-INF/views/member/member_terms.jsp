@@ -85,17 +85,11 @@
 
 				<div class="card mt-3">
 					<div class="card-body">
-						<h5 class="card-title">약관 및 정책</h5>
-						<p class="card-text">약관 및 정책 내용 추가</p>
-						<!-- 예시: -->
-						<ul>
-							<li><a href="#" data-toggle="modal"
-								data-target="#termsModal">이용약관</a></li>
-							<li><a href="#" data-toggle="modal"
-								data-target="#privacyModal">개인정보 처리방침</a></li>
-							<li><a href="#" data-toggle="modal"
-								data-target="#refundModal">환불 정책</a></li>
-						</ul>
+						 <strong class="card-title" style="font-weight: bold; font-size: 20px; color: #333;">약관 및 정책</strong>
+        <p class="card-text">
+            서비스 이용에 동의하는 약관과 정책을 확인하세요.<br>
+            이용 약관과 정책에 대한 요약을 제공합니다.
+        </p>
 					</div>
 				</div>
 

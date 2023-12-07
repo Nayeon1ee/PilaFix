@@ -27,13 +27,13 @@
 <!-- 검색필터 시작 -->
           
 <!-- 검색필터 끝 -->
-<div class="terms-btn">
-<span class="terms-reg-btn">
-<button type="button" class="btn btn-primary" onclick="location.href='insertTerms.do'">약관등록</button>
-</span>
-<span class="excel-down-btn">
-<button onclick="window.open('<c:url value='/termsExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default" id="excelDown">엑셀다운</button>
-</span>
+<div class="terms-btn d-flex justify-content-between my-3">
+
+<button type="button" class="btn btn-primary ms-3" onclick="location.href='insertTerms.do'">약관등록</button>
+
+
+<button onclick="window.open('<c:url value='/termsExcelDown.do' />')" type="button" class="btn btn-success btn-sm btn-default me-3" id="excelDown">엑셀다운</button>
+
 </div>
 <!-- 게시판 시작 -->
               <!-- Table with stripped rows -->
