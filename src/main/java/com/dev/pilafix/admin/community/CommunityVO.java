@@ -1,6 +1,7 @@
 package com.dev.pilafix.admin.community;
 
 import java.sql.Timestamp;
+
 import java.util.Date;
 
 public class CommunityVO {
@@ -8,7 +9,7 @@ public class CommunityVO {
 	private String cmTitle;
 	private String cmContent;
 	private int cmWriterMemberCode;
-	private Date cmRegdate;
+	private String cmRegdate;
 	private String csName;
 	private boolean cmOpenYn;
 	private int cmBlameCount;
@@ -47,10 +48,10 @@ public class CommunityVO {
 	}
 	
 	
-	public Date getCmRegdate() {
+	public String getCmRegdate() {
 		return cmRegdate;
 	}
-	public void setCmRegdate(Date cmRegdate) {
+	public void setCmRegdate(String cmRegdate) {
 		this.cmRegdate = cmRegdate;
 	}
 	public boolean isCmOpenYn() {
