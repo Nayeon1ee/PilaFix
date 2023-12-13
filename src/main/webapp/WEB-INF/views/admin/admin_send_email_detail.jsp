@@ -50,9 +50,10 @@
                 	<label class="form-label">발송 내용</label>
                 	 <textarea readonly class="form-control" style="height: 300px;" disabled>${sendEmailHistoryInfo.mhRecipientContent }</textarea>
                 </div>
-               <!--  <div class="text-center">
-                  <button class="btn btn-secondary">목록</button>
-                </div> -->
+               
+				<div class="text-center">
+					<button type="button" class="btn btn-secondary ms-3" onclick="location.href='getSendEmailHistoryInfoList.do'">목록</button>
+				</div>
               </form><!-- End Multi Columns Form -->
              	             	 
              	 

@@ -56,7 +56,8 @@
 				    <div class="text-center">
 				        <button type="button" class="btn btn-primary" onclick="location.href='updateTerms.do?tmCode=${terms.tmCode}'">수정</button>
 				        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
-				        <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
+				        <button type="button" class="btn btn-secondary" onclick="location.href='getTermsList.do'">취소</button>
+				        
 				    </div>
 				</form><!-- End Multi Columns Form -->
 

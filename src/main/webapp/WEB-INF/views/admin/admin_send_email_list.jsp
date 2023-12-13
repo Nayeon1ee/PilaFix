@@ -77,9 +77,9 @@
               <table class="table datatable" >
                 <thead>
                   <tr>
-                    <th scope="col">이메일발송코드</th>
-                    <th scope="col">이메일발송유형</th>
-                    <th scope="col">이메일발송일시</th>
+                    <th scope="col">발송코드</th>
+                    <th scope="col">발송유형</th>
+                    <th scope="col">발송일시</th>
                     <th scope="col">수신자명</th>
                     <th scope="col">수신제목</th>
                     <th scope="col">수신자이메일</th>

@@ -168,6 +168,7 @@ public class CenterLoginController {
 	@PostMapping("/centerLogout.do")
 	public String logout(HttpSession session) {
 	    session.removeAttribute("loginCenter");
+		session.invalidate();
 	    return "redirect:/centerLogin.do";
 	}
 	
@@ -175,6 +176,7 @@ public class CenterLoginController {
 	@GetMapping("/centerLogout.do")
 	public String getlogout(HttpSession session) {
 	    session.removeAttribute("loginCenter");
+		session.invalidate();
 	    return "redirect:/centerLogin.do";
 	}
 	

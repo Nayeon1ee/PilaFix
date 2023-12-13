@@ -75,7 +75,7 @@
 									<textarea readonly class="form-control" style="height: 300px;" disabled>${sendSmsHistory.shRecipientContent }</textarea>
 								</div>
 								<div class="text-center">
-									<a href="center_send_sms_list" button class="btn btn-primary">목록</a>
+									<button type="button" class="btn btn-secondary ms-3" onclick="location.href='getSendSmsHistoryListForAd.do'">목록</button>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->

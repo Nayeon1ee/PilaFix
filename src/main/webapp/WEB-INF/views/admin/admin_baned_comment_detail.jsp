@@ -75,7 +75,7 @@
 								        <div class="btn-toolbar justify-content-end d-flex" role="toolbar">
 								            <div class="btn-group me-2">
 								                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModa20">신고글처리</button>
-								                <button type="button" class="btn btn-secondary" onclick="location.href='getComplaintsInfoList.do'">취소</button>
+								                <button type="button" class="btn btn-secondary" onclick="location.href='getTargetComplaintsList.do'">취소</button>
 								            </div>
 								        </div>
 								    </div>
