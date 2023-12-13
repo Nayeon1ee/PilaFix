@@ -19,8 +19,10 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">회원관리</h5>
-              <p>웹 관리자가 회원 상세페이지를 볼 수 있는 페이지입니다.</p>
+            <div class="area2" style="margin-bottom:10px;">
+              <p>회원관리</p>
+             </div>
+
 
    <!-- Multi Columns Form -->
               <form class="row g-3">
@@ -93,10 +95,9 @@
 
 <c:if test="${type ne 'T' }">
 				<!-- 강사의 경우 해당 화면이 보이지 않음  -->
-		<div class="card card_box_shadow mt-4">
-            <div class="card-body">
-              <h5 class="card-title">수강권결제내역</h5>
-              <p>회원이 최근에 결제한 수강권내역입니다.</p>
+		<div class="area2" style="margin-bottom:10px;">
+              <p>수강권결제내역</p>
+          </div>
 	
 	
               <!-- Table with stripped rows -->
@@ -133,18 +134,15 @@
                 </tbody>
               </table>
               
-            </div>
-          </div>
+         
              </c:if> 	 
              	 
 
 
 
-		<div class="card card_box_shadow mt-4">
-            <div class="card-body">
-              <h5 class="card-title">연동센터이력</h5>
-              <p>연동한 센터들이 보여집니다.</p>
-	
+		<div class="area2" style="margin-bottom:10px;">
+              <p>연동센터이력</p>
+		</div>
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
@@ -173,8 +171,7 @@
               </table>
               <!-- End Table with stripped rows -->
               
-            </div>
-          </div>             	 
+                     	 
              	
              	<div class="text-center">
                   <button class="btn btn-secondary" onclick="location.href='#'">목록</button>

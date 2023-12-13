@@ -96,7 +96,7 @@
 						<label class="form-label">사업자 등록번호</label>
 						<input type="text" readonly disabled class="form-control" value=${center.businessRegistrationNumber}>
 					</div>
-               </div>
+               
                <div class="selectson">
 					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal2" >계약해지</button>
 					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal3" >비밀번호 초기화</button>
@@ -108,11 +108,11 @@
 						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal">삭제</button>
 					</div>
 			   </div>
-			   <div class="row mb-300" style="width: 122%; margin-top: 1%;">
-				<div class="area3">
+			
+				<div class="area2" style="margin-bottom:10px;">
 					<p>문자 발송 이력 </p>
 				</div>
-				</div>
+				
 			   <table class="table datatable">
 					<thead>
 						<tr>
@@ -124,9 +124,9 @@
 					</thead>
 					<tbody>
 					
-					<c:if test="">
+					<c:if test="${empty smsHistory}">
 						<tr>
-							<td colspan="5">등록된 센터가 없습니다.</td>
+							<td colspan="4" >해당 센터에 문자발송이력이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="smsHistory" items="${smsHistory }">
@@ -140,7 +140,7 @@
 					</tbody>
 				</table>
 						
-		
+				</div>
 	          </div>
 	        </div>
 	      </div>
