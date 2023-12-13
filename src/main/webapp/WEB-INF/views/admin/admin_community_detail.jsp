@@ -29,13 +29,17 @@
                   <label class="form-label">글 번호</label>
                   <input type="text" readonly disabled class="form-control" value="${community.cmNumber }">
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                   <label class="form-label">작성자</label>
                   <input type="text" readonly disabled class="form-control" value="<%=request.getParameter("csName") %>">
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                   <label class="form-label">작성일</label>
                   <input type="text" readonly disabled class="form-control" value="${community.cmRegdate}" >
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">공개여부</label>
+                  <input type="text" readonly disabled class="form-control" value="${community.cmOpenYn}" >
                 </div>
                <div class="col-md-12">
                   <label class="form-label">글 제목</label>
@@ -46,7 +50,8 @@
                 	 <textarea readonly disabled class="form-control" style="height: 300px;">${community.cmContent}</textarea>
                 </div>
                 <div class="text-center">
-               	  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" >삭제</button>
+               	  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#openModal" >공개</button>
+               	  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" >비공개</button>
                   <button type="button" class="btn btn-secondary" onclick="goBack()">취소</button>
                 </div>
               </form><!-- End Multi Columns Form -->
@@ -57,20 +62,38 @@
         </div>
       </div>
     </section>
-	<!-- 삭제 버튼 모달 -->
+	<!-- 비공개 버튼 모달 -->
 	<div class="modal fade" id="basicModal" tabindex="-1">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
+                      <h5 class="modal-title">정말 비공개로 처리 하시겠습니까?</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      삭제 버튼을 누르시면 다시 복구시킬 수 없습니다.
+                      비공개 버튼을 누르시면 회원 커뮤니티에 해당글이 표시되지 않습니다.
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                      <button type="button" class="btn btn-primary" onclick="deleteCommunity(${community.cmNumber})">삭제</button>
+                      <button type="button" class="btn btn-primary" onclick="deleteCommunity(${community.cmNumber})">비공개</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+	<!-- 공개 버튼 모달 -->
+	<div class="modal fade" id="openModal" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">해당 게시글을 공개로 처리 하시겠습니까?</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      공개 버튼을 누르시면 회원 커뮤니티에 해당글이 표시됩니다.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                      <button type="button" class="btn btn-primary" onclick="updateArticleOpen(${community.cmNumber})">공개</button>
                     </div>
                   </div>
                 </div>
@@ -99,6 +122,21 @@ function deleteCommunity(cmNumber) {
 				console.error(error);
 			});
 	
+};
+function updateArticleOpen(cmNumber) {
+	fetch('/pilafix/updateArticleOpen.do?cmNumber=' + cmNumber, {
+		method: 'GET'
+	})
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('error');
+			}
+			window.location.href = 'getCommunityList.do'; // 커뮤니티 목록 페이지로 리다이렉트
+		})
+		.catch(error => {
+			console.error(error);
+		});
+
 };
 </script>
 <%@ include file="admin_footer_common.jsp"%>

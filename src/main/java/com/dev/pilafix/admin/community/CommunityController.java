@@ -36,6 +36,12 @@ public class CommunityController {
 		return "redirect:/getCommunityList.do"; // .do로 요청해야 위에 getCommunityList.do수행하고 디비가서 바뀐정보로 다시 가져옴
 		
 	}
+	@GetMapping("/updateArticleOpen.do")
+	public String updateArticleOpen(int cmNumber) {
+		service.updateArticleOpen(cmNumber);
+		return "redirect:/getCommunityList.do"; // .do로 요청해야 위에 getCommunityList.do수행하고 디비가서 바뀐정보로 다시 가져옴
+		
+	}
 	
 	// 검색필터 (부트스트랩 테이블 ajax안먹어서 조건으로 검색한 값 가지고 페이지 재로드함)
 	@PostMapping("/serchFilter.do")

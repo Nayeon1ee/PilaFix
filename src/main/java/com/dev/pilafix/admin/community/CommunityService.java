@@ -11,6 +11,7 @@ public interface CommunityService {
 	int deleteCommunity(int cmNumber);
 	
 	List<CommunityVO> getFilteringData(Map<String, Object> searchCondition);
+	int updateArticleOpen(int cmNumber);
 	
 
 }

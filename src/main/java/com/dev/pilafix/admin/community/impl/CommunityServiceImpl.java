@@ -35,4 +35,9 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.getFilteringData(searchCondition);
 	}
 
+	@Override
+	public int updateArticleOpen(int cmNumber) {
+		return dao.updateArticleOpen(cmNumber);
+	}
+
 }
