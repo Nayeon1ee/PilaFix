@@ -71,7 +71,7 @@
 									<textarea readonly class="form-control" style="height: 300px;" disabled>${sendSmsHistory.shRecipientContent }</textarea>
 								</div>
 								<div class="d-flex justify-content-start">
-									<a href="center_send_sms_list" button class="btn btn-secondary ms-3">목록</a>
+									<button type="button" class="btn btn-secondary ms-3" onclick="location.href='getSendSmsHistoryListForCe.do'">목록</button>
 								</div>
 							</form>
 							<!-- End Multi Columns Form -->

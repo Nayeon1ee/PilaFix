@@ -49,16 +49,6 @@
 			    nowColumn.appendChild(circleImage);
 			}
 			
-			//달력에 예약 dot
-			let userSpecifiedDate2 = new Date("2023-12-11"); 
-			if (nowDay.getFullYear() == userSpecifiedDate2.getFullYear() &&  nowDay.getMonth() == userSpecifiedDate2.getMonth() && nowDay.getDate() == userSpecifiedDate2.getDate()) {
-			    // 동그라미 이미지를 나타내기 위해 img 요소 생성
-			    let circleImage = document.createElement("img");
-			    circleImage.src = '/pilafix/resources/images/attend_dot1.png';
-			    circleImage.alt = "Circle";
-			    circleImage.className = "circleMarker";
-			    nowColumn.appendChild(circleImage);
-			}
 			
 			//달력에 예약 dot
 			let userSpecifiedDate5 = new Date("2023-12-19"); 
@@ -71,8 +61,19 @@
 			    nowColumn.appendChild(circleImage);
 			}
 			
+			//달력에 예약 dot
+			let userSpecifiedDate6 = new Date("2023-12-08"); 
+			if (nowDay.getFullYear() == userSpecifiedDate6.getFullYear() &&  nowDay.getMonth() == userSpecifiedDate6.getMonth() && nowDay.getDate() == userSpecifiedDate6.getDate()) {
+			    // 동그라미 이미지를 나타내기 위해 img 요소 생성
+			    let circleImage = document.createElement("img");
+			    circleImage.src = '/pilafix/resources/images/attend_dot1.png';
+			    circleImage.alt = "Circle";
+			    circleImage.className = "circleMarker";
+			    nowColumn.appendChild(circleImage);
+			}
+			
 			//달력에 출석 dot
-			let userSpecifiedDate3 = new Date("2023-12-05"); 
+			let userSpecifiedDate3 = new Date("2023-12-06"); 
 			if (nowDay.getFullYear() == userSpecifiedDate3.getFullYear() &&  nowDay.getMonth() == userSpecifiedDate3.getMonth() && nowDay.getDate() == userSpecifiedDate3.getDate()) {
 			    // 동그라미 이미지를 나타내기 위해 img 요소 생성
 			    let circleImage = document.createElement("img");

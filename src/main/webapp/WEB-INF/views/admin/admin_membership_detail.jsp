@@ -171,14 +171,21 @@
               </table>
               <!-- End Table with stripped rows -->
               
-                     	 
-             	
-             	<div class="text-center">
-                  <button class="btn btn-secondary" onclick="location.href='#'">목록</button>
-                </div>
-             	
-             	 
 
+            </div>
+          </div>             	 
+             	<c:choose>
+             		<c:when test="${type ne 'T' }">
+             			<div class="text-center">
+		                  <button class="btn btn-secondary" onclick="location.href='getTrainerList.do'">목록</button>
+		                </div>
+             		</c:when>
+             		<c:otherwise>
+		             	<div class="text-center">
+		                  <button class="btn btn-secondary" onclick="location.href='getMemberList.do'">목록</button>
+		                </div>
+             		</c:otherwise>
+             	</c:choose>
             </div>
           </div>
 
