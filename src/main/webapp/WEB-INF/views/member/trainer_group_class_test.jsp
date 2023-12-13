@@ -60,7 +60,7 @@
 
 
 <!-- ======= Header ======= -->
-<%@ include file="member_header_common_tr.jsp"%>
+<%@ include file="member_header_common.jsp"%>
 <!-- End Header -->
 
 <main id="main">
@@ -195,7 +195,7 @@
         <input type="checkbox" class="btn-check" id="btn-check-4" name="selectedMemberCodes" value="${attendance.atMember4Code}" autocomplete="off"> 
         <label class="btn" for="btn-check-4">
          <img src="${pageContext.request.contextPath}/resources/images/user.png" alt="user">
-           <p class="lead">${attendance.member4Name}</p>
+           <p>${attendance.member4Name}</p>
         </label>
     </div>
 </div>    
