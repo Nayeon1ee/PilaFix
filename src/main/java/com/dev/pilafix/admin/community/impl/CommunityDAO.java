@@ -24,11 +24,15 @@ public class CommunityDAO {
 	}
 	
 	public int deleteCommunity(int cmNumber) {
-		return sqlSessionTemplate.delete("CommunityDAO.deleteCommunity", cmNumber);
+		return sqlSessionTemplate.update("CommunityDAO.deleteCommunity", cmNumber);
 	}
 
 	public List<CommunityVO> getFilteringData(Map<String, Object> searchCondition) {
 		return sqlSessionTemplate.selectList("CommunityDAO.getFilteringData", searchCondition);
+	}
+
+	public int updateArticleOpen(int cmNumber) {
+		return sqlSessionTemplate.update("CommunityDAO.updateArticleOpen", cmNumber);
 	}
 
 }

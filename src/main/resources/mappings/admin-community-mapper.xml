@@ -11,10 +11,11 @@
 		<result property="cmWriterMemberCode" column="CM_WRITER_MEMBER_CODE"/>
 		<result property="csName" column="CS_NAME"/>
 		<result property="cmRegdate" column="CM_REGDATE"/>
+		<result property="cmOpenYn" column="CM_OPEN_YN"/>
 	</resultMap>	
 		
 	<select id="getCommunityList" resultMap="communityResult" >
-		SELECT c.CM_NUMBER,c.CM_TITLE,c.CM_CONTENT,t.cs_name,TO_CHAR(C.CM_REGDATE, 'YYYY-MM-DD HH24:MI:SS') AS CM_REGDATE
+		SELECT c.CM_NUMBER,c.CM_TITLE,c.CM_CONTENT,t.cs_name,TO_CHAR(C.CM_REGDATE, 'YYYY-MM-DD HH24:MI:SS') AS CM_REGDATE,c.CM_OPEN_YN
 		FROM tbl_community c
 		JOIN tbl_cst t
 		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code
@@ -35,13 +36,17 @@
 		ON c.CM_WRITER_MEMBER_CODE = t.cs_member_code
 		WHERE c.CM_WRITER_MEMBER_CODE = #{cmWriterMemberCode};
 		-->
-		 SELECT CM_NUMBER,CM_TITLE,CM_CONTENT,TO_CHAR(CM_REGDATE, 'YYYY-MM-DD HH24:MI:SS') AS CM_REGDATE
+		 SELECT CM_NUMBER,CM_TITLE,CM_CONTENT,TO_CHAR(CM_REGDATE, 'YYYY-MM-DD HH24:MI:SS') AS CM_REGDATE,CM_OPEN_YN
 		 FROM tbl_community
 		 WHERE CM_NUMBER = #{cmNumber};
 	</select>
-	<delete id="deleteCommunity" parameterType="Integer">
-		DELETE FROM TBL_COMMUNITY WHERE CM_NUMBER=#{cmNumber}
-	</delete>
+	
+	<update id="deleteCommunity" parameterType="Integer">
+		UPDATE tbl_community SET cm_open_yn='f' WHERE CM_NUMBER=#{cmNumber};
+	</update>
+	<update id="updateArticleOpen" parameterType="Integer">
+		UPDATE tbl_community SET cm_open_yn='t' WHERE CM_NUMBER=#{cmNumber};
+	</update>
 	
 	<!-- 
 		 case01 : 셀렉트박스선택하고 검색어 입력해서 검색

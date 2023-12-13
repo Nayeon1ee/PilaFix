@@ -80,6 +80,7 @@
                     <th scope="col">글 내용</th>
                     <th scope="col">작성자</th>
                     <th scope="col">작성일</th>
+                    <th scope="col">공개 여부</th>
                   </tr>
                 </thead>
                
@@ -92,6 +93,7 @@
 					<td>${list.cmContent}</td>
 					<td>${list.csName}</td>
 					<td>${list.cmRegdate}</td>
+					<td>${list.cmOpenYn}</td>
 				</tr>
 			</c:forEach>
                 </tbody>

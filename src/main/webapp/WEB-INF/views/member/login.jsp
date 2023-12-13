@@ -178,7 +178,7 @@
 							{
 								clientId : "glOsBPVhLHxSw_eaBO2D",
 								// 본인의 Client ID로 수정, 띄어쓰기는 사용하지 마세요.
-								callbackUrl : "http://localhost:8080/pilafix/callback.do",
+								callbackUrl : "http://43.202.6.211/pilafix/callback.do",
 								// 본인의 callBack url로 수정하세요.
 								isPopup : false,
 								loginButton : {

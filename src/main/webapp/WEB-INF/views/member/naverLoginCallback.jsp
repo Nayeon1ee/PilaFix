@@ -59,7 +59,7 @@
 <script>
 var naverLogin = new naver.LoginWithNaverId({
 	clientId: "glOsBPVhLHxSw_eaBO2D", 
-	callbackUrl: "http://localhost:8080/pilafix/callback.do", // 아무거나 설정
+	callbackUrl: "http://43.202.6.211/pilafix/callback.do", // 아무거나 설정
 	isPopup: false,
 	callbackHandle: true
 });
