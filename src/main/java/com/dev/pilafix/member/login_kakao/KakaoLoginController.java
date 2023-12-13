@@ -41,6 +41,16 @@ public class KakaoLoginController {
 	}
 	
 
+    @GetMapping("/kakaoLogin.do")
+    public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session) {
+        String access_Token = service.getAccessToken(code);
+        KakaoVO userinfo = service.getuserinfo(access_Token);
+
+        // 사용자 정보를 세션에 저장
+        session.setAttribute("user", userinfo);
+
+        return "redirect:/kakaoLoginTest.do";
+    }
 	
 	// 로그인 후 리디렉션 처리를 위한 매핑
     @GetMapping("/kakaoLoginTest.do")

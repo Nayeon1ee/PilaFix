@@ -74,26 +74,7 @@
 					<li>personal class schedule</li>
 				</ol>
 				<h2>개인 수업 스케줄</h2>
-				<!-- ############################################################# -->
-				<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음-->
-				<!-- ############################################################# -->
-				<!-- 수업시간 -->
-				<span style="display: inline-block;"> ${lessonDetail.lsDate}
-				</span>
-				<c:set var="hour"
-					value="${fn:substring(lessonDetail.lsTime, 11, 13)}" />
-				<!-- 시간 추출 -->
-				<c:choose>
-					<c:when test="${hour lt 12}">
-						<!-- 오전 확인 -->
-                            오전
-                        </c:when>
-					<c:otherwise>
-                            오후
-                        </c:otherwise>
-				</c:choose>
-				<span style="display: inline-block;">
-					${fn:substring(lessonDetail.lsTime, 11, 16)} </span>
+
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
@@ -124,39 +105,37 @@
 
 				<!-- Explanation Section -->
 
-				<!-- 수업 상세 정보 -->
+			<!-- 수업 상세 정보 -->
 				<section class="explanation text-center py-5">
-					<div class="lesson container">
-						<strong class="text-primary" style="font-size: 27.07px;">${lessonDetail.lsName}</strong>
-						<!-- 수업 제목 -->
-						<p class="lead">${lessonDetail.lsContent}</p>
-						<!-- 수업 설명 -->
-
-
-						<!-- ############################################################# -->
-						<!-- 수업시간을 제목 영역이랑 수업내용 아래 두 곳 중에 하나에 넣을건데 어디에 넣을지 모르겠음-->
-						<!-- ############################################################# -->
-						<!-- 수업시간 -->
-						<span style="display: inline-block;">
-							${lessonDetail.lsDate} </span>
-						<c:set var="hour"
-							value="${fn:substring(lessonDetail.lsTime, 11, 13)}" />
-						<!-- 시간 추출 -->
-						<c:choose>
-							<c:when test="${hour lt 12}">
-								<!-- 오전 확인 -->
+				    <div class="container">
+				    
+				    <!-- 수업시간 --> 
+					<span  style="display: inline-block;">
+                    ${lessonDetail.lsDate} 
+                    </span>
+                    <c:set var="hour" value="${fn:substring(lessonDetail.lsTime, 11, 13)}" /> <!-- 시간 추출 -->
+                    <c:choose>
+                        <c:when test="${hour lt 12}"> <!-- 오전 확인 -->
                             오전
                         </c:when>
-							<c:otherwise>
+                        <c:otherwise>
                             오후
                         </c:otherwise>
-						</c:choose>
-						<span style="display: inline-block;">
-							${fn:substring(lessonDetail.lsTime, 11, 16)} </span>
-
-
-					</div>
-				</section>
+                    </c:choose>
+                    <span  style="display: inline-block;">
+                        ${fn:substring(lessonDetail.lsTime, 11, 16)}
+                    </span>
+                    <br>
+                    <p class="h3 mb-0">
+				    <strong class="text-primary" >
+                        ${lessonDetail.lsName}
+                    </strong></p>
+                    <br>			
+		<div class="output-text" style="text-align:left; white-space: pre-line; ">
+		    ${lessonDetail.lsContent}
+		</div>
+	</div>
+	</section>
 
 
 				<!-- Status Section -->
@@ -253,20 +232,23 @@
 				<div class="container p-0">
 					<div class="d-flex justify-content-between">
 						<button type="button" class="btn btn-primary ms-3"
-							onclick="location.href='getTrainerLessonList.do'">목록</button>
+							onclick="location.href='trainerLessonPage.do'">목록</button>
 
 
 						<div class="d-flex justify-content-end">
-							<!-- 출석 처리 버튼 -->
-							<form action="/updateAttendG.do" method="post" class="me-2">
-								<input type="hidden" name="lessonCode"
-									value="${lessonDetail.lsCode}">
-								<c:forEach var="member" items="${reservedMembers}">
-									<input type="checkbox" name="selectedMemberCodes"
-										value="${member.memberCode}">
-								</c:forEach>
-								<button type="submit" class="btn btn-primary">출석처리</button>
-							</form>
+<input type="hidden" id="atCode" name="atCode" value="${attendance.atCode}">
+<button type="button" id="attendanceSubmitButton" class="btn btn-primary me-3">출석처리</button>						
+						
+<%-- <!-- 출석 처리 버튼 -->
+<form action="updateAttendG.do" method="post" class="me-2">
+	<input type="hidden" name="lessonCode"
+		value="${lessonDetail.lsCode}">
+	<c:forEach var="member" items="${reservedMembers}">
+		<input type="checkbox" name="selectedMemberCodes"
+			value="${member.memberCode}">
+	</c:forEach>
+	<button type="submit" class="btn btn-primary">출석처리</button>
+</form> --%>
 
 							<!-- 예약 취소 버튼 -->
 							<button type="button" class="btn btn-primary me-3"
@@ -284,7 +266,24 @@
 			</div>
 		</section>
 	</main>
-
+	
+<!-- 출석 성공 모달 -->
+<div class="modal fade" id="attendanceSuccessModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">출석 처리 완료</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                출석 처리가 완료되었습니다.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 	<!-- End #main -->
 

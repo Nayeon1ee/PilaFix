@@ -14,14 +14,14 @@
 	border: 1px solid #ddd; 
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	background-color: #f9f9f9;
+/* 	background-color: #f9f9f9; */
 	color: #333;
 	
 }
 
    
 .status {
-	background-color: #f8f9fa;
+/* 	background-color: #f8f9fa; */
 	text-align: center;
 	padding: 20px 0;
 }

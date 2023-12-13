@@ -113,7 +113,7 @@ public class CenterLoginController {
 	}
 	
 	/**
-	 * 비밀번호 변경 모달에서 현재 비밀번호 확인
+	 * 모달에서 현재 비밀번호 확인
 	 * 
 	 * @param payload
 	 * @param session
@@ -121,44 +121,45 @@ public class CenterLoginController {
 	 */
 	@PostMapping("/checkPasswordCT.do")
 	@ResponseBody
-	public ResponseEntity<?> checkCurrentPassword(@RequestBody Map<String, String> payload, HttpSession session) {
-		String currentPassword = payload.get("currentPassword");
-		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+	public ResponseEntity<?> checkCurrentPasswordCenter(@RequestBody Map<String, String> payload, HttpSession session) {
+	    String currentPassword = payload.get("currentPassword");
+	    Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
 
-		if (loginCenter != null) {
-			int ctCode = (int) loginCenter.get("ctCode");
-			boolean isPasswordCorrect = service.checkPassword(ctCode, currentPassword);
+	    if (loginCenter != null) {
+	        int ctCode = (int) loginCenter.get("ctCode");
+	        boolean isPasswordCorrect = service.checkPassword(ctCode, currentPassword);
 
-			if (isPasswordCorrect) {
-				return ResponseEntity.ok().body(Map.of("message", "Password is correct"));
-			} else {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Incorrect password"));
-			}
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
-		}
+	        if (isPasswordCorrect) {
+	            return ResponseEntity.ok().body(Map.of("message", "Password is correct"));
+	        } else {
+	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Incorrect password"));
+	        }
+	    } else {
+	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
+	    }
 	}
 
 	/**
-	 * 비밀번호 변경 모달에서 새 비밀번호,새비밀번호 확인 후 변경
+	 * 새 비밀번호, 새 비밀번호 확인 후 변경
+	 * 
 	 * @param payload
 	 * @param session
 	 * @return
 	 */
 	@PostMapping("/updatePasswordCT.do")
 	@ResponseBody
-	public ResponseEntity<?> updatePassword(@RequestBody Map<String, String> payload, HttpSession session) {
-		String newPassword = payload.get("newPassword");
-		Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
+	public ResponseEntity<?> updatePasswordCenter(@RequestBody Map<String, String> payload, HttpSession session) {
+	    String newPassword = payload.get("newPassword");
+	    Map<String, Object> loginCenter = (Map<String, Object>) session.getAttribute("loginCenter");
 
-		if (loginCenter != null) {
-			int ctCode = (int) loginCenter.get("ctCode");
-			service.updatePassword(ctCode, newPassword);
-			return ResponseEntity.ok().body(Map.of("message", "Password updated successfully"));
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
-		}
-	}	
+	    if (loginCenter != null) {
+	        int ctCode = (int) loginCenter.get("ctCode");
+	        service.updatePassword(ctCode, newPassword);
+	        return ResponseEntity.ok().body(Map.of("message", "Password updated successfully"));
+	    } else {
+	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "User not logged in"));
+	    }
+	}
 	
 	/**
      * 로그아웃
