@@ -129,79 +129,113 @@
 							<!-- End General Form Elements -->
 <br>
 <!-- 							<h5 class="card-title">비밀번호 변경</h5> -->
+
+
+<section class="section">
+    <p>
+        <!-- 비밀번호 변경을 링크로 변경 -->
+        <a href="#" class="password_Change" onclick="showCurrentPasswordModal()">비밀번호변경▶</a>
+    </p>
+
+    <!-- 첫 번째 모달: 현재 비밀번호 확인 -->
+		<div class="modal fade" id="currentPasswordModal" tabindex="-1">
+		    <div class="modal-dialog modal-dialog-centered">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		           		<h5 class="modal-title" id="currentPasswordModalLabel">현재 비밀번호 확인</h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body"> 
+						<input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="현재 비밀번호">
+					</div>
+		            <div class="modal-footer">
+		            	<button type="submit" class="btn btn-primary" onclick="sendCurrentPassword()">다음</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		<!-- 두 번째 모달: 새 비밀번호 설정 -->
+		<div class="modal fade" id="newPasswordModal" tabindex="-1">
+		    <div class="modal-dialog modal-dialog-centered">
+		        <div class="modal-content">
+		            <div class="modal-header">
+						<h5 class="modal-title" id="newPasswordModalLabel">새 비밀번호 설정</h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body"> 
+		            	<input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="새 비밀번호"> 
+		            	<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="새 비밀번호 확인">
+					</div>
+		            <div class="modal-footer">
+		            	<button type="submit" class="btn btn-success" onclick="updatePassword()">변경</button>
+
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+    <script>
+        function showCurrentPasswordModal() {
+            $('#currentPasswordModal').modal('show');
+        }
+
+        function showNewPasswordModal() {
+            $('#newPasswordModal').modal('show');
+        }
+
+        function sendCurrentPassword() {
+            var currentPassword = $('#currentPassword').val();
+            // AJAX 요청을 통해 현재 비밀번호 확인
+            $.ajax({
+                url: 'checkPasswordCT.do',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ currentPassword: currentPassword }),
+                success: function(response) {
+                    // 비밀번호가 일치하면 다음 모달을 표시
+                    $('#currentPasswordModal').modal('hide');
+                    showNewPasswordModal(); // 두 번째 모달 표시 함수 호출
+                },
+                error: function(xhr, status, error) {
+                    // 오류 메시지 표시
+                    alert("현재 비밀번호가 일치하지 않습니다.");
+                }
+            });
+        }
+
+        function updatePassword() {
+            // 새 비밀번호를 서버에 전송하여 업데이트
+            var newPassword = $('#newPassword').val();
+            var confirmPassword = $('#confirmPassword').val();
+
+            if (newPassword !== confirmPassword) {
+                alert("새 비밀번호가 일치하지 않습니다.");
+                return;
+            }
+
+            // AJAX 요청을 통해 비밀번호 변경
+            $.ajax({
+                url: 'updatePasswordCT.do',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ newPassword: newPassword }),
+                success: function(response) {
+                    // 비밀번호 변경 성공 메시지 표시
+                    alert("비밀번호가 성공적으로 변경되었습니다. 다시 로그인해주세요.");
+                    $('#newPasswordModal').modal('hide');
+                    window.location.href = 'centerLogin.do'; 
+                },
+                error: function(xhr, status, error) {
+                    // 오류 메시지 표시
+                    alert("비밀번호 변경에 실패했습니다.");
+                }
+            });
+        }
+    </script>
+</section>							
 							
-							
-							<!-- Basic Modal -->
-							<div class="text d-flex justify-content-end">
-							<button type="button" class="btn btn-primary me-3"
-								data-bs-toggle="modal" data-bs-target="#basicModal">
-								비밀번호 변경</button>
-								</div>
-							<div class="modal fade" id="basicModal" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title">비밀번호변경</h5>
-											<button type="button" class="btn-close"
-												data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">
 
-											<div class="tab-content pt-2">
-
-												<div class="tab-pane fade pt-3 active show"
-													id="profile-change-password" role="tabpanel">
-													<!-- Change Password Form -->
-													<form>
-
-														<div class="row mb-3">
-															<label for="currentPassword"
-																class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
-															<div class="col-md-8 col-lg-9">
-																<input name="password" type="password"
-																	class="form-control" id="currentPassword">
-															</div>
-														</div>
-
-														<div class="row mb-3">
-															<label for="newPassword"
-																class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
-															<div class="col-md-8 col-lg-9">
-																<input name="newpassword" type="password"
-																	class="form-control" id="newPassword">
-															</div>
-														</div>
-
-														<div class="row mb-3">
-															<label for="renewPassword"
-																class="col-md-4 col-lg-3 col-form-label">새 비밀번호
-																확인</label>
-															<div class="col-md-8 col-lg-9">
-																<input name="renewpassword" type="password"
-																	class="form-control" id="renewPassword">
-															</div>
-														</div>
-
-														<div class="text-center">
-															<button type="submit" class="btn btn-primary">비밀번호변경</button>
-														</div>
-													</form>
-													<!-- End Change Password Form -->
-
-												</div>
-
-											</div>
-											<!-- End Bordered Tabs -->
-
-										</div>
-										<!--  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div> -->
-									</div>
-								</div>
-							</div>
-							<!-- End Basic Modal-->
 
 						</div>
 
