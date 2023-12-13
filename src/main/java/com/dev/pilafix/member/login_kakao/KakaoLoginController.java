@@ -24,21 +24,21 @@ public class KakaoLoginController {
 //	/**
 //	 * 클라이언트로부터 전달받은 액세스 토큰을 사용하여 카카오 로그인 서비스를 호출
 //	 */
-	@GetMapping("/kakaoTest.do")
-    public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session){
-        System.out.println("####### " + code);
-        
-        String access_Token = service.getAccessToken(code);
-        KakaoVO userinfo = service.getuserinfo(access_Token);
-        session.setAttribute("user", userinfo);
-        
-        System.out.println("###access_Token#### : " + access_Token);
-        System.out.println("###nickname#### : " + userinfo.getK_name());
-        System.out.println("###email#### : " + userinfo.getK_email());
-
-       return "redirect:/kakaoLoginTest.do";
-	
-	}
+//	@GetMapping("/kakaoTest.do")
+//    public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session){
+//        System.out.println("####### " + code);
+//        
+//        String access_Token = service.getAccessToken(code);
+//        KakaoVO userinfo = service.getuserinfo(access_Token);
+//        session.setAttribute("user", userinfo);
+//        
+//        System.out.println("###access_Token#### : " + access_Token);
+//        System.out.println("###nickname#### : " + userinfo.getK_name());
+//        System.out.println("###email#### : " + userinfo.getK_email());
+//
+//       return "redirect:/kakaoLoginTest.do";
+//	
+//	}
 	
 
     @GetMapping("/kakaoLogin.do")
