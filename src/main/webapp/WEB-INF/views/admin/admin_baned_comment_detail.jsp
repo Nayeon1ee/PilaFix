@@ -37,7 +37,7 @@
 								</div>
 								<div class="col-md-5">
 									<label class="form-label">작성일</label> 
-									<input type="text" readonly disabled class="form-control" value='<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${originBoard.cmRegdate }"/>'>
+									<input type="text" readonly disabled class="form-control" value="${originBoard.cmRegdate }" >
 								</div>
 								<div class="col-md-12">
 									<label class="form-label">글 제목</label> <input type="text"
