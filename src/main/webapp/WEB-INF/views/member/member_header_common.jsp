@@ -119,7 +119,7 @@
 							<!-- 강사인 경우 -->
 							<li><a href="trainerLessonPage.do">수업관리</a></li>
 							<li><a href="communityPage.do">커뮤니티</a></li>
-							<li><a href="member_notice.do">공지사항</a></li>
+							<li><a href="myNoticePage.do">공지사항</a></li>
 							<li class="dropdown"><a href="myPage.do"><span>마이페이지</span>
 									<i class="bi bi-chevron-down"></i></a>
 								<ul>
