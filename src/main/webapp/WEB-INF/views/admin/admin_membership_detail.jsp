@@ -122,8 +122,8 @@
                 <c:forEach var="pay" items="${paymentList }">
                   <tr>
                     <td>${pay.paId }</td>
-                    <td>${pay.ticketCode }</td><!-- 티켓코드에서 센터명 가져와야 함 --> 
-                    <td>${pay.ticketCode }</td><!-- 티켓코드에서 센터명 가져와야 함 --> 
+                    <td>${pay.ticketName }</td><!-- 티켓코드에서 센터명 가져와야 함 --> 
+                    <td>${pay.centerName }</td><!-- 티켓코드에서 센터명 가져와야 함 --> 
                     <td>${pay.paDatetime }</td>
                     <td>${pay.paMethod }</td>
                     <td>${pay.paAmount }</td>
