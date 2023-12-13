@@ -57,7 +57,7 @@
 			<if test="searchType != '' and searchKeyword != '' and startDate == '' and endDate == ''">
 	            WHERE ${searchType} LIKE '%'||#{searchKeyword}||'%'
 	        </if>
-	        <if test="searchType == '' and searchKeyword == '' and startDate != '' and endDate != ''">
+	        <if test="searchType == null and searchKeyword == '' and startDate != '' and endDate != ''">
 	            WHERE c.CM_REGDATE BETWEEN TO_TIMESTAMP(#{startDate}, 'YYYY-MM-DD') AND (TO_TIMESTAMP(#{endDate}, 'YYYY-MM-DD') + INTERVAL '1 day')
 	        </if>
 	        <if test="searchType != '' and searchKeyword != '' and startDate != '' and endDate != ''">
