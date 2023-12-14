@@ -194,7 +194,7 @@ public class CenterLoginController {
 	}
 	
 	/**
-	 * 통계 : 월별 수강권 판매 금액
+	 * 통계 : 월별 수강하 수업 종류
 	 * @return
 	 */
 	@PostMapping("getPopularLesson.do")

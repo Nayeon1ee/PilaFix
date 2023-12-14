@@ -66,11 +66,11 @@ public class CenterLoginDAO {
 	public Map<String,Object> getPopularLesson(int ctCode) {
 		List<CenterVO> lessonNameCount = sqlSessionTemplate.selectList("CenterLoginDAO.getPopularLesson", ctCode);
 		Map<String,Object> nameCount = new HashMap<String, Object>();
-		nameCount.put("diet", lessonNameCount.get(0));
-		nameCount.put("bodyShaoe", lessonNameCount.get(1));
-		nameCount.put("stretching", lessonNameCount.get(2));
-		nameCount.put("balance", lessonNameCount.get(3));
-		nameCount.put("rehabilitation", lessonNameCount.get(4));
+		nameCount.put("diet", lessonNameCount.get(2));
+		nameCount.put("bodyShaoe", lessonNameCount.get(4));
+		nameCount.put("stretching", lessonNameCount.get(3));
+		nameCount.put("balance", lessonNameCount.get(1));
+		nameCount.put("rehabilitation", lessonNameCount.get(0));
 		
 		System.out.println("확인" + nameCount.get("diet"));
 		return nameCount;
