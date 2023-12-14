@@ -84,16 +84,16 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container mx-auto" style="max-width: 1100px;">
+			<div class="container mx-auto" style="max-width: 1000px;">
 
 
 				<!-- 7:3 비율 잡기 위한 컨테이너 -->
-				<div class="container d-flex justify-content-center p-0 m-0">
+				<div class="container d-flex justify-content-center">
 					<div class="row">
 
 						<!-- 첫 번째 컬럼 (7:3) -->
 
-						<table class="Calendar py-0 my-0">
+						<table class="Calendar">
 							<thead>
 								<tr>
 									<td onClick="prevCalendar();" style="cursor: pointer;">&#60;</td>
@@ -125,7 +125,7 @@
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-4">
 						<div class="content border rounded p-3"
-							style="min-height: 648px; max-height: 648px; overflow-y: auto;">
+							style="min-height: 648px; max-height: 648px; width: 400px; overflow-y: auto;">
 
 							<!-- 셀렉트 박스 - 연동된 센터의 목록 -->
 							<div class="custom-select-wrapper text-center mt-3">
