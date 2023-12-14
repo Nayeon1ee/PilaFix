@@ -74,8 +74,9 @@
 
 .payment-date {
 	color: #555;
-	
-    text-align: right;
+	float:right;
+	margin-top:5px;
+	font-weight: normal;
     
 }
 
@@ -89,5 +90,6 @@
 	font-size:14px;
 	color:#212529BF;
 }
+
 
 
