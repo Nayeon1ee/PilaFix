@@ -29,8 +29,15 @@ public class AutoUpdateSchedule {
 	public void autoExpiryTickets() {
 		controller.autoExpiryTickets();
 	}
-		
 	
+	/**
+	 * 테스트용 자동 출결 처리 
+	 * 시간 지나면 출석 여부 true로 업데이트 
+	 */
+    @Scheduled(cron = "0 */50 * * * *") // 매 50분마다 실행됨 
+	public void autoUpdateAttendStatus() {
+		controller.autoUpdateAttendStatus();
+	}
 	
 	/**
 	 * 현재 사용 x

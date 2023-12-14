@@ -188,7 +188,7 @@ WHERE
 
 
 
-	<!-- 출결 레코드 자동 생성 -->
+	<!-- (미사용) 출결 레코드 자동 생성 -->
 	<insert id="insertAttendance" parameterType="attend"> 
 		INSERT INTO TBL_ATTEND 
 		VALUES (CONCAT('AT', NEXTVAL('SEQ_ATTEND')), #{lessonCode}, #{atMember1Code}, 
@@ -198,6 +198,18 @@ WHERE
 	</insert> 
 	 
 
+	<!-- 자동 출결 처리  -->
+	<update id="updateAttendStatus"> 
+        <![CDATA[
+		UPDATE tbl_attend att
+		SET at_check_yn = true
+		FROM tbl_lesson ls
+		WHERE att.lesson_code = ls.ls_code
+		    AND ls.ls_date = CURRENT_DATE
+		    AND (CURRENT_TIME > ls.ls_time::time)  
+			AND att.at_check_yn=false;
+	   	]]>
+	</update> 
 
 
 

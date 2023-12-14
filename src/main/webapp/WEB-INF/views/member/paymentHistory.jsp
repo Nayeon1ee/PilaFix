@@ -48,7 +48,7 @@
 	rel="stylesheet">
 
 <!-- 내가 넣은 js -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </head>
 <!-- 내 css -->
@@ -254,6 +254,7 @@
 	<!-- Template Main JS File -->
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 
 </body>
 

@@ -146,7 +146,7 @@
 							<div id="NotificationBadge"></div>
 					</a>
 
-						<div class="dropdown-menu" aria-labelledby="notificationsDropdown">
+						<div class="dropdown-menu" aria-labelledby="notificationsDropdown" id="notificationsContentDropdown">
 							<!-- 알림 내용은 아래 영역에 추가됨 -->
 							<div id="NotificationsList"></div>
 						</div></li>

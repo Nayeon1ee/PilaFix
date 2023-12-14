@@ -125,7 +125,16 @@
     margin-bottom: 5px;
 }
 
-.time-info .btn-check + .btn p {
+.personalT{
+	color:#8a2be2;
+	border-bottom: 1px solid #8a2be2;
+	background-color: white;
+	font-size: 18px;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+}
+  .time-info .btn-check + .btn p {
     margin: 0;
 }
 

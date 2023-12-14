@@ -37,6 +37,8 @@ $(document).ready(function() {
 //종버튼 클릭 시 
 $('#notificationsDropdown').on('click', function() {
     handleNotificationClick();
+	$('#notificationsDropdown').toggleClass('show');  // 토글 클래스 사용
+    $('#notificationsContentDropdown').toggleClass('show');  // 토글 클래스 사용
 });
 
 //공통으로 사용되는 상수 정의
@@ -91,15 +93,12 @@ function handleNotificationClick() {
                        $('#NotificationsList').append(gstr);
                    });
              }
-           },
+            },
            error: function(error) {
                console.error('AJAX 요청 시 에러', error);
            }
        });
 }
-
-
-// 알림 클릭 시 
 
 // 알림 클릭 시 알림테이블 확인여부 업데이트 
 function updateNoticeStatus(ncId, eventType){

@@ -14,16 +14,6 @@ public class AutoUpdateController {
 
 	@Autowired
 	private AutoUpdateService service;
-	
-	/**
-	 * 수업 폐강여부 자동 업데이트 ( 00시 00분) 
-	 * 매 시간 55분마다 
-	 */
-	public void updateLessonStatus() {
-		// 01. 오늘 날짜인 수업 코드 조회해서 
-		
-		// 02. for문 돌면서 상태 체크해서 만약 현재 신청인원이 0명이라면 폐강 
-	}
 
 	/**
 	 * 출결테이블의 레코드 자동 생성 ( 00시 10분 )
@@ -90,6 +80,13 @@ public class AutoUpdateController {
 	 */
 	public void autoExpiryTickets() {
 		service.autoExpiryTickets();
+	}
+
+	/**
+	 * 자동 출결 처리 
+	 */
+	public void autoUpdateAttendStatus() {
+		service.autoUpdateAttendStatus();
 	}
 
 }

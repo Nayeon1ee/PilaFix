@@ -641,6 +641,8 @@
 
 				                	// 개인 탭에 대한 내용 생성
 				                	pstr += '<div class="personalT">';
+				                	pstr += lessonList[0].trainerMemberName;
+				                	pstr += ' 강사  |  ';
 				                	pstr += lessonList[0].lsName;
 				                	pstr += '</div>';
 				                	pstr += '<div class="content-filter py-2 my-4">';
