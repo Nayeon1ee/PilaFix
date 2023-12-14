@@ -143,12 +143,11 @@
 							src="${pageContext.request.contextPath}/resources/images/kakao_login_b.png"
 							alt="카카오 로그인"
 							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;">
-						</a> --> <a class="p-2"
-							href="https://kauth.kakao.com/oauth/authorize?client_id=35a67dedd55982379da441c8c23e2904&redirect_uri=http://localhost:8080/pilafix/kakaoLoginTest.do&response_type=code">
-							<img
-							src="${pageContext.request.contextPath}/resources/images/kakao_login_b.png"
-							alt="카카오 로그인"
-							style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;"></a>
+						</a> --> 
+				<!-- 기존 localhost주석 <a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=35a67dedd55982379da441c8c23e2904&redirect_uri=http://localhost:8080/pilafix/kakaoLoginTest.do&response_type=code"> -->
+						<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=35a67dedd55982379da441c8c23e2904&redirect_uri=http://43.202.6.211/pilafix/kakaoLoginTest.do&response_type=code">
+						<img src="${pageContext.request.contextPath}/resources/images/kakao_login_m2.png"
+							alt="카카오 로그인" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;"></a>
 					</div>
 
 				</div>
