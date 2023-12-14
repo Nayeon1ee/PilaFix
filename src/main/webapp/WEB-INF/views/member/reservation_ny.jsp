@@ -147,6 +147,9 @@
 									</c:choose>
 								</select>
 							</div>
+							
+							<%-- 받아온 변수 처리 --%>
+						    <c:set var="selectedTab" value="${selectedTab}" />
 
 							<div class="tab-buttons text-center">
 								<ul class="nav nav-tabs justify-content-center mt-3"
@@ -167,8 +170,7 @@
 							<div class="tab-content">
 
 								<!--  그룹 탭  -->
-								<div class="tab-pane fade active show" id="pills-group"
-									role="tabpanel" aria-labelledby="pills-group-tab">
+								<div class="tab-pane fade" id="pills-group"	role="tabpanel" aria-labelledby="pills-group-tab">
 
 									<!-- 그룹 탭에 대한 내용 -->
 									<div class="content-filter">
@@ -231,25 +233,7 @@
 									aria-labelledby="pills-individual-tab">
 
 									<!-- 개인 탭에 대한 내용 -->
-									<div class="content-filter mt-1">
-										<div
-											class="form-check form-switch d-flex justify-content-between align-items-center">
-											<div>
-												<input class="form-check-input" type="checkbox"
-													id="flexSwitchCheckDefault"> <label
-													class="form-check-label" for="flexSwitchCheckDefault"
-													style="color: black;"> 예약 가능 </label>
-											</div>
-											<div>
-												<button class="btn btn-secondary refresh"
-													onclick="window.location.reload()"
-													style="background-color: white; color: #333; border: 1px solid white;">
-													<i class="bi bi-arrow-clockwise"></i> 새로고침
-												</button>
-											</div>
-										</div>
-									</div>
-								
+																	
 									<div id="lessonListContainerForPersonal">
 										<div class="list-group">
 											<c:forEach var="item" items="${lessonList}">
@@ -484,11 +468,9 @@
 	<%@ include file="member_footer_common.jsp"%>
 	<!-- End Footer -->
 
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	<script type="text/javascript"
@@ -517,33 +499,28 @@
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script
-		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 
 	<script>
-	<!-- 모달이 닫힌 후에 modal-backdrop을 수동으로 제거 -->
-	$(document).ready(function() {
-        $('#reservationSuccessModal').on('hidden.bs.modal', function (e) {
-            $('.modal-backdrop').remove();
-        });
-    });
 	
-		var selectedTab = "pills-group-tab"; // 기본 선택 탭
+	
+		//var selectedTab = "pills-group-tab"; // 기본 선택 탭
+ 		var selectedTab = <%= request.getAttribute("selectedTab")%>
+
 		var reservationData = {};
 		
 		<!-- 페이지 로딩 시 -->
 
 		$(document).ready(function() {
 			
-		    selectedTab = ${selectedTab};
+		    //selectedTab = ${selectedTab};
 		    console.log(selectedTab);
-		    if (selectedTab === 1) {
-		        $('#pills-individual-tab').addClass('active show');
+		    if (selectedTab === 1) { //개인 수강권 보유 시
+		        $('#pills-individual').addClass('active show');
 		        selectedTab = "pills-individual-tab";
-		    }else{
-			    $('#pills-group-tab').addClass('active show');
+		    }else{ //그룹 수강권 보유 시
+			    $('#pills-group').addClass('active show');
 			    selectedTab = "pills-group-tab"; 
 		    }
 		    getLessonInfoByCenter();
@@ -552,6 +529,11 @@
 		<!-- 탭 전환될 때마다 호출  -->
 		$('#pills-individual-tab, #pills-group-tab').on('click', function() {
 		    selectedTab = $(this).attr('id');
+		    if(selectedTab === 'pills-individual-tab'){
+		        $('#pills-individual').addClass('active show');
+		    }else{
+			    $('#pills-group').addClass('active show');
+		    }
 		    getLessonInfoByCenter();
 		});
 		
@@ -566,11 +548,11 @@
 			console.log("선택한 지점 코드 : " + selectedCenterCode);
 			console.log("선택한 날짜 : " + selectedDate);
 			
-		    // 만약 선택한 날짜가 있으면 data에 추가
 		    var data = {
 		        ctCode: selectedCenterCode,
 		    };
-
+		    
+		    // 만약 선택한 날짜가 있으면 data에 추가
 		    if (selectedDate) {
 		        data.selectedDate = selectedDate;
 		    }
@@ -607,7 +589,6 @@
 					                    '<p class="message-text">더 많은 정보는 센터에 문의해주세요.</p>' +
 					            		'</div>';
 								$('#lessonListContainerForGroup').append(str);
-								$('#lessonListContainerForPersonal').append(str);
 								
 							} else {
 				                if (lessonType === '그룹') {
@@ -653,22 +634,40 @@
 							            // lessonListContainer라는 아이디를 가진 영역에 위의 내용 삽입해줌
 							            $('#lessonListContainerForGroup').append(gstr);
 				                    });
-				                } else {
-				                	 //$('#lessonListContainerForPersonal').append('<p> 개인탭 테스트 </p>');
-				                	 
-				                	 //lessonList.forEach(function (item) {
-				                		// pstr += '<p> 개인탭 테스트 </p>';
-				                		 //$('#lessonListContainerForPersonal').append(pstr);
-				                	 //});
-				                	 
+				                } else if(lessonType === '개인') {
 				                	// lessonListContainerForPersonal 영역을 지우기
-				                	 $('#lessonListContainerForPersonal').empty();
+				                	$('#lessonListContainerForPersonal').empty();
+							        $('#lessonListContainerForPersonal').html('');
 
-				                	 // 새로운 내용 추가
-				                	 $('#lessonListContainerForPersonal').append('<p> 개인탭 테스트 </p>');
-
-				                	 
+				                	// 개인 탭에 대한 내용 생성
+				                	pstr += '<div class="personalT">';
+				                	pstr += lessonList[0].lsName;
+				                	pstr += '</div>';
+				                	pstr += '<div class="content-filter py-2 my-4">';
+				                	pstr += '<div class="time-slot d-flex justify-content-start align-items-center">';
 				                	
+				                	
+				                    lessonList.forEach(function (item, i) {
+				                        pstr += '<div class="time-info">';
+				                        pstr += '<label class="form-check-label time-label" for="btn-check-' + i + '">';
+				                        pstr += '<div class="time-check text-center">';
+				                        pstr += '<input type="radio" name="selectedTime" id="btn-check-' + i + '" class="btn-check" data-lsCode="' + item.lsCode + '" data-centerCode="' + item.centerCode + '" autocomplete="off">';
+				                        pstr += '<label class="btn" for="btn-check-' + i + '"> <i class="bi bi-clock"></i>';
+				                        pstr += '<p class="mt-2">' + item.lsTime + '</p>';
+				                        pstr += '</label>';
+				                        pstr += '</div>';
+				                        pstr += '</label>';
+				                        pstr += '</div>';
+				                    });
+
+				                	pstr += '</div>';
+				                	pstr += '</div>';
+
+				                	pstr += '<div class="reservation-btn d-flex justify-content-end">';
+				                    pstr += '<button type="button" class="btn btn-primary"  onclick="checkReservationFromButton()"><i class="bi bi-calendar-plus"></i> 예약하기</button>';
+				                    pstr += '</div>';
+				                    
+				                	$('#lessonListContainerForPersonal').append(pstr);
 
 				                }
 
@@ -682,6 +681,22 @@
 					});
 		}
 		
+	<!-- 개인 탭 체크박스 상태 확인 -->
+	function checkReservationFromButton() {
+	    var selectedTimeRadio = $('input[name="selectedTime"]:checked');// 선택된 라디오 버튼의 값
+	    
+	    if (selectedTimeRadio.length > 0) {
+		 	var lsCode = selectedTimeRadio.attr('data-lsCode');
+        	var centerCode = selectedTimeRadio.attr('data-centerCode');
+        
+	        checkReservation(lsCode, centerCode);
+	        
+	    } else {// 사용자가 라디오 버튼을 선택하지 않은 경우
+	        alert('시간대를 선택해주세요.');
+	    }
+	}
+	
+	
 	<!-- 현재 사용자 예약 가능 여부를 불러옴 -->
 	function checkReservation(lsCode, centerCode) {
 		
@@ -710,7 +725,6 @@
 	        }
 	    });
 	}
-		
 		
 	<!-- 예약하기 버튼 클릭 시 수업 정보, 수강권 정보, 이용정책 Map으로 받아옴 -->
 	function getReservationInfo(lsCode, ctCode) {
@@ -750,11 +764,19 @@
 	                $('#lsEndTime').text(lessonDetail.lsEndTime);
 
 	                // 수강권 내역 조회
-	                $('#ticketName').text(myTicket.ticketNameGroup1);
-	                $('#remainingCount').text(myTicket.ticketRemainingCountGroup1);
-	                var date = new Date(myTicket.ticketExpiryDateGroup1);
-	                var formattedDate = date.toLocaleDateString(); //날짜 형식 
-	                $('#expirationDate').text(formattedDate);
+	                if(lessonDetail.lsType === '그룹'){
+		                $('#ticketName').text(myTicket.ticketNameGroup1);
+		                $('#remainingCount').text(myTicket.ticketRemainingCountGroup1);
+		                var date = new Date(myTicket.ticketExpiryDateGroup1);
+		                var formattedDate = date.toLocaleDateString(); 
+		                $('#expirationDate').text(formattedDate);
+	                }else{ //개인 수업
+	                	$('#ticketName').text(myTicket.ticketNamePersonal1);
+		                $('#remainingCount').text(myTicket.ticketRemainingCountPersonal1);
+		                var date = new Date(myTicket.ticketExpiryDatePersonal1);
+		                var formattedDate = date.toLocaleDateString(); 
+		                $('#expirationDate').text(formattedDate);
+	                }
 
 	                // 이용정책 조회 및 추가
 	                var userguideContainer = $('#userguideContainer');
@@ -872,6 +894,13 @@
 	        alert(response.message); // 실패 메시지
 	    }
 	}
+	
+	<!-- 모달이 닫힌 후에 modal-backdrop을 수동으로 제거 -->
+	$(document).ready(function() {
+        $('#reservationSuccessModal').on('hidden.bs.modal', function (e) {
+            $('.modal-backdrop').remove();
+        });
+    });
 	
 	
 </script>
