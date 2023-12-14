@@ -134,7 +134,17 @@ public class AttendController {
 	    }
 	}
 	
-	
+	@PostMapping("/updateAttendanceP.do")
+	public ResponseEntity<?> updateAttendanceP(@RequestParam String atCode, @RequestBody List<Integer> memberCodes) {
+	    try {
+	        System.out.println("개인수업 출결처리: " + atCode + ", memberCodes: " + memberCodes);
+	        int updatedRows = service.updateAttendanceP(atCode, memberCodes);
+	        return ResponseEntity.ok().body(updatedRows);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
 	
 	
 	
