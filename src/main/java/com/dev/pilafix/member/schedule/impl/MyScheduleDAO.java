@@ -68,7 +68,19 @@ public class MyScheduleDAO {
 		return count;
 	}
 
-	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+//	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+//		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
+//		if(lessonCode.isEmpty()) {
+//			return 	Collections.emptyList();
+//		}else {
+//			Map<String,Object> param = new HashMap<>();
+//			param.put("lessonCode", lessonCode);
+//			param.put("calenderDate", calenderDate);
+//			
+//			return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
+//		}
+//	}
+	public List<String> getMonthSchedule(int csMemberCode,Date calenderDate) {
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
 		if(lessonCode.isEmpty()) {
 			return 	Collections.emptyList();

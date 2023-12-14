@@ -37,8 +37,12 @@ public class MyScheduleServiceImpl implements MyScheduleService{
 		return dao.getCount(csMemberCode);
 	}
 
+//	@Override
+//	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+//		return dao.getMonthSchedule(csMemberCode,calenderDate);
+//	}
 	@Override
-	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
+	public List<String> getMonthSchedule(int csMemberCode,Date calenderDate) {
 		return dao.getMonthSchedule(csMemberCode,calenderDate);
 	}
 
