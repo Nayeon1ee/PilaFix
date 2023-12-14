@@ -47,8 +47,9 @@
 <link
 	href="${pageContext.request.contextPath}/resources/member/assets/css/style.css"
 	rel="stylesheet">
-
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	
+</head>
 <!-- 내 css -->
 
 <link rel="stylesheet"
@@ -144,7 +145,8 @@
 						<div class="row align-items-center">
 							<div class="col-md-4">
 								<div class="image text-center">
-									<!--     <i class="bi bi-person fs-1"></i> --> 
+
+									
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -167,7 +169,18 @@
 												</div>
 
 
+<!-- 출석처리 완료한 경우 -->
+<div class="text-center">
+    <c:choose>
+        <c:when test="${attendance.atCheckYn}">
+            <span id="presentCount">${attendedCount}</span>
+            <span><b>출석처리완료</b></span>
+        </c:when>
+        <c:otherwise>
 
+        </c:otherwise>
+    </c:choose>
+</div>
 
 
 
@@ -250,10 +263,7 @@
 	<button type="submit" class="btn btn-primary">출석처리</button>
 </form> --%>
 
-							<!-- 예약 취소 버튼 -->
-							<button type="button" class="btn btn-primary me-3"
-								data-bs-toggle="modal" data-bs-target="#cancelModal">예약
-								취소</button>
+
 						</div>
 					</div>
 				</div>
@@ -268,7 +278,7 @@
 	</main>
 	
 <!-- 출석 성공 모달 -->
-<div class="modal fade" id="attendanceSuccessModal" tabindex="-1">
+<div class="modal fade" id="attendanceSuccessModal2" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -284,6 +294,47 @@
         </div>
     </div>
 </div>
+
+
+<script>
+$(document).ready(function () {
+    var atCode = $("#atCode").val();
+
+
+    $("#attendanceSubmitButton").click(function(e) {
+        e.preventDefault();
+        var selectedMemberCodes = $("input[name='selectedMemberCodes']:checked").map(function() {
+            return $(this).val();
+        }).get();
+        
+        // 출석 처리 요청
+        $.ajax({
+            url: 'updateAttendanceP.do?atCode=' + encodeURIComponent(atCode),
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(selectedMemberCodes),
+            success: function (response) {
+
+
+                // 성공모달
+                $('#attendanceSuccessModal2').modal('show');
+
+
+
+                // 출석 처리 후 페이지 새로고침
+                $('#attendanceSuccessModal2').on('hidden.bs.modal', function (e) {
+                    location.reload();
+                });
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = "출석 처리 중 오류가 발생했습니다: " + error;
+                alert(errorMessage);
+                console.error("Error occurred: ", status, error);
+            }
+        });
+    });
+});
+</script>
 
 	<!-- End #main -->
 

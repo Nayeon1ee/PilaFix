@@ -45,4 +45,5 @@ public interface AttendService {
     AttendVO getAttendanceByLessonCode(String lsCode);
 //    int updateMemberAttendance(List<Integer> selectedMemberCodes);
     int updateAttendance(String atCode, List<Integer> memberCodes);
+    int updateAttendanceP(String atCode, List<Integer> memberCodes);
 }

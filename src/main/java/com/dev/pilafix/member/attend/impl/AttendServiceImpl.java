@@ -57,6 +57,18 @@ public class AttendServiceImpl implements AttendService {
         return updatedRows;
     }
     
+    
+    //출결처리
+    @Override
+    public int updateAttendanceP(String atCode, List<Integer> memberCodes) {
+    	 System.out.println("Updating attendance for atCode: " + atCode + ", members: " + memberCodes);
+        int updatedRows = 0;
+        for (Integer memberCode : memberCodes) {
+            updatedRows += dao.updateMemberAttendance(atCode, memberCode);
+        }
+        return updatedRows;
+        
+    }
 
 	
 	//예약수

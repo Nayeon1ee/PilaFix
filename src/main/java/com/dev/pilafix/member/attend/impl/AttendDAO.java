@@ -52,6 +52,8 @@ public class AttendDAO {
 	        params.put("memberCode", memberCode);
 	        return sqlSessionTemplate.update("AttendDAO.updateMemberAttendance", params);
 	    }
+	  
+
 
 	/**
 	 * 수업상세
