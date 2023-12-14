@@ -644,7 +644,7 @@
 				                	pstr += lessonList[0].lsName;
 				                	pstr += '</div>';
 				                	pstr += '<div class="content-filter py-2 my-4">';
-				                	pstr += '<div class="time-slot d-flex justify-content-start align-items-center">';
+				                	pstr += '<div class="time-slot d-flex justify-content-center">';
 				                	
 				                	
 				                    lessonList.forEach(function (item, i) {
