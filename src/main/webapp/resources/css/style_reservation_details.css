@@ -1,20 +1,12 @@
 @charset "UTF-8";
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+@import
+	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
+	;
 
 .list-group-item {
-	transition: background-color 0.3s, color 0.3s; /* 호버 효과 부드럽게 적용 */
-}
-
-/* 체크되었을 때의 스타일 */
-input[type="radio"].btn-check:checked+.btn {
-	border-color: #8a2be2; /* 보라색으로 변경 */
-	color: #8a2be2; /* 텍스트 색상도 보라색으로 변경 */
-}
-
-/* 체크되지 않았을 때의 스타일 (선택적으로 추가) */
-input[type="radio"].btn-check:not(:checked)+.btn {
-	border-color: #ced4da; /* 기본 보더 색상 (선택적으로 변경) */
-	color: #495057; /* 기본 텍스트 색상 (선택적으로 변경) */
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 10px;
 }
 
 .no-lessons-message {
@@ -32,39 +24,105 @@ input[type="radio"].btn-check:not(:checked)+.btn {
     height: 438px;
 }
 
-
 .message-text {
-	color: #363333;
-	font-weight: bold;
-	margin: 10px 0;
+    color: #363333;
+    font-weight: bold;
+    margin: 10px 0;
 }
 
 .mymodal {
-	text-align: right;
+    text-align: right;
 }
 
-.list-group-item {
-    border-bottom: 1px solid #ddd; 
-    margin-bottom: 10px; 
+/* 체크박스 스타일 */
+.time-info input[type="radio"].btn-check {
+    display: none;
 }
 
-/* 체크 박스 */
-.form-check {
-  display: flex;
-  align-items: center;
-  height: 100%;
+.time-info label.btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
-.form-check-input {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: 5px;
+.time-info .btn-check + .btn {
+    border: 2px solid #8a2be2;
+    border-radius: 10px;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 5px;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* 상대 위치 지정 */
+    flex: 1;
+    min-width: 100px; /* 박스 크기 조절 */
+    max-width: 150px;
+}
+
+.time-info .btn-check + .btn i.bi-clock {
+    font-size: 24px; 
+    margin-bottom: 5px; 
+}
+
+.time-info .btn-check + .btn p {
+    margin: 0; /* 기본 마진 제거 */
+}
+
+
+
+.time-info label.btn:hover {
+    background-color: #a983d9;
+    color: #fff;
 }
 
 /*탭 선택 시*/
-.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
-    border-color:#b283f1; /* 여기에 색상 코드를 입력하세요 */
-    --bs-nav-tabs-link-active-border-color: #b283f1; 
+.nav-pills .nav-item.show .nav-link,
+.nav-pills .nav-link.active {
+    border-color: #b283f1;
+    -bs-nav-tabs-link-active-border-color: #b283f1;
+}
+
+.personalT {
+    color: #8a2be2;
+    border-bottom: 1px solid #8a2be2;
+    background-color: white;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.time-slot {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.time-info .btn-check + .btn {
+    border: 2px solid #e6e9e9;
+    border-radius: 10px;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 5px;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    min-width: 100px;
+    max-width: 150px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    background-color: #fff; 
+    
+}
+
+.time-info .btn-check + .btn i.bi-clock {
+    font-size: 24px;
+    margin-bottom: 5px;
 }
 
 .personalT{
@@ -76,7 +134,14 @@ input[type="radio"].btn-check:not(:checked)+.btn {
 	text-align: center;
 	font-weight: bold;
 }
+  .time-info .btn-check + .btn p {
+    margin: 0;
+}
 
-.time-check{
-	
+.time-info input[type="radio"].btn-check:checked + .btn {
+    border-color: #8456d0; 
+    background-color: #9b56e9; 
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
 }

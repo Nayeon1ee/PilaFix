@@ -5,8 +5,7 @@
 .Calendar {
     text-align: center;
     border-collapse: collapse;
-    width: 100%;
-    margin: 20px 0;
+    width: 550px;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -29,7 +28,7 @@
 .Calendar>tbody>tr>td>p {
     font-family: 'Montserrat', sans-serif;
     height: 70px;
-    width: 70px;
+    width: 58px;
     transition-duration: .2s;
     line-height: 70px;
     margin: 2.5px;
