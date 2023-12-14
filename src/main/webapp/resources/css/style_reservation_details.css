@@ -6,13 +6,13 @@
 }
 
 /* 체크되었을 때의 스타일 */
-input[type="checkbox"].btn-check:checked+.btn {
+input[type="radio"].btn-check:checked+.btn {
 	border-color: #8a2be2; /* 보라색으로 변경 */
 	color: #8a2be2; /* 텍스트 색상도 보라색으로 변경 */
 }
 
 /* 체크되지 않았을 때의 스타일 (선택적으로 추가) */
-input[type="checkbox"].btn-check:not(:checked)+.btn {
+input[type="radio"].btn-check:not(:checked)+.btn {
 	border-color: #ced4da; /* 기본 보더 색상 (선택적으로 변경) */
 	color: #495057; /* 기본 텍스트 색상 (선택적으로 변경) */
 }
@@ -65,4 +65,18 @@ input[type="checkbox"].btn-check:not(:checked)+.btn {
 .nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
     border-color:#b283f1; /* 여기에 색상 코드를 입력하세요 */
     --bs-nav-tabs-link-active-border-color: #b283f1; 
+}
+
+.personalT{
+	color:#8a2be2;
+	border-bottom: 1px solid #8a2be2;
+	background-color: white;
+	font-size: 20px;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.time-check{
+	
 }
