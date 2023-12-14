@@ -24,17 +24,26 @@ public class MyScheduleController {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 		int csMemberCode = (int) user.get("csMemberCode");
 		model.addAttribute("count", service.getCount(csMemberCode));
-		return "member/schedule_ing";
+		return "member/scheduleTest";
 	}
 
 	// 캘린더 날짜에 해당하는 예약정보 가져옴 (한달 전체-달력에 보여주려고)
+//	@PostMapping("/getMonthSchedule.do")
+//	@ResponseBody
+//	public List<CalenderVO> getMonthSchedule(HttpSession session,Date calenderDate) {
+//		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
+//		int csMemberCode = (int) user.get("csMemberCode");
+//		System.out.println("컨트롤러로 넘어온 풀캘린더 날자" + calenderDate);
+//		List<CalenderVO> reservMonthInfo = (List<CalenderVO>) service.getMonthSchedule(csMemberCode,calenderDate);
+//		return reservMonthInfo;
+//	}
 	@PostMapping("/getMonthSchedule.do")
 	@ResponseBody
-	public List<CalenderVO> getMonthSchedule(HttpSession session,Date calenderDate) {
+	public List<String> getMonthSchedule(HttpSession session,Date calenderDate) {
 		Map<String, Object> user = (Map<String, Object>) session.getAttribute("loginUser");
 		int csMemberCode = (int) user.get("csMemberCode");
 		System.out.println("컨트롤러로 넘어온 풀캘린더 날자" + calenderDate);
-		List<CalenderVO> reservMonthInfo = (List<CalenderVO>) service.getMonthSchedule(csMemberCode,calenderDate);
+		List<String> reservMonthInfo = (List<String>) service.getMonthSchedule(csMemberCode,calenderDate);
 		return reservMonthInfo;
 	}
 	

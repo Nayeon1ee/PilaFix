@@ -222,107 +222,172 @@
 	<!-- 내 js -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!--  캘린더 js 1 -->
 
-<!-- full캘린더 js -->
+<!-- 캘린더 js 2-->
+
+
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-         initialView: 'dayGridMonth',
-         contentHeight: '500', // 캘린더 세로 크기 설정
-         locale: 'ko',
-         editable: true, // 수정 여부
-         headerToolbar: {
-            left: 'prev',
-            center: 'title',
-            right: 'next'
-         },
-         
-         selectable: true,
-         themeSystem: 'bootstrap', // 부트스트랩 테마 사용
-         bootstrapFontAwesome: false, // 부트스트랩 아이콘 사용 안 함
-         customButtons: {
-            prev: {
-               text: '<',
-               click: function() {
-                  calendar.prev();
-               }
-            },
-            next: {
-               text: '>',
-               click: function() {
-                  calendar.next();
-               }
-            }
-         },
-         
-         buttonText: {
-            today: '오늘',
-            month: '월',
-            week: '주',
-            day: '일',
-            list: '목록'
-         },
-                 
-         
-         eventClick: function(info) {
-     	    var eventTitle = info.event.title;
-     	    var eventDescription = info.event.extendedProps.description;
+let reservDateList;
 
-     	    var modalContent = '<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">';
-     	    modalContent += '<div class="modal-dialog">';
-     	    modalContent += '<div class="modal-content">';
-     	    modalContent += '<div class="modal-header">';
-     	    modalContent += '<h5 class="modal-title" id="eventModalLabel">' + eventTitle + '</h5>';
-     	    modalContent += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-     	    modalContent += '</div>';
-     	    modalContent += '<div class="modal-body">';
-     	    modalContent += '<p>' + eventDescription + '</p>';
-     	    modalContent += '</div>';
-     	    modalContent += '<div class="modal-footer">';
-     	    modalContent += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>';
-     	    modalContent += '</div>';
-     	    modalContent += '</div>';
-     	    modalContent += '</div>';
-     	    modalContent += '</div>';
+window.onload = function() {
+	buildCalendar();
+} // 웹 페이지가 로드되면 buildCalendar 실행
 
-     	    
-     	    $('body').append(modalContent);
+let nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로 초기화
+let today = new Date(); // 페이지를 로드한 날짜를 저장
+today.setHours(0, 0, 0, 0); // 비교 편의를 위해 today의 시간을 초기화
 
-     	    
-     	    var eventModal = new bootstrap.Modal(document.getElementById('eventModal'), {});
-     	    eventModal.show();
-     	},
-         
-         
-       // ajax로 캘린더에 일정 넣기
-         eventSources: [{
-     		events: function(info, successCallback) {
-     			//달력의 시작 날짜 가져옴 (11월이면 10월 마지막주 날짜로 시작해서 10 더해줌/ 서버에서 월만 쓸거라 정확한 날짜 중요x) 
-     			var startDate = new Date(info.start);
-     			startDate.setDate(startDate.getDate() + 10);
 
-     			var calenderDate = startDate.toISOString().slice(0, 10);
-     			console.log("달력의 날짜"+calenderDate);
-     		
-     			$.ajax({
-     				url: 'getMonthSchedule.do',
-     				type: 'POST',
-     				dataType: 'json',
-     				data: {calenderDate:calenderDate },
-     				success: function(data) {
-     					successCallback(data);
-     				}
-     			});
-     		}
-     	}],
-         eventClick: function(info) {
-            window.location.href(info.event.url);
-         }
-      });
 
+//getMonthSchedule.do로부터 날짜 리스트를 가져오는 함수
+function getMonthSchedule() {
+	// 현재 달력이 표시되고 있는 년, 월 정보 추출
+    let nowYear = nowMonth.getFullYear();
+    let nowMonthString = leftPad(nowMonth.getMonth() + 1);
+ 	
+    // 날짜 정보를 합친 형태로 생성(2023-01-01의 형태로 변환)
+    let date = nowYear + "-" + nowMonthString + "-" + "1"; // 서버에서는 연도와 월만 필요함으로 일은 1로 고정해둠
+    console.log("현재 달력의 날짜: "+date);
     
-   });
+    $.ajax({
+        type: "POST",
+        url: "getMonthSchedule.do",
+        data: {calenderDate:date},
+        async:false, // 전역변수에 값 담기위해 동기방식사용
+        dataType: "json",
+        success: function (dateList) {
+            // 받아온 날짜 리스트를 기반으로 동적으로 이미지 추가
+            console.log(dateList);
+            reservDateList = dateList.slice(); // 배열 복사
+            console.log("전역변수로 선언한거에 리스트 담나 보기"+reservDateList);
+        },
+        error: function () {
+            console.error("Failed to get month schedule.");
+        }
+    });
+}
+
+// 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
+function buildCalendar() {
+
+	let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1); // 이번달 1일
+	let lastDate = new Date(nowMonth.getFullYear(),
+			nowMonth.getMonth() + 1, 0); // 이번달 마지막날
+
+	let tbody_Calendar = document.querySelector(".Calendar > tbody");
+	document.getElementById("calYear").innerText = nowMonth.getFullYear(); // 연도 숫자 갱신
+	document.getElementById("calMonth").innerText = leftPad(nowMonth
+			.getMonth() + 1); // 월 숫자 갱신
+	
+	getMonthSchedule(); // 달력 빌드 시 해당월의 예약 날짜 리스트를 가져오도록 추가
+	
+	while (tbody_Calendar.rows.length > 0) { // 이전 출력결과가 남아있는 경우 초기화
+		tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);
+	}
+
+	let nowRow = tbody_Calendar.insertRow(); // 첫번째 행 추가           
+
+	for (let j = 0; j < firstDate.getDay(); j++) { // 이번달 1일의 요일만큼
+		let nowColumn = nowRow.insertCell(); // 열 추가
+	}
+
+	for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay
+			.getDate() + 1)) { // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
+
+		let nowColumn = nowRow.insertCell(); // 새 열을 추가하고
+
+		let newDIV = document.createElement("p");
+		newDIV.innerHTML = leftPad(nowDay.getDate()); // 추가한 열에 날짜 입력
+		nowColumn.appendChild(newDIV);
+		
+		
+		//console.log("제발 나와라:"+reservDateList);
+		 // AJAX로 가져온 날짜 데이터를 반복하여 처리
+	    reservDateList.forEach(dateString => {
+	        let userSpecifiedDate = new Date(dateString);
+	        
+	        if (nowDay.getFullYear() == userSpecifiedDate.getFullYear() &&
+	            nowDay.getMonth() == userSpecifiedDate.getMonth() &&
+	            nowDay.getDate() == userSpecifiedDate.getDate()) {
+	            // 동적으로 마커 추가
+	            let circleImage = document.createElement("img");
+	            circleImage.src = '/pilafix/resources/images/attend_dot3.png';
+	            circleImage.alt = "Circle";
+	            circleImage.className = "circleMarker";
+	            nowColumn.appendChild(circleImage);
+	        }
+	    });
+		 /*
+		//달력에 예약 dot
+		let userSpecifiedDate = new Date("2023-12-15"); 
+		if (nowDay.getFullYear() == userSpecifiedDate.getFullYear() &&  nowDay.getMonth() == userSpecifiedDate.getMonth() && nowDay.getDate() == userSpecifiedDate.getDate()) {
+		    // 동그라미 이미지를 나타내기 위해 img 요소 생성
+		    let circleImage = document.createElement("img");
+		    circleImage.src = '/pilafix/resources/images/attend_dot1.png';
+		    circleImage.alt = "Circle";
+		    circleImage.className = "circleMarker";
+		    nowColumn.appendChild(circleImage);
+		}
+		*/
+
+		
+
+		if (nowDay.getDay() == 6) { // 토요일인 경우
+			nowRow = tbody_Calendar.insertRow(); // 새로운 행 추가
+		}
+
+		if (nowDay < today) { // 지난날인 경우
+			newDIV.className = "pastDay";
+		} else if (nowDay.getFullYear() == today.getFullYear()
+				&& nowDay.getMonth() == today.getMonth()
+				&& nowDay.getDate() == today.getDate()) { // 오늘인 경우           
+			newDIV.className = "today";
+			newDIV.onclick = function() {
+				choiceDate(this);
+			}
+		} else { // 미래인 경우
+			newDIV.className = "futureDay";
+			newDIV.onclick = function() {
+				choiceDate(this);
+			}
+		}
+	}
+	
+}
+
+// 날짜 선택
+function choiceDate(newDIV) {
+	if (document.getElementsByClassName("choiceDay")[0]) { // 기존에 선택한 날짜가 있으면
+		document.getElementsByClassName("choiceDay")[0].classList
+				.remove("choiceDay"); // 해당 날짜의 "choiceDay" class 제거
+	}
+	newDIV.classList.add("choiceDay"); // 선택된 날짜에 "choiceDay" class 추가
+}
+
+// 이전달 버튼 클릭
+function prevCalendar() {
+	nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1,
+			nowMonth.getDate()); // 현재 달을 1 감소
+
+	buildCalendar(); // 달력 다시 생성
+}
+// 다음달 버튼 클릭
+function nextCalendar() {
+	nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1,
+			nowMonth.getDate()); // 현재 달을 1 증가
+
+	buildCalendar(); // 달력 다시 생성
+}
+
+// input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
+function leftPad(value) {
+	if (value < 10) {
+		value = "0" + value;
+		return value;
+	}
+	return value;
+} 
 
  
 </script>
@@ -625,7 +690,6 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
 
-<script src="${pageContext.request.contextPath}/resources/js/calendar.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 

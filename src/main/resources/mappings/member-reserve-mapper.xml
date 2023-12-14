@@ -183,6 +183,7 @@
 		FROM TBL_USER_GUIDE 
 		WHERE UG_CENTER_CODE=#{centerCode}
 			AND UG_TYPE = '예약'
+			AND UG_OPEN_YN = 't'
 	</select>
 	
 	
