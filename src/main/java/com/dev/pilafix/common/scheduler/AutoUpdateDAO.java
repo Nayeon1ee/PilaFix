@@ -40,10 +40,13 @@ public class AutoUpdateDAO {
 		return sqlSessionTemplate.selectList("CenterLessonDAO.getLessonsThreeHoursAgo");
 	}
 	
-	public void updateLessonsClosingYn(String lsCode){
-		sqlSessionTemplate.update("CenterLessonDAO.updateLessonsClosingYn", lsCode);
+	public void updateLessonsClosingYn(){
+		sqlSessionTemplate.update("CenterLessonDAO.updateLessonsClosingYn");
 	}
-		
+	
+	public void updateAttendStatus(){
+		sqlSessionTemplate.update("AttendDAO.updateAttendStatus");
+	}
 	
 
 }

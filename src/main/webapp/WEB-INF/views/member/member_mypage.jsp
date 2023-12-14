@@ -208,6 +208,7 @@
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- 내 js -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 

@@ -58,21 +58,21 @@ public class AutoUpdateService {
 	 * 자동 폐강 처리
 	 * 폐강 대상 : 수업시작 3시간 전이면서 신청인원이 0인 수업
 	 * 
-	 * 1. 조건에 해당하는 수업 리스트 조회 
-	 * 2. 해당 수업 폐강 처리 
+	 * 1. 조건에 해당하는 수업 리스트 폐강 처리 
 	 * 
 	 */
-	public void autoCloseLessons() {
-		Date today = new Date();
-		
-		/*오늘 날짜에 해당하는 수업 리스트 조회 */
-		List<String> lessons = dao.getLessonsThreeHoursAgo();
-		
-		// 
-		for(String lessonCode : lessons) {
-			dao.updateLessonsClosingYn(lessonCode);
-		}
-		
+	public void autoCloseLessons() {		
+		dao.updateLessonsClosingYn();
+	}
+	
+	/**
+	 * 자동 출결 처리 
+	 * 대상: 현재 시간 기준으로 수업시작 경과 50분 후 출결여부가 false
+	 * 
+	 * 1. 출결여부 true  
+	 */
+	public void autoUpdateAttendStatus() {
+		dao.updateAttendStatus();
 	}
 
 }
