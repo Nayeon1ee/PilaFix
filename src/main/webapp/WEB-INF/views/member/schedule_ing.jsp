@@ -99,13 +99,13 @@
 
 		<!-- ======= Services Section ======= -->
 		<section id="services" class="services">
-			<div class="container mx-auto" style="max-width: 1100px;">
+			<div class="container mx-auto" style="max-width: 1000px;">
 
 				<!-- 7:3 비율 잡기 위한 컨테이너 -->
 				<div class="container d-flex justify-content-center p-0 m-0">
 					<div class="row">
 					 <div>
-        <table class="Calendar">
+        <table class="Calendar mt-4">
             <thead>
                 <tr>
                     <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
