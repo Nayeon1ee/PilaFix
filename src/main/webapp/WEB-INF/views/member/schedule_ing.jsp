@@ -136,7 +136,7 @@
 
 					<!-- 두 번째 컬럼 (7:3) -->
 					<div class="col-md-5 content1 ms-2">
-							<div class="card rounded mt-4">
+							<div class="card rounded mt-2">
 								<div class="card-header bg-light" style="height: 100px;">
 									<div class="text-center">
 										<font style="font-weight: bold;">당월 출석 현황</font><br> <br>
