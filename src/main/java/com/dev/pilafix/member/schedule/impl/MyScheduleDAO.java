@@ -104,9 +104,9 @@ public class MyScheduleDAO {
 		calendarAttendanceParam.put("calendarDate", calendarDate);
 		
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
-		System.out.println("DAO 달력 예약 날짜 가져옴");
+		//System.out.println("DAO 달력 예약 날짜 가져옴");
 		List<String> calendarReservlessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceCode",calendarAttendanceParam);
-		System.out.println("DAO 달력 출결 날짜 가져옴");
+		//System.out.println("DAO 달력 출결 날짜 가져옴");
 		
 		if (!lessonCode.isEmpty()) {
 	        Map<String, Object> param = new HashMap<>();
@@ -114,11 +114,11 @@ public class MyScheduleDAO {
 	        param.put("calendarDate", calendarDate);
 
 	        calendarInfo.put("calendarReserv", sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param));
-	        System.out.println("DAO첫번째 맵에 넣음");
+	        //System.out.println("DAO첫번째 맵에 넣음");
 	    }
 
 	    if (!calendarReservlessonCode.isEmpty()) {
-	    	System.out.println("DAO두번째 if문 실행");
+	    	//System.out.println("DAO두번째 if문 실행");
 	        Map<String, Object> param = new HashMap<>();
 	        param.put("calendarReservlessonCode", calendarReservlessonCode);
 	        param.put("csMemberCode", csMemberCode);
@@ -144,8 +144,8 @@ public class MyScheduleDAO {
 	            }
 	        }
 	        // 콘솔에 출력
-	        System.out.println("확인용 calendarAttend:  " + calendarAttend);
-	        System.out.println("확인용 calendarAbsent: " + calendarAbsent);
+	       // System.out.println("확인용 calendarAttend:  " + calendarAttend);
+	       // System.out.println("확인용 calendarAbsent: " + calendarAbsent);
 	        
 	        calendarInfo.put("calendarAttend", calendarAttend);
 	        calendarInfo.put("calendarAbsent", calendarAbsent);
