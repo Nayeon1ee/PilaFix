@@ -128,30 +128,23 @@
                                 <input type="text" readonly disabled class="form-control" value="${memberCommunity.memberCmViews }">
                             </div>
 							<div class="text-center">
-							
                                 <div class="btn-toolbar justify-content-between d-flex" role="toolbar">
                                 <div class="btn-group ms-3">
 									<button type="button" class="btn btn-secondary" onclick="location.href='communityPage.do'">목록</button>
-									</div>
-									<div class="col-md-9"></div>
-									<c:if test="${sessionScope.loginUser['csMemberCode'] eq memberCommunity.memberCmWriterMemberCode}">
-									 <div class="btn-group ms-4 me-2">
-                                       <button type="button" class="btn btn-primary" onclick="location.href='updateMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber }'">수정</button>
-                                   </div>
-                                   <div class="btn-group me-3">
-                                       <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="deleteMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber}">삭제</button>
-                                   </div>
-                                   </c:if>
 								</div>
-								
-                                 
-                                   
-                                
+								<div class="col-md-9" style="width: 170px;">
+									<c:if test="${sessionScope.loginUser['csMemberCode'] eq memberCommunity.memberCmWriterMemberCode}">
+										<div class="btn-group ms-4 me-2">
+	                                		<button type="button" class="btn btn-primary" onclick="location.href='updateMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber }'">수정</button>
+	                         			</div>
+	                                	<div class="btn-group me-3">
+	                                    	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#basicModal" onclick="deleteMemberCommunity.do?memberCmNumber=${memberCommunity.memberCmNumber}">삭제</button>
+	                                	</div>
+	                                </c:if>
+                                </div>	
 							</div>
-
-
-
-						</form>
+						</div>
+					</form>
 
 						<!--  삭제 버튼 모달 -->
 						<div class="modal fade" id="basicModal" tabindex="-1">
@@ -215,9 +208,11 @@
 						                <span style="font-weight: bold; padding-right: 10px;">${CommunityReply.memberCsName }</span>
 						                <span style="font-size: 12px;">${CommunityReply.memberReRegdate }</span>
 						                <div style="padding-left: 20px; margin: 10px 0;">${CommunityReply.memberReContent }</div>
-						                <div style="width: auto; display: inline-block; margin-left: 95%;">
-							                <a style="color: gray;" href="deleteMemberCommunityReply.do?memberReNumber=${CommunityReply.memberReNumber}&memberCmNumber=${memberCommunity.memberCmNumber}">삭제</a>
-						                </div>
+						                <c:if test="${sessionScope.loginUser['csMemberCode'] eq CommunityReply.memberWriterCode}">
+							                <div style="width: auto; display: inline-block; margin-left: 95%;">
+								                <a style="color: gray;" href="deleteMemberCommunityReply.do?memberReNumber=${CommunityReply.memberReNumber}&memberCmNumber=${memberCommunity.memberCmNumber}">삭제</a>
+							                </div>
+						                </c:if>
 							            <hr/>
 									</c:forEach>
 									<form action="insertMemberCommunityReply.do" method="post">

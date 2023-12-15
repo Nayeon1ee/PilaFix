@@ -114,7 +114,7 @@
 		                            shadeIntensity: 1,
 		                            opacityFrom: 0.3,
 		                            opacityTo: 0.4,
-		                            stops: [0, 25, 50]
+		                            stops: [0, 60, 100]
 		                          }
 		                        },
 		                        dataLabels: {
