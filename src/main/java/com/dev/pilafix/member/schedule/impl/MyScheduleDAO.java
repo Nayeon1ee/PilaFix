@@ -1,6 +1,8 @@
 package com.dev.pilafix.member.schedule.impl;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +69,7 @@ public class MyScheduleDAO {
 		
 		return count;
 	}
-
+// fullcalender사용시 DAO
 //	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
 //		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
 //		if(lessonCode.isEmpty()) {
@@ -80,17 +82,76 @@ public class MyScheduleDAO {
 //			return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
 //		}
 //	}
-	public List<String> getMonthSchedule(int csMemberCode,Date calenderDate) {
+	// js로 만든 달력에 점 이미지 넣기 성공(상태분기는 x)
+//	public List<String> getMonthSchedule(int csMemberCode,Date calenderDate) {
+//		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
+//		if(lessonCode.isEmpty()) {
+//			return 	Collections.emptyList();
+//		}else {
+//			Map<String,Object> param = new HashMap<>();
+//			param.put("lessonCode", lessonCode);
+//			param.put("calenderDate", calenderDate);
+//			
+//			return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
+//		}
+//	}
+	// js달력에 상태분기해서 이미지넣기 시도
+	public Map<String, Object> getMonthSchedule(int csMemberCode,Date calendarDate) {
+		Map<String, Object> calendarInfo = new HashMap<>();
+		
+		Map<String, Object> calendarAttendanceParam = new HashMap<>();
+		calendarAttendanceParam.put("csMemberCode", csMemberCode);
+		calendarAttendanceParam.put("calendarDate", calendarDate);
+		
 		List<String> lessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getLessonCode",csMemberCode );
-		if(lessonCode.isEmpty()) {
-			return 	Collections.emptyList();
-		}else {
-			Map<String,Object> param = new HashMap<>();
-			param.put("lessonCode", lessonCode);
-			param.put("calenderDate", calenderDate);
-			
-			return sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param);
-		}
+		System.out.println("DAO 달력 예약 날짜 가져옴");
+		List<String> calendarReservlessonCode = sqlSessionTemplate.selectList("MyScheduleDAO.getAttendanceCode",calendarAttendanceParam);
+		System.out.println("DAO 달력 출결 날짜 가져옴");
+		
+		if (!lessonCode.isEmpty()) {
+	        Map<String, Object> param = new HashMap<>();
+	        param.put("lessonCode", lessonCode);
+	        param.put("calendarDate", calendarDate);
+
+	        calendarInfo.put("calendarReserv", sqlSessionTemplate.selectList("MyScheduleDAO.getMonthSchedule", param));
+	        System.out.println("DAO첫번째 맵에 넣음");
+	    }
+
+	    if (!calendarReservlessonCode.isEmpty()) {
+	    	System.out.println("DAO두번째 if문 실행");
+	        Map<String, Object> param = new HashMap<>();
+	        param.put("calendarReservlessonCode", calendarReservlessonCode);
+	        param.put("csMemberCode", csMemberCode);
+	        param.put("calendarDate", calendarDate);
+
+	        List<MyScheduleVO> calendarAttendanceInfo = sqlSessionTemplate.selectList("MyScheduleDAO.calendarAttendanceInfo", param);
+
+	        List<String> calendarAttend = new ArrayList<>();
+	        List<String> calendarAbsent = new ArrayList<>();
+
+	        for (MyScheduleVO attendance : calendarAttendanceInfo) {
+	            boolean atAttendanceYn = attendance.isAtAttendanceYn();
+	            Date lsDate = attendance.getLsDate();
+	            
+	         // Date를 필요한 포맷으로 변환하는 작업을 수행하여 문자열로 저장
+	            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	            String lsDateString = sdf.format(lsDate);
+	            
+	            if (atAttendanceYn) {
+	                calendarAttend.add(lsDateString);
+	            } else {
+	                calendarAbsent.add(lsDateString);
+	            }
+	        }
+	        // 콘솔에 출력
+	        System.out.println("확인용 calendarAttend:  " + calendarAttend);
+	        System.out.println("확인용 calendarAbsent: " + calendarAbsent);
+	        
+	        calendarInfo.put("calendarAttend", calendarAttend);
+	        calendarInfo.put("calendarAbsent", calendarAbsent);
+	    }
+
+		return calendarInfo;
 	}
 	
 	//전체탭에 뿌려줄 이번달 스케줄 가져오기

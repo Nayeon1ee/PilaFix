@@ -36,14 +36,18 @@ public class MyScheduleServiceImpl implements MyScheduleService{
 	public Map<String, Integer> getCount(int csMemberCode) {
 		return dao.getCount(csMemberCode);
 	}
-
+/*내 스케줄 달력에 일정 넣기*/
 //	@Override
 //	public List<CalenderVO> getMonthSchedule(int csMemberCode,Date calenderDate) {
 //		return dao.getMonthSchedule(csMemberCode,calenderDate);
 //	}
+//	@Override
+//	public List<String> getMonthSchedule(int csMemberCode,Date calenderDate) {
+//		return dao.getMonthSchedule(csMemberCode,calenderDate);
+//	}
 	@Override
-	public List<String> getMonthSchedule(int csMemberCode,Date calenderDate) {
-		return dao.getMonthSchedule(csMemberCode,calenderDate);
+	public Map<String, Object> getMonthSchedule(int csMemberCode,Date calendarDate) {
+		return dao.getMonthSchedule(csMemberCode,calendarDate);
 	}
 
 	@Override
