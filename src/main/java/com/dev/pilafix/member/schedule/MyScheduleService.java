@@ -15,7 +15,8 @@ public interface MyScheduleService {
 	Map<String, Integer> getCount(int csMemberCode);
 
 	//List<CalenderVO> getMonthSchedule(int csMemberCode, Date calenderDate);
-	List<String> getMonthSchedule(int csMemberCode, Date calenderDate);
+//	List<String> getMonthSchedule(int csMemberCode, Date calenderDate);
+	Map<String, Object> getMonthSchedule(int csMemberCode, Date calendarDate);
 
 	Map<String, Object> getAllInfo(int csMemberCode);
 

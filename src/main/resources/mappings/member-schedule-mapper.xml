@@ -236,21 +236,7 @@ ORDER BY COMBINED_DATETIME DESC;
 		AND at_check_yn='t';
 </select>
 
-<!-- 캘린더 날짜에 해당하는 모든 예약 리스트 가져오는 쿼리 
-<select id="getMonthSchedule" parameterType="java.util.Map" resultMap="calenderResult">
-	SELECT 
-        LS_NAME AS TITLE,
-        LS_DATE AS START,
-        LS_CODE
-    FROM TBL_LESSON 
-    WHERE LS_CODE IN
-    <foreach collection="lessonCode" item="lsCodeForAll" open="(" separator="," close=")">
-        #{lsCodeForAll}
-    </foreach>
-    AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CAST(#{calenderDate} AS DATE))
-    AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CAST(#{calenderDate} AS DATE))
-</select>
--->
+<!-- 캘린더 날짜에 해당하는 모든 예약 리스트 가져오는 쿼리
 <select id="getMonthSchedule" parameterType="java.util.Map" resultType="String">
 	SELECT 
         LS_DATE,
@@ -263,5 +249,50 @@ ORDER BY COMBINED_DATETIME DESC;
     AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CAST(#{calenderDate} AS DATE))
     AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CAST(#{calenderDate} AS DATE))
 </select>
+-->
+<select id="getMonthSchedule" parameterType="java.util.Map" resultType="String">
+	 SELECT
+        LS_DATE
+    FROM TBL_LESSON 
+    WHERE LS_CODE IN
+    <foreach collection="lessonCode" item="lsCodeForAll" open="(" separator="," close=")">
+        #{lsCodeForAll}
+    </foreach>
+    AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CAST(#{calendarDate} AS DATE))
+    AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CAST(#{calendarDate} AS DATE))
+    AND (LS_DATE::TIMESTAMP + LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE > CURRENT_TIMESTAMP;
+</select>
 
+<!-- 캘린더 상태분기위해 캘린더 날짜에 맞는 출결 정보 가져옴 -->
+<select id="getAttendanceCode" resultType="String">
+	SELECT DISTINCT 
+		L.LS_CODE AS LESSON_CODE
+	FROM TBL_RESERV R
+	JOIN TBL_LESSON L ON R.LESSON_CODE = L.LS_CODE
+	WHERE R.MEMBER_CODE = #{csMemberCode}
+	AND R.rs_cancel_yn = 'f'
+	AND EXTRACT(MONTH FROM LS_DATE) = EXTRACT(MONTH FROM CAST(#{calendarDate} AS DATE))
+    AND EXTRACT(YEAR FROM LS_DATE) = EXTRACT(YEAR FROM CAST(#{calendarDate} AS DATE))
+	AND (L.LS_DATE::TIMESTAMP + L.LS_TIME::TIME)::TIMESTAMP WITH TIME ZONE &lt; CURRENT_TIMESTAMP
+</select>
+<select id="calendarAttendanceInfo" parameterType="java.util.Map" resultMap="myScheduleResult">
+SELECT 
+	CASE
+    WHEN AT_MEMBER1_CODE = #{csMemberCode} THEN AT_ATTENDANCE1_YN
+	WHEN AT_MEMBER2_CODE = #{csMemberCode} THEN AT_ATTENDANCE2_YN
+    WHEN AT_MEMBER3_CODE = #{csMemberCode} THEN AT_ATTENDANCE3_YN
+	WHEN AT_MEMBER4_CODE = #{csMemberCode} THEN AT_ATTENDANCE4_YN
+	WHEN AT_MEMBER5_CODE = #{csMemberCode} THEN AT_ATTENDANCE5_YN
+	WHEN AT_MEMBER6_CODE = #{csMemberCode} THEN AT_ATTENDANCE6_YN
+  END AS AT_ATTENDANCE_YN,
+	T.LS_DATE
+FROM TBL_ATTEND A
+JOIN TBL_LESSON T ON A.LESSON_CODE = T.LS_CODE
+WHERE T.LS_CODE IN 
+ <foreach collection="calendarReservlessonCode" item="calendarAttendancelsCode" open="(" separator="," close=")">
+        #{calendarAttendancelsCode}
+    </foreach>
+AND at_check_yn='t';
+  
+</select>
 </mapper>

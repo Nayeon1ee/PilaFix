@@ -228,7 +228,7 @@
 
 
 <script>
-let reservDateList;
+
 
 window.onload = function() {
 	buildCalendar();
@@ -238,6 +238,10 @@ let nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로
 let today = new Date(); // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0); // 비교 편의를 위해 today의 시간을 초기화
 
+// 달력에 예약,출석,결석별로 이미지 넣기 위해 해당 달의 스케줄 날짜리스트 전역변수로 선언
+let reservDateList;
+let attendDateList;
+let absentDateList;
 
 
 //getMonthSchedule.do로부터 날짜 리스트를 가져오는 함수
@@ -253,14 +257,18 @@ function getMonthSchedule() {
     $.ajax({
         type: "POST",
         url: "getMonthSchedule.do",
-        data: {calenderDate:date},
-        async:false, // 전역변수에 값 담기위해 동기방식사용
-        dataType: "json",
+        data: {calendarDate:date},
+        async:false, // 전역변수에 값 담기위해 비동기방식이 아니라 동기방식사용
         success: function (dateList) {
             // 받아온 날짜 리스트를 기반으로 동적으로 이미지 추가
-            console.log(dateList);
-            reservDateList = dateList.slice(); // 배열 복사
-            console.log("전역변수로 선언한거에 리스트 담나 보기"+reservDateList);
+            console.log("ajax로 가져온 예약 리스트"+dateList.calendarReserv);
+            console.log("ajax로 가져온 출석 리스트"+dateList.calendarAttend);
+            console.log("ajax로 가져온 결석 리스트"+dateList.calendarAbsent);
+          
+            reservDateList = dateList.calendarReserv.slice(); // 배열 복사
+            attendDateList = dateList.calendarAttend.slice(); // 배열 복사
+            absentDateList = dateList.calendarAbsent.slice(); // 배열 복사
+            //console.log("전역변수로 선언한거에 리스트 담나 보기"+reservDateList);
         },
         error: function () {
             console.error("Failed to get month schedule.");
@@ -304,6 +312,7 @@ function buildCalendar() {
 		
 		//console.log("제발 나와라:"+reservDateList);
 		 // AJAX로 가져온 날짜 데이터를 반복하여 처리
+		 
 	    reservDateList.forEach(dateString => {
 	        let userSpecifiedDate = new Date(dateString);
 	        
@@ -312,7 +321,35 @@ function buildCalendar() {
 	            nowDay.getDate() == userSpecifiedDate.getDate()) {
 	            // 동적으로 마커 추가
 	            let circleImage = document.createElement("img");
+	            circleImage.src = '/pilafix/resources/images/attend_dot1.png';
+	            circleImage.alt = "Circle";
+	            circleImage.className = "circleMarker";
+	            nowColumn.appendChild(circleImage);
+	        }
+	    });
+	    attendDateList.forEach(dateString => {
+	        let userSpecifiedDate = new Date(dateString);
+	        
+	        if (nowDay.getFullYear() == userSpecifiedDate.getFullYear() &&
+	            nowDay.getMonth() == userSpecifiedDate.getMonth() &&
+	            nowDay.getDate() == userSpecifiedDate.getDate()) {
+	            // 동적으로 마커 추가
+	            let circleImage = document.createElement("img");
 	            circleImage.src = '/pilafix/resources/images/attend_dot3.png';
+	            circleImage.alt = "Circle";
+	            circleImage.className = "circleMarker";
+	            nowColumn.appendChild(circleImage);
+	        }
+	    });
+	    absentDateList.forEach(dateString => {
+	        let userSpecifiedDate = new Date(dateString);
+	        
+	        if (nowDay.getFullYear() == userSpecifiedDate.getFullYear() &&
+	            nowDay.getMonth() == userSpecifiedDate.getMonth() &&
+	            nowDay.getDate() == userSpecifiedDate.getDate()) {
+	            // 동적으로 마커 추가
+	            let circleImage = document.createElement("img");
+	            circleImage.src = '/pilafix/resources/images/attend_dot2.png';
 	            circleImage.alt = "Circle";
 	            circleImage.className = "circleMarker";
 	            nowColumn.appendChild(circleImage);
