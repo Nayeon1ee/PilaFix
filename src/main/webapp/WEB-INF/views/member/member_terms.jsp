@@ -169,8 +169,12 @@
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/swiper/swiper-bundle.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/member/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
+	
+	<!-- Template Main JS File -->
 	<script
-		src="${pageContext.request.contextPath}/resources/member/assets/vendor/php-email-form/validate.js"></script>
+		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     var accordionButtons = document.querySelectorAll('.accordion-button');
@@ -207,10 +211,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-	<!-- Template Main JS File -->
-	<script
-		src="${pageContext.request.contextPath}/resources/member/assets/js/main.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 </body>
 
 </html>

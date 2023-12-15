@@ -233,11 +233,10 @@
 	<%@ include file="member_footer_common.jsp"%>
 	<!-- End Footer -->
 
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap_common.js"></script>
 	<script
 		src="${pageContext.request.contextPath }/resources/member/assets/vendor/purecounter/purecounter_vanilla.js"></script>
 	<script
@@ -255,7 +254,6 @@
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/js/notice.js"></script>
 	
 
