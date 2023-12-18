@@ -87,7 +87,7 @@ public class ReservController {
 	            
 			}
 
-			return "member/reservation_ny";
+			return "member/reservation";
 
 		} else {
 			return "redirect:memberLogin.do";
