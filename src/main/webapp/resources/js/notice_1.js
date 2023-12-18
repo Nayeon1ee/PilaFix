@@ -4,44 +4,35 @@ var csMemberCode = parseInt(document.getElementById('csMemberCode').getAttribute
 
 
 $(document).ready(function() {
-   csMemberCode = document.getElementById('csMemberCode').getAttribute('data-cs-member-code'); //세션에서 코드 가져옴 
+    csMemberCode = document.getElementById('csMemberCode').getAttribute('data-cs-member-code'); //세션에서 코드 가져옴 
    console.log(csMemberCode);
     
    // 로그인이 되었을 때만 setInterval 타이머 설정
     if (csMemberCode !== null && csMemberCode !== 0) {
-       
-		// SSE 연결 설정
-        const eventSource = new EventSource('sse/stream.do?csMemberCode='+csMemberCode);
-        
-        //SSE 이벤트 핸들러 등록 
-        eventSource.onmeesage = function(event){
-        	
-        	//서버로부터 이벤트 처리 
-        	const response = JSON.parse(event.data);
-        	if(response > 0){
-        		updateNotificationBadge(response);
-        	}
-        };
-        
-        //SSE 연결 오류 핸들러 
-        eventSource.onerror = function(error){
-        	console.error('SSE connection error:', error);
-        	/*로직 추가하기 */
-        	
-        }
-       
+        // 타이머로 3초 설정하여 AJAX로 DB 정보 요청
+       setInterval(function() {
+          var notificationBadge = $('#NotificationBadge');
+           // AJAX를 이용하여 서버에 정보 요청
+           $.ajax({
+               url: 'unReadNotificationCount.do',
+               method: 'POST',
+               data: { csMemberCode: csMemberCode },
+               success: function(response) {
+                   // 서버로부터의 응답 처리
+                if (response > 0) {
+                   notificationBadge.empty();
+                      notificationBadge.html('<span class="badge rounded-pill bg-danger">' + response + '</span>');
+                 } else {
+                     notificationBadge.empty();
+                 }
+               },
+               error: function(error) {
+                   console.error('AJAX 요청 시 에러', error);
+               }
+           });
+       }, 20000000); // 3초에 한 번씩 실행 추후에 3000으로 바꾸기
     }
 });
-
-// 알림 수 업데이트 함수
-function updateNotificationBadge(count) {
-    var notificationBadge = $('#NotificationBadge');
-    notificationBadge.empty();
-
-    if (count > 0) {
-        notificationBadge.html('<span class="badge rounded-pill bg-danger">' + count + '</span>');
-    }
-}
 
 //종버튼 클릭 시 
 $('#notificationsDropdown').on('click', function() {
