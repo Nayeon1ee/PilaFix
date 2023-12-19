@@ -1,6 +1,7 @@
 package com.dev.pilafix.common.notice;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -25,12 +26,24 @@ public class NotificationController {
 	 */
 	@PostMapping("/unReadNotificationCount.do")
 	@ResponseBody
-	@Async
+	public CompletableFuture<Integer> sendNotification(int csMemberCode) {
+        System.out.println("count 호출 됨 ");
+        return service.getUnReadNotificationCountAsync(csMemberCode);
+    }
+
+
+	/*
+	 *
+	 @Async
 	public int sendNotification(int csMemberCode) {
 		System.out.println("count호출 됨 ");
 		int response = service.getUnReadNotificationCount(csMemberCode);
 		return response;
 	}
+
+	 */
+
+    
 	
 	/**
 	 * 알림 리스트 반환

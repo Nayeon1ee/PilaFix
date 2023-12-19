@@ -1,6 +1,14 @@
 package com.dev.pilafix.sse;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CompletableFuture;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.dev.pilafix.common.notice.NotificationService;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 @RestController
 @RequestMapping("/sse")
@@ -17,33 +26,50 @@ public class SSEController {
 	@Autowired
 	private NotificationService service;
 	
-	
-	@GetMapping("/stream.do")
+    @GetMapping(value = "/stream.do", produces = "text/event-stream")
     public SseEmitter stream(@RequestParam("csMemberCode") int csMemberCode) {
         SseEmitter emitter = new SseEmitter();
         // 비동기 작업을 통해 데이터 전송
         asyncProcessToGenerateEvents(emitter, csMemberCode);
         return emitter;
     }
-
+	
+	/**
+	 * 비동기로 알림 이벤트 설정 
+     * SSE 연결을 통해 클라이언트에 전송 
+     * 
+	 * @param emitter SSE 연결을 나타내는 SseEmitter 객체 
+	 * @param csMemberCode 로그인한 사용자 
+	 */
     private void asyncProcessToGenerateEvents(SseEmitter emitter, int csMemberCode) {
-        new Thread(() -> {
-            try {
-                
-                for(int i=0; i<10; i++){ //여기에 for문을 추가해야 하는 이유..?
-                    int response = service.getUnReadNotificationCount(csMemberCode);
-                    
-                    emitter.send(SseEmitter.event().data(String.valueOf(response)));
-                    Thread.sleep(1000); // 1초마다 이벤트 전송          
-                }
-            	
-            } catch (Exception e) {
-                emitter.completeWithError(e);
-            } finally {
-                emitter.complete();
-            }
-        }).start();
+        // ScheduledExecutorService를 사용하여 주기적으로 알림을 가져옴 
+//        if (csMemberCode!=0) {
+//            ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+//            ScheduledFuture<?> scheduledFuture = executorService.scheduleAtFixedRate(() -> {
+//                try {
+//                	// 알림 개수를 가져옴(비동기)
+//                    CompletableFuture<Integer> responseFuture = service.getUnReadNotificationCountAsync(csMemberCode);
+//                    
+//                    // 비동기 작업 완료까지 기다렸다가 결과 가져옴 
+//                    Integer response = responseFuture.get();
+//                    
+//                    // SSE 연결을 통해 클라이언트에게 알림 이벤트 전송 
+//                    emitter.send(SseEmitter.event().data(String.valueOf(response)));
+//                } catch (Exception e) {
+//                    emitter.completeWithError(e);
+//                }
+//            }, 0, 1, TimeUnit.SECONDS);
+//
+//            // SSE 연결이 종료되면 ScheduledExecutorService도 중지되도록 설정
+//            emitter.onCompletion(() -> scheduledFuture.cancel(true));
+//        } else {
+//            // csMemberCode가 유효하지 않은 경우에 대한 처리
+//            emitter.complete();
+//        }
+        
     }
+    
+
     
     
 	

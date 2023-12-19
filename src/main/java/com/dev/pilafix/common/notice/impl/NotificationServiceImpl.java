@@ -1,8 +1,10 @@
 package com.dev.pilafix.common.notice.impl;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.dev.pilafix.common.notice.NoticeVO;
@@ -22,8 +24,17 @@ public class NotificationServiceImpl implements NotificationService{
 	@Override
 	public int getUnReadNotificationCount(int csMemberCode) {
 		return noticeDAO.getUnReadNotificationCount(csMemberCode);
-
 	}
+
+	@Override
+    @Async
+    public CompletableFuture<Integer> getUnReadNotificationCountAsync(int csMemberCode) {
+        try {
+            return CompletableFuture.completedFuture(noticeDAO.getUnReadNotificationCount(csMemberCode));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
 	/**
 	 * 미확인 알림 리스트 조회 

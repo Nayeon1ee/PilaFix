@@ -6,30 +6,34 @@ var csMemberCode = parseInt(document.getElementById('csMemberCode').getAttribute
 $(document).ready(function() {
    csMemberCode = document.getElementById('csMemberCode').getAttribute('data-cs-member-code'); //세션에서 코드 가져옴 
    console.log(csMemberCode);
-    
-   // 로그인이 되었을 때만 setInterval 타이머 설정
-    if (csMemberCode !== null && csMemberCode !== 0) {
-       
-		// SSE 연결 설정
-        const eventSource = new EventSource('sse/stream.do?csMemberCode='+csMemberCode);
-        
-        //SSE 이벤트 핸들러 등록 
-        eventSource.onmeesage = function(event){
-        	
-        	//서버로부터 이벤트 처리 
-        	const response = JSON.parse(event.data);
-        	if(response > 0){
-        		updateNotificationBadge(response);
-        	}
-        };
-        
-        //SSE 연결 오류 핸들러 
-        eventSource.onerror = function(error){
-        	console.error('SSE connection error:', error);
-        	/*로직 추가하기 */
-        	
+   
+    // 로그인이 되었을 때만 SSE 연결 
+    if (csMemberCode !== "0" && csMemberCode !== null) {
+
+        // SSE 연결을 시도하는 함수
+        function connectSSE() {
+            const eventSource = new EventSource('sse/stream.do?csMemberCode=' + csMemberCode);
+
+            // SSE 이벤트 핸들러 등록 
+            eventSource.onmessage = function (event) {
+                const response = JSON.parse(event.data);
+                if (response > 0) {
+                    updateNotificationBadge(response);
+                }
+            };
+
+            // SSE 연결 오류 핸들러 
+            eventSource.onerror = function (error) {
+                console.error('SSE connection error:', error);
+                $('#NotificationBadge').empty();
+
+                // 일정 시간 후에 재시도
+                setTimeout(connectSSE, 5000); // 5초 후에 재시도 (원하는 시간으로 수정 가능)
+            };
         }
-       
+
+        // 최초 SSE 연결 시도
+        connectSSE();
     }
 });
 
@@ -119,7 +123,7 @@ function updateNoticeStatus(ncId, eventType){
            method: 'POST',
            data: { 
             ncId: ncId,
-            eventType : eventType
+            eventType: eventType
           },
            success: function(response) {
               console.log("확인여부 업데이트 완료");
